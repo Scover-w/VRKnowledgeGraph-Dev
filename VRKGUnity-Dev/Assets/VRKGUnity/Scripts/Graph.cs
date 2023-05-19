@@ -19,6 +19,8 @@ public class Graph
 
     public Node SelectedNode { get { return _selectedNode; } }
 
+    public bool HasASelectedNode { get { return _selectedNode != null; } }
+
     public GraphConfiguration Configuration 
     {
         get 
@@ -385,14 +387,16 @@ public class Graph
     }
 
 
+    public bool IsInGraph(Transform nodeTf)
+    {
+        return _nodesDicTf.ContainsKey(nodeTf);
+    }
+
     public void SelectNode(Transform nodeTf)
     {
         if (nodeTf == null)
         {
-            ReleaseLabelNodges();
-            _graphUI.DisplayInfoNode(null);
-
-            _selectedNode = null;
+            ClearSelectedNode();
             return;
         }
 
@@ -402,10 +406,7 @@ public class Graph
         if (!_nodesDicTf.TryGetValue(nodeTf, out Node node))
         {
             Debug.LogError("Transform not linked to a node");
-            ReleaseLabelNodges();
-            _graphUI.DisplayInfoNode(null);
-
-            _selectedNode = null;
+            ClearSelectedNode();
             return;
         }
 
@@ -417,6 +418,17 @@ public class Graph
         PropagateLabelNodge(_selectedNode, _graphConfiguration.LabelNodgePropagation, new HashSet<Node>(), new HashSet<Edge>());
 
         Selection.activeObject = nodeTf;
+    }
+
+    public void ClearSelectedNode()
+    {
+        if (!HasASelectedNode)
+            return;
+
+        ReleaseLabelNodges();
+        _graphUI.DisplayInfoNode(null);
+
+        _selectedNode = null;
     }
 
     private void PropagateLabelNodge(Node node, int propagationValue, HashSet<Node> nodesLabeled, HashSet<Edge> edgesLabeled)
