@@ -40,6 +40,19 @@ public class Edge
         Line.enabled = value;
     }
 
+    public void CleanFromNodes()
+    {
+        if(Source != null)
+        {
+            Source.CleanEdge(this, true);
+        }
+
+        if(Target != null) 
+        { 
+            Target.CleanEdge(this, false);
+        }
+    }
+
     public EdgeSimuData ToSimuData()
     {
         return new EdgeSimuData(Source.Id, Target.Id);

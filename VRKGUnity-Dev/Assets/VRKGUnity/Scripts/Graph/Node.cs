@@ -93,6 +93,14 @@ public class Node
         return false;
     }
 
+    public void CleanEdge(Edge edge, bool isSource)
+    {
+        if(isSource)
+            EdgeSource.Remove(edge);
+        else
+            EdgeTarget.Remove(edge);
+    }
+
     public NodeSimuData ToSimuData()
     {
         return new NodeSimuData(Id, Position, Velocity);

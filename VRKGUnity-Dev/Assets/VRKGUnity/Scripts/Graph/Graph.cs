@@ -152,9 +152,11 @@ public class Graph
         }
 
 
-        foreach(var idAndNode in _nodesDicId)
+        var nodgePool = NodgePool.Instance;
+
+        foreach (var idAndNode in _nodesDicId)
         {
-            NodgePool.Instance.Release(idAndNode.Value.Tf);
+            nodgePool.Release(idAndNode.Value.Tf);
         }
 
         await _graphManager.NodeUriRetriever.RetrieveNames(newNodesToRetrieveNames);
@@ -183,9 +185,15 @@ public class Graph
             }
         }
 
+
+        var nodgePool = NodgePool.Instance;
+
         foreach (var idAndEdge in _edgesDicId)
         {
-            NodgePool.Instance.Release(idAndEdge.Value.Line);
+            var edge = idAndEdge.Value;
+            nodgePool.Release(edge.Line);
+            edge.CleanFromNodes(); // Clean unused edge from staying Nodes
+
         }
 
         _edgesDicId = newEdges;
