@@ -1,7 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 
-public class LabelNodge
+public class LabelNodgeUI
 {
     public Transform Transform { get { return _canvasTf; } }
     public static Transform CamTf;
@@ -22,7 +22,7 @@ public class LabelNodge
     private Transform _canvasTf;
     private TMP_Text _labelTxt;
 
-    public LabelNodge(Transform canvasTf, TMP_Text labelTxt)
+    public LabelNodgeUI(Transform canvasTf, TMP_Text labelTxt)
     {
         _canvasTf = canvasTf;
         _labelTxt = labelTxt;

@@ -18,7 +18,7 @@ public class NodgePool : MonoBehaviour
     [SerializeField]
     Material _lineMat;
 
-    ObjectPool<LabelNodge> _labelNodgePool;
+    ObjectPool<LabelNodgeUI> _labelNodgeUIPool;
     ObjectPool<Transform> _nodePool;
     ObjectPool<LineRenderer> _edgePool;
     static NodgePool _instance;
@@ -47,14 +47,14 @@ public class NodgePool : MonoBehaviour
 
     private void CreateLabelNodgePool()
     {
-        _labelNodgePool = new ObjectPool<LabelNodge>(() =>
+        _labelNodgeUIPool = new ObjectPool<LabelNodgeUI>(() =>
         {
             var canvas = Object.Instantiate(_nameCanvasPf);
             var txtLabel = canvas.GetComponentInChildren<TMP_Text>();
             var tf = canvas.transform;
-            var labelNodge = new LabelNodge(tf, txtLabel);
+            var labelNodgeUI = new LabelNodgeUI(tf, txtLabel);
             tf.SetParent(_parentGraphTf);
-            return labelNodge;
+            return labelNodgeUI;
         }, labelNode =>
         {
             labelNode.SetActive(true);
@@ -68,7 +68,7 @@ public class NodgePool : MonoBehaviour
             labelNode.Destroy();
         }, false, 100, 10000);
 
-        LabelNodge.CamTf = Camera.main.transform;
+        LabelNodgeUI.CamTf = Camera.main.transform;
     }
 
     private void CreateNodePool()
@@ -123,9 +123,9 @@ public class NodgePool : MonoBehaviour
         }, false, 100, 10000);
     }
 
-    public LabelNodge GetLabelNodge()
+    public LabelNodgeUI GetLabelNodge()
     {
-        return _labelNodgePool.Get();
+        return _labelNodgeUIPool.Get();
     }
 
     public Transform GetNode()
@@ -138,9 +138,9 @@ public class NodgePool : MonoBehaviour
         return _edgePool.Get();
     }
 
-    public void Release(LabelNodge lNodge)
+    public void Release(LabelNodgeUI lNodge)
     {
-        _labelNodgePool.Release(lNodge);
+        _labelNodgeUIPool.Release(lNodge);
     }
     public void Release(Transform nodeTf)
     {

@@ -40,7 +40,7 @@ public class Graph
     Dictionary<int, Node> _nodesDicId;
     Dictionary<int, Edge> _edgesDicId;
 
-    List<LabelNodge> _labelNodges;
+    List<LabelNodgeUI> _labelNodgesUI;
 
     GraphConfiguration _graphConfiguration;
 
@@ -63,7 +63,7 @@ public class Graph
 
         _graphManager = graphManager;
         _graphUI = graphUI;
-        _labelNodges = new List<LabelNodge>();
+        _labelNodgesUI = new List<LabelNodgeUI>();
 
         _graphConfiguration = graphConfiguration;
 
@@ -193,11 +193,11 @@ public class Graph
 
     public void ReleaseLabelNodges()
     {
-        int nb = _labelNodges.Count;
+        int nb = _labelNodgesUI.Count;
 
         for (int i = 0; i < nb; i++)
         {
-            NodgePool.Instance.Release(_labelNodges[i]);
+            NodgePool.Instance.Release(_labelNodgesUI[i]);
         }
     }
     #endregion
@@ -322,14 +322,14 @@ public class Graph
 
     private void UpdateLabelNodges()
     {
-        if (_labelNodges == null)
+        if (_labelNodgesUI == null)
             return;
 
-        int nb = _labelNodges.Count;
+        int nb = _labelNodgesUI.Count;
 
         for (int i = 0; i < nb; i++)
         {
-            _labelNodges[i].UpdateTransform();
+            _labelNodgesUI[i].UpdateTransform();
         }
     }
 
@@ -439,7 +439,7 @@ public class Graph
         labelNodge.SetFollow(node.Tf);
         var name = node.GetName();
         labelNodge.Text = (name != null) ? name : node.Value;
-        _labelNodges.Add(labelNodge);
+        _labelNodgesUI.Add(labelNodge);
 
         propagationValue--;
 
@@ -462,7 +462,7 @@ public class Graph
                 labelNodge = NodgePool.Instance.GetLabelNodge();
                 labelNodge.SetFollow(edge.Source.Tf, edge.Target.Tf);
                 labelNodge.Text = edge.Value;
-                _labelNodges.Add(labelNodge);
+                _labelNodgesUI.Add(labelNodge);
 
                 if (propagationValue == 0)
                     continue;
