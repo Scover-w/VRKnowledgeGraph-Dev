@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.github-glitchenzo.nugetforunity": "https://github.com/GlitchEnzo/NuGetForUnity.git?path=/src/NuGetForUnity",
     "com.htc.upm.wave.essence": "5.2.1-r.1",
     "com.htc.upm.wave.xrsdk": "5.2.1-r.1",
     "com.unity.collab-proxy": "2.0.1",
