@@ -79,6 +79,7 @@ public class GameWindowNavigation : MonoBehaviour
             return;
 
         var graph = _graphManager.Graph;
+
         Ray ray = _cam.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
