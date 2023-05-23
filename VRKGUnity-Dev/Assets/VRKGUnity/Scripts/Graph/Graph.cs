@@ -1,3 +1,8 @@
+using QuikGraph;
+using QuikGraph.Algorithms;
+using QuikGraph.Algorithms.Observers;
+using QuikGraph.Algorithms.ShortestPath;
+using QuikGraph.Collections;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,6 +15,7 @@ using UnityEditor;
 using UnityEditor.Graphs;
 using UnityEngine;
 using UnityEngine.Pool;
+using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
 public class Graph
@@ -47,6 +53,8 @@ public class Graph
     Dictionary<Transform, Node> _nodesDicTf;
     Dictionary<Transform, Edge> _edgesDicTf;
 
+    BidirectionalGraph<Node, Edge> _graphDatas;
+
     Node _selectedNode;    
 
     float _velocity;
@@ -67,8 +75,12 @@ public class Graph
 
         _graphConfiguration = graphConfiguration;
 
+        _graphDatas = new();
+
         SetupNodes();
         SetupEdges();
+
+
 
         int seed = Configuration.SeedRandomPosition;
         foreach (var idAndNode in _nodesDicId)
@@ -82,6 +94,7 @@ public class Graph
         foreach(var idAndNode in _nodesDicId)
         {
             SetupNode(idAndNode.Value);
+            _graphDatas.AddVertex(idAndNode.Value);
         }
     }
 
@@ -100,6 +113,7 @@ public class Graph
         foreach(var idAndEdge in _edgesDicId)
         {
             SetupEdge(idAndEdge.Value);
+            _graphDatas.AddEdge(idAndEdge.Value);
         }
     }
 
@@ -369,6 +383,48 @@ public class Graph
 
     #endregion
 
+
+
+    #region DATA_CALCULATIONS
+    public void CalculateShortestPaths()
+    {
+        Func<Edge, double> edgeCost = edge => 1;
+
+        int i = 0;
+
+        foreach (var idAndNodeSource in _nodesDicId)
+        {
+            double totalPathLength = 0;
+            int reachableVertices = 0;
+
+            var rootNode = idAndNodeSource.Value;
+
+            TryFunc<Node, IEnumerable<Edge>> tryGetPaths = _graphDatas.ShortestPathsDijkstra(edgeCost, rootNode);
+
+            foreach (var idAndNodeTarget in _nodesDicId)
+            {
+                var targetNode = idAndNodeTarget.Value;
+
+                if (!targetNode.Equals(rootNode) && tryGetPaths(targetNode, out IEnumerable<Edge> path))
+                {
+                    totalPathLength += path.Sum(edgeCost);
+                    reachableVertices++;
+                }
+            }
+
+            double avgPathLength = reachableVertices > 0 ? totalPathLength / reachableVertices : 0;
+            rootNode.AverageShortestPathLength = (float)avgPathLength;
+            Debug.Log(i + ". Avg -> " + rootNode.AverageShortestPathLength);
+            i++;
+        }
+
+    }
+
+    private double GetWeight(Edge edge)
+    {
+        return 1;
+    }
+    #endregion
 
     public void Update()
     {

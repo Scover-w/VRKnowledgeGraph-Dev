@@ -52,7 +52,7 @@ public class GraphManager : MonoBehaviour
 
         Debug.Log(nodges.NodesDicId.Count);
 
-        _graph = new Graph(this, _graphUI, GraphConfiguraton,nodges);
+        _graph = new Graph(this, _graphUI, GraphConfiguraton, nodges);
         _graphSimulation.Run(_graph);
     }
 
@@ -78,5 +78,14 @@ public class GraphManager : MonoBehaviour
         DebugChrono.Instance.Stop("UpdateGraph");
 
         _graphSimulation.Run(_graph);
+    }
+
+
+    [ContextMenu("CalculateShortestPathAverage")]
+    public void CalculateShortestPathAverage()
+    {
+        DebugChrono.Instance.Start("CalculateShortestPaths");
+        _graph.CalculateShortestPaths();
+        DebugChrono.Instance.Stop("CalculateShortestPaths");
     }
 }

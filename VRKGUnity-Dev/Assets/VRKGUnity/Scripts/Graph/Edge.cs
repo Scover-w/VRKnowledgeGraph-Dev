@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿using QuikGraph;
+using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Edge
+public class Edge : IEdge<Node>
 {
     public bool AciveSelf
     {
@@ -11,16 +12,15 @@ public class Edge
         }
     }
 
-
     public int Id;
     public string Type;
     public string Value;
-    public Node Source;
-    public Node Target;
+    public Node Source { get; }
+    public Node Target { get; }
+
     public LineRenderer Line;
 
     private bool _activeSelf;
-
 
     public Edge(string type, string value, Node source, Node target) 
     {

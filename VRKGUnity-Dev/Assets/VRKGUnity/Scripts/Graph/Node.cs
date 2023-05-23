@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using QuikGraph;
 
 public class Node
 {
@@ -28,6 +29,8 @@ public class Node
     
     public Dictionary<string, string> Properties;
     private bool _activeSelf;
+
+    public float AverageShortestPathLength;
 
     static System.Random _random;
 

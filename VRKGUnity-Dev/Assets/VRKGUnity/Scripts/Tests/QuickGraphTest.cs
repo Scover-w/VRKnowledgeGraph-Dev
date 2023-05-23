@@ -10,7 +10,10 @@ public class QuickGraphTest : MonoBehaviour
     void Start()
     {
 
-        var t = new QuikGraph.Edge<int>(1, 2);
+        var nodeA = new Node("literal", "carotte");
+        var nodeB = new Node("literal", "courgette");
+        var edge = new QuikGraph.Edge<Node>(nodeA,nodeB);
+
     }
 
     // Update is called once per frame
