@@ -474,8 +474,15 @@ public class Graph
         foreach (var idAndNodeSource in _nodesDicId)
         {
             var node = idAndNodeSource.Value;
-            node.BetweennessCentrality = (node.BetweennessCentrality - minBc) / (maxBc - minBc);
-            node.ClosenessCentrality = nbNodesWithPathsMinusOne / shortPathLengthSumCC[node];
+
+            float divider = (maxBc - minBc);
+
+            node.BetweennessCentrality = (divider == 0f)?  0f : (node.BetweennessCentrality - minBc) / divider;
+
+            var shortSum = shortPathLengthSumCC[node];
+            node.ClosenessCentrality = (shortSum == 0f)? float.MaxValue : (float)nbNodesWithPathsMinusOne / shortSum;
+
+            Debug.Log(node.ClosenessCentrality);
         }
 
         
