@@ -420,9 +420,13 @@ public class Graph
 
     }
 
-    private double GetWeight(Edge edge)
+    public void CalculateDegrees()
     {
-        return 1;
+        foreach (var idAndNodeSource in _nodesDicId)
+        {
+            var node = idAndNodeSource.Value;
+            node.Degree = (node.EdgeSource.Count + node.EdgeTarget.Count);
+        }
     }
     #endregion
 
