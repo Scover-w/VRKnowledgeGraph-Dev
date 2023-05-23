@@ -386,7 +386,7 @@ public class Graph
 
 
     #region DATA_CALCULATIONS
-    public void CalculateShortestPathsAndBetweennessCentrality()
+    public void CalculateShortestPathsAndCentralities()
     {
         Func<Edge, double> edgeCost = edge => 1;
 
@@ -481,8 +481,6 @@ public class Graph
 
             var shortSum = shortPathLengthSumCC[node];
             node.ClosenessCentrality = (shortSum == 0f)? float.MaxValue : (float)nbNodesWithPathsMinusOne / shortSum;
-
-            Debug.Log(node.ClosenessCentrality);
         }
 
         
@@ -496,6 +494,51 @@ public class Graph
         {
             var node = idAndNodeSource.Value;
             node.Degree = (node.EdgeSource.Count + node.EdgeTarget.Count);
+        }
+    }
+
+    public void CalculateClusteringCoefficients()
+    {
+        foreach (var idAndNodeSource in _nodesDicId)
+        {
+            var node = idAndNodeSource.Value;
+
+            var neighbors = node.GetNeighbors();
+
+            if (neighbors.Count < 2)
+            {
+                node.ClusteringCoefficient = 0f;
+                continue;
+            }
+
+
+            int edgeCount = 0;
+
+            for (int i = 0; i < neighbors.Count; i++)
+            {
+                for (int j = i + 1; j < neighbors.Count; j++)
+                {
+
+                    var neighborA = neighbors[i];
+                    var neighborB = neighbors[j];
+
+                    var neighborOfNeighborB = neighborB.GetNeighbors();
+
+                    if (neighborOfNeighborB.Contains(neighborA))
+                    {
+                        edgeCount++;
+                    }
+                }
+            }
+
+            // C_i = 2n / (k_i * (k_i - 1))
+            // With n : connection between neighbors
+            //      k_i : number of neighbors
+
+            double possibleConnections = neighbors.Count * (neighbors.Count - 1) / 2;
+            node.ClusteringCoefficient = edgeCount / (float)possibleConnections;
+
+            Debug.Log(node.ClusteringCoefficient);
         }
     }
     #endregion

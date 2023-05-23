@@ -33,6 +33,7 @@ public class Node
     public float AverageShortestPathLength;
     public float BetweennessCentrality;
     public float ClosenessCentrality;
+    public float ClusteringCoefficient;
     public int Degree;
 
     static System.Random _random;
@@ -153,5 +154,24 @@ public class Node
     {
         _activeSelf = value;
         Tf.gameObject.SetActive(value);
+    }
+
+    public List<Node> GetNeighbors()
+    {
+        var neighbors = new List<Node>();
+
+        foreach(var edge in EdgeSource)
+        {
+            if(!neighbors.Contains(edge.Target))
+                neighbors.Add(edge.Target);
+        }
+
+        foreach (var edge in EdgeTarget)
+        {
+            if(!neighbors.Contains(edge.Source))
+                neighbors.Add(edge.Source);
+        }
+
+        return neighbors;
     }
 }

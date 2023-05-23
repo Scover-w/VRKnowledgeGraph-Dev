@@ -79,11 +79,19 @@ public class GraphManager : MonoBehaviour
     }
 
 
-    [ContextMenu("CalculateShortestPathAverage")]
-    public void CalculateShortestPathAverage()
+    [ContextMenu("CalculateShortestPathsAndCentralities")]
+    public void CalculateShortestPathsAndCentralities()
     {
         DebugChrono.Instance.Start("CalculateShortestPaths");
-        _graph.CalculateShortestPathsAndBetweennessCentrality();
+        _graph.CalculateShortestPathsAndCentralities();
         DebugChrono.Instance.Stop("CalculateShortestPaths");
+    }
+
+    [ContextMenu("CalculateClusteringCoefficients")]
+    public void CalculateClusteringCoefficients()
+    {
+        DebugChrono.Instance.Start("CalculateClusteringCoefficients");
+        _graph.CalculateClusteringCoefficients();
+        DebugChrono.Instance.Stop("CalculateClusteringCoefficients");
     }
 }
