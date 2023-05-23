@@ -390,14 +390,18 @@ public class Graph
     {
         Func<Edge, double> edgeCost = edge => 1;
 
-        // BetweennessCentrality
-        Dictionary<Node, int> inShortestPathCount = new Dictionary<Node, int>();
+        // Betweenness Centrality
+        Dictionary<Node, int> inShortestPathCountBC = new Dictionary<Node, int>();
         int nbOfPaths = 0;
 
+        // Closeness Centrality
+        Dictionary<Node, int> shortPathLengthSumCC = new Dictionary<Node, int>();
 
         foreach (var idAndNodeSource in _nodesDicId)
         {
-            inShortestPathCount.Add(idAndNodeSource.Value, 0);
+            var node = idAndNodeSource.Value;
+            inShortestPathCountBC.Add(node, 0);
+            shortPathLengthSumCC.Add(node, 0);
         }
 
 
@@ -426,12 +430,15 @@ public class Graph
 
 
                 // Betweeness Centrality
-                inShortestPathCount[rootNode]++;
+                inShortestPathCountBC[rootNode]++;
 
                 foreach (var edge in path)
                 {
-                    inShortestPathCount[edge.Target]++;
+                    inShortestPathCountBC[edge.Target]++;
                 }
+
+                // Closeness Centrality
+                shortPathLengthSumCC[rootNode] += path.Count();
             }
 
 
@@ -444,9 +451,8 @@ public class Graph
         // Betweeness Centrality
         float maxBc = 0;
         float minBc = float.MaxValue;
-        int nbNode = _nodesDicId.Count;
 
-        foreach (var nodeAndNbInShortPath in inShortestPathCount)
+        foreach (var nodeAndNbInShortPath in inShortestPathCountBC)
         {
             var node = nodeAndNbInShortPath.Key;
 
@@ -461,12 +467,19 @@ public class Graph
         }
 
 
+        // Closeness Centrality
+        int nbNodesWithPathsMinusOne = nbOfPaths - 1;
+
         // Normalize BC
         foreach (var idAndNodeSource in _nodesDicId)
         {
             var node = idAndNodeSource.Value;
             node.BetweennessCentrality = (node.BetweennessCentrality - minBc) / (maxBc - minBc);
+            node.ClosenessCentrality = nbNodesWithPathsMinusOne / shortPathLengthSumCC[node];
         }
+
+        
+        
 
     }
 

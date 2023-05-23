@@ -32,6 +32,7 @@ public class Node
 
     public float AverageShortestPathLength;
     public float BetweennessCentrality;
+    public float ClosenessCentrality;
     public int Degree;
 
     static System.Random _random;
