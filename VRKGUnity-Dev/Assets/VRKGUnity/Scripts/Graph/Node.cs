@@ -31,6 +31,7 @@ public class Node
     private bool _activeSelf;
 
     public float AverageShortestPathLength;
+    public float BetweennessCentrality;
     public int Degree;
 
     static System.Random _random;

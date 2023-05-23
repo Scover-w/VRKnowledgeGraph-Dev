@@ -42,8 +42,6 @@ public class GraphManager : MonoBehaviour
         _graph.Update();
     }
 
-
-
     private async Task CreateStartGraphAsync()
     {
         _sparqlBuilder = new();
@@ -85,7 +83,7 @@ public class GraphManager : MonoBehaviour
     public void CalculateShortestPathAverage()
     {
         DebugChrono.Instance.Start("CalculateShortestPaths");
-        _graph.CalculateShortestPaths();
+        _graph.CalculateShortestPathsAndBetweennessCentrality();
         DebugChrono.Instance.Stop("CalculateShortestPaths");
     }
 }

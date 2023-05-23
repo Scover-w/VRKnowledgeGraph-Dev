@@ -386,36 +386,86 @@ public class Graph
 
 
     #region DATA_CALCULATIONS
-    public void CalculateShortestPaths()
+    public void CalculateShortestPathsAndBetweennessCentrality()
     {
         Func<Edge, double> edgeCost = edge => 1;
 
-        int i = 0;
+        // BetweennessCentrality
+        Dictionary<Node, int> inShortestPathCount = new Dictionary<Node, int>();
+        int nbOfPaths = 0;
+
 
         foreach (var idAndNodeSource in _nodesDicId)
         {
-            double totalPathLength = 0;
-            int reachableVertices = 0;
+            inShortestPathCount.Add(idAndNodeSource.Value, 0);
+        }
 
+
+        foreach (var idAndNodeSource in _nodesDicId)
+        {
             var rootNode = idAndNodeSource.Value;
 
+            // ShortestPath
+            double totalPathLength = 0;
+            int reachableVertices = 0;
             TryFunc<Node, IEnumerable<Edge>> tryGetPaths = _graphDatas.ShortestPathsDijkstra(edgeCost, rootNode);
 
+            
             foreach (var idAndNodeTarget in _nodesDicId)
             {
                 var targetNode = idAndNodeTarget.Value;
 
-                if (!targetNode.Equals(rootNode) && tryGetPaths(targetNode, out IEnumerable<Edge> path))
+                if (targetNode.Equals(rootNode) || !tryGetPaths(targetNode, out IEnumerable<Edge> path))
+                    continue;
+
+
+                // Shortest Path
+                totalPathLength += path.Sum(edgeCost);
+                reachableVertices++;
+                nbOfPaths++;
+
+
+                // Betweeness Centrality
+                inShortestPathCount[rootNode]++;
+
+                foreach (var edge in path)
                 {
-                    totalPathLength += path.Sum(edgeCost);
-                    reachableVertices++;
+                    inShortestPathCount[edge.Target]++;
                 }
             }
 
+
+            // Shortest Path
             double avgPathLength = reachableVertices > 0 ? totalPathLength / reachableVertices : 0;
             rootNode.AverageShortestPathLength = (float)avgPathLength;
-            Debug.Log(i + ". Avg -> " + rootNode.AverageShortestPathLength);
-            i++;
+        }
+
+
+        // Betweeness Centrality
+        float maxBc = 0;
+        float minBc = float.MaxValue;
+        int nbNode = _nodesDicId.Count;
+
+        foreach (var nodeAndNbInShortPath in inShortestPathCount)
+        {
+            var node = nodeAndNbInShortPath.Key;
+
+            var bc = (float)(nodeAndNbInShortPath.Value) / nbOfPaths;
+            node.BetweennessCentrality = bc;
+
+            if(bc > maxBc)
+                maxBc = bc;
+            
+            if(bc < minBc) 
+                minBc = bc;
+        }
+
+
+        // Normalize BC
+        foreach (var idAndNodeSource in _nodesDicId)
+        {
+            var node = idAndNodeSource.Value;
+            node.BetweennessCentrality = (node.BetweennessCentrality - minBc) / (maxBc - minBc);
         }
 
     }
