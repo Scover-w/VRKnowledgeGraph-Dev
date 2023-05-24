@@ -3,11 +3,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using UnityEngine;
 
 [Serializable]
 public class GraphConfiguration
 {
+    [Header("Simulation Parameters")]
+    [Space(5)]
     [Header("Small Number Graph")]
     public float SpringForce = 5f;
     public float CoulombForce = .1f;
@@ -26,33 +29,153 @@ public class GraphConfiguration
     public float BigMaxVelocity = 10f;
     public float BigStopVelocity = 2f;
 
-    
+    [Space(30)]
     [Header("Styling")]
-    public float DefaultNodeSizeSmallGraph = 1f;
-    public float DefaultNodeSizeBigGraph = 1f;
+    [Space(5)]
+    [Header("Node Size")]
+    public float NodeSizeSmallGraph = 1f;
+    public float NodeSizeBigGraph = 1f;
 
-    public float DefaultLabelSizeSmallGraph = 1f;
-    public float DefaultLabelSizeBigGraph = 1f;
+    public float NodeMinSizeSmallGraph = .8f;
+    public float NodeMaxSizeSmallGraph = .8f;
 
+    public float NodeMinSizeBigGraph = .8f;
+    public float NodeMaxSizeBigGraph = .8f;
+
+    [Space(5)]
+    [Header("Label Size")]
+    public float LabelSizeSmallGraph = 1f;
+    public float LabelSizeBigGraph = 1f;
+
+
+    [Space(5)]
+    [Header("Edge Thickness")]
+    public float EdgeThicknessSmallGraph = 1f;
+    public float EdgeThicknessBigGraph = 1f;
+
+
+    [JsonIgnore]
+    public Color NodeColor
+    {
+        get
+        {
+            return _nodeColor.ToUnityColor();
+        }
+        set
+        {
+            _nodeColor = value.ToSystemColor();
+        }
+    }
+
+    [JsonIgnore]
+    public Color NodeMappingAColor
+    {
+        get
+        {
+            return _nodeMappingAColor.ToUnityColor();
+        }
+        set
+        {
+            _nodeMappingAColor = value.ToSystemColor();
+        }
+    }
+
+    [JsonIgnore]
+    public Color NodeMappingBColor
+    {
+        get
+        {
+            return _nodeMappingBColor.ToUnityColor();
+        }
+        set
+        {
+            _nodeMappingBColor = value.ToSystemColor();
+        }
+    }
+
+    [JsonIgnore]
+    public Color EdgeColor
+    {
+        get
+        {
+            return _edgeColor.ToUnityColor();
+        }
+        set
+        {
+            _edgeColor = value.ToSystemColor();
+        }
+    }
+
+    [JsonIgnore]
+    public Color EdgeMappingAColor
+    {
+        get
+        {
+            return _edgeMappingAColor.ToUnityColor();
+        }
+        set
+        {
+            _edgeMappingAColor = value.ToSystemColor();
+        }
+    }
+
+    [JsonIgnore]
+    public Color EdgeMappingBColor
+    {
+        get
+        {
+            return _edgeMappingBColor.ToUnityColor();
+        }
+        set
+        {
+            _edgeMappingBColor = value.ToSystemColor();
+        }
+    }
+
+
+
+    [JsonProperty("NodeColor_")]
+    private System.Drawing.Color _nodeColor;
+
+    [JsonProperty("NodeMappingAColor_")]
+    private System.Drawing.Color _nodeMappingAColor = System.Drawing.Color.White;
+
+    [JsonProperty("NodeMappingBColor_")]
+    private System.Drawing.Color _nodeMappingBColor = System.Drawing.Color.White;
+
+    [JsonProperty("EdgeColor_")]
+    private System.Drawing.Color _edgeColor = System.Drawing.Color.White;
+
+    [JsonProperty("EdgeMappingAColor_")]
+    private System.Drawing.Color _edgeMappingAColor = System.Drawing.Color.White;
+
+    [JsonProperty("EdgeMappingBColor_")]
+    private System.Drawing.Color _edgeMappingBColor = System.Drawing.Color.White;
+
+    [Space(30)]
     [Header("Miscelaneous")]
+    [Space(5)]
     public int LabelNodgePropagation = 1;
 
     public int SeedRandomPosition = 0;
     public bool ResetPositionNodeOnUpdate = true;
 
     [HideInInspector]
-    public GraphMetricType SelectedMetricType = GraphMetricType.None;
+    public GraphMetricType SelectedMetricTypeSize = GraphMetricType.None;
+
+    [HideInInspector]
+    public GraphMetricType SelectedMetricTypeColor = GraphMetricType.None;
 
 
     private static string _graphConfigPath;
 
-    public static GraphConfiguration Load()
+    public async static Task<GraphConfiguration> Load()
     {
         SetPath();
 
         if (File.Exists(_graphConfigPath))
         {
-            string json = File.ReadAllText(_graphConfigPath);
+            string json = await File.ReadAllTextAsync(_graphConfigPath);
             var graphConfig = JsonConvert.DeserializeObject<GraphConfiguration>(json);
 
             return graphConfig;
@@ -60,16 +183,16 @@ public class GraphConfiguration
         
         
         var graphConfigB = new GraphConfiguration();
-        graphConfigB.Save();
+        await graphConfigB.Save();
         return graphConfigB;
     }
 
-    public void Save()
+    public async Task Save()
     {
         SetPath();
 
         string json = JsonConvert.SerializeObject(this, Formatting.Indented);
-        File.WriteAllText(_graphConfigPath, json);
+        await File.WriteAllTextAsync(_graphConfigPath, json);
     }
 
     private static void SetPath()
@@ -94,3 +217,6 @@ public enum GraphMetricType
     ClusteringCoefficient,
     Degree
 }
+
+// TODO: InterpolationType enum
+// Sigmoid, etc...

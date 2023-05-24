@@ -11,6 +11,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml;
 using TMPro;
 using UnityEditor;
 using UnityEditor.Graphs;
@@ -28,6 +29,8 @@ public class Graph
 
     public bool HasASelectedNode { get { return _selectedNode != null; } }
 
+    public IReadOnlyDictionary<int, Node> NodesDicId => _nodesDicId;
+
     public GraphConfiguration Configuration 
     {
         get 
@@ -42,6 +45,7 @@ public class Graph
 
 
     GraphManager _graphManager;
+    GraphStyling _graphStyling;
     GraphUI _graphUI;
 
     Dictionary<int, Node> _nodesDicId;
@@ -60,12 +64,11 @@ public class Graph
 
     float _velocity;
     bool _reachStopVelocity;
-    bool _areMetricsCalculated;
 
     int _metricsCalculated;
 
     #region CREATION_UPDATE_NODGES
-    public Graph(GraphManager graphManager, GraphUI graphUI, GraphConfiguration graphConfiguration , Nodges nodges)
+    public Graph(GraphManager graphManager, GraphUI graphUI, GraphStyling graphStyling, GraphConfiguration graphConfiguration , Nodges nodges)
     {
         _nodesDicId = nodges.NodesDicId; 
         _edgesDicId = nodges.EdgesDicId;
@@ -78,9 +81,8 @@ public class Graph
         _labelNodgesUI = new List<LabelNodgeUI>();
 
         _graphConfiguration = graphConfiguration;
-
+        _graphStyling = graphStyling;
         _graphDatas = new();
-        _areMetricsCalculated = false;
 
 
         SetupNodes();
@@ -106,7 +108,14 @@ public class Graph
 
     private void SetupNode(Node node)
     {
-        var nodeTf = NodgePool.Instance.GetNode();
+        var nodeStyler = NodgePool.Instance.GetNodeStyler();
+        node.NodeStyler = nodeStyler;
+        nodeStyler.Node = node;
+
+
+
+
+        var nodeTf = nodeStyler.Tf;
         nodeTf.name = "Node " + node.GetName();
         node.Tf = nodeTf;
         nodeTf.position = node.Position;
@@ -176,7 +185,7 @@ public class Graph
 
         foreach (var idAndNode in _nodesDicId)
         {
-            nodgePool.Release(idAndNode.Value.Tf);
+            nodgePool.Release(idAndNode.Value.NodeStyler);
         }
 
         await _graphManager.NodeUriRetriever.RetrieveNames(newNodesToRetrieveNames);
@@ -394,9 +403,6 @@ public class Graph
     #region METRICS_CALCULATIONS
     public async void CalculateMetrics()
     {
-        DebugChrono.Instance.Start("CalculateMetrics");
-
-        _areMetricsCalculated = false;
         _metricsCalculated = 0;
 
         var tasks = new List<Task>();
@@ -408,10 +414,6 @@ public class Graph
         CalculateMetric(CalculateClusteringCoefficients);
 
         await semaphore.WaitAsync();
-
-        DebugChrono.Instance.Stop("CalculateMetrics");
-        _areMetricsCalculated = true;
-
 
 
         void CalculateMetric(Action metricCalculation)
@@ -428,6 +430,11 @@ public class Graph
                 }
             }));
         }
+
+
+        int threadId = Thread.CurrentThread.ManagedThreadId;
+
+        _graphStyling.StyleGraph();
     }
 
     private void CalculateShortestPathsAndCentralities()
@@ -448,6 +455,9 @@ public class Graph
             shortPathLengthSumCC.Add(node, 0);
         }
 
+
+        float maxASP = 0;
+        float minASP = float.MaxValue;
 
         foreach (var idAndNodeSource in _nodesDicId)
         {
@@ -488,7 +498,15 @@ public class Graph
 
             // Shortest Path
             double avgPathLength = reachableVertices > 0 ? totalPathLength / reachableVertices : 0;
+
+            float asp = (float)avgPathLength;
             rootNode.AverageShortestPathLength = (float)avgPathLength;
+
+            if (asp > maxASP)
+                maxASP = asp;
+
+            if (asp < minASP)
+                minASP = asp;
         }
 
 
@@ -510,9 +528,11 @@ public class Graph
                 minBc = bc;
         }
 
-
         // Closeness Centrality
         int nbNodesWithPathsMinusOne = nbOfPaths - 1;
+
+        float maxCC = 0;
+        float minCC = float.MaxValue;
 
         // Normalize BC
         foreach (var idAndNodeSource in _nodesDicId)
@@ -524,21 +544,65 @@ public class Graph
             node.BetweennessCentrality = (divider == 0f)?  0f : (node.BetweennessCentrality - minBc) / divider;
 
             var shortSum = shortPathLengthSumCC[node];
-            node.ClosenessCentrality = (shortSum == 0f)? float.MaxValue : (float)nbNodesWithPathsMinusOne / shortSum;
+            var cc = (shortSum == 0f) ? float.MaxValue : (float)nbNodesWithPathsMinusOne / shortSum;
+            node.ClosenessCentrality = cc;
+
+            if (cc > maxCC)
+                maxCC = cc;
+
+            if (cc < minCC)
+                minCC = cc;
+        }
+
+        foreach (var idAndNodeSource in _nodesDicId)
+        {
+            var node = idAndNodeSource.Value;
+            Debug.Log("----------------------");
+            Debug.Log(node.AverageShortestPathLength);
+            Debug.Log(node.BetweennessCentrality);
+            Debug.Log(node.ClosenessCentrality);
+        }
+
+
+        // Normalize CC
+        foreach (var idAndNodeSource in _nodesDicId)
+        {
+            var node = idAndNodeSource.Value;
+            node.ClosenessCentrality = (node.ClosenessCentrality - minCC) / (maxCC- minCC);
         }
     }
 
     private void CalculateDegrees()
     {
+        int maxDegree = 0;
+        int minDegree = int.MaxValue;
+
+
         foreach (var idAndNodeSource in _nodesDicId)
         {
             var node = idAndNodeSource.Value;
-            node.Degree = (node.EdgeSource.Count + node.EdgeTarget.Count);
+            var degree = (node.EdgeSource.Count + node.EdgeTarget.Count);
+            node.Degree = degree;
+
+            if (degree > maxDegree)
+                maxDegree = degree;
+
+            if (degree < minDegree)
+                minDegree = degree;
+        }
+
+        foreach (var idAndNodeSource in _nodesDicId)
+        {
+            var node = idAndNodeSource.Value;
+            node.Degree = (node.Degree -  minDegree) / (maxDegree - minDegree);
         }
     }
 
     private void CalculateClusteringCoefficients()
     {
+        float maxCluster = 0;
+        float minCluster = float.MaxValue;
+
         foreach (var idAndNodeSource in _nodesDicId)
         {
             var node = idAndNodeSource.Value;
@@ -576,7 +640,14 @@ public class Graph
             //      k_i : number of neighbors
 
             double possibleConnections = neighbors.Count * (neighbors.Count - 1) / 2;
-            node.ClusteringCoefficient = edgeCount / (float)possibleConnections;
+            var cluster = edgeCount / (float)possibleConnections;
+            node.ClusteringCoefficient = cluster;
+
+            if (cluster > maxCluster)
+                maxCluster = cluster;
+
+            if (cluster < minCluster)
+                minCluster = cluster;
         }
     }
     #endregion

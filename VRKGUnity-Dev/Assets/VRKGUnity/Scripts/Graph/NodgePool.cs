@@ -6,6 +6,7 @@ using UnityEngine.Pool;
 
 public class NodgePool : MonoBehaviour
 {
+    // TODO : Need to convert it to SO
     public static NodgePool Instance { get { return _instance; } }
 
 
@@ -19,7 +20,7 @@ public class NodgePool : MonoBehaviour
     Material _lineMat;
 
     ObjectPool<LabelNodgeUI> _labelNodgeUIPool;
-    ObjectPool<Transform> _nodePool;
+    ObjectPool<NodeStyler> _nodePool;
     ObjectPool<LineRenderer> _edgePool;
     static NodgePool _instance;
 
@@ -73,24 +74,25 @@ public class NodgePool : MonoBehaviour
 
     private void CreateNodePool()
     {
-        _nodePool = new ObjectPool<Transform>(() =>
+        _nodePool = new ObjectPool<NodeStyler>(() =>
         {
             var nodeSphereTf = Instantiate(_nodePf).transform;
+            var nodeStyler = nodeSphereTf.GetComponent<NodeStyler>();
             nodeSphereTf.SetParent(_parentGraphTf);
             nodeSphereTf.localScale = new Vector3(.2f, .2f, .2f);
-            return nodeSphereTf;
+            return nodeStyler;
 
-        }, nodeSphereTf =>
+        }, nodeStyler =>
         {
-            nodeSphereTf.gameObject.SetActive(true);
-            nodeSphereTf.SetParent(_parentGraphTf);
-        }, nodeSphereTf =>
+            nodeStyler.gameObject.SetActive(true);
+            nodeStyler.Tf.SetParent(_parentGraphTf);
+        }, nodeStyler =>
         {
-            nodeSphereTf.gameObject.SetActive(false);
-            nodeSphereTf.SetParent(_poolGraphTf);
-        }, nodeSphereTf =>
+            nodeStyler.gameObject.SetActive(false);
+            nodeStyler.Tf.SetParent(_poolGraphTf);
+        }, nodeStyler =>
         {
-            Destroy(nodeSphereTf.gameObject);
+            Destroy(nodeStyler.gameObject);
         }, false, 100, 10000);
     }
 
@@ -128,7 +130,7 @@ public class NodgePool : MonoBehaviour
         return _labelNodgeUIPool.Get();
     }
 
-    public Transform GetNode()
+    public NodeStyler GetNodeStyler()
     {
         return _nodePool.Get();
     }
@@ -142,9 +144,9 @@ public class NodgePool : MonoBehaviour
     {
         _labelNodgeUIPool.Release(lNodge);
     }
-    public void Release(Transform nodeTf)
+    public void Release(NodeStyler nodeStyler)
     {
-        _nodePool.Release(nodeTf);
+        _nodePool.Release(nodeStyler);
     }
     public void Release(LineRenderer line)
     {

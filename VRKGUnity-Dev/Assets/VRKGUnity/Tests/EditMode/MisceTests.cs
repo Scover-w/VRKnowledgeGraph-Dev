@@ -32,4 +32,17 @@ public class MisceTests : MonoBehaviour
             }
         }
     }
+
+    [Test]
+    public void TestColorConversion()
+    {
+        var systemColor = System.Drawing.Color.AliceBlue;
+
+        var unityColor = systemColor.ToUnityColor();
+
+        var systemColorB = unityColor.ToSystemColor();
+
+        Assert.True(systemColorB.Equals(systemColor));
+
+    }
 }

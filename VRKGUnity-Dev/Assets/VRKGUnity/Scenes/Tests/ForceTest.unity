@@ -331,8 +331,8 @@ Camera:
   m_GameObject: {fileID: 963194225}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -778,6 +778,7 @@ GameObject:
   - component: {fileID: 2173982011965867149}
   - component: {fileID: 2173982011965867148}
   - component: {fileID: 2173982011965867150}
+  - component: {fileID: 2173982011965867151}
   m_Layer: 0
   m_Name: UI
   m_TagString: Untagged
@@ -826,6 +827,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaf5170f30ee4934097808f28056e845, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2173982011965867151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2173982011965867147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b54e6a0b51e04f4db3f8ac4ba0ada9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _graphConfigContainerSO: {fileID: 11400000, guid: 7086a0d0e5c5fa74c91774d1597bf4fc, type: 2}
+  _graphStyling: {fileID: 2173982012245349468}
+  NodeSize: 0.2
+  NodeMaxSize: 0.2
+  NodeMinSize: 0.2
 --- !u!1 &2173982012245349464
 GameObject:
   m_ObjectHideFlags: 0
@@ -837,6 +855,7 @@ GameObject:
   - component: {fileID: 2173982012245349467}
   - component: {fileID: 2173982012245349465}
   - component: {fileID: 2173982012245349466}
+  - component: {fileID: 2173982012245349468}
   m_Layer: 0
   m_Name: Graph
   m_TagString: Untagged
@@ -859,6 +878,7 @@ MonoBehaviour:
   _graphSimulation: {fileID: 2173982012245349466}
   _nodgeCreator: {fileID: 2173982013351330630}
   _graphUI: {fileID: 2173982011965867148}
+  _graphStyling: {fileID: 2173982012245349468}
   _graphConfigurationContainerSO: {fileID: 11400000, guid: 7086a0d0e5c5fa74c91774d1597bf4fc, type: 2}
 --- !u!114 &2173982012245349466
 MonoBehaviour:
@@ -888,6 +908,20 @@ Transform:
   m_Father: {fileID: 2173982013351330626}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2173982012245349468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2173982012245349464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b66c3fe33c438fd4bb2225fa38ce5114, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _graphManager: {fileID: 2173982012245349465}
+  _graphConfigurationContainerSO: {fileID: 11400000, guid: 7086a0d0e5c5fa74c91774d1597bf4fc, type: 2}
 --- !u!1 &2173982013351330624
 GameObject:
   m_ObjectHideFlags: 0

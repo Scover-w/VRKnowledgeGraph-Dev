@@ -22,6 +22,9 @@ public class GraphManager : MonoBehaviour
     GraphUI _graphUI;
 
     [SerializeField]
+    GraphStyling _graphStyling;
+
+    [SerializeField]
     GraphConfigurationContainerSO _graphConfigurationContainerSO;
 
     Graph _graph;
@@ -32,11 +35,11 @@ public class GraphManager : MonoBehaviour
 
     GraphConfiguration _graphConfiguration;
 
-    void Start()
+    async void Start()
     {
         _dynamicFilterManager = new();
         _nodeUriRetriever = new();
-        _graphConfiguration = _graphConfigurationContainerSO.GraphConfiguration;
+        _graphConfiguration = await _graphConfigurationContainerSO.GetGraphConfiguration();
 
         Invoke(nameof(CreateStartGraphAsync), 1f);
     }
@@ -51,14 +54,23 @@ public class GraphManager : MonoBehaviour
 
     private async Task CreateStartGraphAsync()
     {
-        _sparqlBuilder = new();
-        string queryString = _sparqlBuilder.Build();
-        var nodges = await _nodgeCreator.RetreiveGraph(queryString, _graphConfiguration);
+        try
+        {
+            _sparqlBuilder = new();
+            string queryString = _sparqlBuilder.Build();
+            var nodges = await _nodgeCreator.RetreiveGraph(queryString, _graphConfiguration);
 
-        _graph = new Graph(this, _graphUI, _graphConfiguration, nodges);
+            _graph = new Graph(this, _graphUI, _graphStyling, _graphConfiguration, nodges);
 
-        _graph.CalculateMetrics();
-        _graphSimulation.Run(_graph);
+            _graphStyling.StyleGraphForFirstTime();
+            _graph.CalculateMetrics();
+            _graphSimulation.Run(_graph);
+
+        }
+        catch(Exception ex)
+        {
+            Debug.Log(ex);
+        }
     }
 
 

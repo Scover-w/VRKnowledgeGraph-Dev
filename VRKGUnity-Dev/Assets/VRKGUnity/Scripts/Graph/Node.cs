@@ -20,6 +20,8 @@ public class Node
     public string Type;
     public string Value;
 
+    public NodeStyler NodeStyler;
+
     public List<Edge> EdgeSource;
     public List<Edge> EdgeTarget;
 
@@ -34,7 +36,7 @@ public class Node
     public float BetweennessCentrality;
     public float ClosenessCentrality;
     public float ClusteringCoefficient;
-    public int Degree;
+    public float Degree;
 
     static System.Random _random;
 
