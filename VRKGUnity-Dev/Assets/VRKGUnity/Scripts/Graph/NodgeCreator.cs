@@ -78,11 +78,14 @@ public class NodgeCreator : MonoBehaviour
         var nodesDicId = nodges.NodesDicId;
         var edgesDicId = nodges.EdgesDicId;
 
+#if UNITY_EDITOR && FALSE
+        var folderPath = Path.Combine(Application.dataPath, "VRKGUnity", "Data");
 
-        if (!Directory.Exists(Application.dataPath + "/VRKGUnity/Data"))
-            Directory.CreateDirectory(Application.dataPath + "/VRKGUnity/Data");
+        if (!Directory.Exists(folderPath))
+            Directory.CreateDirectory(folderPath);
 
-        await File.WriteAllTextAsync(Application.dataPath + "/VRKGUnity/Data/allQuery.json", json);
+        await File.WriteAllTextAsync(Path.Combine(folderPath, "AllQuery.json"), json);
+#endif
 
         foreach (JToken binding in data["results"]["bindings"])
         {

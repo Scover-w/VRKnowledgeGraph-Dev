@@ -25,8 +25,6 @@ public class GraphSimulation : MonoBehaviour
     bool _threadMode = true;
     float _refreshDurationBackground;
 
-
-
     public void Run(Graph graph)
     {
         _graph = graph;

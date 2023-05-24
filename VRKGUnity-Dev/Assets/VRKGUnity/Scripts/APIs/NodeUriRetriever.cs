@@ -21,14 +21,14 @@ public class NodeUriRetriever
 
     public NodeUriRetriever()
     {
-        var folderPath = Path.Combine(Application.dataPath, "Data");
+        var folderPath = Path.Combine(Application.dataPath, "VRKGUnity","Data");
 
         if(!Directory.Exists(folderPath))
         {
             Directory.CreateDirectory(folderPath);
         }
 
-        _uriLabelPath = Path.Combine(folderPath, "uriLabels.json");
+        _uriLabelPath = Path.Combine(folderPath, "UriLabels.json");
         _uriLabels = LoadData();
     }
 

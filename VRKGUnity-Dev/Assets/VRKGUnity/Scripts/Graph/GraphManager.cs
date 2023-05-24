@@ -1,12 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 
+[DefaultExecutionOrder(-1)]
 public class GraphManager : MonoBehaviour
 {
     public NodeUriRetriever NodeUriRetriever { get { return _nodeUriRetriever; } }
+    public GraphConfiguration GraphConfiguration { get { return _graphConfiguration; } }
     public Graph Graph { get { return _graph; } }
 
     [SerializeField]
@@ -18,8 +21,8 @@ public class GraphManager : MonoBehaviour
     [SerializeField]
     GraphUI _graphUI;
 
-    [Header("Configuration")]
-    public GraphConfiguration GraphConfiguraton;
+    [SerializeField]
+    GraphConfigurationContainerSO _graphConfigurationContainerSO;
 
     Graph _graph;
     SPARQLAdditiveBuilder _sparqlBuilder;
@@ -27,10 +30,14 @@ public class GraphManager : MonoBehaviour
 
     NodeUriRetriever _nodeUriRetriever;
 
+    GraphConfiguration _graphConfiguration;
+
     void Start()
     {
         _dynamicFilterManager = new();
         _nodeUriRetriever = new();
+        _graphConfiguration = _graphConfigurationContainerSO.GraphConfiguration;
+
         Invoke(nameof(CreateStartGraphAsync), 1f);
     }
 
@@ -46,11 +53,11 @@ public class GraphManager : MonoBehaviour
     {
         _sparqlBuilder = new();
         string queryString = _sparqlBuilder.Build();
-        var nodges = await _nodgeCreator.RetreiveGraph(queryString, GraphConfiguraton);
+        var nodges = await _nodgeCreator.RetreiveGraph(queryString, _graphConfiguration);
 
-        Debug.Log(nodges.NodesDicId.Count);
+        _graph = new Graph(this, _graphUI, _graphConfiguration, nodges);
 
-        _graph = new Graph(this, _graphUI, GraphConfiguraton, nodges);
+        _graph.CalculateMetrics();
         _graphSimulation.Run(_graph);
     }
 
@@ -68,30 +75,14 @@ public class GraphManager : MonoBehaviour
         if (_graphSimulation.IsRunning)
             _graphSimulation.ForceStop();
 
-        var nodges = await _nodgeCreator.RetreiveGraph(query, GraphConfiguraton);
+        var nodges = await _nodgeCreator.RetreiveGraph(query, _graphConfiguration);
         nodges = _dynamicFilterManager.Filter(nodges);
 
         DebugChrono.Instance.Start("UpdateGraph");
         await _graph.UpdateNodges(nodges);
         DebugChrono.Instance.Stop("UpdateGraph");
 
+        _graph.CalculateMetrics();
         _graphSimulation.Run(_graph);
-    }
-
-
-    [ContextMenu("CalculateShortestPathsAndCentralities")]
-    public void CalculateShortestPathsAndCentralities()
-    {
-        DebugChrono.Instance.Start("CalculateShortestPaths");
-        _graph.CalculateShortestPathsAndCentralities();
-        DebugChrono.Instance.Stop("CalculateShortestPaths");
-    }
-
-    [ContextMenu("CalculateClusteringCoefficients")]
-    public void CalculateClusteringCoefficients()
-    {
-        DebugChrono.Instance.Start("CalculateClusteringCoefficients");
-        _graph.CalculateClusteringCoefficients();
-        DebugChrono.Instance.Stop("CalculateClusteringCoefficients");
     }
 }

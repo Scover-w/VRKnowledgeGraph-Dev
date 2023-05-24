@@ -859,24 +859,7 @@ MonoBehaviour:
   _graphSimulation: {fileID: 2173982012245349466}
   _nodgeCreator: {fileID: 2173982013351330630}
   _graphUI: {fileID: 2173982011965867148}
-  GraphConfiguraton:
-    SpringForce: 5
-    CoulombForce: 0.1
-    Damping: 1
-    SpringDistance: 1
-    CoulombDistance: 2
-    MaxVelocity: 10
-    StopVelocity: 0.19
-    BigSpringForce: 5
-    BigCoulombForce: 0.1
-    BigDamping: 1
-    BigSpringDistance: 15
-    BigCoulombDistance: 30
-    BigMaxVelocity: 10
-    BigStopVelocity: 2
-    LabelNodgePropagation: 1
-    SeedRandomPosition: 0
-    ResetPositionNodeOnUpdate: 1
+  _graphConfigurationContainerSO: {fileID: 11400000, guid: 7086a0d0e5c5fa74c91774d1597bf4fc, type: 2}
 --- !u!114 &2173982012245349466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -916,8 +899,6 @@ GameObject:
   - component: {fileID: 2173982013351330626}
   - component: {fileID: 2173982013351330632}
   - component: {fileID: 2173982013351330630}
-  - component: {fileID: 2173982013351330627}
-  - component: {fileID: 2173982013351330628}
   - component: {fileID: 2173982013351330629}
   m_Layer: 0
   m_Name: '[SCRIPTS]'
@@ -943,33 +924,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2173982013351330627
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2173982013351330624}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc470411821dcbb41b42e4b3b922cf11, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TimeScale: 1
---- !u!114 &2173982013351330628
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2173982013351330624}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2631fe9e5e7a86b4e93b97485ca0a4de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NodeATf: {fileID: 0}
-  NodeBTf: {fileID: 0}
 --- !u!114 &2173982013351330629
 MonoBehaviour:
   m_ObjectHideFlags: 0

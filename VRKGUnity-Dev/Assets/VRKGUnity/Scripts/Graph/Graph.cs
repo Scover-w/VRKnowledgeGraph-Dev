@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Security.Cryptography;
+using System.Threading;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEditor;
@@ -59,6 +60,9 @@ public class Graph
 
     float _velocity;
     bool _reachStopVelocity;
+    bool _areMetricsCalculated;
+
+    int _metricsCalculated;
 
     #region CREATION_UPDATE_NODGES
     public Graph(GraphManager graphManager, GraphUI graphUI, GraphConfiguration graphConfiguration , Nodges nodges)
@@ -76,6 +80,8 @@ public class Graph
         _graphConfiguration = graphConfiguration;
 
         _graphDatas = new();
+        _areMetricsCalculated = false;
+
 
         SetupNodes();
         SetupEdges();
@@ -385,8 +391,46 @@ public class Graph
 
 
 
-    #region DATA_CALCULATIONS
-    public void CalculateShortestPathsAndCentralities()
+    #region METRICS_CALCULATIONS
+    public async void CalculateMetrics()
+    {
+        DebugChrono.Instance.Start("CalculateMetrics");
+
+        _areMetricsCalculated = false;
+        _metricsCalculated = 0;
+
+        var tasks = new List<Task>();
+
+        SemaphoreSlim semaphore = new SemaphoreSlim(0);
+
+        CalculateMetric(CalculateShortestPathsAndCentralities);
+        CalculateMetric(CalculateDegrees);
+        CalculateMetric(CalculateClusteringCoefficients);
+
+        await semaphore.WaitAsync();
+
+        DebugChrono.Instance.Stop("CalculateMetrics");
+        _areMetricsCalculated = true;
+
+
+
+        void CalculateMetric(Action metricCalculation)
+        {
+            tasks.Add(Task.Run(() =>
+            {
+                metricCalculation();
+
+                // Increment the finished thread count atomically
+                if (Interlocked.Increment(ref _metricsCalculated) == 3)
+                {
+                    // Signal the semaphore when all threads have finished
+                    semaphore.Release();
+                }
+            }));
+        }
+    }
+
+    private void CalculateShortestPathsAndCentralities()
     {
         Func<Edge, double> edgeCost = edge => 1;
 
@@ -482,13 +526,9 @@ public class Graph
             var shortSum = shortPathLengthSumCC[node];
             node.ClosenessCentrality = (shortSum == 0f)? float.MaxValue : (float)nbNodesWithPathsMinusOne / shortSum;
         }
-
-        
-        
-
     }
 
-    public void CalculateDegrees()
+    private void CalculateDegrees()
     {
         foreach (var idAndNodeSource in _nodesDicId)
         {
@@ -497,7 +537,7 @@ public class Graph
         }
     }
 
-    public void CalculateClusteringCoefficients()
+    private void CalculateClusteringCoefficients()
     {
         foreach (var idAndNodeSource in _nodesDicId)
         {
@@ -537,8 +577,6 @@ public class Graph
 
             double possibleConnections = neighbors.Count * (neighbors.Count - 1) / 2;
             node.ClusteringCoefficient = edgeCount / (float)possibleConnections;
-
-            Debug.Log(node.ClusteringCoefficient);
         }
     }
     #endregion

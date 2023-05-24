@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67bb12166fcfb6d4fa4c6cf4fdf48302, type: 3}
+  m_Name: GraphConfig
+  m_EditorClassIdentifier: 
+  _graphConfiguration:
+    SpringForce: 5
+    CoulombForce: 0.1
+    Damping: 1
+    SpringDistance: 1
+    CoulombDistance: 2
+    MaxVelocity: 10
+    StopVelocity: 0.19
+    BigSpringForce: 5
+    BigCoulombForce: 0.1
+    BigDamping: 1
+    BigSpringDistance: 15
+    BigCoulombDistance: 30
+    BigMaxVelocity: 10
+    BigStopVelocity: 2
+    DefaultNodeSizeSmallGraph: 1
+    DefaultNodeSizeBigGraph: 1
+    DefaultLabelSizeSmallGraph: 1
+    DefaultLabelSizeBigGraph: 1
+    LabelNodgePropagation: 1
+    SeedRandomPosition: 0
+    ResetPositionNodeOnUpdate: 1
+    SelectedMetricType: 0
