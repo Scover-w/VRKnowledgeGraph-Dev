@@ -27,6 +27,8 @@ public class NodeStyler : MonoBehaviour
     [SerializeField]
     Material _selectedMat;
 
+    MaterialPropertyBlock _propertyBlock;
+
     bool _isHovered = false;
     bool _isSelected = false;
 
@@ -117,9 +119,11 @@ public class NodeStyler : MonoBehaviour
                 break;
         }
 
-        Material copyMaterial = new Material(_renderer.material);
-        copyMaterial.color = Color.Lerp(GraphConfiguration.NodeMappingAColor, GraphConfiguration.NodeMappingBColor, value);
-        _renderer.material = copyMaterial;
+        if(_propertyBlock == null)
+            _propertyBlock = new MaterialPropertyBlock();
+
+        _propertyBlock.SetColor("_Color", Color.Lerp(GraphConfiguration.NodeMappingAColor, GraphConfiguration.NodeMappingBColor, value));
+        _renderer.SetPropertyBlock(_propertyBlock);
     }
 
     public void StyleSize()
