@@ -60,7 +60,9 @@ public class Graph
 
     BidirectionalGraph<Node, Edge> _graphDatas;
 
-    Node _selectedNode;    
+    Node _selectedNode;
+
+    Transform _tf;
 
     float _velocity;
     bool _reachStopVelocity;
@@ -68,7 +70,7 @@ public class Graph
     int _metricsCalculated;
 
     #region CREATION_UPDATE_NODGES
-    public Graph(GraphManager graphManager, GraphUI graphUI, GraphStyling graphStyling, GraphConfiguration graphConfiguration , Nodges nodges)
+    public Graph(GraphManager graphManager, GraphUI graphUI, GraphStyling graphStyling, GraphConfiguration graphConfiguration , Nodges nodges, Transform tf)
     {
         _nodesDicId = nodges.NodesDicId; 
         _edgesDicId = nodges.EdgesDicId;
@@ -80,8 +82,10 @@ public class Graph
         _graphUI = graphUI;
         _labelNodgesUI = new List<LabelNodgeUI>();
 
+
         _graphConfiguration = graphConfiguration;
         _graphStyling = graphStyling;
+        _tf = tf;
         _graphDatas = new();
 
 
@@ -249,22 +253,22 @@ public class Graph
 
         if (_nodesDicId.Count > 500)
         {
-            coulombDistance = _graphConfiguration.BigSpringDistance;
-            springDistance = _graphConfiguration.BigSpringDistance;
-            stopVelocity = _graphConfiguration.BigStopVelocity;
+            coulombDistance = _graphConfiguration.DenseSpringDistance;
+            springDistance = _graphConfiguration.DenseSpringDistance;
+            stopVelocity = _graphConfiguration.DenseStopVelocity;
         }
         else
         {
-            coulombDistance = _graphConfiguration.CoulombDistance;
-            springDistance = _graphConfiguration.SpringDistance;
-            stopVelocity = _graphConfiguration.StopVelocity;
+            coulombDistance = _graphConfiguration.LightCoulombDistance;
+            springDistance = _graphConfiguration.LightSpringDistance;
+            stopVelocity = _graphConfiguration.LightStopVelocity;
         }
 
-        float coulombForce = _graphConfiguration.CoulombForce;
-        float springForce = _graphConfiguration.SpringForce;
-        float damping = _graphConfiguration.Damping;
-        float maxVelocity = _graphConfiguration.MaxVelocity;
-        float invMaxVelocity = 1f / _graphConfiguration.MaxVelocity;
+        float coulombForce = _graphConfiguration.LightCoulombForce;
+        float springForce = _graphConfiguration.LightSpringForce;
+        float damping = _graphConfiguration.LightDamping;
+        float maxVelocity = _graphConfiguration.LightMaxVelocity;
+        float invMaxVelocity = 1f / _graphConfiguration.LightMaxVelocity;
         
         float velocitySum = 0f;
 
@@ -339,10 +343,12 @@ public class Graph
 
     public void RefreshTransformPositionsForeground()
     {
+        var scalingFactor = _graphConfiguration.BigGraphSize;
+
         foreach (var idAndNode in _nodesDicId)
         {
             var node = idAndNode.Value;
-            node.Tf.position = node.Position;
+            node.Tf.localPosition = node.Position * scalingFactor;
         }
 
         foreach (var idAndEdge in _edgesDicId)
@@ -350,8 +356,8 @@ public class Graph
             var edge = idAndEdge.Value;
 
             var line = edge.Line;
-            line.SetPosition(0, edge.Source.Tf.position);
-            line.SetPosition(1, edge.Target.Tf.position);
+            line.SetPosition(0, edge.Source.Tf.position * scalingFactor);
+            line.SetPosition(1, edge.Target.Tf.position * scalingFactor);
         }
 
         UpdateLabelNodges();
@@ -373,17 +379,24 @@ public class Graph
 
     public void RefreshTransformPositionsBackground(Dictionary<int, NodeSimuData> nodeSimuDatas)
     {
+        var scalingFactor = _graphConfiguration.BigGraphSize;
+
         foreach (var idAnData in nodeSimuDatas)
         {
             if (!_nodesDicId.TryGetValue(idAnData.Key, out Node node))
                 continue;
 
             var tf = node.Tf;
-            var position = idAnData.Value.Position;
-            var lerpPosition = Vector3.Lerp(tf.position, position, .01f);
+
+            var newCalculatedPosition = idAnData.Value.Position;
+            var realPosition = node.Position;
+
+           
+            var lerpPosition = Vector3.Lerp(realPosition, newCalculatedPosition, .01f);
+            var scaledLerpPosition = Vector3.Lerp(tf.localPosition, newCalculatedPosition * scalingFactor, .01f);
 
             node.Position = lerpPosition;
-            node.Tf.position = lerpPosition;
+            node.Tf.localPosition = scaledLerpPosition;
         }
 
         foreach (var idAndEdge in _edgesDicId)
@@ -391,8 +404,8 @@ public class Graph
             var edge = idAndEdge.Value;
 
             var line = edge.Line;
-            line.SetPosition(0, edge.Source.Position);
-            line.SetPosition(1, edge.Target.Position);
+            line.SetPosition(0, edge.Source.Position * scalingFactor);
+            line.SetPosition(1, edge.Target.Position * scalingFactor);
         }
     }
 

@@ -844,6 +844,11 @@ MonoBehaviour:
   NodeSize: 0.2
   NodeMaxSize: 0.2
   NodeMinSize: 0.2
+  NodeColor: {r: 0, g: 0, b: 0, a: 0}
+  NodeMappingAColor: {r: 0, g: 0, b: 0, a: 0}
+  NodeMappingBColor: {r: 0, g: 0, b: 0, a: 0}
+  SelectedMetricTypeSize: 0
+  SelectedMetricTypeColor: 0
 --- !u!1 &2173982012245349464
 GameObject:
   m_ObjectHideFlags: 0
@@ -970,6 +975,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a68a628868e95f4eb69967960f5d0a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _graphManager: {fileID: 2173982012245349465}
   _nameCanvasPf: {fileID: 5035031733843069808, guid: 0256a7d3095107d488777b96d782966a, type: 3}
   _nodePf: {fileID: 3723498569382803225, guid: 29163adcd74c0be40ae9dc6c00147146, type: 3}
   _lineMat: {fileID: 2100000, guid: 823b9ed571c20a4479fdd8e6e44e4386, type: 2}

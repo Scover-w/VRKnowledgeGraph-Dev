@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class GraphSimulation : MonoBehaviour
 {
-    public bool IsRunning { get { return _isRunning; } }
+    public bool IsRunningSimulation { get { return _isRunningSimulation; } }
 
     [SerializeField]
     float _tickDeltaTime = 0.016f;
@@ -21,7 +21,7 @@ public class GraphSimulation : MonoBehaviour
     Graph _graph;
 
 
-    bool _isRunning = false;
+    bool _isRunningSimulation = false;
     bool _threadMode = true;
     float _refreshDurationBackground;
 
@@ -47,19 +47,19 @@ public class GraphSimulation : MonoBehaviour
 
     public void ForceStop()
     {
-        _isRunning = false;
+        _isRunningSimulation = false;
 
     }
 
     IEnumerator ExpandingGraphForeground(Graph graph)
     {
-        _isRunning = true;
+        _isRunningSimulation = true;
         bool reachStopVelocity = false;
 
         float time = 0f;
         float speed = 1f / 5f;
 
-        while(_isRunning && !reachStopVelocity && time < 1f)
+        while(_isRunningSimulation && !reachStopVelocity && time < 1f)
         {
             graph.CalculatePositionsTickForeground();
             graph.RefreshTransformPositionsForeground();
@@ -69,18 +69,18 @@ public class GraphSimulation : MonoBehaviour
             time += Time.deltaTime * speed;
         }
 
-        _isRunning = false;
+        _isRunningSimulation = false;
     }
 
 
     IEnumerator RefreshingGraphPositionsBackground(Graph graph)
     {
-        _isRunning = true;
+        _isRunningSimulation = true;
 
         float time = 0f;
         float speed = 1f / 15f;
 
-        while (_isRunning && time < 1f)
+        while (_isRunningSimulation && time < 1f)
         {
             if(_newNodeSimuDatas != null)
             {
@@ -94,7 +94,7 @@ public class GraphSimulation : MonoBehaviour
             time += Time.deltaTime * speed;
         }
 
-        _isRunning = false;
+        _isRunningSimulation = false;
     }
 
     private void CalculatingPositionsBackground(object state)
@@ -104,9 +104,9 @@ public class GraphSimulation : MonoBehaviour
         var reachStopVelocity = false;
         bool firstTick = true;
         float timer = 0f;
-        _isRunning = true;
+        _isRunningSimulation = true;
 
-        while (_isRunning && !reachStopVelocity)
+        while (_isRunningSimulation && !reachStopVelocity)
         {
             DebugChrono.Instance.Start("tickGRaph");
             reachStopVelocity = CalculateNodeSimuData(nodgesSimuDatas);
@@ -153,22 +153,22 @@ public class GraphSimulation : MonoBehaviour
 
         if (nodesSimuData.Count > 500)
         {
-            coulombDistance = config.BigSpringDistance;
-            springDistance = config.BigSpringDistance;
-            stopVelocity = config.BigStopVelocity;
+            coulombDistance = config.DenseSpringDistance;
+            springDistance = config.DenseSpringDistance;
+            stopVelocity = config.DenseStopVelocity;
         }
         else
         {
-            coulombDistance = config.CoulombDistance;
-            springDistance = config.SpringDistance;
-            stopVelocity = config.StopVelocity;
+            coulombDistance = config.LightCoulombDistance;
+            springDistance = config.LightSpringDistance;
+            stopVelocity = config.LightStopVelocity;
         }
 
-        float coulombForce = config.CoulombForce;
-        float springForce = config.SpringForce;
-        float damping = config.Damping;
-        float maxVelocity = config.MaxVelocity;
-        float invMaxVelocity = 1f / config.MaxVelocity;
+        float coulombForce = config.LightCoulombForce;
+        float springForce = config.LightSpringForce;
+        float damping = config.LightDamping;
+        float maxVelocity = config.LightMaxVelocity;
+        float invMaxVelocity = 1f / config.LightMaxVelocity;
 
         float velocitySum = 0f;
 
@@ -252,26 +252,8 @@ public class GraphSimulation : MonoBehaviour
 
     private void OnDisable()
     {
-        _isRunning = false;
+        _isRunningSimulation = false;
     }
-
-    /*
-    Multiple tick per frame
-    float timeElapsed = 0f;
-        bool expandGraph = true;
-
-        while (expandGraph && timeElapsed < .005f)
-        {
-            var startTime = DateTime.Now;
-            expandGraph = CalculatePositions();
-            timeElapsed += (float)(DateTime.Now - startTime).TotalSeconds;
-        }
-
-        return expandGraph;
-
-
-
-    */
 }
 
 

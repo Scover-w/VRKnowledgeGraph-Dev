@@ -11,26 +11,32 @@ public class GraphConfiguration
 {
     [Header("Simulation Parameters")]
     [Space(5)]
-    [Header("Small Number Graph")]
-    public float SpringForce = 5f;
-    public float CoulombForce = .1f;
-    public float Damping = 1f;
-    public float SpringDistance = 1f;
-    public float CoulombDistance = 2f;
-    public float MaxVelocity = 10f;
-    public float StopVelocity = .19f;
+    [Header("Light Graph")]
+    public float LightSpringForce = 5f;
+    public float LightCoulombForce = .1f;
+    public float LightDamping = 1f;
+    public float LightSpringDistance = 1f;
+    public float LightCoulombDistance = 2f;
+    public float LightMaxVelocity = 10f;
+    public float LightStopVelocity = .19f;
 
-    [Header("Big Number Graph")]
-    public float BigSpringForce = 5f;
-    public float BigCoulombForce = .1f;
-    public float BigDamping = 1f;
-    public float BigSpringDistance = 15f;
-    public float BigCoulombDistance = 30f;
-    public float BigMaxVelocity = 10f;
-    public float BigStopVelocity = 2f;
+    [Header("Dense Graph")]
+    public float DenseSpringForce = 5f;
+    public float DenseCoulombForce = .1f;
+    public float DenseDamping = 1f;
+    public float DenseSpringDistance = 15f;
+    public float DenseCoulombDistance = 30f;
+    public float DenseMaxVelocity = 10f;
+    public float DenseStopVelocity = 2f;
 
     [Space(30)]
     [Header("Styling")]
+    [Space(5)]
+    [Header("Graph Size")]
+    public float SmallGraphSize = 1f;
+    public float BigGraphSize = 1f;
+
+
     [Space(5)]
     [Header("Node Size")]
     public float NodeSizeSmallGraph = 1f;

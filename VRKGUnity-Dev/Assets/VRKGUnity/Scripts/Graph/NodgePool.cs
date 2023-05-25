@@ -11,6 +11,9 @@ public class NodgePool : MonoBehaviour
 
 
     [SerializeField]
+    GraphManager _graphManager;
+
+    [SerializeField]
     GameObject _nameCanvasPf;
 
     [SerializeField]
@@ -39,7 +42,9 @@ public class NodgePool : MonoBehaviour
             return;
         }
 
-        _parentGraphTf = new GameObject("ParentNodes").transform;
+        _parentGraphTf = new GameObject("Graph").transform;
+        _graphManager.GraphTf = _parentGraphTf;
+
         _poolGraphTf = new GameObject("Pool Graph").transform;
         CreateLabelNodgePool();
         CreateEdgePool();
@@ -104,6 +109,7 @@ public class NodgePool : MonoBehaviour
             lineRendererGo.transform.SetParent(_parentGraphTf);
 
             var lineRenderer = lineRendererGo.AddComponent<LineRenderer>();
+            lineRenderer.useWorldSpace = false;
             lineRenderer.positionCount = 2;
             lineRenderer.startWidth = 0.02f;
             lineRenderer.endWidth = 0.01f;

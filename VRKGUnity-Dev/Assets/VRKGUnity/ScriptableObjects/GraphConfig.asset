@@ -19,20 +19,22 @@ MonoBehaviour:
   EdgeMappingAColor: {r: 1, g: 1, b: 1, a: 1}
   EdgeMappingBColor: {r: 1, g: 1, b: 1, a: 1}
   _graphConfiguration:
-    SpringForce: 5
-    CoulombForce: 0.1
-    Damping: 1
-    SpringDistance: 1
-    CoulombDistance: 2
-    MaxVelocity: 10
-    StopVelocity: 0.19
-    BigSpringForce: 5
-    BigCoulombForce: 0.1
-    BigDamping: 1
-    BigSpringDistance: 15
-    BigCoulombDistance: 30
-    BigMaxVelocity: 10
-    BigStopVelocity: 2
+    LightSpringForce: 5
+    LightCoulombForce: 0.1
+    LightDamping: 1
+    LightSpringDistance: 1
+    LightCoulombDistance: 2
+    LightMaxVelocity: 10
+    LightStopVelocity: 0.19
+    DenseSpringForce: 5
+    DenseCoulombForce: 0.1
+    DenseDamping: 1
+    DenseSpringDistance: 15
+    DenseCoulombDistance: 30
+    DenseMaxVelocity: 10
+    DenseStopVelocity: 2
+    SmallGraphSize: 1
+    BigGraphSize: 2
     NodeSizeSmallGraph: 0.2
     NodeSizeBigGraph: 0.2
     NodeMinSizeSmallGraph: 0.8

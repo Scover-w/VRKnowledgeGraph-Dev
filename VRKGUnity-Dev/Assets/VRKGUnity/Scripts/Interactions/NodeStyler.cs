@@ -83,10 +83,13 @@ public class NodeStyler : MonoBehaviour
     }
 
 
-    public void StyleNode()
+    public void StyleNode(bool inSimulation)
     {
         StyleColor();
         StyleSize();
+
+        if(!inSimulation)
+            StylePosition();
     }
 
     public void StyleColor()
@@ -161,5 +164,12 @@ public class NodeStyler : MonoBehaviour
         scaleB = Mathf.Lerp(GraphConfiguration.NodeMinSizeBigGraph, GraphConfiguration.NodeMaxSizeBigGraph, scaleB);
 
         _tf.localScale = new Vector3(scaleB, scaleB, scaleB);
+    }
+
+    public void StylePosition()
+    {
+        float scalingFactor = GraphConfiguration.BigGraphSize;
+
+        _tf.localPosition = Node.Position * scalingFactor;
     }
 }

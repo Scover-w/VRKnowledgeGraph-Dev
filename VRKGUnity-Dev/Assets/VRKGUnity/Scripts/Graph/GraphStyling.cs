@@ -46,7 +46,7 @@ public class GraphStyling : MonoBehaviour
         foreach (var idAndNode in nodesDicId)
         {
             var node = idAndNode.Value;
-            node.NodeStyler.StyleNode();
+            node.NodeStyler.StyleNode(_graphManager.IsRunningSimulation);
         }
     }
 

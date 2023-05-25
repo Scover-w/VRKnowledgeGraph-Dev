@@ -12,6 +12,10 @@ public class GraphManager : MonoBehaviour
     public GraphConfiguration GraphConfiguration { get { return _graphConfiguration; } }
     public Graph Graph { get { return _graph; } }
 
+    public Transform GraphTf { private get;  set; }
+
+    public bool IsRunningSimulation { get { return _graphSimulation.IsRunningSimulation; } }
+
     [SerializeField]
     GraphSimulation _graphSimulation;
 
@@ -60,7 +64,7 @@ public class GraphManager : MonoBehaviour
             string queryString = _sparqlBuilder.Build();
             var nodges = await _nodgeCreator.RetreiveGraph(queryString, _graphConfiguration);
 
-            _graph = new Graph(this, _graphUI, _graphStyling, _graphConfiguration, nodges);
+            _graph = new Graph(this, _graphUI, _graphStyling, _graphConfiguration, nodges, GraphTf);
 
             _graphStyling.StyleGraphForFirstTime();
             _graph.CalculateMetrics();
@@ -84,7 +88,7 @@ public class GraphManager : MonoBehaviour
 
     public async void UpdateGraph(string query)
     {
-        if (_graphSimulation.IsRunning)
+        if (_graphSimulation.IsRunningSimulation)
             _graphSimulation.ForceStop();
 
         var nodges = await _nodgeCreator.RetreiveGraph(query, _graphConfiguration);
