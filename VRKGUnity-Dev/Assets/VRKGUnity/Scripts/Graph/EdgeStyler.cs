@@ -38,6 +38,8 @@ public class EdgeStyler : MonoBehaviour
 
     public void StyleEdge(bool inSimulation)
     {
+        _collider.enabled = GraphConfiguration.CanSelectEdges;
+
         StyleColor();
         StyleSize();
 
@@ -48,6 +50,8 @@ public class EdgeStyler : MonoBehaviour
     private void StyleColor()
     {
         var color = GraphConfiguration.EdgeColor;
+
+        color.a = GraphConfiguration.CanSelectEdges ? 1f : 0f;
         _lineRenderer.sharedMaterial.color = color; // TODO : Temporary solution
     }
 

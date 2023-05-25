@@ -62,6 +62,7 @@ public class Graph
     BidirectionalGraph<Node, Edge> _graphDatas;
 
     Node _selectedNode;
+    Edge _selectedEdge;
 
     Transform _tf;
 
@@ -696,6 +697,18 @@ public class Graph
     public bool IsInGraph(Transform nodeTf)
     {
         return _nodesDicTf.ContainsKey(nodeTf);
+    }
+
+
+    public void TrySelect(Transform nodgeTf)
+    {
+
+    }
+
+
+    public void SelectEdge(Transform edgeTf)
+    {
+
     }
 
     public void SelectNode(Transform nodeTf)

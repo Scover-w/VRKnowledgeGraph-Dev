@@ -165,6 +165,7 @@ public class GraphConfiguration
 
     public int SeedRandomPosition = 0;
     public bool ResetPositionNodeOnUpdate = true;
+    public bool CanSelectEdges = true;
 
     [HideInInspector]
     public GraphMetricType SelectedMetricTypeSize = GraphMetricType.None;

@@ -83,7 +83,9 @@ public class GameWindowNavigation : MonoBehaviour
         Ray ray = _cam.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if (!Physics.Raycast(ray, out hit, 100f, ~Layers.Node))
+        int layerMask = (1 << Layers.Node) | (1 << Layers.Edge);
+
+        if (!Physics.Raycast(ray, out hit, 100f, layerMask))
         {
             graph.SelectNode(null);
             return;

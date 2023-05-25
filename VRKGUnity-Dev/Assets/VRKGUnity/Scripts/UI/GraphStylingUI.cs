@@ -37,6 +37,7 @@ public class GraphStylingUI : MonoBehaviour
     [Header("Edge")]
     public Color EdgeColor;
     public float EdgeThickness;
+    public bool CanSelectEdges;
 
     [Header("SelectedMetrics")]
     public GraphMetricType SelectedMetricTypeSize = GraphMetricType.None;
@@ -63,6 +64,8 @@ public class GraphStylingUI : MonoBehaviour
 
         EdgeColor = _graphConfig.EdgeColor;
         EdgeThickness = _graphConfig.EdgeThicknessBigGraph;
+
+        CanSelectEdges = _graphConfig.CanSelectEdges;
     }
 
 
@@ -104,6 +107,8 @@ public class GraphStylingUI : MonoBehaviour
 
         _graphConfig.EdgeColor = EdgeColor;
         _graphConfig.EdgeThicknessBigGraph = EdgeThickness;
+
+        _graphConfig.CanSelectEdges = CanSelectEdges;
 
         UpdateGraph();
     }
