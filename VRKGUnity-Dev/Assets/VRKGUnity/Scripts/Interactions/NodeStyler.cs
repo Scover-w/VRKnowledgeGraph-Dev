@@ -120,8 +120,6 @@ public class NodeStyler : MonoBehaviour
         Material copyMaterial = new Material(_renderer.material);
         copyMaterial.color = Color.Lerp(GraphConfiguration.NodeMappingAColor, GraphConfiguration.NodeMappingBColor, value);
         _renderer.material = copyMaterial;
-
-        //_renderer.material.color = Color.Lerp(GraphConfiguration.EdgeMappingAColor, GraphConfiguration.EdgeMappingBColor, value);
     }
 
     public void StyleSize()

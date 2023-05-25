@@ -10,9 +10,9 @@ public class GraphStylingUI : MonoBehaviour
     [SerializeField]
     GraphStyling _graphStyling;
 
-
+    [Space(10)]
     [Header("/!\\ Values will be reset in play mode. \nUseless to change them in Edit Mode.\nChange the values in the SO")]
-    [Space(20)]
+    [Space(5)]
     [Header("Node Size")]
     [Range(0f, 1f)]
     public float NodeSize = .2f;

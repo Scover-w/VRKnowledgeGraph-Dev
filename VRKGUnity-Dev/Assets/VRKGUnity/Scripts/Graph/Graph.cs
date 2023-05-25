@@ -552,6 +552,8 @@ public class Graph
 
             if (cc < minCC)
                 minCC = cc;
+
+            node.AverageShortestPathLength = (node.AverageShortestPathLength - minASP) / (maxASP - minASP);
         }
 
         foreach (var idAndNodeSource in _nodesDicId)
