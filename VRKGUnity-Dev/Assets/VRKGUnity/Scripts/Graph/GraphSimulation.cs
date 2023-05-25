@@ -11,6 +11,9 @@ public class GraphSimulation : MonoBehaviour
     public bool IsRunningSimulation { get { return _isRunningSimulation; } }
 
     [SerializeField]
+    GraphManager _graphManager;
+
+    [SerializeField]
     float _tickDeltaTime = 0.016f;
 
     Dictionary<int, NodeSimuData> _nodeSimuDatas;
@@ -70,6 +73,7 @@ public class GraphSimulation : MonoBehaviour
         }
 
         _isRunningSimulation = false;
+        _graphManager.SimulationStopped();
     }
 
 
@@ -95,6 +99,8 @@ public class GraphSimulation : MonoBehaviour
         }
 
         _isRunningSimulation = false;
+
+        _graphManager.SimulationStopped();
     }
 
     private void CalculatingPositionsBackground(object state)

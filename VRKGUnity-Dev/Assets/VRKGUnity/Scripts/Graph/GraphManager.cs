@@ -101,4 +101,9 @@ public class GraphManager : MonoBehaviour
         _graph.CalculateMetrics();
         _graphSimulation.Run(_graph);
     }
+
+    public void SimulationStopped()
+    {
+        _graphStyling.SimulationStopped();
+    }
 }

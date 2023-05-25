@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Graphs;
 using UnityEngine;
 
 public class GraphStyling : MonoBehaviour
@@ -30,6 +31,18 @@ public class GraphStyling : MonoBehaviour
         {
             var node = idAndNode.Value;
             node.NodeStyler.StyleNodeForFirstTime();
+        }
+    }
+
+    public void SimulationStopped()
+    {
+        var graph = _graphManager.Graph;
+        var edgeDicId = graph.EdgesDicId;
+
+        foreach (var idAndEdge in edgeDicId)
+        {
+            var edge = idAndEdge.Value;
+            edge.EdgeStyler.SetColliderAfterEndSimu();
         }
     }
 

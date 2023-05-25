@@ -24,6 +24,12 @@ public class EdgeStyler : MonoBehaviour
     [SerializeField]
     Transform _tf;
 
+    [SerializeField]
+    CapsuleCollider _collider;
+
+    [SerializeField]
+    Transform _colliderTf;
+
 
     public void StyleEdge(bool inSimulation)
     {
@@ -46,13 +52,30 @@ public class EdgeStyler : MonoBehaviour
 
         _lineRenderer.startWidth = thickness;
         _lineRenderer.endWidth = thickness;
+
+        _collider.radius = thickness;
     }
 
     private void StylePosition()
     {
         float scalingFactor = GraphConfiguration.BigGraphSize;
 
-        _lineRenderer.SetPosition(0, Edge.Source.Position * scalingFactor);
-        _lineRenderer.SetPosition(1, Edge.Target.Position * scalingFactor);
+        var positionA = Edge.Source.Position * scalingFactor;
+        var positionB = Edge.Target.Position * scalingFactor;
+
+        _lineRenderer.SetPosition(0, positionA);
+        _lineRenderer.SetPosition(1, positionB);
+
+
+        _colliderTf.position = Vector3.Lerp(positionA, positionB, 0.5f);
+        _collider.height = (positionB - positionA).magnitude;
+
+        _colliderTf.LookAt(positionB);
+    }
+
+
+    public void SetColliderAfterEndSimu()
+    {
+        StylePosition();
     }
 }

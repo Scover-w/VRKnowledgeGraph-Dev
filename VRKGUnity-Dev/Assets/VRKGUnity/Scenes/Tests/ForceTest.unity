@@ -900,6 +900,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bab297ae37bb8445af935c88af069e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _graphManager: {fileID: 2173982012245349465}
   _tickDeltaTime: 0.016
 --- !u!4 &2173982012245349467
 Transform:
@@ -996,7 +997,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _graphManager: {fileID: 2173982012245349465}
-  LabelNodgePropagation: 1
 --- !u!114 &2173982013351330632
 MonoBehaviour:
   m_ObjectHideFlags: 0
