@@ -32,6 +32,14 @@ public class GraphStyling : MonoBehaviour
             var node = idAndNode.Value;
             node.NodeStyler.StyleNodeForFirstTime();
         }
+
+        var edgeDicId = graph.EdgesDicId;
+
+        foreach (var idAndEdge in edgeDicId)
+        {
+            var edge = idAndEdge.Value;
+            edge.EdgeStyler.StyleEdgeForFirstTime();
+        }
     }
 
     public void SimulationStopped()

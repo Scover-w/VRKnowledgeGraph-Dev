@@ -31,6 +31,11 @@ public class EdgeStyler : MonoBehaviour
     Transform _colliderTf;
 
 
+    public void StyleEdgeForFirstTime()
+    {
+        StyleEdge(true);
+    }
+
     public void StyleEdge(bool inSimulation)
     {
         StyleColor();
