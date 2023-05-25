@@ -24,6 +24,7 @@ public class GraphStyling : MonoBehaviour
         var nodesDicId = graph.NodesDicId;
 
         NodeStyler.GraphConfiguration = _graphConfiguration;
+        EdgeStyler.GraphConfiguration = _graphConfiguration;
 
         foreach (var idAndNode in nodesDicId)
         {
@@ -42,13 +43,22 @@ public class GraphStyling : MonoBehaviour
         var nodesDicId = graph.NodesDicId;
 
         NodeStyler.GraphConfiguration = _graphConfiguration;
+        EdgeStyler.GraphConfiguration = _graphConfiguration;
+
+        bool isRunningSim = _graphManager.IsRunningSimulation;
 
         foreach (var idAndNode in nodesDicId)
         {
             var node = idAndNode.Value;
-            node.NodeStyler.StyleNode(_graphManager.IsRunningSimulation);
+            node.NodeStyler.StyleNode(isRunningSim);
+        }
+
+        var edgeDicId = graph.EdgesDicId;
+
+        foreach(var idAndEdge in edgeDicId)
+        {
+            var edge = idAndEdge.Value;
+            edge.EdgeStyler.StyleEdge(isRunningSim);
         }
     }
-
-    // TODO : Animate the color change
 }

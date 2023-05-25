@@ -14,7 +14,6 @@ public class GraphStylingUI : MonoBehaviour
     [Header("/!\\ Values will be reset in play mode. \nUseless to change them in Edit Mode.\nChange the values in the SO")]
     [Space(5)]
     [Header("Graph Size")]
-    [Space(5)]
     [Range(.1f,5f)]
     public float GraphSize = 1f;
 
@@ -34,6 +33,10 @@ public class GraphStylingUI : MonoBehaviour
 
     public Color NodeMappingAColor;
     public Color NodeMappingBColor;
+
+    [Header("Edge")]
+    public Color EdgeColor;
+    public float EdgeThickness;
 
     [Header("SelectedMetrics")]
     public GraphMetricType SelectedMetricTypeSize = GraphMetricType.None;
@@ -57,6 +60,9 @@ public class GraphStylingUI : MonoBehaviour
         SelectedMetricTypeSize = _graphConfig.SelectedMetricTypeSize;
 
         GraphSize = _graphConfig.BigGraphSize;
+
+        EdgeColor = _graphConfig.EdgeColor;
+        EdgeThickness = _graphConfig.EdgeThicknessBigGraph;
     }
 
 
@@ -95,6 +101,9 @@ public class GraphStylingUI : MonoBehaviour
         _graphConfig.SelectedMetricTypeSize = SelectedMetricTypeSize;
 
         _graphConfig.BigGraphSize = GraphSize;
+
+        _graphConfig.EdgeColor = EdgeColor;
+        _graphConfig.EdgeThicknessBigGraph = EdgeThickness;
 
         UpdateGraph();
     }

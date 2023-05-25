@@ -30,6 +30,7 @@ public class Graph
     public bool HasASelectedNode { get { return _selectedNode != null; } }
 
     public IReadOnlyDictionary<int, Node> NodesDicId => _nodesDicId;
+    public IReadOnlyDictionary<int, Edge> EdgesDicId => _edgesDicId;
 
     public GraphConfiguration Configuration 
     {
@@ -116,9 +117,6 @@ public class Graph
         node.NodeStyler = nodeStyler;
         nodeStyler.Node = node;
 
-
-
-
         var nodeTf = nodeStyler.Tf;
         nodeTf.name = "Node " + node.GetName();
         node.Tf = nodeTf;
@@ -138,11 +136,14 @@ public class Graph
 
     private void SetupEdge(Edge edge)
     {
-        var line = NodgePool.Instance.GetEdge();
-        line.gameObject.name = "Edge " + edge.Value.ToString();
-        edge.Line = line;
+        var edgeStyler = NodgePool.Instance.GetEdgeStyler();
+        edgeStyler.Edge = edge;
 
-        _edgesDicTf.Add(line.transform, edge);
+        edgeStyler.gameObject.name = "Edge " + edge.Value.ToString();
+        edge.Line = edgeStyler.LineRenderer;
+        edge.EdgeStyler = edgeStyler;
+
+        _edgesDicTf.Add(edgeStyler.Tf, edge);
     }
 
     public async Task UpdateNodges(Nodges nodges)
@@ -224,7 +225,7 @@ public class Graph
         foreach (var idAndEdge in _edgesDicId)
         {
             var edge = idAndEdge.Value;
-            nodgePool.Release(edge.Line);
+            nodgePool.Release(edge.EdgeStyler);
             edge.CleanFromNodes(); // Clean unused edge from staying Nodes
 
         }

@@ -34,7 +34,7 @@ MonoBehaviour:
     DenseMaxVelocity: 10
     DenseStopVelocity: 2
     SmallGraphSize: 1
-    BigGraphSize: 2
+    BigGraphSize: 2.43
     NodeSizeSmallGraph: 0.2
     NodeSizeBigGraph: 0.2
     NodeMinSizeSmallGraph: 0.8

@@ -19,6 +19,7 @@ public class Edge : IEdge<Node>
     public Node Target { get; }
 
     public LineRenderer Line;
+    public EdgeStyler EdgeStyler;
 
     private bool _activeSelf;
 

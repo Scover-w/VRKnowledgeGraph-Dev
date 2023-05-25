@@ -41,6 +41,7 @@ public class NodeStyler : MonoBehaviour
         _renderer.sharedMaterial = _defaultMat;
     }
 
+    #region INTERACTION
     public void OnEnterHover(HoverEnterEventArgs args)
     {
         _isHovered = true;
@@ -75,6 +76,10 @@ public class NodeStyler : MonoBehaviour
             _renderer.sharedMaterial = _defaultMat;
     }
 
+    #endregion
+
+
+    #region STYLING
     public void StyleNodeForFirstTime()
     {
         _renderer.material.color = GraphConfiguration.NodeColor;
@@ -92,7 +97,7 @@ public class NodeStyler : MonoBehaviour
             StylePosition();
     }
 
-    public void StyleColor()
+    private void StyleColor()
     {
         var selectedMetricType = GraphConfiguration.SelectedMetricTypeColor;
         if (selectedMetricType == GraphMetricType.None)
@@ -129,7 +134,7 @@ public class NodeStyler : MonoBehaviour
         _renderer.SetPropertyBlock(_propertyBlock);
     }
 
-    public void StyleSize()
+    private void StyleSize()
     {
         var selectedMetricType = GraphConfiguration.SelectedMetricTypeSize;
 
@@ -166,10 +171,11 @@ public class NodeStyler : MonoBehaviour
         _tf.localScale = new Vector3(scaleB, scaleB, scaleB);
     }
 
-    public void StylePosition()
+    private void StylePosition()
     {
         float scalingFactor = GraphConfiguration.BigGraphSize;
 
         _tf.localPosition = Node.Position * scalingFactor;
     }
+    #endregion
 }

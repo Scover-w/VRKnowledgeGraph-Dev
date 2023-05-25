@@ -25,10 +25,6 @@ public class NodgeCreator : MonoBehaviour
 
     bool _isFirstRetrieval = true;
 
-    [Range(1,10)]
-    public int LabelNodgePropagation = 1;
-
-
     HashSet<string> _propertiesNameToMerge;
 
     private void Start()

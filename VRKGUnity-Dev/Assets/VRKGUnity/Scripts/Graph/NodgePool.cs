@@ -20,11 +20,14 @@ public class NodgePool : MonoBehaviour
     GameObject _nodePf;
 
     [SerializeField]
+    GameObject _edgePf;
+
+    [SerializeField]
     Material _lineMat;
 
     ObjectPool<LabelNodgeUI> _labelNodgeUIPool;
     ObjectPool<NodeStyler> _nodePool;
-    ObjectPool<LineRenderer> _edgePool;
+    ObjectPool<EdgeStyler> _edgePool;
     static NodgePool _instance;
 
     Transform _parentGraphTf;
@@ -103,27 +106,20 @@ public class NodgePool : MonoBehaviour
 
     private void CreateEdgePool()
     {
-        _edgePool = new ObjectPool<LineRenderer>(() =>
+        _edgePool = new ObjectPool<EdgeStyler>(() =>
         {
-            var lineRendererGo = new GameObject();
-            lineRendererGo.transform.SetParent(_parentGraphTf);
-
-            var lineRenderer = lineRendererGo.AddComponent<LineRenderer>();
-            lineRenderer.useWorldSpace = false;
-            lineRenderer.positionCount = 2;
-            lineRenderer.startWidth = 0.02f;
-            lineRenderer.endWidth = 0.01f;
-            lineRenderer.material = _lineMat;
-            lineRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
-            return lineRenderer;
+            var edgeTf = Instantiate(_edgePf).transform;
+            var edgeStyler = edgeTf.GetComponent<EdgeStyler>();
+            edgeTf.SetParent(_parentGraphTf);
+            return edgeStyler;
 
         }, lineRenderer =>
         {
-            lineRenderer.enabled = true;
+            lineRenderer.gameObject.SetActive(true);
             lineRenderer.transform.SetParent(_parentGraphTf);
         }, lineRenderer =>
         {
-            lineRenderer.enabled = false;
+            lineRenderer.gameObject.SetActive(false);
             lineRenderer.transform.SetParent(_poolGraphTf);
         }, lineRenderer =>
         {
@@ -141,7 +137,7 @@ public class NodgePool : MonoBehaviour
         return _nodePool.Get();
     }
 
-    public LineRenderer GetEdge()
+    public EdgeStyler GetEdgeStyler()
     {
         return _edgePool.Get();
     }
@@ -154,9 +150,9 @@ public class NodgePool : MonoBehaviour
     {
         _nodePool.Release(nodeStyler);
     }
-    public void Release(LineRenderer line)
+    public void Release(EdgeStyler edgeStyler)
     {
-        _edgePool.Release(line);
+        _edgePool.Release(edgeStyler);
     }
 
 }
