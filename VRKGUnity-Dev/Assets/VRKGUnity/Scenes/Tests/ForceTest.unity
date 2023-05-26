@@ -799,7 +799,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _user: {fileID: 2173982013351330632}
-  _nodeInfoUI: {fileID: 6481891651906506461}
+  _nodgeInfoUI: {fileID: 6481891651906506461}
 --- !u!4 &2173982011965867149
 Transform:
   m_ObjectHideFlags: 0
@@ -850,6 +850,7 @@ MonoBehaviour:
   NodeMappingBColor: {r: 0, g: 0, b: 0, a: 0}
   EdgeColor: {r: 0, g: 0, b: 0, a: 0}
   EdgeThickness: 0
+  CanSelectEdges: 0
   SelectedMetricTypeSize: 0
   SelectedMetricTypeColor: 0
 --- !u!1 &2173982012245349464
@@ -2281,7 +2282,7 @@ MonoBehaviour:
   _canvasGo: {fileID: 6481891651736769925}
   _typeTxt: {fileID: 6481891650874176891}
   _valueTxt: {fileID: 6481891651650409658}
-  _nbEdgeTxt: {fileID: 6481891650789082807}
+  _nbEdgeOrNameNodesTxt: {fileID: 6481891650789082807}
 --- !u!1 &6481891652265083756
 GameObject:
   m_ObjectHideFlags: 0

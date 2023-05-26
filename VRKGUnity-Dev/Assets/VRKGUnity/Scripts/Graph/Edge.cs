@@ -18,6 +18,7 @@ public class Edge : IEdge<Node>
     public Node Source { get; }
     public Node Target { get; }
 
+    public Transform Tf;
     public LineRenderer Line;
     public EdgeStyler EdgeStyler;
 

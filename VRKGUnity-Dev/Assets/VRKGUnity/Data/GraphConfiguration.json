@@ -34,7 +34,7 @@
   "LabelNodgePropagation": 1,
   "SeedRandomPosition": 0,
   "ResetPositionNodeOnUpdate": true,
-  "CanSelectEdges": true,
+  "CanSelectEdges": false,
   "SelectedMetricTypeSize": 0,
   "SelectedMetricTypeColor": 0
 }

@@ -8,13 +8,17 @@ public class GraphUI : MonoBehaviour
     User _user;
 
     [SerializeField]
-    NodeInfoUI _nodeInfoUI;
-
+    NodgeInfoUI _nodgeInfoUI;
 
 
     public void DisplayInfoNode(Node node)
     {
-        _nodeInfoUI.DisplayInfoNode(node);
+        _nodgeInfoUI.DisplayInfoNode(node);
+    }
+
+    public void DisplayInfoEdge(Edge edge)
+    {
+        _nodgeInfoUI.DisplayInfoEdge(edge);
     }
 
     public void HideSelectedNode()

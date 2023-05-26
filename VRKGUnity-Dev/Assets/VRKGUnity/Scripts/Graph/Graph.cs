@@ -28,6 +28,7 @@ public class Graph
     public Node SelectedNode { get { return _selectedNode; } }
 
     public bool HasASelectedNode { get { return _selectedNode != null; } }
+    public bool HasASelectedEdge { get { return _selectedEdge != null; } }
 
     public IReadOnlyDictionary<int, Node> NodesDicId => _nodesDicId;
     public IReadOnlyDictionary<int, Edge> EdgesDicId => _edgesDicId;
@@ -143,8 +144,9 @@ public class Graph
         edgeStyler.gameObject.name = "Edge " + edge.Value.ToString();
         edge.Line = edgeStyler.LineRenderer;
         edge.EdgeStyler = edgeStyler;
+        edge.Tf= edgeStyler.ColliderTf;
 
-        _edgesDicTf.Add(edgeStyler.Tf, edge);
+        _edgesDicTf.Add(edgeStyler.ColliderTf, edge);
     }
 
     public async Task UpdateNodges(Nodges nodges)
@@ -700,22 +702,65 @@ public class Graph
     }
 
 
-    public void TrySelect(Transform nodgeTf)
+    public void TryClearSelection()
     {
-
+        TryClearSelectedNode();
+        TryClearSelectedEdge();
     }
 
 
     public void SelectEdge(Transform edgeTf)
     {
+        if (_selectedEdge != null && edgeTf == _selectedEdge.Tf)
+            return;
 
+        if (!_edgesDicTf.TryGetValue(edgeTf, out Edge edge))
+        {
+            Debug.LogError("Transform not linked to a edge");
+            TryClearSelectedEdge();
+            return;
+        }
+
+        TryClearSelectedNode();
+
+        ReleaseLabelNodges();
+
+        _selectedEdge = edge;
+        _graphUI.DisplayInfoEdge(edge);
+
+        PropagateLabelNodge(edge, _graphConfiguration.LabelNodgePropagation, new HashSet<Node>(), new HashSet<Edge>());
+        Selection.activeObject = edgeTf;
+    }
+
+
+    public void SelectNodeTemp(Transform nodeTf)
+    {
+        if (_selectedNode != null && nodeTf == _selectedNode.Tf)
+            return;
+
+        if (!_nodesDicTf.TryGetValue(nodeTf, out Node node))
+        {
+            Debug.LogError("Transform not linked to a node");
+            TryClearSelectedNode();
+            return;
+        }
+
+        TryClearSelectedEdge();
+
+        ReleaseLabelNodges();
+
+        _selectedNode = node;
+        _graphUI.DisplayInfoNode(_selectedNode);
+
+        PropagateLabelNodge(_selectedNode, _graphConfiguration.LabelNodgePropagation, new HashSet<Node>(), new HashSet<Edge>());
+        Selection.activeObject = nodeTf;
     }
 
     public void SelectNode(Transform nodeTf)
     {
         if (nodeTf == null)
         {
-            ClearSelectedNode();
+            TryClearSelectedNode();
             return;
         }
 
@@ -725,7 +770,7 @@ public class Graph
         if (!_nodesDicTf.TryGetValue(nodeTf, out Node node))
         {
             Debug.LogError("Transform not linked to a node");
-            ClearSelectedNode();
+            TryClearSelectedNode();
             return;
         }
 
@@ -739,7 +784,7 @@ public class Graph
         Selection.activeObject = nodeTf;
     }
 
-    public void ClearSelectedNode()
+    public void TryClearSelectedNode()
     {
         if (!HasASelectedNode)
             return;
@@ -748,6 +793,17 @@ public class Graph
         _graphUI.DisplayInfoNode(null);
 
         _selectedNode = null;
+    }
+
+    public void TryClearSelectedEdge()
+    {
+        if (!HasASelectedEdge)
+            return;
+
+        ReleaseLabelNodges();
+        _graphUI.DisplayInfoEdge(null);
+
+        _selectedEdge = null;
     }
 
     private void PropagateLabelNodge(Node node, int propagationValue, HashSet<Node> nodesLabeled, HashSet<Edge> edgesLabeled)
@@ -795,4 +851,60 @@ public class Graph
             }
         }
     }
+
+
+    private void PropagateLabelNodge(Edge edge, int propagationValue, HashSet<Node> nodesLabeled, HashSet<Edge> edgesLabeled)
+    {
+        edgesLabeled.Add(edge);
+
+        var labelNodge = NodgePool.Instance.GetLabelNodge();
+        labelNodge.SetFollow(edge.Source.Tf, edge.Target.Tf);
+
+        labelNodge.Text = edge.Value;
+        _labelNodgesUI.Add(labelNodge);
+
+        propagationValue--;
+
+        // if comes from source, next is targetNode, inverse
+        for (int i = 0; i < 2; i++)
+        {
+            var node = (i == 0) ? edge.Source : edge.Target;
+
+
+            if (nodesLabeled.Contains(node))
+                continue;
+
+            nodesLabeled.Add(node);
+
+            labelNodge = NodgePool.Instance.GetLabelNodge();
+            labelNodge.SetFollow(node.Tf);
+            var name = node.GetName();
+            labelNodge.Text = (name != null) ? name : node.Value;
+            _labelNodgesUI.Add(labelNodge);
+
+            if (propagationValue == 0)
+                continue;
+
+
+
+
+            var nextedges = (i == 0) ? node.EdgeTarget : node.EdgeSource;
+
+            int nbEdge = nextedges.Count;
+
+
+            for (int j = 0; j < nbEdge; j++)
+            {
+                var nextEdge = nextedges[j];
+
+                if (edgesLabeled.Contains(nextEdge))
+                    continue;
+
+                PropagateLabelNodge(nextEdge, propagationValue, nodesLabeled, edgesLabeled);
+            }
+        }
+    }
+
+
+
 }

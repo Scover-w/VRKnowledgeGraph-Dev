@@ -5,6 +5,7 @@ using UnityEngine;
 public class EdgeStyler : MonoBehaviour
 {
     public Transform Tf { get { return _tf; } }
+    public Transform ColliderTf { get { return _colliderTf; } }
 
     public Edge Edge { get; set; }
 

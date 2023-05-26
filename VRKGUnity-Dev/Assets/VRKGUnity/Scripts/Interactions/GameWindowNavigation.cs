@@ -87,10 +87,13 @@ public class GameWindowNavigation : MonoBehaviour
 
         if (!Physics.Raycast(ray, out hit, 100f, layerMask))
         {
-            graph.SelectNode(null);
+            graph.TryClearSelection();
             return;
         }
 
-        graph.SelectNode(hit.collider.transform);
+        if (hit.transform.gameObject.layer == Layers.Node)
+            graph.SelectNodeTemp(hit.collider.transform);
+        else
+            graph.SelectEdge(hit.collider.transform);
     }
 }
