@@ -476,6 +476,8 @@ public class Graph
         float maxASP = 0;
         float minASP = float.MaxValue;
 
+        UndirectedBidirectionalGraph<Node, Edge> undirectedGraphDatas = new(_graphDatas);
+
         foreach (var idAndNodeSource in _nodesDicId)
         {
             var rootNode = idAndNodeSource.Value;
@@ -483,7 +485,7 @@ public class Graph
             // ShortestPath
             double totalPathLength = 0;
             int reachableVertices = 0;
-            TryFunc<Node, IEnumerable<Edge>> tryGetPaths = _graphDatas.ShortestPathsDijkstra(edgeCost, rootNode);
+            TryFunc<Node, IEnumerable<Edge>> tryGetPaths = undirectedGraphDatas.ShortestPathsDijkstra(edgeCost, rootNode);
 
             
             foreach (var idAndNodeTarget in _nodesDicId)
@@ -702,6 +704,7 @@ public class Graph
     }
 
 
+    #region SELECTION
     public void TryClearSelection()
     {
         TryClearSelectedNode();
@@ -905,6 +908,6 @@ public class Graph
         }
     }
 
-
+    #endregion
 
 }

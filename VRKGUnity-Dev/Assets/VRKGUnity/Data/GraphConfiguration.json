@@ -26,8 +26,8 @@
   "EdgeThicknessSmallGraph": 1.0,
   "EdgeThicknessBigGraph": 0.02,
   "NodeColor_": "168, 168, 168",
-  "NodeMappingAColor_": "204, 177, 0",
-  "NodeMappingBColor_": "66, 183, 0",
+  "NodeMappingAColor_": "0, 255, 71",
+  "NodeMappingBColor_": "183, 0, 31",
   "EdgeColor_": "255, 255, 255",
   "EdgeMappingAColor_": "255, 255, 255",
   "EdgeMappingBColor_": "255, 255, 255",
@@ -36,5 +36,5 @@
   "ResetPositionNodeOnUpdate": true,
   "CanSelectEdges": false,
   "SelectedMetricTypeSize": 0,
-  "SelectedMetricTypeColor": 0
+  "SelectedMetricTypeColor": 1
 }
