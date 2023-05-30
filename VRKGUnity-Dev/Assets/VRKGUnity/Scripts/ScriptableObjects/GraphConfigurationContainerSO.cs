@@ -11,6 +11,13 @@ public class GraphConfigurationContainerSO : ScriptableObject
     [Space(20)]
     public GraphConfiguration _graphConfiguration;
 
+    public Color NodeColor = Color.white;
+    public Color EdgeColor = Color.white;
+
+    public Color NodeColorA = Color.white;
+    public Color NodeColorB = Color.white;
+    public Color NodeColorC = Color.white;
+
     private async void Awake()
     {
         Debug.LogWarning("so tamere awake");
@@ -74,6 +81,12 @@ public class GraphConfigurationContainerSO : ScriptableObject
 
     private async void OnValidate()
     {
+        _graphConfiguration.EdgeColor = EdgeColor;
+        _graphConfiguration.NodeColor = NodeColor;
+
+        _graphConfiguration.NodeColorMapping.ColorA = NodeColorA;
+        _graphConfiguration.NodeColorMapping.ColorB = NodeColorB;
+        _graphConfiguration.NodeColorMapping.ColorC = NodeColorC;
         await _graphConfiguration.Save();
     }
 }

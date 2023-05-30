@@ -91,7 +91,6 @@ public class GraphConfiguration
     [JsonProperty("NodeColor_")]
     private System.Drawing.Color _nodeColor = System.Drawing.Color.White;
 
-    [HideInInspector]
     public ColorLerpMapper NodeColorMapping;
 
 
