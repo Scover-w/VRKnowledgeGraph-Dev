@@ -33,6 +33,14 @@ public class GraphStylingUI : MonoBehaviour
 
     public Color NodeMappingAColor;
     public Color NodeMappingBColor;
+    public Color NodeMappingCColor;
+
+    [Range(0f,1f)]
+    public float BoundaryColorA;
+    [Range(0f,1f)]
+    public float BoundaryColorB;
+    [Range(0f, 1f)]
+    public float BoundaryColorC;
 
     [Header("Edge")]
     public Color EdgeColor;
@@ -54,10 +62,17 @@ public class GraphStylingUI : MonoBehaviour
         NodeMinSize = _graphConfig.NodeMinSizeBigGraph;
 
         NodeColor = _graphConfig.NodeColor;
-        NodeMappingAColor = _graphConfig.NodeMappingAColor;
-        NodeMappingBColor = _graphConfig.NodeMappingBColor;
 
-        SelectedMetricTypeColor = _graphConfig.SelectedMetricTypeColor;
+        var colorLerpMapper = _graphConfig.NodeColorMapping;
+        NodeMappingAColor = colorLerpMapper.ColorA;
+        NodeMappingBColor = colorLerpMapper.ColorB;
+        NodeMappingCColor = colorLerpMapper.ColorC;
+
+        BoundaryColorA = colorLerpMapper.BoundaryColorA;
+        BoundaryColorB = colorLerpMapper.BoundaryColorB;
+        BoundaryColorC = colorLerpMapper.BoundaryColorC;
+
+    SelectedMetricTypeColor = _graphConfig.SelectedMetricTypeColor;
         SelectedMetricTypeSize = _graphConfig.SelectedMetricTypeSize;
 
         GraphSize = _graphConfig.BigGraphSize;
@@ -76,6 +91,7 @@ public class GraphStylingUI : MonoBehaviour
 
         _graphStyling.StyleGraph();
         _graphConfig.Save();
+
     }
 
     private void OnValidate()
@@ -97,8 +113,15 @@ public class GraphStylingUI : MonoBehaviour
         _graphConfig.NodeMinSizeBigGraph = NodeMinSize;
 
         _graphConfig.NodeColor = NodeColor;
-        _graphConfig.NodeMappingAColor = NodeMappingAColor;
-        _graphConfig.NodeMappingBColor = NodeMappingBColor;
+
+        var colorLerpMapper = _graphConfig.NodeColorMapping;
+        colorLerpMapper.ColorA = NodeMappingAColor;
+        colorLerpMapper.ColorB = NodeMappingBColor;
+        colorLerpMapper.ColorC = NodeMappingCColor;
+
+        colorLerpMapper.BoundaryColorA = BoundaryColorA;
+        colorLerpMapper.BoundaryColorB = BoundaryColorB;
+        colorLerpMapper.BoundaryColorC = BoundaryColorC;
 
         _graphConfig.SelectedMetricTypeColor = SelectedMetricTypeColor;
         _graphConfig.SelectedMetricTypeSize = SelectedMetricTypeSize;

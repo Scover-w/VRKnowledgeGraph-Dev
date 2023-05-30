@@ -43,6 +43,7 @@ public class GraphManager : MonoBehaviour
     {
         _dynamicFilterManager = new();
         _nodeUriRetriever = new();
+        await _graphConfigurationContainerSO.ForceLoad();
         _graphConfiguration = await _graphConfigurationContainerSO.GetGraphConfiguration();
 
         Invoke(nameof(CreateStartGraphAsync), 1f);

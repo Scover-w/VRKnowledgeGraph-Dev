@@ -7,31 +7,37 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "GraphConfig", menuName = "ScriptableObjects/GraphConfigurationContainerSO", order = 1)]
 public class GraphConfigurationContainerSO : ScriptableObject
 {
-    
-    [Tooltip("Goes in the graph configuration. It's just that UnityEngine.Color can't be Serialized.")]
-    [Header("Colors graph")]
-    [Space(5)]
-    public Color NodeColor = Color.white;
-
-    public Color NodeMappingAColor = Color.white;
-
-    public Color NodeMappingBColor = Color.white;
-
-    public Color EdgeColor = Color.white;
-
-    public Color EdgeMappingAColor = Color.white;
-
-    public Color EdgeMappingBColor = Color.white;
-
-    
-
     [SerializeField]
     [Space(20)]
-    GraphConfiguration _graphConfiguration;
+    public GraphConfiguration _graphConfiguration;
 
     private async void Awake()
     {
+        Debug.LogWarning("so tamere awake");
         _graphConfiguration = await GraphConfiguration.Load();
+    }
+
+    private void OnEnable()
+    {
+        Debug.LogWarning("so tamere OnEnable");
+
+        ForceLoad();
+    }
+
+    [ContextMenu("ForceLoad")]
+    public async Task ForceLoad()
+    {
+        Debug.LogWarning("so tamere ForceLoad");
+
+        try
+        {
+            _graphConfiguration = await GraphConfiguration.Load();
+            Debug.Log(_graphConfiguration.NodeColorMapping.BoundaryColorA);
+        }
+        catch(Exception ex) 
+        {
+            Debug.LogError(ex);
+        }
     }
 
     public async void Save()
@@ -45,8 +51,20 @@ public class GraphConfigurationContainerSO : ScriptableObject
     }
 
 
-    public async Task<GraphConfiguration >GetGraphConfiguration()
+    public async Task<GraphConfiguration> GetGraphConfiguration()
     {
+        Debug.LogWarning("so tamere GetGraphConfiguration");
+
+#if UNITY_EDITOR
+        if (!Application.isPlaying)
+        {
+            _graphConfiguration = await GraphConfiguration.Load();
+            return _graphConfiguration;
+        }
+#endif
+
+
+
         if (_graphConfiguration == null)
             _graphConfiguration = await GraphConfiguration.Load();
 
@@ -56,13 +74,6 @@ public class GraphConfigurationContainerSO : ScriptableObject
 
     private async void OnValidate()
     {
-        _graphConfiguration.NodeColor = NodeColor;  
-        _graphConfiguration.NodeMappingAColor = NodeMappingAColor;
-        _graphConfiguration.NodeMappingBColor = NodeMappingBColor;
-        _graphConfiguration.EdgeColor = EdgeColor;
-        _graphConfiguration.EdgeMappingAColor = EdgeMappingAColor;
-        _graphConfiguration.EdgeMappingBColor = EdgeMappingBColor;
-
         await _graphConfiguration.Save();
     }
 }

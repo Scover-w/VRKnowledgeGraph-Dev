@@ -12,12 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67bb12166fcfb6d4fa4c6cf4fdf48302, type: 3}
   m_Name: GraphConfig
   m_EditorClassIdentifier: 
-  NodeColor: {r: 0.6603774, g: 0.6603774, b: 0.6603774, a: 1}
-  NodeMappingAColor: {r: 0.8018868, g: 0.6949686, b: 0, a: 1}
-  NodeMappingBColor: {r: 0.25867555, g: 0.7169812, b: 0, a: 1}
-  EdgeColor: {r: 1, g: 1, b: 1, a: 1}
-  EdgeMappingAColor: {r: 1, g: 1, b: 1, a: 1}
-  EdgeMappingBColor: {r: 1, g: 1, b: 1, a: 1}
   _graphConfiguration:
     LightSpringForce: 5
     LightCoulombForce: 0.1
@@ -39,14 +33,15 @@ MonoBehaviour:
     NodeSizeBigGraph: 0.2
     NodeMinSizeSmallGraph: 0.8
     NodeMaxSizeSmallGraph: 0.8
-    NodeMinSizeBigGraph: 0.8
-    NodeMaxSizeBigGraph: 0.8
+    NodeMinSizeBigGraph: 0.14
+    NodeMaxSizeBigGraph: 0.448
     LabelSizeSmallGraph: 1
     LabelSizeBigGraph: 1
     EdgeThicknessSmallGraph: 1
-    EdgeThicknessBigGraph: 1
+    EdgeThicknessBigGraph: 0.02
     LabelNodgePropagation: 1
     SeedRandomPosition: 0
     ResetPositionNodeOnUpdate: 1
-    SelectedMetricTypeSize: 0
+    CanSelectEdges: 0
+    SelectedMetricTypeSize: 5
     SelectedMetricTypeColor: 0

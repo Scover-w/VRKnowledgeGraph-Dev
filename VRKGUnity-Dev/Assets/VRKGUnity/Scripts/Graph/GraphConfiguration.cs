@@ -74,32 +74,6 @@ public class GraphConfiguration
     }
 
     [JsonIgnore]
-    public Color NodeMappingAColor
-    {
-        get
-        {
-            return _nodeMappingAColor.ToUnityColor();
-        }
-        set
-        {
-            _nodeMappingAColor = value.ToSystemColor();
-        }
-    }
-
-    [JsonIgnore]
-    public Color NodeMappingBColor
-    {
-        get
-        {
-            return _nodeMappingBColor.ToUnityColor();
-        }
-        set
-        {
-            _nodeMappingBColor = value.ToSystemColor();
-        }
-    }
-
-    [JsonIgnore]
     public Color EdgeColor
     {
         get
@@ -112,51 +86,19 @@ public class GraphConfiguration
         }
     }
 
-    [JsonIgnore]
-    public Color EdgeMappingAColor
-    {
-        get
-        {
-            return _edgeMappingAColor.ToUnityColor();
-        }
-        set
-        {
-            _edgeMappingAColor = value.ToSystemColor();
-        }
-    }
-
-    [JsonIgnore]
-    public Color EdgeMappingBColor
-    {
-        get
-        {
-            return _edgeMappingBColor.ToUnityColor();
-        }
-        set
-        {
-            _edgeMappingBColor = value.ToSystemColor();
-        }
-    }
-
 
 
     [JsonProperty("NodeColor_")]
-    private System.Drawing.Color _nodeColor;
+    private System.Drawing.Color _nodeColor = System.Drawing.Color.White;
 
-    [JsonProperty("NodeMappingAColor_")]
-    private System.Drawing.Color _nodeMappingAColor = System.Drawing.Color.White;
+    [HideInInspector]
+    public ColorLerpMapper NodeColorMapping;
 
-    [JsonProperty("NodeMappingBColor_")]
-    private System.Drawing.Color _nodeMappingBColor = System.Drawing.Color.White;
 
     [JsonProperty("EdgeColor_")]
+    [SerializeField]
     private System.Drawing.Color _edgeColor = System.Drawing.Color.White;
 
-    [JsonProperty("EdgeMappingAColor_")]
-    private System.Drawing.Color _edgeMappingAColor = System.Drawing.Color.White;
-
-    [JsonProperty("EdgeMappingBColor_")]
-    private System.Drawing.Color _edgeMappingBColor = System.Drawing.Color.White;
 
     [Space(30)]
     [Header("Miscelaneous")]
@@ -176,6 +118,7 @@ public class GraphConfiguration
 
     private static string _graphConfigPath;
 
+
     public async static Task<GraphConfiguration> Load()
     {
         SetPath();
@@ -183,8 +126,9 @@ public class GraphConfiguration
         if (File.Exists(_graphConfigPath))
         {
             string json = await File.ReadAllTextAsync(_graphConfigPath);
+            Debug.Log(json);
             var graphConfig = JsonConvert.DeserializeObject<GraphConfiguration>(json);
-
+            Debug.Log(graphConfig.NodeColorMapping.BoundaryColorA);
             return graphConfig;
         }
         
@@ -201,6 +145,7 @@ public class GraphConfiguration
         string json = JsonConvert.SerializeObject(this, Formatting.Indented);
         await File.WriteAllTextAsync(_graphConfigPath, json);
     }
+
 
     private static void SetPath()
     {
@@ -224,6 +169,7 @@ public enum GraphMetricType
     ClusteringCoefficient,
     Degree
 }
+
 
 // TODO: InterpolationType enum
 // Sigmoid, etc...

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -38,7 +39,9 @@ public class NodeStyler : MonoBehaviour
         _isHovered = false;
         _isSelected = false;
 
-        _renderer.sharedMaterial = _defaultMat;
+
+        _propertyBlock = new MaterialPropertyBlock();
+        _renderer.SetPropertyBlock(_propertyBlock);
     }
 
     #region INTERACTION
@@ -87,7 +90,6 @@ public class NodeStyler : MonoBehaviour
         _tf.localScale = new Vector3(scale, scale, scale);
     }
 
-
     public void StyleNode(bool inSimulation)
     {
         StyleColor();
@@ -102,7 +104,8 @@ public class NodeStyler : MonoBehaviour
         var selectedMetricType = GraphConfiguration.SelectedMetricTypeColor;
         if (selectedMetricType == GraphMetricType.None)
         {
-            _renderer.material.color = GraphConfiguration.NodeColor;
+            _propertyBlock.SetColor("_Color", GraphConfiguration.NodeColor);
+            _renderer.SetPropertyBlock(_propertyBlock);
             return;
         }
 
@@ -127,10 +130,8 @@ public class NodeStyler : MonoBehaviour
                 break;
         }
 
-        if(_propertyBlock == null)
-            _propertyBlock = new MaterialPropertyBlock();
 
-        _propertyBlock.SetColor("_Color", Color.Lerp(GraphConfiguration.NodeMappingAColor, GraphConfiguration.NodeMappingBColor, value));
+        _propertyBlock.SetColor("_Color", GraphConfiguration.NodeColorMapping.Lerp(value));
         _renderer.SetPropertyBlock(_propertyBlock);
     }
 
