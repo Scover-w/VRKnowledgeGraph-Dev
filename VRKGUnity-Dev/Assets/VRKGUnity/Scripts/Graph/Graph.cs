@@ -425,6 +425,8 @@ public class Graph
 
     public void RefreshTransformPositionsBackground(Dictionary<int, NodeSimuData> nodeSimuDatas)
     {
+
+        //DebugChrono.Instance.Start("RefreshTransformPositionsBackground");
         var megaScalingFactor = _graphConfiguration.MegaGraphSize;
         var miniScalingFactor = _graphConfiguration.MiniGraphSize;
 
@@ -439,28 +441,33 @@ public class Graph
             var newCalculatedPosition = idAnData.Value.Position;
             var absolutePosition = node.AbsolutePosition;
 
-           
             var lerpPosition = Vector3.Lerp(absolutePosition, newCalculatedPosition, .01f);
             var megaLerpPosition = Vector3.Lerp(megaTf.localPosition, newCalculatedPosition * megaScalingFactor, .01f);
             var miniLerpPosition = Vector3.Lerp(miniTf.localPosition, newCalculatedPosition * miniScalingFactor, .01f);
 
             node.AbsolutePosition = lerpPosition;
-            node.MegaTf.localPosition = megaLerpPosition;
-            node.MiniTf.localPosition = miniLerpPosition;
+            megaTf.localPosition = megaLerpPosition;
+            miniTf.localPosition = miniLerpPosition;
         }
 
         foreach (var idAndEdge in _edgesDicId)
         {
             var edge = idAndEdge.Value;
 
+            var absoluteSourcePos = edge.Source.AbsolutePosition;
+            var absoluteTargetPos = edge.Target.AbsolutePosition;
+
             var megaLine = edge.MegaLine;
-            megaLine.SetPosition(0, edge.Source.AbsolutePosition * megaScalingFactor);
-            megaLine.SetPosition(1, edge.Target.AbsolutePosition * megaScalingFactor);
+            megaLine.SetPosition(0, absoluteSourcePos * megaScalingFactor);
+            megaLine.SetPosition(1, absoluteTargetPos * megaScalingFactor);
 
             var miniLine = edge.MiniLine;
-            miniLine.SetPosition(0, edge.Source.AbsolutePosition * miniScalingFactor);
-            miniLine.SetPosition(1, edge.Target.AbsolutePosition * miniScalingFactor);
+            miniLine.SetPosition(0, absoluteSourcePos * miniScalingFactor);
+            miniLine.SetPosition(1, absoluteTargetPos * miniScalingFactor);
         }
+
+        //DebugChrono.Instance.Stop("RefreshTransformPositionsBackground");
+
     }
 
     #endregion
@@ -628,10 +635,10 @@ public class Graph
         foreach (var idAndNodeSource in _nodesDicId)
         {
             var node = idAndNodeSource.Value;
-            Debug.Log("----------------------");
-            Debug.Log(node.AverageShortestPathLength);
-            Debug.Log(node.BetweennessCentrality);
-            Debug.Log(node.ClosenessCentrality);
+            //Debug.Log("----------------------");
+            //Debug.Log(node.AverageShortestPathLength);
+            //Debug.Log(node.BetweennessCentrality);
+            //Debug.Log(node.ClosenessCentrality);
         }
 
 

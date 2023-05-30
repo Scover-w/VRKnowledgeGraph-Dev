@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 9177770796320079217}
   - component: {fileID: 6791077673428124150}
   - component: {fileID: 4619141745406792243}
+  - component: {fileID: 7832868374192515532}
   m_Layer: 6
   m_Name: SphereNodePf
   m_TagString: Untagged
@@ -96,7 +97,7 @@ SphereCollider:
   m_GameObject: {fileID: 3723498569382803225}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -130,9 +131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tf: {fileID: 1577208894705107027}
   _renderer: {fileID: 1247492717272893670}
-  _defaultMat: {fileID: 2100000, guid: ae87759b763c3524882537cb47b7a664, type: 2}
-  _hoveredMat: {fileID: 2100000, guid: a97578ef83d41544498ee03b71a4e559, type: 2}
-  _selectedMat: {fileID: 2100000, guid: fd488c3c3a26c464b82f650639417813, type: 2}
+  _outliner: {fileID: 7832868374192515532}
 --- !u!114 &4619141745406792243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,3 +262,21 @@ MonoBehaviour:
   m_OnDeactivate:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &7832868374192515532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3723498569382803225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a4693650b0ace8468ca5d33098b4de9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _outlineMode: 0
+  _outlineWidth: 4
+  _outlineFillMat: {fileID: 2100000, guid: 5fe802f253995254fb4e5b6873fb63f0, type: 2}
+  _outlineMaskMat: {fileID: 2100000, guid: d6f478ece75d69f43a09ff1d822898db, type: 2}
+  _selectedColor: {r: 0, g: 1, b: 0.032362938, a: 1}
+  _hoverColor: {r: 1, g: 0, b: 0, a: 1}

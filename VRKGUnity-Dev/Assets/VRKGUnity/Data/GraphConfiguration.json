@@ -15,8 +15,8 @@
   "DenseStopVelocity": 2.0,
   "MiniGraphSize": 0.1,
   "MegaGraphSize": 1.0,
-  "NodeSizeMiniGraph": 0.1,
-  "NodeSizeMegaGraph": 1.0,
+  "NodeSizeMiniGraph": 0.033,
+  "NodeSizeMegaGraph": 0.347,
   "NodeMinSizeMiniGraph": 0.08,
   "NodeMaxSizeMiniGraph": 0.08,
   "NodeMinSizeMegaGraph": 0.8,
@@ -39,6 +39,6 @@
   "SeedRandomPosition": 0,
   "ResetPositionNodeOnUpdate": true,
   "CanSelectEdges": false,
-  "SelectedMetricTypeSize": 5,
+  "SelectedMetricTypeSize": 0,
   "SelectedMetricTypeColor": 0
 }

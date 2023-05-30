@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.UIElements;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -22,13 +23,7 @@ public class NodeStyler : MonoBehaviour
     MeshRenderer _renderer;
 
     [SerializeField]
-    Material _defaultMat;
-
-    [SerializeField]
-    Material _hoveredMat;
-
-    [SerializeField]
-    Material _selectedMat;
+    Outliner _outliner;
 
     MaterialPropertyBlock _propertyBlock;
 
@@ -40,6 +35,7 @@ public class NodeStyler : MonoBehaviour
     {
         _isHovered = false;
         _isSelected = false;
+        _outliner.enabled = false;
 
 
         _propertyBlock = new MaterialPropertyBlock();
@@ -61,24 +57,19 @@ public class NodeStyler : MonoBehaviour
 
     public void OnSelectEnter(SelectEnterEventArgs args)
     {
-        _isHovered = true;
+        _isSelected = true;
         UpdateMaterial();
     }
 
     public void OnSelectExit(SelectExitEventArgs args)
     {
-        _isHovered = false;
+        _isSelected = false;
         UpdateMaterial();
     }
 
     private void UpdateMaterial()
     {
-        if(_isSelected)
-            _renderer.sharedMaterial = _selectedMat;
-        else if(_isHovered)
-            _renderer.sharedMaterial = _hoveredMat;
-        else
-            _renderer.sharedMaterial = _defaultMat;
+        _outliner.UpdateInteraction(_isHovered, _isSelected);
     }
 
     #endregion
@@ -197,6 +188,37 @@ public class NodeStyler : MonoBehaviour
                                                     : GraphConfiguration.MiniGraphSize;
 
         _tf.localPosition = Node.AbsolutePosition * scalingFactor;
+    }
+    #endregion
+
+
+    #region EDITOR
+    [ContextMenu("OnEnterHover")]
+    private void OnEnterHoverEditor()
+    {
+        HoverEnterEventArgs arg = new();
+        OnEnterHover(arg);
+    }
+
+    [ContextMenu("OnExitHover")]
+    private void OnExitHoverEditor()
+    {
+        HoverExitEventArgs arg = new();
+        OnExitHover(arg);
+    }
+
+    [ContextMenu("OnSelectEnter")]
+    private void OnSelectEnterEditor()
+    {
+        SelectEnterEventArgs arg = new();
+        OnSelectEnter(arg);
+    }
+
+    [ContextMenu("OnSelectExit")]
+    private void OnSelectExitEditor()
+    {
+        SelectExitEventArgs arg = new();
+        OnSelectExit(arg);
     }
     #endregion
 }
