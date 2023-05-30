@@ -39,9 +39,18 @@ MonoBehaviour:
     LabelSizeBigGraph: 1
     EdgeThicknessSmallGraph: 1
     EdgeThicknessBigGraph: 0.02
-    LabelNodgePropagation: 1
+    NodeColorMapping:
+      _boundaryColorA: 0
+      _boundaryColorB: 0.5
+      _boundaryColorC: 1
+    LabelNodgePropagation: 2
     SeedRandomPosition: 0
     ResetPositionNodeOnUpdate: 1
     CanSelectEdges: 0
     SelectedMetricTypeSize: 5
     SelectedMetricTypeColor: 0
+  NodeColor: {r: 0, g: 1, b: 0.9329295, a: 1}
+  EdgeColor: {r: 0.7264151, g: 0.7264151, b: 0.7264151, a: 1}
+  NodeColorA: {r: 1, g: 0, b: 0, a: 1}
+  NodeColorB: {r: 0, g: 1, b: 0, a: 1}
+  NodeColorC: {r: 0, g: 0, b: 1, a: 1}
