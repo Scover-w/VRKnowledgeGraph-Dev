@@ -15,17 +15,26 @@ public class GraphStylingUI : MonoBehaviour
     [Space(5)]
     [Header("Graph Size")]
     [Range(.1f,5f)]
-    public float GraphSize = 1f;
+    public float MegaGraphSize = 1f;
+    [Range(.1f,5f)]
+    public float MiniGraphSize = 1f;
 
     [Header("Node Size")]
     [Range(0f, 1f)]
-    public float NodeSize = .2f;
-
-
+    public float MegaNodeSize = .2f;
     [Range(0f, 1f)]
-    public float NodeMaxSize = .2f;
+    public float MiniNodeSize = .2f;
+
+    [Space(5)]
     [Range(0f, 1f)]
-    public float NodeMinSize = .2f;
+    public float MegaNodeMaxSize = .2f;
+    [Range(0f, 1f)]
+    public float MegaNodeMinSize = .2f;
+    [Space(5)]
+    [Range(0f, 1f)]
+    public float MiniNodeMaxSize = .2f;
+    [Range(0f, 1f)]
+    public float MiniNodeMinSize = .2f;
 
 
     [Header("Node Color")]
@@ -44,7 +53,11 @@ public class GraphStylingUI : MonoBehaviour
 
     [Header("Edge")]
     public Color EdgeColor;
-    public float EdgeThickness;
+
+    public float MegaEdgeThickness;
+    public float MiniEdgeThickness;
+
+
     public bool CanSelectEdges;
 
     [Header("SelectedMetrics")]
@@ -57,9 +70,15 @@ public class GraphStylingUI : MonoBehaviour
     {
         _graphConfig = await _graphConfigContainerSO.GetGraphConfiguration();
 
-        NodeSize = _graphConfig.NodeSizeBigGraph;
-        NodeMaxSize = _graphConfig.NodeMaxSizeBigGraph;
-        NodeMinSize = _graphConfig.NodeMinSizeBigGraph;
+        MegaNodeSize = _graphConfig.NodeSizeMegaGraph;
+        MiniNodeSize = _graphConfig.NodeSizeMiniGraph;
+
+
+        MegaNodeMaxSize = _graphConfig.NodeMaxSizeMegaGraph;
+        MegaNodeMinSize = _graphConfig.NodeMinSizeMegaGraph;
+
+        MiniNodeMaxSize = _graphConfig.NodeMaxSizeMiniGraph;
+        MiniNodeMinSize = _graphConfig.NodeMinSizeMiniGraph;
 
         NodeColor = _graphConfig.NodeColor;
 
@@ -72,13 +91,16 @@ public class GraphStylingUI : MonoBehaviour
         BoundaryColorB = colorLerpMapper.BoundaryColorB;
         BoundaryColorC = colorLerpMapper.BoundaryColorC;
 
-    SelectedMetricTypeColor = _graphConfig.SelectedMetricTypeColor;
+        SelectedMetricTypeColor = _graphConfig.SelectedMetricTypeColor;
         SelectedMetricTypeSize = _graphConfig.SelectedMetricTypeSize;
 
-        GraphSize = _graphConfig.BigGraphSize;
+        MegaGraphSize = _graphConfig.MegaGraphSize;
+        MiniGraphSize = _graphConfig.MiniGraphSize;
 
         EdgeColor = _graphConfig.EdgeColor;
-        EdgeThickness = _graphConfig.EdgeThicknessBigGraph;
+
+        MegaEdgeThickness = _graphConfig.EdgeThicknessMegaGraph;
+        MiniEdgeThickness = _graphConfig.EdgeThicknessMiniGraph;
 
         CanSelectEdges = _graphConfig.CanSelectEdges;
     }
@@ -102,15 +124,18 @@ public class GraphStylingUI : MonoBehaviour
         if (_graphConfig == null)
             return;
 
-        if (NodeMaxSize < NodeMinSize)
-            NodeMaxSize = NodeMinSize;
+        if (MegaNodeMaxSize < MegaNodeMinSize)
+            MegaNodeMaxSize = MegaNodeMinSize;
 
-        if(NodeMinSize > NodeMaxSize)
-            NodeMinSize = NodeMaxSize;
+        if(MegaNodeMinSize > MegaNodeMaxSize)
+            MegaNodeMinSize = MegaNodeMaxSize;
 
-        _graphConfig.NodeSizeBigGraph = NodeSize;
-        _graphConfig.NodeMaxSizeBigGraph = NodeMaxSize;
-        _graphConfig.NodeMinSizeBigGraph = NodeMinSize;
+        _graphConfig.NodeSizeMegaGraph = MegaNodeSize;
+        _graphConfig.NodeSizeMiniGraph = MiniNodeSize;
+
+
+        _graphConfig.NodeMaxSizeMegaGraph = MegaNodeMaxSize;
+        _graphConfig.NodeMinSizeMegaGraph = MegaNodeMinSize;
 
         _graphConfig.NodeColor = NodeColor;
 
@@ -126,10 +151,13 @@ public class GraphStylingUI : MonoBehaviour
         _graphConfig.SelectedMetricTypeColor = SelectedMetricTypeColor;
         _graphConfig.SelectedMetricTypeSize = SelectedMetricTypeSize;
 
-        _graphConfig.BigGraphSize = GraphSize;
+        _graphConfig.MegaGraphSize = MegaGraphSize;
+        _graphConfig.MiniGraphSize = MiniGraphSize;
 
         _graphConfig.EdgeColor = EdgeColor;
-        _graphConfig.EdgeThicknessBigGraph = EdgeThickness;
+
+        _graphConfig.EdgeThicknessMegaGraph = MegaEdgeThickness;
+        _graphConfig.EdgeThicknessMiniGraph = MiniEdgeThickness;
 
         _graphConfig.CanSelectEdges = CanSelectEdges;
 

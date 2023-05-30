@@ -30,7 +30,6 @@ public class NodgePool : MonoBehaviour
     ObjectPool<EdgeStyler> _edgePool;
     static NodgePool _instance;
 
-    Transform _parentGraphTf;
     Transform _poolGraphTf;
 
 
@@ -44,9 +43,6 @@ public class NodgePool : MonoBehaviour
             Destroy(this);
             return;
         }
-
-        _parentGraphTf = new GameObject("Graph").transform;
-        _graphManager.GraphTf = _parentGraphTf;
 
         _poolGraphTf = new GameObject("Pool Graph").transform;
         CreateLabelNodgePool();
@@ -62,12 +58,10 @@ public class NodgePool : MonoBehaviour
             var txtLabel = canvas.GetComponentInChildren<TMP_Text>();
             var tf = canvas.transform;
             var labelNodgeUI = new LabelNodgeUI(tf, txtLabel);
-            tf.SetParent(_parentGraphTf);
             return labelNodgeUI;
         }, labelNode =>
         {
             labelNode.SetActive(true);
-            labelNode.Transform.SetParent(_parentGraphTf);
         }, labelNode =>
         {
             labelNode.SetActive(false);
@@ -86,14 +80,12 @@ public class NodgePool : MonoBehaviour
         {
             var nodeSphereTf = Instantiate(_nodePf).transform;
             var nodeStyler = nodeSphereTf.GetComponent<NodeStyler>();
-            nodeSphereTf.SetParent(_parentGraphTf);
             nodeSphereTf.localScale = new Vector3(.2f, .2f, .2f);
             return nodeStyler;
 
         }, nodeStyler =>
         {
             nodeStyler.gameObject.SetActive(true);
-            nodeStyler.Tf.SetParent(_parentGraphTf);
         }, nodeStyler =>
         {
             nodeStyler.gameObject.SetActive(false);
@@ -110,13 +102,11 @@ public class NodgePool : MonoBehaviour
         {
             var edgeTf = Instantiate(_edgePf).transform;
             var edgeStyler = edgeTf.GetComponent<EdgeStyler>();
-            edgeTf.SetParent(_parentGraphTf);
             return edgeStyler;
 
         }, lineRenderer =>
         {
             lineRenderer.gameObject.SetActive(true);
-            lineRenderer.transform.SetParent(_parentGraphTf);
         }, lineRenderer =>
         {
             lineRenderer.gameObject.SetActive(false);

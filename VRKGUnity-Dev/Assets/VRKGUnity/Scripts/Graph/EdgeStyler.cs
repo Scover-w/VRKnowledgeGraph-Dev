@@ -17,6 +17,8 @@ public class EdgeStyler : MonoBehaviour
         }
     } 
 
+    public GraphType GraphType { private get; set; }
+
     public static GraphConfiguration GraphConfiguration;
 
     [SerializeField]
@@ -58,7 +60,8 @@ public class EdgeStyler : MonoBehaviour
 
     private void StyleSize()
     {
-        var thickness = GraphConfiguration.EdgeThicknessBigGraph;
+        var thickness = (GraphType == GraphType.Mega)? GraphConfiguration.EdgeThicknessMegaGraph 
+                                                        : GraphConfiguration.EdgeThicknessMiniGraph;
 
         _lineRenderer.startWidth = thickness;
         _lineRenderer.endWidth = thickness;
@@ -68,19 +71,21 @@ public class EdgeStyler : MonoBehaviour
 
     private void StylePosition()
     {
-        float scalingFactor = GraphConfiguration.BigGraphSize;
+        float scalingFactor = (GraphType == GraphType.Mega) ? GraphConfiguration.MegaGraphSize
+                                                                : GraphConfiguration.MiniGraphSize;
 
-        var positionA = Edge.Source.Position * scalingFactor;
-        var positionB = Edge.Target.Position * scalingFactor;
+        var positionA = Edge.Source.AbsolutePosition * scalingFactor;
+        var positionB = Edge.Target.AbsolutePosition * scalingFactor;
 
         _lineRenderer.SetPosition(0, positionA);
         _lineRenderer.SetPosition(1, positionB);
 
 
-        _colliderTf.position = Vector3.Lerp(positionA, positionB, 0.5f);
+        _colliderTf.localPosition = Vector3.Lerp(positionA, positionB, 0.5f);
         _collider.height = (positionB - positionA).magnitude;
 
-        _colliderTf.LookAt(positionB);
+        Vector3 worldPositionB = _tf.parent.TransformPoint(positionB);
+        _colliderTf.LookAt(worldPositionB);
     }
 
 

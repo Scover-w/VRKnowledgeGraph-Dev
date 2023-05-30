@@ -33,31 +33,31 @@ public class GraphConfiguration
     [Header("Styling")]
     [Space(5)]
     [Header("Graph Size")]
-    public float SmallGraphSize = 1f;
-    public float BigGraphSize = 1f;
+    public float MiniGraphSize = 1f;
+    public float MegaGraphSize = 1f;
 
 
     [Space(5)]
     [Header("Node Size")]
-    public float NodeSizeSmallGraph = 1f;
-    public float NodeSizeBigGraph = 1f;
+    public float NodeSizeMiniGraph = 1f;
+    public float NodeSizeMegaGraph = 1f;
 
-    public float NodeMinSizeSmallGraph = .8f;
-    public float NodeMaxSizeSmallGraph = .8f;
+    public float NodeMinSizeMiniGraph = .8f;
+    public float NodeMaxSizeMiniGraph = .8f;
 
-    public float NodeMinSizeBigGraph = .8f;
-    public float NodeMaxSizeBigGraph = .8f;
+    public float NodeMinSizeMegaGraph = .8f;
+    public float NodeMaxSizeMegaGraph = .8f;
 
     [Space(5)]
     [Header("Label Size")]
-    public float LabelSizeSmallGraph = 1f;
-    public float LabelSizeBigGraph = 1f;
+    public float LabelSizeMiniGraph = 1f;
+    public float LabelSizeMegaGraph = 1f;
 
 
     [Space(5)]
     [Header("Edge Thickness")]
-    public float EdgeThicknessSmallGraph = 1f;
-    public float EdgeThicknessBigGraph = 1f;
+    public float EdgeThicknessMiniGraph = 1f;
+    public float EdgeThicknessMegaGraph = 1f;
 
 
     [JsonIgnore]

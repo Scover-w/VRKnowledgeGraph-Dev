@@ -65,7 +65,8 @@ public class Graph
     Node _selectedNode;
     Edge _selectedEdge;
 
-    Transform _tf;
+    Transform _miniGraphTf;
+    Transform _megaGraphTf;
 
     float _velocity;
     bool _reachStopVelocity;
@@ -73,7 +74,7 @@ public class Graph
     int _metricsCalculated;
 
     #region CREATION_UPDATE_NODGES
-    public Graph(GraphManager graphManager, GraphUI graphUI, GraphStyling graphStyling, GraphConfiguration graphConfiguration , Nodges nodges, Transform tf)
+    public Graph(GraphManager graphManager, GraphUI graphUI, GraphStyling graphStyling, Nodges nodges)
     {
         _nodesDicId = nodges.NodesDicId; 
         _edgesDicId = nodges.EdgesDicId;
@@ -86,10 +87,12 @@ public class Graph
         _labelNodgesUI = new List<LabelNodgeUI>();
 
 
-        _graphConfiguration = graphConfiguration;
+        _graphConfiguration = _graphManager.GraphConfiguration;
         _graphStyling = graphStyling;
-        _tf = tf;
         _graphDatas = new();
+
+        _miniGraphTf = _graphManager.MiniGraph.Tf;
+        _megaGraphTf = _graphManager.MegaGraph.Tf;
 
 
         SetupNodes();
@@ -108,21 +111,38 @@ public class Graph
     {
         foreach(var idAndNode in _nodesDicId)
         {
-            SetupNode(idAndNode.Value);
+            SetupNode(idAndNode.Value, true);
+            SetupNode(idAndNode.Value, false);
             _graphDatas.AddVertex(idAndNode.Value);
         }
     }
 
-    private void SetupNode(Node node)
+    private void SetupNode(Node node, bool isMegaGraph)
     {
         var nodeStyler = NodgePool.Instance.GetNodeStyler();
-        node.NodeStyler = nodeStyler;
         nodeStyler.Node = node;
 
         var nodeTf = nodeStyler.Tf;
         nodeTf.name = "Node " + node.GetName();
-        node.Tf = nodeTf;
-        nodeTf.position = node.Position;
+        nodeTf.position = node.AbsolutePosition;
+
+        if(isMegaGraph)
+        {
+            nodeStyler.GraphType = GraphType.Mega;
+            node.MegaStyler = nodeStyler;
+            node.MegaTf = nodeTf;
+            nodeTf.parent = _megaGraphTf;
+            
+        }
+        else
+        {
+            nodeStyler.GraphType = GraphType.Mini;
+            node.MiniStyler = nodeStyler;
+            node.MiniTf = nodeTf;
+            nodeTf.parent = _miniGraphTf;
+        }
+
+        nodeTf.localPosition = node.AbsolutePosition;
 
         _nodesDicTf.Add(nodeTf, node);
     }
@@ -131,20 +151,38 @@ public class Graph
     {
         foreach(var idAndEdge in _edgesDicId)
         {
-            SetupEdge(idAndEdge.Value);
+            SetupEdge(idAndEdge.Value, true);
+            SetupEdge(idAndEdge.Value, false);
             _graphDatas.AddEdge(idAndEdge.Value);
         }
     }
 
-    private void SetupEdge(Edge edge)
+    private void SetupEdge(Edge edge,bool isMegaGraph)
     {
         var edgeStyler = NodgePool.Instance.GetEdgeStyler();
         edgeStyler.Edge = edge;
 
         edgeStyler.gameObject.name = "Edge " + edge.Value.ToString();
-        edge.Line = edgeStyler.LineRenderer;
-        edge.EdgeStyler = edgeStyler;
-        edge.Tf= edgeStyler.ColliderTf;
+        
+        if(isMegaGraph)
+        {
+            edgeStyler.GraphType = GraphType.Mega;
+            edge.MegaLine = edgeStyler.LineRenderer;
+            edge.MegaStyler = edgeStyler;
+            edge.MegaTf = edgeStyler.ColliderTf;
+            edgeStyler.Tf.parent = _megaGraphTf;
+        }
+        else
+        {
+            edgeStyler.GraphType = GraphType.Mini;
+            edge.MiniLine = edgeStyler.LineRenderer;
+            edge.MiniStyler = edgeStyler;
+            edge.MiniTf = edgeStyler.ColliderTf;
+            edgeStyler.Tf.parent = _miniGraphTf;
+        }
+
+        edgeStyler.Tf.localPosition = Vector3.zero;
+
 
         _edgesDicTf.Add(edgeStyler.ColliderTf, edge);
     }
@@ -182,7 +220,9 @@ public class Graph
                 var newNode = idAndNode.Value;
                 newNodes.Add(id, newNode);
                 newNodesToRetrieveNames.Add(id, newNode);
-                SetupNode(newNode);
+
+                SetupNode(newNode,true);
+                SetupNode(newNode,false);
 
                 newNode.ResetPosition(seed);
             }
@@ -193,7 +233,7 @@ public class Graph
 
         foreach (var idAndNode in _nodesDicId)
         {
-            nodgePool.Release(idAndNode.Value.NodeStyler);
+            nodgePool.Release(idAndNode.Value.MegaStyler);
         }
 
         await _graphManager.NodeUriRetriever.RetrieveNames(newNodesToRetrieveNames);
@@ -218,7 +258,8 @@ public class Graph
             else
             {
                 newEdges.Add(id, idAndEdge.Value);
-                SetupEdge(idAndEdge.Value);
+                SetupEdge(idAndEdge.Value, true);
+                SetupEdge(idAndEdge.Value, false);
             }
         }
 
@@ -228,7 +269,7 @@ public class Graph
         foreach (var idAndEdge in _edgesDicId)
         {
             var edge = idAndEdge.Value;
-            nodgePool.Release(edge.EdgeStyler);
+            nodgePool.Release(edge.MegaStyler);
             edge.CleanFromNodes(); // Clean unused edge from staying Nodes
 
         }
@@ -246,6 +287,7 @@ public class Graph
         }
     }
     #endregion
+
 
     #region SIMULATION
     public void CalculatePositionsTickForeground()
@@ -283,7 +325,7 @@ public class Graph
         foreach (var idAndNodeA in _nodesDicId)
         {
             var nodeA = idAndNodeA.Value;
-            nodeA.Velocity = Vector3.zero;
+            nodeA.AbsoluteVelocity = Vector3.zero;
 
             foreach (var idAndNodeB in _nodesDicId)
             {
@@ -291,7 +333,7 @@ public class Graph
                 if (nodeA == nodeB)
                     continue;
 
-                Vector3 direction = nodeB.Tf.position - nodeA.Tf.position;
+                Vector3 direction = nodeB.MegaTf.position - nodeA.MegaTf.position;
                 float distance = direction.magnitude;
 
                 if (distance > coulombDistance)
@@ -300,7 +342,7 @@ public class Graph
                 float repulsiveForce = coulombForce * (1f / distance);
 
                 Vector3 forceVector = repulsiveForce * direction.normalized;
-                nodeA.Velocity -= forceVector;
+                nodeA.AbsoluteVelocity -= forceVector;
             }
 
         }
@@ -313,7 +355,7 @@ public class Graph
             Node target = edge.Target;
 
 
-            Vector3 direction = target.Tf.position - source.Tf.position;
+            Vector3 direction = target.MegaTf.position - source.MegaTf.position;
 
             float distance = direction.magnitude;
 
@@ -322,8 +364,8 @@ public class Graph
 
             float attractiveForce = (distance - springDistance) * springForce;
             Vector3 forceVector = attractiveForce * direction.normalized;
-            source.Velocity += forceVector;
-            target.Velocity -= forceVector;
+            source.AbsoluteVelocity += forceVector;
+            target.AbsoluteVelocity -= forceVector;
         }
 
 
@@ -331,13 +373,13 @@ public class Graph
         foreach (var idAndNode in _nodesDicId)
         {
             var node = idAndNode.Value;
-            node.Velocity *= damping;
+            node.AbsoluteVelocity *= damping;
 
-            if (node.Velocity.magnitude > maxVelocity)
-                node.Velocity /= node.Velocity.magnitude * invMaxVelocity;
+            if (node.AbsoluteVelocity.magnitude > maxVelocity)
+                node.AbsoluteVelocity /= node.AbsoluteVelocity.magnitude * invMaxVelocity;
 
-            velocitySum += node.Velocity.magnitude;
-            node.Position += node.Velocity * Time.deltaTime;
+            velocitySum += node.AbsoluteVelocity.magnitude;
+            node.AbsolutePosition += node.AbsoluteVelocity * Time.deltaTime;
         }
 
         float velocityGraph = velocitySum / (float)_nodesDicId.Count;
@@ -347,21 +389,21 @@ public class Graph
 
     public void RefreshTransformPositionsForeground()
     {
-        var scalingFactor = _graphConfiguration.BigGraphSize;
+        var scalingFactor = _graphConfiguration.MegaGraphSize;
 
         foreach (var idAndNode in _nodesDicId)
         {
             var node = idAndNode.Value;
-            node.Tf.localPosition = node.Position * scalingFactor;
+            node.MegaTf.localPosition = node.AbsolutePosition * scalingFactor;
         }
 
         foreach (var idAndEdge in _edgesDicId)
         {
             var edge = idAndEdge.Value;
 
-            var line = edge.Line;
-            line.SetPosition(0, edge.Source.Tf.position * scalingFactor);
-            line.SetPosition(1, edge.Target.Tf.position * scalingFactor);
+            var line = edge.MegaLine;
+            line.SetPosition(0, edge.Source.MegaTf.position * scalingFactor);
+            line.SetPosition(1, edge.Target.MegaTf.position * scalingFactor);
         }
 
         UpdateLabelNodges();
@@ -383,33 +425,41 @@ public class Graph
 
     public void RefreshTransformPositionsBackground(Dictionary<int, NodeSimuData> nodeSimuDatas)
     {
-        var scalingFactor = _graphConfiguration.BigGraphSize;
+        var megaScalingFactor = _graphConfiguration.MegaGraphSize;
+        var miniScalingFactor = _graphConfiguration.MiniGraphSize;
 
         foreach (var idAnData in nodeSimuDatas)
         {
             if (!_nodesDicId.TryGetValue(idAnData.Key, out Node node))
                 continue;
 
-            var tf = node.Tf;
+            var megaTf = node.MegaTf;
+            var miniTf = node.MiniTf;
 
             var newCalculatedPosition = idAnData.Value.Position;
-            var realPosition = node.Position;
+            var absolutePosition = node.AbsolutePosition;
 
            
-            var lerpPosition = Vector3.Lerp(realPosition, newCalculatedPosition, .01f);
-            var scaledLerpPosition = Vector3.Lerp(tf.localPosition, newCalculatedPosition * scalingFactor, .01f);
+            var lerpPosition = Vector3.Lerp(absolutePosition, newCalculatedPosition, .01f);
+            var megaLerpPosition = Vector3.Lerp(megaTf.localPosition, newCalculatedPosition * megaScalingFactor, .01f);
+            var miniLerpPosition = Vector3.Lerp(miniTf.localPosition, newCalculatedPosition * miniScalingFactor, .01f);
 
-            node.Position = lerpPosition;
-            node.Tf.localPosition = scaledLerpPosition;
+            node.AbsolutePosition = lerpPosition;
+            node.MegaTf.localPosition = megaLerpPosition;
+            node.MiniTf.localPosition = miniLerpPosition;
         }
 
         foreach (var idAndEdge in _edgesDicId)
         {
             var edge = idAndEdge.Value;
 
-            var line = edge.Line;
-            line.SetPosition(0, edge.Source.Position * scalingFactor);
-            line.SetPosition(1, edge.Target.Position * scalingFactor);
+            var megaLine = edge.MegaLine;
+            megaLine.SetPosition(0, edge.Source.AbsolutePosition * megaScalingFactor);
+            megaLine.SetPosition(1, edge.Target.AbsolutePosition * megaScalingFactor);
+
+            var miniLine = edge.MiniLine;
+            miniLine.SetPosition(0, edge.Source.AbsolutePosition * miniScalingFactor);
+            miniLine.SetPosition(1, edge.Target.AbsolutePosition * miniScalingFactor);
         }
     }
 
@@ -714,7 +764,7 @@ public class Graph
 
     public void SelectEdge(Transform edgeTf)
     {
-        if (_selectedEdge != null && edgeTf == _selectedEdge.Tf)
+        if (_selectedEdge != null && edgeTf == _selectedEdge.MegaTf)
             return;
 
         if (!_edgesDicTf.TryGetValue(edgeTf, out Edge edge))
@@ -738,7 +788,7 @@ public class Graph
 
     public void SelectNodeTemp(Transform nodeTf)
     {
-        if (_selectedNode != null && nodeTf == _selectedNode.Tf)
+        if (_selectedNode != null && nodeTf == _selectedNode.MegaTf)
             return;
 
         if (!_nodesDicTf.TryGetValue(nodeTf, out Node node))
@@ -767,7 +817,7 @@ public class Graph
             return;
         }
 
-        if (_selectedNode != null && nodeTf == _selectedNode.Tf)
+        if (_selectedNode != null && nodeTf == _selectedNode.MegaTf)
             return;
 
         if (!_nodesDicTf.TryGetValue(nodeTf, out Node node))
@@ -814,7 +864,7 @@ public class Graph
         nodesLabeled.Add(node);
 
         var labelNodge = NodgePool.Instance.GetLabelNodge();
-        labelNodge.SetFollow(node.Tf);
+        labelNodge.SetFollow(node.MegaTf);
         var name = node.GetName();
         labelNodge.Text = (name != null) ? name : node.Value;
         _labelNodgesUI.Add(labelNodge);
@@ -838,7 +888,7 @@ public class Graph
                 edgesLabeled.Add(edge);
 
                 labelNodge = NodgePool.Instance.GetLabelNodge();
-                labelNodge.SetFollow(edge.Source.Tf, edge.Target.Tf);
+                labelNodge.SetFollow(edge.Source.MegaTf, edge.Target.MegaTf);
                 labelNodge.Text = edge.Value;
                 _labelNodgesUI.Add(labelNodge);
 
@@ -861,7 +911,7 @@ public class Graph
         edgesLabeled.Add(edge);
 
         var labelNodge = NodgePool.Instance.GetLabelNodge();
-        labelNodge.SetFollow(edge.Source.Tf, edge.Target.Tf);
+        labelNodge.SetFollow(edge.Source.MegaTf, edge.Target.MegaTf);
 
         labelNodge.Text = edge.Value;
         _labelNodgesUI.Add(labelNodge);
@@ -880,7 +930,7 @@ public class Graph
             nodesLabeled.Add(node);
 
             labelNodge = NodgePool.Instance.GetLabelNodge();
-            labelNodge.SetFollow(node.Tf);
+            labelNodge.SetFollow(node.MegaTf);
             var name = node.GetName();
             labelNodge.Text = (name != null) ? name : node.Value;
             _labelNodgesUI.Add(labelNodge);

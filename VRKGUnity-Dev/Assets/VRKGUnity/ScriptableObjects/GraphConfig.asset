@@ -27,18 +27,18 @@ MonoBehaviour:
     DenseCoulombDistance: 30
     DenseMaxVelocity: 10
     DenseStopVelocity: 2
-    SmallGraphSize: 1
-    BigGraphSize: 2.43
-    NodeSizeSmallGraph: 0.2
-    NodeSizeBigGraph: 0.2
-    NodeMinSizeSmallGraph: 0.8
-    NodeMaxSizeSmallGraph: 0.8
-    NodeMinSizeBigGraph: 0.14
-    NodeMaxSizeBigGraph: 0.448
-    LabelSizeSmallGraph: 1
-    LabelSizeBigGraph: 1
-    EdgeThicknessSmallGraph: 1
-    EdgeThicknessBigGraph: 0.02
+    MiniGraphSize: 0.1
+    MegaGraphSize: 1
+    NodeSizeMiniGraph: 0.1
+    NodeSizeMegaGraph: 1
+    NodeMinSizeMiniGraph: 0.08
+    NodeMaxSizeMiniGraph: 0.08
+    NodeMinSizeMegaGraph: 0.8
+    NodeMaxSizeMegaGraph: 0.8
+    LabelSizeMiniGraph: 0.1
+    LabelSizeMegaGraph: 1
+    EdgeThicknessMiniGraph: 0.01
+    EdgeThicknessMegaGraph: 0.02
     NodeColorMapping:
       _boundaryColorA: 0
       _boundaryColorB: 0.5

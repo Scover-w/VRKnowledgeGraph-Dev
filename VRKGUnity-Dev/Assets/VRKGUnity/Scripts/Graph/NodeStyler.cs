@@ -11,6 +11,8 @@ public class NodeStyler : MonoBehaviour
 
     public Node Node { get; set; }
 
+    public GraphType GraphType { private get; set; }
+
     public static GraphConfiguration GraphConfiguration;
 
     [SerializeField]
@@ -86,7 +88,9 @@ public class NodeStyler : MonoBehaviour
     public void StyleNodeForFirstTime()
     {
         _renderer.material.color = GraphConfiguration.NodeColor;
-        float scale = GraphConfiguration.NodeSizeBigGraph;
+
+        float scale = (GraphType == GraphType.Mega) ? GraphConfiguration.NodeSizeMegaGraph
+                                                    : GraphConfiguration.NodeSizeMiniGraph;
         _tf.localScale = new Vector3(scale, scale, scale);
     }
 
@@ -141,12 +145,13 @@ public class NodeStyler : MonoBehaviour
 
         if (selectedMetricType == GraphMetricType.None)
         {
-            float scale = GraphConfiguration.NodeSizeBigGraph;
+            float scale = (GraphType == GraphType.Mega)? GraphConfiguration.NodeSizeMegaGraph
+                                                        : GraphConfiguration.NodeSizeMiniGraph;     
             _tf.localScale = new Vector3(scale, scale, scale);
             return;
         }
 
-        float scaleB = 0;
+        float scaleB = 0f;
 
         switch (selectedMetricType)
         {
@@ -167,16 +172,31 @@ public class NodeStyler : MonoBehaviour
                 break;
         }
 
-        scaleB = Mathf.Lerp(GraphConfiguration.NodeMinSizeBigGraph, GraphConfiguration.NodeMaxSizeBigGraph, scaleB);
+        float nodeMinSize;
+        float nodeMaxSize;
+
+        if(GraphType == GraphType.Mega)
+        {
+            nodeMinSize = GraphConfiguration.NodeMinSizeMegaGraph;
+            nodeMaxSize = GraphConfiguration.NodeMinSizeMegaGraph;
+        }
+        else
+        {
+            nodeMinSize = GraphConfiguration.NodeMinSizeMiniGraph;
+            nodeMaxSize = GraphConfiguration.NodeMinSizeMiniGraph;
+        }
+
+        scaleB = Mathf.Lerp(nodeMinSize, nodeMaxSize, scaleB);
 
         _tf.localScale = new Vector3(scaleB, scaleB, scaleB);
     }
 
     private void StylePosition()
     {
-        float scalingFactor = GraphConfiguration.BigGraphSize;
+        float scalingFactor = (GraphType == GraphType.Mega) ? GraphConfiguration.MegaGraphSize
+                                                    : GraphConfiguration.MiniGraphSize;
 
-        _tf.localPosition = Node.Position * scalingFactor;
+        _tf.localPosition = Node.AbsolutePosition * scalingFactor;
     }
     #endregion
 }

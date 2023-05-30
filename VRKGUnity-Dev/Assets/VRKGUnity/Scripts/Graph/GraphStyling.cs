@@ -30,7 +30,7 @@ public class GraphStyling : MonoBehaviour
         foreach (var idAndNode in nodesDicId)
         {
             var node = idAndNode.Value;
-            node.NodeStyler.StyleNodeForFirstTime();
+            node.MegaStyler.StyleNodeForFirstTime();
         }
 
         var edgeDicId = graph.EdgesDicId;
@@ -38,7 +38,7 @@ public class GraphStyling : MonoBehaviour
         foreach (var idAndEdge in edgeDicId)
         {
             var edge = idAndEdge.Value;
-            edge.EdgeStyler.StyleEdgeForFirstTime();
+            edge.MegaStyler.StyleEdgeForFirstTime();
         }
     }
 
@@ -50,7 +50,7 @@ public class GraphStyling : MonoBehaviour
         foreach (var idAndEdge in edgeDicId)
         {
             var edge = idAndEdge.Value;
-            edge.EdgeStyler.SetColliderAfterEndSimu();
+            edge.MegaStyler.SetColliderAfterEndSimu();
         }
     }
 
@@ -71,7 +71,8 @@ public class GraphStyling : MonoBehaviour
         foreach (var idAndNode in nodesDicId)
         {
             var node = idAndNode.Value;
-            node.NodeStyler.StyleNode(isRunningSim);
+            node.MegaStyler.StyleNode(isRunningSim);
+            node.MiniStyler.StyleNode(isRunningSim);
         }
 
         var edgeDicId = graph.EdgesDicId;
@@ -79,7 +80,8 @@ public class GraphStyling : MonoBehaviour
         foreach(var idAndEdge in edgeDicId)
         {
             var edge = idAndEdge.Value;
-            edge.EdgeStyler.StyleEdge(isRunningSim);
+            edge.MegaStyler.StyleEdge(isRunningSim);
+            edge.MiniStyler.StyleEdge(isRunningSim);
         }
     }
 }

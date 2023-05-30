@@ -12,7 +12,10 @@ public class GraphManager : MonoBehaviour
     public GraphConfiguration GraphConfiguration { get { return _graphConfiguration; } }
     public Graph Graph { get { return _graph; } }
 
-    public Transform GraphTf { private get;  set; }
+    public MegaGraph MegaGraph { get { return _megaGraph; } }
+    public MiniGraph MiniGraph { get { return _miniGraph; } }
+
+    public GraphType GraphMode { get { return _graphMode; } }
 
     public bool IsRunningSimulation { get { return _graphSimulation.IsRunningSimulation; } }
 
@@ -31,9 +34,17 @@ public class GraphManager : MonoBehaviour
     [SerializeField]
     GraphConfigurationContainerSO _graphConfigurationContainerSO;
 
+    [SerializeField]
+    MegaGraph _megaGraph;
+
+    [SerializeField]
+    MiniGraph _miniGraph;
+
     Graph _graph;
     SPARQLAdditiveBuilder _sparqlBuilder;
     DynamicFilterManager _dynamicFilterManager;
+
+    GraphType _graphMode = GraphType.Mini;
 
     NodeUriRetriever _nodeUriRetriever;
 
@@ -43,7 +54,6 @@ public class GraphManager : MonoBehaviour
     {
         _dynamicFilterManager = new();
         _nodeUriRetriever = new();
-        await _graphConfigurationContainerSO.ForceLoad();
         _graphConfiguration = await _graphConfigurationContainerSO.GetGraphConfiguration();
 
         Invoke(nameof(CreateStartGraphAsync), 1f);
@@ -65,7 +75,7 @@ public class GraphManager : MonoBehaviour
             string queryString = _sparqlBuilder.Build();
             var nodges = await _nodgeCreator.RetreiveGraph(queryString, _graphConfiguration);
 
-            _graph = new Graph(this, _graphUI, _graphStyling, _graphConfiguration, nodges, GraphTf);
+            _graph = new Graph(this, _graphUI, _graphStyling, nodges);
 
             _graphStyling.StyleGraphForFirstTime();
             _graph.CalculateMetrics();
@@ -107,4 +117,10 @@ public class GraphManager : MonoBehaviour
     {
         _graphStyling.SimulationStopped();
     }
+}
+
+public enum GraphType
+{
+    Mini,
+    Mega
 }
