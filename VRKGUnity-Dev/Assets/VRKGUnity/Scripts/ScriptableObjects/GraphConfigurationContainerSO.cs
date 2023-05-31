@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "GraphConfig", menuName = "ScriptableObjects/GraphConfigurationContainerSO", order = 1)]
@@ -20,16 +21,14 @@ public class GraphConfigurationContainerSO : ScriptableObject
 
     private async void Awake()
     {
-        Debug.LogWarning("so tamere awake");
         _graphConfiguration = await GraphConfiguration.Load();
     }
 
     private void OnEnable()
     {
-        Debug.LogWarning("so tamere OnEnable");
-
         ForceLoad();
     }
+
 
     [ContextMenu("ForceLoad")]
     public async Task ForceLoad()

@@ -29,15 +29,15 @@ MonoBehaviour:
     DenseStopVelocity: 2
     MiniGraphSize: 0.1
     MegaGraphSize: 1
-    NodeSizeMiniGraph: 0.1
-    NodeSizeMegaGraph: 1
+    NodeSizeMiniGraph: 0.05
+    NodeSizeMegaGraph: 0.5
     NodeMinSizeMiniGraph: 0.08
     NodeMaxSizeMiniGraph: 0.08
     NodeMinSizeMegaGraph: 0.8
     NodeMaxSizeMegaGraph: 0.8
     LabelSizeMiniGraph: 0.1
     LabelSizeMegaGraph: 1
-    EdgeThicknessMiniGraph: 0.01
+    EdgeThicknessMiniGraph: 0.002
     EdgeThicknessMegaGraph: 0.02
     NodeColorMapping:
       _boundaryColorA: 0
@@ -47,7 +47,7 @@ MonoBehaviour:
     SeedRandomPosition: 0
     ResetPositionNodeOnUpdate: 1
     CanSelectEdges: 0
-    SelectedMetricTypeSize: 5
+    SelectedMetricTypeSize: 0
     SelectedMetricTypeColor: 0
   NodeColor: {r: 0, g: 1, b: 0.9329295, a: 1}
   EdgeColor: {r: 0.7264151, g: 0.7264151, b: 0.7264151, a: 1}

@@ -108,10 +108,7 @@ public class GraphConfiguration
     public bool ResetPositionNodeOnUpdate = true;
     public bool CanSelectEdges = true;
 
-    [HideInInspector]
     public GraphMetricType SelectedMetricTypeSize = GraphMetricType.None;
-
-    [HideInInspector]
     public GraphMetricType SelectedMetricTypeColor = GraphMetricType.None;
 
 
@@ -125,9 +122,7 @@ public class GraphConfiguration
         if (File.Exists(_graphConfigPath))
         {
             string json = await File.ReadAllTextAsync(_graphConfigPath);
-            Debug.Log(json);
             var graphConfig = JsonConvert.DeserializeObject<GraphConfiguration>(json);
-            Debug.Log(graphConfig.NodeColorMapping.BoundaryColorA);
             return graphConfig;
         }
         
