@@ -13,7 +13,7 @@ public class GraphDBAPITest
     [Test]
     public async void QueryTest()
     {
-        var api = new GraphDBAPI();
+        var api = new GraphDBAPI(null);
 
         var jsonText = await api.Query("PREFIX imdb: <http://academy.ontotext.com/imdb/>\r\n" +
                                     "PREFIX schema: <http://schema.org/>\r\n\r\n" +

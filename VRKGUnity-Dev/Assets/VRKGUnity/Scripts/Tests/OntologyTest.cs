@@ -15,8 +15,6 @@ public class OntologyTest : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _api = new GraphDBAPI();
-        _ontology = new();
         RetrieveAllAndSaveUris();
     }
 
@@ -178,9 +176,11 @@ public class OntologyTest : MonoBehaviour
 
         GraphDbRepository graphDbRepository = new GraphDbRepository("http://localhost:7200/", "cap44");
 
+        _api = new GraphDBAPI(graphDbRepository);
+
         var childs = await graphDbRepository.LoadChilds();
 
-        GraphDbRepositoryOntology ontology = childs.ontology;
+        GraphDbRepositoryOntology graphOntology = childs.ontology;
 
         var json = await _api.Query("select * where { \r\n\t?s ?p ?o .\r\n}");
 
@@ -202,22 +202,24 @@ public class OntologyTest : MonoBehaviour
             if (sType == "uri" && sValue.StartsWith("http"))
             {
                 var uri = sValue.ExtractUri();
-                ontology.AddWithoutSave(uri.namespce);
+                graphOntology.AddWithoutSave(uri.namespce);
             }
 
             if (pType == "uri" && pValue.StartsWith("http"))
             {
                 var uri = pValue.ExtractUri();
-                ontology.AddWithoutSave(uri.namespce);
+                graphOntology.AddWithoutSave(uri.namespce);
             }
 
             if (oType == "uri" && oValue.StartsWith("http"))
             {
                 var uri = oValue.ExtractUri();
-                ontology.AddWithoutSave(uri.namespce);
+                graphOntology.AddWithoutSave(uri.namespce);
             }
         }
 
-        await ontology.Save();
+        await graphOntology.Save();
+
+        var ontology = new Ontology(graphOntology);
     }
 }

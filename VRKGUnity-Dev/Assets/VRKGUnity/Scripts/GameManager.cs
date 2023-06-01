@@ -4,25 +4,38 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public GraphDbRepository SelectedRepository { private get; set; }
+    [SerializeField]
+    ReferenceHolderSO _referenceHolderSo;
+
+
+    [SerializeField]
+    OntologySwitchTypeUI _switchTypeUI;
+
+
+    Ontology _ontology;
 
 
     // Start is called before the first frame update
     void Start()
     {
-
-
+        _referenceHolderSo.GameManager = this;
     }
 
     [ContextMenu("Play")]
-    public void Play()
+    public async void Play()
     {
-        GraphDBAPI.GraphDbRepository = SelectedRepository;
-    }
+        var graphDbRepository = _referenceHolderSo.SelectedGraphDbRepository;
+        if (graphDbRepository == null)
+        {
+            Debug.LogWarning("GameManager : can't play, selectedGraphRepo is null");
+            return;
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        var childs = await graphDbRepository.LoadChilds();
+
+
+        _ontology = new(childs.ontology);
+
+        _switchTypeUI.Display(_ontology, childs.ontology);
     }
 }

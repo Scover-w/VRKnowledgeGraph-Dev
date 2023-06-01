@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 using UnityEngine;
+using UnityEngine.Windows;
 using static System.Net.WebRequestMethods;
 
 public class Ontology
@@ -15,26 +17,65 @@ public class Ontology
     string _queryPrefixs;
     string _queryFilter;
 
-    public Ontology()
+    public Ontology(GraphDbRepositoryOntology ontology)
     {
-
         _prefixs = new List<Prefix>();
 
-        AddBaseOntology();
+        AddBaseOntology(ontology);
         BuildQueries();
     }
 
-
-    private void AddBaseOntology()
+    private void AddBaseOntology(GraphDbRepositoryOntology ontology)
     {
-        _prefixs.Add(new Prefix("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#"));
-        _prefixs.Add(new Prefix("rdfs", "http://www.w3.org/2000/01/rdf-schema#"));
-        _prefixs.Add(new Prefix("owl", "http://www.w3.org/2002/07/owl#"));
-        _prefixs.Add(new Prefix("skos", "http://www.w3.org/2004/02/skos/core#"));
-        _prefixs.Add(new Prefix("xsd", "http://www.w3.org/2001/XMLSchema#"));
-        _prefixs.Add(new Prefix("proton", "http://proton.semanticweb.org/protonsys#"));
-        _prefixs.Add(new Prefix("crm", "http://www.cidoc-crm.org/cidoc-crm/"));
-        _prefixs.Add(new Prefix("dcterms", "http://purl.org/dc/terms/"));
+        var uris = ontology.UserNamepsceTypes;
+
+        _prefixs = new List<Prefix>();
+
+        HashSet<string> prefixNames = new();
+
+        foreach (var namespceAndType in uris)
+        {
+            if (namespceAndType.Value != UserNamespceType.DeepOntology)
+                continue;
+
+            var namespce = namespceAndType.Key;
+            var alias = CreatePrefixName(namespce);
+
+            int i = 1;
+
+            var originalAlias = alias;
+
+            while(prefixNames.Contains(alias))
+            {
+                alias = originalAlias + i.ToString();
+            }
+
+            _prefixs.Add(new Prefix(alias, namespce));
+        }
+    }
+
+    public void RecreateBaseOntology(GraphDbRepositoryOntology ontology)
+    {
+        AddBaseOntology(ontology);
+    }
+
+    private string CreatePrefixName(string nameSpce)
+    {
+        nameSpce = nameSpce.ToLower();
+        nameSpce = nameSpce.Replace("http://","");
+        nameSpce = nameSpce.Replace("https://","");
+        nameSpce = nameSpce.Replace("www.","");
+
+        if(nameSpce.EndsWith("#") || nameSpce.EndsWith("/"))
+            nameSpce = nameSpce.Substring(0, nameSpce.Length - 1);
+
+        string patternStart = "^[a-zA-Z0-9]+"; // Get every letter andnumber before a special char
+        var start = Regex.Match(nameSpce, patternStart).Value;
+
+        string patternEnd = "[a-zA-Z0-9]+$";
+        var end = Regex.Match(nameSpce, patternEnd).Value;
+
+        return start + "_" + end;
     }
 
 
@@ -112,8 +153,6 @@ public class Ontology
         }
     }
 
-    
-
     public bool IsOntology(string uri)
     {
         (string namespce, string localName) = uri.ExtractUri();
@@ -149,9 +188,6 @@ public class Ontology
 
         return false;
     }
-
-
-    
 }
 
 

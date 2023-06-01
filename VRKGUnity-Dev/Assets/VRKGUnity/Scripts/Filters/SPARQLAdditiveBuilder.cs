@@ -26,7 +26,7 @@ public class SPARQLAdditiveBuilder
 
         _additiveQueries = new List<string>();
 
-        _ontology = new();
+        _ontology = new(null);
     }
 
 

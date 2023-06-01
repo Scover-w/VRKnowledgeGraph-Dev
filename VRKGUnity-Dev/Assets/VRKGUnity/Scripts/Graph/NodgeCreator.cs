@@ -19,6 +19,9 @@ using Random = UnityEngine.Random;
 public class NodgeCreator : MonoBehaviour
 {
     [SerializeField]
+    ReferenceHolderSO _referenceHolderSo;
+
+    [SerializeField]
     GraphManager _graphManager;
 
     GraphDBAPI _api;
@@ -29,7 +32,7 @@ public class NodgeCreator : MonoBehaviour
 
     private void Start()
     {
-        _api = new GraphDBAPI();
+        _api = new GraphDBAPI(_referenceHolderSo.SelectedGraphDbRepository);
         CreatePropertiesName();
 
     }
