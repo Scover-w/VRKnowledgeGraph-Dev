@@ -68,7 +68,7 @@ public class Ontology
         for (int i = 0; i < nbPrefixs; i++)
         {
             var prefix = _prefixs[i];
-            sb.Append("PREFIX " + prefix.Name + ": <" + prefix.Uri + ">\n");
+            sb.Append("PREFIX " + prefix.Name + ": <" + prefix.Namespce + ">\n");
         }
 
         _queryPrefixs = sb.ToString();
@@ -114,6 +114,26 @@ public class Ontology
 
     
 
+    public bool IsOntology(string values)
+    {
+        (string namespce, string localName) = ExtractParts(values);
+
+
+        int nbPrefix = _prefixs.Count;
+
+
+        for (int i = 0; i < nbPrefix; i++)
+        {
+            if (namespce != _prefixs[i].Namespce)
+                continue;
+
+            return true;
+        }
+
+        return false;
+    }
+
+
     private bool IsPrefixNameAlreadyUsed(Prefix prefix)
     {
 
@@ -128,5 +148,25 @@ public class Ontology
         }
 
         return false;
+    }
+
+
+    public (string namespce, string localName) ExtractParts(string uri)
+    {
+        string separator = "/";
+        if (uri.Contains("#"))
+        {
+            separator = "#";
+        }
+
+        int lastSeparatorIndex = uri.LastIndexOf(separator);
+        if (lastSeparatorIndex != -1)
+        {
+            string namespce = uri.Substring(0, lastSeparatorIndex + 1).Trim();
+            string localName = uri.Substring(lastSeparatorIndex + 1).Trim();
+            return (namespce, localName);
+        }
+
+        return (uri.Trim(), string.Empty);
     }
 }

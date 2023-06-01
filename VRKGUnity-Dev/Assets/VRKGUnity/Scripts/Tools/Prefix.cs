@@ -1,11 +1,11 @@
 ﻿public class Prefix
 {
     public string Name;
-    public string Uri;
+    public string Namespce;
 
-    public Prefix(string name, string uri)
+    public Prefix(string name, string namespce)
     {
         Name = name;
-        Uri = uri;
+        Namespce = namespce;
     }
 }

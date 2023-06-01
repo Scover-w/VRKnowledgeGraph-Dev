@@ -9,8 +9,10 @@ public class ColorTest : MonoBehaviour
     [Range(0f, 1f)]
     public float Saturation;
     [Range(0f, 1f)]
-
     public float Value;
+
+    [Range(0f, 1f)]
+    public float Delta;
 
 
     public List<Color> colors;
@@ -31,7 +33,7 @@ public class ColorTest : MonoBehaviour
 
         for (int i = 0; i < NbColor; i++)
         {
-            colors.Add(Color.HSVToRGB(deltaHue * i, Saturation, Value));
+            colors.Add(Color.HSVToRGB((deltaHue * i + Delta) % 1f, Saturation, Value));
         }
 
     }

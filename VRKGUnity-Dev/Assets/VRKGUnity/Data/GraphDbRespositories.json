@@ -1,0 +1,14 @@
+{
+  "Repositories_": [
+    {
+      "ServerURL": "http://bipbop",
+      "RepositoryId": "bipbop"
+    },
+    {
+      "ServerURL": "bfdg",
+      "RepositoryId": "gdsfg"
+    }
+  ],
+  "LastSelectedId_": 0,
+  "LastSelectedId": 0
+}
