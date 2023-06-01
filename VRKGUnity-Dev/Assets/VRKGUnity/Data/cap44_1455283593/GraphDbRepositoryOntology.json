@@ -1,0 +1,21 @@
+{
+  "UserNamepsceType_": {
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#": 0,
+    "http://www.w3.org/2000/01/rdf-schema#": 0,
+    "http://www.w3.org/2002/07/owl#": 0,
+    "http://proton.semanticweb.org/protonsys#": 0,
+    "http://www.w3.org/2001/XMLSchema#": 0,
+    "https://cap44.univ-nantes.fr/api/items/": 0,
+    "http://www.cidoc-crm.org/cidoc-crm/": 0,
+    "http://omeka.org/s/vocabs/o#": 0,
+    "http://purl.org/dc/terms/": 0,
+    "http://www.w3.org/2004/02/skos/core#": 0,
+    "http://rdaregistry.info/Elements/a/": 0,
+    "https://cap44.univ-nantes.fr/api/item_sets/": 0,
+    "http://viaf.org/viaf/": 0,
+    "https://sws.geonames.org/": 0,
+    "https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/": 0,
+    "http://data.culture.fr/thesaurus/resource/ark:/67717/": 0,
+    "http://dewey.info/class/": 0
+  }
+}

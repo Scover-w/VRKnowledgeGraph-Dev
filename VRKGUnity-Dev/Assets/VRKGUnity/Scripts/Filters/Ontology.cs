@@ -114,9 +114,9 @@ public class Ontology
 
     
 
-    public bool IsOntology(string values)
+    public bool IsOntology(string uri)
     {
-        (string namespce, string localName) = ExtractParts(values);
+        (string namespce, string localName) = uri.ExtractUri();
 
 
         int nbPrefix = _prefixs.Count;
@@ -151,7 +151,13 @@ public class Ontology
     }
 
 
-    public (string namespce, string localName) ExtractParts(string uri)
+    
+}
+
+
+public static class OntologyHelperExtension
+{
+    public static (string namespce, string localName) ExtractUri(this string uri)
     {
         string separator = "/";
         if (uri.Contains("#"))

@@ -17,7 +17,7 @@ public class OntologyTest : MonoBehaviour
     {
         _api = new GraphDBAPI();
         _ontology = new();
-        Retrieve();
+        RetrieveAllAndSaveUris();
     }
 
     // Update is called once per frame
@@ -111,9 +111,9 @@ public class OntologyTest : MonoBehaviour
             if(isSOntology && isPOntology && isOOntology)
             {
                 // Full Ontology Triplet
-                var sNamespce = _ontology.ExtractParts(sValue).namespce;
-                var pNamespce = _ontology.ExtractParts(pValue).namespce;
-                var oNamespce = _ontology.ExtractParts(oValue).namespce;
+                var sNamespce = sValue.ExtractUri().namespce;
+                var pNamespce = pValue.ExtractUri().namespce;
+                var oNamespce = oValue.ExtractUri().namespce;
 
                 TryAdd(sNamespce, isSExist, sType, fullOnto);
                 TryAdd(pNamespce, isPExist, pType, fullOnto);
@@ -125,9 +125,9 @@ public class OntologyTest : MonoBehaviour
                 // Partial Ontology
                 
                 // Full Ontology Triplet
-                var sNamespce = _ontology.ExtractParts(sValue).namespce;
-                var pNamespce = _ontology.ExtractParts(pValue).namespce;
-                var oNamespce = _ontology.ExtractParts(oValue).namespce;
+                var sNamespce = sValue.ExtractUri().namespce;
+                var pNamespce = pValue.ExtractUri().namespce;
+                var oNamespce = oValue.ExtractUri().namespce;
 
 
                 TryAdd(sNamespce, isSExist, sType, partialOnto);
@@ -139,9 +139,9 @@ public class OntologyTest : MonoBehaviour
 
                 Debug.Log(sValue + "  " + pValue + "  " + sValue);
 
-                var sNamespce = _ontology.ExtractParts(sValue).namespce;
-                var pNamespce = _ontology.ExtractParts(pValue).namespce;
-                var oNamespce = _ontology.ExtractParts(oValue).namespce;
+                var sNamespce = sValue.ExtractUri().namespce;
+                var pNamespce = pValue.ExtractUri().namespce;
+                var oNamespce = oValue.ExtractUri().namespce;
 
                 TryAdd(sNamespce, isSExist, sType, noOnto);
                 TryAdd(pNamespce, isPExist, pType, noOnto);
@@ -170,5 +170,54 @@ public class OntologyTest : MonoBehaviour
             }
         }
 
+    }
+
+    [ContextMenu("RetrieveAllAndSaveUris")]
+    public async void RetrieveAllAndSaveUris()
+    {
+
+        GraphDbRepository graphDbRepository = new GraphDbRepository("http://localhost:7200/", "cap44");
+
+        var childs = await graphDbRepository.LoadChilds();
+
+        GraphDbRepositoryOntology ontology = childs.ontology;
+
+        var json = await _api.Query("select * where { \r\n\t?s ?p ?o .\r\n}");
+
+        var data = JsonConvert.DeserializeObject<JObject>(json);
+
+
+        foreach (JToken binding in data["results"]["bindings"])
+        {
+            string sType = binding["s"]["type"].Value<string>();
+            string sValue = binding["s"]["value"].Value<string>();
+
+            string pType = binding["p"]["type"].Value<string>();
+            string pValue = binding["p"]["value"].Value<string>();
+
+            string oType = binding["o"]["type"].Value<string>();
+            string oValue = binding["o"]["value"].Value<string>();
+
+
+            if (sType == "uri" && sValue.StartsWith("http"))
+            {
+                var uri = sValue.ExtractUri();
+                ontology.AddWithoutSave(uri.namespce);
+            }
+
+            if (pType == "uri" && pValue.StartsWith("http"))
+            {
+                var uri = pValue.ExtractUri();
+                ontology.AddWithoutSave(uri.namespce);
+            }
+
+            if (oType == "uri" && oValue.StartsWith("http"))
+            {
+                var uri = oValue.ExtractUri();
+                ontology.AddWithoutSave(uri.namespce);
+            }
+        }
+
+        await ontology.Save();
     }
 }

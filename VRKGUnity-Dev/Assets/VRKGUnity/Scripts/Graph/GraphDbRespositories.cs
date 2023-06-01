@@ -75,6 +75,7 @@ public class GraphDbRepositories
     public void Add(GraphDbRepository repository)
     {
         _repositories.Add(repository);
+
         Save();
     }
 
