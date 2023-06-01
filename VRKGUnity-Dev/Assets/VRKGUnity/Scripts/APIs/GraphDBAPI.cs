@@ -9,8 +9,8 @@ using UnityEngine.Networking;
 
 public class GraphDBAPI
 {
-    public string serverURL = "http://localhost:7200/";
-    public string repositoryID = "cap44";//"movies";
+
+    public static GraphDbRepository GraphDbRepository { private get; set; }
 
 
     public delegate void ErrorQuery(HttpResponseMessage responseMessage);
@@ -20,8 +20,14 @@ public class GraphDBAPI
     {
         using (HttpClient client = new HttpClient())
         {
-            string encodedQuery = System.Net.WebUtility.UrlEncode(query);
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, serverURL + "repositories/" + repositoryID + "?query=" + encodedQuery);
+#if UNITY_EDITOR
+            if (GraphDbRepository == null)
+                GraphDbRepository = new GraphDbRepository("http://localhost:7200/", "cap44");
+#endif
+
+
+            string encodedQuery = WebUtility.UrlEncode(query);
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, GraphDbRepository.ServerURL + "repositories/" + GraphDbRepository.RepositoryId + "?query=" + encodedQuery);
             request.Headers.Add("Accept", "application/sparql-results+json");
 
             HttpResponseMessage response;

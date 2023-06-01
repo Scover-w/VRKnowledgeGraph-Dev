@@ -7,8 +7,12 @@
     {
       "ServerURL": "bfdg",
       "RepositoryId": "gdsfg"
+    },
+    {
+      "ServerURL": "http://localhost:7200/",
+      "RepositoryId": "cap44"
     }
   ],
-  "LastSelectedId_": 0,
-  "LastSelectedId": 0
+  "LastSelectedId_": 2,
+  "LastSelectedId": 2
 }

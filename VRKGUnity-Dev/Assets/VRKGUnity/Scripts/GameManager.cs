@@ -14,10 +14,10 @@ public class GameManager : MonoBehaviour
 
     }
 
-
+    [ContextMenu("Play")]
     public void Play()
     {
-
+        GraphDBAPI.GraphDbRepository = SelectedRepository;
     }
 
     // Update is called once per frame
