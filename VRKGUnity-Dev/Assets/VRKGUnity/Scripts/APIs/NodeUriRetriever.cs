@@ -115,8 +115,7 @@ public class NodeUriRetriever
                 }
             }
 
-
-            string xmlContent = await RetrieveRdf(node.Value);
+            string xmlContent = await HttpHelper.RetrieveRdf(node.Value);
 
             if (xmlContent == null || xmlContent.Length == 0)
             {
@@ -158,46 +157,6 @@ public class NodeUriRetriever
         void EndThread()
         {
             //_nbFinishedThread++;
-        }
-    }
-
-
-    private async Task<string> RetrieveRdf(string uri)
-    {
-        try
-        {
-            using (HttpClient client = new HttpClient())
-            {
-                client.Timeout = TimeSpan.FromSeconds(30);
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, uri);
-
-                request.Headers.Add("Accept", "application/rdf+xml");
-
-                HttpResponseMessage response;
-
-                try
-                {
-                    response = await client.SendAsync(request);
-                }
-                catch(Exception e)
-                {
-                    return "";
-                }
-
-                if(!response.IsSuccessStatusCode) 
-                {
-                    return "";
-                }
-                
-                string responseBody = await response.Content.ReadAsStringAsync();
-
-                return responseBody;
-            }
-
-        }
-        catch (Exception e)
-        {
-            return "";
         }
     }
 

@@ -134,18 +134,3 @@ public class GraphDbRepositoriesUI : MonoBehaviour
         }
     }
 }
-
-
-
-public static class ColorHelperExtension
-{
-    public static Color Lighten(this Color color,float amount)
-    {
-        Color lightenedColor = new Color(
-                                Mathf.Clamp(color.r + amount, 0f, 1f),
-                                Mathf.Clamp(color.g + amount, 0f, 1f),
-                                Mathf.Clamp(color.b + amount, 0f, 1f),
-                                color.a);
-        return lightenedColor;
-    }
-}

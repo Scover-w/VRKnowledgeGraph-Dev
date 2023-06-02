@@ -98,6 +98,6 @@ public class GraphDbRepositoryOntology
 public enum UserNamespceType
 {
     None,
-    Ontology,
+    DomainOntology,
     DeepOntology
 }

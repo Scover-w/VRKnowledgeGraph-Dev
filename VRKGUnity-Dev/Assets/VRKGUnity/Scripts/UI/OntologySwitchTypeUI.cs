@@ -39,7 +39,7 @@ public class OntologySwitchTypeUI : MonoBehaviour
         _uriTypeBtns = new();
 
         _noneOntoImg.color = GetColorFromType(UserNamespceType.None);
-        _ontoImg.color = GetColorFromType(UserNamespceType.Ontology);
+        _ontoImg.color = GetColorFromType(UserNamespceType.DomainOntology);
         _deepOntoImg.color = GetColorFromType(UserNamespceType.DeepOntology);
 
         var namespceAndTypes = _graphDbRepoOnto.UserNamepsceTypes;
@@ -99,7 +99,7 @@ public class OntologySwitchTypeUI : MonoBehaviour
         {
             case UserNamespceType.None:
                 return Color.white;
-            case UserNamespceType.Ontology:
+            case UserNamespceType.DomainOntology:
                 return Color.yellow;
             case UserNamespceType.DeepOntology:
                 return Color.green;

@@ -1,8 +1,15 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using SimpleJSON;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Linq;
+using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 using UnityEngine;
 
 public class OntologyTest : MonoBehaviour
@@ -15,7 +22,7 @@ public class OntologyTest : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        RetrieveAllAndSaveUris();
+        //RetrieveAllAndSaveUris();
     }
 
     // Update is called once per frame
@@ -222,4 +229,60 @@ public class OntologyTest : MonoBehaviour
 
         var ontology = new Ontology(graphOntology);
     }
+
+    [ContextMenu("OntologyTree")]
+    public async void OntologyTree()
+    {
+        var ontologyUri = "http://www.cidoc-crm.org/cidoc-crm/";
+
+        string xmlContent = await HttpHelper.RetrieveRdf(ontologyUri);
+
+        try
+        {
+            using (StringReader stringReader = new StringReader(xmlContent))
+
+            using (XmlReader xmlReader = XmlReader.Create(stringReader))
+            {
+                while (xmlReader.Read())
+                {
+                    if (xmlReader.NodeType != XmlNodeType.Element)
+                        continue;
+
+                    var name = xmlReader.Name.ToLower();
+
+
+                    var property = xmlReader.Name;
+
+                    if(!xmlReader.IsEmptyElement)
+                    {
+                        var value = xmlReader.ReadElementContentAsString();
+                    }
+
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            
+        }
+
+    }
+
+    [ContextMenu("RetrieveOntology")]
+    public async void RetrieveOntology()
+    {
+        var ontologyUri = "http://www.cidoc-crm.org/cidoc-crm/";
+
+        string content = await HttpHelper.RetrieveRdf(ontologyUri);
+
+        await FileHelper.SaveAsync(content, Application.dataPath, "VRKGUnity", "Data", "Tests", "RetrieveOntologyTest.json");
+
+        Debug.Log("Done");
+    }
+
+    
+
+    // TODO : Get only ontologies
+    // Extract tree ontology
+    // Can change from none to ontology, but can't change deepontology (would need to re-request the db)
 }
