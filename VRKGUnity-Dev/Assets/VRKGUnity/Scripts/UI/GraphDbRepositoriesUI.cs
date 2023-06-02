@@ -10,6 +10,9 @@ public class GraphDbRepositoriesUI : MonoBehaviour
     ReferenceHolderSO _referenceHolderSO;
 
     [SerializeField]
+    GameObject _repoCanvasGo;
+
+    [SerializeField]
     GameManager _gameManager;
 
     [SerializeField]
@@ -37,6 +40,8 @@ public class GraphDbRepositoriesUI : MonoBehaviour
     // Start is called before the first frame update
     async void Start()
     {
+        _repoCanvasGo.SetActive(true);
+
         _graphDbRespositories = await GraphDbRepositories.Load();
 
         if(_graphDbRespositories.Count > 0)

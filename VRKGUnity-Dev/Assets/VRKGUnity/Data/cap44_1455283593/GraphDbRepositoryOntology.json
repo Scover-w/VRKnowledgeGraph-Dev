@@ -1,12 +1,12 @@
 {
   "UserNamepsceType_": {
-    "http://www.w3.org/1999/02/22-rdf-syntax-ns#": 0,
-    "http://www.w3.org/2000/01/rdf-schema#": 0,
-    "http://www.w3.org/2002/07/owl#": 0,
-    "http://proton.semanticweb.org/protonsys#": 0,
-    "http://www.w3.org/2001/XMLSchema#": 0,
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#": 2,
+    "http://www.w3.org/2000/01/rdf-schema#": 2,
+    "http://www.w3.org/2002/07/owl#": 2,
+    "http://proton.semanticweb.org/protonsys#": 2,
+    "http://www.w3.org/2001/XMLSchema#": 2,
     "https://cap44.univ-nantes.fr/api/items/": 0,
-    "http://www.cidoc-crm.org/cidoc-crm/": 0,
+    "http://www.cidoc-crm.org/cidoc-crm/": 1,
     "http://omeka.org/s/vocabs/o#": 0,
     "http://purl.org/dc/terms/": 0,
     "http://www.w3.org/2004/02/skos/core#": 0,

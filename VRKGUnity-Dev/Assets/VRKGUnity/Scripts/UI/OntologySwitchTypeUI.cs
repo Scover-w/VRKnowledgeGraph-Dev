@@ -17,6 +17,15 @@ public class OntologySwitchTypeUI : MonoBehaviour
     GameObject _namespceUIPf;
 
 
+    [SerializeField]
+    Image _noneOntoImg;
+
+    [SerializeField]
+    Image _ontoImg;
+
+    [SerializeField]
+    Image _deepOntoImg;
+
     Ontology _ontology;
     GraphDbRepositoryOntology _graphDbRepoOnto;
 
@@ -28,6 +37,10 @@ public class OntologySwitchTypeUI : MonoBehaviour
         _graphDbRepoOnto = onto;
 
         _uriTypeBtns = new();
+
+        _noneOntoImg.color = GetColorFromType(UserNamespceType.None);
+        _ontoImg.color = GetColorFromType(UserNamespceType.Ontology);
+        _deepOntoImg.color = GetColorFromType(UserNamespceType.DeepOntology);
 
         var namespceAndTypes = _graphDbRepoOnto.UserNamepsceTypes;
 
@@ -87,7 +100,7 @@ public class OntologySwitchTypeUI : MonoBehaviour
             case UserNamespceType.None:
                 return Color.white;
             case UserNamespceType.Ontology:
-                return Color.blue;
+                return Color.yellow;
             case UserNamespceType.DeepOntology:
                 return Color.green;
             default:
