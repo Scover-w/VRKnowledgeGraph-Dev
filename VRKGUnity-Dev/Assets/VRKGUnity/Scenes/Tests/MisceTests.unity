@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 127067205}
   - component: {fileID: 127067206}
+  - component: {fileID: 127067207}
   m_Layer: 0
   m_Name: '[SCRIPTS]'
   m_TagString: Untagged
@@ -169,6 +170,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _switchTypeUI: {fileID: 1665295139}
+--- !u!114 &127067207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 127067204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b93798c822513d54c9001002a20b1931, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OntologyUri: http://www.cidoc-crm.org/cidoc-crm/
+  OntologyName: CidocCrm
+  Ontologies:
+  - http://www.cidoc-crm.org/cidoc-crm/
+  - http://www.w3.org/1999/02/22-rdf-syntax-ns#
 --- !u!1 &151081789
 GameObject:
   m_ObjectHideFlags: 0
@@ -3630,8 +3648,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1626800379}
   - component: {fileID: 1626800378}
-  - component: {fileID: 1626800381}
-  - component: {fileID: 1626800380}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -3716,43 +3732,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!114 &1626800380
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1626800377}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b93798c822513d54c9001002a20b1931, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1626800381
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1626800377}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 688764ca9d681244a8af0ef436e094f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NbColor: 8
-  Saturation: 0.796
-  Value: 0.775
-  Delta: 0
-  colors:
-  - {r: 0.775, g: 0.1581, b: 0.1581, a: 1}
-  - {r: 0.775, g: 0.620775, b: 0.1581, a: 1}
-  - {r: 0.46655, g: 0.775, b: 0.1581, a: 1}
-  - {r: 0.1581, g: 0.775, b: 0.312325, a: 1}
-  - {r: 0.1581, g: 0.775, b: 0.775, a: 1}
-  - {r: 0.1581, g: 0.312325, b: 0.775, a: 1}
-  - {r: 0.46655, g: 0.1581, b: 0.775, a: 1}
-  - {r: 0.775, g: 0.1581, b: 0.620775, a: 1}
 --- !u!1 &1665295134
 GameObject:
   m_ObjectHideFlags: 0

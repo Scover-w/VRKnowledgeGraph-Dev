@@ -5,16 +5,21 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 using UnityEngine;
+using VDS.RDF;
+using VDS.RDF.Parsing;
 
 public class OntologyTest : MonoBehaviour
 {
-
+    public string OntologyUri;
+    public string OntologyName;
+    public List<string> Ontologies;
 
     GraphDBAPI _api;
     Ontology _ontology;
@@ -233,13 +238,84 @@ public class OntologyTest : MonoBehaviour
     [ContextMenu("OntologyTree")]
     public async void OntologyTree()
     {
-        var ontologyUri = "http://www.cidoc-crm.org/cidoc-crm/";
-
-        string xmlContent = await HttpHelper.RetrieveRdf(ontologyUri);
+        //var ontologyUri = "http://www.cidoc-crm.org/cidoc-crm/";
 
         try
         {
-            using (StringReader stringReader = new StringReader(xmlContent))
+            RdfXmlParser parser = new RdfXmlParser();
+            IGraph graph = new VDS.RDF.Graph();
+
+            string xmlContent = await HttpHelper.RetrieveRdf(OntologyUri);
+
+            using (StringReader reader = new StringReader(xmlContent))
+            {
+                parser.Load(graph, reader);
+            }
+
+            var def = graph.AllNodes;
+
+            List<Triple> triplesToRemove = new();
+
+            foreach (Triple triple in graph.Triples)
+            {
+                // Access the subject, predicate, and object of each triple
+                string subject = triple.Subject.ToString();
+                string predicate = triple.Predicate.ToString();
+                string obj = triple.Object.ToString();
+
+                if(!(subject.Contains(OntologyUri) || predicate.Contains(OntologyUri) || obj.Contains(OntologyUri)))
+                {
+                    triplesToRemove.Add(triple);
+                    continue;
+                }
+
+
+                if (predicate == "http://www.w3.org/2000/01/rdf-schema#comment")
+                {
+                    triplesToRemove.Add(triple);
+                    continue;
+                }
+
+                bool isLabel = (predicate == "http://www.w3.org/2000/01/rdf-schema#label");
+
+                if (isLabel && obj.Contains("@") && !obj.Contains("@en"))
+                {
+                    triplesToRemove.Add(triple);
+                    continue;
+                }
+                else if(obj.Contains("@en"))
+                {
+                    obj.Replace("@en", "");// TODO: useless here soneedapplyit somewhere else
+                }
+
+                // Process the triple as needed
+                // For example, you can print the triple components
+                Console.WriteLine($"Subject: {subject}");
+                Console.WriteLine($"Predicate: {predicate}");
+                Console.WriteLine($"Object: {obj}");
+                Console.WriteLine();
+            }
+
+
+            graph.Retract(triplesToRemove);
+
+            List<Triple> goood = graph.Triples.ToList();
+
+
+            var node = def.First();
+
+        }
+        catch(Exception ex) 
+        {
+            Debug.Log(ex);
+        }
+
+        return;
+        string xmlContentb = await HttpHelper.RetrieveRdf(OntologyUri);
+
+        try
+        {
+            using (StringReader stringReader = new StringReader(xmlContentb))
 
             using (XmlReader xmlReader = XmlReader.Create(stringReader))
             {
@@ -273,9 +349,9 @@ public class OntologyTest : MonoBehaviour
     {
         var ontologyUri = "http://www.cidoc-crm.org/cidoc-crm/";
 
-        string content = await HttpHelper.RetrieveRdf(ontologyUri);
+        string content = await HttpHelper.RetrieveRdf(OntologyUri);
 
-        await FileHelper.SaveAsync(content, Application.dataPath, "VRKGUnity", "Data", "Tests", "RetrieveOntologyTest.json");
+        await FileHelper.SaveAsync(content, Application.dataPath, "VRKGUnity", "Data", "Tests", OntologyName + ".rdf");
 
         Debug.Log("Done");
     }
