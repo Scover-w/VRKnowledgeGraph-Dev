@@ -235,8 +235,8 @@ public class OntologyTest : MonoBehaviour
         var ontology = new Ontology(graphOntology);
     }
 
-    [ContextMenu("OntologyTree")]
-    public async void OntologyTree()
+    [ContextMenu("OntologyTreee")]
+    public async void OntologyTreee()
     {
         //var ontologyUri = "http://www.cidoc-crm.org/cidoc-crm/";
 
@@ -252,6 +252,13 @@ public class OntologyTest : MonoBehaviour
                 parser.Load(graph, reader);
             }
 
+
+            var ontologyTree = await OntologyTree.CreateAsync(graph);
+
+            var firstOntoNode = ontologyTree.GetSource();
+
+            ontologyTree.SaveToFile();
+            return;
             var def = graph.AllNodes;
 
             List<Triple> triplesToRemove = new();
@@ -278,7 +285,7 @@ public class OntologyTest : MonoBehaviour
 
                 bool isLabel = (predicate == "http://www.w3.org/2000/01/rdf-schema#label");
 
-                if (isLabel && obj.Contains("@") && !obj.Contains("@en"))
+                if (isLabel)
                 {
                     triplesToRemove.Add(triple);
                     continue;
