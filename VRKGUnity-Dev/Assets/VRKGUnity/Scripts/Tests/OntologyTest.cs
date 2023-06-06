@@ -363,7 +363,36 @@ public class OntologyTest : MonoBehaviour
         Debug.Log("Done");
     }
 
-    
+
+    [ContextMenu("Load Onto in database")]
+    public async void LoadOntologyInDatabase()
+    {
+        GraphDbRepository dbRepository = new("http://localhost:7200/", "TestOntology");
+        var graphDb = new GraphDBAPI(dbRepository);
+
+        RdfXmlParser parser = new RdfXmlParser();
+        IGraph graph = new VDS.RDF.Graph();
+
+        string xmlContent = await HttpHelper.RetrieveRdf(OntologyUri);
+
+        using (StringReader reader = new StringReader(xmlContent))
+        {
+            parser.Load(graph, reader);
+        }
+
+
+        graph.Clean();
+        if(await graphDb.LoadOntology(graph))
+        {
+            Debug.Log("Done");
+
+        }
+        else
+            Debug.Log("Not Done");
+
+
+    }
+
 
     // TODO : Get only ontologies
     // Extract tree ontology

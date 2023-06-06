@@ -3,9 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
+using VDS.RDF;
+using VDS.RDF.Writing;
 
 public class GraphDBAPI
 {
@@ -62,6 +65,49 @@ public class GraphDBAPI
             response.EnsureSuccessStatusCode();
             string responseBody = await response.Content.ReadAsStringAsync();
             return responseBody;
+        }
+    }
+
+    public async Task<bool> LoadOntology(IGraph graph)
+    {
+        var writer = new CompressingTurtleWriter();
+        var serializedRdf = new System.IO.StringWriter();
+        writer.Save(graph, serializedRdf);
+
+        string rdfData = serializedRdf.ToString();
+
+        using (HttpClient client = new HttpClient())
+        {
+            // Create the request message
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Put, _serverUrl + "repositories/" + _repositoryId + "/statements");
+
+            // Set the content of the request message to be the serialized RDF graph
+            request.Content = new StringContent(rdfData, Encoding.UTF8, "text/turtle");
+
+            HttpResponseMessage response;
+
+            try
+            {
+                response = await client.SendAsync(request);
+            }
+            catch (Exception e)
+            {
+                var responseB = new HttpResponseMessage();
+                responseB.StatusCode = HttpStatusCode.ServiceUnavailable;
+                responseB.Content = new StringContent(e.Message);
+                OnErrorQuery?.Invoke(responseB);
+                return false;
+            }
+
+            if (!response.IsSuccessStatusCode)
+            {
+                OnErrorQuery?.Invoke(response);
+                return false;
+            }
+
+            response.EnsureSuccessStatusCode();
+
+            return true;
         }
     }
 }

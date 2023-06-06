@@ -142,3 +142,16 @@ public class OntoNode
     }
 
 }
+
+public class OntoEdge
+{
+    public int Id;
+    public string Value;
+
+
+    public OntoEdge(int id, string value) 
+    { 
+        
+    }
+
+}
