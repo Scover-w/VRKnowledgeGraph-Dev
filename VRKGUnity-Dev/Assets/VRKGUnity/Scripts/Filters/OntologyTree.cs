@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -10,11 +11,13 @@ using VDS.RDF.Query.Expressions.Functions.XPath.String;
 public class OntologyTree
 {
     Dictionary<int, OntoNode> _ontoNodes;
+    Dictionary<int, OntoEdge> _ontoEdges;
 
 
-    private OntologyTree(Dictionary<int, OntoNode> ontoNodes)
+    private OntologyTree(Dictionary<int, OntoNode> ontoNodes, Dictionary<int, OntoEdge> ontoEdges)
     {
         _ontoNodes = ontoNodes;
+        _ontoEdges = ontoEdges;
     }
 
     public static async Task<OntologyTree> CreateAsync(IGraph graph)
@@ -26,58 +29,98 @@ public class OntologyTree
         });
     }
 
-    private static OntologyTree CreateOntologyTree(IGraph graph) 
+    private static OntologyTree CreateOntologyTree(IGraph graph)
     {
         Dictionary<int, OntoNode> ontoNodes = new();
+        Dictionary<int, OntoEdge> ontoEdges = new();
 
-        foreach(Triple triple in graph.Triples)
+
+        foreach (Triple triple in graph.Triples)
         {
-            string subject = triple.Subject.ToString();
-            string predicate = triple.Predicate.ToString();
-            string obj = triple.Object.ToString();
+            string sValue = triple.Subject.ToString();
+            string pValue = triple.Predicate.ToString();
+            string oValue = triple.Object.ToString();
 
-            if(predicate != "http://www.w3.org/2000/01/rdf-schema#subClassOf")
+
+            if (pValue == "http://www.w3.org/2000/01/rdf-schema#subClassOf")
             {
+                AddSubclassOf(sValue, oValue);
                 continue;
             }
 
-            var idSubject = subject.GetHashCode();
-            var idObject = obj.GetHashCode();
 
-            OntoNode ontoNodeSubject;
-            OntoNode ontoNodeObject;
+            bool isDomain = (pValue == "http://www.w3.org/2000/01/rdf-schema#domain");
 
-            if (ontoNodes.TryGetValue(idSubject, out OntoNode ontoNode))
+            if (isDomain || pValue == "http://www.w3.org/2000/01/rdf-schema#range")
             {
-                ontoNodeSubject = ontoNode;
-
-                Debug.Log("Already exist : " + subject + "  /  " + ontoNode.Value);
+                AddEdge(sValue, oValue, isDomain);
+                continue;
             }
-            else
-            {
-                ontoNodeSubject = new OntoNode(idSubject, subject);
-                ontoNodes.Add(idSubject, ontoNodeSubject);
-            }
-
-            if (ontoNodes.TryGetValue(idObject, out OntoNode ontoNodeB))
-            {
-                ontoNodeObject = ontoNodeB;
-
-                Debug.Log("Already exist : " + obj + "  /  " + ontoNodeB.Value);
-            }
-            else
-            {
-                ontoNodeObject = new OntoNode(idObject, obj);
-                ontoNodes.Add(idObject, ontoNodeObject);
-            }
-
-
-            ontoNodeObject.NodeTarget.Add(ontoNodeSubject);
-            ontoNodeSubject.NodeSource.Add(ontoNodeObject);
 
         }
 
-        return new OntologyTree(ontoNodes);
+        return new OntologyTree(ontoNodes, ontoEdges);
+
+
+        void AddSubclassOf(string sValue, string oValue)
+        {
+
+            OntoNode ontoNodeSubject = GetOntoNode(sValue);
+            OntoNode ontoNodeObject = GetOntoNode(oValue);
+
+            ontoNodeObject.NodeTarget.Add(ontoNodeSubject);
+            ontoNodeSubject.NodeSource.Add(ontoNodeObject);
+        }
+
+        void AddEdge(string propertyUri, string nodeValue, bool isDomain)
+        {
+            OntoNode ontoNode = GetOntoNode(nodeValue);
+            OntoEdge ontoEdge = GetOntoEdge(propertyUri);
+
+            if (isDomain)
+            {
+                ontoNode.EdgeSource.Add(ontoEdge);
+                ontoEdge.NodeSource.Add(ontoNode);
+            }
+            else
+            {
+                ontoNode.EdgeTarget.Add(ontoEdge);
+                ontoEdge.NodeTarget.Add(ontoNode);
+            }
+        }
+
+        OntoEdge GetOntoEdge(string ontoEdgeValue)
+        {
+            var idOntoEdge = ontoEdgeValue.GetHashCode();
+
+            if (ontoEdges.TryGetValue(idOntoEdge, out OntoEdge ontoEdgeB))
+            {
+                return ontoEdgeB;
+            }
+            else
+            {
+                var ontoEdge = new OntoEdge(idOntoEdge, ontoEdgeValue);
+                ontoEdges.Add(idOntoEdge, ontoEdge);
+                return ontoEdge;
+            }
+        }
+
+
+        OntoNode GetOntoNode(string ontoNodeValue)
+        {
+            var idOntoNode = ontoNodeValue.GetHashCode();
+
+            if (ontoNodes.TryGetValue(idOntoNode, out OntoNode ontoNodeB))
+            {
+                return ontoNodeB;
+            }
+            else
+            {
+                var ontoNode = new OntoNode(idOntoNode, ontoNodeValue);
+                ontoNodes.Add(idOntoNode, ontoNode);
+                return ontoNode;
+            }
+        }
     }
 
 
@@ -132,13 +175,19 @@ public class OntoNode
     public List<OntoNode> NodeSource;
     public List<OntoNode> NodeTarget;
 
+    public List<OntoEdge> EdgeSource;
+    public List<OntoEdge> EdgeTarget;
+
     public OntoNode(int id, string value)
     {
         Id = id;
         Value = value;  
 
-        NodeSource = new List<OntoNode>();
-        NodeTarget = new List<OntoNode>();
+        NodeSource = new();
+        NodeTarget = new();
+
+        EdgeSource = new();
+        EdgeTarget = new();
     }
 
 }
@@ -148,10 +197,17 @@ public class OntoEdge
     public int Id;
     public string Value;
 
+    public List<OntoNode> NodeSource;
+    public List<OntoNode> NodeTarget;
+
 
     public OntoEdge(int id, string value) 
     { 
-        
+        Id = id;
+        Value = value;
+
+        NodeSource = new();
+        NodeTarget = new();
     }
 
 }

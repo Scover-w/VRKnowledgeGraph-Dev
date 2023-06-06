@@ -238,8 +238,6 @@ public class OntologyTest : MonoBehaviour
     [ContextMenu("OntologyTreee")]
     public async void OntologyTreee()
     {
-        //var ontologyUri = "http://www.cidoc-crm.org/cidoc-crm/";
-
         try
         {
             RdfXmlParser parser = new RdfXmlParser();
@@ -257,9 +255,8 @@ public class OntologyTest : MonoBehaviour
 
             var firstOntoNode = ontologyTree.GetSource();
 
-            ontologyTree.SaveToFile();
-            return;
             var def = graph.AllNodes;
+            return;
 
             List<Triple> triplesToRemove = new();
 
