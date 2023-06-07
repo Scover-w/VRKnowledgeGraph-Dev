@@ -10,6 +10,8 @@ using VDS.RDF.Query.Expressions.Functions.XPath.String;
 
 public class OntologyTree
 {
+    OntoNode _rootOntoNode;
+
     Dictionary<int, OntoNode> _ontoNodes;
     Dictionary<int, OntoEdge> _ontoEdges;
 
@@ -18,6 +20,8 @@ public class OntologyTree
     {
         _ontoNodes = ontoNodes;
         _ontoEdges = ontoEdges;
+
+        SetRootAndDepth();
     }
 
     public static async Task<OntologyTree> CreateAsync(IGraph graph)
@@ -124,18 +128,36 @@ public class OntologyTree
     }
 
 
-    public OntoNode GetSource()
+    private void SetRootAndDepth()
     {
-        var ontoNode = _ontoNodes.First().Value;
+        _rootOntoNode = _ontoNodes.First().Value;
 
 
 
-        while(ontoNode.NodeSource.Count > 0) 
-        { 
-            ontoNode = ontoNode.NodeSource[0];
+        while(_rootOntoNode.NodeSource.Count > 0) 
+        {
+            _rootOntoNode = _rootOntoNode.NodeSource[0];
         }
 
-        return ontoNode;
+        SetDepth(_rootOntoNode, 0);
+    }
+
+    private void SetDepth(OntoNode ontoNode, int depth)
+    {
+        if (ontoNode.Depth < depth)
+            return;
+
+        ontoNode.Depth = depth;
+        depth++;
+
+
+        var nodeTarget = ontoNode.NodeTarget;
+
+
+        foreach (var ontoNodeChild in nodeTarget)
+        {
+            SetDepth(ontoNodeChild, depth);
+        }
     }
 
     public void SaveToFile()
@@ -171,6 +193,8 @@ public class OntoNode
 {
     public int Id;
     public string Value;
+
+    public int Depth = int.MaxValue;
 
     public List<OntoNode> NodeSource;
     public List<OntoNode> NodeTarget;

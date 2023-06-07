@@ -1,3 +1,4 @@
+using MacFsWatcher;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SimpleJSON;
@@ -7,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
@@ -245,16 +247,27 @@ public class OntologyTest : MonoBehaviour
 
             string xmlContent = await HttpHelper.RetrieveRdf(OntologyUri);
 
-            using (StringReader reader = new StringReader(xmlContent))
+
+            bool isOntology = true;
+
+            try
             {
-                parser.Load(graph, reader);
+                using (StringReader reader = new StringReader(xmlContent))
+                {
+                    parser.Load(graph, reader);
+                }
+            }
+            catch(RdfParseException e)
+            {
+                isOntology = false;
             }
 
+            if (!isOntology)
+                return;
 
             var ontologyTree = await OntologyTree.CreateAsync(graph);
 
-            var firstOntoNode = ontologyTree.GetSource();
-
+            Debug.Log("Nini");
             var def = graph.AllNodes;
             return;
 
@@ -389,7 +402,6 @@ public class OntologyTest : MonoBehaviour
 
 
     }
-
 
     // TODO : Get only ontologies
     // Extract tree ontology

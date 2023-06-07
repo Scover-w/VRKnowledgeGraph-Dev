@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 351970586}
   - component: {fileID: 351970585}
+  - component: {fileID: 351970587}
   m_Layer: 0
   m_Name: '[SCRIPTS]'
   m_TagString: Untagged
@@ -153,6 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
+  _lifeCycleSceneManager: {fileID: 351970587}
   _switchTypeUI: {fileID: 0}
 --- !u!4 &351970586
 Transform:
@@ -169,6 +171,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &351970587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 351970584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e60342974d76c0948b0ae5c618252d9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _deviceMode: 1
 --- !u!1 &1906792761
 GameObject:
   m_ObjectHideFlags: 0

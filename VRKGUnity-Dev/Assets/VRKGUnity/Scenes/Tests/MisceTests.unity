@@ -182,11 +182,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b93798c822513d54c9001002a20b1931, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OntologyUri: http://www.cidoc-crm.org/cidoc-crm/
-  OntologyName: CidocCrm
+  OntologyUri: https://sws.geonames.org/
+  OntologyName: GeoName
   Ontologies:
   - http://www.cidoc-crm.org/cidoc-crm/
   - http://www.w3.org/1999/02/22-rdf-syntax-ns#
+  - https://sws.geonames.org/
 --- !u!1 &151081789
 GameObject:
   m_ObjectHideFlags: 0

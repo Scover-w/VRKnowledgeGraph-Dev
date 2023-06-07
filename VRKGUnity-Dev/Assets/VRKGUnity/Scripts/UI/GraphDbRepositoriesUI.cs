@@ -13,9 +13,6 @@ public class GraphDbRepositoriesUI : MonoBehaviour
     GameObject _repoCanvasGo;
 
     [SerializeField]
-    GameManager _gameManager;
-
-    [SerializeField]
     RectTransform _parentRepositoriesRect;
 
     [SerializeField]
@@ -37,9 +34,14 @@ public class GraphDbRepositoriesUI : MonoBehaviour
     List<Button> _repoBtns;
 
 
+    AppManager _appManager;
+
     // Start is called before the first frame update
     async void Start()
     {
+
+        _appManager = _referenceHolderSO.AppManagerSA.Value;
+
         _repoCanvasGo.SetActive(true);
 
         _graphDbRespositories = await GraphDbRepositories.Load();
