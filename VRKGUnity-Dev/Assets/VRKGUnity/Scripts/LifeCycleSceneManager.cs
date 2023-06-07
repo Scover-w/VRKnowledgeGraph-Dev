@@ -26,7 +26,7 @@ public class LifeCycleSceneManager : MonoBehaviour
         LoadScene(Scenes.MainMenu);
     }
 
-    private void LoadScene(string sceneToLoad)
+    public void LoadScene(string sceneToLoad)
     {
         if(_loadedScene.Length > 0)
         {
@@ -35,7 +35,7 @@ public class LifeCycleSceneManager : MonoBehaviour
             return;
         }
 
-        SceneManager.LoadSceneAsync(_sceneToLoad);
+        SceneManager.LoadSceneAsync(sceneToLoad, LoadSceneMode.Additive);
     }
 
 
@@ -57,7 +57,7 @@ public class LifeCycleSceneManager : MonoBehaviour
         if (_sceneToLoad.Length == 0)
             return;
 
-        SceneManager.LoadSceneAsync(_sceneToLoad);
+        SceneManager.LoadSceneAsync(_sceneToLoad, LoadSceneMode.Additive);
         _sceneToLoad = "";
     }
 
