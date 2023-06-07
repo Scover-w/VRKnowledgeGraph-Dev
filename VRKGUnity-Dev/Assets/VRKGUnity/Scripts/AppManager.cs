@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class AppManager : MonoBehaviour
 {
     [SerializeField]
     ReferenceHolderSO _referenceHolderSo;
+
+    [SerializeField]
+    LifeCycleSceneManager _lifeCycleSceneManager;
 
 
     [SerializeField]
@@ -18,7 +21,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _referenceHolderSo.GameManager = this;
+        _referenceHolderSo.AppManagerSA.Value = this;
+        
     }
 
     [ContextMenu("Play")]
@@ -37,5 +41,12 @@ public class GameManager : MonoBehaviour
         _ontology = new(childs.ontology);
 
         _switchTypeUI.Display(_ontology, childs.ontology);
+    }
+
+
+    [ContextMenu("ReputInstance")]
+    private void ReputInstance()
+    {
+        _referenceHolderSo.AppManagerSA.Value = this;
     }
 }
