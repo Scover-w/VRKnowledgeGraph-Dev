@@ -7,8 +7,15 @@ using UnityEngine;
 public class ReferenceHolderSO : ScriptableObject
 {
     public SingleAssignment<AppManager> AppManagerSA { get; } = new SingleAssignment<AppManager>();
+    public SingleAssignment<LifeCycleSceneManager> LifeCycleSceneManagerSA { get; } = new SingleAssignment<LifeCycleSceneManager>();
+
     public SingleAssignment<Camera> HMDCamSA { get; } = new SingleAssignment<Camera>();
-    public GraphDbRepository SelectedGraphDbRepository { get; set; }}
+    public GraphDbRepository SelectedGraphDbRepository { get; set; }
+
+
+}
+
+    
 
 
 

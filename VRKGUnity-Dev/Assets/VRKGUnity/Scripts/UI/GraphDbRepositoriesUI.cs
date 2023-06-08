@@ -27,6 +27,9 @@ public class GraphDbRepositoriesUI : MonoBehaviour
     [SerializeField]
     TMP_InputField _repositoryIdInput;
 
+    [SerializeField]
+    Button _startBtn;
+
     GraphDbRepositories _graphDbRespositories;
     GraphDbRepository _selectedRepository;
 
@@ -47,10 +50,9 @@ public class GraphDbRepositoriesUI : MonoBehaviour
         _graphDbRespositories = await GraphDbRepositories.Load();
 
         if(_graphDbRespositories.Count > 0)
-        {
-            _selectedRepository = _graphDbRespositories.AutoSelect();
-            _referenceHolderSO.SelectedGraphDbRepository = _selectedRepository; 
-        }
+            SelectRepo(_graphDbRespositories.AutoSelect());
+        else
+            _startBtn.interactable = false;
 
         LoadRepositories();
         int lastSelectedId = _graphDbRespositories.LastSelectedId;
@@ -73,8 +75,8 @@ public class GraphDbRepositoriesUI : MonoBehaviour
     public void SelectRepoClick(int id)
     {
         Debug.Log("SelectRepoClick " + id);
-        _selectedRepository = _graphDbRespositories.Select(id);
-        _referenceHolderSO.SelectedGraphDbRepository = _selectedRepository;
+
+        SelectRepo(_graphDbRespositories.Select(id));
 
         StyleRepoBtn(id);
     }
@@ -99,7 +101,8 @@ public class GraphDbRepositoriesUI : MonoBehaviour
 
         _graphDbRespositories.Add(newRepo);
         _graphDbRespositories.Select(newRepo);
-        _referenceHolderSO.SelectedGraphDbRepository = _selectedRepository;
+
+        SelectRepo(newRepo);
 
         StyleRepoBtn(_repoBtns.Count - 1);
 
@@ -134,5 +137,12 @@ public class GraphDbRepositoriesUI : MonoBehaviour
             colors.highlightedColor = colors.normalColor.Lighten(.1f);
             btn.colors = colors;
         }
+    }
+
+    private void SelectRepo(GraphDbRepository repo)
+    {
+        _selectedRepository = repo;
+        _referenceHolderSO.SelectedGraphDbRepository = repo;
+        _startBtn.interactable = true;
     }
 }

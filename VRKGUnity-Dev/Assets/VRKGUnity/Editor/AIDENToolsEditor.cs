@@ -30,7 +30,7 @@ public class AIDENToolsEditor : MonoBehaviour
         if (state == PlayModeStateChange.EnteredEditMode)
         {
             var scene = EditorPrefs.GetString("LoadedSceneBeforePlay");
-            if (scene == null)
+            if (scene == null || scene.Length == 0)
                 return;
             EditorSceneManager.OpenScene(EditorPrefs.GetString("LoadedSceneBeforePlay"), OpenSceneMode.Single);
         }

@@ -6,7 +6,10 @@ using QuikGraph;
 public class Node
 {
 
-    private static string[] _nameUriOrder = new string[] { "http://www.w3.org/2004/02/skos/core#prefLabel", "http://www.w3.org/2004/02/skos/core#altLabel", "http://www.w3.org/2000/01/rdf-schema#label" };
+    private static string[] _nameUris = new string[] { "http://www.w3.org/2004/02/skos/core#prefLabel", 
+                                                            "http://www.w3.org/2004/02/skos/core#altLabel", 
+                                                             "http://www.w3.org/2000/01/rdf-schema#label",
+                                                                "http://purl.org/dc/terms/title"};
 
     public bool ActiveSelf
     {
@@ -17,7 +20,7 @@ public class Node
     }
 
     public int Id;
-    public string Type;
+    public NodgeType Type;
     public string Value;
 
     public NodeStyler MegaStyler;
@@ -45,7 +48,7 @@ public class Node
     public Node(int id, string type, string value)
     {
         Id = id;
-        Type = type;
+        Type = (type == "uri") ? NodgeType.Uri : NodgeType.Literal;
         Value = value;
 
         EdgeSource = new();
@@ -58,7 +61,7 @@ public class Node
 
     public Node(string type, string value)
     {
-        Type = type;
+        Type = (type == "uri") ? NodgeType.Uri : NodgeType.Literal;
         Value = value;
         Id = (Type + Value).GetHashCode();
 
@@ -112,9 +115,43 @@ public class Node
             EdgeTarget.Remove(edge);
     }
 
+    public void NodeNamesToProperties()
+    {
+        if (EdgeTarget.Count == 0)
+            return;
+
+        foreach(var edge in EdgeTarget)
+        {
+            if (edge.Type == NodgeType.Literal)
+                continue;
+
+            string edgeValue = edge.Value;
+
+            if (!ContainNameUri(edgeValue))
+                continue;
+
+            if (Properties.ContainsKey(edgeValue))
+                continue;
+
+            Properties.Add(edgeValue, edge.Target.Value);
+        }
+    }
+
     public NodeSimuData ToSimuData()
     {
         return new NodeSimuData(Id, AbsolutePosition, AbsoluteVelocity);
+    }
+
+    private bool ContainNameUri(string value)
+    {
+        foreach(var uri in _nameUris) 
+        { 
+            if(value == uri) 
+                return true;
+        
+        }
+
+        return false;
     }
 
     //private void ActivateNodes(int depth, Graph graph)
@@ -178,4 +215,12 @@ public class Node
 
         return neighbors;
     }
+}
+
+
+
+public enum NodgeType
+{
+    Uri,
+    Literal
 }

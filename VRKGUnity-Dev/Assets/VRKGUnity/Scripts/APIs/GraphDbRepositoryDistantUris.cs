@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using PlasticGui;
 using System;
 using System.Collections;
@@ -11,48 +12,31 @@ using System.Threading.Tasks;
 using System.Xml;
 using UnityEngine;
 
-public class NodeUriRetriever
+public class GraphDbRepositoryDistantUris
 {
-    Dictionary<string, (string,string)> _uriLabels;
+    [JsonProperty("DistantUriLabels_")]
+    Dictionary<string, (string,string)> _distantUriLabels; // <uri,(propName, valueProp)> -> <http://viaf.org/viaf/143903205, (skos:prefLabel, Bibliothèque nationale (Francia))>
+
+    [JsonIgnore]
     int _nbFinishedThread;
+    [JsonIgnore]
     int _nbNodes;
 
-    string _uriLabelPath;
+    [JsonIgnore]
+    private static string _fullpathFile;
 
-    public NodeUriRetriever()
+    public GraphDbRepositoryDistantUris()
     {
-        var folderPath = Path.Combine(Application.dataPath, "VRKGUnity","Data");
-
-        if(!Directory.Exists(folderPath))
-        {
-            Directory.CreateDirectory(folderPath);
-        }
-
-        _uriLabelPath = Path.Combine(folderPath, "UriLabels.json");
-        _uriLabels = LoadData();
+        _distantUriLabels = new();
     }
 
 
-    private Dictionary<string, (string, string)> LoadData()
+    public async Task RetrieveNames(JObject data)
     {
-        if (File.Exists(_uriLabelPath))
-        {
-            string json = File.ReadAllText(_uriLabelPath);
-            var data = JsonConvert.DeserializeObject<Dictionary<string, (string, string)>>(json);
-            return data ?? new Dictionary<string, (string, string)>();
-        }
-        else
-        {
-            return new Dictionary<string, (string, string)>();
-        }
-    }
+        var nodges = data.ExtractNodges();
 
-    public async Task SaveData()
-    {
-        string json = JsonConvert.SerializeObject(_uriLabels, Newtonsoft.Json.Formatting.Indented);
-        await File.WriteAllTextAsync(_uriLabelPath, json);
+        await RetrieveNames(nodges.NodesDicId);
     }
-
 
     public async Task RetrieveNames(Dictionary<int, Node> idAndNodes)
     {
@@ -89,7 +73,7 @@ public class NodeUriRetriever
 
         await semaphore.WaitAsync();
 
-        await SaveData();
+        await Save();
         Debug.Log("Finished");
     }
 
@@ -100,17 +84,14 @@ public class NodeUriRetriever
         {
             var node = (Node)obj;
 
-
-        
-            lock (_uriLabels)
+            lock (_distantUriLabels)
             {
-                if (_uriLabels.TryGetValue(node.Value, out var propAndValue))
+                if (_distantUriLabels.TryGetValue(node.Value, out var propAndValue))
                 {
 
                     if(propAndValue.Item1 != "-1")
                         node.Properties.Add(propAndValue.Item1, propAndValue.Item2);
 
-                    EndThread();
                     return;
                 }
             }
@@ -119,11 +100,10 @@ public class NodeUriRetriever
 
             if (xmlContent == null || xmlContent.Length == 0)
             {
-                lock (_uriLabels)
+                lock (_distantUriLabels)
                 {
-                    _uriLabels.Add(node.Value, ("-1", "-1"));
+                    _distantUriLabels.Add(node.Value, ("-1", "-1"));
                 }
-                EndThread();
                 return;
             }
 
@@ -133,30 +113,22 @@ public class NodeUriRetriever
                 node.Properties.Add(property, value);
 
 
-                lock (_uriLabels)
+                lock (_distantUriLabels)
                 {
-                    _uriLabels.Add(node.Value, (property, value));
+                    _distantUriLabels.Add(node.Value, (property, value));
                 }
             }
             else
             {
-                lock (_uriLabels)
+                lock (_distantUriLabels)
                 {
-                    _uriLabels.Add(node.Value, ("-1", "-1"));
+                    _distantUriLabels.Add(node.Value, ("-1", "-1"));
                 }
             }
-
-
-            EndThread();
         }
         catch(Exception ex) 
         {
 
-        }
-
-        void EndThread()
-        {
-            //_nbFinishedThread++;
         }
     }
 
@@ -197,4 +169,34 @@ public class NodeUriRetriever
 
         return false;
     }
+
+
+    #region SAVE_LOAD
+    public static async Task<GraphDbRepositoryDistantUris> LoadAsync(string pathRepo)
+    {
+        SetPath(pathRepo);
+
+        if (File.Exists(_fullpathFile))
+        {
+            string json = await File.ReadAllTextAsync(_fullpathFile);
+            var graphDistantUri = JsonConvert.DeserializeObject<GraphDbRepositoryDistantUris>(json);
+            return graphDistantUri;
+        }
+
+        var graphDistantUriB = new GraphDbRepositoryDistantUris();
+        await graphDistantUriB.Save();
+        return graphDistantUriB;
+    }
+
+    public async Task Save()
+    {
+        string json = JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented);
+        await File.WriteAllTextAsync(_fullpathFile, json);
+    }
+
+    private static void SetPath(string pathRepo)
+    {
+        _fullpathFile = Path.Combine(pathRepo, "GraphDbRepositoryDistantUris.json");
+    }
+    #endregion
 }

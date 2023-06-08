@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 127067205}
   - component: {fileID: 127067206}
   - component: {fileID: 127067207}
+  - component: {fileID: 127067208}
   m_Layer: 0
   m_Name: '[SCRIPTS]'
   m_TagString: Untagged
@@ -169,7 +170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
-  _switchTypeUI: {fileID: 1665295139}
+  _lifeCycleSceneManager: {fileID: 0}
 --- !u!114 &127067207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,6 +189,26 @@ MonoBehaviour:
   - http://www.cidoc-crm.org/cidoc-crm/
   - http://www.w3.org/1999/02/22-rdf-syntax-ns#
   - https://sws.geonames.org/
+--- !u!114 &127067208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 127067204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95454c7a347729047ac83a077111d567, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _colorA: {r: 0, g: 0, b: 0, a: 0}
+  _colorB: {r: 0, g: 0, b: 0, a: 0}
+  _colorC: {r: 0, g: 0, b: 0, a: 0}
+  _boundaryColorA: 0
+  _boundaryColorB: 0
+  _boundaryColorC: 0
+  _value: 0
+  _resultColor: {r: NaN, g: NaN, b: NaN, a: NaN}
 --- !u!1 &151081789
 GameObject:
   m_ObjectHideFlags: 0
@@ -1792,12 +1813,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _referenceHolderSO: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _repoCanvasGo: {fileID: 586024327}
-  _gameManager: {fileID: 127067206}
   _parentRepositoriesRect: {fileID: 1989401935}
   _repositoryPf: {fileID: 3842904365434792178, guid: 47e598a4438880644bb3d91cf66bf549, type: 3}
   _createRepoRect: {fileID: 2039271480}
   _serverURLInput: {fileID: 1405385057}
   _repositoryIdInput: {fileID: 400853610}
+  _startBtn: {fileID: 0}
 --- !u!114 &510368781
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -39,7 +39,7 @@ public class NodgeInfoUI : MonoBehaviour
         if (name.Length > 30)
             name = name.Substring(0, 30) + "...";
 
-        _typeTxt.text = node.Type;
+        _typeTxt.text = node.Type.ToString();
         _valueTxt.text = name;
         _nbEdgeOrNameNodesTxt.text = (node.EdgeSource.Count + node.EdgeTarget.Count).ToString();
     }
@@ -51,7 +51,7 @@ public class NodgeInfoUI : MonoBehaviour
         if (edge == null)
             return;
 
-        _typeTxt.text = edge.Type;
+        _typeTxt.text = edge.Type.ToString();
         _valueTxt.text = edge.Value;
 
         StringBuilder sb = new();

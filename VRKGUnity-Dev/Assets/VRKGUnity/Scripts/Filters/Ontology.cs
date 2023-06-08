@@ -17,7 +17,7 @@ public class Ontology
     string _queryPrefixs;
     string _queryFilter;
 
-    public Ontology(GraphDbRepositoryOntology ontology)
+    public Ontology(GraphDbRepositoryUris ontology)
     {
         _prefixs = new List<Prefix>();
 
@@ -25,36 +25,36 @@ public class Ontology
         BuildQueries();
     }
 
-    private void AddBaseOntology(GraphDbRepositoryOntology ontology)
+    private void AddBaseOntology(GraphDbRepositoryUris ontology)
     {
-        var uris = ontology.UserNamepsceTypes;
+        //var uris = ontology.UserNamepsceTypes;
 
-        _prefixs = new List<Prefix>();
+        //_prefixs = new List<Prefix>();
 
-        HashSet<string> prefixNames = new();
+        //HashSet<string> prefixNames = new();
 
-        foreach (var namespceAndType in uris)
-        {
-            if (namespceAndType.Value != UserNamespceType.DeepOntology)
-                continue;
+        //foreach (var namespceAndType in uris)
+        //{
+        //    if (namespceAndType.Value != UserNamespceType.DeepOntology)
+        //        continue;
 
-            var namespce = namespceAndType.Key;
-            var alias = CreatePrefixName(namespce);
+        //    var namespce = namespceAndType.Key;
+        //    var alias = CreatePrefixName(namespce);
 
-            int i = 1;
+        //    int i = 1;
 
-            var originalAlias = alias;
+        //    var originalAlias = alias;
 
-            while(prefixNames.Contains(alias))
-            {
-                alias = originalAlias + i.ToString();
-            }
+        //    while(prefixNames.Contains(alias))
+        //    {
+        //        alias = originalAlias + i.ToString();
+        //    }
 
-            _prefixs.Add(new Prefix(alias, namespce));
-        }
+        //    _prefixs.Add(new Prefix(alias, namespce));
+        //}
     }
 
-    public void RecreateBaseOntology(GraphDbRepositoryOntology ontology)
+    public void RecreateBaseOntology(GraphDbRepositoryUris ontology)
     {
         AddBaseOntology(ontology);
     }

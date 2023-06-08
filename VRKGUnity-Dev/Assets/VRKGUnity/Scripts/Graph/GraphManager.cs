@@ -8,7 +8,7 @@ using UnityEngine;
 [DefaultExecutionOrder(-1)]
 public class GraphManager : MonoBehaviour
 {
-    public NodeUriRetriever NodeUriRetriever { get { return _nodeUriRetriever; } }
+    public GraphDbRepositoryDistantUris NodeUriRetriever { get { return _nodeUriRetriever; } }
     public GraphConfiguration GraphConfiguration { get { return _graphConfiguration; } }
     public Graph Graph { get { return _graph; } }
 
@@ -46,7 +46,7 @@ public class GraphManager : MonoBehaviour
 
     GraphType _graphMode = GraphType.Mini;
 
-    NodeUriRetriever _nodeUriRetriever;
+    GraphDbRepositoryDistantUris _nodeUriRetriever;
 
     GraphConfiguration _graphConfiguration;
 

@@ -13,7 +13,7 @@ public static class NodeDictHelperExtension
         {
             var node = idAndNode.Value;
 
-            if (node.Type != "uri")
+            if (node.Type != NodgeType.Uri)
                 continue;
 
             if (node.DoesPropertiesContainName())

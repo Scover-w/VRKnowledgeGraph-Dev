@@ -15,25 +15,27 @@ public class OntologyTree
     Dictionary<int, OntoNode> _ontoNodes;
     Dictionary<int, OntoEdge> _ontoEdges;
 
+    string _uri;
 
-    private OntologyTree(Dictionary<int, OntoNode> ontoNodes, Dictionary<int, OntoEdge> ontoEdges)
+    private OntologyTree(Dictionary<int, OntoNode> ontoNodes, Dictionary<int, OntoEdge> ontoEdges, string uri)
     {
         _ontoNodes = ontoNodes;
         _ontoEdges = ontoEdges;
 
         SetRootAndDepth();
+        _uri = uri;
     }
 
-    public static async Task<OntologyTree> CreateAsync(IGraph graph)
+    public static async Task<OntologyTree> CreateAsync(IGraph graph, string uri)
     {
         return await Task.Run(() =>
         {
-            OntologyTree ontologyTree = CreateOntologyTree(graph);
+            OntologyTree ontologyTree = CreateOntologyTree(graph, uri);
             return ontologyTree;
         });
     }
 
-    private static OntologyTree CreateOntologyTree(IGraph graph)
+    private static OntologyTree CreateOntologyTree(IGraph graph, string uri)
     {
         Dictionary<int, OntoNode> ontoNodes = new();
         Dictionary<int, OntoEdge> ontoEdges = new();
@@ -63,7 +65,7 @@ public class OntologyTree
 
         }
 
-        return new OntologyTree(ontoNodes, ontoEdges);
+        return new OntologyTree(ontoNodes, ontoEdges, uri);
 
 
         void AddSubclassOf(string sValue, string oValue)
@@ -127,7 +129,6 @@ public class OntologyTree
         }
     }
 
-
     private void SetRootAndDepth()
     {
         _rootOntoNode = _ontoNodes.First().Value;
@@ -159,79 +160,4 @@ public class OntologyTree
             SetDepth(ontoNodeChild, depth);
         }
     }
-
-    public void SaveToFile()
-    {
-        List<string> names = new();
-
-        foreach(var s in _ontoNodes)
-        {
-            names.Add(s.Value.Value.Replace("http://www.cidoc-crm.org/cidoc-crm/", "").Replace("_"," "));
-        }
-
-        names.Sort();
-
-        string filePath = Path.Combine(Application.dataPath, "VRKGUnity", "Data", "Tests", "cidocNames.txt");
-
-        // Create a new file or overwrite existing file
-        using (StreamWriter writer = new StreamWriter(filePath))
-        {
-            foreach (string str in names)
-            {
-                // Write each string on a new line
-                writer.WriteLine(str);
-            }
-        }
-
-        Debug.Log("Done");
-    }
-}
-
-
-
-public class OntoNode
-{
-    public int Id;
-    public string Value;
-
-    public int Depth = int.MaxValue;
-
-    public List<OntoNode> NodeSource;
-    public List<OntoNode> NodeTarget;
-
-    public List<OntoEdge> EdgeSource;
-    public List<OntoEdge> EdgeTarget;
-
-    public OntoNode(int id, string value)
-    {
-        Id = id;
-        Value = value;  
-
-        NodeSource = new();
-        NodeTarget = new();
-
-        EdgeSource = new();
-        EdgeTarget = new();
-    }
-
-}
-
-public class OntoEdge
-{
-    public int Id;
-    public string Value;
-
-    public List<OntoNode> NodeSource;
-    public List<OntoNode> NodeTarget;
-
-
-    public OntoEdge(int id, string value) 
-    { 
-        Id = id;
-        Value = value;
-
-        NodeSource = new();
-        NodeTarget = new();
-    }
-
 }

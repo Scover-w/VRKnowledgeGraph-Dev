@@ -34,163 +34,25 @@ public class NodgeCreator : MonoBehaviour
     {
         _api = new GraphDBAPI(_referenceHolderSo.SelectedGraphDbRepository);
         CreatePropertiesName();
-
     }
 
     public async Task<Nodges> RetreiveGraph(string query, GraphConfiguration config)
     {
         var debugChrono = DebugChrono.Instance;
 
-        debugChrono.Start("RetrieveAll");
-        var nodges = await Retrieve(query);
-        debugChrono.Stop("RetrieveAll");
+        debugChrono.Start("RetreiveGraph");
 
-        try
-        {
-            if(_isFirstRetrieval)
-            {
-                await _graphManager.NodeUriRetriever.RetrieveNames(nodges.NodesDicId);
-                _isFirstRetrieval = false;
-            }
-        }
-        catch(Exception e)
-        {
-            UnityEngine.Debug.LogError(e.Message);
-        }
-
-
-        debugChrono.Start("MergeProperties");
-        MergePropertiesNode(nodges);
-        debugChrono.Stop("MergeProperties");
-
-        return nodges;
-    }
-
-    private async Task<Nodges> Retrieve(string query)
-    {
-        var json = await _api.Query(query); 
-
+        var json = await _api.Query(query);
         var data = JsonConvert.DeserializeObject<JObject>(json);
 
-        var nodges = new Nodges();
 
-        var nodesDicId = nodges.NodesDicId;
-        var edgesDicId = nodges.EdgesDicId;
+        var nodges = data.ExtractNodges();
 
-#if UNITY_EDITOR && FALSE
-        var folderPath = Path.Combine(Application.dataPath, "VRKGUnity", "Data");
+        // TODO : Add distantName to nodes properties
 
-        if (!Directory.Exists(folderPath))
-            Directory.CreateDirectory(folderPath);
-
-        await File.WriteAllTextAsync(Path.Combine(folderPath, "AllQuery.json"), json);
-#endif
-
-        foreach (JToken binding in data["results"]["bindings"])
-        {
-            string sType = binding["s"]["type"].Value<string>();
-            string sValue = binding["s"]["value"].Value<string>();
-
-            string pType = binding["p"]["type"].Value<string>();
-            string pValue = binding["p"]["value"].Value<string>();
-
-            string oType = binding["o"]["type"].Value<string>();
-            string oValue = binding["o"]["value"].Value<string>();
-
-
-            int sId = (sType + sValue).GetHashCode();
-            int oId = (oType + oValue).GetHashCode();
-
-            Node s;
-            Node o;
-
-            if (nodesDicId.TryGetValue(sId, out Node sNodeExisting))
-            {
-                s = sNodeExisting;
-            }
-            else
-            {
-                s = new Node(sId, sType, sValue);
-                nodesDicId.Add(sId, s);
-            }
-
-            if (nodesDicId.TryGetValue(oId, out Node oNodeExisting))
-            {
-                o = oNodeExisting;
-            }
-            else
-            {
-                o = new Node(oId, oType, oValue);
-                nodesDicId.Add(oId, o);
-            }
-
-            var edge = new Edge(pType, pValue, s, o);
-
-            if(edgesDicId.TryGetValue(edge.Id, out Edge edgeExisting))
-            {
-                continue;
-            }
-
-            edgesDicId.Add(edge.Id, edge);
-
-            s.EdgeSource.Add(edge);
-            o.EdgeTarget.Add(edge);
-        }
+        debugChrono.Stop("RetreiveGraph");
 
         return nodges;
-    }
-
-
-    private void MergePropertiesNode(Nodges nodges)
-    {
-        // Remove Nodes than can be properties for other nodes
-        List<Node> nodeToRemove = new();
-        List<Edge> edgeToRemove = new();
-
-
-        var edgesDicId = nodges.EdgesDicId;
-        var nodesDicId = nodges.NodesDicId;
-
-
-        foreach (var kvp in nodesDicId)
-        {
-            Node node = kvp.Value;
-
-            if (node.Type != "literal")
-                continue;
-
-            bool onlyOnetarget = (node.EdgeSource.Count == 0 && node.EdgeTarget.Count == 1);
-            bool onlyOneSource = (node.EdgeSource.Count == 1 && node.EdgeTarget.Count == 0);
-
-            if ( !(onlyOneSource || onlyOnetarget))
-                continue;
-
-            Edge edge = onlyOnetarget? node.EdgeTarget[0] : node.EdgeSource[0];
-
-            //bool containPropToMerge = _propertiesNameToMerge.Contains(edge.Value);
-
-            //if (!containPropToMerge)
-            //    continue;
-
-            var sourceNode = edge.Source;
-
-            if (!sourceNode.Properties.ContainsKey(edge.Value))
-                sourceNode.Properties.Add(edge.Value, node.Value);
-
-            nodeToRemove.Add(node);
-            edgeToRemove.Add(edge);
-
-        }
-
-        foreach (var node in nodeToRemove)
-        {
-            nodesDicId.Remove(node.Id);
-        }
-
-        foreach (var edge in edgeToRemove)
-        {
-            edgesDicId.Remove(edge.Id);
-        }
     }
 
 

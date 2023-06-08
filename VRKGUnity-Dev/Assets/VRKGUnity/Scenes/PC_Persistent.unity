@@ -155,7 +155,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _lifeCycleSceneManager: {fileID: 351970587}
-  _switchTypeUI: {fileID: 0}
 --- !u!4 &351970586
 Transform:
   m_ObjectHideFlags: 0
@@ -184,6 +183,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _deviceMode: 1
+  _referenceHolderSO: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
 --- !u!1 &1906792761
 GameObject:
   m_ObjectHideFlags: 0

@@ -27,44 +27,44 @@ public class OntologySwitchTypeUI : MonoBehaviour
     Image _deepOntoImg;
 
     Ontology _ontology;
-    GraphDbRepositoryOntology _graphDbRepoOnto;
+    GraphDbRepositoryUris _graphDbRepoOnto;
 
     List<Button> _uriTypeBtns;
 
-    public void Display(Ontology ontology, GraphDbRepositoryOntology onto)
+    public void Display(Ontology ontology, GraphDbRepositoryUris onto)
     {
         _ontology = ontology;
         _graphDbRepoOnto = onto;
 
         _uriTypeBtns = new();
 
-        _noneOntoImg.color = GetColorFromType(UserNamespceType.None);
-        _ontoImg.color = GetColorFromType(UserNamespceType.DomainOntology);
-        _deepOntoImg.color = GetColorFromType(UserNamespceType.DeepOntology);
+        //_noneOntoImg.color = GetColorFromType(UserNamespceType.None);
+        //_ontoImg.color = GetColorFromType(UserNamespceType.DomainOntology);
+        //_deepOntoImg.color = GetColorFromType(UserNamespceType.DeepOntology);
 
-        var namespceAndTypes = _graphDbRepoOnto.UserNamepsceTypes;
+        //var namespceAndTypes = _graphDbRepoOnto.UserNamepsceTypes;
 
-        foreach (var namespceAndType in namespceAndTypes)
-        {
-            int id = _parentRect.childCount;
-            var namespce = namespceAndType.Key;
-            var type = namespceAndType.Value;
+        //foreach (var namespceAndType in namespceAndTypes)
+        //{
+        //    int id = _parentRect.childCount;
+        //    var namespce = namespceAndType.Key;
+        //    var type = namespceAndType.Value;
 
-            var cn = Instantiate(_namespceUIPf, _parentRect);
+        //    var cn = Instantiate(_namespceUIPf, _parentRect);
 
-            var btn = cn.GetComponent<Button>();
-            btn.onClick.AddListener(() => UriAndTypeClick(id, namespce));
-            _uriTypeBtns.Add(btn);
+        //    var btn = cn.GetComponent<Button>();
+        //    btn.onClick.AddListener(() => UriAndTypeClick(id, namespce));
+        //    _uriTypeBtns.Add(btn);
 
-            ColorBlock colors = btn.colors;
-            colors.normalColor = GetColorFromType(type);
-            colors.selectedColor = colors.normalColor;
-            colors.highlightedColor = colors.normalColor.Lighten(.1f);
-            btn.colors = colors;
+        //    ColorBlock colors = btn.colors;
+        //    colors.normalColor = Color.red;
+        //    colors.selectedColor = colors.normalColor;
+        //    colors.highlightedColor = colors.normalColor.Lighten(.1f);
+        //    btn.colors = colors;
 
-            cn.transform.GetChild(0).GetComponent<TMP_Text>().text = namespce;
+        //    cn.transform.GetChild(0).GetComponent<TMP_Text>().text = namespce;
 
-        }
+        //}
 
         _ontologyCanvasGo.SetActive(true);
     }
@@ -75,11 +75,10 @@ public class OntologySwitchTypeUI : MonoBehaviour
         Debug.Log("UriAndTypeClick " + id);
         var btn = _uriTypeBtns[id];
 
-        var newType = _graphDbRepoOnto.SwitchType(namespce);
 
         btn.OnDeselect(null);
         ColorBlock colors = btn.colors;
-        colors.normalColor = GetColorFromType(newType);
+        colors.normalColor = Color.red;
         colors.selectedColor = colors.normalColor;
         colors.highlightedColor = colors.normalColor.Lighten(.1f);
         btn.colors = colors;
@@ -91,20 +90,5 @@ public class OntologySwitchTypeUI : MonoBehaviour
     {
         _ontology.RecreateBaseOntology(_graphDbRepoOnto);
         _ontologyCanvasGo.SetActive(false);
-    }
-
-    private Color GetColorFromType(UserNamespceType type)
-    {
-        switch (type)
-        {
-            case UserNamespceType.None:
-                return Color.white;
-            case UserNamespceType.DomainOntology:
-                return Color.yellow;
-            case UserNamespceType.DeepOntology:
-                return Color.green;
-            default:
-                return Color.red;
-        }
     }
 }

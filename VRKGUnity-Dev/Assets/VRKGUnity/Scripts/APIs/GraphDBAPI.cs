@@ -68,7 +68,7 @@ public class GraphDBAPI
         }
     }
 
-    public async Task<bool> LoadOntology(IGraph graph)
+    public async Task<bool> LoadOntologyInDatabase(IGraph graph)
     {
         var writer = new CompressingTurtleWriter();
         var serializedRdf = new System.IO.StringWriter();

@@ -236,6 +236,7 @@ public class Graph
             nodgePool.Release(idAndNode.Value.MegaStyler);
         }
 
+        // TODO : Remove this because everything is retrieved during the data sync scene
         await _graphManager.NodeUriRetriever.RetrieveNames(newNodesToRetrieveNames);
 
 

@@ -29,4 +29,32 @@ public static class FileHelper
 
         File.WriteAllText(path, content);
     }
+
+    public static async Task<string> LoadAsync(params string[] paths)
+    {
+        var path = Path.Combine(paths);
+
+        if (File.Exists(path))
+        {
+            return await File.ReadAllTextAsync(path);
+        }
+
+        Debug.LogWarning("FileHelper : " + path + " doesn't exist.");
+        return "";
+
+    }
+
+    public static string Load(params string[] paths)
+    {
+        var path = Path.Combine(paths);
+
+        if (File.Exists(path))
+        {
+            return File.ReadAllText(path);
+        }
+
+        Debug.LogWarning("FileHelper : " + path + " doesn't exist.");
+        return "";
+    }
+
 }

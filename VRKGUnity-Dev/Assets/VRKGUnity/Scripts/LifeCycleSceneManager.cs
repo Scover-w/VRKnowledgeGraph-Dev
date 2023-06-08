@@ -8,6 +8,9 @@ public class LifeCycleSceneManager : MonoBehaviour
     [SerializeField]
     DeviceMode _deviceMode;
 
+    [SerializeField]
+    ReferenceHolderSO _referenceHolderSO;
+
     private string _loadedScene = "";
     private string _sceneToLoad = "";
 
@@ -17,6 +20,8 @@ public class LifeCycleSceneManager : MonoBehaviour
 
         SceneManager.sceneLoaded += OnSceneLoaded;
         SceneManager.sceneUnloaded += OnSceneUnloaded;
+
+        _referenceHolderSO.LifeCycleSceneManagerSA.Value = this;
 
         Invoke(nameof(FirstLoad), .5f);
     }

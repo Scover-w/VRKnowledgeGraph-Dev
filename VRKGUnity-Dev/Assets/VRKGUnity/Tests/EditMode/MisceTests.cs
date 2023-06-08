@@ -45,4 +45,15 @@ public class MisceTests : MonoBehaviour
         Assert.True(systemColorB.Equals(systemColor));
 
     }
+
+    [Test]
+    public void TestHashSetDuplicate()
+    {
+        HashSet<int> set = new HashSet<int>();
+
+
+        set.Add(1);
+        set.Add(1);
+
+    }
 }

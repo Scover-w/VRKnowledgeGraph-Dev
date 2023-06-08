@@ -13,7 +13,7 @@ public class Edge : IEdge<Node>
     }
 
     public int Id;
-    public string Type;
+    public NodgeType Type;
     public string Value;
     public Node Source { get; }
     public Node Target { get; }
@@ -31,7 +31,7 @@ public class Edge : IEdge<Node>
 
     public Edge(string type, string value, Node source, Node target) 
     {
-        Type = type;
+        Type = (type == "uri") ? NodgeType.Uri : NodgeType.Literal;
         Value = value;
         Source = source;
         Target = target;    
