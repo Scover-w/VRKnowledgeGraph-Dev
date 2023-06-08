@@ -6,10 +6,12 @@ using UnityEngine.EventSystems;
 public class GameWindowNavigation : MonoBehaviour
 {
     [SerializeField]
-    GraphManager _graphManager;
+    ReferenceHolderSO _referenceHolderSO;
 
     [SerializeField]
-    Transform _camTf;
+    GraphManager _graphManager;
+
+
 
 
     public float CameraSpeed = 5f;
@@ -17,11 +19,13 @@ public class GameWindowNavigation : MonoBehaviour
     public float ZoomSpeed = 1f;
 
 
-    private Camera _cam;
+    Transform _camTf;
+    Camera _cam;
 
     private void Start()
     {
-        _cam = _camTf.gameObject.GetComponent<Camera>();
+        _cam = _referenceHolderSO.HMDCamSA.Value;
+        _camTf = _cam.transform;
     }
 
     void Update()
@@ -45,8 +49,8 @@ public class GameWindowNavigation : MonoBehaviour
             Vector3 movement = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y")) * Sensitivity;
 
             // Rotate camera based on mouse movement
-            transform.RotateAround(_camTf.position, Vector3.up, movement.x * CameraSpeed * Time.deltaTime);
-            transform.RotateAround(_camTf.position, _camTf.right, -movement.y * CameraSpeed * Time.deltaTime);
+            _camTf.RotateAround(_camTf.position, Vector3.up, movement.x * CameraSpeed * Time.deltaTime);
+            _camTf.RotateAround(_camTf.position, _camTf.right, -movement.y * CameraSpeed * Time.deltaTime);
         }
     }
 
