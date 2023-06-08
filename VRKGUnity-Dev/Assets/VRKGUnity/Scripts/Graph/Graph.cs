@@ -62,6 +62,8 @@ public class Graph
 
     BidirectionalGraph<Node, Edge> _graphDatas;
 
+    GraphDbRepository _repository;
+
     Node _selectedNode;
     Edge _selectedEdge;
 
@@ -74,7 +76,7 @@ public class Graph
     int _metricsCalculated;
 
     #region CREATION_UPDATE_NODGES
-    public Graph(GraphManager graphManager, GraphUI graphUI, GraphStyling graphStyling, Nodges nodges)
+    public Graph(GraphManager graphManager, GraphUI graphUI, GraphStyling graphStyling, Nodges nodges, GraphDbRepository repo)
     {
         _nodesDicId = nodges.NodesDicId; 
         _edgesDicId = nodges.EdgesDicId;
@@ -236,8 +238,8 @@ public class Graph
             nodgePool.Release(idAndNode.Value.MegaStyler);
         }
 
-        // TODO : Remove this because everything is retrieved during the data sync scene
-        await _graphManager.NodeUriRetriever.RetrieveNames(newNodesToRetrieveNames);
+        newNodesToRetrieveNames.AddRetrievedNames(_repository.GraphDbRepositoryDistantUris);
+        newNodesToRetrieveNames.ExtractNodeNamesToProperties();
 
 
         _nodesDicId = newNodes;

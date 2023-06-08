@@ -28,12 +28,9 @@ public class NodgeCreator : MonoBehaviour
 
     bool _isFirstRetrieval = true;
 
-    HashSet<string> _propertiesNameToMerge;
-
     private void Start()
     {
-        _api = new GraphDBAPI(_referenceHolderSo.SelectedGraphDbRepository);
-        CreatePropertiesName();
+        _api = _referenceHolderSo.SelectedGraphDbRepository.GraphDBAPI;
     }
 
     public async Task<Nodges> RetreiveGraph(string query, GraphConfiguration config)
@@ -47,8 +44,8 @@ public class NodgeCreator : MonoBehaviour
 
 
         var nodges = data.ExtractNodges();
-
-        // TODO : Add distantName to nodes properties
+        nodges.AddRetrievedNames(_referenceHolderSo.SelectedGraphDbRepository.GraphDbRepositoryDistantUris);
+        nodges.ExtractNodeNamesToProperties();
 
         debugChrono.Stop("RetreiveGraph");
 
@@ -87,15 +84,5 @@ public class NodgeCreator : MonoBehaviour
             centralNode = node;
             nb = nbEdge;
         }
-    }
-
-    private void CreatePropertiesName()
-    {
-        _propertiesNameToMerge = new();
-        _propertiesNameToMerge.Add("http://purl.org/dc/terms/description");
-        _propertiesNameToMerge.Add("http://www.w3.org/2004/02/skos/core#altLabel");
-        _propertiesNameToMerge.Add("http://www.w3.org/2004/02/skos/core#prefLabel");
-        _propertiesNameToMerge.Add("http://www.w3.org/2000/01/rdf-schema#label"); 
-        _propertiesNameToMerge.Add("http://purl.org/dc/terms/title");
     }
 }

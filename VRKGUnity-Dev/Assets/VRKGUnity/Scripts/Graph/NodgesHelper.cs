@@ -73,7 +73,6 @@ public static class NodgesHelper
         }
 
         nodges.MergePropertiesNodes();
-        nodges.NodeNamesToProperties();
 
         return nodges;
     }
@@ -136,11 +135,16 @@ public static class NodgesHelper
         }
     }
 
-    private static void NodeNamesToProperties(this Nodges nodges)
+    public static void ExtractNodeNamesToProperties(this Nodges nodges)
     {
         var nodesDicId = nodges.NodesDicId;
 
-        foreach (var kvp in nodesDicId)
+        nodesDicId.ExtractNodeNamesToProperties();
+    }
+
+    public static void ExtractNodeNamesToProperties(this Dictionary<int, Node> idAndNodes)
+    {
+        foreach (var kvp in idAndNodes)
         {
             Node node = kvp.Value;
 
@@ -150,4 +154,58 @@ public static class NodgesHelper
             node.NodeNamesToProperties();
         }
     }
+
+    public static Dictionary<int, Node> GetNoLabeledNodes(this Dictionary<int, Node> idAndNodes)
+    {
+        Dictionary<int, Node> nolabeled = new();
+
+        foreach (var idAndNode in idAndNodes)
+        {
+            var node = idAndNode.Value;
+
+            if (node.Type != NodgeType.Uri)
+                continue;
+
+            if (node.DoesPropertiesContainName())
+                continue;
+
+            nolabeled.Add(idAndNode.Key, idAndNode.Value);
+        }
+
+        return nolabeled;
+    }
+
+
+    public static void AddRetrievedNames(this Nodges nodges, GraphDbRepositoryDistantUris graphDbRepositoryDistantUris)
+    {
+        AddRetrievedNames(nodges.NodesDicId, graphDbRepositoryDistantUris);
+    }
+    
+
+    public static void AddRetrievedNames(this Dictionary<int, Node> idAndNodes, GraphDbRepositoryDistantUris graphDbRepositoryDistantUris)
+    {
+        var distantUriDict = graphDbRepositoryDistantUris.DistantUriLabels;
+
+        foreach (var idAndNode in idAndNodes)
+        {
+            var node = idAndNode.Value;
+
+            if (node.Type != NodgeType.Uri)
+                continue;
+
+            
+            if(!distantUriDict.TryGetValue(node.Value, out (string, string) distantUriLabel)) // (string,string) -> (skos:prefLabel, Bibliothèque nationale (Francia)
+            {
+                continue;
+            }
+
+            var nodeProperties = node.Properties;
+
+            if (nodeProperties.ContainsKey(distantUriLabel.Item1)) // Already contain edge property
+                continue;
+
+            nodeProperties.Add(distantUriLabel.Item1, distantUriLabel.Item2);
+        }
+    }
+    
 }

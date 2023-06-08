@@ -20,6 +20,9 @@ public class GraphManager : MonoBehaviour
     public bool IsRunningSimulation { get { return _graphSimulation.IsRunningSimulation; } }
 
     [SerializeField]
+    ReferenceHolderSO _referenceHolderSo;
+
+    [SerializeField]
     GraphSimulation _graphSimulation;
 
     [SerializeField]
@@ -75,7 +78,7 @@ public class GraphManager : MonoBehaviour
             string queryString = _sparqlBuilder.Build();
             var nodges = await _nodgeCreator.RetreiveGraph(queryString, _graphConfiguration);
 
-            _graph = new Graph(this, _graphUI, _graphStyling, nodges);
+            _graph = new Graph(this, _graphUI, _graphStyling, nodges, _referenceHolderSo.SelectedGraphDbRepository);
 
             _graphStyling.StyleGraphForFirstTime();
             _graph.CalculateMetrics();
