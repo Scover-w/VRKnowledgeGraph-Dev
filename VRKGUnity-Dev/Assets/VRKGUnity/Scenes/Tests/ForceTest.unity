@@ -397,6 +397,7 @@ GameObject:
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
   - component: {fileID: 963194229}
+  - component: {fileID: 963194230}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -482,11 +483,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f6ab6d772291ec44a2950cc2ca8a466, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _referenceHolderSO: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphManager: {fileID: 2173982012245349465}
-  _camTf: {fileID: 963194228}
   CameraSpeed: 5
   Sensitivity: 30
   ZoomSpeed: 1
+--- !u!114 &963194230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edbe196efd378d94b9a7377f25426e8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _referenceHolderSO: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
+  _cam: {fileID: 963194227}
 --- !u!1 &1826324489
 GameObject:
   m_ObjectHideFlags: 0
@@ -1016,6 +1031,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2307aa2a7276a184cab59eb3475ca6c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphSimulation: {fileID: 2173982012245349466}
   _nodgeCreator: {fileID: 2173982013351330630}
   _graphUI: {fileID: 2173982011965867148}
@@ -1131,6 +1147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dbc7af2a4c69d94087a7b3f26cae53e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphManager: {fileID: 2173982012245349465}
 --- !u!114 &2173982013351330632
 MonoBehaviour:

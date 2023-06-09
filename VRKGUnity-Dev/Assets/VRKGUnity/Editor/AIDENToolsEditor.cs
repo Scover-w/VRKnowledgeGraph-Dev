@@ -19,6 +19,18 @@ public class AIDENToolsEditor : MonoBehaviour
         EditorApplication.isPlaying = true;
     }
 
+    [MenuItem("AIDEN Tools/Play Pre ForceTest Scene")]
+    private static void PlayPreForceScene()
+    {
+        var loadedSceneBeforePlay = EditorSceneManager.GetActiveScene();
+        EditorPrefs.SetString("LoadedSceneBeforePlay", loadedSceneBeforePlay.path);
+
+        EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo();
+
+        EditorSceneManager.OpenScene("Assets/VRKGUnity/Scenes/Tests/PreForceTest.unity", OpenSceneMode.Single);
+        EditorApplication.isPlaying = true;
+    }
+
     [DidReloadScripts]
     private static void OnEditorReload()
     {

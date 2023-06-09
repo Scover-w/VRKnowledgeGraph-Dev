@@ -28,17 +28,13 @@ public class NodgeCreator : MonoBehaviour
 
     bool _isFirstRetrieval = true;
 
-    private void Start()
-    {
-        _api = _referenceHolderSo.SelectedGraphDbRepository.GraphDBAPI;
-    }
 
     public async Task<Nodges> RetreiveGraph(string query, GraphConfiguration config)
     {
         var debugChrono = DebugChrono.Instance;
 
         debugChrono.Start("RetreiveGraph");
-
+        _api = _referenceHolderSo.SelectedGraphDbRepository.GraphDBAPI;
         var json = await _api.Query(query);
         var data = JsonConvert.DeserializeObject<JObject>(json);
 

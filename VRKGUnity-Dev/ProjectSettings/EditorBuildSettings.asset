@@ -29,6 +29,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/VRKGUnity/Scenes/PC_KG.unity
     guid: 3226650d3becf9b4d80a8ca3c4177600
+  - enabled: 1
+    path: Assets/VRKGUnity/Scenes/Tests/ForceTest.unity
+    guid: 7707a8ae0e61fda4fb464bbf9777589d
   m_configObjects:
     com.htc.upm.wave.xrsdk.xrsettings: {fileID: 11400000, guid: 945a77cbdb7c38c438c6bd9b555da2d1, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: daefebf28cba9914fbbba8b7c2b18f28, type: 2}

@@ -27,6 +27,8 @@ public class GraphDbRepository
 
         GraphDBAPI = new GraphDBAPI(this);
 
+        Debug.Log("Wutttt");
+
         PathRepo = Path.Combine(Application.dataPath, "VRKGUnity", "Data", RepositoryId + "_" + Mathf.Abs(ServerURL.GetHashCode()));
 
         if (!Directory.Exists(PathRepo))

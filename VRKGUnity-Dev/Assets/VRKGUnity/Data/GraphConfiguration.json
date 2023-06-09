@@ -34,11 +34,11 @@
     "BoundaryColorB_": 0.5,
     "BoundaryColorC_": 1.0
   },
-  "EdgeColor_": "255, 0, 0",
+  "EdgeColor_": "185, 185, 185",
   "LabelNodgePropagation": 2,
   "SeedRandomPosition": 0,
   "ResetPositionNodeOnUpdate": true,
-  "CanSelectEdges": true,
+  "CanSelectEdges": false,
   "SelectedMetricTypeSize": 0,
   "SelectedMetricTypeColor": 0
 }
