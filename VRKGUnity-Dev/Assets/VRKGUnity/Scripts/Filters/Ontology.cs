@@ -32,15 +32,11 @@ public class Ontology
         HashSet<string> prefixNames = new();
 
 
-        var dictUri = ontology.Uris;
+        var ontoTreeDict = ontology.OntoTreeDict;
 
-        foreach(var namespaceAndOnto in dictUri)
+        foreach(var namespaceAndOntoTree in ontoTreeDict)
         {
-            string namespce = namespaceAndOnto.Key;
-            OntologyUri ontoUri = namespaceAndOnto.Value;
-
-            if (!ontoUri.IsOntology)
-                continue;
+            string namespce = namespaceAndOntoTree.Key;
 
             var alias = CreatePrefixName(namespce);
 
@@ -126,12 +122,11 @@ public class Ontology
             "    {" +
             "        VALUES ?na { PRFX_NAME }" +
             "        VALUES ?nb { PRFX_NAME }" +
+            "        VALUES ?nc { PRFX_NAME }" +
             "        FILTER (" +
-            "            (strStarts(str(?s), str(?na)) && strStarts(str(?p), str(?nb)))" +
-            "             ||" +
-            "            (strStarts(str(?p), str(?na)) && strStarts(str(?o), str(?nb)))" +
+            "            (strStarts(str(?s), str(?na)) && strStarts(str(?p), str(?nb)) && strStarts(str(?o), str(?nc))) " +
             "               )" +
-            "       }");
+            "     }");
 
         var prefixNames = GetPrefixNames();
 

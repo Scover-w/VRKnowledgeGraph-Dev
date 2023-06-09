@@ -9,6 +9,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using VDS.RDF;
 using VDS.RDF.Writing;
+using VDS.RDF.Writing.Formatting;
 
 public class GraphDBAPI
 {
@@ -70,6 +71,42 @@ public class GraphDBAPI
 
     public async Task<bool> LoadOntologyInDatabase(IGraph graph)
     {
+        string sparqlQuery = ConvertGraphToSparqlInsertQuery(graph);
+        string encodedQuery = WebUtility.UrlEncode(sparqlQuery);
+        using (HttpClient client = new HttpClient())
+        {
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, _serverUrl + "repositories/" + _repositoryId + "/statements");
+            request.Content = new StringContent("update=" + encodedQuery, Encoding.UTF8, "application/sparql-update");
+
+            HttpResponseMessage response;
+
+            try
+            {
+                response = await client.SendAsync(request);
+            }
+            catch (Exception e)
+            {
+                var responseB = new HttpResponseMessage();
+                responseB.StatusCode = HttpStatusCode.ServiceUnavailable;
+                responseB.Content = new StringContent(e.Message);
+                OnErrorQuery?.Invoke(responseB);
+                return false;
+            }
+
+            if (!response.IsSuccessStatusCode)
+            {
+                OnErrorQuery?.Invoke(response);
+                return false;
+            }
+
+            response.EnsureSuccessStatusCode();
+
+            return true;
+        }
+    }
+
+    public async Task<bool> LoadFirstDataInRepository(IGraph graph)
+    {
         var writer = new CompressingTurtleWriter();
         var serializedRdf = new System.IO.StringWriter();
         writer.Save(graph, serializedRdf);
@@ -109,5 +146,27 @@ public class GraphDBAPI
 
             return true;
         }
+    }
+
+
+    private string ConvertGraphToSparqlInsertQuery(IGraph graph)
+    {
+        SparqlFormatter formatter = new SparqlFormatter();
+        StringBuilder queryBuilder = new StringBuilder();
+
+        queryBuilder.AppendLine("INSERT DATA {");
+
+        foreach (Triple triple in graph.Triples)
+        {
+            string subject = formatter.Format(triple.Subject);
+            string predicate = formatter.Format(triple.Predicate);
+            string @object = formatter.Format(triple.Object);
+
+            queryBuilder.AppendLine($"  {subject} {predicate} {@object} .");
+        }
+
+        queryBuilder.AppendLine("}");
+
+        return queryBuilder.ToString();
     }
 }

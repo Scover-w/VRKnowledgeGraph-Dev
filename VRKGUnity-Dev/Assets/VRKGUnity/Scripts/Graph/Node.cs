@@ -21,6 +21,10 @@ public class Node
 
     public int Id;
     public NodgeType Type;
+
+    /// <summary>
+    /// Is a uri (namespace + localName) or a literal.
+    /// </summary>
     public string Value;
 
     public NodeStyler MegaStyler;
@@ -63,7 +67,7 @@ public class Node
     {
         Type = (type == "uri") ? NodgeType.Uri : NodgeType.Literal;
         Value = value;
-        Id = (Type + Value).GetHashCode();
+        Id = Value.GetHashCode();
 
         _activeSelf = false;
     }

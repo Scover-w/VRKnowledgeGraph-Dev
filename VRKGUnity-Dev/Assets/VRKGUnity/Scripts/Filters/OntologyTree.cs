@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 using VDS.RDF;
+using VDS.RDF.Parsing;
 using VDS.RDF.Query.Expressions.Functions.XPath.String;
 
 public class OntologyTree
@@ -24,6 +25,60 @@ public class OntologyTree
 
         SetRootAndDepth();
         _uri = uri;
+    }
+
+
+    public static async Task<OntologyTree> TryCreateOntologyAndLoadInDatabase(GraphDBAPI graphDBAPI, string pathRepo, string uri)
+    {
+        RdfXmlParser parser = new RdfXmlParser();
+        IGraph graph = new VDS.RDF.Graph();
+        string xmlContent = await HttpHelper.RetrieveRdf(uri);
+
+        try
+        {
+            using (StringReader reader = new StringReader(xmlContent))
+            {
+                parser.Load(graph, reader);
+            }
+        }
+        catch (RdfParseException e)
+        {
+            return null;
+        }
+
+        await FileHelper.SaveAsync(xmlContent, pathRepo, CleanUri(uri) + ".rdf");
+
+        graph.Clean();
+
+        await graphDBAPI.LoadOntologyInDatabase(graph);
+
+        var ontologyTree = await OntologyTree.CreateAsync(graph, uri);
+        return ontologyTree;
+    }
+
+    public static async Task<OntologyTree> CreateByReloadingOntology(string pathRepo,string uri)
+    {
+        RdfXmlParser parser = new RdfXmlParser();
+        IGraph graph = new VDS.RDF.Graph();
+        string xmlContent = await FileHelper.LoadAsync(pathRepo, CleanUri(uri) + ".rdf");
+
+        try
+        {
+            using (StringReader reader = new StringReader(xmlContent))
+            {
+                parser.Load(graph, reader);
+            }
+        }
+        catch (RdfParseException e)
+        {
+            Debug.LogWarning("OntologyUri : failed parse already parsed content.");
+            Debug.LogWarning(e);
+            return null;
+        }
+
+        graph.Clean();
+        var ontologyTree = await CreateAsync(graph, uri);
+        return ontologyTree;
     }
 
     public static async Task<OntologyTree> CreateAsync(IGraph graph, string uri)
@@ -74,8 +129,8 @@ public class OntologyTree
             OntoNode ontoNodeSubject = GetOntoNode(sValue);
             OntoNode ontoNodeObject = GetOntoNode(oValue);
 
-            ontoNodeObject.NodeTarget.Add(ontoNodeSubject);
-            ontoNodeSubject.NodeSource.Add(ontoNodeObject);
+            ontoNodeObject.OntoNodeTarget.Add(ontoNodeSubject);
+            ontoNodeSubject.OntoNodeSource.Add(ontoNodeObject);
         }
 
         void AddEdge(string propertyUri, string nodeValue, bool isDomain)
@@ -85,19 +140,19 @@ public class OntologyTree
 
             if (isDomain)
             {
-                ontoNode.EdgeSource.Add(ontoEdge);
+                ontoNode.OntoEdgeSource.Add(ontoEdge);
                 ontoEdge.NodeSource.Add(ontoNode);
             }
             else
             {
-                ontoNode.EdgeTarget.Add(ontoEdge);
+                ontoNode.OntoEdgeTarget.Add(ontoEdge);
                 ontoEdge.NodeTarget.Add(ontoNode);
             }
         }
 
         OntoEdge GetOntoEdge(string ontoEdgeValue)
         {
-            var idOntoEdge = ontoEdgeValue.GetHashCode();
+            var idOntoEdge = ontoEdgeValue.GetHashCode(); // TODO : change to get nodesource and node target value
 
             if (ontoEdges.TryGetValue(idOntoEdge, out OntoEdge ontoEdgeB))
             {
@@ -135,9 +190,9 @@ public class OntologyTree
 
 
 
-        while(_rootOntoNode.NodeSource.Count > 0) 
+        while(_rootOntoNode.OntoNodeSource.Count > 0) 
         {
-            _rootOntoNode = _rootOntoNode.NodeSource[0];
+            _rootOntoNode = _rootOntoNode.OntoNodeSource[0];
         }
 
         SetDepth(_rootOntoNode, 0);
@@ -152,12 +207,37 @@ public class OntologyTree
         depth++;
 
 
-        var nodeTarget = ontoNode.NodeTarget;
+        var nodeTarget = ontoNode.OntoNodeTarget;
 
 
         foreach (var ontoNodeChild in nodeTarget)
         {
             SetDepth(ontoNodeChild, depth);
         }
+    }
+
+    public OntoNode GetOntoNode(int id)
+    {
+        if (_ontoNodes.TryGetValue(id, out var ontoNode))
+        {
+            Debug.LogWarning("OntologyTree : Couldn't get onto node with id");
+            return null;
+        }
+
+        return ontoNode;
+    }
+
+    public void ResetDefinedNodes()
+    {
+        foreach(var idAndOntoNode in _ontoNodes)
+        {
+            var ontoNode = idAndOntoNode.Value;
+            ontoNode.NodesDefined = new();
+        }
+    }
+
+    private static string CleanUri(string uri)
+    {
+        return uri.Replace("http://", "").Replace("/", "").Replace(".", "").Replace("\\", "").Replace("#", "");
     }
 }

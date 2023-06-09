@@ -11,20 +11,24 @@ using UnityEngine;
 public class GraphDbRepositoryUris
 {
     [JsonIgnore]
-    public IReadOnlyDictionary<string, OntologyUri> Uris => _uris;
+    public IReadOnlyDictionary<string, OntologyTree> OntoTreeDict => _ontoTreeDict;
 
-    [JsonProperty("Uris")]
-    Dictionary<string, OntologyUri> _uris;
+    [JsonProperty("OntoUris_")]
+    HashSet<string> _ontoUris;
 
-    [JsonIgnore]
+    [JsonProperty("Uris_")]
+    HashSet<string> _uris;
+
+    Dictionary<string, OntologyTree> _ontoTreeDict;
+
     private static string _fullpathFile;
-
-    [JsonIgnore]
     private static string _pathRepo;
 
     public GraphDbRepositoryUris()
     {
+        _ontoTreeDict = new();
         _uris = new();
+        _ontoUris = new();
     }
 
     public async Task RetrieveNewUris(JObject data,GraphDBAPI graphDBAPI)
@@ -66,22 +70,55 @@ public class GraphDbRepositoryUris
 
         foreach(string uri in uris)
         {
-            if(_uris.ContainsKey(uri))
+            if(_ontoTreeDict.ContainsKey(uri) || _uris.Contains(uri))
             {
                 continue;
             }
 
             // For each new uris
-            var ontoUri = new OntologyUri(uri);
-            await ontoUri.TryCreateOntologyAndLoadInDatabase(graphDBAPI, _pathRepo);
+            var ontologyTree = await OntologyTree.TryCreateOntologyAndLoadInDatabase(graphDBAPI, _pathRepo, uri);
 
-            _uris.Add(uri, ontoUri);
+            if (ontologyTree == null)
+            {
+                _uris.Add(uri);
+                continue;
+            }
+
+            _ontoTreeDict.Add(uri, ontologyTree);
+            _ontoUris.Add(uri);
         }
 
         await Save();
 
     }
 
+
+    public bool IsUriAnOnto(string nodeValue)
+    {
+        string namespce = nodeValue.ExtractUri().namespce;
+
+        return _ontoTreeDict.ContainsKey(namespce);
+    }
+
+    public void AddNodeToOntoNode(Node definedNode, Node simpleOntoNode)
+    {
+        if(!_ontoTreeDict.TryGetValue(simpleOntoNode.Value.ExtractUri().namespce, out OntologyTree ontoTree))
+        {
+            Debug.LogWarning("GraphDbRepositoryUris : couldn't get value.");
+            return;
+        }
+
+        var ontoNode = ontoTree.GetOntoNode(simpleOntoNode.Id);
+        ontoNode.NodesDefined.Add(definedNode);
+    }
+
+    public void ResetDefinedNodes()
+    {
+        foreach(var ontoUri in _ontoTreeDict)
+        {
+            ontoUri.Value.ResetDefinedNodes();
+        }
+    }
 
     #region SAVE_LOAD
     public async static Task<GraphDbRepositoryUris> Load(string pathRepo)
@@ -118,9 +155,11 @@ public class GraphDbRepositoryUris
 
     public async Task ReloadExistingOntologies()
     {
-        foreach (var uri in _uris) 
+        _ontoTreeDict = new();
+        foreach (var uri in _ontoUris) 
         {
-            await uri.Value.ReloadOntology(_pathRepo);
+            var ontoTree = await OntologyTree.CreateByReloadingOntology(_pathRepo, uri);
+            _ontoTreeDict.Add(uri, ontoTree);
         }
     }
     #endregion

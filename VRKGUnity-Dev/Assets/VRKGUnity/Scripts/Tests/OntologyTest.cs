@@ -68,8 +68,8 @@ public class OntologyTest : MonoBehaviour
             string oValue = binding["o"]["value"].Value<string>();
 
 
-            int sId = (sType + sValue).GetHashCode();
-            int oId = (oType + oValue).GetHashCode();
+            int sId = sValue.GetHashCode();
+            int oId = oValue.GetHashCode();
 
 
             Node s;

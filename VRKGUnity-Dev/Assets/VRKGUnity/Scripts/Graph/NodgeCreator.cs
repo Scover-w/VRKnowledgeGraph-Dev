@@ -32,16 +32,17 @@ public class NodgeCreator : MonoBehaviour
     public async Task<Nodges> RetreiveGraph(string query, GraphConfiguration config)
     {
         var debugChrono = DebugChrono.Instance;
-
+        var repo = _referenceHolderSo.SelectedGraphDbRepository;
         debugChrono.Start("RetreiveGraph");
-        _api = _referenceHolderSo.SelectedGraphDbRepository.GraphDBAPI;
+        _api = repo.GraphDBAPI;
         var json = await _api.Query(query);
         var data = JsonConvert.DeserializeObject<JObject>(json);
 
 
-        var nodges = data.ExtractNodges();
-        nodges.AddRetrievedNames(_referenceHolderSo.SelectedGraphDbRepository.GraphDbRepositoryDistantUris);
+        var nodges = data.ExtractNodges(repo.GraphDbRepositoryUris);
+        nodges.AddRetrievedNames(repo.GraphDbRepositoryDistantUris);
         nodges.ExtractNodeNamesToProperties();
+
 
         debugChrono.Stop("RetreiveGraph");
 

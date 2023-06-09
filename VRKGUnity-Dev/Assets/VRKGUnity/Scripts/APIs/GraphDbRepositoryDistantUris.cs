@@ -36,7 +36,7 @@ public class GraphDbRepositoryDistantUris
 
     public async Task RetrieveNames(JObject data)
     {
-        var nodges = data.ExtractNodges();
+        var nodges = data.ExtractNodgesForDistantUri();
 
         await RetrieveNames(nodges.NodesDicId);
     }

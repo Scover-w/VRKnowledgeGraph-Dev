@@ -1,32 +1,4 @@
 {
-  "Uris": {
-    "http://www.w3.org/1999/02/22-rdf-syntax-ns#": {
-      "Uri_": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-      "IsOntology_": true
-    },
-    "http://www.w3.org/2000/01/rdf-schema#": {
-      "Uri_": "http://www.w3.org/2000/01/rdf-schema#",
-      "IsOntology_": true
-    },
-    "http://www.w3.org/2002/07/owl#": {
-      "Uri_": "http://www.w3.org/2002/07/owl#",
-      "IsOntology_": true
-    },
-    "http://proton.semanticweb.org/protonsys#": {
-      "Uri_": "http://proton.semanticweb.org/protonsys#",
-      "IsOntology_": false
-    },
-    "http://www.w3.org/2001/XMLSchema#": {
-      "Uri_": "http://www.w3.org/2001/XMLSchema#",
-      "IsOntology_": false
-    },
-    "http://viaf.org/": {
-      "Uri_": "http://viaf.org/",
-      "IsOntology_": true
-    },
-    "http://viaf.org/#": {
-      "Uri_": "http://viaf.org/#",
-      "IsOntology_": true
-    }
-  }
+  "OntoUris_": [],
+  "Uris_": []
 }

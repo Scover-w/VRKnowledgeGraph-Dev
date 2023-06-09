@@ -8,21 +8,25 @@ public class OntoNode
 
     public int Depth = int.MaxValue;
 
-    public List<OntoNode> NodeSource;
-    public List<OntoNode> NodeTarget;
+    public List<OntoNode> OntoNodeSource;
+    public List<OntoNode> OntoNodeTarget;
 
-    public List<OntoEdge> EdgeSource;
-    public List<OntoEdge> EdgeTarget;
+    public List<OntoEdge> OntoEdgeSource;
+    public List<OntoEdge> OntoEdgeTarget;
+
+    public List<Node> NodesDefined;
 
     public OntoNode(int id, string value)
     {
         Id = id;
         Value = value;  
 
-        NodeSource = new();
-        NodeTarget = new();
+        OntoNodeSource = new();
+        OntoNodeTarget = new();
 
-        EdgeSource = new();
-        EdgeTarget = new();
+        OntoEdgeSource = new();
+        OntoEdgeTarget = new();
+
+        NodesDefined = new();
     }
 }

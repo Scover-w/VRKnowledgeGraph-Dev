@@ -36,7 +36,7 @@ public class Edge : IEdge<Node>
         Source = source;
         Target = target;    
 
-        Id = (source.Type + source.Value + target.Type + target.Value).GetHashCode();
+        Id = (source.Value + target.Value).GetHashCode();
 
         _activeSelf = false;
     }
