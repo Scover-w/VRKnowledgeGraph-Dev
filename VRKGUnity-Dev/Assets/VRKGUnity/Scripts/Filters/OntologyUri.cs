@@ -10,7 +10,9 @@ using static Codice.CM.WorkspaceServer.WorkspaceTreeDataStore;
 
 public class OntologyUri
 {
+    [JsonIgnore]
     public string Uri { get { return _uri; } }
+    [JsonIgnore]
     public bool IsOntology { get { return _isOntology; } }
 
     [JsonIgnore]
@@ -19,7 +21,9 @@ public class OntologyUri
 
     OntologyTree _ontologyTree;
 
+    [JsonProperty("Uri_")]
     string _uri;
+    [JsonProperty("IsOntology_")]
     bool _isOntology;
 
 

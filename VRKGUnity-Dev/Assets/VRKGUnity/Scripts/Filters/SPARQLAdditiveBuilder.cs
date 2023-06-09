@@ -16,7 +16,7 @@ public class SPARQLAdditiveBuilder
 
     Ontology _ontology;
 
-    public SPARQLAdditiveBuilder()
+    public SPARQLAdditiveBuilder(GraphDbRepositoryUris ontology)
     {
         _startBaseQuery = "SELECT ?s ?p ?o WHERE {";
         _endBaseQuery = "}";
@@ -26,7 +26,7 @@ public class SPARQLAdditiveBuilder
 
         _additiveQueries = new List<string>();
 
-        _ontology = new(null);
+        _ontology = new(ontology);
     }
 
 

@@ -72,13 +72,14 @@ public class GraphManager : MonoBehaviour
 
     private async Task CreateStartGraphAsync()
     {
+        var repo = _referenceHolderSo.SelectedGraphDbRepository;
         try
         {
-            _sparqlBuilder = new();
+            _sparqlBuilder = new(repo.GraphDbRepositoryUris);
             string queryString = _sparqlBuilder.Build();
             var nodges = await _nodgeCreator.RetreiveGraph(queryString, _graphConfiguration);
 
-            _graph = new Graph(this, _graphUI, _graphStyling, nodges, _referenceHolderSo.SelectedGraphDbRepository);
+            _graph = new Graph(this, _graphUI, _graphStyling, nodges, repo);
 
             _graphStyling.StyleGraphForFirstTime();
             _graph.CalculateMetrics();

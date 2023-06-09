@@ -10,6 +10,9 @@ using UnityEngine;
 
 public class GraphDbRepositoryUris
 {
+    [JsonIgnore]
+    public IReadOnlyDictionary<string, OntologyUri> Uris => _uris;
+
     [JsonProperty("Uris")]
     Dictionary<string, OntologyUri> _uris;
 

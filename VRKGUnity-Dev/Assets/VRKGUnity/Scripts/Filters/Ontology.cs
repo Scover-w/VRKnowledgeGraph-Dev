@@ -27,31 +27,35 @@ public class Ontology
 
     private void AddBaseOntology(GraphDbRepositoryUris ontology)
     {
-        //var uris = ontology.UserNamepsceTypes;
 
-        //_prefixs = new List<Prefix>();
+        _prefixs = new List<Prefix>();
+        HashSet<string> prefixNames = new();
 
-        //HashSet<string> prefixNames = new();
 
-        //foreach (var namespceAndType in uris)
-        //{
-        //    if (namespceAndType.Value != UserNamespceType.DeepOntology)
-        //        continue;
+        var dictUri = ontology.Uris;
 
-        //    var namespce = namespceAndType.Key;
-        //    var alias = CreatePrefixName(namespce);
+        foreach(var namespaceAndOnto in dictUri)
+        {
+            string namespce = namespaceAndOnto.Key;
+            OntologyUri ontoUri = namespaceAndOnto.Value;
 
-        //    int i = 1;
+            if (!ontoUri.IsOntology)
+                continue;
 
-        //    var originalAlias = alias;
+            var alias = CreatePrefixName(namespce);
 
-        //    while(prefixNames.Contains(alias))
-        //    {
-        //        alias = originalAlias + i.ToString();
-        //    }
+            int i = 1;
 
-        //    _prefixs.Add(new Prefix(alias, namespce));
-        //}
+            var originalAlias = alias;
+
+            while (prefixNames.Contains(alias))
+            {
+                alias = originalAlias + i.ToString();
+                i++;
+            }
+
+            _prefixs.Add(new Prefix(alias, namespce));
+        }
     }
 
     public void RecreateBaseOntology(GraphDbRepositoryUris ontology)

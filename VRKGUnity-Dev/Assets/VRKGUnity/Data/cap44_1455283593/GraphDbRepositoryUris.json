@@ -1,80 +1,32 @@
 {
   "Uris": {
     "http://www.w3.org/1999/02/22-rdf-syntax-ns#": {
-      "Uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-      "IsOntology": false
+      "Uri_": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+      "IsOntology_": true
     },
     "http://www.w3.org/2000/01/rdf-schema#": {
-      "Uri": "http://www.w3.org/2000/01/rdf-schema#",
-      "IsOntology": false
+      "Uri_": "http://www.w3.org/2000/01/rdf-schema#",
+      "IsOntology_": true
     },
     "http://www.w3.org/2002/07/owl#": {
-      "Uri": "http://www.w3.org/2002/07/owl#",
-      "IsOntology": false
+      "Uri_": "http://www.w3.org/2002/07/owl#",
+      "IsOntology_": true
     },
     "http://proton.semanticweb.org/protonsys#": {
-      "Uri": "http://proton.semanticweb.org/protonsys#",
-      "IsOntology": false
+      "Uri_": "http://proton.semanticweb.org/protonsys#",
+      "IsOntology_": false
     },
     "http://www.w3.org/2001/XMLSchema#": {
-      "Uri": "http://www.w3.org/2001/XMLSchema#",
-      "IsOntology": false
+      "Uri_": "http://www.w3.org/2001/XMLSchema#",
+      "IsOntology_": false
     },
     "http://viaf.org/": {
-      "Uri": "http://viaf.org/",
-      "IsOntology": false
+      "Uri_": "http://viaf.org/",
+      "IsOntology_": true
     },
     "http://viaf.org/#": {
-      "Uri": "http://viaf.org/#",
-      "IsOntology": false
-    },
-    "https://cap44.univ-nantes.fr/api/items/": {
-      "Uri": "https://cap44.univ-nantes.fr/api/items/",
-      "IsOntology": false
-    },
-    "http://www.cidoc-crm.org/cidoc-crm/": {
-      "Uri": "http://www.cidoc-crm.org/cidoc-crm/",
-      "IsOntology": false
-    },
-    "http://omeka.org/s/vocabs/o#": {
-      "Uri": "http://omeka.org/s/vocabs/o#",
-      "IsOntology": false
-    },
-    "http://purl.org/dc/terms/": {
-      "Uri": "http://purl.org/dc/terms/",
-      "IsOntology": false
-    },
-    "http://www.w3.org/2004/02/skos/core#": {
-      "Uri": "http://www.w3.org/2004/02/skos/core#",
-      "IsOntology": false
-    },
-    "http://rdaregistry.info/Elements/a/": {
-      "Uri": "http://rdaregistry.info/Elements/a/",
-      "IsOntology": false
-    },
-    "https://cap44.univ-nantes.fr/api/item_sets/": {
-      "Uri": "https://cap44.univ-nantes.fr/api/item_sets/",
-      "IsOntology": false
-    },
-    "http://viaf.org/viaf/": {
-      "Uri": "http://viaf.org/viaf/",
-      "IsOntology": false
-    },
-    "https://sws.geonames.org/": {
-      "Uri": "https://sws.geonames.org/",
-      "IsOntology": false
-    },
-    "https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/": {
-      "Uri": "https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/",
-      "IsOntology": false
-    },
-    "http://data.culture.fr/thesaurus/resource/ark:/67717/": {
-      "Uri": "http://data.culture.fr/thesaurus/resource/ark:/67717/",
-      "IsOntology": false
-    },
-    "http://dewey.info/class/": {
-      "Uri": "http://dewey.info/class/",
-      "IsOntology": false
+      "Uri_": "http://viaf.org/#",
+      "IsOntology_": true
     }
   }
 }

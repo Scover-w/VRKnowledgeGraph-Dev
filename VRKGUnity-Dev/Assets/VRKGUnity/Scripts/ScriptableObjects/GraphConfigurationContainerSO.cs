@@ -33,7 +33,7 @@ public class GraphConfigurationContainerSO : ScriptableObject
     [ContextMenu("ForceLoad")]
     public async Task ForceLoad()
     {
-        Debug.LogWarning("so tamere ForceLoad");
+        Debug.LogWarning("ForceLoad");
 
         try
         {
@@ -59,7 +59,7 @@ public class GraphConfigurationContainerSO : ScriptableObject
 
     public async Task<GraphConfiguration> GetGraphConfiguration()
     {
-        Debug.LogWarning("so tamere GetGraphConfiguration");
+        Debug.LogWarning("GetGraphConfiguration");
 
 #if UNITY_EDITOR
         if (!Application.isPlaying)
