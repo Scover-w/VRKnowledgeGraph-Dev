@@ -129,7 +129,7 @@ public class GraphDBAPITest
         string sparqlQuery = "select * where { ?s ?p ?o .}";
         using (HttpClient client = new HttpClient())
         {
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "http://localhost:7200/" + "repositories/" + "TestOntology");
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:7200/" + "repositories/" + "TestOntology");
 
             var parameters = new Dictionary<string, string> { { "query", sparqlQuery } };
             var encodedContent = new FormUrlEncodedContent(parameters);

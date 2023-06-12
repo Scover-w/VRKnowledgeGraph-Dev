@@ -32,13 +32,15 @@ public class OntologyTree
     public static async Task<OntologyTree> TryCreateOntologyAndLoadInDatabase(GraphDBAPI graphDBAPI, string pathRepo, string uri)
     {
         string xmlContent = await HttpHelper.RetrieveRdf(uri);
-        
+
+        if (xmlContent.Length == 0)
+            return null;
+
+
         IGraph graph = new VDS.RDF.Graph();
 
         if(!graph.TryLoadFromRdf(xmlContent))
-        {
             return null;
-        }
 
         await FileHelper.SaveAsync(xmlContent, pathRepo, CleanUri(uri) + ".rdf");
 

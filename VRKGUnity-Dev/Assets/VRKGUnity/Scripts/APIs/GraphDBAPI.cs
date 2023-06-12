@@ -1,17 +1,10 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.Networking;
-using VDS.RDF;
-using VDS.RDF.Query;
-using VDS.RDF.Writing;
-using VDS.RDF.Writing.Formatting;
-using static Codice.CM.WorkspaceServer.WorkspaceTreeDataStore;
 
 public class GraphDBAPI
 {
@@ -35,18 +28,20 @@ public class GraphDBAPI
         _repositoryId = graphDbRepository.RepositoryId;
     }
 
+    /// <summary>
+    /// For Select query.
+    /// Max sparqlQuery length is 8000.
+    /// </summary>
+    /// <param name="sparqlQuery"></param>
+    /// <returns></returns>
     public async Task<string> SelectQuery(string sparqlQuery)
     {
         using (HttpClient client = new HttpClient())
         {
 
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, _serverUrl + "repositories/" + _repositoryId);
+            string encodedQuery = WebUtility.UrlEncode(sparqlQuery);
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, _serverUrl + "repositories/" + _repositoryId + "?query=" + encodedQuery);
             request.Headers.Add("Accept", "application/sparql-results+json");
-
-            var parameters = new Dictionary<string, string> { { "query", sparqlQuery } };
-            var encodedContent = new FormUrlEncodedContent(parameters);
-            request.Content = encodedContent;
-
 
             HttpResponseMessage response;
 
@@ -54,7 +49,7 @@ public class GraphDBAPI
             {
                 response = await client.SendAsync(request);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 var responseB = new HttpResponseMessage();
                 responseB.StatusCode = HttpStatusCode.ServiceUnavailable;
@@ -63,9 +58,13 @@ public class GraphDBAPI
                 return "";
             }
 
-            if(!response.IsSuccessStatusCode)
+            if (!response.IsSuccessStatusCode)
             {
-                OnErrorQuery?.Invoke(response);
+                string error = await response.Content.ReadAsStringAsync();
+                var responseC = new HttpResponseMessage();
+                responseC.StatusCode = response.StatusCode;
+                responseC.Content = new StringContent(error);
+                OnErrorQuery?.Invoke(responseC);
                 return "";
             }
 
@@ -74,7 +73,13 @@ public class GraphDBAPI
         }
     }
 
-    public async Task<bool> InsertQuery(string sparqlQuery)
+
+    /// <summary>
+    /// For Insert or Delete query.
+    /// </summary>
+    /// <param name="sparqlQuery"></param>
+    /// <returns></returns>
+    public async Task<bool> UpdateQuery(string sparqlQuery)
     {
         using (HttpClient client = new HttpClient())
         {
@@ -84,7 +89,6 @@ public class GraphDBAPI
             multiPartContent.Add(new StringContent(sparqlQuery), "update");
 
             request.Content = multiPartContent;
-
 
             HttpResponseMessage response;
 
@@ -103,7 +107,11 @@ public class GraphDBAPI
 
             if (!response.IsSuccessStatusCode)
             {
-                OnErrorQuery?.Invoke(response);
+                string error = await response.Content.ReadAsStringAsync();
+                var responseC = new HttpResponseMessage();
+                responseC.StatusCode = response.StatusCode;
+                responseC.Content = new StringContent(error);
+                OnErrorQuery?.Invoke(responseC);
                 return false;
             }
 
