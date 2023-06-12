@@ -34,16 +34,17 @@ public class GraphDbRepositoryDistantUris
     }
 
 
-    public async Task RetrieveNames(JObject data)
+    public async Task RetrieveNames(JObject data, ReadOnlyHashSet<string> ontoUris)
     {
         var nodges = data.ExtractNodgesForDistantUri();
 
-        await RetrieveNames(nodges.NodesDicId);
+        await RetrieveNames(nodges.NodesDicId, ontoUris);
     }
 
-    public async Task RetrieveNames(Dictionary<int, Node> idAndNodes)
+    public async Task RetrieveNames(Dictionary<int, Node> idAndNodes, ReadOnlyHashSet<string> ontoUris)
     {
         idAndNodes = idAndNodes.GetNoLabeledNodes();
+        idAndNodes = idAndNodes.GetNoOntoUriNodes(ontoUris);
 
 
         if (idAndNodes.Count == 0)
@@ -63,7 +64,9 @@ public class GraphDbRepositoryDistantUris
         {
             tasks.Add(Task.Run(async () =>
             {
-                await RetrieveName(idAndNode.Value);
+
+                var node = idAndNode.Value;
+                await RetrieveName(node);
 
                 // Increment the finished thread count atomically
                 if (Interlocked.Increment(ref _nbFinishedThread) == _nbNodes)

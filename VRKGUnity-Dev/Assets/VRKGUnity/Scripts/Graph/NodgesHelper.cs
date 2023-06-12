@@ -160,6 +160,8 @@ public static class NodgesHelper
 
         return nodges;
     }
+
+
     /// <summary>
     /// Merge litteral nodes to its only node connection in its properties.
     /// Allow to compact the graph by removing solo edge nodes.
@@ -187,7 +189,12 @@ public static class NodgesHelper
             bool onlyOneSource = (node.EdgeSource.Count == 1 && node.EdgeTarget.Count == 0);
 
             if (!(onlyOneSource || onlyOnetarget))
+            {
+                // TODO : Get labels and all to properties
+
+
                 continue;
+            }
 
             Edge edge = onlyOnetarget ? node.EdgeTarget[0] : node.EdgeSource[0];
 
@@ -256,6 +263,30 @@ public static class NodgesHelper
 
         return nolabeled;
     }
+
+    public static Dictionary<int, Node> GetNoOntoUriNodes(this Dictionary<int, Node> idAndNodes, ReadOnlyHashSet<string> ontoUris)
+    {
+        Dictionary<int, Node> noOntoned = new();
+
+        foreach (var idAndNode in idAndNodes)
+        {
+            var node = idAndNode.Value;
+
+            if (node.Type != NodgeType.Uri)
+                continue;
+
+            var value = node.Value.ExtractUri().namespce;
+
+            if (ontoUris.Contains(value))
+                continue;
+
+            noOntoned.Add(idAndNode.Key, idAndNode.Value);
+        }
+
+        return noOntoned;
+    }
+
+
 
 
     public static void AddRetrievedNames(this Nodges nodges, GraphDbRepositoryDistantUris graphDbRepositoryDistantUris)

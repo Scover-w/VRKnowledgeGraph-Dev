@@ -38,7 +38,6 @@ public class GraphConfigurationContainerSO : ScriptableObject
         try
         {
             _graphConfiguration = await GraphConfiguration.Load();
-            Debug.Log(_graphConfiguration.NodeColorMapping.BoundaryColorA);
         }
         catch(Exception ex) 
         {
@@ -59,7 +58,6 @@ public class GraphConfigurationContainerSO : ScriptableObject
 
     public async Task<GraphConfiguration> GetGraphConfiguration()
     {
-        Debug.LogWarning("GetGraphConfiguration");
 
 #if UNITY_EDITOR
         if (!Application.isPlaying)

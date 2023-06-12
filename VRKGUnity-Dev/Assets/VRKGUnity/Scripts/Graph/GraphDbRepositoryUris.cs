@@ -11,6 +11,9 @@ using UnityEngine;
 public class GraphDbRepositoryUris
 {
     [JsonIgnore]
+    public ReadOnlyHashSet<string> OntoUris { get; private set; }
+
+    [JsonIgnore]
     public IReadOnlyDictionary<string, OntologyTree> OntoTreeDict => _ontoTreeDict;
 
     [JsonProperty("OntoUris_")]
@@ -29,6 +32,8 @@ public class GraphDbRepositoryUris
         _ontoTreeDict = new();
         _uris = new();
         _ontoUris = new();
+
+        OntoUris = new ReadOnlyHashSet<string>(_ontoUris);
     }
 
     public async Task RetrieveNewUris(JObject data,GraphDBAPI graphDBAPI)

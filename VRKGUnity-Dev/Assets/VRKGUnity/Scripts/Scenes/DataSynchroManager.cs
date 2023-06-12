@@ -28,8 +28,8 @@ public class DataSynchroManager : MonoBehaviour
     private async void SyncData()
     {
         UpdateGraphDbFromOmeka();
-        await UpdateGraphDbRepoFromGraphDbServer();
-        await RetrieveDistantUri();
+        var ontoUris = await UpdateGraphDbRepoFromGraphDbServer();
+        await RetrieveDistantUri(ontoUris);
 
         var lifeSceneManager = _referenceHolder.LifeCycleSceneManagerSA.Value;
 
@@ -41,7 +41,7 @@ public class DataSynchroManager : MonoBehaviour
         // TODO : Need to check the api
     }
 
-    private async Task UpdateGraphDbRepoFromGraphDbServer()
+    private async Task<ReadOnlyHashSet<string>> UpdateGraphDbRepoFromGraphDbServer()
     {
         await _repository.LoadChilds();
 
@@ -52,12 +52,14 @@ public class DataSynchroManager : MonoBehaviour
 
         await repoUris.RetrieveNewUris(_data, _graphDbAPI);
 
+        var readOntoUri = repoUris.OntoUris;
+        return readOntoUri;
     }
 
-    private async Task RetrieveDistantUri()
+    private async Task RetrieveDistantUri(ReadOnlyHashSet<string> ontoUris)
     {
         var graphDistantUri = _repository.GraphDbRepositoryDistantUris;
 
-        await graphDistantUri.RetrieveNames(_data);
+        await graphDistantUri.RetrieveNames(_data, ontoUris);
     }
 }

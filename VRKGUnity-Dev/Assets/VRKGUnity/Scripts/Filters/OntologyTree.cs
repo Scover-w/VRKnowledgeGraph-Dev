@@ -118,6 +118,9 @@ public class OntologyTree
 
         }
 
+        if (ontoNodes.Count == 0)
+            Debug.Log("cc");
+
         return new OntologyTree(ontoNodes, ontoEdges, uri);
 
 
@@ -184,6 +187,9 @@ public class OntologyTree
 
     private void SetRootAndDepth()
     {
+        if (_ontoNodes.Count == 0)
+            return;
+
         _rootOntoNode = _ontoNodes.First().Value;
 
 
