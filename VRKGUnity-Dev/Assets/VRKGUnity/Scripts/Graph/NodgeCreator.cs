@@ -35,7 +35,7 @@ public class NodgeCreator : MonoBehaviour
         var repo = _referenceHolderSo.SelectedGraphDbRepository;
         debugChrono.Start("RetreiveGraph");
         _api = repo.GraphDBAPI;
-        var json = await _api.Query(query);
+        var json = await _api.SelectQuery(query);
         var data = JsonConvert.DeserializeObject<JObject>(json);
 
 

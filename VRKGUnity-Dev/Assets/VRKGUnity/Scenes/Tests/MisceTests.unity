@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 127067206}
   - component: {fileID: 127067207}
   - component: {fileID: 127067208}
+  - component: {fileID: 127067209}
   m_Layer: 0
   m_Name: '[SCRIPTS]'
   m_TagString: Untagged
@@ -209,6 +210,18 @@ MonoBehaviour:
   _boundaryColorC: 0
   _value: 0
   _resultColor: {r: NaN, g: NaN, b: NaN, a: NaN}
+--- !u!114 &127067209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 127067204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373bf5dd34ebf654da5ba59d8197305b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &151081789
 GameObject:
   m_ObjectHideFlags: 0

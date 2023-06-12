@@ -8,6 +8,7 @@ using UnityEngine;
 using VDS.RDF;
 using VDS.RDF.Parsing;
 using VDS.RDF.Query.Expressions.Functions.XPath.String;
+using VDS.RDF.Writing;
 
 public class OntologyTree
 {
@@ -30,27 +31,22 @@ public class OntologyTree
 
     public static async Task<OntologyTree> TryCreateOntologyAndLoadInDatabase(GraphDBAPI graphDBAPI, string pathRepo, string uri)
     {
-        RdfXmlParser parser = new RdfXmlParser();
-        IGraph graph = new VDS.RDF.Graph();
         string xmlContent = await HttpHelper.RetrieveRdf(uri);
+        
+        IGraph graph = new VDS.RDF.Graph();
 
-        try
-        {
-            using (StringReader reader = new StringReader(xmlContent))
-            {
-                parser.Load(graph, reader);
-            }
-        }
-        catch (RdfParseException e)
+        if(!graph.TryLoadFromRdf(xmlContent))
         {
             return null;
         }
 
         await FileHelper.SaveAsync(xmlContent, pathRepo, CleanUri(uri) + ".rdf");
 
-        graph.Clean();
+        graph.CleanFromLabelAndComment();
 
-        await graphDBAPI.LoadOntologyInDatabase(graph);
+        string turtleContent = graph.ToTurtle();
+
+        await graphDBAPI.LoadFileContentInDatabase(turtleContent, GraphDBAPIFileType.Turtle);
 
         var ontologyTree = await OntologyTree.CreateAsync(graph, uri);
         return ontologyTree;
@@ -76,7 +72,7 @@ public class OntologyTree
             return null;
         }
 
-        graph.Clean();
+        graph.CleanFromLabelAndComment();
         var ontologyTree = await CreateAsync(graph, uri);
         return ontologyTree;
     }

@@ -8,8 +8,10 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
 using VDS.RDF;
+using VDS.RDF.Query;
 using VDS.RDF.Writing;
 using VDS.RDF.Writing.Formatting;
+using static Codice.CM.WorkspaceServer.WorkspaceTreeDataStore;
 
 public class GraphDBAPI
 {
@@ -33,14 +35,18 @@ public class GraphDBAPI
         _repositoryId = graphDbRepository.RepositoryId;
     }
 
-    public async Task<string> Query(string query)
+    public async Task<string> SelectQuery(string sparqlQuery)
     {
         using (HttpClient client = new HttpClient())
         {
 
-            string encodedQuery = WebUtility.UrlEncode(query);
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, _serverUrl + "repositories/" + _repositoryId + "?query=" + encodedQuery);
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, _serverUrl + "repositories/" + _repositoryId);
             request.Headers.Add("Accept", "application/sparql-results+json");
+
+            var parameters = new Dictionary<string, string> { { "query", sparqlQuery } };
+            var encodedContent = new FormUrlEncodedContent(parameters);
+            request.Content = encodedContent;
+
 
             HttpResponseMessage response;
 
@@ -63,20 +69,22 @@ public class GraphDBAPI
                 return "";
             }
 
-            response.EnsureSuccessStatusCode();
             string responseBody = await response.Content.ReadAsStringAsync();
             return responseBody;
         }
     }
 
-    public async Task<bool> LoadOntologyInDatabase(IGraph graph)
+    public async Task<bool> InsertQuery(string sparqlQuery)
     {
-        string sparqlQuery = ConvertGraphToSparqlInsertQuery(graph);
-        string encodedQuery = WebUtility.UrlEncode(sparqlQuery);
         using (HttpClient client = new HttpClient())
         {
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, _serverUrl + "repositories/" + _repositoryId + "/statements");
-            request.Content = new StringContent("update=" + encodedQuery, Encoding.UTF8, "application/sparql-update");
+
+            var multiPartContent = new MultipartFormDataContent();
+            multiPartContent.Add(new StringContent(sparqlQuery), "update");
+
+            request.Content = multiPartContent;
+
 
             HttpResponseMessage response;
 
@@ -99,27 +107,17 @@ public class GraphDBAPI
                 return false;
             }
 
-            response.EnsureSuccessStatusCode();
-
             return true;
         }
     }
 
-    public async Task<bool> LoadFirstDataInRepository(IGraph graph)
+    public async Task<bool> LoadFileContentInDatabase(string fileContent, GraphDBAPIFileType type)
     {
-        var writer = new CompressingTurtleWriter();
-        var serializedRdf = new System.IO.StringWriter();
-        writer.Save(graph, serializedRdf);
-
-        string rdfData = serializedRdf.ToString();
 
         using (HttpClient client = new HttpClient())
         {
-            // Create the request message
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Put, _serverUrl + "repositories/" + _repositoryId + "/statements");
-
-            // Set the content of the request message to be the serialized RDF graph
-            request.Content = new StringContent(rdfData, Encoding.UTF8, "text/turtle");
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, _serverUrl + "repositories/" + _repositoryId + "/statements");
+            request.Content = new StringContent(fileContent, Encoding.UTF8, (type == GraphDBAPIFileType.Turtle) ? "text/turtle" : "application/rdf+xml");
 
             HttpResponseMessage response;
 
@@ -147,26 +145,11 @@ public class GraphDBAPI
             return true;
         }
     }
+}
 
 
-    private string ConvertGraphToSparqlInsertQuery(IGraph graph)
-    {
-        SparqlFormatter formatter = new SparqlFormatter();
-        StringBuilder queryBuilder = new StringBuilder();
-
-        queryBuilder.AppendLine("INSERT DATA {");
-
-        foreach (Triple triple in graph.Triples)
-        {
-            string subject = formatter.Format(triple.Subject);
-            string predicate = formatter.Format(triple.Predicate);
-            string @object = formatter.Format(triple.Object);
-
-            queryBuilder.AppendLine($"  {subject} {predicate} {@object} .");
-        }
-
-        queryBuilder.AppendLine("}");
-
-        return queryBuilder.ToString();
-    }
+public enum GraphDBAPIFileType
+{
+    Turtle,
+    Rdf
 }

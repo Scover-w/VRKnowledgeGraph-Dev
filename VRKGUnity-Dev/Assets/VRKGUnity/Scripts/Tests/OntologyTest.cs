@@ -42,7 +42,7 @@ public class OntologyTest : MonoBehaviour
     public async void Retrieve()
     {
 
-        var json = await _api.Query("select * where { \r\n\t?s ?p ?o .\r\n}");
+        var json = await _api.SelectQuery("select * where { \r\n\t?s ?p ?o .\r\n}");
 
         var data = JsonConvert.DeserializeObject<JObject>(json);
 

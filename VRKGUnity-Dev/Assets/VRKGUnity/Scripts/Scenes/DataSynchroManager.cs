@@ -47,7 +47,7 @@ public class DataSynchroManager : MonoBehaviour
 
         var repoUris = _repository.GraphDbRepositoryUris;
 
-        var json = await _graphDbAPI.Query("select * where { \r\n\t?s ?p ?o .\r\n}");
+        var json = await _graphDbAPI.SelectQuery("select * where { \r\n\t?s ?p ?o .\r\n}");
         _data = JsonConvert.DeserializeObject<JObject>(json);
 
         await repoUris.RetrieveNewUris(_data, _graphDbAPI);

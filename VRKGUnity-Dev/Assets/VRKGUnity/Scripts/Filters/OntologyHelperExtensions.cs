@@ -6,12 +6,7 @@ using VDS.RDF;
 
 public static class OntologyHelperExtensions
 {
-
-    /// <summary>
-    /// Remove comments and labels from graph
-    /// </summary>
-    /// <param name="graph"></param>
-    public static void Clean(this IGraph graph)
+    public static void CleanFromLabelAndComment(this IGraph graph)
     {
         List<Triple> triplesToRemove = new();
 
