@@ -6,10 +6,10 @@ using QuikGraph;
 public class Node
 {
 
-    private static string[] _nameUris = new string[] { "http://www.w3.org/2004/02/skos/core#prefLabel", 
-                                                            "http://www.w3.org/2004/02/skos/core#altLabel", 
-                                                             "http://www.w3.org/2000/01/rdf-schema#label",
-                                                                "http://purl.org/dc/terms/title"};
+    private static string[] _nameUris = new string[] {  "http://www.w3.org/2004/02/skos/core#prefLabel", 
+                                                        "http://www.w3.org/2000/01/rdf-schema#label",
+                                                        "http://www.w3.org/2004/02/skos/core#altLabel", 
+                                                        "http://purl.org/dc/terms/title"};
 
     public bool ActiveSelf
     {

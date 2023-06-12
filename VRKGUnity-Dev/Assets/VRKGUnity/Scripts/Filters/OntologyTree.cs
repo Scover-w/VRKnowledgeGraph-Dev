@@ -100,6 +100,9 @@ public class OntologyTree
             string pValue = triple.Predicate.ToString();
             string oValue = triple.Object.ToString();
 
+            if (sValue == "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
+                || oValue == "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property")
+                Debug.Log("Wut");
 
             if (pValue == "http://www.w3.org/2000/01/rdf-schema#subClassOf")
             {
@@ -222,7 +225,7 @@ public class OntologyTree
 
     public OntoNode GetOntoNode(int id)
     {
-        if (_ontoNodes.TryGetValue(id, out var ontoNode))
+        if (!_ontoNodes.TryGetValue(id, out var ontoNode))
         {
             Debug.LogWarning("OntologyTree : Couldn't get onto node with id");
             return null;

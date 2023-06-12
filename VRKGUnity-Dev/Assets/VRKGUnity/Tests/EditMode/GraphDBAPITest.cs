@@ -161,6 +161,19 @@ public class GraphDBAPITest
 
     }
 
+    [Test]
+    public async void TestGraphDbConnection()
+    {
+        bool resultCap44 = await GraphDBAPI.DoRepositoryExist("http://localhost:7200/", "cap44");
+        bool resultTestOntology = await GraphDBAPI.DoRepositoryExist("http://localhost:7200/", "TestOntology");
+        bool resultBipbop = await GraphDBAPI.DoRepositoryExist("http://localhost:7200/", "Bipbop");
+
+        Assert.IsTrue(resultCap44);
+        Assert.IsTrue(resultTestOntology);
+        Assert.IsFalse(resultBipbop);
+
+    }
+
     //[Test]
     //public async void GetNodes()
     //{

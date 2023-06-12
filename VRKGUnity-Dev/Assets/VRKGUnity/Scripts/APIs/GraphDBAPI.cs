@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using VDS.RDF.Query;
 
 public class GraphDBAPI
 {
@@ -149,6 +150,44 @@ public class GraphDBAPI
             }
 
             response.EnsureSuccessStatusCode();
+
+            return true;
+        }
+    }
+
+    public static async Task<bool> DoRepositoryExist(string serverUrl, string repositoryId)
+    {
+        using (HttpClient client = new HttpClient())
+        {
+
+            string encodedQuery = WebUtility.UrlEncode("select * where { ?s ?p ?o .} LIMIT 1");
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, serverUrl + "repositories/" + repositoryId + "?query=" + encodedQuery);
+            request.Headers.Add("Accept", "application/sparql-results+json");
+
+            HttpResponseMessage response;
+
+            try
+            {
+                response = await client.SendAsync(request);
+            }
+            catch (Exception e)
+            {
+                var responseB = new HttpResponseMessage();
+                responseB.StatusCode = HttpStatusCode.ServiceUnavailable;
+                responseB.Content = new StringContent(e.Message);
+                OnErrorQuery?.Invoke(responseB);
+                return false;
+            }
+
+            if (!response.IsSuccessStatusCode)
+            {
+                string error = await response.Content.ReadAsStringAsync();
+                var responseC = new HttpResponseMessage();
+                responseC.StatusCode = response.StatusCode;
+                responseC.Content = new StringContent(error);
+                OnErrorQuery?.Invoke(responseC);
+                return false;
+            }
 
             return true;
         }
