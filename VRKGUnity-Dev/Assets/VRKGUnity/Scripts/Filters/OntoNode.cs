@@ -11,9 +11,6 @@ public class OntoNode
     public List<OntoNode> OntoNodeSource;
     public List<OntoNode> OntoNodeTarget;
 
-    public List<OntoEdge> OntoEdgeSource;
-    public List<OntoEdge> OntoEdgeTarget;
-
     public List<Node> NodesDefined;
 
     public OntoNode(int id, string value)
@@ -24,9 +21,33 @@ public class OntoNode
         OntoNodeSource = new();
         OntoNodeTarget = new();
 
-        OntoEdgeSource = new();
-        OntoEdgeTarget = new();
+        NodesDefined = new();
+    }
+
+    public OntoNode(string value)
+    {
+        Id = value.GetHashCode();
+        Value = value;
+
+        OntoNodeSource = new();
+        OntoNodeTarget = new();
 
         NodesDefined = new();
+    }
+
+    public void AddSource(OntoNode ontoNode)
+    {
+        if (OntoNodeSource.Contains(ontoNode))
+            return;
+
+        OntoNodeSource.Add(ontoNode);
+    }
+
+    public void AddTarget(OntoNode ontoNode)
+    {
+        if (OntoNodeTarget.Contains(ontoNode))
+            return;
+
+        OntoNodeTarget.Add(ontoNode);
     }
 }

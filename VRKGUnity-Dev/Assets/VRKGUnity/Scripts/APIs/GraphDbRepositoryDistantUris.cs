@@ -34,17 +34,17 @@ public class GraphDbRepositoryDistantUris
     }
 
 
-    public async Task RetrieveNames(JObject data, ReadOnlyHashSet<string> ontoUris)
+    public async Task RetrieveNames(JObject data, IReadOnlyDictionary<string, OntologyTree> ontoTreeDict)
     {
         var nodges = data.ExtractNodgesForDistantUri();
 
-        await RetrieveNames(nodges.NodesDicId, ontoUris);
+        await RetrieveNames(nodges.NodesDicId, ontoTreeDict);
     }
 
-    public async Task RetrieveNames(Dictionary<int, Node> idAndNodes, ReadOnlyHashSet<string> ontoUris)
+    public async Task RetrieveNames(Dictionary<int, Node> idAndNodes, IReadOnlyDictionary<string, OntologyTree> ontoTreeDict)
     {
         idAndNodes = idAndNodes.GetNoLabeledNodes();
-        idAndNodes = idAndNodes.GetNoOntoUriNodes(ontoUris);
+        idAndNodes = idAndNodes.GetNoOntoUriNodes(ontoTreeDict);
 
 
         if (idAndNodes.Count == 0)

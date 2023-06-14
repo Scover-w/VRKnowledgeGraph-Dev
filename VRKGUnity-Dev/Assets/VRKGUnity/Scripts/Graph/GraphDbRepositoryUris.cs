@@ -7,17 +7,13 @@ using System.IO;
 using System.Security.Policy;
 using System.Threading.Tasks;
 using UnityEngine;
+using VDS.RDF;
 
 public class GraphDbRepositoryUris
 {
     [JsonIgnore]
-    public ReadOnlyHashSet<string> OntoUris { get; private set; }
-
-    [JsonIgnore]
     public IReadOnlyDictionary<string, OntologyTree> OntoTreeDict => _ontoTreeDict;
 
-    [JsonProperty("OntoUris_")]
-    HashSet<string> _ontoUris;
 
     [JsonProperty("Uris_")]
     HashSet<string> _uris;
@@ -31,9 +27,6 @@ public class GraphDbRepositoryUris
     {
         _ontoTreeDict = new();
         _uris = new();
-        _ontoUris = new();
-
-        OntoUris = new ReadOnlyHashSet<string>(_ontoUris);
     }
 
     public async Task RetrieveNewUris(JObject data,GraphDBAPI graphDBAPI)
@@ -75,28 +68,126 @@ public class GraphDbRepositoryUris
 
         foreach(string uri in uris)
         {
-            if(_ontoTreeDict.ContainsKey(uri) || _uris.Contains(uri))
+            if(_uris.Contains(uri))
             {
                 continue;
             }
 
-            // For each new uris
-            var ontologyTree = await OntologyTree.TryCreateOntologyAndLoadInDatabase(graphDBAPI, _pathRepo, uri);
-
-            if (ontologyTree == null)
-            {
-                _uris.Add(uri);
-                continue;
-            }
-
-            _ontoTreeDict.Add(uri, ontologyTree);
-            _ontoUris.Add(uri);
+            TryRetrieveOntologyAndLoadInDatabase(graphDBAPI, _pathRepo, uri);
+            _uris.Add(uri);
         }
 
         await Save();
 
     }
 
+
+    private async void TryRetrieveOntologyAndLoadInDatabase(GraphDBAPI graphDBAPI, string pathRepo, string uri)
+    {
+        string xmlContent = await HttpHelper.RetrieveRdf(uri);
+
+        if (xmlContent.Length == 0)
+            return;
+
+        IGraph graph = new VDS.RDF.Graph();
+
+        if (!graph.TryLoadFromRdf(xmlContent))
+            return;
+
+        await FileHelper.SaveAsync(xmlContent, pathRepo, uri.CleanUriFromUrlPart() + ".rdf");
+
+        graph.CleanFromLabelAndComment();
+
+        string turtleContent = graph.ToTurtle();
+
+        await graphDBAPI.LoadFileContentInDatabase(turtleContent, GraphDBAPIFileType.Turtle);
+    }
+
+
+    public async Task CreateOntologyTrees(GraphDBAPI graphDBAPI)
+    {
+        var sparqlQuery = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> " +
+                           "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> " +
+                           "PREFIX owl: <http://www.w3.org/2002/07/owl#> " +
+                           "SELECT ?s ?p ?o " +
+                           " WHERE {  { " +
+                           "VALUES ?na { rdf: rdfs: owl:} " +
+                           "?s ?p ?o. " +
+                           "FILTER( ( (?p = rdf:type && (?o = rdfs:Class || ?o = owl:Class)) || ?p = rdfs:subClassOf ) )  }}";
+
+        var json = await graphDBAPI.SelectQuery(sparqlQuery);
+        var data = JsonConvert.DeserializeObject<JObject>(json);
+
+        _ontoTreeDict = new();
+
+        foreach (JToken binding in data["results"]["bindings"])
+        {
+            string sType = binding["s"]["type"].Value<string>();
+            string sValue = binding["s"]["value"].Value<string>();
+
+            string pType = binding["p"]["type"].Value<string>();
+            string pValue = binding["p"]["value"].Value<string>();
+
+            string oType = binding["o"]["type"].Value<string>();
+            string oValue = binding["o"]["value"].Value<string>();
+
+
+            if(pValue == "http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
+            {
+                var namescpe = sValue.ExtractUri().namespce;
+
+                var ontologyTree = TryGetOrCreateOntologyTree(namescpe);
+                OntoNode ontoNode = new OntoNode(sValue);
+                ontologyTree.AddOntoNode(ontoNode);
+
+                continue;
+            }
+
+
+            if (pValue == "http://www.w3.org/2000/01/rdf-schema#subClassOf")
+            {
+                var nameSpceA = sValue.ExtractUri().namespce;
+                var nameSpceB = oValue.ExtractUri().namespce;
+
+                if(nameSpceA != nameSpceB)
+                {
+                    Debug.Log("Ho ho");
+                    continue;
+                }
+
+                if (sValue.Contains("http://www.cidoc-crm.org/cidoc-crm/E1_CRM_Entity") || oValue.Contains("http://www.cidoc-crm.org/cidoc-crm/E1_CRM_Entity"))
+                    Debug.Log("Bipbop");
+
+                var ontologyTree = TryGetOrCreateOntologyTree(nameSpceA);
+
+                OntoNode sOntoNode = new OntoNode(sValue);
+                OntoNode oOntoNode = new OntoNode(oValue);
+
+                sOntoNode = ontologyTree.TryGetOrCreateOntoNode(sOntoNode);
+                oOntoNode = ontologyTree.TryGetOrCreateOntoNode(oOntoNode);
+
+                sOntoNode.AddSource(oOntoNode);
+                oOntoNode.AddTarget(sOntoNode);
+                continue;
+            }
+        }
+
+        foreach(var ontologyTree in _ontoTreeDict.Values)
+        {
+            ontologyTree.SetRootAndDepth();
+        }
+    }
+
+    private OntologyTree TryGetOrCreateOntologyTree(string namescpe)
+    {
+        if (_ontoTreeDict.TryGetValue(namescpe, out OntologyTree ontologyTree))
+            return ontologyTree;
+
+        ontologyTree = new OntologyTree(namescpe);
+        _ontoTreeDict.Add(namescpe, ontologyTree);
+
+        return ontologyTree;
+    }
 
     public bool IsUriAnOnto(string nodeValue)
     {
@@ -136,8 +227,6 @@ public class GraphDbRepositoryUris
             string json = await File.ReadAllTextAsync(_fullpathFile);
             var graphOnto = JsonConvert.DeserializeObject<GraphDbRepositoryUris>(json);
 
-            await graphOnto.ReloadExistingOntologies();
-
             return graphOnto;
         }
 
@@ -156,16 +245,6 @@ public class GraphDbRepositoryUris
     private static void SetPath(string pathRepo)
     {
         _fullpathFile = Path.Combine(pathRepo, "GraphDbRepositoryUris.json");
-    }
-
-    public async Task ReloadExistingOntologies()
-    {
-        _ontoTreeDict = new();
-        foreach (var uri in _ontoUris) 
-        {
-            var ontoTree = await OntologyTree.CreateByReloadingOntology(_pathRepo, uri);
-            _ontoTreeDict.Add(uri, ontoTree);
-        }
     }
     #endregion
 

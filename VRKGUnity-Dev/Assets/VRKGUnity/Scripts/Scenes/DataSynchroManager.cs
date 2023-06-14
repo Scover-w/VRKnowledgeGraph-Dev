@@ -41,7 +41,7 @@ public class DataSynchroManager : MonoBehaviour
         // TODO : Need to check the api
     }
 
-    private async Task<ReadOnlyHashSet<string>> UpdateGraphDbRepoFromGraphDbServer()
+    private async Task<IReadOnlyDictionary<string, OntologyTree>> UpdateGraphDbRepoFromGraphDbServer()
     {
         await _repository.LoadChilds();
 
@@ -51,15 +51,16 @@ public class DataSynchroManager : MonoBehaviour
         _data = JsonConvert.DeserializeObject<JObject>(json);
 
         await repoUris.RetrieveNewUris(_data, _graphDbAPI);
+        await repoUris.CreateOntologyTrees(_graphDbAPI);
 
-        var readOntoUri = repoUris.OntoUris;
-        return readOntoUri;
+        var readOntoTreeDict = repoUris.OntoTreeDict;
+        return readOntoTreeDict;
     }
 
-    private async Task RetrieveDistantUri(ReadOnlyHashSet<string> ontoUris)
+    private async Task RetrieveDistantUri(IReadOnlyDictionary<string, OntologyTree> readOntoTreeDict)
     {
         var graphDistantUri = _repository.GraphDbRepositoryDistantUris;
 
-        await graphDistantUri.RetrieveNames(_data, ontoUris);
+        await graphDistantUri.RetrieveNames(_data, readOntoTreeDict);
     }
 }

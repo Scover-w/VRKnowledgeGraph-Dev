@@ -1,3 +1,4 @@
+using QuikGraph;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -48,15 +49,6 @@ public class OntologyPlaygroundTest : MonoBehaviour
                 continue;
             }
 
-            //For properties
-            bool isDomain = (pValue == "http://www.w3.org/2000/01/rdf-schema#domain");
-
-            if (isDomain || pValue == "http://www.w3.org/2000/01/rdf-schema#range")
-            {
-                AddEdge(sValue, oValue, isDomain);
-                continue;
-            }
-
             noUsableTriple.Add(triple);
 
         }
@@ -80,40 +72,6 @@ public class OntologyPlaygroundTest : MonoBehaviour
             ontoNodeSubject.OntoNodeSource.Add(ontoNodeObject);
         }
 
-        void AddEdge(string propertyUri, string nodeValue, bool isDomain)
-        {
-            OntoNode ontoNode = GetOntoNode(nodeValue);
-            OntoEdge ontoEdge = GetOntoEdge(propertyUri);
-
-            if (isDomain)
-            {
-                ontoNode.OntoEdgeSource.Add(ontoEdge);
-                ontoEdge.NodeSource.Add(ontoNode);
-            }
-            else
-            {
-                ontoNode.OntoEdgeTarget.Add(ontoEdge);
-                ontoEdge.NodeTarget.Add(ontoNode);
-            }
-        }
-
-        OntoEdge GetOntoEdge(string ontoEdgeValue)
-        {
-            var idOntoEdge = ontoEdgeValue.GetHashCode(); // TODO : change to get nodesource and node target value
-
-            if (ontoEdges.TryGetValue(idOntoEdge, out OntoEdge ontoEdgeB))
-            {
-                return ontoEdgeB;
-            }
-            else
-            {
-                var ontoEdge = new OntoEdge(idOntoEdge, ontoEdgeValue);
-                ontoEdges.Add(idOntoEdge, ontoEdge);
-                return ontoEdge;
-            }
-        }
-
-
         OntoNode GetOntoNode(string ontoNodeValue)
         {
             var idOntoNode = ontoNodeValue.GetHashCode();
@@ -129,6 +87,17 @@ public class OntologyPlaygroundTest : MonoBehaviour
                 return ontoNode;
             }
         }
+    }
+
+
+    [ContextMenu("Test Create Tree")]
+    private void TestCreateTree()
+    {
+        //var repo = new GraphDbRepository()
+
+
+
+
     }
 
 }

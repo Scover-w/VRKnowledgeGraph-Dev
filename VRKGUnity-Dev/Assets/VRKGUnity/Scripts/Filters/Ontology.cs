@@ -210,4 +210,9 @@ public static class OntologyHelperExtension
 
         return (uri.Trim(), string.Empty);
     }
+
+    public static string CleanUriFromUrlPart(this string uri)
+    {
+        return uri.Replace("http://", "").Replace("/", "").Replace(".", "").Replace("\\", "").Replace("#", "");
+    }
 }
