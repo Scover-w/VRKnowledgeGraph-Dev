@@ -93,6 +93,7 @@ public class OntologyTree
         Dictionary<int, OntoNode> ontoNodes = new();
         Dictionary<int, OntoEdge> ontoEdges = new();
 
+        List<Triple> noUsableTriple = new();
 
         foreach (Triple triple in graph.Triples)
         {
@@ -100,17 +101,13 @@ public class OntologyTree
             string pValue = triple.Predicate.ToString();
             string oValue = triple.Object.ToString();
 
-            if (sValue == "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
-                || oValue == "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property")
-                Debug.Log("Wut");
-
             if (pValue == "http://www.w3.org/2000/01/rdf-schema#subClassOf")
             {
                 AddSubclassOf(sValue, oValue);
                 continue;
             }
 
-
+            //For properties
             bool isDomain = (pValue == "http://www.w3.org/2000/01/rdf-schema#domain");
 
             if (isDomain || pValue == "http://www.w3.org/2000/01/rdf-schema#range")
@@ -119,7 +116,12 @@ public class OntologyTree
                 continue;
             }
 
+            noUsableTriple.Add(triple);
+
         }
+
+        Debug.Log(noUsableTriple);
+
 
         if (ontoNodes.Count == 0)
             Debug.Log("cc");
