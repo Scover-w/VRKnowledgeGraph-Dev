@@ -111,7 +111,6 @@ public class GraphDbRepositoryUris
                            "PREFIX owl: <http://www.w3.org/2002/07/owl#> " +
                            "SELECT ?s ?p ?o " +
                            " WHERE {  { " +
-                           "VALUES ?na { rdf: rdfs: owl:} " +
                            "?s ?p ?o. " +
                            "FILTER( ( (?p = rdf:type && (?o = rdfs:Class || ?o = owl:Class)) || ?p = rdfs:subClassOf ) )  }}";
 
@@ -136,6 +135,9 @@ public class GraphDbRepositoryUris
             {
                 var namescpe = sValue.ExtractUri().namespce;
 
+                if (!namescpe.StartsWith("http"))
+                    continue;
+
                 var ontologyTree = TryGetOrCreateOntologyTree(namescpe);
                 OntoNode ontoNode = new OntoNode(sValue);
                 ontologyTree.AddOntoNode(ontoNode);
@@ -154,6 +156,9 @@ public class GraphDbRepositoryUris
                     Debug.Log("Ho ho");
                     continue;
                 }
+
+                if (!nameSpceA.StartsWith("http"))
+                    continue;
 
                 if (sValue.Contains("http://www.cidoc-crm.org/cidoc-crm/E1_CRM_Entity") || oValue.Contains("http://www.cidoc-crm.org/cidoc-crm/E1_CRM_Entity"))
                     Debug.Log("Bipbop");

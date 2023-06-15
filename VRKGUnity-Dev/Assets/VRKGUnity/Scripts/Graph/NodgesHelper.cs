@@ -266,23 +266,30 @@ public static class NodgesHelper
 
     public static Dictionary<int, Node> GetNoOntoUriNodes(this Dictionary<int, Node> idAndNodes, IReadOnlyDictionary<string, OntologyTree> ontoTreeDict)
     {
-        // TODO : GetNoOntoUriNodes
+
         Dictionary<int, Node> noOntoned = new();
 
-        //foreach (var idAndNode in idAndNodes)
-        //{
-        //    var node = idAndNode.Value;
+        foreach (var idAndNode in idAndNodes)
+        {
+            var node = idAndNode.Value;
 
-        //    if (node.Type != NodgeType.Uri)
-        //        continue;
+            if (node.Type != NodgeType.Uri)
+                continue;
 
-        //    var value = node.Value.ExtractUri().namespce;
+            var namespce = node.Value.ExtractUri().namespce;
 
-        //    if (ontoUris.Contains(value))
-        //        continue;
+            if (!ontoTreeDict.TryGetValue(namespce, out OntologyTree ontoTree))
+            {
+                noOntoned.Add(idAndNode.Key, idAndNode.Value);
+                continue;
+            }
 
-        //    noOntoned.Add(idAndNode.Key, idAndNode.Value);
-        //}
+            if(!ontoTree.TryGetOntoNode(idAndNode.Key, out OntoNode ontoNode))
+            {
+                noOntoned.Add(idAndNode.Key, idAndNode.Value);
+                continue;
+            }
+        }
 
         return noOntoned;
     }

@@ -89,6 +89,19 @@ public class OntologyTree
         return ontoNode;
     }
 
+    public bool TryGetOntoNode(int id, out OntoNode ontoNode)
+    {
+        ontoNode = null;
+        if (!_ontoNodes.TryGetValue(id, out var oNode))
+        {
+            Debug.LogWarning("OntologyTree : Couldn't get onto node with id");
+            return false;
+        }
+
+        ontoNode = oNode;
+        return true;
+    }
+
     public void ResetDefinedNodes()
     {
         foreach(var idAndOntoNode in _ontoNodes)
