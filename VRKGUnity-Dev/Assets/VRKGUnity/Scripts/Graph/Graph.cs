@@ -1,3 +1,4 @@
+using AngleSharp.Html;
 using QuikGraph;
 using QuikGraph.Algorithms;
 using QuikGraph.Algorithms.Observers;
@@ -63,6 +64,7 @@ public class Graph
     BidirectionalGraph<Node, Edge> _graphDatas;
 
     GraphDbRepository _repository;
+    GraphDbRepositoryUris _graphRepoUris;
 
     Node _selectedNode;
     Edge _selectedEdge;
@@ -478,8 +480,9 @@ public class Graph
 
 
     #region METRICS_CALCULATIONS
-    public async void CalculateMetrics()
+    public async void CalculateMetrics(GraphDbRepositoryUris graphRepoUris)
     {
+        _graphRepoUris = graphRepoUris;
         _metricsCalculated = 0;
 
         var tasks = new List<Task>();
@@ -489,6 +492,7 @@ public class Graph
         CalculateMetric(CalculateShortestPathsAndCentralities);
         CalculateMetric(CalculateDegrees);
         CalculateMetric(CalculateClusteringCoefficients);
+        CalculateMetric(CalculateOntology);
 
         await semaphore.WaitAsync();
 
@@ -730,6 +734,93 @@ public class Graph
             if (cluster < minCluster)
                 minCluster = cluster;
         }
+    }
+
+    private void CalculateOntology()
+    {
+        Dictionary<int, OntoNodeGroup> ontoGroups = new();
+
+        HashSet<OntoNodeGroup> ontoGroupToForget = new();
+
+        var ontoTreeDict = _graphRepoUris.OntoTreeDict;
+
+
+        // Nobody can watch this without bleeding, trust me
+        foreach (var ontoTree in ontoTreeDict.Values)
+        {
+            var ontoNodes = ontoTree.OntoNodes;
+
+            foreach(var ontoNode in ontoNodes.Values)
+            {
+
+                if (ontoNode.NodesDefined.Count == 0)
+                    continue;
+
+                OntoNodeGroup ontoGroup;
+
+                if (!ontoGroups.TryGetValue(ontoNode.Id, out ontoGroup))
+                {
+                    ontoGroup = new OntoNodeGroup(ontoNode);
+                    ontoGroups.Add(ontoGroup.Id, ontoGroup);
+                }
+
+                foreach(var node in ontoNode.NodesDefined)
+                {
+                    ontoGroup.Nodes.Add(node);
+                }
+            }
+        }
+
+
+        int nbColors = 4;
+
+        while(ontoGroups.Count > nbColors)
+        {
+            var ontoGroup = GetDeeperOntoGroup();
+
+            var upperOntoNode = ontoGroup.GetUpperOntoNode();
+
+            if(upperOntoNode == null)
+            {
+                ontoGroupToForget.Add(ontoGroup);
+                continue;
+            }
+
+            if (ontoGroups.TryGetValue(upperOntoNode.Id, out OntoNodeGroup upperOntoGroup))
+            {
+                ontoGroup.SendNodesTo(upperOntoGroup);
+                ontoGroups.Remove(ontoGroup.Id);
+                continue;
+            }
+
+            var newOntoGroup = new OntoNodeGroup(upperOntoNode);
+            ontoGroup.SendNodesTo(newOntoGroup);
+            ontoGroups.Remove(ontoGroup.Id);
+            ontoGroups.Add(newOntoGroup.Id, newOntoGroup);
+        }
+
+
+        OntoNodeGroup GetDeeperOntoGroup()
+        {
+            int depth = 0;
+            OntoNodeGroup deeperOntoGroup = ontoGroups.First().Value;
+
+            foreach (var ontoGroup in ontoGroups.Values)
+            {
+                if (ontoGroup.Depth < depth)
+                    continue;
+
+                if (ontoGroupToForget.Contains(ontoGroup))
+                    continue;
+
+                deeperOntoGroup = ontoGroup;
+                depth = ontoGroup.Depth;
+            }
+
+            return deeperOntoGroup;
+
+        }
+
     }
     #endregion
 

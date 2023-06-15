@@ -228,6 +228,7 @@ As a result, the direct/forward property definition was used for the rdfs:commen
 - `E52 Time-Span. P170i time is defined by: rdfs:Literal`
 -->
   <rdf:Description rdf:about="http://www.cidoc-crm.org/cidoc-crm/">
+	<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
     <owl:versionInfo>RDFs Implementation (September 2022) of CIDOC-CRM 7.1.2</owl:versionInfo>
   </rdf:Description>
   <rdfs:Class rdf:about="E1_CRM_Entity">

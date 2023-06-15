@@ -50,6 +50,7 @@ public class GraphManager : MonoBehaviour
     GraphType _graphMode = GraphType.Mini;
 
     GraphDbRepositoryDistantUris _nodeUriRetriever;
+    GraphDbRepositoryUris _graphRepoUris;
 
     GraphConfiguration _graphConfiguration;
 
@@ -73,6 +74,8 @@ public class GraphManager : MonoBehaviour
     private async Task CreateStartGraphAsync()
     {
         var repo = _referenceHolderSo.SelectedGraphDbRepository;
+        _graphRepoUris = repo.GraphDbRepositoryUris;
+
         try
         {
             _sparqlBuilder = new(repo.GraphDbRepositoryUris);
@@ -82,7 +85,7 @@ public class GraphManager : MonoBehaviour
             _graph = new Graph(this, _graphUI, _graphStyling, nodges, repo);
 
             _graphStyling.StyleGraphForFirstTime();
-            _graph.CalculateMetrics();
+            _graph.CalculateMetrics(_graphRepoUris);
             _graphSimulation.Run(_graph);
 
         }
@@ -113,7 +116,7 @@ public class GraphManager : MonoBehaviour
         await _graph.UpdateNodges(nodges);
         DebugChrono.Instance.Stop("UpdateGraph");
 
-        _graph.CalculateMetrics();
+        _graph.CalculateMetrics(_graphRepoUris);
         _graphSimulation.Run(_graph);
     }
 

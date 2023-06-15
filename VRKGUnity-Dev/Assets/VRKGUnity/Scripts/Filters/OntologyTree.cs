@@ -12,6 +12,8 @@ using VDS.RDF.Writing;
 
 public class OntologyTree
 {
+    public IReadOnlyDictionary<int, OntoNode> OntoNodes => _ontoNodes;
+
     OntoNode _rootOntoNode;
 
     Dictionary<int, OntoNode> _ontoNodes;
@@ -94,7 +96,6 @@ public class OntologyTree
         ontoNode = null;
         if (!_ontoNodes.TryGetValue(id, out var oNode))
         {
-            Debug.LogWarning("OntologyTree : Couldn't get onto node with id");
             return false;
         }
 

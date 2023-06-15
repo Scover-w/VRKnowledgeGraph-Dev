@@ -201,16 +201,20 @@ public class GraphDbRepositoryUris
         return _ontoTreeDict.ContainsKey(namespce);
     }
 
-    public void AddNodeToOntoNode(Node definedNode, Node simpleOntoNode)
+    public bool TryAddNodeToOntoNode(Node definedNode, Node simpleOntoNode)
     {
         if(!_ontoTreeDict.TryGetValue(simpleOntoNode.Value.ExtractUri().namespce, out OntologyTree ontoTree))
         {
-            Debug.LogWarning("GraphDbRepositoryUris : couldn't get value.");
-            return;
+            return false;
         }
 
-        var ontoNode = ontoTree.GetOntoNode(simpleOntoNode.Id);
+        if(!ontoTree.TryGetOntoNode(simpleOntoNode.Id, out OntoNode ontoNode))
+        {
+            return false;
+        }
+
         ontoNode.NodesDefined.Add(definedNode);
+        return true;
     }
 
     public void ResetDefinedNodes()

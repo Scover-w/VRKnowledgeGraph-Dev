@@ -124,4 +124,44 @@ public class MisceTests : MonoBehaviour
             throw new Exception("Should never get here if the probabilities are correctly normalized");
         }
     }
+
+    [ContextMenu("CallUriInternet")]
+    private async void CallUriInternet()
+    {
+        try
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.Timeout = TimeSpan.FromSeconds(30);
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "http://www.cidoc-crm.org/cidoc-crm/");
+
+                request.Headers.Add("Accept", "application/rdf+xml");
+
+                HttpResponseMessage response;
+
+                try
+                {
+                    response = await client.SendAsync(request);
+                }
+                catch (Exception e)
+                {
+                    return;
+                }
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return;
+                }
+
+                string responseBody = await response.Content.ReadAsStringAsync();
+
+                return;
+            }
+
+        }
+        catch (Exception e)
+        {
+            return;
+        }
+    }
 }

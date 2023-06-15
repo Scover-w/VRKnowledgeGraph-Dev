@@ -1,124 +1,12 @@
 {
   "DistantUriLabels_": {
-    "http://www.w3.org/2001/XMLSchema#string": {
-      "Item1": "-1",
-      "Item2": "-1"
+    "https://sws.geonames.org/3169071": {
+      "Item1": "gn:name",
+      "Item2": "Rome"
     },
-    "http://proton.semanticweb.org/protonsys#transitiveOver": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "https://cap44.univ-nantes.fr/api/items/182": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "https://cap44.univ-nantes.fr/api/items/210": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "https://cap44.univ-nantes.fr/api/items/275": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "https://cap44.univ-nantes.fr/api/items/272": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "http://rdaregistry.info/Elements/a/P50041": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "https://cap44.univ-nantes.fr/api/items/295": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "https://cap44.univ-nantes.fr/api/items/277": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "https://cap44.univ-nantes.fr/api/items/166": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "http://www.w3.org/2001/XMLSchema#nonNegativeInteger": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "http://rdaregistry.info/Elements/a/P50022": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "http://omeka.org/s/vocabs/o#item_set": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "http://webns.net/mvcb/generatorAgent": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "http://xmlns.com/foaf/0.1/maker": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "https://cap44.univ-nantes.fr/api/items/283": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "http://www.w3.org/2001/XMLSchema#NMTOKEN": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "https://cap44.univ-nantes.fr/api/items/146": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "http://usefulinc.com/ns/doap#homepage": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "http://www.w3.org/TR/owl2-syntax/": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "http://xmlns.com/foaf/0.1/homepage": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "https://cap44.univ-nantes.fr/api/items/316": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "http://www.w3.org/TR/2004/REC-webarch-20041215/#def-information-resource": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "https://cap44.univ-nantes.fr/api/items/290": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "http://www.w3.org/TR/owl2-mapping-to-rdf/": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "http://www.w3.org/TR/rdf11-concepts/#section-html": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "http://www.rddl.org/purposes#normative-reference": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "http://www.w3.org/TR/rdf-plain-literal/": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "http://usefulinc.com/ns/doap#mailing-list": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "http://www.w3.org/TR/rdf11-concepts/#section-Graph-Literal": {
-      "Item1": "-1",
-      "Item2": "-1"
+    "https://sws.geonames.org/2990969": {
+      "Item1": "gn:name",
+      "Item2": "Nantes"
     },
     "https://cap44.univ-nantes.fr/api/items/212": {
       "Item1": "-1",
@@ -128,67 +16,7 @@
       "Item1": "-1",
       "Item2": "-1"
     },
-    "http://www.w3.org/TR/1999/REC-xpath-19991116#root-node": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "http://www.w3.org/TR/owl2-rdf-based-semantics/": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "https://www.w3.org/TR/json-ld11/#the-rdf-compoundliteral-class-and-the-rdf-language-and-rdf-direction-properties": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "http://www.w3.org/2000/01/rdf-schema-more": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "http://www.ietf.org/rfc/rfc3986.txt": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "http://www.w3.org/TR/owl2-rdf-based-semantics/#table-axiomatic-properties": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "http://wwwcf.nlm.nih.gov/class/": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "https://cap44.univ-nantes.fr/api/items/288": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "https://cap44.univ-nantes.fr/api/items/320": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "http://usefulinc.com/ns/doap#shortdesc": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "https://www.w3.org/TR/json-ld11/#the-rdf-json-datatype": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "http://www.ietf.org/rfc/rfc4646.txt": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "http://www.w3.org/TR/owl2-rdf-based-semantics/#table-axiomatic-classes": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "https://www.dublincore.org/specifications/dublin-core/dcmi-box/": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "http://www.w3.org/TR/2004/REC-rdf-concepts-20040210/#dfn-rdf-graph": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "https://cap44.univ-nantes.fr/api/items/279": {
+    "https://cap44.univ-nantes.fr/api/items/290": {
       "Item1": "-1",
       "Item2": "-1"
     },
@@ -196,111 +24,23 @@
       "Item1": "-1",
       "Item2": "-1"
     },
-    "http://www.ietf.org/rfc/rfc1766.txt": {
+    "https://cap44.univ-nantes.fr/api/items/275": {
       "Item1": "-1",
       "Item2": "-1"
     },
-    "http://www.iana.org/assignments/media-types/": {
+    "https://cap44.univ-nantes.fr/api/items/210": {
       "Item1": "-1",
       "Item2": "-1"
     },
-    "http://www.oclc.org/dewey/": {
+    "https://cap44.univ-nantes.fr/api/items/182": {
       "Item1": "-1",
       "Item2": "-1"
     },
-    "https://www.iso.org/obp/ui/#search": {
+    "https://cap44.univ-nantes.fr/api/items/277": {
       "Item1": "-1",
       "Item2": "-1"
     },
-    "http://www.udcc.org/": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "http://www.getty.edu/research/tools/vocabulary/tgn/index.html": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "https://www.dublincore.org/specifications/dublin-core/dcmi-period/": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "http://www.ietf.org/rfc/rfc5646.txt": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "http://www.nlm.nih.gov/mesh/meshhome.html": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "http://www.ietf.org/rfc/rfc3066.txt": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "http://www.sil.org/iso639-3/": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "https://www.dublincore.org/specifications/dublin-core/2007/06/04/abstract-model/": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "http://lcweb.loc.gov/catdir/cpso/lcco/lcco.html": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "https://www.dublincore.org/specifications/dublin-core/dcmi-point/": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "http://lcweb.loc.gov/standards/iso639-2/langhome.html": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "http://www.w3.org/TR/NOTE-datetime": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "http://xmlns.com/foaf/0.1/name": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "https://cap44.univ-nantes.fr/api/item_sets/148": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "http://www.w3.org/TR/skos-reference/": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "https://sws.geonames.org/3169071": {
-      "Item1": "gn:name",
-      "Item2": "Rome"
-    },
-    "https://sws.geonames.org/2990969": {
-      "Item1": "gn:name",
-      "Item2": "Nantes"
-    },
-    "http://lists.w3.org/Archives/Public/public-grddl-comments/": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "http://www.w3.org/2000/01/rdf-schema": {
-      "Item1": "rdfs:label",
-      "Item2": "Resource"
-    },
-    "http://www.w3.org/People/Connolly/": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "http://www.w3.org/2003/g/data-view": {
-      "Item1": "default87:label",
-      "Item2": "namespaceTransformation"
-    },
-    "http://www.w3.org/2001/sw-grddl-wg/": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "http://www.w3.org/TR/xslt": {
+    "https://cap44.univ-nantes.fr/api/items/316": {
       "Item1": "-1",
       "Item2": "-1"
     },
@@ -308,93 +48,89 @@
       "Item1": "skos:prefLabel",
       "Item2": "3e quart du 19e siècle"
     },
-    "https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/92287c1d-010b-49bd-bb0e-3e82798c9966": {
-      "Item1": "skos:prefLabel",
-      "Item2": "19e siècle"
-    },
-    "https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/f3ae6525-57d0-4caa-ba6a-7d3dd8d936ba": {
-      "Item1": "skos:prefLabel",
-      "Item2": "3e quart du 18e siècle"
-    },
-    "https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/1042d6cb-86c8-4ba9-bbfd-6d070e9f9844": {
-      "Item1": "skos:prefLabel",
-      "Item2": "2e moitié du 20e siècle"
-    },
-    "https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/56387ea5-f963-49bd-aea4-56c4ecd1f14c": {
-      "Item1": "skos:prefLabel",
-      "Item2": "2e quart du 19e siècle"
-    },
-    "https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/afa39eff-09bb-43d0-86f9-abc3ee70a352": {
-      "Item1": "skos:prefLabel",
-      "Item2": "1ère moitié du 20e siècle"
-    },
-    "http://data.culture.fr/thesaurus/resource/ark:/67717/T96-834": {
-      "Item1": "skos:prefLabel",
-      "Item2": "minoterie"
-    },
-    "https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/ccad15e7-4cd2-4601-8117-e8df60dd4cb7": {
-      "Item1": "skos:prefLabel",
-      "Item2": "2e moitié du 19e siècle"
-    },
-    "https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c": {
-      "Item1": "skos:prefLabel",
-      "Item2": "3e quart du 20e siècle"
-    },
-    "http://dev.w3.org/cvsweb/2009/owl-grddl/owx2rdf.xsl": {
-      "Item1": "-1",
-      "Item2": "-1"
-    },
-    "https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/d8a3610b-3210-4499-a61f-f1cfdb65e892": {
-      "Item1": "skos:prefLabel",
-      "Item2": "1er quart du 21e siècle"
-    },
-    "https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/c59f9c55-41ff-44fc-b53d-82fa85c06a7b": {
-      "Item1": "skos:prefLabel",
-      "Item2": "2e quart du 20e siècle"
-    },
-    "https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/cf851dbc-124a-42c3-94e1-00fb087b532a": {
-      "Item1": "skos:prefLabel",
-      "Item2": "20e siècle"
-    },
-    "https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/277cf3a2-97e8-481f-aa7d-62cb7609da3b": {
-      "Item1": "skos:prefLabel",
-      "Item2": "18e siècle"
-    },
-    "https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/2c15d08b-a718-4a91-af8f-71c696b32e0c": {
-      "Item1": "skos:prefLabel",
-      "Item2": "1er quart du 20e siècle"
-    },
-    "https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/bcce037d-aeae-4e69-ab45-e1af5d993cea": {
-      "Item1": "skos:prefLabel",
-      "Item2": "4e quart du 19e siècle"
+    "http://viaf.org/viaf/21377236": {
+      "Item1": "skos:altLabel",
+      "Item2": "Francois Hennebique"
     },
     "https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/dfe4fe5b-87e7-4794-8111-30936d1189c2": {
       "Item1": "skos:prefLabel",
       "Item2": "4e quart du 18e siècle"
     },
-    "http://purl.org/NET/erdf/extract": {
+    "https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/277cf3a2-97e8-481f-aa7d-62cb7609da3b": {
+      "Item1": "skos:prefLabel",
+      "Item2": "18e siècle"
+    },
+    "https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/bcce037d-aeae-4e69-ab45-e1af5d993cea": {
+      "Item1": "skos:prefLabel",
+      "Item2": "4e quart du 19e siècle"
+    },
+    "https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/1042d6cb-86c8-4ba9-bbfd-6d070e9f9844": {
+      "Item1": "skos:prefLabel",
+      "Item2": "2e moitié du 20e siècle"
+    },
+    "https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/cf851dbc-124a-42c3-94e1-00fb087b532a": {
+      "Item1": "skos:prefLabel",
+      "Item2": "20e siècle"
+    },
+    "https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/2c15d08b-a718-4a91-af8f-71c696b32e0c": {
+      "Item1": "skos:prefLabel",
+      "Item2": "1er quart du 20e siècle"
+    },
+    "https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/d8a3610b-3210-4499-a61f-f1cfdb65e892": {
+      "Item1": "skos:prefLabel",
+      "Item2": "1er quart du 21e siècle"
+    },
+    "https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/afa39eff-09bb-43d0-86f9-abc3ee70a352": {
+      "Item1": "skos:prefLabel",
+      "Item2": "1ère moitié du 20e siècle"
+    },
+    "https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/c59f9c55-41ff-44fc-b53d-82fa85c06a7b": {
+      "Item1": "skos:prefLabel",
+      "Item2": "2e quart du 20e siècle"
+    },
+    "https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/f3ae6525-57d0-4caa-ba6a-7d3dd8d936ba": {
+      "Item1": "skos:prefLabel",
+      "Item2": "3e quart du 18e siècle"
+    },
+    "https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c": {
+      "Item1": "skos:prefLabel",
+      "Item2": "3e quart du 20e siècle"
+    },
+    "https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/56387ea5-f963-49bd-aea4-56c4ecd1f14c": {
+      "Item1": "skos:prefLabel",
+      "Item2": "2e quart du 19e siècle"
+    },
+    "https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/ccad15e7-4cd2-4601-8117-e8df60dd4cb7": {
+      "Item1": "skos:prefLabel",
+      "Item2": "2e moitié du 19e siècle"
+    },
+    "https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/92287c1d-010b-49bd-bb0e-3e82798c9966": {
+      "Item1": "skos:prefLabel",
+      "Item2": "19e siècle"
+    },
+    "https://cap44.univ-nantes.fr/api/items/283": {
       "Item1": "-1",
       "Item2": "-1"
     },
-    "http://data.culture.fr/thesaurus/resource/ark:/67717/T96-624": {
+    "http://viaf.org/viaf/143903205": {
       "Item1": "skos:prefLabel",
-      "Item2": "office buildings"
+      "Item2": "Bibliothèque nationale (Francia)"
     },
-    "http://purl.org/dc/aboutdcmi#DCMI": {
-      "Item1": "-1",
-      "Item2": "-1"
+    "http://viaf.org/viaf/157364120": {
+      "Item1": "rdfs:label",
+      "Item2": "Katalog wystawy (Cité de l'architecture et du patrimoine ; Paryż ; 2011)"
     },
-    "http://data.culture.fr/thesaurus/resource/ark:/67717/T96-617": {
-      "Item1": "skos:prefLabel",
-      "Item2": "entrepôt commercial"
-    },
-    "http://data.culture.fr/thesaurus/resource/ark:/67717/T96-1353": {
-      "Item1": "skos:altLabel",
-      "Item2": "silo à grains"
+    "http://www.cidoc-crm.org/cidoc-crm/E12_Production": {
+      "Item1": "rdfs:label",
+      "Item2": "Production"
     },
     "http://data.culture.fr/thesaurus/resource/ark:/67717/T15-103": {
       "Item1": "skos:prefLabel",
       "Item2": "géomètre"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/E4_Period": {
+      "Item1": "rdfs:label",
+      "Item2": "Period"
     },
     "http://data.culture.fr/thesaurus/resource/ark:/67717/T1-595": {
       "Item1": "skos:prefLabel",
@@ -404,13 +140,2109 @@
       "Item1": "skos:prefLabel",
       "Item2": "architecte"
     },
+    "http://data.culture.fr/thesaurus/resource/ark:/67717/T96-617": {
+      "Item1": "skos:prefLabel",
+      "Item2": "entrepôt commercial"
+    },
+    "http://data.culture.fr/thesaurus/resource/ark:/67717/T96-1353": {
+      "Item1": "skos:altLabel",
+      "Item2": "silo à grains"
+    },
+    "https://cap44.univ-nantes.fr/api/items/279": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "https://cap44.univ-nantes.fr/api/items/288": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://data.culture.fr/thesaurus/resource/ark:/67717/T96-624": {
+      "Item1": "skos:prefLabel",
+      "Item2": "office buildings"
+    },
     "http://data.culture.fr/thesaurus/resource/ark:/67717/T96-1106": {
       "Item1": "skos:altLabel",
       "Item2": "débarcadère"
     },
+    "http://data.culture.fr/thesaurus/resource/ark:/67717/T96-834": {
+      "Item1": "skos:prefLabel",
+      "Item2": "minoterie"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/E31_Document": {
+      "Item1": "rdfs:label",
+      "Item2": "Document"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/E36_Visual_Item": {
+      "Item1": "rdfs:label",
+      "Item2": "Visual Item"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/E74_Group": {
+      "Item1": "rdfs:label",
+      "Item2": "Group"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/E24_Physical_Human-Made_Thing": {
+      "Item1": "rdfs:label",
+      "Item2": "Physical Human-Made Thing"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/E29_Design_or_Procedure": {
+      "Item1": "rdfs:label",
+      "Item2": "Design or Procedure"
+    },
+    "https://cap44.univ-nantes.fr/api/item_sets/148": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "https://cap44.univ-nantes.fr/api/items/295": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "https://cap44.univ-nantes.fr/api/items/166": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "https://cap44.univ-nantes.fr/api/items/320": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "https://cap44.univ-nantes.fr/api/items/146": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "https://cap44.univ-nantes.fr/api/items/272": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
     "http://dewey.info/class/720": {
       "Item1": "-1",
       "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P107_has_current_or_former_member": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P31_has_modified": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P92_brought_into_existence": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P49i_is_former_or_current_keeper_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P16i_was_used_for": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P176_starts_before_the_start_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P138_represents": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P2i_is_type_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P138i_has_representation": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P13_destroyed": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P144_joined_with": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P146_separated_from": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P148_has_component": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P157_is_at_rest_relative_to": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P53i_is_former_or_current_location_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P161_has_spatial_projection": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P164_is_temporally_specified_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P165i_is_incorporated_in": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P165_incorporates": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P174_starts_before_the_end_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P175i_starts_after_or_with_the_start_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P177_assigned_property_of_type": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P197_covered_parts_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P28_custody_surrendered_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P29_custody_received_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P28i_surrendered_custody_through": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P27i_was_origin_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P32_used_general_technique": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P35i_was_identified_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P37i_was_assigned_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P42_assigned": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P44i_is_condition_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P45i_is_incorporated_in": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P48_has_preferred_identifier": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P4i_is_time-span_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P50_has_current_keeper": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P54i_is_current_permanent_location_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P55i_currently_holds": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P59_has_section": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P62i_is_depicted_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P68_foresees_use_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P68i_use_foreseen_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P69i_is_associated_with": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P72i_is_language_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P74_has_current_or_former_residence": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P74i_is_current_or_former_residence_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P79_beginning_is_qualified_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P81b_begin_of_the_end": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P82_at_some_time_within": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P82b_end_of_the_end": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P90a_has_lower_value_limit": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P90b_has_upper_value_limit": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P89i_contains": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P99_dissolved": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P99i_was_dissolved_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/DDC": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/IMT": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/LCC": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/MESH": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/NLM": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/Point": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/RFC4646": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/TGN": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/abstract": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/available": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/date": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/conformsTo": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/coverage": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/dateAccepted": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/dateSubmitted": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/extent": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/hasVersion": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/isPartOf": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/isReplacedBy": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/isVersionOf": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/subject": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/tableOfContents": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/temporal": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2002/07/owl#Class": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2004/02/skos/core#definition": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2004/02/skos/core#mappingRelation": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2004/02/skos/core#broader": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2002/07/owl#TransitiveProperty": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2004/02/skos/core#narrowerTransitive": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2004/02/skos/core#changeNote": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2004/02/skos/core#historyNote": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2004/02/skos/core#member": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2002/07/owl#FunctionalProperty": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2002/07/owl#DatatypeProperty": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2004/02/skos/core#relatedMatch": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://viaf.org/#hasEstablishedForm": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://viaf.org/#hasXref4xx": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://viaf.org/#originatesIn": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/elements/1.1/source": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/elements/1.1/coverage": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/elements/1.1/publisher": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/elements/1.1/identifier": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/elements/1.1/format": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/elements/1.1/subject": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#type": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#value": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/dcmitype/Collection": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#subject": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2001/XMLSchema#string": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://xmlns.com/foaf/0.1/maker": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "https://www.w3.org/TR/json-ld11/#the-rdf-compoundliteral-class-and-the-rdf-language-and-rdf-direction-properties": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/TR/rdf-plain-literal/": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2000/01/rdf-schema-more": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://lcweb.loc.gov/catdir/cpso/lcco/lcco.html": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.nlm.nih.gov/mesh/meshhome.html": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/creator": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/publisher": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P67_refers_to": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P108_has_produced": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P7_took_place_at": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P8_took_place_on_or_within": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P4_has_time-span": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/source": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P53_has_former_or_current_location": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P10_falls_within": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P101_had_as_general_use": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/spatial": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P100i_died_in": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P93i_was_taken_out_of_existence_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P101i_was_use_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P100_was_death_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P102_has_title": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P1_is_identified_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P70_documents": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P1i_identifies": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/description": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P102i_is_title_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P2_has_type": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P132_spatiotemporally_overlaps_with": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P103_was_intended_for": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P103i_was_intention_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P14_carried_out_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/title": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P93_took_out_of_existence": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2000/01/rdf-schema#seeAlso": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2000/01/rdf-schema#comment": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2004/02/skos/core#prefLabel": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#language": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2002/07/owl#Ontology": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2004/02/skos/core#altLabel": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2002/07/owl#AnnotationProperty": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#HTML": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#JSON": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#direction": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P104_is_subject_to": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2000/01/rdf-schema#label": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P105_right_held_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2000/01/rdf-schema#member": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P104i_applies_to": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P107i_is_current_or_former_member_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P105i_has_right_on": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P106_is_composed_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P106i_forms_part_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P49_has_former_or_current_keeper": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P109i_is_current_or_former_curator_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P109_has_current_or_former_curator": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P10i_contains": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P16_used_specific_object": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P110_augmented": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P110i_was_augmented_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P111_added": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P112i_was_diminished_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P12i_was_present_at": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P12_occurred_in_the_presence_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P112_diminished": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P113i_was_removed_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P11_had_participant": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P121_overlaps_with": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P11i_participated_in": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P122_borders_with": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P123_resulted_in": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P123i_resulted_from": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P124_transformed": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P124i_was_transformed_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P125_used_object_of_type": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P125i_was_type_of_object_used_in": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P126i_was_employed_in": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P126_employed": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P128_carries": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P128i_is_carried_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P67i_is_referred_to_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P130i_features_are_also_found_on": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P127_has_broader_term": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P130_shows_features_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P129_is_about": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P127i_has_narrower_term": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P133_is_spatiotemporally_separated_from": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P134_continued": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P15_was_influenced_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P129i_is_subject_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P15i_influenced": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P176i_starts_after_the_start_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P135_created_type": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P134i_was_continued_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P94_has_created": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P135i_was_created_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P94i_was_created_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P136i_supported_type_creation": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P137_exemplifies": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P137i_is_exemplified_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P136_was_based_on": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P140_assigned_attribute_to": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P139i_is_alternative_form_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P13i_was_destroyed_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P141_assigned": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P141i_was_assigned_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P142_used_constituent": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P144i_gained_member_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P145_separated": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P145i_left_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P147_curated": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P147i_was_curated_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P148i_is_component_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P14i_performed": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P150i_defines_typical_wholes_for": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P151_was_formed_from": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P152i_is_parent_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P150_defines_typical_parts_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P157i_provides_reference_space_for": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P156i_is_occupied_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P152_has_parent": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P160_has_temporal_projection": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P160i_is_temporal_projection_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P161i_is_spatial_projection_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P166i_had_presence": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P167_was_within": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P167i_includes": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P169i_spacetime_volume_is_defined_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P171_at_some_place_within": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P172_contains": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P175_starts_before_or_with_the_start_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P174i_ends_after_the_start_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P179i_was_sales_price_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P177i_is_type_of_property_assigned": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P179_had_sales_price": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P180_has_currency": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P91_has_unit": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P91i_is_unit_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P182_ends_before_or_with_the_start_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P182i_starts_after_or_with_the_end_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P185_ends_before_the_end_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P185i_ends_after_the_end_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P184i_ends_with_or_after_the_end_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P183_ends_before_the_start_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P183i_starts_after_the_end_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P184_ends_before_or_with_the_end_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P188_requires_production_tool": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P186i_is_produced_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P189_approximates": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P187_has_production_plan": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P186_produced_thing_of_product_type": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P187i_is_production_plan_for": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P190_has_symbolic_content": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P189i_is_approximated_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P188i_is_production_tool_for": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P3_has_note": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P191_had_duration": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P191i_was_duration_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P195_was_a_presence_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P195i_had_presence": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P196i_is_defined_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P196_defines": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P197i_was_partially_covered_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P198i_is_held_or_supported_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P198_holds_or_supports": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P20i_was_purpose_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P20_had_specific_purpose": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P19i_was_made_for": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P21_had_general_purpose": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P21i_was_purpose_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P22_transferred_title_to": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P22i_acquired_title_through": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P23_transferred_title_from": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P23i_surrendered_title_through": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P24_transferred_title_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P25_moved": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P24i_changed_ownership_through": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P25i_moved_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P26i_was_destination_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P26_moved_to": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P27_moved_from": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P29i_received_custody_through": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P30_transferred_custody_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P30i_custody_transferred_through": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P34_concerned": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P34i_was_assessed_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P37_assigned": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P38i_was_deassigned_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P39i_was_measured_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P40_observed_dimension": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P40i_was_observed_in": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P41i_was_classified_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P43_has_dimension": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P42i_was_assigned_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P45_consists_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P46i_forms_part_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P46_is_composed_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P48i_is_preferred_identifier_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P51_has_former_or_current_owner": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P52_has_current_owner": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P54_has_current_permanent_location": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P56_bears_feature": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P56i_is_found_on": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P57_has_number_of_parts": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P5_consists_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P62_depicts": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P65_shows_visual_item": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P70i_is_documented_in": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P71i_is_listed_in": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P73i_is_translation_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P75_possesses": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P75i_is_possessed_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P80_end_is_qualified_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P81_ongoing_throughout": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P81a_end_of_the_begin": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P86_falls_within": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P168_place_is_defined_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P89_falls_within": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P173i_ends_after_or_with_the_start_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P17i_motivated": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P173_starts_before_or_with_the_end_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P96_by_mother": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P96i_gave_birth": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P98i_was_born": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P9_consists_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P9i_forms_part_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/modified": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/DCMIType": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/dcam/VocabularyEncodingScheme": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/ISO3166": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/ISO639-2": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/Period": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/URI": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/W3CDTF": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/rights": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/accrualPeriodicity": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/accrualPolicy": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/alternative": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/bibliographicCitation": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/identifier": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/created": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/dateCopyrighted": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/hasPart": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/isFormatOf": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/language": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/license": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/mediator": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/medium": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/requires": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/rightsHolder": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/type": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2004/02/skos/core#broadMatch": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2002/07/owl#ObjectProperty": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2004/02/skos/core#narrower": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2002/07/owl#SymmetricProperty": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2004/02/skos/core#editorialNote": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2004/02/skos/core#exactMatch": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2004/02/skos/core#hiddenLabel": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2004/02/skos/core#inScheme": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2004/02/skos/core#notation": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2004/02/skos/core#related": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://viaf.org/#abbreviation": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P33i_was_used_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://viaf.org/#xref4xxIn": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://viaf.org/#establishedIn": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P38_deassigned": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://viaf.org/#hasXref5xx": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/elements/1.1/creator": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://viaf.org/#xref5xxIn": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/elements/1.1/title": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/elements/1.1/date": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/elements/1.1/relation": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2000/01/rdf-schema#range": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2000/01/rdf-schema#subPropertyOf": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P71_lists": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#object": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#nil": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/TR/rdf11-concepts/#section-Graph-Literal": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.oclc.org/dewey/": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/dcmitype/": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "https://www.dublincore.org/specifications/dublin-core/dcmi-box/": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P73_has_translation": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P90_has_value": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P97_from_father": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P31i_was_modified_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/hasFormat": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/format": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/accrualMethod": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/educationLevel": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P108i_was_produced_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P139_has_alternative_form": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P142i_was_used_in": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P143i_was_joined_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P32i_was_technique_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P146i_lost_member_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/instructionalMethod": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P156_occupies": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P164i_temporally_specifies": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P166_was_a_presence_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P170i_time_is_defined_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P180i_was_currency_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P95_has_formed": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P95i_was_formed_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://viaf.org/#clusters": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P35_has_identified": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://viaf.org/#wasCreatedBy": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/elements/1.1/description": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/elements/1.1/contributor": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/elements/1.1/language": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2001/XMLSchema#NMTOKEN": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "https://www.iso.org/obp/ui/#search": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P17_was_motivated_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P76_has_contact_point": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/issued": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://lcweb.loc.gov/standards/iso639-2/langhome.html": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P65i_is_shown_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/Box": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P33_used_specific_technique": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.sil.org/iso639-3/": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P82a_begin_of_the_begin": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://wwwcf.nlm.nih.gov/class/": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "https://www.w3.org/TR/json-ld11/#the-rdf-json-datatype": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/ISO639-3": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/LCSH": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/RFC5646": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/RFC3066": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/isReferencedBy": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P92i_was_brought_into_existence_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P113_removed": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P111i_was_added_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P140i_was_attributed_by": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P143_joined": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P151i_participated_in": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/RFC1766": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/UDC": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#first": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P86i_contains": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P97i_was_father_for": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P19_was_intended_use_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P52i_is_current_owner_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P55_has_current_location": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P43i_is_dimension_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P69_has_association_with": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/accessRights": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2004/02/skos/core#semanticRelation": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2004/02/skos/core#topConceptOf": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P76i_provides_access_to": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P7i_witnessed": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P44_has_condition": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/elements/1.1/rights": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.iana.org/assignments/media-types/": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2000/01/rdf-schema#domain": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/relation": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://viaf.org/#name": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P98_brought_into_life": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/audience": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2004/02/skos/core#hasTopConcept": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2004/02/skos/core#closeMatch": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/isRequiredBy": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P41_classified": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P50i_is_current_keeper_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/provenance": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://viaf.org/": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/replaces": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P51i_is_former_or_current_owner_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/valid": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/TR/rdf11-concepts/#section-html": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2004/02/skos/core#broaderTransitive": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P59i_is_located_on_or_within": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/contributor": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2004/02/skos/core#example": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2004/02/skos/core#narrowMatch": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/elements/1.1/type": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P8i_witnessed": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P39_measured": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P5i_forms_part_of": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2004/02/skos/core#note": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2004/02/skos/core#memberList": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2004/02/skos/core#scopeNote": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/references": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.cidoc-crm.org/cidoc-crm/P72_has_language": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "https://www.dublincore.org/specifications/dublin-core/dcmi-period/": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "https://www.dublincore.org/specifications/dublin-core/dcmi-point/": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.getty.edu/research/tools/vocabulary/tgn/index.html": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.ietf.org/rfc/rfc5646.txt": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.udcc.org/": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.ietf.org/rfc/rfc1766.txt": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.ietf.org/rfc/rfc4646.txt": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/TR/NOTE-datetime": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.ietf.org/rfc/rfc3066.txt": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.ietf.org/rfc/rfc3986.txt": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/TR/skos-reference/": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/aboutdcmi#DCMI": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/terms/Extent": {
+      "Item1": "dcterms:title",
+      "Item2": "DCMI Metadata Terms - other"
     }
   }
 }

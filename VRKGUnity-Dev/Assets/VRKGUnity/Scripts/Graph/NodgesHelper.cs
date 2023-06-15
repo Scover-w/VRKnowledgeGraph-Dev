@@ -35,7 +35,7 @@ public static class NodgesHelper
             string oValue = binding["o"]["value"].Value<string>();
 
 
-            bool isObjectAnOnto = repoUri.IsUriAnOnto(oValue);
+            bool isObjectPossiblyAnOnto = repoUri.IsUriAnOnto(oValue);
 
             int sId = sValue.GetHashCode();
             int oId = oValue.GetHashCode();
@@ -53,11 +53,10 @@ public static class NodgesHelper
                 nodesDicId.Add(sId, s);
             }
 
-            if(isObjectAnOnto)
+            if(isObjectPossiblyAnOnto && pValue == "http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
             {
-                repoUri.AddNodeToOntoNode(s, new Node(oId, oType, oValue));
-                continue;
-                
+                if(repoUri.TryAddNodeToOntoNode(s, new Node(oId, oType, oValue)))
+                    continue;
             }
 
             if (nodesDicId.TryGetValue(oId, out Node oNodeExisting))

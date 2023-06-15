@@ -82,4 +82,23 @@ public class AIDENToolsEditor : MonoBehaviour
         Debug.Log("Data in the Cap44 has been reloaded !");
     }
 
+    [MenuItem("AIDEN Tools/Folders/Reload Data Cap44")]
+    private static void RemoveDataFromCap44Folder()
+    {
+        var path = Path.Combine(Application.dataPath, "VRKGUnity", "Data", "cap44_1455283593");
+
+        DirectoryInfo directoryInfo = new DirectoryInfo(path);
+
+        foreach (FileInfo file in directoryInfo.GetFiles())
+        {
+            file.Delete();
+        }
+
+        // If you also want to remove all subdirectories and files in them
+        foreach (DirectoryInfo dir in directoryInfo.GetDirectories())
+        {
+            dir.Delete(true);
+        }
+    }
+
 }

@@ -10,7 +10,10 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Xml.Linq;
 using UnityEngine;
+using UnityEngine.Video;
+using VDS.Common.Tries;
 
 public class GraphDbRepositoryDistantUris
 {
@@ -27,6 +30,10 @@ public class GraphDbRepositoryDistantUris
 
     [JsonIgnore]
     private static string _fullpathFile;
+
+    Dictionary<string, int> _namepsceFailedAttempt;
+    Dictionary<string, int> _namepsceInUse;
+    const int _maxFailedAttempt = 5;
 
     public GraphDbRepositoryDistantUris()
     {
@@ -54,6 +61,9 @@ public class GraphDbRepositoryDistantUris
 
         _nbNodes = idAndNodes.Count;
 
+        _namepsceFailedAttempt = new();
+        _namepsceInUse = new();
+
         Debug.Log("RetrieveNames Count " + _nbNodes);
 
         var tasks = new List<Task>();
@@ -62,10 +72,10 @@ public class GraphDbRepositoryDistantUris
 
         foreach (var idAndNode in idAndNodes)
         {
+            var node = idAndNode.Value;
+
             tasks.Add(Task.Run(async () =>
             {
-
-                var node = idAndNode.Value;
                 await RetrieveName(node);
 
                 // Increment the finished thread count atomically
@@ -79,20 +89,23 @@ public class GraphDbRepositoryDistantUris
 
         await semaphore.WaitAsync();
 
+
         await Save();
         Debug.Log("Finished");
     }
 
     private async Task RetrieveName(object obj)
     {
-
+        string namespce = "";
         try
         {
             var node = (Node)obj;
+            string uri = node.Value;
 
+            // Set value if already successfull retrieve saved
             lock (_distantUriLabels)
             {
-                if (_distantUriLabels.TryGetValue(node.Value, out var propAndValue))
+                if (_distantUriLabels.TryGetValue(uri, out var propAndValue))
                 {
 
                     if(propAndValue.Item1 != "-1")
@@ -102,40 +115,115 @@ public class GraphDbRepositoryDistantUris
                 }
             }
 
-            string xmlContent = await HttpHelper.RetrieveRdf(node.Value);
+            if (!uri.StartsWith("http"))
+                return;
+
+            namespce = uri.ExtractUri().namespce;
+
+
+            int nbInUse = -1;
+            bool inUse = false;
+
+
+            //do
+            //{
+            //    lock (_namepsceInUse)
+            //    {
+            //        if (_namepsceInUse.TryGetValue(namespce, out nbInUse))
+            //        {
+            //            if (nbInUse < _maxFailedAttempt)
+            //            {
+            //                nbInUse++;
+            //                _namepsceInUse[namespce] = nbInUse;
+            //                inUse = true;
+            //            }
+            //        }
+            //        else
+            //        {
+            //            _namepsceInUse.Add(namespce, 1);
+            //            inUse = true;
+            //        }
+            //    }
+
+            //    if(!inUse)
+            //        Thread.Sleep(1000);
+
+            //}while(!inUse);
+            
+
+
+
+            // Don't TryRetrieve if max attempt for namespace reached
+            //lock(_namepsceFailedAttempt)
+            //{
+            //    if(_namepsceFailedAttempt.TryGetValue(namespce, out int nbFailedAttempt))
+            //    {
+            //        Debug.Log("If failedattempt : " + nbFailedAttempt);
+            //        if (nbFailedAttempt >= _maxFailedAttempt)
+            //        {
+            //            _namepsceInUse[namespce] = _namepsceInUse[namespce]--;
+            //            return;
+            //        }
+            //    }
+            //}
+
+            string xmlContent = await HttpHelper.RetrieveRdf(uri);
 
             if (xmlContent == null || xmlContent.Length == 0)
             {
                 lock (_distantUriLabels)
                 {
-                    _distantUriLabels.Add(node.Value, ("-1", "-1"));
+                    _distantUriLabels.Add(uri, ("-1", "-1"));
                 }
+
+                //AddFailedAttempt(namespce);
+                //_namepsceInUse[namespce] = _namepsceInUse[namespce]--;
                 return;
             }
 
             if (ExtractName(xmlContent, out string property, out string value))
             {
-                Debug.Log("Extracted " + node.Value + "  , " + property + " " + value);
+                Debug.Log("Extracted " + uri + "  , " + property + " " + value);
                 node.Properties.Add(property, value);
 
 
                 lock (_distantUriLabels)
                 {
-                    _distantUriLabels.Add(node.Value, (property, value));
+                    _distantUriLabels.Add(uri, (property, value));
                 }
             }
             else
             {
                 lock (_distantUriLabels)
                 {
-                    _distantUriLabels.Add(node.Value, ("-1", "-1"));
+                    _distantUriLabels.Add(uri, ("-1", "-1"));
                 }
+
+                //AddFailedAttempt(namespce);
             }
+
+            //_namepsceInUse[namespce] = _namepsceInUse[namespce]--;
         }
         catch(Exception ex) 
         {
-
+            //lock (_namepsceInUse)
+            //    _namepsceInUse[namespce] = _namepsceInUse[namespce]--;
         }
+
+        void AddFailedAttempt(string namespce)
+        {
+            lock (_namepsceFailedAttempt)
+            {
+                if (_namepsceFailedAttempt.TryGetValue(namespce, out int nbFailedAttempt))
+                {
+                    _namepsceFailedAttempt[namespce] = nbFailedAttempt + 1;
+                    Debug.Log("Failed attempt : " + _namepsceFailedAttempt[namespce]);
+                }
+                else
+                    _namepsceFailedAttempt.Add(namespce, 1);
+            }
+        }
+
     }
 
     private bool ExtractName(string xmlContent, out string property, out string value)
