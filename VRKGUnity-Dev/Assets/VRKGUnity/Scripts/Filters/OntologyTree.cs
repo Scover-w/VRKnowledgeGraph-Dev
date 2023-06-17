@@ -14,6 +14,8 @@ public class OntologyTree
 {
     public IReadOnlyDictionary<int, OntoNode> OntoNodes => _ontoNodes;
 
+    public OntoNode RootOntoNode { get { return _rootOntoNode; } }
+
     OntoNode _rootOntoNode;
 
     Dictionary<int, OntoNode> _ontoNodes;
