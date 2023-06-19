@@ -82,7 +82,7 @@ public class OntologyPlaygroundTest : MonoBehaviour
             }
             else
             {
-                var ontoNode = new OntoNode(idOntoNode, ontoNodeValue);
+                var ontoNode = new OntoNode(ontoNodeValue);
                 ontoNodes.Add(idOntoNode, ontoNode);
                 return ontoNode;
             }

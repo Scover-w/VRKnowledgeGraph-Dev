@@ -14,13 +14,13 @@ public class GraphStylingUI : MonoBehaviour
     [Header("/!\\ Values will be reset in play mode. \nUseless to change them in Edit Mode.\nChange the values in the SO")]
     [Space(5)]
     [Header("Graph Size")]
-    [Range(.1f,5f)]
+    [Range(.1f,50f)]
     public float MegaGraphSize = 1f;
     [Range(.1f,5f)]
     public float MiniGraphSize = 1f;
 
     [Header("Node Size")]
-    [Range(0f, 1f)]
+    [Range(0f, 10f)]
     public float MegaNodeSize = .2f;
     [Range(0f, 1f)]
     public float MiniNodeSize = .2f;

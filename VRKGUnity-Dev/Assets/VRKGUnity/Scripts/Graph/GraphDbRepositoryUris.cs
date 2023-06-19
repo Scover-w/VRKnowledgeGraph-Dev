@@ -171,8 +171,8 @@ public class GraphDbRepositoryUris
                 sOntoNode = ontologyTree.TryGetOrCreateOntoNode(sOntoNode);
                 oOntoNode = ontologyTree.TryGetOrCreateOntoNode(oOntoNode);
 
-                sOntoNode.AddSource(oOntoNode);
-                oOntoNode.AddTarget(sOntoNode);
+                sOntoNode.AddOntoNodeSource(oOntoNode);
+                oOntoNode.AddOntoNodeTarget(sOntoNode);
                 continue;
             }
         }

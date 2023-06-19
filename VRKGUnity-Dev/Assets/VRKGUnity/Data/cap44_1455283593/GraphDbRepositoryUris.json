@@ -43,6 +43,13 @@
     "http://www.udcc.org/",
     "http://www.w3.org/TR/",
     "http://www.w3.org/TR/skos-reference/",
-    "http://purl.org/dc/aboutdcmi#"
+    "http://purl.org/dc/aboutdcmi#",
+    "http://www.w3.org/2002/07/",
+    "http://www.w3.org/TR/owl2-rdf-based-semantics/",
+    "http://www.w3.org/TR/owl2-syntax/",
+    "http://www.w3.org/TR/owl2-mapping-to-rdf/",
+    "http://www.w3.org/TR/owl2-rdf-based-semantics/#",
+    "http://www.w3.org/2003/g/data-view#",
+    "http://dev.w3.org/cvsweb/2009/owl-grddl/"
   ]
 }

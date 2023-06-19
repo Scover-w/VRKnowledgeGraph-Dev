@@ -492,8 +492,8 @@ public class Graph
         CalculateMetric(CalculateShortestPathsAndCentralities);
         CalculateMetric(CalculateDegrees);
         CalculateMetric(CalculateClusteringCoefficients);
-        CalculateMetric(CalculateOntology);
-
+        //CalculateMetric(CalculateOntology);
+        CalculateOntology();
         await semaphore.WaitAsync();
 
 

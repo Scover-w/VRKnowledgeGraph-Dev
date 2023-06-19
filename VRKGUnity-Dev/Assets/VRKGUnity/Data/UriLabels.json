@@ -566,5 +566,97 @@
   "http://dewey.info/class/720": {
     "Item1": "-1",
     "Item2": "-1"
+  },
+  "http://xmlns.com/foaf/0.1/name": {
+    "Item1": "-1",
+    "Item2": "-1"
+  },
+  "http://xmlns.com/foaf/0.1/homepage": {
+    "Item1": "-1",
+    "Item2": "-1"
+  },
+  "http://rdaregistry.info/Elements/a/P50022": {
+    "Item1": "-1",
+    "Item2": "-1"
+  },
+  "http://rdaregistry.info/Elements/a/P50041": {
+    "Item1": "-1",
+    "Item2": "-1"
+  },
+  "http://www.w3.org/2003/g/data-view#namespaceTransformation": {
+    "Item1": "default87:label",
+    "Item2": "namespaceTransformation"
+  },
+  "http://www.rddl.org/purposes#normative-reference": {
+    "Item1": "title",
+    "Item2": "Well Known Resource Directory Description Purposes"
+  },
+  "http://omeka.org/s/vocabs/o#item_set": {
+    "Item1": "-1",
+    "Item2": "-1"
+  },
+  "http://purl.org/dc/elements/1.1/source": {
+    "Item1": "-1",
+    "Item2": "-1"
+  },
+  "http://purl.org/dc/elements/1.1/date": {
+    "Item1": "-1",
+    "Item2": "-1"
+  },
+  "http://purl.org/dc/elements/1.1/title": {
+    "Item1": "-1",
+    "Item2": "-1"
+  },
+  "http://purl.org/dc/elements/1.1/contributor": {
+    "Item1": "-1",
+    "Item2": "-1"
+  },
+  "http://purl.org/dc/elements/1.1/description": {
+    "Item1": "-1",
+    "Item2": "-1"
+  },
+  "http://purl.org/dc/elements/1.1/relation": {
+    "Item1": "-1",
+    "Item2": "-1"
+  },
+  "http://purl.org/dc/elements/1.1/creator": {
+    "Item1": "-1",
+    "Item2": "-1"
+  },
+  "http://purl.org/dc/elements/1.1/coverage": {
+    "Item1": "-1",
+    "Item2": "-1"
+  },
+  "http://purl.org/dc/elements/1.1/publisher": {
+    "Item1": "-1",
+    "Item2": "-1"
+  },
+  "http://purl.org/dc/dcam/memberOf": {
+    "Item1": "dcterms:title",
+    "Item2": "Metadata terms for vocabulary description"
+  },
+  "http://purl.org/dc/dcam/domainIncludes": {
+    "Item1": "dcterms:title",
+    "Item2": "Metadata terms for vocabulary description"
+  },
+  "http://purl.org/dc/dcam/rangeIncludes": {
+    "Item1": "dcterms:title",
+    "Item2": "Metadata terms for vocabulary description"
+  },
+  "http://usefulinc.com/ns/doap#homepage": {
+    "Item1": "-1",
+    "Item2": "-1"
+  },
+  "http://usefulinc.com/ns/doap#mailing-list": {
+    "Item1": "-1",
+    "Item2": "-1"
+  },
+  "http://usefulinc.com/ns/doap#shortdesc": {
+    "Item1": "-1",
+    "Item2": "-1"
+  },
+  "http://webns.net/mvcb/generatorAgent": {
+    "Item1": "-1",
+    "Item2": "-1"
   }
 }

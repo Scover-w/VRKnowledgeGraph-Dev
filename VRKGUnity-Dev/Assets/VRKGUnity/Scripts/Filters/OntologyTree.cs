@@ -50,7 +50,7 @@ public class OntologyTree
         if (_ontoNodes.Count == 0)
             return;
 
-        _rootOntoNode = new OntoNode(_namespce + "rootOntologyTree");
+        _rootOntoNode = new OntoNode(_namespce + "rootOntologyTree", true);
 
         foreach(OntoNode node in _ontoNodes.Values)
         {

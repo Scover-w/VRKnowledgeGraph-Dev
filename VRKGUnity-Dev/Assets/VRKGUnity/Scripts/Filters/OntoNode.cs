@@ -3,6 +3,12 @@ using System.Collections.Generic;
 
 public class OntoNode
 {
+    /// <summary>
+    /// Frozen OntoNode is a ontoNode that don't exist in the KG because it has been added when creating Trees for layout structure
+    /// </summary>
+    public bool IsFrozen { get { return _isFrozen; } }
+
+
     public int Id;
     public string Value;
 
@@ -13,18 +19,11 @@ public class OntoNode
 
     public List<Node> NodesDefined;
 
-    public OntoNode(int id, string value)
-    {
-        Id = id;
-        Value = value;  
+    public OntoNodeGroup OntoNodeGroup;
 
-        OntoNodeSource = new();
-        OntoNodeTarget = new();
+    bool _isFrozen;
 
-        NodesDefined = new();
-    }
-
-    public OntoNode(string value)
+    public OntoNode(string value, bool isFrozen = false)
     {
         Id = value.GetHashCode();
         Value = value;
@@ -33,9 +32,10 @@ public class OntoNode
         OntoNodeTarget = new();
 
         NodesDefined = new();
+        _isFrozen = isFrozen;
     }
 
-    public void AddSource(OntoNode ontoNode)
+    public void AddOntoNodeSource(OntoNode ontoNode)
     {
         if (OntoNodeSource.Contains(ontoNode))
             return;
@@ -43,11 +43,46 @@ public class OntoNode
         OntoNodeSource.Add(ontoNode);
     }
 
-    public void AddTarget(OntoNode ontoNode)
+    public void AddOntoNodeTarget(OntoNode ontoNode)
     {
         if (OntoNodeTarget.Contains(ontoNode))
             return;
 
         OntoNodeTarget.Add(ontoNode);
+    }
+
+
+    public bool CreateGroupIfOwnDefinedNode(out OntoNodeGroup ontoNodeGroup)
+    {
+        ontoNodeGroup = null;
+
+        if (NodesDefined.Count == 0)
+            return false;
+
+        OntoNodeGroup = new OntoNodeGroup(this);
+        ontoNodeGroup = OntoNodeGroup;
+
+        foreach (Node node in NodesDefined)
+        {
+            OntoNodeGroup.AddNode(node);
+        }
+
+        return true;
+    }
+
+
+    public void CreateOntoGroupTree(OntoNodeGroup parentOntoGroup)
+    {
+        if(parentOntoGroup != null && OntoNodeGroup != null)
+        {
+            parentOntoGroup.LinkTo(OntoNodeGroup);
+        }
+
+        var currentparentOntoGroup = (OntoNodeGroup != null) ? OntoNodeGroup : parentOntoGroup;
+
+        foreach (OntoNode ontoNode in OntoNodeTarget)
+        {
+            ontoNode.CreateOntoGroupTree(currentparentOntoGroup);
+        }
     }
 }
