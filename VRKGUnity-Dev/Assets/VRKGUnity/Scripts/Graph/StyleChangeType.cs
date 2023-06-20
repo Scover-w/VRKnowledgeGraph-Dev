@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StyleChange
+public struct StyleChange
 {
     private StyleChangeType _changes;
 
