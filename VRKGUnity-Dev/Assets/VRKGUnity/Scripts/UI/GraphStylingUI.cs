@@ -126,12 +126,12 @@ public class GraphStylingUI : MonoBehaviour
     }
 
 
-    public void UpdateGraph()
+    public void UpdateGraph(StyleChange styleChange)
     {
         if (_graphConfig == null)
             return;
 
-        _graphStyling.StyleGraph();
+        _graphStyling.StyleGraph(styleChange);
         _graphConfig.Save();
 
     }
@@ -150,45 +150,235 @@ public class GraphStylingUI : MonoBehaviour
         if(MegaNodeMinSize > MegaNodeMaxSize)
             MegaNodeMinSize = MegaNodeMaxSize;
 
-        _graphConfig.NodeSizeMegaGraph = MegaNodeSize;
-        _graphConfig.NodeSizeMiniGraph = MiniNodeSize;
+
+        StyleChange styleChange = new();
+
+        if(_graphConfig.NodeSizeMegaGraph != MegaNodeSize)
+        {
+            _graphConfig.NodeSizeMegaGraph = MegaNodeSize;
+            styleChange = styleChange.Add(StyleChangeType.MegaGraph)
+                .Add(StyleChangeType.Node)
+                .Add(StyleChangeType.Size);
+        }
+
+        if(_graphConfig.NodeSizeMiniGraph != MiniNodeSize)
+        {
+            _graphConfig.NodeSizeMiniGraph = MiniNodeSize;
+            styleChange = styleChange.Add(StyleChangeType.MiniGraph)
+                .Add(StyleChangeType.Node)
+                .Add(StyleChangeType.Size);
+        }
 
 
-        _graphConfig.NodeMaxSizeMegaGraph = MegaNodeMaxSize;
-        _graphConfig.NodeMinSizeMegaGraph = MegaNodeMinSize;
+        if (_graphConfig.NodeMaxSizeMegaGraph != MegaNodeMaxSize)
+        {
+            _graphConfig.NodeMaxSizeMegaGraph = MegaNodeMaxSize;
+            styleChange = styleChange.Add(StyleChangeType.MegaGraph)
+                .Add(StyleChangeType.Node)
+                .Add(StyleChangeType.Size);
+        }
 
-        _graphConfig.NodeColor = NodeColor;
+        if (_graphConfig.NodeMinSizeMegaGraph != MegaNodeMinSize)
+        {
+            _graphConfig.NodeMinSizeMegaGraph = MegaNodeMinSize;
+            styleChange = styleChange.Add(StyleChangeType.MegaGraph)
+                .Add(StyleChangeType.Node)
+                .Add(StyleChangeType.Size);
+        }
+
+        if (_graphConfig.NodeMaxSizeMiniGraph != MiniNodeMaxSize)
+        {
+            _graphConfig.NodeMaxSizeMiniGraph = MiniNodeMaxSize;
+            styleChange = styleChange.Add(StyleChangeType.MiniGraph)
+                .Add(StyleChangeType.Node)
+                .Add(StyleChangeType.Size);
+        }
+
+        if (_graphConfig.NodeMinSizeMiniGraph != MiniNodeMinSize)
+        {
+            _graphConfig.NodeMinSizeMiniGraph = MiniNodeMinSize;
+            styleChange = styleChange.Add(StyleChangeType.MiniGraph)
+                .Add(StyleChangeType.Node)
+                .Add(StyleChangeType.Size);
+        }
+
+        if (_graphConfig.NodeColor != NodeColor)
+        {
+            _graphConfig.NodeColor = NodeColor;
+            styleChange = styleChange.Add(StyleChangeType.MiniGraph)
+                .Add(StyleChangeType.MegaGraph)
+                .Add(StyleChangeType.Node)
+                .Add(StyleChangeType.Color);
+        }
 
         var colorLerpMapper = _graphConfig.NodeColorMapping;
-        colorLerpMapper.ColorA = NodeMappingAColor;
-        colorLerpMapper.ColorB = NodeMappingBColor;
-        colorLerpMapper.ColorC = NodeMappingCColor;
 
-        colorLerpMapper.BoundaryColorA = BoundaryColorA;
-        colorLerpMapper.BoundaryColorB = BoundaryColorB;
-        colorLerpMapper.BoundaryColorC = BoundaryColorC;
+        if (colorLerpMapper.ColorA != NodeMappingAColor)
+        {
+            colorLerpMapper.ColorA = NodeMappingAColor;
+            styleChange = styleChange.Add(StyleChangeType.MiniGraph)
+                .Add(StyleChangeType.MegaGraph)
+                .Add(StyleChangeType.Node)
+                .Add(StyleChangeType.Color);
+        }
+
+        if (colorLerpMapper.ColorB != NodeMappingBColor)
+        {
+            colorLerpMapper.ColorB = NodeMappingBColor;
+            styleChange = styleChange.Add(StyleChangeType.MiniGraph)
+                .Add(StyleChangeType.MegaGraph)
+                .Add(StyleChangeType.Node)
+                .Add(StyleChangeType.Color);
+        }
+
+        if (colorLerpMapper.ColorC != NodeMappingCColor)
+        {
+            colorLerpMapper.ColorC = NodeMappingCColor;
+            styleChange = styleChange.Add(StyleChangeType.MiniGraph)
+                .Add(StyleChangeType.MegaGraph)
+                .Add(StyleChangeType.Node)
+                .Add(StyleChangeType.Color);
+        }
 
 
-        _graphConfig.NbOntologyColor = NbOntologyColor;
-        _graphConfig.MaxDeltaOntologyAlgo = MaxDeltaOntologyAlgo;
-        _graphConfig.SaturationOntologyColor = SaturationOntologyColor;
-        _graphConfig.ValueOntologyColor = ValueOntologyColor; 
+        if (colorLerpMapper.BoundaryColorA != BoundaryColorA)
+        {
+            colorLerpMapper.BoundaryColorA = BoundaryColorA;
+            styleChange = styleChange.Add(StyleChangeType.MiniGraph)
+                .Add(StyleChangeType.MegaGraph)
+                .Add(StyleChangeType.Node)
+                .Add(StyleChangeType.Color);
+        }
 
-        _graphConfig.NodeColorNoOntology = NodeColorNoOntology;
+        if (colorLerpMapper.BoundaryColorB != BoundaryColorB)
+        {
+            colorLerpMapper.BoundaryColorB = BoundaryColorB;
+            styleChange = styleChange.Add(StyleChangeType.MiniGraph)
+                .Add(StyleChangeType.MegaGraph)
+                .Add(StyleChangeType.Node)
+                .Add(StyleChangeType.Color);
+        }
 
-        _graphConfig.SelectedMetricTypeColor = SelectedMetricTypeColor;
-        _graphConfig.SelectedMetricTypeSize = SelectedMetricTypeSize;
+        if (colorLerpMapper.BoundaryColorC != BoundaryColorC)
+        {
+            colorLerpMapper.BoundaryColorC = BoundaryColorC;
+            styleChange = styleChange.Add(StyleChangeType.MiniGraph)
+                .Add(StyleChangeType.MegaGraph)
+                .Add(StyleChangeType.Node)
+                .Add(StyleChangeType.Color);
+        }
 
-        _graphConfig.MegaGraphSize = MegaGraphSize;
-        _graphConfig.MiniGraphSize = MiniGraphSize;
 
-        _graphConfig.EdgeColor = EdgeColor;
+        if (_graphConfig.NbOntologyColor != NbOntologyColor)
+        {
+            _graphConfig.NbOntologyColor = NbOntologyColor;
+            styleChange = styleChange.Add(StyleChangeType.MiniGraph)
+                .Add(StyleChangeType.MegaGraph)
+                .Add(StyleChangeType.Node)
+                .Add(StyleChangeType.Color);
+        }
 
-        _graphConfig.EdgeThicknessMegaGraph = MegaEdgeThickness;
-        _graphConfig.EdgeThicknessMiniGraph = MiniEdgeThickness;
+        if (_graphConfig.MaxDeltaOntologyAlgo != MaxDeltaOntologyAlgo)
+        {
+            _graphConfig.MaxDeltaOntologyAlgo = MaxDeltaOntologyAlgo;
+        }
 
-        _graphConfig.CanSelectEdges = CanSelectEdges;
+        if (_graphConfig.SaturationOntologyColor != SaturationOntologyColor)
+        {
+            _graphConfig.SaturationOntologyColor = SaturationOntologyColor;
+            styleChange = styleChange.Add(StyleChangeType.MiniGraph)
+                .Add(StyleChangeType.MegaGraph)
+                .Add(StyleChangeType.Node)
+                .Add(StyleChangeType.Color);
+        }
 
-        UpdateGraph();
+        if (_graphConfig.ValueOntologyColor != ValueOntologyColor)
+        {
+            _graphConfig.ValueOntologyColor = ValueOntologyColor;
+            styleChange = styleChange.Add(StyleChangeType.MiniGraph)
+                .Add(StyleChangeType.MegaGraph)
+                .Add(StyleChangeType.Node)
+                .Add(StyleChangeType.Color);
+        }
+
+        if (_graphConfig.NodeColorNoOntology != NodeColorNoOntology)
+        {
+            _graphConfig.NodeColorNoOntology = NodeColorNoOntology;
+            styleChange = styleChange.Add(StyleChangeType.MiniGraph)
+                .Add(StyleChangeType.MegaGraph)
+                .Add(StyleChangeType.Node)
+                .Add(StyleChangeType.Color);
+        }
+
+        if (_graphConfig.SelectedMetricTypeColor != SelectedMetricTypeColor)
+        {
+            _graphConfig.SelectedMetricTypeColor = SelectedMetricTypeColor;
+            styleChange = styleChange.Add(StyleChangeType.MiniGraph)
+                .Add(StyleChangeType.MegaGraph)
+                .Add(StyleChangeType.Node)
+                .Add(StyleChangeType.Color);
+        }
+
+        if (_graphConfig.SelectedMetricTypeSize != SelectedMetricTypeSize)
+        {
+            _graphConfig.SelectedMetricTypeSize = SelectedMetricTypeSize;
+            styleChange = styleChange.Add(StyleChangeType.MiniGraph)
+                .Add(StyleChangeType.MegaGraph)
+                .Add(StyleChangeType.Node)
+                .Add(StyleChangeType.Size);
+        }
+
+        if (_graphConfig.MegaGraphSize != MegaGraphSize)
+        {
+            _graphConfig.MegaGraphSize = MegaGraphSize;
+            styleChange = styleChange.Add(StyleChangeType.MegaGraph)
+                .Add(StyleChangeType.Node)
+                .Add(StyleChangeType.Position);
+        }
+
+        if (_graphConfig.MiniGraphSize != MiniGraphSize)
+        {
+            _graphConfig.MiniGraphSize = MiniGraphSize;
+            styleChange = styleChange.Add(StyleChangeType.MiniGraph)
+                .Add(StyleChangeType.Node)
+                .Add(StyleChangeType.Position);
+        }
+
+        if (_graphConfig.EdgeColor != EdgeColor)
+        {
+            _graphConfig.EdgeColor = EdgeColor;
+            styleChange = styleChange.Add(StyleChangeType.MiniGraph)
+                .Add(StyleChangeType.MegaGraph)
+                .Add(StyleChangeType.Edge)
+                .Add(StyleChangeType.Color);
+        }
+
+        if (_graphConfig.EdgeThicknessMegaGraph != MegaEdgeThickness)
+        {
+            _graphConfig.EdgeThicknessMegaGraph = MegaEdgeThickness;
+            styleChange = styleChange.Add(StyleChangeType.MegaGraph)
+                .Add(StyleChangeType.Edge)
+                .Add(StyleChangeType.Size);
+        }
+
+        if (_graphConfig.EdgeThicknessMiniGraph != MiniEdgeThickness)
+        {
+            _graphConfig.EdgeThicknessMiniGraph = MiniEdgeThickness;
+            styleChange = styleChange.Add(StyleChangeType.MiniGraph)
+                .Add(StyleChangeType.Edge)
+                .Add(StyleChangeType.Size);
+        }
+
+        if (_graphConfig.CanSelectEdges != CanSelectEdges)
+        {
+            _graphConfig.CanSelectEdges = CanSelectEdges;
+            styleChange = styleChange.Add(StyleChangeType.MiniGraph)
+                .Add(StyleChangeType.MegaGraph)
+                .Add(StyleChangeType.Edge)
+                .Add(StyleChangeType.Color)
+                .Add(StyleChangeType.Collider);
+        }
+
+        UpdateGraph(styleChange);
     }
 }

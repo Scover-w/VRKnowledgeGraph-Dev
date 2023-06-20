@@ -517,7 +517,7 @@ public class Graph
 
         int threadId = Thread.CurrentThread.ManagedThreadId;
 
-        _graphStyling.StyleGraph();
+        _graphStyling.StyleGraph(new StyleChange().Add(StyleChangeType.All));
     }
 
     private void CalculateShortestPathsAndCentralities()

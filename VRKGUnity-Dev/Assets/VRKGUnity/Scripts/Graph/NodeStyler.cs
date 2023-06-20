@@ -85,13 +85,19 @@ public class NodeStyler : MonoBehaviour
         _tf.localScale = new Vector3(scale, scale, scale);
     }
 
-    public void StyleNode(bool inSimulation)
+    public void StyleNode(StyleChange styleChange, bool inSimulation)
     {
-        StyleColor();
-        StyleSize();
+        if(styleChange.HasChanged(StyleChangeType.Color))
+            StyleColor();
 
-        if(!inSimulation)
-            StylePosition();
+        if (styleChange.HasChanged(StyleChangeType.Size))
+            StyleSize();
+
+        if (styleChange.HasChanged(StyleChangeType.Position))
+        {
+            if (!inSimulation)
+                StylePosition();
+        }
     }
 
     private void StyleColor()
@@ -249,11 +255,4 @@ public class NodeStyler : MonoBehaviour
         OnSelectExit(arg);
     }
     #endregion
-}
-
-
-public enum StylingType
-{
-    Color,
-    Size
 }

@@ -36,18 +36,27 @@ public class EdgeStyler : MonoBehaviour
 
     public void StyleEdgeForFirstTime()
     {
-        StyleEdge(true);
+        var styleChange = new StyleChange().Add(StyleChangeType.All);
+
+        StyleEdge(styleChange, true);
     }
 
-    public void StyleEdge(bool inSimulation)
+    public void StyleEdge(StyleChange styleChange, bool inSimulation)
     {
-        _collider.enabled = GraphConfiguration.CanSelectEdges;
+        if (styleChange.HasChanged(StyleChangeType.Collider))
+            _collider.enabled = GraphConfiguration.CanSelectEdges;
 
-        StyleColor();
-        StyleSize();
+        if (styleChange.HasChanged(StyleChangeType.Color))
+            StyleColor();
 
-        if (!inSimulation)
-            StylePosition();
+        if (styleChange.HasChanged(StyleChangeType.Size))
+            StyleSize();
+
+        if (styleChange.HasChanged(StyleChangeType.Position))
+        {
+            if (!inSimulation)
+                StylePosition();
+        }
     }
 
     private void StyleColor()

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Graphs;
 using UnityEngine;
+using static PlasticGui.PlasticTableCell;
 
 public class GraphStyling : MonoBehaviour
 {
@@ -54,7 +55,7 @@ public class GraphStyling : MonoBehaviour
         }
     }
 
-    public void StyleGraph()
+    public void StyleGraph(StyleChange styleChange)
     {
         var graph = _graphManager.Graph;
 
@@ -68,20 +69,37 @@ public class GraphStyling : MonoBehaviour
 
         bool isRunningSim = _graphManager.IsRunningSimulation;
 
-        foreach (var idAndNode in nodesDicId)
+        bool hasChangedMegaGraph = styleChange.HasChanged(StyleChangeType.MegaGraph);
+        bool hasChangedMiniGraph = styleChange.HasChanged(StyleChangeType.MiniGraph);
+
+        if (styleChange.HasChanged(StyleChangeType.Node))
         {
-            var node = idAndNode.Value;
-            node.MegaStyler.StyleNode(isRunningSim);
-            node.MiniStyler.StyleNode(isRunningSim);
+            foreach (var idAndNode in nodesDicId)
+            {
+                var node = idAndNode.Value;
+                
+                if(hasChangedMegaGraph)
+                    node.MegaStyler.StyleNode(styleChange, isRunningSim);
+
+                if(hasChangedMiniGraph)
+                    node.MiniStyler.StyleNode(styleChange, isRunningSim);
+            }
         }
+
+        if (!styleChange.HasChanged(StyleChangeType.Edge))
+            return;
 
         var edgeDicId = graph.EdgesDicId;
 
         foreach(var idAndEdge in edgeDicId)
         {
             var edge = idAndEdge.Value;
-            edge.MegaStyler.StyleEdge(isRunningSim);
-            edge.MiniStyler.StyleEdge(isRunningSim);
+
+            if (hasChangedMegaGraph)
+                edge.MegaStyler.StyleEdge(styleChange, isRunningSim);
+
+            if (hasChangedMiniGraph)
+                edge.MiniStyler.StyleEdge(styleChange, isRunningSim);
         }
     }
 }
