@@ -117,12 +117,15 @@ public class ColorLerpMapper
 
     [JsonProperty("BoundaryColorA_")]
     [SerializeField]
+    [Range(0f, 1f)]
     float _boundaryColorA = 0f;
     [JsonProperty("BoundaryColorB_")]
     [SerializeField]
+    [Range(0f, 1f)]
     float _boundaryColorB = 0.5f;
     [JsonProperty("BoundaryColorC_")]
     [SerializeField]
+    [Range(0f, 1f)]
     float _boundaryColorC = 1f;
 
 

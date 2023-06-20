@@ -104,6 +104,18 @@ public class NodeStyler : MonoBehaviour
             return;
         }
 
+
+        if (selectedMetricType == GraphMetricType.Ontology)
+            StyleColorOnOntology();
+        else
+            StyleColorOnMetrics(selectedMetricType);
+
+        
+    }
+
+
+    private void StyleColorOnMetrics(GraphMetricType selectedMetricType)
+    {
         float value = 0;
 
         switch (selectedMetricType)
@@ -125,10 +137,26 @@ public class NodeStyler : MonoBehaviour
                 break;
         }
 
-
         _propertyBlock.SetColor("_Color", GraphConfiguration.NodeColorMapping.Lerp(value));
         _renderer.SetPropertyBlock(_propertyBlock);
     }
+
+    private void StyleColorOnOntology()
+    {
+        if(Node.OntoNodeGroup == null)
+        {
+            _propertyBlock.SetColor("_Color", GraphConfiguration.NodeColorNoOntology);
+            _renderer.SetPropertyBlock(_propertyBlock);
+            return;
+        }
+
+        float hue = Node.OntoNodeGroup.ColorValue;
+
+        Color color = Color.HSVToRGB(hue, GraphConfiguration.SaturationOntologyColor, GraphConfiguration.ValueOntologyColor);
+        _propertyBlock.SetColor("_Color", color);
+        _renderer.SetPropertyBlock(_propertyBlock);
+    }
+
 
     private void StyleSize()
     {
@@ -221,4 +249,11 @@ public class NodeStyler : MonoBehaviour
         OnSelectExit(arg);
     }
     #endregion
+}
+
+
+public enum StylingType
+{
+    Color,
+    Size
 }

@@ -11,13 +11,16 @@ public class OntoNodeGroup
     public int NodeCount { get { return Nodes.Count; } }
 
     public int Height { get { return _height; } }
+    public float ColorValue { get { return _colorValue; } }
 
     public OntoNode OntoNode;
 
     public List<Node> Nodes;
 
     public List<OntoNodeGroup> OntoNodeGroupParent; 
-    public List<OntoNodeGroup> OntoNodeGroupChild; 
+    public List<OntoNodeGroup> OntoNodeGroupChild;
+
+    float _colorValue;
 
     int _height;
     int _depth;
@@ -184,7 +187,26 @@ public class OntoNodeGroup
         return _depth; 
     }
 
-    
+    public float ComputeColorValueAndSetToNode(float value, float deltaValue)
+    {
+        if(Nodes.Count != 0)
+        {
+            _colorValue = value;
+            value += deltaValue;
+        }
+
+        foreach(OntoNodeGroup ontoGroupChild in OntoNodeGroupChild)
+        {
+            value = ontoGroupChild.ComputeColorValueAndSetToNode(value, deltaValue);
+        }
+
+        foreach(Node node in Nodes)
+        {
+            node.OntoNodeGroup = this;
+        }
+
+        return value;
+    }
 
     public void RemoveFromParent()
     {

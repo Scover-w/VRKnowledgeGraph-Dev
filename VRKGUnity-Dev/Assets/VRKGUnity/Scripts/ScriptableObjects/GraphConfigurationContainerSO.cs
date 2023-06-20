@@ -1,9 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Threading.Tasks;
+using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 using UnityEditor;
 using UnityEngine;
+using static log4net.Appender.ColoredConsoleAppender;
 
 [CreateAssetMenu(fileName = "GraphConfig", menuName = "ScriptableObjects/GraphConfigurationContainerSO", order = 1)]
 public class GraphConfigurationContainerSO : ScriptableObject
@@ -12,12 +15,22 @@ public class GraphConfigurationContainerSO : ScriptableObject
     [Space(20)]
     public GraphConfiguration _graphConfiguration;
 
+    [Space(20)]
+    [Header("Colors")]
     public Color NodeColor = Color.white;
     public Color EdgeColor = Color.white;
 
+    [Space(10)]
     public Color NodeColorA = Color.white;
     public Color NodeColorB = Color.white;
     public Color NodeColorC = Color.white;
+
+    [Space(10)]
+    public Color NodeColorNoOntology = Color.white;
+
+    [Header("Viewer Ontology Color")]
+    [SerializeField]
+    private List<Color> OntologyViewerColors;
 
     private async void Awake()
     {
@@ -84,6 +97,22 @@ public class GraphConfigurationContainerSO : ScriptableObject
         _graphConfiguration.NodeColorMapping.ColorA = NodeColorA;
         _graphConfiguration.NodeColorMapping.ColorB = NodeColorB;
         _graphConfiguration.NodeColorMapping.ColorC = NodeColorC;
+
+        _graphConfiguration.NodeColorNoOntology = NodeColorNoOntology;
+
+
+        OntologyViewerColors = new List<Color>();
+
+        int nbColor = _graphConfiguration.NbOntologyColor;
+
+        float deltaHue = 1f / nbColor;
+
+
+        for (int i = 0; i < nbColor; i++)
+        {
+            OntologyViewerColors.Add(Color.HSVToRGB((deltaHue * i) % 1f, _graphConfiguration.SaturationOntologyColor, _graphConfiguration.ValueOntologyColor));
+        }
+
         await _graphConfiguration.Save();
     }
 }

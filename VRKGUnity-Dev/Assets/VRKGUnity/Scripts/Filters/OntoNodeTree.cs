@@ -7,6 +7,8 @@ using UnityEngine;
 
 public class OntoNodeTree
 {
+    static GraphConfiguration _graphConfiguration;
+
     private IReadOnlyDictionary<string, OntologyTree> _ontoTreeDict;
 
     Dictionary<int, OntoNodeGroup> _ontoGroups;
@@ -21,9 +23,9 @@ public class OntoNodeTree
     }
 
 
-    public static OntoNodeTree CreateOntoNodeTree(IReadOnlyDictionary<string, OntologyTree> ontoTreeDict, bool wantSpreadOut = true)
+    public static OntoNodeTree CreateOntoNodeTree(IReadOnlyDictionary<string, OntologyTree> ontoTreeDict, GraphConfiguration graphConfig, bool wantSpreadOut = true)
     {
-
+        _graphConfiguration = graphConfig;
         Dictionary<int, OntoNodeGroup> ontoGroups = CreateOntoGroupsFromOntoNodes(ontoTreeDict);
         OntoNodeGroup groupTreeRoot = CreateRootOfOntoNodeTree(ontoTreeDict);
 
@@ -32,6 +34,8 @@ public class OntoNodeTree
             // TODO : Handle this case
             Debug.Log("Can't reduce to nb color because too many ontology");
         }
+
+        ComputeColorValueToGroups(groupTreeRoot, ontoGroups);
 
         return new OntoNodeTree(ontoTreeDict, ontoGroups, groupTreeRoot);
     }
@@ -80,8 +84,8 @@ public class OntoNodeTree
     private static bool PruneTreeToColorLimit(OntoNodeGroup groupTreeRoot, Dictionary<int, OntoNodeGroup> ontoGroups, bool wantSpreadOut)
     {
         // Filter to reduce to nbColor
-        int nbColors = 4;
-        int maxDeltaHeight = 1;
+        int nbColors = _graphConfiguration.NbOntologyColor;
+        int maxDeltaHeight = _graphConfiguration.MaxDeltaOntologyAlgo;
 
 
         HashSet<OntoNodeGroup> ontoGroupToForget = new();
@@ -179,6 +183,15 @@ public class OntoNodeTree
 
             return selectedOntoGroup;
         }
+    }
+
+    private static void ComputeColorValueToGroups(OntoNodeGroup groupTreeRoot, Dictionary<int, OntoNodeGroup> ontoGroups)
+    {
+        float nbColor = (ontoGroups.Count > _graphConfiguration.NbOntologyColor) ? ontoGroups.Count : _graphConfiguration.NbOntologyColor;
+
+        float delta = 1f / nbColor;
+
+        groupTreeRoot.ComputeColorValueAndSetToNode(0f, delta);
     }
 
     public static OntoNodeTree CreateOntoNodeTreeB(IReadOnlyDictionary<string, OntologyTree> ontoTreeDict, bool wantSpreadOut = true)

@@ -41,6 +41,8 @@ public class Node
     public Dictionary<string, string> Properties;
     private bool _activeSelf;
 
+    public OntoNodeGroup OntoNodeGroup;
+
     public float AverageShortestPathLength;
     public float BetweennessCentrality;
     public float ClosenessCentrality;

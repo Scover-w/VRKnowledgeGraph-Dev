@@ -16,7 +16,7 @@
   "MiniGraphSize": 0.1,
   "MegaGraphSize": 1.0,
   "NodeSizeMiniGraph": 0.05,
-  "NodeSizeMegaGraph": 0.5,
+  "NodeSizeMegaGraph": 0.33,
   "NodeMinSizeMiniGraph": 0.08,
   "NodeMaxSizeMiniGraph": 0.08,
   "NodeMinSizeMegaGraph": 0.8,
@@ -34,11 +34,16 @@
     "BoundaryColorB_": 0.5,
     "BoundaryColorC_": 1.0
   },
+  "NodeColorNoOntology_": "178, 178, 178",
   "EdgeColor_": "185, 185, 185",
+  "NbOntologyColor": 7,
+  "MaxDeltaOntologyAlgo": 1,
+  "SaturationOntologyColor": 0.772,
+  "ValueOntologyColor": 0.767,
   "LabelNodgePropagation": 2,
   "SeedRandomPosition": 0,
   "ResetPositionNodeOnUpdate": true,
-  "CanSelectEdges": false,
+  "CanSelectEdges": true,
   "SelectedMetricTypeSize": 0,
-  "SelectedMetricTypeColor": 0
+  "SelectedMetricTypeColor": 6
 }

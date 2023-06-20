@@ -195,11 +195,11 @@ public class Graph
 
     public async Task UpdateNodges(Nodges nodges)
     {
-        await UpdateNodes(nodges.NodesDicId);
+        UpdateNodes(nodges.NodesDicId);
         UpdateEdges(nodges.EdgesDicId);
     }
 
-    private async Task UpdateNodes(Dictionary<int,Node> nodesDicId)
+    private void UpdateNodes(Dictionary<int,Node> nodesDicId)
     {
         Dictionary<int, Node> newNodes = new();
         Dictionary<int, Node> newNodesToRetrieveNames = new();
@@ -214,6 +214,7 @@ public class Graph
             if (_nodesDicId.TryGetValue(id, out Node node))
             {
                 // Already in the graph
+                node.OntoNodeGroup = null;
                 newNodes.Add(id, node);
                 _nodesDicId.Remove(id);
 
@@ -739,7 +740,7 @@ public class Graph
 
     private void CalculateOntology()
     {
-        _ontoNodeTree = OntoNodeTree.CreateOntoNodeTree(_graphRepoUris.OntoTreeDict);
+        _ontoNodeTree = OntoNodeTree.CreateOntoNodeTree(_graphRepoUris.OntoTreeDict, Configuration);
     }
     #endregion
 

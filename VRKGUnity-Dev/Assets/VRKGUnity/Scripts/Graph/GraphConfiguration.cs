@@ -74,6 +74,19 @@ public class GraphConfiguration
     }
 
     [JsonIgnore]
+    public Color NodeColorNoOntology
+    {
+        get
+        {
+            return _nodeColorNoOntology.ToUnityColor();
+        }
+        set
+        {
+            _nodeColorNoOntology = value.ToSystemColor();
+        }
+    }
+
+    [JsonIgnore]
     public Color EdgeColor
     {
         get
@@ -93,10 +106,23 @@ public class GraphConfiguration
 
     public ColorLerpMapper NodeColorMapping;
 
+    
+    [JsonProperty("NodeColorNoOntology_")]
+    private System.Drawing.Color _nodeColorNoOntology = System.Drawing.Color.White;
 
     [JsonProperty("EdgeColor_")]
     [SerializeField]
     private System.Drawing.Color _edgeColor = System.Drawing.Color.White;
+
+    [Header("Ontology Color")]
+    [Range(1, 15)]
+    public int NbOntologyColor;
+    [Range(0, 15)]
+    public int MaxDeltaOntologyAlgo;
+    [Range(0f, 1f)]
+    public float SaturationOntologyColor;
+    [Range(0f, 1f)]
+    public float ValueOntologyColor;
 
 
     [Space(30)]
@@ -161,7 +187,8 @@ public enum GraphMetricType
     BetweennessCentrality,
     ClosenessCentrality,
     ClusteringCoefficient,
-    Degree
+    Degree,
+    Ontology
 }
 
 

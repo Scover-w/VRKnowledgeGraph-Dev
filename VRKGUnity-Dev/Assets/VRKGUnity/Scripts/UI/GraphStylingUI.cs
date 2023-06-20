@@ -51,6 +51,17 @@ public class GraphStylingUI : MonoBehaviour
     [Range(0f, 1f)]
     public float BoundaryColorC;
 
+    [Range(1, 15)]
+    public int NbOntologyColor;
+    [Range(0, 15)]
+    public int MaxDeltaOntologyAlgo;
+    [Range(0f, 1f)]
+    public float SaturationOntologyColor;
+    [Range(0f, 1f)]
+    public float ValueOntologyColor;
+
+    public Color NodeColorNoOntology;
+
     [Header("Edge")]
     public Color EdgeColor;
 
@@ -90,6 +101,15 @@ public class GraphStylingUI : MonoBehaviour
         BoundaryColorA = colorLerpMapper.BoundaryColorA;
         BoundaryColorB = colorLerpMapper.BoundaryColorB;
         BoundaryColorC = colorLerpMapper.BoundaryColorC;
+
+
+        NbOntologyColor = _graphConfig.NbOntologyColor;
+        MaxDeltaOntologyAlgo = _graphConfig.MaxDeltaOntologyAlgo;
+        SaturationOntologyColor = _graphConfig.SaturationOntologyColor;
+        ValueOntologyColor = _graphConfig.ValueOntologyColor;
+
+        NodeColorNoOntology = _graphConfig.NodeColorNoOntology;
+
 
         SelectedMetricTypeColor = _graphConfig.SelectedMetricTypeColor;
         SelectedMetricTypeSize = _graphConfig.SelectedMetricTypeSize;
@@ -147,6 +167,14 @@ public class GraphStylingUI : MonoBehaviour
         colorLerpMapper.BoundaryColorA = BoundaryColorA;
         colorLerpMapper.BoundaryColorB = BoundaryColorB;
         colorLerpMapper.BoundaryColorC = BoundaryColorC;
+
+
+        _graphConfig.NbOntologyColor = NbOntologyColor;
+        _graphConfig.MaxDeltaOntologyAlgo = MaxDeltaOntologyAlgo;
+        _graphConfig.SaturationOntologyColor = SaturationOntologyColor;
+        _graphConfig.ValueOntologyColor = ValueOntologyColor; 
+
+        _graphConfig.NodeColorNoOntology = NodeColorNoOntology;
 
         _graphConfig.SelectedMetricTypeColor = SelectedMetricTypeColor;
         _graphConfig.SelectedMetricTypeSize = SelectedMetricTypeSize;
