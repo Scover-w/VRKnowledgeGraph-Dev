@@ -73,3 +73,5 @@ crashlytics-build.properties
 
 *apiKey.json
 *apiKey.json.meta
+
+/[Aa]ssets/VRKGUnity/Data/*

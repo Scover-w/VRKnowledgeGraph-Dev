@@ -27,9 +27,9 @@
   "EdgeThicknessMegaGraph": 0.02,
   "NodeColor_": "0, 255, 238",
   "NodeColorMapping": {
-    "ColorA_": "Red",
-    "ColorB_": "Lime",
-    "ColorC_": "Blue",
+    "ColorA_": "255, 0, 0",
+    "ColorB_": "0, 255, 0",
+    "ColorC_": "0, 0, 255",
     "BoundaryColorA_": 0.0,
     "BoundaryColorB_": 0.5,
     "BoundaryColorC_": 1.0
