@@ -69,6 +69,8 @@ public class Graph
     Node _selectedNode;
     Edge _selectedEdge;
 
+    OntoNodeTree _ontoNodeTree;
+
     Transform _miniGraphTf;
     Transform _megaGraphTf;
 
@@ -492,8 +494,7 @@ public class Graph
         CalculateMetric(CalculateShortestPathsAndCentralities);
         CalculateMetric(CalculateDegrees);
         CalculateMetric(CalculateClusteringCoefficients);
-        //CalculateMetric(CalculateOntology);
-        CalculateOntology();
+        CalculateMetric(CalculateOntology);
         await semaphore.WaitAsync();
 
 
@@ -738,7 +739,7 @@ public class Graph
 
     private void CalculateOntology()
     {
-        var ontoNodeTree = OntoNodeTree.CreateOntoNodeTree(_graphRepoUris.OntoTreeDict);
+        _ontoNodeTree = OntoNodeTree.CreateOntoNodeTree(_graphRepoUris.OntoTreeDict);
     }
     #endregion
 

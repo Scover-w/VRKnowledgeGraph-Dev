@@ -50,6 +50,8 @@ public class OntoNodeGroup
         int minMaxNbNode = wantSpreadOut ? int.MinValue : int.MaxValue;
 
 
+        // TODO : Mode that select the ontoNode with the less depth value
+
         foreach(OntoNode ontoNode in OntoNode.OntoNodeSource)
         {
             if(wantSpreadOut) // select the ontoNode with least attachedNode to group
