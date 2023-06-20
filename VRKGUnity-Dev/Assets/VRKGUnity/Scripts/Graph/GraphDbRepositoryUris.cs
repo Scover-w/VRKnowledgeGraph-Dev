@@ -213,7 +213,7 @@ public class GraphDbRepositoryUris
             return false;
         }
 
-        ontoNode.NodesDefined.Add(definedNode);
+        ontoNode.NodesAttached.Add(definedNode);
         return true;
     }
 

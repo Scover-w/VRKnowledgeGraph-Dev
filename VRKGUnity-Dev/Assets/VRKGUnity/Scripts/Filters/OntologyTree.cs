@@ -110,7 +110,7 @@ public class OntologyTree
         foreach(var idAndOntoNode in _ontoNodes)
         {
             var ontoNode = idAndOntoNode.Value;
-            ontoNode.NodesDefined = new();
+            ontoNode.NodesAttached = new();
         }
     }
 }

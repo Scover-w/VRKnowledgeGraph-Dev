@@ -101,4 +101,25 @@ public class AIDENToolsEditor : MonoBehaviour
         }
     }
 
+    [MenuItem("AIDEN Tools/Folders/Reload Data Cap44 Except Distant Uris")]
+    private static void RemoveDataFromCap44FolderExceptUris()
+    {
+        var path = Path.Combine(Application.dataPath, "VRKGUnity", "Data", "cap44_1455283593");
+
+        DirectoryInfo directoryInfo = new DirectoryInfo(path);
+
+        foreach (FileInfo file in directoryInfo.GetFiles())
+        {
+            if (file.Name == "GraphDbRepositoryDistantUris.json" || file.Name == "GraphDbRepositoryDistantUris.json.meta")
+                continue;
+            file.Delete();
+        }
+
+        // If you also want to remove all subdirectories and files in them
+        foreach (DirectoryInfo dir in directoryInfo.GetDirectories())
+        {
+            dir.Delete(true);
+        }
+    }
+
 }

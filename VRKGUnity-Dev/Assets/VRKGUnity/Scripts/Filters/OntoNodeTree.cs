@@ -38,7 +38,7 @@ public class OntoNodeTree
 
             foreach (var ontoNode in ontoNodes.Values)
             {
-                if (ontoNode.CreateGroupIfOwnDefinedNode(out OntoNodeGroup ontoNodeGroup))
+                if (ontoNode.CreateGroupIfOwnAttachedNode(out OntoNodeGroup ontoNodeGroup))
                     ontoGroups.Add(ontoNodeGroup.Id, ontoNodeGroup);
             }
         }
@@ -48,25 +48,25 @@ public class OntoNodeTree
             var ontoNodeRoot = ontoTree.RootOntoNode;
             var ontoNodeGroupRoot = new OntoNodeGroup(ontoNodeRoot);
 
-            ontoNodeRoot.OntoNodeGroup = ontoNodeGroupRoot;
-
             groupTreeRoot.LinkTo(ontoNodeGroupRoot);
 
             ontoNodeRoot.CreateOntoGroupTree(null);
         }
 
         groupTreeRoot.ComputeHeight();
+        groupTreeRoot.ComputeDepthDownward(0);
 
 
 
         // Filter to reduce to nbColor
         int nbColors = 4;
+        int maxDeltaHeight = 1;
 
         while (ontoGroups.Count > nbColors && ontoGroupToForget.Count != ontoGroups.Count)
         {
             var ontoGroupToDelete = GetDeeperOntoGroup();
 
-            var upperOntoNode = ontoGroupToDelete.GetUpperOntoNode();
+            var upperOntoNode = ontoGroupToDelete.GetUpperOntoNode(wantSpreadOut);
 
             if (upperOntoNode == null)
             {
@@ -80,20 +80,23 @@ public class OntoNodeTree
                 ontoGroups.Remove(ontoGroupToDelete.Id);
 
                 ontoGroupToDelete.RemoveFromParent();
+                ontoGroupToDelete.RemoveFromOntoNode();
                 continue;
             }
 
             var newOntoGroup = new OntoNodeGroup(upperOntoNode);
             ontoGroupToDelete.SendNodesTo(newOntoGroup);
+
             ontoGroups.Remove(ontoGroupToDelete.Id);
             ontoGroups.Add(newOntoGroup.Id, newOntoGroup);
 
             ontoGroupToDelete.ReplaceFromParent(newOntoGroup);
-
+            ontoGroupToDelete.RemoveFromOntoNode();
+            newOntoGroup.ComputeDepthUpward();
         }
 
 
-        if(ontoGroupToForget.Count != ontoGroups.Count)
+        if(ontoGroupToForget.Count == ontoGroups.Count)
         {
             Debug.Log("Can't reduce to nb color because too many ontology");
         }
@@ -102,8 +105,11 @@ public class OntoNodeTree
         {
             OntoNodeGroup selectedOntoGroup = groupTreeRoot;
 
+            List<OntoNodeGroup> ontoGroupLeafs = new();
+
             int minMaxNbNode = wantSpreadOut? int.MinValue : int.MaxValue;
 
+            int maxDepth = 0;
 
             foreach (OntoNodeGroup ontoGroup in ontoGroups.Values)
             {
@@ -113,9 +119,28 @@ public class OntoNodeTree
                 if (ontoGroupToForget.Contains(ontoGroup))
                     continue;
 
-                int nbNode = ontoGroup.NbNode;
+                ontoGroupLeafs.Add(ontoGroup);
 
-                if( (wantSpreadOut && nbNode > minMaxNbNode) || (!wantSpreadOut && nbNode < minMaxNbNode) )
+                var depth = ontoGroup.Depth;
+                if (depth > maxDepth)
+                    maxDepth = depth;
+            }
+
+
+            int nbLeaf = ontoGroupLeafs.Count;
+
+            for(int i = nbLeaf - 1; i > -1; i--)
+            {
+                var ontoGroup = ontoGroupLeafs[i];
+                var depth = ontoGroup.Depth;
+                var delta = Mathf.Abs(depth - maxDepth);
+
+                if (delta > maxDeltaHeight)
+                    continue;
+
+                int nbNode = ontoGroup.NodeCount;
+
+                if ((wantSpreadOut && nbNode > minMaxNbNode) || (!wantSpreadOut && nbNode < minMaxNbNode))
                 {
                     selectedOntoGroup = ontoGroup;
                     minMaxNbNode = nbNode;
@@ -125,11 +150,10 @@ public class OntoNodeTree
             return selectedOntoGroup;
         }
 
-
         return new OntoNodeTree(ontoTreeDict, ontoGroups, groupTreeRoot);
     }
     
-    public static OntoNodeTree CreateOntoNodeTreeB(IReadOnlyDictionary<string, OntologyTree> ontoTreeDict)
+    public static OntoNodeTree CreateOntoNodeTreeB(IReadOnlyDictionary<string, OntologyTree> ontoTreeDict, bool wantSpreadOut = true)
     {
         HashSet<OntoNodeGroup> ontoGroupToForget = new();
         Dictionary<int, OntoNodeGroup> ontoGroups = new();
@@ -146,7 +170,7 @@ public class OntoNodeTree
             foreach (var ontoNode in ontoNodes.Values)
             {
 
-                if (ontoNode.NodesDefined.Count == 0)
+                if (ontoNode.NodesAttached.Count == 0)
                     continue;
 
                 OntoNodeGroup ontoGroup;
@@ -157,7 +181,7 @@ public class OntoNodeTree
                     ontoGroups.Add(ontoGroup.Id, ontoGroup);
                 }
 
-                foreach (var node in ontoNode.NodesDefined)
+                foreach (var node in ontoNode.NodesAttached)
                 {
                     ontoGroup.Nodes.Add(node);
                 }
@@ -171,7 +195,7 @@ public class OntoNodeTree
         {
             var ontoGroup = GetDeeperOntoGroup();
 
-            var upperOntoNode = ontoGroup.GetUpperOntoNode();
+            var upperOntoNode = ontoGroup.GetUpperOntoNode(wantSpreadOut);
 
             if (upperOntoNode == null)
             {

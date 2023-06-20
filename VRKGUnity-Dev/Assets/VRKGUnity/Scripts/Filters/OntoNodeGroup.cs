@@ -6,9 +6,9 @@ using UnityEngine;
 public class OntoNodeGroup
 {
     public int Id { get { return OntoNode.Id; } }
-    public int Depth { get { return OntoNode.Depth; } }
+    public int Depth { get { return _depth; } }
 
-    public int NbNode { get { return Nodes.Count; } }
+    public int NodeCount { get { return Nodes.Count; } }
 
     public int Height { get { return _height; } }
 
@@ -20,17 +20,20 @@ public class OntoNodeGroup
     public List<OntoNodeGroup> OntoNodeGroupChild; 
 
     int _height;
+    int _depth;
 
     public OntoNodeGroup(OntoNode ontoNode)
     {
         OntoNode = ontoNode;
+        ontoNode.OntoNodeGroup = this;
+
         Nodes = new List<Node>();
         OntoNodeGroupParent = new();
         OntoNodeGroupChild = new();
         _height = int.MaxValue;
     }
     
-    public OntoNode GetUpperOntoNode()
+    public OntoNode GetUpperOntoNode(bool wantSpreadOut)
     {
         if (OntoNode.IsFrozen)
             return null;
@@ -39,7 +42,45 @@ public class OntoNodeGroup
         if(OntoNode.OntoNodeSource.Count == 0)
             return null;
 
-        return OntoNode.OntoNodeSource[0]; // TODO : Don't know yet how to select which Source to take
+        if (OntoNode.OntoNodeSource.Count == 1)
+            return OntoNode.OntoNodeSource[0];
+
+
+        OntoNode selectedOntoNode = OntoNode.OntoNodeSource[0];
+        int minMaxNbNode = wantSpreadOut ? int.MinValue : int.MaxValue;
+
+
+        foreach(OntoNode ontoNode in OntoNode.OntoNodeSource)
+        {
+            if(wantSpreadOut) // select the ontoNode with least attachedNode to group
+            {
+                if (ontoNode.OntoNodeGroup == null)
+                    return ontoNode;
+
+                int nbAttachedToGroup = ontoNode.OntoNodeGroup.NodeCount;
+                if (nbAttachedToGroup >= minMaxNbNode)
+                    continue;
+
+                minMaxNbNode = nbAttachedToGroup;
+                selectedOntoNode = ontoNode;
+
+            }
+            else // select the ontoNode with the more attachedNode to group
+            {
+                if (ontoNode.OntoNodeGroup == null)
+                    continue;
+
+                int nbAttachedToGroup = ontoNode.OntoNodeGroup.NodeCount;
+                if (nbAttachedToGroup <= minMaxNbNode)
+                    continue;
+
+                minMaxNbNode = nbAttachedToGroup;
+                selectedOntoNode = ontoNode;
+            }
+        }
+
+
+        return selectedOntoNode;
     }
 
     public void SendNodesTo(OntoNodeGroup ontoGroup)
@@ -55,6 +96,13 @@ public class OntoNodeGroup
         Nodes.Add(node);
     }
 
+    public void RemoveFromOntoNode()
+    {
+        if(OntoNode == null) 
+            return;
+
+        OntoNode.OntoNodeGroup = null;
+    }
 
     /// <summary>
     /// ontoGroup parameter is the target
@@ -100,6 +148,38 @@ public class OntoNodeGroup
         _height += 1;
 
         return _height;
+    }
+
+    public void ComputeDepthDownward(int depth)
+    {
+        _depth = depth;
+
+        foreach (OntoNodeGroup ontogroupChild in OntoNodeGroupChild)
+        {
+            ontogroupChild.ComputeDepthDownward(depth + 1);
+        }
+    }
+
+    public int ComputeDepthUpward()
+    {
+        if (_depth == 0) // Root
+            return 0;
+
+        int minDepthParent = int.MaxValue;
+
+        foreach(OntoNodeGroup ontogroupParent in OntoNodeGroupParent)
+        {
+            var depthParent = ontogroupParent.ComputeDepthUpward();
+
+            if (depthParent >= minDepthParent)
+                continue;
+
+            minDepthParent = depthParent;
+        }
+
+        _depth = minDepthParent + 1;
+
+        return _depth; 
     }
 
     

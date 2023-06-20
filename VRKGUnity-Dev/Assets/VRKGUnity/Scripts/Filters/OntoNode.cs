@@ -17,7 +17,7 @@ public class OntoNode
     public List<OntoNode> OntoNodeSource;
     public List<OntoNode> OntoNodeTarget;
 
-    public List<Node> NodesDefined;
+    public List<Node> NodesAttached;
 
     public OntoNodeGroup OntoNodeGroup;
 
@@ -31,7 +31,7 @@ public class OntoNode
         OntoNodeSource = new();
         OntoNodeTarget = new();
 
-        NodesDefined = new();
+        NodesAttached = new();
         _isFrozen = isFrozen;
     }
 
@@ -52,17 +52,17 @@ public class OntoNode
     }
 
 
-    public bool CreateGroupIfOwnDefinedNode(out OntoNodeGroup ontoNodeGroup)
+    public bool CreateGroupIfOwnAttachedNode(out OntoNodeGroup ontoNodeGroup)
     {
         ontoNodeGroup = null;
 
-        if (NodesDefined.Count == 0)
+        if (NodesAttached.Count == 0)
             return false;
 
         OntoNodeGroup = new OntoNodeGroup(this);
         ontoNodeGroup = OntoNodeGroup;
 
-        foreach (Node node in NodesDefined)
+        foreach (Node node in NodesAttached)
         {
             OntoNodeGroup.AddNode(node);
         }

@@ -2483,6 +2483,86 @@
     "http://www.w3.org/2002/07/owl#hasSelf": {
       "Item1": "-1",
       "Item2": "-1"
+    },
+    "https://www.dublincore.org/specifications/dublin-core/2007/06/04/abstract-model/": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/dc/dcam/rangeIncludes": {
+      "Item1": "dcterms:title",
+      "Item2": "Metadata terms for vocabulary description"
+    },
+    "http://purl.org/dc/dcam/memberOf": {
+      "Item1": "dcterms:title",
+      "Item2": "Metadata terms for vocabulary description"
+    },
+    "http://purl.org/dc/dcam/domainIncludes": {
+      "Item1": "dcterms:title",
+      "Item2": "Metadata terms for vocabulary description"
+    },
+    "http://www.w3.org/2003/g/data-view#namespaceTransformation": {
+      "Item1": "default87:label",
+      "Item2": "namespaceTransformation"
+    },
+    "http://www.w3.org/2003/g/data-view#profileTransformation": {
+      "Item1": "default87:label",
+      "Item2": "namespaceTransformation"
+    },
+    "http://www.w3.org/2003/g/data-view#transformationProperty": {
+      "Item1": "default87:label",
+      "Item2": "namespaceTransformation"
+    },
+    "http://www.w3.org/People/Connolly/": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2003/g/data-view": {
+      "Item1": "default87:label",
+      "Item2": "namespaceTransformation"
+    },
+    "http://www.w3.org/2003/g/data-view#grddl-wg": {
+      "Item1": "default87:label",
+      "Item2": "namespaceTransformation"
+    },
+    "http://www.w3.org/2001/sw-grddl-wg/": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2003/g/data-view#result": {
+      "Item1": "default87:label",
+      "Item2": "namespaceTransformation"
+    },
+    "http://lists.w3.org/Archives/Public/public-grddl-comments/": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/2003/g/data-view#transformation": {
+      "Item1": "default87:label",
+      "Item2": "namespaceTransformation"
+    },
+    "http://www.w3.org/2003/g/data-view#grddlProject": {
+      "Item1": "default87:label",
+      "Item2": "namespaceTransformation"
+    },
+    "http://www.w3.org/TR/xslt": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/TR/2004/REC-rdf-concepts-20040210/#dfn-rdf-graph": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/TR/1999/REC-xpath-19991116#root-node": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://www.w3.org/TR/2004/REC-webarch-20041215/#def-information-resource": {
+      "Item1": "-1",
+      "Item2": "-1"
+    },
+    "http://purl.org/NET/erdf/extract": {
+      "Item1": "-1",
+      "Item2": "-1"
     }
   }
 }
