@@ -1,6 +1,5 @@
 ﻿using QuikGraph;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class Edge : IEdge<Node>
 {

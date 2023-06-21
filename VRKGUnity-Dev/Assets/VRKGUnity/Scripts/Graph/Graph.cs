@@ -1,25 +1,12 @@
-using AngleSharp.Html;
 using QuikGraph;
 using QuikGraph.Algorithms;
-using QuikGraph.Algorithms.Observers;
-using QuikGraph.Algorithms.ShortestPath;
-using QuikGraph.Collections;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Xml;
-using TMPro;
 using UnityEditor;
-using UnityEditor.Graphs;
 using UnityEngine;
-using UnityEngine.Pool;
-using UnityEngine.UIElements;
-using Random = UnityEngine.Random;
 
 public class Graph
 {
@@ -496,7 +483,12 @@ public class Graph
         CalculateMetric(CalculateDegrees);
         CalculateMetric(CalculateClusteringCoefficients);
         CalculateMetric(CalculateOntology);
+
         await semaphore.WaitAsync();
+
+        int threadId = Thread.CurrentThread.ManagedThreadId;
+
+        _graphStyling.StyleGraph(new StyleChange().Add(StyleChangeType.All));
 
 
         void CalculateMetric(Action metricCalculation)
@@ -513,11 +505,6 @@ public class Graph
                 }
             }));
         }
-
-
-        int threadId = Thread.CurrentThread.ManagedThreadId;
-
-        _graphStyling.StyleGraph(new StyleChange().Add(StyleChangeType.All));
     }
 
     private void CalculateShortestPathsAndCentralities()

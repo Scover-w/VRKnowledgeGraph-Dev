@@ -1,14 +1,5 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using UnityEngine;
-using VDS.RDF;
-using VDS.RDF.Parsing;
-using VDS.RDF.Query.Expressions.Functions.XPath.String;
-using VDS.RDF.Writing;
 
 public class OntologyTree
 {

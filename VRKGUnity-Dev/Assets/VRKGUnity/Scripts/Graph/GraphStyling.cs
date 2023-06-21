@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Graphs;
 using UnityEngine;
-using static PlasticGui.PlasticTableCell;
 
 public class GraphStyling : MonoBehaviour
 {

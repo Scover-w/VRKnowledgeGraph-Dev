@@ -1,7 +1,4 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using VDS.RDF;
 
 public static class OntologyHelperExtensions

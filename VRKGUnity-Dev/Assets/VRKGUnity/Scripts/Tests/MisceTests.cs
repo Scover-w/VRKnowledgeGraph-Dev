@@ -1,17 +1,10 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using System.Net.Http;
-using System.Net;
-using UnityEngine;
-using static GraphDBAPI;
-using VDS.RDF.Parsing;
-using VDS.RDF;
-using VDS.RDF.Writing;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
-using Microsoft.Extensions.Primitives;
+using UnityEngine;
+using VDS.RDF;
 
 public class MisceTests : MonoBehaviour
 {

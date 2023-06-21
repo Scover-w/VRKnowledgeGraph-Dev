@@ -1,19 +1,12 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using PlasticGui;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Data.Common;
 using System.IO;
-using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
-using System.Xml.Linq;
 using UnityEngine;
-using UnityEngine.Video;
-using VDS.Common.Tries;
 
 public class GraphDbRepositoryDistantUris
 {

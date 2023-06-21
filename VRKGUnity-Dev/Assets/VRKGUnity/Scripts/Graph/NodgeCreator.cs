@@ -1,20 +1,7 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Codice.Client.Common.TreeGrouper;
-using Codice.CM.Common.Tree;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using TMPro;
-using Unity.VisualScripting.YamlDotNet.RepresentationModel;
-using UnityEditor;
+using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.Pool;
-using Random = UnityEngine.Random;
 
 public class NodgeCreator : MonoBehaviour
 {

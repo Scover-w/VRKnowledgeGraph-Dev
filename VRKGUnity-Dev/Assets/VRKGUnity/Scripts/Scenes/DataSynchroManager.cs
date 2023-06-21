@@ -1,6 +1,5 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -15,6 +14,8 @@ public class DataSynchroManager : MonoBehaviour
 
     JObject _data;
 
+    int nbTriple = -1;
+
     private void Start()
     {
         _repository = _referenceHolder.SelectedGraphDbRepository;
@@ -28,8 +29,20 @@ public class DataSynchroManager : MonoBehaviour
     private async void SyncData()
     {
         UpdateGraphDbFromOmeka();
-        var ontoUris = await UpdateGraphDbRepoFromGraphDbServer();
-        await RetrieveDistantUri(ontoUris);
+
+
+        IReadOnlyDictionary<string, OntologyTree> ontoUris = null;
+
+        await Task.Run(async () =>
+        {
+            ontoUris = await UpdateGraphDbRepoFromGraphDbServer();
+        });
+
+
+        await Task.Run(async () =>
+        {
+            await RetrieveDistantUri(ontoUris);
+        });
 
         var lifeSceneManager = _referenceHolder.LifeCycleSceneManagerSA.Value;
 
