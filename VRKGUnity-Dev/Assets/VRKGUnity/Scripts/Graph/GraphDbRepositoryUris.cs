@@ -217,6 +217,22 @@ public class GraphDbRepositoryUris
         return true;
     }
 
+    public bool CanAddNodeToOntoNode(Node simpleOntoNode, out OntoNode ontoNode)
+    {
+        ontoNode = null;
+        if (!_ontoTreeDict.TryGetValue(simpleOntoNode.Value.ExtractUri().namespce, out OntologyTree ontoTree))
+        {
+            return false;
+        }
+
+        if (!ontoTree.TryGetOntoNode(simpleOntoNode.Id, out ontoNode))
+        {
+            return false;
+        }
+
+        return true;
+    }
+
     public void ResetDefinedNodes()
     {
         foreach(var ontoUri in _ontoTreeDict)

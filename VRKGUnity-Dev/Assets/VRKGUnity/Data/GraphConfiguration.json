@@ -16,11 +16,11 @@
   "MiniGraphSize": 0.1,
   "MegaGraphSize": 1.0,
   "NodeSizeMiniGraph": 0.05,
-  "NodeSizeMegaGraph": 0.39,
+  "NodeSizeMegaGraph": 0.5,
   "NodeMinSizeMiniGraph": 0.08,
   "NodeMaxSizeMiniGraph": 0.08,
   "NodeMinSizeMegaGraph": 0.8,
-  "NodeMaxSizeMegaGraph": 0.806,
+  "NodeMaxSizeMegaGraph": 0.8,
   "LabelSizeMiniGraph": 0.1,
   "LabelSizeMegaGraph": 1.0,
   "EdgeThicknessMiniGraph": 0.002,
@@ -43,7 +43,7 @@
   "LabelNodgePropagation": 2,
   "SeedRandomPosition": 0,
   "ResetPositionNodeOnUpdate": true,
-  "CanSelectEdges": true,
+  "CanSelectEdges": false,
   "SelectedMetricTypeSize": 0,
-  "SelectedMetricTypeColor": 6
+  "SelectedMetricTypeColor": 0
 }

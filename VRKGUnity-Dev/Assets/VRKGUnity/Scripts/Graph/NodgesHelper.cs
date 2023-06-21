@@ -14,6 +14,8 @@ public static class NodgesHelper
 
         repoUri.ResetDefinedNodes();
 
+        DepthOntologyLinker ontologyLinker = new(repoUri);
+
 #if UNITY_EDITOR && FALSE
         var folderPath = Path.Combine(Application.dataPath, "VRKGUnity", "Data");
 
@@ -35,7 +37,7 @@ public static class NodgesHelper
             string oValue = binding["o"]["value"].Value<string>();
 
 
-            bool isObjectPossiblyAnOnto = repoUri.IsUriAnOnto(oValue);
+            bool isObjectPossiblyAnOnto = repoUri.IsUriAnOnto(oValue) && pValue == "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
 
             int sId = sValue.GetHashCode();
             int oId = oValue.GetHashCode();
@@ -53,9 +55,11 @@ public static class NodgesHelper
                 nodesDicId.Add(sId, s);
             }
 
-            if(isObjectPossiblyAnOnto && pValue == "http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
+            if(isObjectPossiblyAnOnto)
             {
-                if(repoUri.TryAddNodeToOntoNode(s, new Node(oId, oType, oValue)))
+                var simpleOntoNode = new Node(oId, oType, oValue);
+
+                if (ontologyLinker.TryLink(s, simpleOntoNode))
                     continue;
             }
 
@@ -82,6 +86,9 @@ public static class NodgesHelper
             s.EdgeSource.Add(edge);
             o.EdgeTarget.Add(edge);
         }
+
+
+        ontologyLinker.AttachNodesToOntoNodes();
 
         nodges.MergePropertiesNodes();
 
