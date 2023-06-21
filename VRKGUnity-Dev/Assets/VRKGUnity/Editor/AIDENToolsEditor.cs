@@ -1,6 +1,3 @@
-using Codice.Client.BaseCommands;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEditor.Callbacks;
@@ -99,6 +96,8 @@ public class AIDENToolsEditor : MonoBehaviour
         {
             dir.Delete(true);
         }
+
+        Debug.Log("Cap44 data has been removed !");
     }
 
     [MenuItem("AIDEN Tools/Folders/Reload Data Cap44 Except Distant Uris")]
@@ -120,6 +119,7 @@ public class AIDENToolsEditor : MonoBehaviour
         {
             dir.Delete(true);
         }
-    }
 
+        Debug.Log("Cap44 data has been removed !");
+    }
 }
