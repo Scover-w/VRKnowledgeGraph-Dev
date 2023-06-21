@@ -69,7 +69,7 @@ public class Graph
     Node _selectedNode;
     Edge _selectedEdge;
 
-    OntoNodeTree _ontoNodeTree;
+    OntoNodeGroupTree _ontoNodeTree;
 
     Transform _miniGraphTf;
     Transform _megaGraphTf;
@@ -740,7 +740,7 @@ public class Graph
 
     private void CalculateOntology()
     {
-        _ontoNodeTree = OntoNodeTree.CreateOntoNodeTree(_graphRepoUris.OntoTreeDict, Configuration);
+        _ontoNodeTree = OntoNodeGroupTree.CreateOntoNodeTree(_graphRepoUris.OntoTreeDict, Configuration);
     }
     #endregion
 

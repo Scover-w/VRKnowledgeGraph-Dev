@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class OntoNodeTree
+public class OntoNodeGroupTree
 {
     static GraphConfiguration _graphConfiguration;
 
@@ -15,7 +15,7 @@ public class OntoNodeTree
 
     OntoNodeGroup _ontoGroupRoot;
 
-    private OntoNodeTree(IReadOnlyDictionary<string, OntologyTree> ontoTreeDict, Dictionary<int, OntoNodeGroup> ontoGroups, OntoNodeGroup ontoGroupRoot)
+    private OntoNodeGroupTree(IReadOnlyDictionary<string, OntologyTree> ontoTreeDict, Dictionary<int, OntoNodeGroup> ontoGroups, OntoNodeGroup ontoGroupRoot)
     {
         _ontoTreeDict = ontoTreeDict;
         _ontoGroups = ontoGroups;
@@ -23,7 +23,7 @@ public class OntoNodeTree
     }
 
 
-    public static OntoNodeTree CreateOntoNodeTree(IReadOnlyDictionary<string, OntologyTree> ontoTreeDict, GraphConfiguration graphConfig, bool wantSpreadOut = true)
+    public static OntoNodeGroupTree CreateOntoNodeTree(IReadOnlyDictionary<string, OntologyTree> ontoTreeDict, GraphConfiguration graphConfig, bool wantSpreadOut = true)
     {
         _graphConfiguration = graphConfig;
         Dictionary<int, OntoNodeGroup> ontoGroups = CreateOntoGroupsFromOntoNodes(ontoTreeDict);
@@ -37,7 +37,7 @@ public class OntoNodeTree
 
         ComputeColorValueToGroups(groupTreeRoot, ontoGroups);
 
-        return new OntoNodeTree(ontoTreeDict, ontoGroups, groupTreeRoot);
+        return new OntoNodeGroupTree(ontoTreeDict, ontoGroups, groupTreeRoot);
     }
 
     private static Dictionary<int, OntoNodeGroup> CreateOntoGroupsFromOntoNodes(IReadOnlyDictionary<string, OntologyTree> ontoTreeDict)
@@ -194,7 +194,7 @@ public class OntoNodeTree
         groupTreeRoot.ComputeColorValueAndSetToNode(0f, delta);
     }
 
-    public static OntoNodeTree CreateOntoNodeTreeB(IReadOnlyDictionary<string, OntologyTree> ontoTreeDict, bool wantSpreadOut = true)
+    public static OntoNodeGroupTree CreateOntoNodeTreeB(IReadOnlyDictionary<string, OntologyTree> ontoTreeDict, bool wantSpreadOut = true)
     {
         HashSet<OntoNodeGroup> ontoGroupToForget = new();
         Dictionary<int, OntoNodeGroup> ontoGroups = new();
@@ -279,7 +279,7 @@ public class OntoNodeTree
 
         }
 
-        return new OntoNodeTree(ontoTreeDict, null,null);
+        return new OntoNodeGroupTree(ontoTreeDict, null,null);
     }
 
 }
