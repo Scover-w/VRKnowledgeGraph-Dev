@@ -34,14 +34,14 @@ public class GraphDbRepositoryDistantUris
     }
 
 
-    public async Task RetrieveNames(JObject data, IReadOnlyDictionary<string, OntologyTree> ontoTreeDict)
+    public async Task RetrieveNames(JObject data, IReadOnlyDictionary<string, OntologyTree> ontoTreeDict, DataSynchroManager dataSynchro)
     {
         var nodges = data.ExtractNodgesForDistantUri();
 
-        await RetrieveNames(nodges.NodesDicId, ontoTreeDict);
+        await RetrieveNames(nodges.NodesDicId, ontoTreeDict, dataSynchro);
     }
 
-    public async Task RetrieveNames(Dictionary<int, Node> idAndNodes, IReadOnlyDictionary<string, OntologyTree> ontoTreeDict)
+    public async Task RetrieveNames(Dictionary<int, Node> idAndNodes, IReadOnlyDictionary<string, OntologyTree> ontoTreeDict, DataSynchroManager dataSynchro)
     {
         idAndNodes = idAndNodes.GetNoLabeledNodes();
         idAndNodes = idAndNodes.GetNoOntoUriNodes(ontoTreeDict);
@@ -53,6 +53,10 @@ public class GraphDbRepositoryDistantUris
         _nbFinishedThread = 0;
 
         _nbNodes = idAndNodes.Count;
+
+
+        var data = new LoadingDistantUriData(_nbNodes,true);
+        dataSynchro.DataQueue.Enqueue(data);
 
         _namepsceFailedAttempt = new();
         _namepsceInUse = new();
@@ -71,11 +75,19 @@ public class GraphDbRepositoryDistantUris
             {
                 await RetrieveName(node);
 
+
+                
+
                 // Increment the finished thread count atomically
                 if (Interlocked.Increment(ref _nbFinishedThread) == _nbNodes)
                 {
                     // Signal the semaphore when all threads have finished
-                    semaphore.Release();
+                    semaphore.Release();  
+                }
+                else
+                {
+                    LoadingDistantUriData data = new LoadingDistantUriData(_nbFinishedThread);
+                    dataSynchro.DataQueue.Enqueue(data);
                 }
             }));
         }

@@ -17,9 +17,15 @@ public class GraphDBAPI
     {
         if(graphDbRepository == null)
         {
-            Debug.LogError("GraphDBAPI : graphDbRepository is null");
+            
+
             _serverUrl = "http://localhost:7200/";
             _repositoryId = "cap44";
+
+            if (!Application.isPlaying)
+                return;
+
+            Debug.LogError("GraphDBAPI : graphDbRepository is null");
             return;
         }
 

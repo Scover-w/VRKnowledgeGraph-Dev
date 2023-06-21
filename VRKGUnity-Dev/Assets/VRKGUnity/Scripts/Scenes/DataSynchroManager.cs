@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -9,12 +10,18 @@ public class DataSynchroManager : MonoBehaviour
     [SerializeField]
     ReferenceHolderSO _referenceHolder;
 
+    [SerializeField]
+    LoadingBarUI _loadingBarUI;
+
     GraphDbRepository _repository;
     GraphDBAPI _graphDbAPI;
 
     JObject _data;
 
-    int nbTriple = -1;
+    public ConcurrentQueue<LoadingDistantUriData> DataQueue = new ConcurrentQueue<LoadingDistantUriData>();
+
+    bool _needUpdateLoadingBar = false;
+    int _nbDistantUri;
 
     private void Start()
     {
@@ -26,11 +33,39 @@ public class DataSynchroManager : MonoBehaviour
     }
 
 
+    private void Update()
+    {
+        LoadingDistantUriData distantData = null;
+        LoadingDistantUriData lastdistantData = null;
+
+        while (DataQueue.TryDequeue(out distantData))
+        {
+            lastdistantData = distantData;
+        }
+
+        if (lastdistantData == null)
+            return;
+
+        if(lastdistantData.IsFirst)
+        {
+
+            _nbDistantUri = lastdistantData.Value;
+            _loadingBarUI.Refresh(.2f, "Retrieve Distant Uri 0/" + _nbDistantUri + ".");
+            return;
+        }
+
+        float progression = lastdistantData.Value / (float)_nbDistantUri;
+
+        _loadingBarUI.Refresh(.2f + Mathf.Lerp(0f,.8f, progression), "Retrieve Distant Uri "  + lastdistantData.Value + "/" + _nbDistantUri + ".");
+
+    }
+
     private async void SyncData()
     {
+        _loadingBarUI.Refresh(0f, "Update GraphDb From Omeka");
         UpdateGraphDbFromOmeka();
 
-
+        _loadingBarUI.Refresh(.1f, "Update GraphDbRepo From GraphDbServer");
         IReadOnlyDictionary<string, OntologyTree> ontoUris = null;
 
         await Task.Run(async () =>
@@ -38,12 +73,13 @@ public class DataSynchroManager : MonoBehaviour
             ontoUris = await UpdateGraphDbRepoFromGraphDbServer();
         });
 
-
+        _loadingBarUI.Refresh(.2f, "Retrieve Distant Uri");
         await Task.Run(async () =>
         {
             await RetrieveDistantUri(ontoUris);
         });
 
+        _loadingBarUI.Refresh(1f, "Loading Scene");
         var lifeSceneManager = _referenceHolder.LifeCycleSceneManagerSA.Value;
 
         lifeSceneManager.LoadScene(Scenes.KG);
@@ -52,6 +88,7 @@ public class DataSynchroManager : MonoBehaviour
     private void UpdateGraphDbFromOmeka()
     {
         // TODO : Need to check the api
+        
     }
 
     private async Task<IReadOnlyDictionary<string, OntologyTree>> UpdateGraphDbRepoFromGraphDbServer()
@@ -74,6 +111,19 @@ public class DataSynchroManager : MonoBehaviour
     {
         var graphDistantUri = _repository.GraphDbRepositoryDistantUris;
 
-        await graphDistantUri.RetrieveNames(_data, readOntoTreeDict);
+        await graphDistantUri.RetrieveNames(_data, readOntoTreeDict, this);
+    }
+}
+
+
+public class LoadingDistantUriData
+{
+    public bool IsFirst;
+    public int Value;
+
+    public LoadingDistantUriData(int value, bool isFirst = false)
+    {
+        IsFirst = isFirst;
+        Value = value;
     }
 }
