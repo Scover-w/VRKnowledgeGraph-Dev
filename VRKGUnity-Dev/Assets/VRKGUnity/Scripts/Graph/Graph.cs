@@ -51,7 +51,7 @@ public class Graph
     BidirectionalGraph<Node, Edge> _graphDatas;
 
     GraphDbRepository _repository;
-    GraphDbRepositoryUris _graphRepoUris;
+    GraphDbRepositoryNamespaces _repoNamespaces;
 
     Node _selectedNode;
     Edge _selectedEdge;
@@ -470,9 +470,9 @@ public class Graph
 
 
     #region METRICS_CALCULATIONS
-    public async void CalculateMetrics(GraphDbRepositoryUris graphRepoUris)
+    public async void CalculateMetrics(GraphDbRepositoryNamespaces graphRepoUris)
     {
-        _graphRepoUris = graphRepoUris;
+        _repoNamespaces = graphRepoUris;
         _metricsCalculated = 0;
 
         var tasks = new List<Task>();
@@ -727,7 +727,7 @@ public class Graph
 
     private void CalculateOntology()
     {
-        _ontoNodeTree = OntoNodeGroupTree.CreateOntoNodeTree(_graphRepoUris.OntoTreeDict, Configuration);
+        _ontoNodeTree = OntoNodeGroupTree.CreateOntoNodeTree(_repoNamespaces.OntoTreeDict, Configuration);
     }
     #endregion
 

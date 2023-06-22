@@ -47,7 +47,7 @@ public class GraphManager : MonoBehaviour
     GraphType _graphMode = GraphType.Mini;
 
     GraphDbRepositoryDistantUris _nodeUriRetriever;
-    GraphDbRepositoryUris _graphRepoUris;
+    GraphDbRepositoryNamespaces _graphRepoUris;
 
     GraphConfiguration _graphConfiguration;
 

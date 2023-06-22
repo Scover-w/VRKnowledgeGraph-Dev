@@ -6,6 +6,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
+using UnityEditor;
 using UnityEngine;
 
 public class GraphDbRepositoryDistantUris
@@ -18,11 +19,6 @@ public class GraphDbRepositoryDistantUris
 
 
     private static string _fullpathFile;
-
-    Dictionary<string, int> _namepsceFailedAttempt;
-    Dictionary<string, int> _namepsceInUse;
-    const int _maxFailedAttempt = 5;
-
 
     int _nbFinishedThread;
     int _nbPackFinishedThread;
@@ -58,13 +54,8 @@ public class GraphDbRepositoryDistantUris
 
         _nbNodes = idAndNodes.Count;
 
-        Debug.Log("To retrieve : " + _nbNodes);
-
         var data = new LoadingDistantUriData(_nbNodes,true);
         dataSynchro.DataQueue.Enqueue(data);
-
-        _namepsceFailedAttempt = new();
-        _namepsceInUse = new();
 
         var tasks = new List<Task>();
 
@@ -124,6 +115,9 @@ public class GraphDbRepositoryDistantUris
             // Set value if already successfull retrieve saved
             bool needReturn = false;
 
+            if (!uri.StartsWith("http"))
+                return;
+
             lock (_distantUriLabels)
             {
                 if (_distantUriLabels.TryGetValue(uri, out var propAndValue))
@@ -139,58 +133,8 @@ public class GraphDbRepositoryDistantUris
             if (needReturn)
                 return;
 
-
-            if (!uri.StartsWith("http"))
-                return;
-
-
             namespce = uri.ExtractUri().namespce;
 
-            int nbInUse = -1;
-            bool inUse = false;
-
-
-            //do
-            //{
-            //    lock (_namepsceInUse)
-            //    {
-            //        if (_namepsceInUse.TryGetValue(namespce, out nbInUse))
-            //        {
-            //            if (nbInUse < _maxFailedAttempt)
-            //            {
-            //                nbInUse++;
-            //                _namepsceInUse[namespce] = nbInUse;
-            //                inUse = true;
-            //            }
-            //        }
-            //        else
-            //        {
-            //            _namepsceInUse.Add(namespce, 1);
-            //            inUse = true;
-            //        }
-            //    }
-
-            //    if(!inUse)
-            //        Thread.Sleep(1000);
-
-            //}while(!inUse);
-
-
-
-
-            // Don't TryRetrieve if max attempt for namespace reached
-            //lock(_namepsceFailedAttempt)
-            //{
-            //    if(_namepsceFailedAttempt.TryGetValue(namespce, out int nbFailedAttempt))
-            //    {
-            //        Debug.Log("If failedattempt : " + nbFailedAttempt);
-            //        if (nbFailedAttempt >= _maxFailedAttempt)
-            //        {
-            //            _namepsceInUse[namespce] = _namepsceInUse[namespce]--;
-            //            return;
-            //        }
-            //    }
-            //}
             string xmlContent = null;
 
             xmlContent = await HttpHelper.RetrieveRdf(uri);
@@ -203,15 +147,12 @@ public class GraphDbRepositoryDistantUris
                     _distantUriLabels.Add(uri, ("-1", "-1"));
                 }
 
-                //AddFailedAttempt(namespce);
-                //_namepsceInUse[namespce] = _namepsceInUse[namespce]--;
                 return;
             }
 
 
             if (ExtractName(xmlContent, out string property, out string value))
             {
-                //Debug.Log("Extracted " + uri + "  , " + property + " " + value);
                 node.Properties.Add(property, value);
 
 
@@ -230,35 +171,12 @@ public class GraphDbRepositoryDistantUris
                 }
 
                 return;
-                //AddFailedAttempt(namespce);
             }
-
-            
-
-            //_namepsceInUse[namespce] = _namepsceInUse[namespce]--;
         }
         catch(Exception ex) 
         {
             return;
-            //lock (_namepsceInUse)
-            //    _namepsceInUse[namespce] = _namepsceInUse[namespce]--;
         }
-
-
-        void AddFailedAttempt(string namespce)
-        {
-            lock (_namepsceFailedAttempt)
-            {
-                if (_namepsceFailedAttempt.TryGetValue(namespce, out int nbFailedAttempt))
-                {
-                    _namepsceFailedAttempt[namespce] = nbFailedAttempt + 1;
-                    Debug.Log("Failed attempt : " + _namepsceFailedAttempt[namespce]);
-                }
-                else
-                    _namepsceFailedAttempt.Add(namespce, 1);
-            }
-        }
-
     }
 
     private bool ExtractName(string xmlContent, out string property, out string value)
@@ -299,6 +217,16 @@ public class GraphDbRepositoryDistantUris
         return false;
     }
 
+
+    public async Task BlockNodesToBeRetrieved(Dictionary<int, Node> nodeIds)
+    {
+        foreach (Node node in nodeIds.Values) 
+        {
+            _distantUriLabels.Add(node.Value, ("-1", "-1"));
+        }
+
+        await Save();
+    }
 
     #region SAVE_LOAD
     public static async Task<GraphDbRepositoryDistantUris> LoadAsync(string pathRepo)

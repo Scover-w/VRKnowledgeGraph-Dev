@@ -1,35 +1,35 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using UnityEngine;
 using VDS.RDF;
 
-public class GraphDbRepositoryUris
+public class GraphDbRepositoryNamespaces
 {
     [JsonIgnore]
     public IReadOnlyDictionary<string, OntologyTree> OntoTreeDict => _ontoTreeDict;
 
 
     [JsonProperty("Uris_")]
-    HashSet<string> _uris;
+    HashSet<string> _namespaces;
 
     Dictionary<string, OntologyTree> _ontoTreeDict;
 
     private static string _fullpathFile;
     private static string _pathRepo;
 
-    public GraphDbRepositoryUris()
+    public GraphDbRepositoryNamespaces()
     {
         _ontoTreeDict = new();
-        _uris = new();
+        _namespaces = new();
     }
 
-    public async Task RetrieveNewUris(JObject data,GraphDBAPI graphDBAPI)
+    public async Task RetrieveNewNamespaces(JObject data,GraphDBAPI graphDBAPI)
     {
-        HashSet<string> uris = new();
-
+        HashSet<string> namespaces = new();
         // Detect all uris
         foreach (JToken binding in data["results"]["bindings"])
         {
@@ -46,57 +46,51 @@ public class GraphDbRepositoryUris
             if (sType == "uri" && sValue.StartsWith("http"))
             {
                 var uri = sValue.ExtractUri();
-                uris.Add(uri.namespce);
+                namespaces.Add(uri.namespce);
             }
 
             if (pType == "uri" && pValue.StartsWith("http"))
             {
                 var uri = pValue.ExtractUri();
-                uris.Add(uri.namespce);
+                namespaces.Add(uri.namespce);
             }
 
             if (oType == "uri" && oValue.StartsWith("http"))
             {
                 var uri = oValue.ExtractUri();
-                uris.Add(uri.namespce);
+                namespaces.Add(uri.namespce);
             }
         }
 
-
-        foreach(string uri in uris)
+        foreach (string namepsce in namespaces)
         {
-            if(_uris.Contains(uri))
-            {
+            if(_namespaces.Contains(namepsce))
                 continue;
-            }
 
-            TryRetrieveOntologyAndLoadInDatabase(graphDBAPI, _pathRepo, uri);
-            _uris.Add(uri);
+            await TryRetrieveOntologyAndLoadInDatabase(graphDBAPI, _pathRepo, namepsce);
+            _namespaces.Add(namepsce);
         }
 
         await Save();
-
     }
 
 
-    private async void TryRetrieveOntologyAndLoadInDatabase(GraphDBAPI graphDBAPI, string pathRepo, string uri)
+    private async Task TryRetrieveOntologyAndLoadInDatabase(GraphDBAPI graphDBAPI, string pathRepo, string namespce)
     {
-        string xmlContent = await HttpHelper.RetrieveRdf(uri);
+        string xmlContent = await HttpHelper.RetrieveRdf(namespce);
 
         if (xmlContent.Length == 0)
             return;
-
         IGraph graph = new VDS.RDF.Graph();
 
         if (!graph.TryLoadFromRdf(xmlContent))
             return;
 
-        await FileHelper.SaveAsync(xmlContent, pathRepo, uri.CleanUriFromUrlPart() + ".rdf");
+        //Debug.Log(namespce + " has a ontology. " + "----");
 
+        await FileHelper.SaveAsync(xmlContent, pathRepo, namespce.CleanUriFromUrlPart() + ".rdf");
         graph.CleanFromLabelAndComment();
-
         string turtleContent = graph.ToTurtle();
-
         await graphDBAPI.LoadFileContentInDatabase(turtleContent, GraphDBAPIFileType.Turtle);
     }
 
@@ -113,7 +107,6 @@ public class GraphDbRepositoryUris
 
         var json = await graphDBAPI.SelectQuery(sparqlQuery);
         var data = JsonConvert.DeserializeObject<JObject>(json);
-
         _ontoTreeDict = new();
 
         foreach (JToken binding in data["results"]["bindings"])
@@ -150,15 +143,11 @@ public class GraphDbRepositoryUris
 
                 if(nameSpceA != nameSpceB)
                 {
-                    Debug.Log("Ho ho");
                     continue;
                 }
 
                 if (!nameSpceA.StartsWith("http"))
                     continue;
-
-                if (sValue.Contains("http://www.cidoc-crm.org/cidoc-crm/E1_CRM_Entity") || oValue.Contains("http://www.cidoc-crm.org/cidoc-crm/E1_CRM_Entity"))
-                    Debug.Log("Bipbop");
 
                 var ontologyTree = TryGetOrCreateOntologyTree(nameSpceA);
 
@@ -173,8 +162,7 @@ public class GraphDbRepositoryUris
                 continue;
             }
         }
-
-        foreach(var ontologyTree in _ontoTreeDict.Values)
+        foreach (var ontologyTree in _ontoTreeDict.Values)
         {
             ontologyTree.SetRootAndDepth();
         }
@@ -238,8 +226,39 @@ public class GraphDbRepositoryUris
         }
     }
 
+    public async Task BlockNamespaceToBeRetrieved(Dictionary<int, Node> nodeIds)
+    {
+        HashSet<string> newNamespaces = new();
+
+        foreach(Node node in nodeIds.Values)
+        {
+            var value = node.Value;
+
+            if (!value.StartsWith("http"))
+                continue;
+
+            var namepsce = node.Value.ExtractUri().namespce;
+
+            if (newNamespaces.Contains(namepsce))
+                continue;
+
+            newNamespaces.Add(namepsce);
+        }
+
+
+        foreach(string namespce in newNamespaces)
+        {
+            if (_namespaces.Contains(namespce))
+                continue;
+
+            _namespaces.Add(namespce);
+        }
+
+        await Save();
+    }
+
     #region SAVE_LOAD
-    public async static Task<GraphDbRepositoryUris> Load(string pathRepo)
+    public async static Task<GraphDbRepositoryNamespaces> Load(string pathRepo)
     {
         _pathRepo = pathRepo;
         SetPath(_pathRepo);
@@ -247,15 +266,15 @@ public class GraphDbRepositoryUris
         if (File.Exists(_fullpathFile))
         {
             string json = await File.ReadAllTextAsync(_fullpathFile);
-            var graphOnto = JsonConvert.DeserializeObject<GraphDbRepositoryUris>(json);
+            var repoNamespaces = JsonConvert.DeserializeObject<GraphDbRepositoryNamespaces>(json);
 
-            return graphOnto;
+            return repoNamespaces;
         }
 
 
-        var graphOntoB = new GraphDbRepositoryUris();
-        await graphOntoB.Save();
-        return graphOntoB;
+        var repoNamespacesB = new GraphDbRepositoryNamespaces();
+        await repoNamespacesB.Save();
+        return repoNamespacesB;
     }
 
     public async Task Save()
@@ -266,14 +285,8 @@ public class GraphDbRepositoryUris
 
     private static void SetPath(string pathRepo)
     {
-        _fullpathFile = Path.Combine(pathRepo, "GraphDbRepositoryUris.json");
+        _fullpathFile = Path.Combine(pathRepo, "GraphDbRepositoryNamespaces.json");
     }
     #endregion
 
-}
-
-public enum UriType
-{
-    None,
-    Ontology
 }

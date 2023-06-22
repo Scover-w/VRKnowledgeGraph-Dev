@@ -2,6 +2,7 @@ using System;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using static GraphDBAPI;
 
@@ -32,7 +33,7 @@ public static class HttpHelper
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    string error = await response.Content.ReadAsStringAsync();
+                    //string error = await response.Content.ReadAsStringAsync();
                     //Debug.Log("HttpHelper : " + error);
                     return "";
                 }
@@ -45,6 +46,7 @@ public static class HttpHelper
         }
         catch (Exception e)
         {
+            //Debug.Log("HttpHelper : " + e);
             return "";
         }
     }

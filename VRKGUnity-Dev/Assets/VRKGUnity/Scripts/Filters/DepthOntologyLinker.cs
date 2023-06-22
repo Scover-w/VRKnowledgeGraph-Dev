@@ -8,20 +8,20 @@ using System.Collections.Generic;
 public class DepthOntologyLinker
 {
 
-    GraphDbRepositoryUris _repoUri;
+    GraphDbRepositoryNamespaces _repoNamespaces;
 
     Dictionary<string, DeepOntologyLink> _deepOntologyLinks;
 
-    public DepthOntologyLinker(GraphDbRepositoryUris repoUri)
+    public DepthOntologyLinker(GraphDbRepositoryNamespaces repoNamespaces)
     {
-        _repoUri = repoUri;
+        _repoNamespaces = repoNamespaces;
         _deepOntologyLinks = new();
     }
 
 
     public bool TryLink(Node definedNode, Node simpleOntoNode)
     {
-        if(!_repoUri.CanAddNodeToOntoNode(simpleOntoNode, out OntoNode ontoNode))
+        if(!_repoNamespaces.CanAddNodeToOntoNode(simpleOntoNode, out OntoNode ontoNode))
             return false;
 
         var value = definedNode.Value;

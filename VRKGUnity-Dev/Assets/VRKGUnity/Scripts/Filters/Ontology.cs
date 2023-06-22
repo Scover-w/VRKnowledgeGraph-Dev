@@ -13,22 +13,22 @@ public class Ontology
     string _queryPrefixs;
     string _queryFilter;
 
-    public Ontology(GraphDbRepositoryUris ontology)
+    public Ontology(GraphDbRepositoryNamespaces repoNamespaces)
     {
         _prefixs = new List<Prefix>();
 
-        AddBaseOntology(ontology);
+        AddBaseOntology(repoNamespaces);
         BuildQueries();
     }
 
-    private void AddBaseOntology(GraphDbRepositoryUris ontology)
+    private void AddBaseOntology(GraphDbRepositoryNamespaces repoNamespaces)
     {
 
         _prefixs = new List<Prefix>();
         HashSet<string> prefixNames = new();
 
 
-        var ontoTreeDict = ontology.OntoTreeDict;
+        var ontoTreeDict = repoNamespaces.OntoTreeDict;
 
         foreach(var namespaceAndOntoTree in ontoTreeDict)
         {
@@ -50,9 +50,9 @@ public class Ontology
         }
     }
 
-    public void RecreateBaseOntology(GraphDbRepositoryUris ontology)
+    public void RecreateBaseOntology(GraphDbRepositoryNamespaces repoNamespaces)
     {
-        AddBaseOntology(ontology);
+        AddBaseOntology(repoNamespaces);
     }
 
     private string CreatePrefixName(string nameSpce)

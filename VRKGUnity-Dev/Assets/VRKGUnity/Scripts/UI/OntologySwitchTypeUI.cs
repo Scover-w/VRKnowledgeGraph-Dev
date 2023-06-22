@@ -24,11 +24,11 @@ public class OntologySwitchTypeUI : MonoBehaviour
     Image _deepOntoImg;
 
     Ontology _ontology;
-    GraphDbRepositoryUris _graphDbRepoOnto;
+    GraphDbRepositoryNamespaces _graphDbRepoOnto;
 
     List<Button> _uriTypeBtns;
 
-    public void Display(Ontology ontology, GraphDbRepositoryUris onto)
+    public void Display(Ontology ontology, GraphDbRepositoryNamespaces onto)
     {
         _ontology = ontology;
         _graphDbRepoOnto = onto;

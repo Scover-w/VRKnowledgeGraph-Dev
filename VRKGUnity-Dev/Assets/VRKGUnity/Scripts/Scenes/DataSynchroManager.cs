@@ -1,5 +1,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using PlasticGui.WorkspaceWindow.BranchExplorer;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -35,6 +37,11 @@ public class DataSynchroManager : MonoBehaviour
 
     private void Update()
     {
+        UpdateLoadingDistantUri();
+    }
+
+    private void UpdateLoadingDistantUri()
+    {
         LoadingDistantUriData distantData = null;
         LoadingDistantUriData lastdistantData = null;
 
@@ -57,7 +64,7 @@ public class DataSynchroManager : MonoBehaviour
 
         float progression = lastdistantData.Value / (float)_nbDistantUri;
 
-        _loadingBarUI.Refresh(.2f + Mathf.Lerp(0f,.8f, progression), "Retrieve Distant Uri "  + lastdistantData.Value + "/" + _nbDistantUri + ".");
+        _loadingBarUI.Refresh(.2f + Mathf.Lerp(0f, .8f, progression), "Retrieve Distant Uri " + lastdistantData.Value + "/" + _nbDistantUri + ".");
 
     }
 
@@ -74,8 +81,19 @@ public class DataSynchroManager : MonoBehaviour
             ontoUris = await UpdateGraphDbRepoFromGraphDbServer();
         });
 
-        _loadingBarUI.Refresh(.2f, "Retrieve Distant Uri");
-        await RetrieveDistantUri(ontoUris);
+        _loadingBarUI.Refresh(.15f, "Block New Namespaces");
+
+        await Task.Run(async () =>
+        {
+            await BlockOntologyToBeRetreived();
+        });
+
+        _loadingBarUI.Refresh(.2f, "Retrieve Distant Namespace");
+
+        await Task.Run(async () =>
+        {
+            await RetrieveDistantUri(ontoUris);
+        });
 
         _loadingBarUI.Refresh(1f, "Loading Scene");
         var lifeSceneManager = _referenceHolder.LifeCycleSceneManagerSA.Value;
@@ -92,23 +110,36 @@ public class DataSynchroManager : MonoBehaviour
     private async Task<IReadOnlyDictionary<string, OntologyTree>> UpdateGraphDbRepoFromGraphDbServer()
     {
         await _repository.LoadChilds();
-
         var repoUris = _repository.GraphDbRepositoryUris;
 
         var json = await _graphDbAPI.SelectQuery("select * where { ?s ?p ?o .}");
         _data = JsonConvert.DeserializeObject<JObject>(json);
 
-        await repoUris.RetrieveNewUris(_data, _graphDbAPI);
+        await repoUris.RetrieveNewNamespaces(_data, _graphDbAPI);
         await repoUris.CreateOntologyTrees(_graphDbAPI);
 
         var readOntoTreeDict = repoUris.OntoTreeDict;
+
         return readOntoTreeDict;
+    }
+
+    private async Task BlockOntologyToBeRetreived()
+    {
+        var json = await _graphDbAPI.SelectQuery("select * where { ?s ?p ?o .}");
+        var dataAfterAddedOntology = JsonConvert.DeserializeObject<JObject>(json);
+
+        var dataNodeIds = _data.ExtractNodes();
+        var dataAfterNodeIds = dataAfterAddedOntology.ExtractNodes();
+        dataAfterNodeIds.RemoveNodes(dataNodeIds);
+
+
+        await _repository.GraphDbRepositoryUris.BlockNamespaceToBeRetrieved(dataAfterNodeIds);
+        await _repository.GraphDbRepositoryDistantUris.BlockNodesToBeRetrieved(dataAfterNodeIds);
     }
 
     private async Task RetrieveDistantUri(IReadOnlyDictionary<string, OntologyTree> readOntoTreeDict)
     {
         var graphDistantUri = _repository.GraphDbRepositoryDistantUris;
-
         await graphDistantUri.RetrieveNames(_data, readOntoTreeDict, this);
     }
 }

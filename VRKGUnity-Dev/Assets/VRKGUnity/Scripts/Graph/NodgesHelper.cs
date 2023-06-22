@@ -1,9 +1,10 @@
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 public static class NodgesHelper
 {
-    public static Nodges ExtractNodges(this JObject data, GraphDbRepositoryUris repoUri)
+    public static Nodges ExtractNodges(this JObject data, GraphDbRepositoryNamespaces repoUri)
     {
         var nodges = new Nodges();
 
@@ -299,7 +300,49 @@ public static class NodgesHelper
     }
 
 
+    public static Dictionary<int, Node> ExtractNodes(this JObject data)
+    {
+        Dictionary<int, Node> nodesDicId = new();
 
+        foreach (JToken binding in data["results"]["bindings"])
+        {
+            string sType = binding["s"]["type"].Value<string>();
+            string sValue = binding["s"]["value"].Value<string>();
+
+            string oType = binding["o"]["type"].Value<string>();
+            string oValue = binding["o"]["value"].Value<string>();
+
+            int sId = sValue.GetHashCode();
+            int oId = oValue.GetHashCode();
+
+            Node s;
+            Node o;
+
+            if (!nodesDicId.ContainsKey(sId))
+            {
+                s = new Node(sId, sType, sValue);
+                nodesDicId.Add(sId, s);
+            }
+
+            if (!nodesDicId.ContainsKey(oId))
+            {
+                o = new Node(oId, oType, oValue);
+                nodesDicId.Add(oId, o);
+            }
+
+        }
+
+        return nodesDicId;
+    }
+
+    public static void RemoveNodes(this Dictionary<int, Node> nodeIds, Dictionary<int, Node> nodeIdsToRemove)
+    {
+        foreach(int idNode in nodeIdsToRemove.Keys)
+        {
+            if(nodeIds.ContainsKey(idNode))
+                nodeIds.Remove(idNode);
+        }
+    }
 
     public static void AddRetrievedNames(this Nodges nodges, GraphDbRepositoryDistantUris graphDbRepositoryDistantUris)
     {
