@@ -16,17 +16,23 @@ public class GraphDbRepositoryDistantUris
     [JsonProperty("DistantUriLabels_")]
     Dictionary<string, (string,string)> _distantUriLabels; // <uri,(propName, valueProp)> -> <http://viaf.org/viaf/143903205, (skos:prefLabel, Bibliothèque nationale (Francia))>
 
-    [JsonIgnore]
-    int _nbFinishedThread;
-    [JsonIgnore]
-    int _nbNodes;
 
-    [JsonIgnore]
     private static string _fullpathFile;
 
     Dictionary<string, int> _namepsceFailedAttempt;
     Dictionary<string, int> _namepsceInUse;
     const int _maxFailedAttempt = 5;
+
+
+    int _nbFinishedThread;
+    int _nbPackFinishedThread;
+    int _nbPackThread;
+    int _nbStarted;
+    int _nbPackbThreadToLaunch;
+
+    int _nbNodes;
+
+    const int MAX_THREAD = 10;
 
     public GraphDbRepositoryDistantUris()
     {
@@ -50,10 +56,9 @@ public class GraphDbRepositoryDistantUris
         if (idAndNodes.Count == 0)
             return;
 
-        _nbFinishedThread = 0;
-
         _nbNodes = idAndNodes.Count;
 
+        Debug.Log("To retrieve : " + _nbNodes);
 
         var data = new LoadingDistantUriData(_nbNodes,true);
         dataSynchro.DataQueue.Enqueue(data);
@@ -61,11 +66,17 @@ public class GraphDbRepositoryDistantUris
         _namepsceFailedAttempt = new();
         _namepsceInUse = new();
 
-        Debug.Log("RetrieveNames Count " + _nbNodes);
-
         var tasks = new List<Task>();
 
         SemaphoreSlim semaphore = new SemaphoreSlim(0);
+
+
+        _nbPackThread = 0;
+        _nbPackFinishedThread = 0;
+        _nbFinishedThread = 0;
+        _nbPackbThreadToLaunch = Mathf.Clamp(_nbNodes - _nbFinishedThread, 0, MAX_THREAD);
+        _nbStarted = 0;
+
 
         foreach (var idAndNode in idAndNodes)
         {
@@ -74,26 +85,29 @@ public class GraphDbRepositoryDistantUris
             tasks.Add(Task.Run(async () =>
             {
                 await RetrieveName(node);
+                Interlocked.Increment(ref _nbFinishedThread);
 
-
-                
+                LoadingDistantUriData data = new LoadingDistantUriData(_nbFinishedThread);
+                dataSynchro.DataQueue.Enqueue(data);
 
                 // Increment the finished thread count atomically
-                if (Interlocked.Increment(ref _nbFinishedThread) == _nbNodes)
+                if (Interlocked.Increment(ref _nbPackFinishedThread) == _nbPackbThreadToLaunch)
                 {
-                    // Signal the semaphore when all threads have finished
-                    semaphore.Release();  
-                }
-                else
-                {
-                    LoadingDistantUriData data = new LoadingDistantUriData(_nbFinishedThread);
-                    dataSynchro.DataQueue.Enqueue(data);
+                    semaphore.Release();
                 }
             }));
+
+            _nbStarted++;
+
+            if (_nbStarted == _nbPackbThreadToLaunch)
+            {
+                await semaphore.WaitAsync();
+                _nbPackFinishedThread = 0;
+                _nbStarted = 0;
+                _nbPackbThreadToLaunch = Mathf.Clamp(_nbNodes - _nbFinishedThread, 0, MAX_THREAD);
+                semaphore = new SemaphoreSlim(0);
+            }
         }
-
-        await semaphore.WaitAsync();
-
 
         await Save();
         Debug.Log("Finished");
@@ -108,6 +122,8 @@ public class GraphDbRepositoryDistantUris
             string uri = node.Value;
 
             // Set value if already successfull retrieve saved
+            bool needReturn = false;
+
             lock (_distantUriLabels)
             {
                 if (_distantUriLabels.TryGetValue(uri, out var propAndValue))
@@ -116,15 +132,19 @@ public class GraphDbRepositoryDistantUris
                     if(propAndValue.Item1 != "-1")
                         node.Properties.Add(propAndValue.Item1, propAndValue.Item2);
 
-                    return;
+                    needReturn = true;
                 }
             }
+
+            if (needReturn)
+                return;
+
 
             if (!uri.StartsWith("http"))
                 return;
 
-            namespce = uri.ExtractUri().namespce;
 
+            namespce = uri.ExtractUri().namespce;
 
             int nbInUse = -1;
             bool inUse = false;
@@ -154,7 +174,7 @@ public class GraphDbRepositoryDistantUris
             //        Thread.Sleep(1000);
 
             //}while(!inUse);
-            
+
 
 
 
@@ -171,8 +191,10 @@ public class GraphDbRepositoryDistantUris
             //        }
             //    }
             //}
+            string xmlContent = null;
 
-            string xmlContent = await HttpHelper.RetrieveRdf(uri);
+            xmlContent = await HttpHelper.RetrieveRdf(uri);
+
 
             if (xmlContent == null || xmlContent.Length == 0)
             {
@@ -186,9 +208,10 @@ public class GraphDbRepositoryDistantUris
                 return;
             }
 
+
             if (ExtractName(xmlContent, out string property, out string value))
             {
-                Debug.Log("Extracted " + uri + "  , " + property + " " + value);
+                //Debug.Log("Extracted " + uri + "  , " + property + " " + value);
                 node.Properties.Add(property, value);
 
 
@@ -196,6 +219,8 @@ public class GraphDbRepositoryDistantUris
                 {
                     _distantUriLabels.Add(uri, (property, value));
                 }
+
+                return;
             }
             else
             {
@@ -204,16 +229,21 @@ public class GraphDbRepositoryDistantUris
                     _distantUriLabels.Add(uri, ("-1", "-1"));
                 }
 
+                return;
                 //AddFailedAttempt(namespce);
             }
+
+            
 
             //_namepsceInUse[namespce] = _namepsceInUse[namespce]--;
         }
         catch(Exception ex) 
         {
+            return;
             //lock (_namepsceInUse)
             //    _namepsceInUse[namespce] = _namepsceInUse[namespce]--;
         }
+
 
         void AddFailedAttempt(string namespce)
         {

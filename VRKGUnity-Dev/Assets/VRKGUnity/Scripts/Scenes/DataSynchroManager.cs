@@ -41,18 +41,19 @@ public class DataSynchroManager : MonoBehaviour
         while (DataQueue.TryDequeue(out distantData))
         {
             lastdistantData = distantData;
+
+            if (!lastdistantData.IsFirst)
+                continue;
+
+            _nbDistantUri = lastdistantData.Value;
+            _loadingBarUI.Refresh(.2f, "Retrieve Distant Uri 0/" + _nbDistantUri + ".");
         }
 
         if (lastdistantData == null)
             return;
 
-        if(lastdistantData.IsFirst)
-        {
-
-            _nbDistantUri = lastdistantData.Value;
-            _loadingBarUI.Refresh(.2f, "Retrieve Distant Uri 0/" + _nbDistantUri + ".");
+        if (lastdistantData.IsFirst)
             return;
-        }
 
         float progression = lastdistantData.Value / (float)_nbDistantUri;
 
@@ -74,10 +75,7 @@ public class DataSynchroManager : MonoBehaviour
         });
 
         _loadingBarUI.Refresh(.2f, "Retrieve Distant Uri");
-        await Task.Run(async () =>
-        {
-            await RetrieveDistantUri(ontoUris);
-        });
+        await RetrieveDistantUri(ontoUris);
 
         _loadingBarUI.Refresh(1f, "Loading Scene");
         var lifeSceneManager = _referenceHolder.LifeCycleSceneManagerSA.Value;

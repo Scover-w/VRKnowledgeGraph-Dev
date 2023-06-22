@@ -1,6 +1,9 @@
 using System;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using UnityEngine;
+using static GraphDBAPI;
 
 public static class HttpHelper
 {
@@ -10,7 +13,7 @@ public static class HttpHelper
         {
             using (HttpClient client = new HttpClient())
             {
-                client.Timeout = TimeSpan.FromSeconds(30);
+                client.Timeout = TimeSpan.FromSeconds(15);
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, uri);
 
                 request.Headers.Add("Accept", "application/rdf+xml");
@@ -23,11 +26,14 @@ public static class HttpHelper
                 }
                 catch (Exception e)
                 {
+                    //Debug.Log("HttpHelper : " + e + " \n" + e.Message);
                     return "";
                 }
 
                 if (!response.IsSuccessStatusCode)
                 {
+                    string error = await response.Content.ReadAsStringAsync();
+                    //Debug.Log("HttpHelper : " + error);
                     return "";
                 }
 
