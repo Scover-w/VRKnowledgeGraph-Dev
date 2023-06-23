@@ -4,7 +4,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class NodeSelector : MonoBehaviour
 {
     [SerializeField]
-    GraphManager _graphManager;
+    NodgeSelectionManager _selectionManager;
 
     public void OnEnterHover(HoverEnterEventArgs args) 
     {
@@ -16,18 +16,12 @@ public class NodeSelector : MonoBehaviour
         Debug.Log("OnExitHover Node");
     }
 
-
     public void OnSelectEnter(SelectEnterEventArgs args)
     {
-        var graph = _graphManager.Graph;
         var interactableTf = args.interactableObject.transform;
 
-        if (!graph.IsInGraph(interactableTf))
-            return;
-
-
         Debug.Log("OnEnterHover Node");
-        graph.SelectNode(interactableTf);
+        _selectionManager.SelectNode(interactableTf);
     }
 
     public void OnSelectExit(SelectExitEventArgs args)

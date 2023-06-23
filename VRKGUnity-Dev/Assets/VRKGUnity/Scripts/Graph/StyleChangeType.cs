@@ -19,8 +19,8 @@ public enum StyleChangeType
 {
     None = 0,
 
-    MegaGraph = 1 << 0,
-    MiniGraph = 1 << 1,
+    MainGraph = 1 << 0,
+    SubGraph = 1 << 1,
 
     Node = 1 << 2,
     Edge = 1 << 3,
@@ -30,5 +30,5 @@ public enum StyleChangeType
     Position = 1 << 6,
     Collider = 1 << 7,
 
-    All = MegaGraph | MiniGraph | Node | Edge | Color | Size | Position | Collider
+    All = MainGraph | SubGraph | Node | Edge | Color | Size | Position | Collider
 }

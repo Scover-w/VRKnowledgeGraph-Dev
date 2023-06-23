@@ -1,9 +1,30 @@
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 public static class NodgesHelper
 {
+
+    public static async Task<Nodges> RetreiveGraph(string query, GraphDbRepository repo)
+    {
+        var debugChrono = DebugChrono.Instance;
+        debugChrono.Start("RetreiveGraph");
+        var api = repo.GraphDBAPI;
+        var json = await api.SelectQuery(query, true);
+        var data = JsonConvert.DeserializeObject<JObject>(json);
+
+
+        var nodges = data.ExtractNodges(repo.GraphDbRepositoryUris);
+        nodges.AddRetrievedNames(repo.GraphDbRepositoryDistantUris);
+        nodges.ExtractNodeNamesToProperties();
+
+
+        debugChrono.Stop("RetreiveGraph");
+
+        return nodges;
+    }
+
     public static Nodges ExtractNodges(this JObject data, GraphDbRepositoryNamespaces repoUri)
     {
         var nodges = new Nodges();

@@ -10,12 +10,15 @@ using UnityEngine;
 public class DataSynchroManager : MonoBehaviour
 {
     [SerializeField]
-    ReferenceHolderSO _referenceHolder;
+    ReferenceHolderSO _referenceHolderSo;
 
     [SerializeField]
     LoadingBarUI _loadingBarUI;
 
-    GraphDbRepository _repository;
+    [SerializeField]
+    GraphSimulation _graphSimu;
+
+    GraphDbRepository _graphRepo;
     GraphDBAPI _graphDbAPI;
 
     JObject _data;
@@ -27,9 +30,9 @@ public class DataSynchroManager : MonoBehaviour
 
     private void Start()
     {
-        _repository = _referenceHolder.SelectedGraphDbRepository;
+        _graphRepo = _referenceHolderSo.SelectedGraphDbRepository;
 
-        _graphDbAPI = _repository.GraphDBAPI;
+        _graphDbAPI = _graphRepo.GraphDBAPI;
 
         Invoke(nameof(SyncData), .2f);
     }
@@ -64,7 +67,7 @@ public class DataSynchroManager : MonoBehaviour
 
         float progression = lastdistantData.Value / (float)_nbDistantUri;
 
-        _loadingBarUI.Refresh(.2f + Mathf.Lerp(0f, .8f, progression), "Retrieve Distant Uri " + lastdistantData.Value + "/" + _nbDistantUri + ".");
+        _loadingBarUI.Refresh(.2f + Mathf.Lerp(0f, .6f, progression), "Retrieve Distant Uri " + lastdistantData.Value + "/" + _nbDistantUri + ".");
 
     }
 
@@ -95,8 +98,14 @@ public class DataSynchroManager : MonoBehaviour
             await RetrieveDistantUri(ontoUris);
         });
 
+
+        _loadingBarUI.Refresh(.8f, "Calculate Max Bounds");
+        // Calculate Max Bounds
+        await CalculateMaxBound();
+
+
         _loadingBarUI.Refresh(1f, "Loading Scene");
-        var lifeSceneManager = _referenceHolder.LifeCycleSceneManagerSA.Value;
+        var lifeSceneManager = _referenceHolderSo.LifeCycleSceneManagerSA.Value;
 
         lifeSceneManager.LoadScene(Scenes.KG);
     }
@@ -109,8 +118,8 @@ public class DataSynchroManager : MonoBehaviour
 
     private async Task<IReadOnlyDictionary<string, OntologyTree>> UpdateGraphDbRepoFromGraphDbServer()
     {
-        await _repository.LoadChilds();
-        var repoUris = _repository.GraphDbRepositoryUris;
+        await _graphRepo.LoadChilds();
+        var repoUris = _graphRepo.GraphDbRepositoryUris;
 
         var json = await _graphDbAPI.SelectQuery("select * where { ?s ?p ?o .}");
         _data = JsonConvert.DeserializeObject<JObject>(json);
@@ -133,15 +142,47 @@ public class DataSynchroManager : MonoBehaviour
         dataAfterNodeIds.RemoveNodes(dataNodeIds);
 
 
-        await _repository.GraphDbRepositoryUris.BlockNamespaceToBeRetrieved(dataAfterNodeIds);
-        await _repository.GraphDbRepositoryDistantUris.BlockNodesToBeRetrieved(dataAfterNodeIds);
+        await _graphRepo.GraphDbRepositoryUris.BlockNamespaceToBeRetrieved(dataAfterNodeIds);
+        await _graphRepo.GraphDbRepositoryDistantUris.BlockNodesToBeRetrieved(dataAfterNodeIds);
     }
 
     private async Task RetrieveDistantUri(IReadOnlyDictionary<string, OntologyTree> readOntoTreeDict)
     {
-        var graphDistantUri = _repository.GraphDbRepositoryDistantUris;
+        var graphDistantUri = _graphRepo.GraphDbRepositoryDistantUris;
         await graphDistantUri.RetrieveNames(_data, readOntoTreeDict, this);
     }
+
+    private async Task CalculateMaxBound()
+    {
+        SPARQLAdditiveBuilder sparqlBuilder = new(_graphRepo.GraphDbRepositoryUris);
+        string queryString = sparqlBuilder.Build();
+
+        Nodges nodges = await NodgesHelper.RetreiveGraph(queryString, _graphRepo);
+        NodgesSimuData nodgesSimuData = new NodgesSimuData(nodges);
+
+        await _graphSimu.Run(nodgesSimuData);
+
+        float maxDistance = GetMaxDistance(nodgesSimuData);
+        _referenceHolderSo.MaxDistanceGraph = maxDistance;
+    }
+
+    private float GetMaxDistance(NodgesSimuData nodgesSimuData)
+    {
+        float maxSqrDistance = 0f;
+
+        var nodesSimuData = nodgesSimuData.NodeSimuDatas;
+
+        foreach (var nodeSimuData in nodesSimuData.Values)
+        {
+            var sqrDistance = nodeSimuData.Position.sqrMagnitude;
+
+            if (sqrDistance > maxSqrDistance)
+                maxSqrDistance = sqrDistance;
+        }
+
+        return Mathf.Sqrt(maxSqrDistance);
+    }
+
 }
 
 

@@ -75,7 +75,7 @@ public class NodeStyler : MonoBehaviour
     {
         _renderer.material.color = GraphConfiguration.NodeColor;
 
-        float scale = (GraphType == GraphType.Mega) ? GraphConfiguration.NodeSizeMegaGraph
+        float scale = (GraphType == GraphType.Main) ? GraphConfiguration.NodeSizeMegaGraph
                                                     : GraphConfiguration.NodeSizeMiniGraph;
         _tf.localScale = new Vector3(scale, scale, scale);
     }
@@ -165,7 +165,7 @@ public class NodeStyler : MonoBehaviour
 
         if (selectedMetricType == GraphMetricType.None)
         {
-            float scale = (GraphType == GraphType.Mega)? GraphConfiguration.NodeSizeMegaGraph
+            float scale = (GraphType == GraphType.Main)? GraphConfiguration.NodeSizeMegaGraph
                                                         : GraphConfiguration.NodeSizeMiniGraph;     
             _tf.localScale = new Vector3(scale, scale, scale);
             return;
@@ -195,7 +195,7 @@ public class NodeStyler : MonoBehaviour
         float nodeMinSize;
         float nodeMaxSize;
 
-        if(GraphType == GraphType.Mega)
+        if(GraphType == GraphType.Main)
         {
             nodeMinSize = GraphConfiguration.NodeMinSizeMegaGraph;
             nodeMaxSize = GraphConfiguration.NodeMinSizeMegaGraph;
@@ -213,8 +213,8 @@ public class NodeStyler : MonoBehaviour
 
     private void StylePosition()
     {
-        float scalingFactor = (GraphType == GraphType.Mega) ? GraphConfiguration.MegaGraphSize
-                                                    : GraphConfiguration.MiniGraphSize;
+        float scalingFactor = (GraphType == GraphType.Main) ? GraphConfiguration.ImmersionGraphSize
+                                                    : GraphConfiguration.SubImmersionGraphSize;
 
         _tf.localPosition = Node.AbsolutePosition * scalingFactor;
     }

@@ -11,6 +11,9 @@ public class ReferenceHolderSO : ScriptableObject
     public GraphDbRepository SelectedGraphDbRepository { get { return _selectedGraphDbRepository; } set { _selectedGraphDbRepository = value; } }
 
     private GraphDbRepository _selectedGraphDbRepository;
+
+    public float MaxDistanceGraph { get; set; }
+
 }
 
     

@@ -67,7 +67,7 @@ public class EdgeStyler : MonoBehaviour
 
     private void StyleSize()
     {
-        var thickness = (GraphType == GraphType.Mega)? GraphConfiguration.EdgeThicknessMegaGraph 
+        var thickness = (GraphType == GraphType.Main)? GraphConfiguration.EdgeThicknessMegaGraph 
                                                         : GraphConfiguration.EdgeThicknessMiniGraph;
 
         _lineRenderer.startWidth = thickness;
@@ -78,8 +78,8 @@ public class EdgeStyler : MonoBehaviour
 
     private void StylePosition()
     {
-        float scalingFactor = (GraphType == GraphType.Mega) ? GraphConfiguration.MegaGraphSize
-                                                                : GraphConfiguration.MiniGraphSize;
+        float scalingFactor = (GraphType == GraphType.Main) ? GraphConfiguration.ImmersionGraphSize
+                                                                : GraphConfiguration.SubImmersionGraphSize;
 
         var positionA = Edge.Source.AbsolutePosition * scalingFactor;
         var positionB = Edge.Target.AbsolutePosition * scalingFactor;

@@ -1,16 +1,16 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
 [DefaultExecutionOrder(-1)]
 public class GraphManager : MonoBehaviour
 {
-    public GraphDbRepositoryDistantUris NodeUriRetriever { get { return _nodeUriRetriever; } }
     public GraphConfiguration GraphConfiguration { get { return _graphConfiguration; } }
     public Graph Graph { get { return _graph; } }
 
-    public MegaGraph MegaGraph { get { return _megaGraph; } }
-    public MiniGraph MiniGraph { get { return _miniGraph; } }
+    public MainGraph MainGraph { get { return _mainGraph; } }
+    public SubGraph SubGraph { get { return _subGraph; } }
 
     public GraphType GraphMode { get { return _graphMode; } }
 
@@ -23,9 +23,6 @@ public class GraphManager : MonoBehaviour
     GraphSimulation _graphSimulation;
 
     [SerializeField]
-    NodgeCreator _nodgeCreator;
-
-    [SerializeField]
     GraphUI _graphUI;
 
     [SerializeField]
@@ -35,54 +32,48 @@ public class GraphManager : MonoBehaviour
     GraphConfigurationContainerSO _graphConfigurationContainerSO;
 
     [SerializeField]
-    MegaGraph _megaGraph;
+    MainGraph _mainGraph;
 
     [SerializeField]
-    MiniGraph _miniGraph;
+    SubGraph _subGraph;
+
+    [SerializeField]
+    NodgeSelectionManager _nodgeSelectionManager;
 
     Graph _graph;
     SPARQLAdditiveBuilder _sparqlBuilder;
     DynamicFilterManager _dynamicFilterManager;
 
-    GraphType _graphMode = GraphType.Mini;
+    GraphType _graphMode = GraphType.Sub;
 
-    GraphDbRepositoryDistantUris _nodeUriRetriever;
-    GraphDbRepositoryNamespaces _graphRepoUris;
-
+    GraphDbRepository _graphRepo;
     GraphConfiguration _graphConfiguration;
 
     async void Start()
     {
         _dynamicFilterManager = new();
-        _nodeUriRetriever = new();
         _graphConfiguration = await _graphConfigurationContainerSO.GetGraphConfiguration();
 
         Invoke(nameof(CreateStartGraphAsync), 1f);
     }
 
-    void Update()
-    {
-        if (_graph == null)
-            return;
-
-        _graph.Update();
-    }
-
     private async Task CreateStartGraphAsync()
     {
-        var repo = _referenceHolderSo.SelectedGraphDbRepository;
-        _graphRepoUris = repo.GraphDbRepositoryUris;
+        _graphRepo = _referenceHolderSo.SelectedGraphDbRepository;
+        var graphRepoUris = _graphRepo.GraphDbRepositoryUris;
 
         try
         {
-            _sparqlBuilder = new(repo.GraphDbRepositoryUris);
+            _sparqlBuilder = new(graphRepoUris);
             string queryString = _sparqlBuilder.Build();
-            var nodges = await _nodgeCreator.RetreiveGraph(queryString, _graphConfiguration);
+            var nodges = await NodgesHelper.RetreiveGraph(queryString, _graphRepo);
 
-            _graph = new Graph(this, _graphUI, _graphStyling, nodges, repo);
+            _graph = new Graph(this, _graphStyling, nodges, _graphRepo);
+
+            _nodgeSelectionManager.SetNodgeTfs(_graph.NodesDicTf, _graph.EdgesDicTf);
 
             _graphStyling.StyleGraphForFirstTime();
-            _graph.CalculateMetrics(_graphRepoUris);
+            _graph.CalculateMetrics(graphRepoUris);
             _graphSimulation.Run(_graph);
 
         }
@@ -106,25 +97,32 @@ public class GraphManager : MonoBehaviour
         if (_graphSimulation.IsRunningSimulation)
             _graphSimulation.ForceStop();
 
-        var nodges = await _nodgeCreator.RetreiveGraph(query, _graphConfiguration);
+        var nodges = await NodgesHelper.RetreiveGraph(query, _graphRepo);
         nodges = _dynamicFilterManager.Filter(nodges);
 
         DebugChrono.Instance.Start("UpdateGraph");
         await _graph.UpdateNodges(nodges);
         DebugChrono.Instance.Stop("UpdateGraph");
 
-        _graph.CalculateMetrics(_graphRepoUris);
+        _graph.CalculateMetrics(_graphRepo.GraphDbRepositoryUris);
         _graphSimulation.Run(_graph);
     }
 
     public void SimulationStopped()
     {
         _graphStyling.SimulationStopped();
+        _subGraph.SimulationStopped();
     }
 }
 
 public enum GraphType
 {
-    Mini,
-    Mega
+    Sub,
+    Main
+}
+
+public enum GraphMode
+{
+    Desk,
+    Immersion
 }

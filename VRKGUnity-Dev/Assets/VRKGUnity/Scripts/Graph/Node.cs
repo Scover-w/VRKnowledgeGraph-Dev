@@ -25,14 +25,15 @@ public class Node
     /// </summary>
     public string Value;
 
-    public NodeStyler MegaStyler;
-    public NodeStyler MiniStyler;
+    public NodeStyler MainGraphStyler;
+    public NodeStyler SubGraphStyler;
 
     public List<Edge> EdgeSource;
     public List<Edge> EdgeTarget;
 
-    public Transform MegaTf;
-    public Transform MiniTf;
+    public Transform MainGraphNodeTf;
+    public Transform SubGraphNodeTf;
+
     public Vector3 AbsolutePosition;
     public Vector3 AbsoluteVelocity;
     
@@ -88,7 +89,7 @@ public class Node
         return null;
     }
 
-    public void ResetPosition(int seed)
+    public void ResetAbsolutePosition(int seed)
     {
         _random = new System.Random(seed + Id);
         AbsolutePosition = new Vector3((float)_random.NextDouble() * 0.2f - 0.1f,
@@ -198,7 +199,7 @@ public class Node
     public void SetActive(bool value)
     {
         _activeSelf = value;
-        MegaTf.gameObject.SetActive(value);
+        MainGraphNodeTf.gameObject.SetActive(value);
     }
 
     public List<Node> GetNeighbors()

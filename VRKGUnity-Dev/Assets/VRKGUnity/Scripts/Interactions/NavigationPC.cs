@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class GameWindowNavigation : MonoBehaviour
+public class NavigationPC : MonoBehaviour
 {
     [SerializeField]
     ReferenceHolderSO _referenceHolderSO;
@@ -9,13 +9,12 @@ public class GameWindowNavigation : MonoBehaviour
     [SerializeField]
     GraphManager _graphManager;
 
-
-
+    [SerializeField]
+    NodgeSelectionManager _nodgeSelectionManager;
 
     public float CameraSpeed = 5f;
     public float Sensitivity = 1f;
     public float ZoomSpeed = 1f;
-
 
     Transform _camTf;
     Camera _cam;
@@ -80,8 +79,6 @@ public class GameWindowNavigation : MonoBehaviour
         if (EventSystem.current.IsPointerOverGameObject())
             return;
 
-        var graph = _graphManager.Graph;
-
         Ray ray = _cam.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
@@ -89,13 +86,13 @@ public class GameWindowNavigation : MonoBehaviour
 
         if (!Physics.Raycast(ray, out hit, 100f, layerMask))
         {
-            graph.TryClearSelection();
+            _nodgeSelectionManager.TryClearSelection();
             return;
         }
 
         if (hit.transform.gameObject.layer == Layers.Node)
-            graph.SelectNodeTemp(hit.collider.transform);
+            _nodgeSelectionManager.SelectNodeTemp(hit.collider.transform);
         else
-            graph.SelectEdge(hit.collider.transform);
+            _nodgeSelectionManager.SelectEdge(hit.collider.transform);
     }
 }

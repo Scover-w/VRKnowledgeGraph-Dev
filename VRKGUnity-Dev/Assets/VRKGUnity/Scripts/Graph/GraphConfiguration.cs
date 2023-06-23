@@ -31,8 +31,11 @@ public class GraphConfiguration
     [Header("Styling")]
     [Space(5)]
     [Header("Graph Size")]
-    public float MiniGraphSize = 1f;
-    public float MegaGraphSize = 1f;
+    public float ImmersionGraphSize = 1f;
+    public float MainDeskGraphSize = 1f;
+
+    public float SubImmersionGraphSize = 1f;
+    public float SubDeskGraphSize = 1f;
 
 
     [Space(5)]

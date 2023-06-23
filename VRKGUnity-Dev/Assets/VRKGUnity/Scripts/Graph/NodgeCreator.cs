@@ -5,38 +5,6 @@ using UnityEngine;
 
 public class NodgeCreator : MonoBehaviour
 {
-    [SerializeField]
-    ReferenceHolderSO _referenceHolderSo;
-
-    [SerializeField]
-    GraphManager _graphManager;
-
-    GraphDBAPI _api;
-
-    bool _isFirstRetrieval = true;
-
-
-    public async Task<Nodges> RetreiveGraph(string query, GraphConfiguration config)
-    {
-        var debugChrono = DebugChrono.Instance;
-        var repo = _referenceHolderSo.SelectedGraphDbRepository;
-        debugChrono.Start("RetreiveGraph");
-        _api = repo.GraphDBAPI;
-        var json = await _api.SelectQuery(query,true);
-        var data = JsonConvert.DeserializeObject<JObject>(json);
-
-
-        var nodges = data.ExtractNodges(repo.GraphDbRepositoryUris);
-        nodges.AddRetrievedNames(repo.GraphDbRepositoryDistantUris);
-        nodges.ExtractNodeNamesToProperties();
-
-
-        debugChrono.Stop("RetreiveGraph");
-
-        return nodges;
-    }
-
-
     private void RefreshPositions(Nodges nodges, GraphConfiguration config)
     {
         var idAndNodes = nodges.NodesDicId;
@@ -45,7 +13,7 @@ public class NodgeCreator : MonoBehaviour
 
         foreach (var idAndNode in idAndNodes)
         {
-            idAndNode.Value.ResetPosition(seed);
+            idAndNode.Value.ResetAbsolutePosition(seed);
         }
     }
 

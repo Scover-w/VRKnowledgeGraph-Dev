@@ -112,8 +112,8 @@ public class GraphStylingUI : MonoBehaviour
         SelectedMetricTypeColor = _graphConfig.SelectedMetricTypeColor;
         SelectedMetricTypeSize = _graphConfig.SelectedMetricTypeSize;
 
-        MegaGraphSize = _graphConfig.MegaGraphSize;
-        MiniGraphSize = _graphConfig.MiniGraphSize;
+        MegaGraphSize = _graphConfig.ImmersionGraphSize;
+        MiniGraphSize = _graphConfig.SubImmersionGraphSize;
 
         EdgeColor = _graphConfig.EdgeColor;
 
@@ -154,7 +154,7 @@ public class GraphStylingUI : MonoBehaviour
         if(_graphConfig.NodeSizeMegaGraph != MegaNodeSize)
         {
             _graphConfig.NodeSizeMegaGraph = MegaNodeSize;
-            styleChange = styleChange.Add(StyleChangeType.MegaGraph)
+            styleChange = styleChange.Add(StyleChangeType.MainGraph)
                 .Add(StyleChangeType.Node)
                 .Add(StyleChangeType.Size);
         }
@@ -162,7 +162,7 @@ public class GraphStylingUI : MonoBehaviour
         if(_graphConfig.NodeSizeMiniGraph != MiniNodeSize)
         {
             _graphConfig.NodeSizeMiniGraph = MiniNodeSize;
-            styleChange = styleChange.Add(StyleChangeType.MiniGraph)
+            styleChange = styleChange.Add(StyleChangeType.SubGraph)
                 .Add(StyleChangeType.Node)
                 .Add(StyleChangeType.Size);
         }
@@ -171,7 +171,7 @@ public class GraphStylingUI : MonoBehaviour
         if (_graphConfig.NodeMaxSizeMegaGraph != MegaNodeMaxSize)
         {
             _graphConfig.NodeMaxSizeMegaGraph = MegaNodeMaxSize;
-            styleChange = styleChange.Add(StyleChangeType.MegaGraph)
+            styleChange = styleChange.Add(StyleChangeType.MainGraph)
                 .Add(StyleChangeType.Node)
                 .Add(StyleChangeType.Size);
         }
@@ -179,7 +179,7 @@ public class GraphStylingUI : MonoBehaviour
         if (_graphConfig.NodeMinSizeMegaGraph != MegaNodeMinSize)
         {
             _graphConfig.NodeMinSizeMegaGraph = MegaNodeMinSize;
-            styleChange = styleChange.Add(StyleChangeType.MegaGraph)
+            styleChange = styleChange.Add(StyleChangeType.MainGraph)
                 .Add(StyleChangeType.Node)
                 .Add(StyleChangeType.Size);
         }
@@ -187,7 +187,7 @@ public class GraphStylingUI : MonoBehaviour
         if (_graphConfig.NodeMaxSizeMiniGraph != MiniNodeMaxSize)
         {
             _graphConfig.NodeMaxSizeMiniGraph = MiniNodeMaxSize;
-            styleChange = styleChange.Add(StyleChangeType.MiniGraph)
+            styleChange = styleChange.Add(StyleChangeType.SubGraph)
                 .Add(StyleChangeType.Node)
                 .Add(StyleChangeType.Size);
         }
@@ -195,7 +195,7 @@ public class GraphStylingUI : MonoBehaviour
         if (_graphConfig.NodeMinSizeMiniGraph != MiniNodeMinSize)
         {
             _graphConfig.NodeMinSizeMiniGraph = MiniNodeMinSize;
-            styleChange = styleChange.Add(StyleChangeType.MiniGraph)
+            styleChange = styleChange.Add(StyleChangeType.SubGraph)
                 .Add(StyleChangeType.Node)
                 .Add(StyleChangeType.Size);
         }
@@ -203,8 +203,8 @@ public class GraphStylingUI : MonoBehaviour
         if (_graphConfig.NodeColor != NodeColor)
         {
             _graphConfig.NodeColor = NodeColor;
-            styleChange = styleChange.Add(StyleChangeType.MiniGraph)
-                .Add(StyleChangeType.MegaGraph)
+            styleChange = styleChange.Add(StyleChangeType.SubGraph)
+                .Add(StyleChangeType.MainGraph)
                 .Add(StyleChangeType.Node)
                 .Add(StyleChangeType.Color);
         }
@@ -214,8 +214,8 @@ public class GraphStylingUI : MonoBehaviour
         if (colorLerpMapper.ColorA != NodeMappingAColor)
         {
             colorLerpMapper.ColorA = NodeMappingAColor;
-            styleChange = styleChange.Add(StyleChangeType.MiniGraph)
-                .Add(StyleChangeType.MegaGraph)
+            styleChange = styleChange.Add(StyleChangeType.SubGraph)
+                .Add(StyleChangeType.MainGraph)
                 .Add(StyleChangeType.Node)
                 .Add(StyleChangeType.Color);
         }
@@ -223,8 +223,8 @@ public class GraphStylingUI : MonoBehaviour
         if (colorLerpMapper.ColorB != NodeMappingBColor)
         {
             colorLerpMapper.ColorB = NodeMappingBColor;
-            styleChange = styleChange.Add(StyleChangeType.MiniGraph)
-                .Add(StyleChangeType.MegaGraph)
+            styleChange = styleChange.Add(StyleChangeType.SubGraph)
+                .Add(StyleChangeType.MainGraph)
                 .Add(StyleChangeType.Node)
                 .Add(StyleChangeType.Color);
         }
@@ -232,8 +232,8 @@ public class GraphStylingUI : MonoBehaviour
         if (colorLerpMapper.ColorC != NodeMappingCColor)
         {
             colorLerpMapper.ColorC = NodeMappingCColor;
-            styleChange = styleChange.Add(StyleChangeType.MiniGraph)
-                .Add(StyleChangeType.MegaGraph)
+            styleChange = styleChange.Add(StyleChangeType.SubGraph)
+                .Add(StyleChangeType.MainGraph)
                 .Add(StyleChangeType.Node)
                 .Add(StyleChangeType.Color);
         }
@@ -242,8 +242,8 @@ public class GraphStylingUI : MonoBehaviour
         if (colorLerpMapper.BoundaryColorA != BoundaryColorA)
         {
             colorLerpMapper.BoundaryColorA = BoundaryColorA;
-            styleChange = styleChange.Add(StyleChangeType.MiniGraph)
-                .Add(StyleChangeType.MegaGraph)
+            styleChange = styleChange.Add(StyleChangeType.SubGraph)
+                .Add(StyleChangeType.MainGraph)
                 .Add(StyleChangeType.Node)
                 .Add(StyleChangeType.Color);
         }
@@ -251,8 +251,8 @@ public class GraphStylingUI : MonoBehaviour
         if (colorLerpMapper.BoundaryColorB != BoundaryColorB)
         {
             colorLerpMapper.BoundaryColorB = BoundaryColorB;
-            styleChange = styleChange.Add(StyleChangeType.MiniGraph)
-                .Add(StyleChangeType.MegaGraph)
+            styleChange = styleChange.Add(StyleChangeType.SubGraph)
+                .Add(StyleChangeType.MainGraph)
                 .Add(StyleChangeType.Node)
                 .Add(StyleChangeType.Color);
         }
@@ -260,8 +260,8 @@ public class GraphStylingUI : MonoBehaviour
         if (colorLerpMapper.BoundaryColorC != BoundaryColorC)
         {
             colorLerpMapper.BoundaryColorC = BoundaryColorC;
-            styleChange = styleChange.Add(StyleChangeType.MiniGraph)
-                .Add(StyleChangeType.MegaGraph)
+            styleChange = styleChange.Add(StyleChangeType.SubGraph)
+                .Add(StyleChangeType.MainGraph)
                 .Add(StyleChangeType.Node)
                 .Add(StyleChangeType.Color);
         }
@@ -270,8 +270,8 @@ public class GraphStylingUI : MonoBehaviour
         if (_graphConfig.NbOntologyColor != NbOntologyColor)
         {
             _graphConfig.NbOntologyColor = NbOntologyColor;
-            styleChange = styleChange.Add(StyleChangeType.MiniGraph)
-                .Add(StyleChangeType.MegaGraph)
+            styleChange = styleChange.Add(StyleChangeType.SubGraph)
+                .Add(StyleChangeType.MainGraph)
                 .Add(StyleChangeType.Node)
                 .Add(StyleChangeType.Color);
         }
@@ -284,8 +284,8 @@ public class GraphStylingUI : MonoBehaviour
         if (_graphConfig.SaturationOntologyColor != SaturationOntologyColor)
         {
             _graphConfig.SaturationOntologyColor = SaturationOntologyColor;
-            styleChange = styleChange.Add(StyleChangeType.MiniGraph)
-                .Add(StyleChangeType.MegaGraph)
+            styleChange = styleChange.Add(StyleChangeType.SubGraph)
+                .Add(StyleChangeType.MainGraph)
                 .Add(StyleChangeType.Node)
                 .Add(StyleChangeType.Color);
         }
@@ -293,8 +293,8 @@ public class GraphStylingUI : MonoBehaviour
         if (_graphConfig.ValueOntologyColor != ValueOntologyColor)
         {
             _graphConfig.ValueOntologyColor = ValueOntologyColor;
-            styleChange = styleChange.Add(StyleChangeType.MiniGraph)
-                .Add(StyleChangeType.MegaGraph)
+            styleChange = styleChange.Add(StyleChangeType.SubGraph)
+                .Add(StyleChangeType.MainGraph)
                 .Add(StyleChangeType.Node)
                 .Add(StyleChangeType.Color);
         }
@@ -302,8 +302,8 @@ public class GraphStylingUI : MonoBehaviour
         if (_graphConfig.NodeColorNoOntology != NodeColorNoOntology)
         {
             _graphConfig.NodeColorNoOntology = NodeColorNoOntology;
-            styleChange = styleChange.Add(StyleChangeType.MiniGraph)
-                .Add(StyleChangeType.MegaGraph)
+            styleChange = styleChange.Add(StyleChangeType.SubGraph)
+                .Add(StyleChangeType.MainGraph)
                 .Add(StyleChangeType.Node)
                 .Add(StyleChangeType.Color);
         }
@@ -311,8 +311,8 @@ public class GraphStylingUI : MonoBehaviour
         if (_graphConfig.SelectedMetricTypeColor != SelectedMetricTypeColor)
         {
             _graphConfig.SelectedMetricTypeColor = SelectedMetricTypeColor;
-            styleChange = styleChange.Add(StyleChangeType.MiniGraph)
-                .Add(StyleChangeType.MegaGraph)
+            styleChange = styleChange.Add(StyleChangeType.SubGraph)
+                .Add(StyleChangeType.MainGraph)
                 .Add(StyleChangeType.Node)
                 .Add(StyleChangeType.Color);
         }
@@ -320,24 +320,24 @@ public class GraphStylingUI : MonoBehaviour
         if (_graphConfig.SelectedMetricTypeSize != SelectedMetricTypeSize)
         {
             _graphConfig.SelectedMetricTypeSize = SelectedMetricTypeSize;
-            styleChange = styleChange.Add(StyleChangeType.MiniGraph)
-                .Add(StyleChangeType.MegaGraph)
+            styleChange = styleChange.Add(StyleChangeType.SubGraph)
+                .Add(StyleChangeType.MainGraph)
                 .Add(StyleChangeType.Node)
                 .Add(StyleChangeType.Size);
         }
 
-        if (_graphConfig.MegaGraphSize != MegaGraphSize)
+        if (_graphConfig.ImmersionGraphSize != MegaGraphSize)
         {
-            _graphConfig.MegaGraphSize = MegaGraphSize;
-            styleChange = styleChange.Add(StyleChangeType.MegaGraph)
+            _graphConfig.ImmersionGraphSize = MegaGraphSize;
+            styleChange = styleChange.Add(StyleChangeType.MainGraph)
                 .Add(StyleChangeType.Node)
                 .Add(StyleChangeType.Position);
         }
 
-        if (_graphConfig.MiniGraphSize != MiniGraphSize)
+        if (_graphConfig.SubImmersionGraphSize != MiniGraphSize)
         {
-            _graphConfig.MiniGraphSize = MiniGraphSize;
-            styleChange = styleChange.Add(StyleChangeType.MiniGraph)
+            _graphConfig.SubImmersionGraphSize = MiniGraphSize;
+            styleChange = styleChange.Add(StyleChangeType.SubGraph)
                 .Add(StyleChangeType.Node)
                 .Add(StyleChangeType.Position);
         }
@@ -345,8 +345,8 @@ public class GraphStylingUI : MonoBehaviour
         if (_graphConfig.EdgeColor != EdgeColor)
         {
             _graphConfig.EdgeColor = EdgeColor;
-            styleChange = styleChange.Add(StyleChangeType.MiniGraph)
-                .Add(StyleChangeType.MegaGraph)
+            styleChange = styleChange.Add(StyleChangeType.SubGraph)
+                .Add(StyleChangeType.MainGraph)
                 .Add(StyleChangeType.Edge)
                 .Add(StyleChangeType.Color);
         }
@@ -354,7 +354,7 @@ public class GraphStylingUI : MonoBehaviour
         if (_graphConfig.EdgeThicknessMegaGraph != MegaEdgeThickness)
         {
             _graphConfig.EdgeThicknessMegaGraph = MegaEdgeThickness;
-            styleChange = styleChange.Add(StyleChangeType.MegaGraph)
+            styleChange = styleChange.Add(StyleChangeType.MainGraph)
                 .Add(StyleChangeType.Edge)
                 .Add(StyleChangeType.Size);
         }
@@ -362,7 +362,7 @@ public class GraphStylingUI : MonoBehaviour
         if (_graphConfig.EdgeThicknessMiniGraph != MiniEdgeThickness)
         {
             _graphConfig.EdgeThicknessMiniGraph = MiniEdgeThickness;
-            styleChange = styleChange.Add(StyleChangeType.MiniGraph)
+            styleChange = styleChange.Add(StyleChangeType.SubGraph)
                 .Add(StyleChangeType.Edge)
                 .Add(StyleChangeType.Size);
         }
@@ -370,8 +370,8 @@ public class GraphStylingUI : MonoBehaviour
         if (_graphConfig.CanSelectEdges != CanSelectEdges)
         {
             _graphConfig.CanSelectEdges = CanSelectEdges;
-            styleChange = styleChange.Add(StyleChangeType.MiniGraph)
-                .Add(StyleChangeType.MegaGraph)
+            styleChange = styleChange.Add(StyleChangeType.SubGraph)
+                .Add(StyleChangeType.MainGraph)
                 .Add(StyleChangeType.Edge)
                 .Add(StyleChangeType.Color)
                 .Add(StyleChangeType.Collider);

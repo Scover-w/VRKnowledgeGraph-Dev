@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class GraphSimulation : MonoBehaviour
@@ -16,63 +17,49 @@ public class GraphSimulation : MonoBehaviour
     Dictionary<int, NodeSimuData> _nodeSimuDatas;
     Dictionary<int, NodeSimuData> _newNodeSimuDatas;
 
-    CancellationTokenSource _cancellationTokenS;
-
     Graph _graph;
+
+    SemaphoreSlim _threadEndedSemaphore;
 
 
     bool _isRunningSimulation = false;
-    bool _threadMode = true;
-    float _refreshDurationBackground;
+    float _refreshDuration;
+    bool _refreshGraph;
 
     public void Run(Graph graph)
     {
         _graph = graph;
 
-        if (!_threadMode)
-        {
-            StartCoroutine(ExpandingGraphForeground(graph));
-            return;
-        }
-
-        _refreshDurationBackground = -1f;
+        _refreshDuration = -1f;
         _newNodeSimuDatas = null;
-        _cancellationTokenS = new CancellationTokenSource();
-        var nodgesSimuDatas = graph.GetSimuDatas();
+        _refreshGraph = true;
+        _threadEndedSemaphore = new SemaphoreSlim(0);
+
+        var nodgesSimuDatas = graph.CreateSimuDatas();
         _nodeSimuDatas = nodgesSimuDatas.NodeSimuDatas.Clone();
+
         ThreadPool.QueueUserWorkItem(CalculatingPositionsBackground, nodgesSimuDatas);
+
         StartCoroutine(RefreshingGraphPositionsBackground(graph));
+    }
+
+    public async Task Run(NodgesSimuData nodgesSimuDatas)
+    {
+        _newNodeSimuDatas = null;
+        _threadEndedSemaphore = new SemaphoreSlim(0);
+        _refreshGraph = false;
+
+        ThreadPool.QueueUserWorkItem(CalculatingPositionsBackground, nodgesSimuDatas);
+
+        await _threadEndedSemaphore.WaitAsync();
+        _threadEndedSemaphore = null;
     }
 
 
     public void ForceStop()
     {
         _isRunningSimulation = false;
-
     }
-
-    IEnumerator ExpandingGraphForeground(Graph graph)
-    {
-        _isRunningSimulation = true;
-        bool reachStopVelocity = false;
-
-        float time = 0f;
-        float speed = 1f / 5f;
-
-        while(_isRunningSimulation && !reachStopVelocity && time < 1f)
-        {
-            graph.CalculatePositionsTickForeground();
-            graph.RefreshTransformPositionsForeground();
-            yield return null;
-
-            reachStopVelocity = graph.ReachStopVelocity;
-            time += Time.deltaTime * speed;
-        }
-
-        _isRunningSimulation = false;
-        _graphManager.SimulationStopped();
-    }
-
 
     IEnumerator RefreshingGraphPositionsBackground(Graph graph)
     {
@@ -89,7 +76,7 @@ public class GraphSimulation : MonoBehaviour
                 _newNodeSimuDatas = null;
             }
 
-            graph.RefreshTransformPositionsBackground(_nodeSimuDatas);
+            graph.RefreshMainNodePositions(_nodeSimuDatas);
             yield return null;
 
             time += Time.deltaTime * speed;
@@ -97,28 +84,37 @@ public class GraphSimulation : MonoBehaviour
 
         _isRunningSimulation = false;
 
+        EndRefreshingPosition(graph);
+    }
+
+    private async Task EndRefreshingPosition(Graph graph)
+    {
+        await _threadEndedSemaphore.WaitAsync();
+
+        graph.RefreshMainNodePositions(_newNodeSimuDatas);
         _graphManager.SimulationStopped();
+
     }
 
     private void CalculatingPositionsBackground(object state)
     {
         DebugChrono.Instance.Start("firstTickGRaph");
         var nodgesSimuDatas = (NodgesSimuData) state;
-        var reachStopVelocity = false;
+        var hasReachStopVelocity = false;
         bool firstTick = true;
         float timer = 0f;
         _isRunningSimulation = true;
 
-        while (_isRunningSimulation && !reachStopVelocity)
+        while (_isRunningSimulation && !hasReachStopVelocity)
         {
             DebugChrono.Instance.Start("tickGRaph");
-            reachStopVelocity = CalculateNodeSimuData(nodgesSimuDatas);
+            hasReachStopVelocity = CalculateNodeSimuData(nodgesSimuDatas);
 
-            if(firstTick)
+            if(firstTick && _refreshGraph)
             {
                 firstTick = false;
                 var durationB = DebugChrono.Instance.Stop("firstTickGRaph", true);
-                _refreshDurationBackground = durationB * 3f;
+                _refreshDuration = durationB * 3f;
                 DebugChrono.Instance.Start("tickGRaph");
                 continue;
             }
@@ -126,20 +122,17 @@ public class GraphSimulation : MonoBehaviour
             var duration = DebugChrono.Instance.Stop("tickGRaph", false);
             timer += duration;
 
-            if(timer > .0001f)
+            if(timer > .0001f && _refreshGraph)
             {
                 _newNodeSimuDatas = nodgesSimuDatas.NodeSimuDatas.Clone();
                 timer = 0f;
             }
-
-
-            if (_cancellationTokenS.IsCancellationRequested)
-            {
-                _cancellationTokenS = null;
-                return;
-            }
         }
 
+        _newNodeSimuDatas = nodgesSimuDatas.NodeSimuDatas.Clone();
+        _isRunningSimulation = false;
+
+        _threadEndedSemaphore.Release();
     }
 
     private bool CalculateNodeSimuData(NodgesSimuData nodgesSimuData)
@@ -256,22 +249,5 @@ public class GraphSimulation : MonoBehaviour
     private void OnDisable()
     {
         _isRunningSimulation = false;
-    }
-}
-
-
-public static class NodeSimuDatasExtensions
-{
-    public static Dictionary<int, NodeSimuData> Clone(this Dictionary<int, NodeSimuData> nodeSimuDatas)
-    {
-        Dictionary<int, NodeSimuData> cloned = new();
-
-        foreach (var idAndData in nodeSimuDatas)
-        {
-            cloned.Add(idAndData.Key, idAndData.Value.Clone());
-        }
-
-
-        return cloned;
     }
 }

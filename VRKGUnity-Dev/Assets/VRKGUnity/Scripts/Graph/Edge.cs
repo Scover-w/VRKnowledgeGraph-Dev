@@ -17,14 +17,14 @@ public class Edge : IEdge<Node>
     public Node Source { get; }
     public Node Target { get; }
 
-    public Transform MegaTf;
-    public Transform MiniTf;
+    public Transform MainGraphEdgeTf;
+    public Transform SubGraphEdgeTf;
 
-    public LineRenderer MegaLine;
-    public LineRenderer MiniLine;
+    public LineRenderer MainGraphLine;
+    public LineRenderer SubGraphLine;
 
-    public EdgeStyler MegaStyler;
-    public EdgeStyler MiniStyler;
+    public EdgeStyler MainGraphStyler;
+    public EdgeStyler SubGraphStyler;
 
     private bool _activeSelf;
 
@@ -43,7 +43,7 @@ public class Edge : IEdge<Node>
     public void SetActive(bool value)
     {
         _activeSelf = value;
-        MegaLine.enabled = value;
+        MainGraphLine.enabled = value;
     }
 
     public void CleanFromNodes()
