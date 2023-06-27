@@ -25,14 +25,14 @@ public class GraphStyling : MonoBehaviour
             case GraphUpdateType.BeforeSimulationStart:
                 BeforeSimulationStart();
                 break;
-            case GraphUpdateType.SimulationHasStopped:
+            case GraphUpdateType.AfterSimulationHasStopped:
                 SimulationStopped();
                 break;
-            case GraphUpdateType.SwitchModeToDesk:
+            case GraphUpdateType.BeforeSwitchMode:
                 break;
-            case GraphUpdateType.SwitchModeToImmersion:
+            case GraphUpdateType.AfterSwitchModeToImmersion:
                 break;
-            default:
+            case GraphUpdateType.AfterSwitchModeToDesk:
                 break;
         }         
     }

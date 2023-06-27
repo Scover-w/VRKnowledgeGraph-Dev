@@ -131,8 +131,8 @@ public class NodeStyler : MonoBehaviour
     {
         _renderer.material.color = GraphConfiguration.NodeColor;
 
-        float scale = (GraphType == GraphType.Main) ? GraphConfiguration.NodeSizeMegaGraph
-                                                    : GraphConfiguration.NodeSizeMiniGraph;
+        float scale = (GraphType == GraphType.Main) ? GraphConfiguration.NodeSizeDesk
+                                                    : GraphConfiguration.NodeSizeImmersion;
         _tf.localScale = new Vector3(scale, scale, scale);
     }
 
@@ -221,8 +221,8 @@ public class NodeStyler : MonoBehaviour
 
         if (selectedMetricType == GraphMetricType.None)
         {
-            float scale = (GraphType == GraphType.Main)? GraphConfiguration.NodeSizeMegaGraph
-                                                        : GraphConfiguration.NodeSizeMiniGraph;     
+            float scale = (GraphType == GraphType.Main)? GraphConfiguration.NodeSizeDesk
+                                                        : GraphConfiguration.NodeSizeImmersion;     
             _tf.localScale = new Vector3(scale, scale, scale);
             return;
         }
@@ -253,13 +253,13 @@ public class NodeStyler : MonoBehaviour
 
         if(GraphType == GraphType.Main)
         {
-            nodeMinSize = GraphConfiguration.NodeMinSizeMegaGraph;
-            nodeMaxSize = GraphConfiguration.NodeMinSizeMegaGraph;
+            nodeMinSize = GraphConfiguration.NodeMinSizeDesk;
+            nodeMaxSize = GraphConfiguration.NodeMinSizeDesk;
         }
         else
         {
-            nodeMinSize = GraphConfiguration.NodeMinSizeMiniGraph;
-            nodeMaxSize = GraphConfiguration.NodeMinSizeMiniGraph;
+            nodeMinSize = GraphConfiguration.NodeMinSizeImmersion;
+            nodeMaxSize = GraphConfiguration.NodeMinSizeImmersion;
         }
 
         scaleB = Mathf.Lerp(nodeMinSize, nodeMaxSize, scaleB);
@@ -270,7 +270,7 @@ public class NodeStyler : MonoBehaviour
     private void StylePosition()
     {
         float scalingFactor = (GraphType == GraphType.Main) ? GraphConfiguration.ImmersionGraphSize
-                                                    : GraphConfiguration.SubImmersionGraphSize;
+                                                    : GraphConfiguration.GPSGraphSize;
 
         _tf.localPosition = Node.AbsolutePosition * scalingFactor;
     }

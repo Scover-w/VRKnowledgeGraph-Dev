@@ -39,14 +39,22 @@ public class MainGraph : MonoBehaviour
         switch (updateType)
         {
             case GraphUpdateType.BeforeSimulationStart:
+
                 break;
-            case GraphUpdateType.SimulationHasStopped:
+
+            case GraphUpdateType.AfterSimulationHasStopped:
+
                 break;
-            case GraphUpdateType.SwitchModeToDesk:
-                SwitchMode(GraphMode.Desk);
+
+            case GraphUpdateType.BeforeSwitchMode:
+
                 break;
-            case GraphUpdateType.SwitchModeToImmersion:
-                SwitchMode(GraphMode.Immersion);
+            case GraphUpdateType.AfterSwitchModeToDesk:
+
+                break;
+
+            case GraphUpdateType.AfterSwitchModeToImmersion:
+
                 break;
         }
     }

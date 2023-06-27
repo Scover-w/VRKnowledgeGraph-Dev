@@ -53,6 +53,9 @@ public class GraphManager : MonoBehaviour
     GraphDbRepository _graphRepo;
     GraphConfiguration _graphConfiguration;
 
+    GraphMode _nextGraphMode;
+    bool _switchingMode = false;
+
     async void Start()
     {
         _dynamicFilterManager = new();
@@ -116,24 +119,39 @@ public class GraphManager : MonoBehaviour
 
     public void SimulationStopped()
     {
-        OnGraphUpdate?.Invoke(GraphUpdateType.SimulationHasStopped);
+        OnGraphUpdate?.Invoke(GraphUpdateType.AfterSimulationHasStopped);
     }
 
     public void TrySwitchModeToDesk()
     {
-        if (IsRunningSimulation)
+        if (IsRunningSimulation || _switchingMode)
             return;
 
-        OnGraphUpdate?.Invoke(GraphUpdateType.SwitchModeToDesk);
+        _nextGraphMode = GraphMode.Desk;
+        OnGraphUpdate?.Invoke(GraphUpdateType.BeforeSwitchMode);
+
+        Invoke(nameof(AfterSwitchMode), _graphConfiguration.GraphModeTransitionTime);
     }
 
     public void TrySwitchModeToImmersion()
     {
-        if (IsRunningSimulation)
+        if (IsRunningSimulation || _switchingMode)
             return;
 
-        OnGraphUpdate?.Invoke(GraphUpdateType.SwitchModeToImmersion);
+        _nextGraphMode = GraphMode.Immersion;
+        OnGraphUpdate?.Invoke(GraphUpdateType.BeforeSwitchMode);
+
+        Invoke(nameof(AfterSwitchMode), _graphConfiguration.GraphModeTransitionTime);
     }
+
+    private void AfterSwitchMode()
+    {
+        if (_nextGraphMode == GraphMode.Desk)
+            OnGraphUpdate?.Invoke(GraphUpdateType.AfterSwitchModeToDesk);
+        else
+            OnGraphUpdate?.Invoke(GraphUpdateType.AfterSwitchModeToImmersion);
+    }
+
     #endregion
 }
 
@@ -152,7 +170,10 @@ public enum GraphMode
 public enum GraphUpdateType
 {
     BeforeSimulationStart,
-    SimulationHasStopped,
-    SwitchModeToDesk,
-    SwitchModeToImmersion
+    AfterSimulationHasStopped,
+
+    BeforeSwitchMode,
+
+    AfterSwitchModeToDesk,
+    AfterSwitchModeToImmersion
 }

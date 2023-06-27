@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: GraphConfig
   m_EditorClassIdentifier: 
   _graphConfiguration:
+    TickDeltaTime: 0.016
+    MaxSimulationTime: 15
     LightSpringForce: 5
     LightCoulombForce: 0.1
     LightDamping: 1
@@ -27,18 +29,30 @@ MonoBehaviour:
     DenseCoulombDistance: 30
     DenseMaxVelocity: 10
     DenseStopVelocity: 2
-    MiniGraphSize: 0.1
-    MegaGraphSize: 1
-    NodeSizeMiniGraph: 0.05
-    NodeSizeMegaGraph: 0.5
-    NodeMinSizeMiniGraph: 0.08
-    NodeMaxSizeMiniGraph: 0.08
-    NodeMinSizeMegaGraph: 0.8
-    NodeMaxSizeMegaGraph: 0.8
-    LabelSizeMiniGraph: 0.1
-    LabelSizeMegaGraph: 1
-    EdgeThicknessMiniGraph: 0.002
-    EdgeThicknessMegaGraph: 0.02
+    ImmersionGraphSize: 1
+    DeskGraphSize: 1
+    GPSGraphSize: 1
+    LensGraphSize: 1
+    NodeSizeImmersion: 0.91
+    NodeSizeDesk: 0.24
+    NodeSizeGPS: 1
+    NodeSizeLens: 1
+    NodeMinSizeImmersion: 0.8
+    NodeMaxSizeImmersion: 0.8
+    NodeMinSizeDesk: 0.8
+    NodeMaxSizeDesk: 0.8
+    NodeMinSizeLens: 0.8
+    NodeMaxSizeLens: 0.8
+    LabelNodeSizeImmersion: 1
+    LabelNodeSizeDesk: 1
+    LabelNodeSizeLens: 1
+    ShowLabelImmersion: 1
+    ShowLabelDesk: 1
+    EdgeThicknessImmersion: 1
+    EdgeThicknessDesk: 1
+    EdgeThicknessLens: 1
+    EdgeThicknessGPS: 1
+    CanSelectEdges: 0
     NodeColorMapping:
       _boundaryColorA: 0
       _boundaryColorB: 0.5
@@ -48,9 +62,9 @@ MonoBehaviour:
     SaturationOntologyColor: 0.772
     ValueOntologyColor: 0.767
     LabelNodgePropagation: 2
-    SeedRandomPosition: 0
     ResetPositionNodeOnUpdate: 1
-    CanSelectEdges: 0
+    SeedRandomPosition: 0
+    GraphModeTransitionTime: 1
     SelectedMetricTypeSize: 0
     SelectedMetricTypeColor: 0
   NodeColor: {r: 0, g: 1, b: 0.9329295, a: 1}

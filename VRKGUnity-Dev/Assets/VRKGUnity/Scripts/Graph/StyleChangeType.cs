@@ -22,13 +22,19 @@ public enum StyleChangeType
     MainGraph = 1 << 0,
     SubGraph = 1 << 1,
 
-    Node = 1 << 2,
-    Edge = 1 << 3,
+    DeskMode = 1 << 2,
+    ImmersionMode = 1 << 3,
 
-    Color = 1 << 4,
-    Size = 1 << 5,
-    Position = 1 << 6,
-    Collider = 1 << 7,
+    Node = 1 << 4,
+    Edge = 1 << 5,
+    Label = 1 << 6,
+    Propagation = 1 << 7,
 
-    All = MainGraph | SubGraph | Node | Edge | Color | Size | Position | Collider
+    Color = 1 << 8,
+    Size = 1 << 9,
+    Visibility = 1 << 10,
+    Position = 1 << 11,
+    Collider = 1 << 12,
+
+    All = MainGraph | SubGraph | DeskMode | ImmersionMode | Node | Edge | Label | Propagation | Color | Size | Visibility | Position | Collider
 }

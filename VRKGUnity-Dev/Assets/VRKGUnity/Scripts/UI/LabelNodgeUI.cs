@@ -1,10 +1,9 @@
 ﻿using TMPro;
 using UnityEngine;
 
-public class LabelNodgeUI
+public class LabelNodgeUI : MonoBehaviour
 {
     public Transform Transform { get { return _canvasTf; } }
-    public static Transform CamTf;
 
     public string Text
     {
@@ -14,18 +13,27 @@ public class LabelNodgeUI
         }
     }
 
+    [SerializeField]
+    RectTransform _canvasRect;
+
+    [SerializeField]
+    RectTransform _labelRect;
+
+    [SerializeField]
+    TMP_Text _labelTxt;
+
+
+    Transform _canvasTf;
+
     private LabelNodgeType _type;
 
     private Transform _followTf;
     private Transform _follow2Tf;
 
-    private Transform _canvasTf;
-    private TMP_Text _labelTxt;
 
-    public LabelNodgeUI(Transform canvasTf, TMP_Text labelTxt)
+    private void Start()
     {
-        _canvasTf = canvasTf;
-        _labelTxt = labelTxt;
+        _canvasTf = _canvasRect.transform;
     }
 
     public void SetFollow(Transform followTf, Transform follow2Tf = null) 
@@ -35,16 +43,50 @@ public class LabelNodgeUI
         _follow2Tf = follow2Tf;
     }
 
-    public void UpdateTransform()
+    public void UpdateTransform(Vector3 hmdPosition, float nodeSize)
     {
-        _canvasTf.position = ( (_type == LabelNodgeType.Node)? _followTf.position + new Vector3(0f, .2f, 0f) : (_followTf.position + _follow2Tf.position) * 0.5f);
+        Vector3 newCanvasPosition = Vector3.zero;
 
-        Vector3 direction = _canvasTf.position - CamTf.position;
-        _canvasTf.rotation = Quaternion.LookRotation(direction);
+        if(_type == LabelNodgeType.Node)
+        {
+            Vector3 positionNode = _followTf.position;
+            Vector3 direction = (positionNode - hmdPosition).normalized;
+
+            newCanvasPosition = positionNode + direction * (nodeSize * 1.1f);
+            _canvasTf.position = newCanvasPosition;
+        }
+        else
+        {
+            newCanvasPosition = (_followTf.position + _follow2Tf.position) * 0.5f;
+            _canvasTf.position = newCanvasPosition;
+        }
+
+        Vector3 directionb = newCanvasPosition - hmdPosition;
+        _canvasTf.rotation = Quaternion.LookRotation(directionb);
+    }
+
+
+    public void SetAll(bool active, Vector2 sizeCanvas, float fontSize)
+    {
+        _canvasTf.gameObject.SetActive(active);
+
+        _canvasRect.sizeDelta = sizeCanvas;
+        _labelRect.sizeDelta = sizeCanvas;
+
+        _labelTxt.fontSize = fontSize;
+    }
+
+    public void SetSize(Vector2 sizeCanvas, float fontSize)
+    {
+        _canvasRect.sizeDelta = sizeCanvas;
+        _labelRect.sizeDelta = sizeCanvas;
+
+        _labelTxt.fontSize = fontSize;
     }
 
     public void SetActive(bool active)
     {
+        _canvasTf = _canvasRect.transform;
         _canvasTf.gameObject.SetActive(active);
     }
 

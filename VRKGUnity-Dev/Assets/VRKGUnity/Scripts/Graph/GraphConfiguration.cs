@@ -33,36 +33,55 @@ public class GraphConfiguration
 
     [Space(30)]
     [Header("Styling")]
-    [Space(5)]
+    [Space(10)]
     [Header("Graph Size")]
     public float ImmersionGraphSize = 1f;
-    public float MainDeskGraphSize = 1f;
-
-    public float SubImmersionGraphSize = 1f;
-    public float SubDeskGraphSize = 1f;
-
-
+    public float DeskGraphSize = 1f;
     [Space(5)]
+    public float GPSGraphSize = 1f;
+    public float LensGraphSize = 1f;
+
+
+    [Space(10)]
     [Header("Node Size")]
-    public float NodeSizeMiniGraph = 1f;
-    public float NodeSizeMegaGraph = 1f;
-
-    public float NodeMinSizeMiniGraph = .8f;
-    public float NodeMaxSizeMiniGraph = .8f;
-
-    public float NodeMinSizeMegaGraph = .8f;
-    public float NodeMaxSizeMegaGraph = .8f;
+    public float NodeSizeImmersion = 1f;
+    public float NodeSizeDesk = 1f;
 
     [Space(5)]
-    [Header("Label Size")]
-    public float LabelSizeMiniGraph = 1f;
-    public float LabelSizeMegaGraph = 1f;
-
+    public float NodeSizeGPS = 1f;
+    public float NodeSizeLens = 1f;
 
     [Space(5)]
-    [Header("Edge Thickness")]
-    public float EdgeThicknessMiniGraph = 1f;
-    public float EdgeThicknessMegaGraph = 1f;
+    public float NodeMinSizeImmersion = .8f;
+    public float NodeMaxSizeImmersion = .8f;
+
+    [Space(5)]
+    public float NodeMinSizeDesk = .8f;
+    public float NodeMaxSizeDesk = .8f;
+
+    [Space(5)]
+    public float NodeMinSizeLens = .8f;
+    public float NodeMaxSizeLens = .8f;
+
+    [Space(10)]
+    [Header("Label")]
+    public float LabelNodeSizeImmersion = 1f;
+    public float LabelNodeSizeDesk = 1f;
+
+    public float LabelNodeSizeLens = 1f;
+
+    public bool ShowLabelImmersion = true;
+    public bool ShowLabelDesk = true;
+
+
+    [Space(10)]
+    [Header("Edge")]
+    public float EdgeThicknessImmersion = 1f;
+    public float EdgeThicknessDesk = 1f;
+    public float EdgeThicknessLens = 1f;
+    public float EdgeThicknessGPS = 1f;
+    [Space(5)]
+    public bool CanSelectEdges = true;
 
 
     [JsonIgnore]
@@ -119,7 +138,7 @@ public class GraphConfiguration
     [SerializeField]
     private System.Drawing.Color _edgeColor = System.Drawing.Color.White;
 
-    [Header("Ontology Color")]
+    [Header("Ontology")]
     [Range(1, 15)]
     public int NbOntologyColor;
     [Range(0, 15)]
@@ -135,9 +154,11 @@ public class GraphConfiguration
     [Space(5)]
     public int LabelNodgePropagation = 1;
 
-    public int SeedRandomPosition = 0;
     public bool ResetPositionNodeOnUpdate = true;
-    public bool CanSelectEdges = true;
+    
+    public int SeedRandomPosition = 0;
+
+    public float GraphModeTransitionTime = 1f;
 
     public GraphMetricType SelectedMetricTypeSize = GraphMetricType.None;
     public GraphMetricType SelectedMetricTypeColor = GraphMetricType.None;

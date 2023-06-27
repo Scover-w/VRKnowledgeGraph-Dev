@@ -53,15 +53,7 @@ public class SubGraph : MonoBehaviour
     }
 
 
-    public void SwitchMode(GraphMode graphMode)
-    {
-        if (graphMode == GraphMode.Desk && _subGraphMode == SubGraphMode.Lens ||
-            graphMode == GraphMode.Immersion && _subGraphMode == SubGraphMode.Watch)
-            return;
-
-
-
-    }
+    
 
 
     public void OnGraphUpdated(GraphUpdateType updateType)
@@ -70,16 +62,30 @@ public class SubGraph : MonoBehaviour
         {
             case GraphUpdateType.BeforeSimulationStart:
                 break;
-            case GraphUpdateType.SimulationHasStopped:
+            case GraphUpdateType.AfterSimulationHasStopped:
                 SimulationStopped();
                 break;
-            case GraphUpdateType.SwitchModeToDesk:
-                SwitchMode(GraphMode.Desk);
+            case GraphUpdateType.BeforeSwitchMode:
+
                 break;
-            case GraphUpdateType.SwitchModeToImmersion:
-                SwitchMode(GraphMode.Immersion);
+            case GraphUpdateType.AfterSwitchModeToDesk:
+
+                break; 
+            
+            case GraphUpdateType.AfterSwitchModeToImmersion:
+
                 break;
         }            
+    }
+
+    public void SwitchMode(GraphMode graphMode)
+    {
+        if (graphMode == GraphMode.Desk && _subGraphMode == SubGraphMode.Lens ||
+            graphMode == GraphMode.Immersion && _subGraphMode == SubGraphMode.Watch)
+            return;
+
+
+
     }
 
     private void SimulationStopped()

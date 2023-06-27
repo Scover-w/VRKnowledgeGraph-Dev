@@ -23,9 +23,11 @@ public class NodgePool : MonoBehaviour
     ObjectPool<LabelNodgeUI> _labelNodgeUIPool;
     ObjectPool<NodeStyler> _nodePool;
     ObjectPool<EdgeStyler> _edgePool;
+
     static NodgePool _instance;
 
     Transform _poolGraphTf;
+    Transform _labelParentTf;
 
 
     private void Start()
@@ -40,6 +42,8 @@ public class NodgePool : MonoBehaviour
         }
 
         _poolGraphTf = new GameObject("Pool Graph").transform;
+        _labelParentTf = new GameObject("LabelParents").transform;
+
         CreateLabelNodgePool();
         CreateEdgePool();
         CreateNodePool();
@@ -47,26 +51,25 @@ public class NodgePool : MonoBehaviour
 
     private void CreateLabelNodgePool()
     {
+        //TODO : performance, maybe better non-monobehavior
         _labelNodgeUIPool = new ObjectPool<LabelNodgeUI>(() =>
         {
-            var canvas = Object.Instantiate(_nameCanvasPf);
-            var txtLabel = canvas.GetComponentInChildren<TMP_Text>();
-            var tf = canvas.transform;
-            var labelNodgeUI = new LabelNodgeUI(tf, txtLabel);
+            var labelCanvas = Instantiate(_nameCanvasPf);
+            labelCanvas.transform.SetParent(_labelParentTf);
+            var labelNodgeUI = labelCanvas.GetComponent<LabelNodgeUI>();
             return labelNodgeUI;
-        }, labelNode =>
+        }, labelCanvas =>
         {
-            labelNode.SetActive(true);
-        }, labelNode =>
+            labelCanvas.SetActive(true);
+            labelCanvas.transform.SetParent(_labelParentTf);
+        }, labelCanvas =>
         {
-            labelNode.SetActive(false);
-            labelNode.Transform.SetParent(_poolGraphTf);
-        }, labelNode =>
+            labelCanvas.SetActive(false);
+            labelCanvas.Transform.SetParent(_poolGraphTf);
+        }, labelCanvas =>
         {
-            labelNode.Destroy();
+            labelCanvas.Destroy();
         }, false, 100, 10000);
-
-        LabelNodgeUI.CamTf = Camera.main.transform;
     }
 
     private void CreateNodePool()
