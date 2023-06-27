@@ -5,9 +5,6 @@ using UnityEngine.Pool;
 public class NodgePool : MonoBehaviour
 {
     // TODO : Need to convert it to SO
-    public static NodgePool Instance { get { return _instance; } }
-
-
     [SerializeField]
     GraphManager _graphManager;
 

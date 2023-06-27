@@ -13,6 +13,9 @@ public class SubGraph : MonoBehaviour
     EasingType _easingType = EasingType.EaseInOutQuint;
 
     [SerializeField]
+    GraphManager _graphManager;
+
+    [SerializeField]
     Transform _subGraphTf;
 
     [SerializeField]
@@ -37,6 +40,7 @@ public class SubGraph : MonoBehaviour
     private void Start()
     {
         _subGraphMode = SubGraphMode.Lens;
+        _graphManager.OnGraphUpdate += OnGraphUpdated;
     }
 
     private void Update()
@@ -59,7 +63,26 @@ public class SubGraph : MonoBehaviour
 
     }
 
-    public void SimulationStopped()
+
+    public void OnGraphUpdated(GraphUpdateType updateType)
+    {
+        switch (updateType)
+        {
+            case GraphUpdateType.BeforeSimulationStart:
+                break;
+            case GraphUpdateType.SimulationHasStopped:
+                SimulationStopped();
+                break;
+            case GraphUpdateType.SwitchModeToDesk:
+                SwitchMode(GraphMode.Desk);
+                break;
+            case GraphUpdateType.SwitchModeToImmersion:
+                SwitchMode(GraphMode.Immersion);
+                break;
+        }            
+    }
+
+    private void SimulationStopped()
     {
         // TODO : SimulationStopped
         if(_subGraphMode == SubGraphMode.Lens)

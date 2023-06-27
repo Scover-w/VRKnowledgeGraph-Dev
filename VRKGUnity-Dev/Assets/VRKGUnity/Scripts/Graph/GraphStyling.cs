@@ -10,13 +10,44 @@ public class GraphStyling : MonoBehaviour
 
     GraphConfiguration _graphConfiguration;
 
+    bool _isFirstSimu = true;
+
     async void Start()
     {
         _graphConfiguration = await _graphConfigurationContainerSO.GetGraphConfiguration();
+        _graphManager.OnGraphUpdate += OnGraphUpdated;
     }
 
+    public void OnGraphUpdated(GraphUpdateType updateType)
+    {
+        switch (updateType)
+        {
+            case GraphUpdateType.BeforeSimulationStart:
+                BeforeSimulationStart();
+                break;
+            case GraphUpdateType.SimulationHasStopped:
+                SimulationStopped();
+                break;
+            case GraphUpdateType.SwitchModeToDesk:
+                break;
+            case GraphUpdateType.SwitchModeToImmersion:
+                break;
+            default:
+                break;
+        }         
+    }
 
-    public void StyleGraphForFirstTime()
+    private void BeforeSimulationStart()
+    {
+        if(_isFirstSimu)
+        {
+            _isFirstSimu = false;
+            StyleGraphForFirstTime();
+            return;
+        }
+    }
+
+    private void StyleGraphForFirstTime()
     {
         var graph = _graphManager.Graph;
         var nodesDicId = graph.NodesDicId;
@@ -39,7 +70,7 @@ public class GraphStyling : MonoBehaviour
         }
     }
 
-    public void SimulationStopped()
+    private void SimulationStopped()
     {
         var graph = _graphManager.Graph;
         var edgeDicId = graph.EdgesDicId;

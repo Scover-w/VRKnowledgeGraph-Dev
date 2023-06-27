@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
+
+public delegate void GraphUpdateDel(GraphUpdateType updateType);
+
 [DefaultExecutionOrder(-1)]
 public class GraphManager : MonoBehaviour
 {
@@ -12,9 +15,9 @@ public class GraphManager : MonoBehaviour
     public MainGraph MainGraph { get { return _mainGraph; } }
     public SubGraph SubGraph { get { return _subGraph; } }
 
-    public GraphType GraphMode { get { return _graphMode; } }
-
     public bool IsRunningSimulation { get { return _graphSimulation.IsRunningSimulation; } }
+
+    public GraphUpdateDel OnGraphUpdate;
 
     [SerializeField]
     ReferenceHolderSO _referenceHolderSo;
@@ -40,11 +43,12 @@ public class GraphManager : MonoBehaviour
     [SerializeField]
     NodgeSelectionManager _nodgeSelectionManager;
 
+    [SerializeField]
+    NodgePool _nodgePool;
+
     Graph _graph;
     SPARQLAdditiveBuilder _sparqlBuilder;
     DynamicFilterManager _dynamicFilterManager;
-
-    GraphType _graphMode = GraphType.Sub;
 
     GraphDbRepository _graphRepo;
     GraphConfiguration _graphConfiguration;
@@ -62,25 +66,18 @@ public class GraphManager : MonoBehaviour
         _graphRepo = _referenceHolderSo.SelectedGraphDbRepository;
         var graphRepoUris = _graphRepo.GraphDbRepositoryUris;
 
-        try
-        {
-            _sparqlBuilder = new(graphRepoUris);
-            string queryString = _sparqlBuilder.Build();
-            var nodges = await NodgesHelper.RetreiveGraph(queryString, _graphRepo);
+        _sparqlBuilder = new(graphRepoUris);
+        string queryString = _sparqlBuilder.Build();
+        var nodges = await NodgesHelper.RetreiveGraph(queryString, _graphRepo);
 
-            _graph = new Graph(this, _graphStyling, nodges, _graphRepo);
+        _graph = new Graph(this, _graphStyling, nodges, _nodgePool);
 
-            _nodgeSelectionManager.SetNodgeTfs(_graph.NodesDicTf);
+        _nodgeSelectionManager.SetNodgeTfs(_graph.NodesDicTf);
 
-            _graphStyling.StyleGraphForFirstTime();
-            _graph.CalculateMetrics(graphRepoUris);
-            _graphSimulation.Run(_graph);
+        _graph.CalculateMetrics(graphRepoUris);
 
-        }
-        catch(Exception ex)
-        {
-            Debug.Log(ex);
-        }
+        SimulationWillStart();
+        _graphSimulation.Run(_graph);
     }
 
 
@@ -105,14 +102,39 @@ public class GraphManager : MonoBehaviour
         DebugChrono.Instance.Stop("UpdateGraph");
 
         _graph.CalculateMetrics(_graphRepo.GraphDbRepositoryUris);
+
+        SimulationWillStart();
         _graphSimulation.Run(_graph);
+    }
+
+
+    #region GRAPH_UPDATES_EVENT
+    public void SimulationWillStart()
+    {
+        OnGraphUpdate?.Invoke(GraphUpdateType.BeforeSimulationStart);
     }
 
     public void SimulationStopped()
     {
-        _graphStyling.SimulationStopped();
-        _subGraph.SimulationStopped();
+        OnGraphUpdate?.Invoke(GraphUpdateType.SimulationHasStopped);
     }
+
+    public void TrySwitchModeToDesk()
+    {
+        if (IsRunningSimulation)
+            return;
+
+        OnGraphUpdate?.Invoke(GraphUpdateType.SwitchModeToDesk);
+    }
+
+    public void TrySwitchModeToImmersion()
+    {
+        if (IsRunningSimulation)
+            return;
+
+        OnGraphUpdate?.Invoke(GraphUpdateType.SwitchModeToImmersion);
+    }
+    #endregion
 }
 
 public enum GraphType
@@ -125,4 +147,12 @@ public enum GraphMode
 {
     Desk,
     Immersion
+}
+
+public enum GraphUpdateType
+{
+    BeforeSimulationStart,
+    SimulationHasStopped,
+    SwitchModeToDesk,
+    SwitchModeToImmersion
 }

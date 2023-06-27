@@ -8,6 +8,9 @@ public class MainGraph : MonoBehaviour
     public Transform Tf { get {  return _tf; } }
 
     [SerializeField]
+    GraphManager _graphManager;
+
+    [SerializeField]
     ReferenceHolderSO _referenceHolderSo;
 
     [SerializeField]
@@ -21,6 +24,7 @@ public class MainGraph : MonoBehaviour
     {
         _mainGraphMode = MainGraphMode.Desk;
         _playerTf = _referenceHolderSo.HMDCamSA.Value.transform;
+        _graphManager.OnGraphUpdate += OnGraphUpdated;
     }
 
 
@@ -30,7 +34,22 @@ public class MainGraph : MonoBehaviour
     }
 
 
-
+    public void OnGraphUpdated(GraphUpdateType updateType)
+    {
+        switch (updateType)
+        {
+            case GraphUpdateType.BeforeSimulationStart:
+                break;
+            case GraphUpdateType.SimulationHasStopped:
+                break;
+            case GraphUpdateType.SwitchModeToDesk:
+                SwitchMode(GraphMode.Desk);
+                break;
+            case GraphUpdateType.SwitchModeToImmersion:
+                SwitchMode(GraphMode.Immersion);
+                break;
+        }
+    }
 
     public void SwitchMode(GraphMode graphMode)
     {

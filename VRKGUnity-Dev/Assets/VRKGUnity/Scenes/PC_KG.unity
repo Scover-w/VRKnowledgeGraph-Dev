@@ -905,6 +905,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e7aed00c55ec154e98fb39c0a6348e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _graphManager: {fileID: 1187437327}
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _tf: {fileID: 717365171}
 --- !u!1 &888367359
@@ -1224,6 +1225,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _transitionTime: 1
   _easingType: 14
+  _graphManager: {fileID: 1187437327}
   _subGraphTf: {fileID: 921206259}
   _watchTf: {fileID: 997226357}
   _gpsPointTf: {fileID: 1091564544}
@@ -1656,6 +1658,8 @@ GameObject:
   - component: {fileID: 1187437327}
   - component: {fileID: 1187437329}
   - component: {fileID: 1187437328}
+  - component: {fileID: 1187437332}
+  - component: {fileID: 1187437331}
   m_Layer: 0
   m_Name: Graph
   m_TagString: Untagged
@@ -1683,6 +1687,7 @@ MonoBehaviour:
   _mainGraph: {fileID: 717365172}
   _subGraph: {fileID: 921206260}
   _nodgeSelectionManager: {fileID: 1219762323}
+  _nodgePool: {fileID: 1187437331}
 --- !u!114 &1187437328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1726,6 +1731,35 @@ Transform:
   m_Father: {fileID: 1314565758}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1187437331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1187437326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a68a628868e95f4eb69967960f5d0a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _graphManager: {fileID: 1187437327}
+  _nameCanvasPf: {fileID: 5035031733843069808, guid: 0256a7d3095107d488777b96d782966a, type: 3}
+  _nodePf: {fileID: 3723498569382803225, guid: 29163adcd74c0be40ae9dc6c00147146, type: 3}
+  _edgePf: {fileID: 3642302937029194686, guid: c20ed3821b3de9f45bbef497c5b04dfd, type: 3}
+  _lineMat: {fileID: 2100000, guid: 823b9ed571c20a4479fdd8e6e44e4386, type: 2}
+--- !u!114 &1187437332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1187437326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dbc7af2a4c69d94087a7b3f26cae53e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1190159039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1829,6 +1863,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1219762320}
+  - component: {fileID: 1219762324}
   - component: {fileID: 1219762323}
   - component: {fileID: 1219762322}
   - component: {fileID: 1219762321}
@@ -1900,6 +1935,21 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphManager: {fileID: 1187437327}
   _graphUI: {fileID: 1396796583}
+  _labelNodgeManager: {fileID: 1396796587}
+--- !u!114 &1219762324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1219762319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16af88586a468994282d3aa9d5750344, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _graphManager: {fileID: 1187437327}
+  _nodeSelectionManager: {fileID: 1219762323}
 --- !u!1 &1314565755
 GameObject:
   m_ObjectHideFlags: 0
@@ -1909,9 +1959,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1314565758}
-  - component: {fileID: 1314565756}
-  - component: {fileID: 1314565757}
-  - component: {fileID: 1314565759}
   m_Layer: 0
   m_Name: '[SCRIPTS]'
   m_TagString: Untagged
@@ -1919,32 +1966,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
   m_IsActive: 1
---- !u!114 &1314565756
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1314565755}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16af88586a468994282d3aa9d5750344, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _graphManager: {fileID: 1187437327}
-  _nodeSelectionManager: {fileID: 1219762323}
---- !u!114 &1314565757
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1314565755}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9dbc7af2a4c69d94087a7b3f26cae53e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1314565758
 Transform:
   m_ObjectHideFlags: 0
@@ -1963,23 +1984,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1314565759
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1314565755}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a68a628868e95f4eb69967960f5d0a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _graphManager: {fileID: 1187437327}
-  _nameCanvasPf: {fileID: 5035031733843069808, guid: 0256a7d3095107d488777b96d782966a, type: 3}
-  _nodePf: {fileID: 3723498569382803225, guid: 29163adcd74c0be40ae9dc6c00147146, type: 3}
-  _edgePf: {fileID: 3642302937029194686, guid: c20ed3821b3de9f45bbef497c5b04dfd, type: 3}
-  _lineMat: {fileID: 2100000, guid: 823b9ed571c20a4479fdd8e6e44e4386, type: 2}
 --- !u!1 &1396796582
 GameObject:
   m_ObjectHideFlags: 0
@@ -1992,6 +1996,7 @@ GameObject:
   - component: {fileID: 1396796583}
   - component: {fileID: 1396796586}
   - component: {fileID: 1396796585}
+  - component: {fileID: 1396796587}
   m_Layer: 0
   m_Name: UI
   m_TagString: Untagged
@@ -2011,7 +2016,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a634e04e2742234db8bf4c1b38e7434, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _user: {fileID: 1314565756}
+  _user: {fileID: 1219762324}
   _nodgeInfoUI: {fileID: 1438755090}
 --- !u!4 &1396796584
 Transform:
@@ -2080,6 +2085,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaf5170f30ee4934097808f28056e845, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1396796587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1396796582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec4e9a79111aaee4c9ef45c336670c0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _graphManager: {fileID: 1187437327}
+  _nodgePool: {fileID: 1187437331}
 --- !u!1 &1438755089
 GameObject:
   m_ObjectHideFlags: 0

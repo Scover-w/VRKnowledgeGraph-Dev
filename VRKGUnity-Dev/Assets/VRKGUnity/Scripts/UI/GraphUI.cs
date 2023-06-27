@@ -19,11 +19,6 @@ public class GraphUI : MonoBehaviour
         _nodgeInfoUI.DisplayInfoEdge(edge);
     }
 
-    public void HideSelectedNode()
-    {
-        _user.HideSelectedNode();
-    }
-
     public void HideSelectedEdge()
     {
 

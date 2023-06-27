@@ -50,6 +50,8 @@ public class Graph
 
     OntoNodeGroupTree _ontoNodeTree;
 
+    NodgePool _nodgePool;
+
     Transform _mainGraphTf;
     Transform _subGraphTf;
 
@@ -59,7 +61,7 @@ public class Graph
     int _metricsCalculated;
 
     #region CREATION_UPDATE_NODGES
-    public Graph(GraphManager graphManager, GraphStyling graphStyling, Nodges nodges, GraphDbRepository repo)
+    public Graph(GraphManager graphManager, GraphStyling graphStyling, Nodges nodges, NodgePool nodgePool)
     {
         _nodesDicId = nodges.NodesDicId; 
         _edgesDicId = nodges.EdgesDicId;
@@ -77,6 +79,7 @@ public class Graph
         _subGraphTf = _graphManager.SubGraph.Tf;
         _mainGraphTf = _graphManager.MainGraph.Tf;
 
+        _nodgePool = nodgePool;
 
         SetupNodes();
         SetupEdges();
@@ -102,7 +105,7 @@ public class Graph
 
     private void SetupNode(Node node, bool isForMainGraph)
     {
-        var nodeStyler = NodgePool.Instance.GetNodeStyler();
+        var nodeStyler = _nodgePool.GetNodeStyler();
         nodeStyler.Node = node;
 
         var nodeTf = nodeStyler.Tf;
@@ -142,7 +145,7 @@ public class Graph
 
     private void SetupEdge(Edge edge,bool isForMainGraph)
     {
-        var edgeStyler = NodgePool.Instance.GetEdgeStyler();
+        var edgeStyler = _nodgePool.GetEdgeStyler();
         edgeStyler.Edge = edge;
 
         edgeStyler.gameObject.name = "Edge " + edge.Value.ToString();
@@ -223,7 +226,6 @@ public class Graph
 
         void ReleaseUnusedNodes()
         {
-            var nodgePool = NodgePool.Instance;
 
             // Remove nodes that aren't in the graph anymore
             foreach (var idAndNode in _nodesDicId)
@@ -231,8 +233,8 @@ public class Graph
                 var mainGraphStyler = idAndNode.Value.MainGraphStyler;
                 var subGraphStyler = idAndNode.Value.SubGraphStyler;
 
-                nodgePool.Release(mainGraphStyler);
-                nodgePool.Release(subGraphStyler);
+                _nodgePool.Release(mainGraphStyler);
+                _nodgePool.Release(subGraphStyler);
                 _nodesDicTf.Remove(mainGraphStyler.Tf);
                 _nodesDicTf.Remove(subGraphStyler.Tf);
 
@@ -271,8 +273,6 @@ public class Graph
 
         void ReleaseUnusedEdges()
         {
-            var nodgePool = NodgePool.Instance;
-
             // Remove edges that aren't in the graph anymore
             foreach (var idAndEdge in _edgesDicId)
             {
@@ -280,8 +280,8 @@ public class Graph
                 var mainGraphStyler = edge.MainGraphStyler;
                 var subGraphStyler = edge.SubGraphStyler;
 
-                nodgePool.Release(mainGraphStyler);
-                nodgePool.Release(subGraphStyler);
+                _nodgePool.Release(mainGraphStyler);
+                _nodgePool.Release(subGraphStyler);
                 _edgesDicTf.Remove(mainGraphStyler.ColliderTf);
                 _edgesDicTf.Remove(subGraphStyler.ColliderTf);
 

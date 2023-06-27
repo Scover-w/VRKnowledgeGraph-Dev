@@ -29,6 +29,9 @@ public class NodgeSelectionManager : MonoBehaviour
     [SerializeField]
     GraphUI _graphUI;
 
+    [SerializeField]
+    LabelNodgeManagerUI _labelNodgeManager;
+
     static NodgeSelectionManager _instance;
 
     SelectionMode _selectionMode = SelectionMode.Single;
@@ -38,8 +41,6 @@ public class NodgeSelectionManager : MonoBehaviour
     List<Node> _multipleSelectedNodes;
 
     List<Node> _propagatedNodes;
-
-    List<LabelNodgeUI> _labelNodgesUI;
 
     IReadOnlyDictionary<Transform, Node> _nodesDicTf;
 
@@ -59,33 +60,18 @@ public class NodgeSelectionManager : MonoBehaviour
 
         _multipleSelectedNodes = new();
         _propagatedNodes = new();
-        _labelNodgesUI = new();
 
         _graphConfiguration = _graphManager.GraphConfiguration;
     }
 
-    void Update()
-    {
-        UpdateLabelNodges();
-    }
+    
 
     public void SetNodgeTfs(IReadOnlyDictionary<Transform, Node> nodesDicTf)
     {
         _nodesDicTf = nodesDicTf;
     }
 
-    private void UpdateLabelNodges()
-    {
-        if (_labelNodgesUI == null)
-            return;
-
-        int nb = _labelNodgesUI.Count;
-
-        for (int i = 0; i < nb; i++)
-        {
-           // _labelNodgesUI[i].UpdateTransform();
-        }
-    }
+    
 
     [ContextMenu("Switch Mode")]
     public void SwitchSelectionMode()
@@ -227,15 +213,7 @@ public class NodgeSelectionManager : MonoBehaviour
         }
     }
 
-
-
     
-
-    
-
-
-    
-
     private void ClearSelectionFromSwitchMode(SelectionMode selectionMode)
     {
         if (selectionMode == SelectionMode.Single)
@@ -281,11 +259,10 @@ public class NodgeSelectionManager : MonoBehaviour
     {
         nodesLabeled.Add(node);
 
-        var labelNodge = NodgePool.Instance.GetLabelNodge();
-        labelNodge.SetFollow(node.MainGraphNodeTf);
+        var labelNodgeUI = _labelNodgeManager.GetLabelNodgeUI(GraphType.Main);
+        labelNodgeUI.SetFollow(node.MainGraphNodeTf);
         var name = node.GetName();
-        labelNodge.Text = (name != null) ? name : node.Value;
-        _labelNodgesUI.Add(labelNodge);
+        labelNodgeUI.Text = (name != null) ? name : node.Value;
 
         propagationValue--;
 
@@ -305,10 +282,9 @@ public class NodgeSelectionManager : MonoBehaviour
 
                 edgesLabeled.Add(edge);
 
-                labelNodge = NodgePool.Instance.GetLabelNodge();
-                labelNodge.SetFollow(edge.Source.MainGraphNodeTf, edge.Target.MainGraphNodeTf);
-                labelNodge.Text = edge.Value;
-                _labelNodgesUI.Add(labelNodge);
+                labelNodgeUI = _labelNodgeManager.GetLabelNodgeUI(GraphType.Main);
+                labelNodgeUI.SetFollow(edge.Source.MainGraphNodeTf, edge.Target.MainGraphNodeTf);
+                labelNodgeUI.Text = edge.Value;
 
                 if (propagationValue == 0)
                     continue;
@@ -331,20 +307,10 @@ public class NodgeSelectionManager : MonoBehaviour
         }
 
         _propagatedNodes = new();
-        ClearLabelNodges();
+        _labelNodgeManager.ClearLabelNodges();
     }
 
-    public void ClearLabelNodges()
-    {
-        int nb = _labelNodgesUI.Count;
-
-        for (int i = 0; i < nb; i++)
-        {
-            NodgePool.Instance.Release(_labelNodgesUI[i]);
-        }
-
-        _labelNodgesUI = new();
-    }
+    
 
 
 
