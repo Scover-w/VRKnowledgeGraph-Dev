@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -9,10 +10,10 @@ public class GraphSimulation : MonoBehaviour
     public bool IsRunningSimulation { get { return _isRunningSimulation; } }
 
     [SerializeField]
-    GraphManager _graphManager;
+    GraphConfigurationContainerSO _graphConfigurationContainerSO;
 
     [SerializeField]
-    float _tickDeltaTime = 0.016f;
+    GraphManager _graphManager;
 
     Dictionary<int, NodeSimuData> _nodeSimuDatas;
     Dictionary<int, NodeSimuData> _newNodeSimuDatas;
@@ -21,10 +22,16 @@ public class GraphSimulation : MonoBehaviour
 
     SemaphoreSlim _threadEndedSemaphore;
 
+    GraphConfiguration _graphConfiguration;
 
     bool _isRunningSimulation = false;
     float _refreshDuration;
     bool _refreshGraph;
+
+    private async void Start()
+    {
+        _graphConfiguration = await _graphConfigurationContainerSO.GetGraphConfiguration();
+    }
 
     public void Run(Graph graph)
     {
@@ -50,6 +57,7 @@ public class GraphSimulation : MonoBehaviour
         _refreshGraph = false;
 
         ThreadPool.QueueUserWorkItem(CalculatingPositionsBackground, nodgesSimuDatas);
+        StartCoroutine(MonitoringSimulationTime());
 
         await _threadEndedSemaphore.WaitAsync();
         _threadEndedSemaphore = null;
@@ -66,7 +74,7 @@ public class GraphSimulation : MonoBehaviour
         _isRunningSimulation = true;
 
         float time = 0f;
-        float speed = 1f / 15f;
+        float speed = 1f / _graphConfiguration.MaxSimulationTime;
 
         while (_isRunningSimulation && time < 1f)
         {
@@ -87,12 +95,31 @@ public class GraphSimulation : MonoBehaviour
         EndRefreshingPosition(graph);
     }
 
+    IEnumerator MonitoringSimulationTime()
+    {
+        _isRunningSimulation = true;
+
+        float time = 0f;
+        float speed = 1f / _graphConfiguration.MaxSimulationTime;
+
+        while (_isRunningSimulation && time < 1f)
+        {
+            yield return null;
+
+            time += Time.deltaTime * speed;
+        }
+
+        _isRunningSimulation = false;
+    }
+
     private async Task EndRefreshingPosition(Graph graph)
     {
         await _threadEndedSemaphore.WaitAsync();
 
         graph.RefreshMainNodePositions(_newNodeSimuDatas);
-        _graphManager.SimulationStopped();
+
+        if(_graphManager != null)
+            _graphManager.SimulationStopped();
 
     }
 
@@ -105,12 +132,13 @@ public class GraphSimulation : MonoBehaviour
         float timer = 0f;
         _isRunningSimulation = true;
 
+
         while (_isRunningSimulation && !hasReachStopVelocity)
         {
             DebugChrono.Instance.Start("tickGRaph");
-            hasReachStopVelocity = CalculateNodeSimuData(nodgesSimuDatas);
 
-            if(firstTick && _refreshGraph)
+            hasReachStopVelocity = CalculateNodeSimuData(nodgesSimuDatas);
+            if (firstTick && _refreshGraph)
             {
                 firstTick = false;
                 var durationB = DebugChrono.Instance.Stop("firstTickGRaph", true);
@@ -118,6 +146,7 @@ public class GraphSimulation : MonoBehaviour
                 DebugChrono.Instance.Start("tickGRaph");
                 continue;
             }
+
 
             var duration = DebugChrono.Instance.Stop("tickGRaph", false);
             timer += duration;
@@ -128,7 +157,6 @@ public class GraphSimulation : MonoBehaviour
                 timer = 0f;
             }
         }
-
         _newNodeSimuDatas = nodgesSimuDatas.NodeSimuDatas.Clone();
         _isRunningSimulation = false;
 
@@ -145,7 +173,7 @@ public class GraphSimulation : MonoBehaviour
         var edgesSimuData = nodgesSimuData.EdgeSimuDatas;
 
 
-        var config = _graph.Configuration;
+        var config = _graphConfiguration;
 
         if (nodesSimuData.Count > 500)
         {
@@ -167,7 +195,7 @@ public class GraphSimulation : MonoBehaviour
         float invMaxVelocity = 1f / config.LightMaxVelocity;
 
         float velocitySum = 0f;
-
+        float tickDeltaTime = config.TickDeltaTime;
 
         // Apply the repulsion force between all nodes
 
@@ -238,7 +266,7 @@ public class GraphSimulation : MonoBehaviour
                 nodeData.Velocity /= nodeData.Velocity.magnitude * invMaxVelocity;
 
             velocitySum += nodeData.Velocity.magnitude;
-            nodeData.Position += nodeData.Velocity * _tickDeltaTime;
+            nodeData.Position += nodeData.Velocity * tickDeltaTime;
         }
 
         float velocityGraph = velocitySum / (float)nodesSimuData.Count;

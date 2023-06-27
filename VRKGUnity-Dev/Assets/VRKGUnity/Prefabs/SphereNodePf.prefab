@@ -97,7 +97,7 @@ SphereCollider:
   m_GameObject: {fileID: 3723498569382803225}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -132,6 +132,7 @@ MonoBehaviour:
   _tf: {fileID: 1577208894705107027}
   _renderer: {fileID: 1247492717272893670}
   _outliner: {fileID: 7832868374192515532}
+  _interactable: {fileID: 0}
 --- !u!114 &4619141745406792243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -280,3 +281,4 @@ MonoBehaviour:
   _outlineMaskMat: {fileID: 2100000, guid: d6f478ece75d69f43a09ff1d822898db, type: 2}
   _selectedColor: {r: 0, g: 1, b: 0.032362938, a: 1}
   _hoverColor: {r: 1, g: 0, b: 0, a: 1}
+  _inPropagationColor: {r: 0, g: 0, b: 0, a: 0}

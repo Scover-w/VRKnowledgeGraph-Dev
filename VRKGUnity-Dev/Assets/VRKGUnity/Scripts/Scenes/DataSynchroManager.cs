@@ -157,9 +157,10 @@ public class DataSynchroManager : MonoBehaviour
         SPARQLAdditiveBuilder sparqlBuilder = new(_graphRepo.GraphDbRepositoryUris);
         string queryString = sparqlBuilder.Build();
 
+
+
         Nodges nodges = await NodgesHelper.RetreiveGraph(queryString, _graphRepo);
         NodgesSimuData nodgesSimuData = new NodgesSimuData(nodges);
-
         await _graphSimu.Run(nodgesSimuData);
 
         float maxDistance = GetMaxDistance(nodgesSimuData);

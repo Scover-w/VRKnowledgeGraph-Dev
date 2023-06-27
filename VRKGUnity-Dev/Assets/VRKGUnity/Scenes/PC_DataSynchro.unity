@@ -428,6 +428,7 @@ GameObject:
   m_Component:
   - component: {fileID: 795284830}
   - component: {fileID: 795284831}
+  - component: {fileID: 795284832}
   m_Layer: 0
   m_Name: '[SCRIPTS]'
   m_TagString: Untagged
@@ -462,8 +463,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95bebbfb8624ff349930b987a8400a6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _referenceHolder: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
+  _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _loadingBarUI: {fileID: 1889292029}
+  _graphSimu: {fileID: 795284832}
+--- !u!114 &795284832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 795284829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bab297ae37bb8445af935c88af069e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _graphConfigurationContainerSO: {fileID: 11400000, guid: 7086a0d0e5c5fa74c91774d1597bf4fc, type: 2}
+  _graphManager: {fileID: 0}
 --- !u!1 &1320617044
 GameObject:
   m_ObjectHideFlags: 0

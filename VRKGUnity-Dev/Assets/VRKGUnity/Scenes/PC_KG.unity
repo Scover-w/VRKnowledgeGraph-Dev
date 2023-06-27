@@ -872,7 +872,7 @@ GameObject:
   - component: {fileID: 717365171}
   - component: {fileID: 717365172}
   m_Layer: 0
-  m_Name: MegaGraph
+  m_Name: MainGraph
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -905,7 +905,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e7aed00c55ec154e98fb39c0a6348e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _referenceHolderSo: {fileID: 0}
+  _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _tf: {fileID: 717365171}
   _playerTf: {fileID: 0}
 --- !u!1 &888367359
@@ -1189,7 +1189,7 @@ GameObject:
   - component: {fileID: 921206259}
   - component: {fileID: 921206260}
   m_Layer: 0
-  m_Name: MiniGraph
+  m_Name: SubGraph
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1225,7 +1225,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _transitionTime: 1
   _easingType: 14
-  _subGraphTf: {fileID: 0}
+  _subGraphTf: {fileID: 921206259}
   _watchTf: {fileID: 997226357}
   _gpsPointTf: {fileID: 1091564544}
   _graphUpDeskTf: {fileID: 1847664501}
@@ -1662,7 +1662,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!114 &1187437327
 MonoBehaviour:
@@ -1681,9 +1681,9 @@ MonoBehaviour:
   _graphUI: {fileID: 1396796583}
   _graphStyling: {fileID: 1187437328}
   _graphConfigurationContainerSO: {fileID: 11400000, guid: 7086a0d0e5c5fa74c91774d1597bf4fc, type: 2}
-  _mainGraph: {fileID: 0}
-  _subGraph: {fileID: 0}
-  _nodgeSelectionManager: {fileID: 0}
+  _mainGraph: {fileID: 717365172}
+  _subGraph: {fileID: 921206260}
+  _nodgeSelectionManager: {fileID: 1219762323}
 --- !u!114 &1187437328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1710,8 +1710,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bab297ae37bb8445af935c88af069e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _graphConfigurationContainerSO: {fileID: 11400000, guid: 7086a0d0e5c5fa74c91774d1597bf4fc, type: 2}
   _graphManager: {fileID: 1187437327}
-  _tickDeltaTime: 0.016
 --- !u!4 &1187437330
 Transform:
   m_ObjectHideFlags: 0
@@ -1821,6 +1821,85 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1219762319
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1219762320}
+  - component: {fileID: 1219762323}
+  - component: {fileID: 1219762322}
+  - component: {fileID: 1219762321}
+  m_Layer: 0
+  m_Name: Interactions
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &1219762320
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1219762319}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1314565758}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1219762321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1219762319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f6ab6d772291ec44a2950cc2ca8a466, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _referenceHolderSO: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
+  CameraSpeed: 5
+  Sensitivity: 30
+  ZoomSpeed: 1
+--- !u!114 &1219762322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1219762319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3af12490f8f129c4095bce25207abcf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AllowHover: 0
+  _referenceHolderSO: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
+--- !u!114 &1219762323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1219762319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8aa86adeccecc241b9f92880edea276, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
+  _graphManager: {fileID: 1187437327}
+  _graphUI: {fileID: 1396796583}
 --- !u!1 &1314565755
 GameObject:
   m_ObjectHideFlags: 0
@@ -1833,13 +1912,12 @@ GameObject:
   - component: {fileID: 1314565756}
   - component: {fileID: 1314565757}
   - component: {fileID: 1314565759}
-  - component: {fileID: 1314565760}
   m_Layer: 0
   m_Name: '[SCRIPTS]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!114 &1314565756
 MonoBehaviour:
@@ -1854,7 +1932,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _graphManager: {fileID: 1187437327}
-  _nodeSelectionManager: {fileID: 0}
+  _nodeSelectionManager: {fileID: 1219762323}
 --- !u!114 &1314565757
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1881,6 +1959,7 @@ Transform:
   m_Children:
   - {fileID: 1396796584}
   - {fileID: 1187437330}
+  - {fileID: 1219762320}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1901,24 +1980,6 @@ MonoBehaviour:
   _nodePf: {fileID: 3723498569382803225, guid: 29163adcd74c0be40ae9dc6c00147146, type: 3}
   _edgePf: {fileID: 3642302937029194686, guid: c20ed3821b3de9f45bbef497c5b04dfd, type: 3}
   _lineMat: {fileID: 2100000, guid: 823b9ed571c20a4479fdd8e6e44e4386, type: 2}
---- !u!114 &1314565760
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1314565755}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f6ab6d772291ec44a2950cc2ca8a466, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _referenceHolderSO: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
-  _graphManager: {fileID: 1187437327}
-  _nodgeSelectionManager: {fileID: 0}
-  CameraSpeed: 5
-  Sensitivity: 30
-  ZoomSpeed: 1
 --- !u!1 &1396796582
 GameObject:
   m_ObjectHideFlags: 0
@@ -1936,7 +1997,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!114 &1396796583
 MonoBehaviour:

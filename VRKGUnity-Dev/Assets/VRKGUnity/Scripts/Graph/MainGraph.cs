@@ -13,7 +13,6 @@ public class MainGraph : MonoBehaviour
     [SerializeField]
     Transform _tf;
 
-    [SerializeField]
     Transform _playerTf;
 
     MainGraphMode _mainGraphMode;

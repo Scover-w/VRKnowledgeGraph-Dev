@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using Wave.Essence.Hand.NearInteraction;
 
 public class NodeStyler : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class NodeStyler : MonoBehaviour
     public Node Node { get; set; }
 
     public GraphType GraphType { private get; set; }
+
+    public bool IsSelected { get {  return _isSelected; } }
 
     public static GraphConfiguration GraphConfiguration;
 
@@ -20,10 +23,14 @@ public class NodeStyler : MonoBehaviour
     [SerializeField]
     Outliner _outliner;
 
+    [SerializeField]
+    XRSimpleInteractable _interactable;
+
     MaterialPropertyBlock _propertyBlock;
 
     bool _isHovered = false;
     bool _isSelected = false;
+    bool _isInPropagation = false;
 
 
     private void OnEnable()
@@ -35,6 +42,19 @@ public class NodeStyler : MonoBehaviour
 
         _propertyBlock = new MaterialPropertyBlock();
         _renderer.SetPropertyBlock(_propertyBlock);
+    }
+
+    public void SetPropagation(bool isInPropagation)
+    {
+        _isInPropagation = isInPropagation;
+        UpdateMaterial();
+    }
+
+    public void UnSelect()
+    {
+        _isSelected = false;
+        // TODO : force XR Simple Interactable to unselect it
+        UpdateMaterial();
     }
 
     #region INTERACTION
@@ -54,17 +74,43 @@ public class NodeStyler : MonoBehaviour
     {
         _isSelected = true;
         UpdateMaterial();
+
+        var nodgeSelection = NodgeSelectionManager.Instance;
+
+        if(nodgeSelection == null)
+        {
+            Debug.LogError("No NodgeSelectionManager in the scene");
+            return;
+        }
+
+        nodgeSelection.Select(Node);
     }
 
     public void OnSelectExit(SelectExitEventArgs args)
     {
+        if(!_isSelected)
+        {
+            // Already Forced unselected from NodgeSelectionManager
+            return;
+        }
+
         _isSelected = false;
         UpdateMaterial();
+
+        var nodgeSelection = NodgeSelectionManager.Instance;
+
+        if (nodgeSelection == null)
+        {
+            Debug.LogError("No NodgeSelectionManager in the scene");
+            return;
+        }
+
+        nodgeSelection.UnSelect(Node);
     }
 
     private void UpdateMaterial()
     {
-        _outliner.UpdateInteraction(_isHovered, _isSelected);
+        _outliner.UpdateInteraction(_isHovered, _isSelected, _isInPropagation);
     }
 
     #endregion

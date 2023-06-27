@@ -6,12 +6,6 @@ public class NavigationPC : MonoBehaviour
     [SerializeField]
     ReferenceHolderSO _referenceHolderSO;
 
-    [SerializeField]
-    GraphManager _graphManager;
-
-    [SerializeField]
-    NodgeSelectionManager _nodgeSelectionManager;
-
     public float CameraSpeed = 5f;
     public float Sensitivity = 1f;
     public float ZoomSpeed = 1f;
@@ -29,8 +23,7 @@ public class NavigationPC : MonoBehaviour
     {
         UpdateLook();
         UpdateMove();
-        TryRaycastNode();
-
+        
     }
 
     private void UpdateLook()
@@ -69,30 +62,5 @@ public class NavigationPC : MonoBehaviour
             _direction += _camTf.right;
 
         _camTf.Translate(_direction.normalized * (Time.deltaTime * CameraSpeed * (Input.GetKey(KeyCode.LeftShift)? 2f : 1f)), Space.World);
-    }
-
-    private void TryRaycastNode()
-    {
-        if (!Input.GetMouseButtonDown(0))
-            return;
-
-        if (EventSystem.current.IsPointerOverGameObject())
-            return;
-
-        Ray ray = _cam.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        int layerMask = (1 << Layers.Node) | (1 << Layers.Edge);
-
-        if (!Physics.Raycast(ray, out hit, 100f, layerMask))
-        {
-            _nodgeSelectionManager.TryClearSelection();
-            return;
-        }
-
-        if (hit.transform.gameObject.layer == Layers.Node)
-            _nodgeSelectionManager.SelectNodeTemp(hit.collider.transform);
-        else
-            _nodgeSelectionManager.SelectEdge(hit.collider.transform);
     }
 }

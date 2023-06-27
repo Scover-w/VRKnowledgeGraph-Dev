@@ -8,6 +8,10 @@ using UnityEngine;
 public class GraphConfiguration
 {
     [Header("Simulation Parameters")]
+
+    public float TickDeltaTime = 0.016f;
+    public float MaxSimulationTime = 15f;
+
     [Space(5)]
     [Header("Light Graph")]
     public float LightSpringForce = 5f;

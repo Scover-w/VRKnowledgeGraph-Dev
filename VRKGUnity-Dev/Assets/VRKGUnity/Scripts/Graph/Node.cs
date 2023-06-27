@@ -220,6 +220,24 @@ public class Node
 
         return neighbors;
     }
+
+    public void SetPropagation(bool isInPropagation)
+    {
+        if(MainGraphStyler != null)
+            MainGraphStyler.SetPropagation(isInPropagation);
+
+        if(SubGraphStyler != null)
+            SubGraphStyler.SetPropagation(isInPropagation);
+    }
+
+    public void UnSelect()
+    {
+        if (MainGraphStyler != null)
+            MainGraphStyler.UnSelect();
+
+        if (SubGraphStyler != null)
+            SubGraphStyler.UnSelect();
+    }
 }
 
 

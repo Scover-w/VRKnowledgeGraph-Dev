@@ -35,11 +35,19 @@ public class Outliner : MonoBehaviour
     [SerializeField]
     Color _hoverColor;
 
-    private Renderer[] _renderers;
+    [SerializeField]
+    Color _inPropagationColor;
+
+    MaterialPropertyBlock _propertyBlock;
+    Renderer[] _renderers;
+
+    bool _hasOutline = false;
+
 
 
     void Awake()
     {
+        _propertyBlock = new();
         _renderers = GetComponentsInChildren<Renderer>();
         LoadSmoothNormals();
     }
@@ -53,7 +61,6 @@ public class Outliner : MonoBehaviour
 
         foreach (var renderer in _renderers)
         {
-
             // Append outline shaders
             var materials = renderer.sharedMaterials.ToList();
 
@@ -103,34 +110,54 @@ public class Outliner : MonoBehaviour
         UpdateMaterialProperties();
     }
 
-    public void UpdateInteraction(bool isHovered, bool isSelected)
+    public void UpdateInteraction(bool isHovered, bool isSelected, bool isInPropagation)
     {
-        var color = (isHovered && !isSelected) ? _hoverColor : _selectedColor;
+        Color color = Color.white;
 
-        if (isHovered | isSelected)
+        if(isHovered)
         {
-            TryAddOutline();
+            color = _hoverColor;
+        }
+        else if(isInPropagation && !isSelected) 
+        {
+            color = _inPropagationColor;
+        }
+        else if(isSelected)
+        {
+            color = _selectedColor;
+        }
+
+        if(isHovered | isSelected | isInPropagation)
+        {
+            if(!_hasOutline)
+                TryAddOutline();
+
+            _hasOutline = true;
             SetColor(color);
         }
-        else if(!isHovered & !isSelected)
+        else if(!isHovered && !isSelected && !isInPropagation)
         {
-            SetColor(color);
-            TryRemoveOutline();
+            if(_hasOutline)
+                TryRemoveOutline();
+
+            _hasOutline = false;
         }
-        else
-            SetColor(color);
     }
 
     private void SetColor(Color color)
     {
+        _propertyBlock.SetColor("_OutlineColor", color);
+
         foreach (var renderer in _renderers)
         {
 
             if (renderer.sharedMaterials.Length < 2)
                 continue;
 
-            var material = renderer.sharedMaterials[1];
-            material.SetColor("_OutlineColor", color);
+
+            renderer.SetPropertyBlock(_propertyBlock, 1);
+            //var material = renderer.sharedMaterials[1];
+            //material.SetColor("_OutlineColor", color);
         }
     }
 
