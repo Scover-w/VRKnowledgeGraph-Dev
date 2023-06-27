@@ -81,7 +81,8 @@ public class Node
         foreach(var propNameAndValue in Properties)
         {
             var propName = propNameAndValue.Key;
-            if (!(propName.Contains("label") || propName.Contains("title") || propName.Contains("name")))
+
+            if (propName.Contains("label") || propName.Contains("title") || propName.Contains("name"))
                 return propNameAndValue.Value;
 
         }

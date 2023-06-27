@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor.Graphs;
 using UnityEditor;
 using UnityEngine;
+using System.Xml.Serialization;
 
 public class NodgeSelectionManager : MonoBehaviour
 {
@@ -41,6 +42,10 @@ public class NodgeSelectionManager : MonoBehaviour
     List<Node> _multipleSelectedNodes;
 
     List<Node> _propagatedNodes;
+    List<Edge> _propagatedEdges;
+
+    List<Node> _newPropagatedNodes;
+    List<Edge> _newPropagatedEdges;
 
     IReadOnlyDictionary<Transform, Node> _nodesDicTf;
 
@@ -59,6 +64,8 @@ public class NodgeSelectionManager : MonoBehaviour
         _instance = this;
 
         _multipleSelectedNodes = new();
+
+        _propagatedEdges = new();
         _propagatedNodes = new();
 
         _graphConfiguration = _graphManager.GraphConfiguration;
@@ -96,7 +103,7 @@ public class NodgeSelectionManager : MonoBehaviour
         _singleSelectedNode = _multipleSelectedNodes[_multipleSelectedNodes.Count - 1];
         ClearSelectionFromSwitchMode(SelectionMode.Multiple);
 
-        Propagate(_singleSelectedNode);
+        StartPropagate(_singleSelectedNode);
     }
 
     private void SwitchToMultiple()
@@ -155,13 +162,13 @@ public class NodgeSelectionManager : MonoBehaviour
         }
 
         _singleSelectedNode = node;
-        Propagate(_singleSelectedNode);
+        StartPropagate(_singleSelectedNode);
     }
 
     private void MultipleSelect(Node node)
     {
         _multipleSelectedNodes.Add(node);
-        Propagate(node);
+        StartPropagate(node);
     }
 
 
@@ -209,7 +216,7 @@ public class NodgeSelectionManager : MonoBehaviour
 
         foreach (Node nodeToPropagate in _multipleSelectedNodes)
         {
-            Propagate(nodeToPropagate);
+            StartPropagate(nodeToPropagate);
         }
     }
 
@@ -250,19 +257,33 @@ public class NodgeSelectionManager : MonoBehaviour
         _multipleSelectedNodes = new();
     }
 
-    private void Propagate(Node node)
+
+    private void StartPropagate(Node node)
     {
-        PropagateLabelNodge(node, _graphConfiguration.LabelNodgePropagation, new HashSet<Node>(), new HashSet<Edge>());
+        _newPropagatedNodes = new();
+        _newPropagatedEdges = new();
+
+        Propagate(node, _graphConfiguration.LabelNodgePropagation);
     }
 
-    private void PropagateLabelNodge(Node node, int propagationValue, HashSet<Node> nodesLabeled, HashSet<Edge> edgesLabeled)
+    private void Propagate(Node node, int propagationValue)
     {
-        nodesLabeled.Add(node);
 
-        var labelNodgeUI = _labelNodgeManager.GetLabelNodgeUI(GraphType.Main);
-        labelNodgeUI.SetFollow(node.MainGraphNodeTf);
-        var name = node.GetName();
-        labelNodgeUI.Text = (name != null) ? name : node.Value;
+        if (_newPropagatedNodes.Contains(node))
+            return;
+
+        _newPropagatedNodes.Add(node);
+
+        if (!_propagatedNodes.Contains(node))
+        {
+            _propagatedNodes.Add(node);
+            node.SetPropagation(true);
+
+            var labelNodgeUI = _labelNodgeManager.GetLabelNodgeUI(GraphType.Main);
+            labelNodgeUI.SetFollow(node.MainGraphNodeTf);
+            var name = node.GetName();
+            labelNodgeUI.Text = (name != null) ? name : node.Value;
+        }
 
         propagationValue--;
 
@@ -277,24 +298,28 @@ public class NodgeSelectionManager : MonoBehaviour
             {
                 var edge = edges[j];
 
-                if (edgesLabeled.Contains(edge))
+
+                if (_newPropagatedEdges.Contains(edge))
                     continue;
 
-                edgesLabeled.Add(edge);
+                _newPropagatedEdges.Add(edge);
 
-                labelNodgeUI = _labelNodgeManager.GetLabelNodgeUI(GraphType.Main);
-                labelNodgeUI.SetFollow(edge.Source.MainGraphNodeTf, edge.Target.MainGraphNodeTf);
-                labelNodgeUI.Text = edge.Value;
+                if (!_propagatedEdges.Contains(edge))
+                {
+                    _propagatedEdges.Add(edge);
 
+                    var labelNodgeUI = _labelNodgeManager.GetLabelNodgeUI(GraphType.Main);
+                    labelNodgeUI.SetFollow(edge.Source.MainGraphNodeTf, edge.Target.MainGraphNodeTf);
+                    labelNodgeUI.Text = edge.Value;
+                }
+
+               
                 if (propagationValue == 0)
                     continue;
 
                 var nextNode = (i == 0) ? edge.Target : edge.Source;
 
-                if (nodesLabeled.Contains(nextNode))
-                    continue;
-
-                PropagateLabelNodge(nextNode, propagationValue, nodesLabeled, edgesLabeled);
+                Propagate(nextNode, propagationValue);
             }
         }
     }

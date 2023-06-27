@@ -39,6 +39,10 @@ public class LabelNodgeUI : MonoBehaviour
     public void SetFollow(Transform followTf, Transform follow2Tf = null) 
     {
         _type = (follow2Tf == null) ? LabelNodgeType.Node : LabelNodgeType.Edge;
+
+        if (followTf == null)
+            Debug.Log("Ho");
+
         _followTf = followTf;
         _follow2Tf = follow2Tf;
     }
@@ -50,7 +54,7 @@ public class LabelNodgeUI : MonoBehaviour
         if(_type == LabelNodgeType.Node)
         {
             Vector3 positionNode = _followTf.position;
-            Vector3 direction = (positionNode - hmdPosition).normalized;
+            Vector3 direction = (hmdPosition - positionNode).normalized;
 
             newCanvasPosition = positionNode + direction * (nodeSize * 1.1f);
             _canvasTf.position = newCanvasPosition;
