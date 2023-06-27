@@ -69,7 +69,7 @@ public class NodgeSelectionManager : MonoBehaviour
         UpdateLabelNodges();
     }
 
-    public void SetNodgeTfs(IReadOnlyDictionary<Transform, Node> nodesDicTf, IReadOnlyDictionary<Transform, Edge> edgesDicTf)
+    public void SetNodgeTfs(IReadOnlyDictionary<Transform, Node> nodesDicTf)
     {
         _nodesDicTf = nodesDicTf;
     }
@@ -108,8 +108,7 @@ public class NodgeSelectionManager : MonoBehaviour
             return;
 
         _singleSelectedNode = _multipleSelectedNodes[_multipleSelectedNodes.Count - 1];
-        ClearSelection(SelectionMode.Multiple);
-        ClearPropagation();
+        ClearSelectionFromSwitchMode(SelectionMode.Multiple);
 
         Propagate(_singleSelectedNode);
     }
@@ -123,9 +122,30 @@ public class NodgeSelectionManager : MonoBehaviour
         _singleSelectedNode = null;
     }
 
-    public void TryClearSelection()
+
+    public void TryClearSelectionFromEmptyUserClick()
     {
-        TryClearSelectedNode();
+        
+        if (_selectionMode == SelectionMode.Single)
+        {
+            if (_singleSelectedNode == null)
+                return;
+
+            _singleSelectedNode.UnSelect();
+            _singleSelectedNode = null;
+            ClearPropagation();
+            return;
+        }
+
+        if (_multipleSelectedNodes.Count == 0)
+            return;
+
+        foreach (Node node in _multipleSelectedNodes)
+        {
+            node.UnSelect();
+        }
+        _multipleSelectedNodes = new();
+        ClearPropagation();
     }
 
 
@@ -157,6 +177,8 @@ public class NodgeSelectionManager : MonoBehaviour
         _multipleSelectedNodes.Add(node);
         Propagate(node);
     }
+
+
 
     public void UnSelect(Node node)
     {
@@ -207,91 +229,34 @@ public class NodgeSelectionManager : MonoBehaviour
 
 
 
-    public void SelectNodeTemp(Transform nodeTf)
-    {
-        if (_singleSelectedNode != null && nodeTf == _singleSelectedNode.MainGraphNodeTf)
-            return;
+    
 
-        if (!_nodesDicTf.TryGetValue(nodeTf, out Node node))
-        {
-            Debug.LogError("Transform not linked to a node");
-            TryClearSelectedNode();
-            return;
-        }
-
-        //TryClearSelectedEdge();
-
-        ClearLabelNodges();
-
-        _singleSelectedNode = node;
-        _graphUI.DisplayInfoNode(_singleSelectedNode);
-
-        PropagateLabelNodge(_singleSelectedNode, _graphConfiguration.LabelNodgePropagation, new HashSet<Node>(), new HashSet<Edge>());
-        Selection.activeObject = nodeTf;
-    }
-
-    public void SelectNode(Transform nodeTf)
-    {
-        if (nodeTf == null)
-        {
-            TryClearSelectedNode();
-            return;
-        }
-
-        if (_singleSelectedNode != null && nodeTf == _singleSelectedNode.MainGraphNodeTf)
-            return;
-
-        if (!_nodesDicTf.TryGetValue(nodeTf, out Node node))
-        {
-            Debug.LogError("Transform not linked to a node");
-            TryClearSelectedNode();
-            return;
-        }
+    
 
 
-        ClearLabelNodges();
+    
 
-        _singleSelectedNode = node;
-        _graphUI.DisplayInfoNode(_singleSelectedNode);
-        Propagate(_singleSelectedNode);
-
-        Selection.activeObject = nodeTf;
-    }
-
-    public void TryClearSelectedNode()
-    {
-        if (!HasASelectedNode)
-            return;
-
-        ClearLabelNodges();
-        _graphUI.DisplayInfoNode(null);
-
-        _singleSelectedNode = null;
-    }
-
-
-    private void ClearPropagation()
-    {
-        foreach (Node node in _propagatedNodes)
-        {
-            node.SetPropagation(false);
-        }
-
-        _propagatedNodes = new();
-        ClearLabelNodges();
-    }
-
-    private void ClearSelection(SelectionMode selectionMode)
+    private void ClearSelectionFromSwitchMode(SelectionMode selectionMode)
     {
         if (selectionMode == SelectionMode.Single)
         {
+
+            if (_singleSelectedNode == null)
+                return;
+
             _singleSelectedNode.UnSelect();
             _singleSelectedNode = null;
+            ClearPropagation();
             return;
         }
 
+
+        if (_multipleSelectedNodes.Count == 0)
+            return;
+
         int i = 0;
         int toSkip = _multipleSelectedNodes.Count;
+
 
         foreach (Node node in _multipleSelectedNodes)
         {
@@ -302,6 +267,8 @@ public class NodgeSelectionManager : MonoBehaviour
 
             node.UnSelect();
         }
+
+        ClearPropagation();
         _multipleSelectedNodes = new();
     }
 
@@ -356,6 +323,17 @@ public class NodgeSelectionManager : MonoBehaviour
         }
     }
 
+    private void ClearPropagation()
+    {
+        foreach (Node node in _propagatedNodes)
+        {
+            node.SetPropagation(false);
+        }
+
+        _propagatedNodes = new();
+        ClearLabelNodges();
+    }
+
     public void ClearLabelNodges()
     {
         int nb = _labelNodgesUI.Count;
@@ -367,6 +345,74 @@ public class NodgeSelectionManager : MonoBehaviour
 
         _labelNodgesUI = new();
     }
+
+
+
+    #region OLD
+    /*public void SelectNodeTemp(Transform nodeTf)
+    {
+        if (_singleSelectedNode != null && nodeTf == _singleSelectedNode.MainGraphNodeTf)
+            return;
+
+        if (!_nodesDicTf.TryGetValue(nodeTf, out Node node))
+        {
+            Debug.LogError("Transform not linked to a node");
+            TryClearSelectedNode();
+            return;
+        }
+
+        //TryClearSelectedEdge();
+
+        ClearLabelNodges();
+
+        _singleSelectedNode = node;
+        _graphUI.DisplayInfoNode(_singleSelectedNode);
+
+        PropagateLabelNodge(_singleSelectedNode, _graphConfiguration.LabelNodgePropagation, new HashSet<Node>(), new HashSet<Edge>());
+        Selection.activeObject = nodeTf;
+    }
+
+    public void SelectNode(Transform nodeTf)
+    {
+        if (nodeTf == null)
+        {
+            TryClearSelectedNode();
+            return;
+        }
+
+        if (_singleSelectedNode != null && nodeTf == _singleSelectedNode.MainGraphNodeTf)
+            return;
+
+        if (!_nodesDicTf.TryGetValue(nodeTf, out Node node))
+        {
+            Debug.LogError("Transform not linked to a node");
+            TryClearSelectedNode();
+            return;
+        }
+
+
+        ClearLabelNodges();
+
+        _singleSelectedNode = node;
+        _graphUI.DisplayInfoNode(_singleSelectedNode);
+        Propagate(_singleSelectedNode);
+
+        Selection.activeObject = nodeTf;
+    }
+
+
+    public void TryClearSelectedNode()
+    {
+        if (!HasASelectedNode)
+            return;
+
+        ClearLabelNodges();
+        _graphUI.DisplayInfoNode(null);
+
+        _singleSelectedNode = null;
+    }*/
+    #endregion
+
 
 
     #region Edge

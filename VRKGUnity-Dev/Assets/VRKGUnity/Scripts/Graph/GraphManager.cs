@@ -70,7 +70,7 @@ public class GraphManager : MonoBehaviour
 
             _graph = new Graph(this, _graphStyling, nodges, _graphRepo);
 
-            _nodgeSelectionManager.SetNodgeTfs(_graph.NodesDicTf, _graph.EdgesDicTf);
+            _nodgeSelectionManager.SetNodgeTfs(_graph.NodesDicTf);
 
             _graphStyling.StyleGraphForFirstTime();
             _graph.CalculateMetrics(graphRepoUris);

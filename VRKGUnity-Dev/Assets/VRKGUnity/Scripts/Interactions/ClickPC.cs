@@ -10,6 +10,8 @@ public class ClickPC : MonoBehaviour
     [SerializeField]
     ReferenceHolderSO _referenceHolderSO;
 
+    [SerializeField]
+    NodgeSelectionManager _selectionManager;
 
     NodeStyler _hoveredNodgeStyler;
 
@@ -81,16 +83,13 @@ public class ClickPC : MonoBehaviour
 
         int layerMask = (1 << Layers.Node);
 
-        Debug.Log("raycast");
-
         if (!Physics.Raycast(ray, out hit, 100f, layerMask))
         {
-            
-            //_nodgeSelectionManager.TryClearSelection();
+
+            _selectionManager.TryClearSelectionFromEmptyUserClick();
             return;
         }
 
-        Debug.Log("Hit");
 
         if (!hit.transform.TryGetComponent<NodeStyler>(out var nodeStyler))
             return;

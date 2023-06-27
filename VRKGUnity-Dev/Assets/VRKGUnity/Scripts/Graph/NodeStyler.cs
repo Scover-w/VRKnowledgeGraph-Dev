@@ -52,6 +52,9 @@ public class NodeStyler : MonoBehaviour
 
     public void UnSelect()
     {
+        if (!_isSelected)
+            return;
+
         _isSelected = false;
         // TODO : force XR Simple Interactable to unselect it
         UpdateMaterial();
@@ -60,18 +63,27 @@ public class NodeStyler : MonoBehaviour
     #region INTERACTION
     public void OnEnterHover(HoverEnterEventArgs args)
     {
+        if (_isHovered)
+            return;
+
         _isHovered = true;
         UpdateMaterial();
     }
 
     public void OnExitHover(HoverExitEventArgs args)
     {
+        if(!_isHovered) 
+            return;
+
         _isHovered = false;
         UpdateMaterial();
     }
 
     public void OnSelectEnter(SelectEnterEventArgs args)
     {
+        if (_isSelected)
+            return;
+
         _isSelected = true;
         UpdateMaterial();
 
@@ -89,10 +101,8 @@ public class NodeStyler : MonoBehaviour
     public void OnSelectExit(SelectExitEventArgs args)
     {
         if(!_isSelected)
-        {
-            // Already Forced unselected from NodgeSelectionManager
             return;
-        }
+
 
         _isSelected = false;
         UpdateMaterial();

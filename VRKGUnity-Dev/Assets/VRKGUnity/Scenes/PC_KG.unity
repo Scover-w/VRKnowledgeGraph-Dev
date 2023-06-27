@@ -907,7 +907,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _tf: {fileID: 717365171}
-  _playerTf: {fileID: 0}
 --- !u!1 &888367359
 GameObject:
   m_ObjectHideFlags: 0
@@ -1885,6 +1884,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AllowHover: 0
   _referenceHolderSO: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
+  _selectionManager: {fileID: 1219762323}
 --- !u!114 &1219762323
 MonoBehaviour:
   m_ObjectHideFlags: 0

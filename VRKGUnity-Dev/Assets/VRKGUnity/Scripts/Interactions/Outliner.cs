@@ -42,7 +42,7 @@ public class Outliner : MonoBehaviour
     Renderer[] _renderers;
 
     bool _hasOutline = false;
-
+    bool _lastIsSelect = false;
 
 
     void Awake()
@@ -114,7 +114,13 @@ public class Outliner : MonoBehaviour
     {
         Color color = Color.white;
 
-        if(isHovered)
+
+        // Allow to color in the selected when click on node, and not stay in the isHovered Color
+        if(isSelected && _lastIsSelect == false)
+        {
+            color = _selectedColor;
+        }
+        else if(isHovered)
         {
             color = _hoverColor;
         }
@@ -142,6 +148,8 @@ public class Outliner : MonoBehaviour
 
             _hasOutline = false;
         }
+
+        _lastIsSelect = isSelected;
     }
 
     private void SetColor(Color color)
