@@ -286,6 +286,10 @@ public class NodgeSelectionManager : MonoBehaviour
             labelNodgeUI.Text = (name != null) ? name : node.Value;
         }
 
+
+        if (propagationValue == 0)
+            return;
+
         propagationValue--;
 
         // if comes from source, next is targetNode, inverse
@@ -314,10 +318,6 @@ public class NodgeSelectionManager : MonoBehaviour
                     labelNodgeUI.Text = edge.Value;
                 }
 
-               
-                if (propagationValue == 0)
-                    continue;
-
                 var nextNode = (i == 0) ? edge.Target : edge.Source;
 
                 Propagate(nextNode, propagationValue);
@@ -333,6 +333,7 @@ public class NodgeSelectionManager : MonoBehaviour
         }
 
         _propagatedNodes = new();
+        _propagatedEdges = new();
         _labelNodgeManager.ClearLabelNodges();
     }
 
