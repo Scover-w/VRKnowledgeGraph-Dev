@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 
 public delegate void GraphUpdateDel(GraphUpdateType updateType);
 
@@ -58,6 +58,9 @@ public class GraphManager : MonoBehaviour
 
     async void Start()
     {
+        Scene currentScene = gameObject.scene; 
+        SceneManager.SetActiveScene(currentScene);
+
         _dynamicFilterManager = new();
         _graphConfiguration = await _graphConfigurationContainerSO.GetGraphConfiguration();
 
