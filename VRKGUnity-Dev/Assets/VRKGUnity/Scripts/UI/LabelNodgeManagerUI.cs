@@ -216,15 +216,14 @@ public class LabelNodgeManagerUI : MonoBehaviour
         if (_labelNodgesMainGraph == null)
             return;
 
-        int nb = _labelNodgesMainGraph.Count;
-
         Vector3 hmdPosition = _hmdTf.position;
 
         float nodeSizeMain = GetNodeSize(GraphType.Main);
 
-        for (int i = 0; i < nb; i++)
+
+        foreach(LabelNodgeUI nodgeUI in _labelNodgesMainGraph)
         {
-            _labelNodgesMainGraph[i].UpdateTransform(hmdPosition, nodeSizeMain);
+            nodgeUI.UpdateTransform(hmdPosition, nodeSizeMain);
         }
 
 
@@ -233,9 +232,9 @@ public class LabelNodgeManagerUI : MonoBehaviour
 
         float nodeSizeSub = GetNodeSize(GraphType.Sub);
 
-        for (int i = 0; i < nb; i++)
+        foreach (LabelNodgeUI nodgeUI in _labelNodgesSubGraph)
         {
-            _labelNodgesSubGraph[i].UpdateTransform(hmdPosition, nodeSizeSub);
+            nodgeUI.UpdateTransform(hmdPosition, nodeSizeMain);
         }
     }
 

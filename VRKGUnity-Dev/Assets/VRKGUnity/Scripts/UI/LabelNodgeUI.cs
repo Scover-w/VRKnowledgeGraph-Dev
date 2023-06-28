@@ -40,9 +40,6 @@ public class LabelNodgeUI : MonoBehaviour
     {
         _type = (follow2Tf == null) ? LabelNodgeType.Node : LabelNodgeType.Edge;
 
-        if (followTf == null)
-            Debug.Log("Ho");
-
         _followTf = followTf;
         _follow2Tf = follow2Tf;
     }

@@ -144,6 +144,7 @@ public class NodgeSelectionManager : MonoBehaviour
 
     public void Select(Node node)
     {
+        Debug.Log("Select : " + node.Value);
         if(_selectionMode == SelectionMode.Single)
         {
             SingleSelect(node);

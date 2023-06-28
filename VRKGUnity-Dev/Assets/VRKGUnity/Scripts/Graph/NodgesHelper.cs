@@ -2,6 +2,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using UnityEngine;
 
 public static class NodgesHelper
 {
@@ -35,15 +36,6 @@ public static class NodgesHelper
         repoUri.ResetDefinedNodes();
 
         DepthOntologyLinker ontologyLinker = new(repoUri);
-
-#if UNITY_EDITOR && FALSE
-        var folderPath = Path.Combine(Application.dataPath, "VRKGUnity", "Data");
-
-        if (!Directory.Exists(folderPath))
-            Directory.CreateDirectory(folderPath);
-
-        await File.WriteAllTextAsync(Path.Combine(folderPath, "AllQuery.json"), json);
-#endif
 
         foreach (JToken binding in data["results"]["bindings"])
         {
@@ -106,7 +98,6 @@ public static class NodgesHelper
             s.EdgeSource.Add(edge);
             o.EdgeTarget.Add(edge);
         }
-
 
         ontologyLinker.AttachNodesToOntoNodes();
 
@@ -211,28 +202,43 @@ public static class NodgesHelper
             if (node.Type != NodgeType.Literal)
                 continue;
 
-            bool onlyOnetarget = (node.EdgeSource.Count == 0 && node.EdgeTarget.Count == 1);
+            bool onlyOneTarget = (node.EdgeSource.Count == 0 && node.EdgeTarget.Count == 1);
             bool onlyOneSource = (node.EdgeSource.Count == 1 && node.EdgeTarget.Count == 0);
 
-            if (!(onlyOneSource || onlyOnetarget))
+            if (!(onlyOneSource || onlyOneTarget)) // Is link to multiple nodes
             {
                 // TODO : Get labels and all to properties
-
-
                 continue;
             }
 
-            Edge edge = onlyOnetarget ? node.EdgeTarget[0] : node.EdgeSource[0];
+            bool nodeToMergeIsATarget = onlyOneTarget;
 
-            //bool containPropToMerge = _propertiesNameToMerge.Contains(edge.Value);
+            Edge edge;
+            Node nodeToAddProperty;
 
-            //if (!containPropToMerge)
-            //    continue;
+            if(nodeToMergeIsATarget)
+            {
+                edge = node.EdgeTarget[0];
+                nodeToAddProperty = edge.Source;
 
-            var sourceNode = edge.Source;
+                if (nodeToAddProperty.Type == NodgeType.Literal)
+                    continue;
 
-            if (!sourceNode.Properties.ContainsKey(edge.Value))
-                sourceNode.Properties.Add(edge.Value, node.Value);
+                nodeToAddProperty.EdgeSource.Remove(edge);
+            }
+            else
+            {
+                edge = node.EdgeSource[0];
+                nodeToAddProperty = edge.Target;
+
+                if (nodeToAddProperty.Type == NodgeType.Literal)
+                    continue;
+
+                nodeToAddProperty.EdgeTarget.Remove(edge);
+            }
+
+            if (!nodeToAddProperty.Properties.ContainsKey(edge.Value))
+                nodeToAddProperty.Properties.Add(edge.Value, node.Value);
 
             nodeToRemove.Add(node);
             edgeToRemove.Add(edge);
