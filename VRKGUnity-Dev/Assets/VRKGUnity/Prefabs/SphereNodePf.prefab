@@ -281,4 +281,4 @@ MonoBehaviour:
   _outlineMaskMat: {fileID: 2100000, guid: d6f478ece75d69f43a09ff1d822898db, type: 2}
   _selectedColor: {r: 0, g: 1, b: 0.032362938, a: 1}
   _hoverColor: {r: 1, g: 0, b: 0, a: 1}
-  _inPropagationColor: {r: 0, g: 0, b: 0, a: 0}
+  _inPropagationColor: {r: 0, g: 0.28991652, b: 1, a: 1}
