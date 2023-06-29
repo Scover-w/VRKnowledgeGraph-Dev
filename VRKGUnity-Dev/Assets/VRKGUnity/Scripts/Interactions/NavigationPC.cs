@@ -61,6 +61,8 @@ public class NavigationPC : MonoBehaviour
         if (Input.GetKey(KeyCode.D))
             _direction += _camTf.right;
 
-        _camTf.Translate(_direction.normalized * (Time.deltaTime * CameraSpeed * (Input.GetKey(KeyCode.LeftShift)? 2f : 1f)), Space.World);
+        float speed = (Input.GetKey(KeyCode.LeftShift) ? 10f : 1f);
+        speed *= (Input.GetKey(KeyCode.Space) ? .10f : 1f);
+        _camTf.Translate(_direction.normalized * (Time.deltaTime * CameraSpeed * speed), Space.World);
     }
 }

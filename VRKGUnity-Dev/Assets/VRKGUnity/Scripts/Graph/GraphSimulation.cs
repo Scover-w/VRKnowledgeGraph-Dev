@@ -47,7 +47,7 @@ public class GraphSimulation : MonoBehaviour
 
         ThreadPool.QueueUserWorkItem(CalculatingPositionsBackground, nodgesSimuDatas);
 
-        StartCoroutine(RefreshingGraphPositionsBackground(graph));
+        StartCoroutine(RefreshingGraphPositions(graph));
     }
 
     public async Task Run(NodgesSimuData nodgesSimuDatas)
@@ -69,7 +69,7 @@ public class GraphSimulation : MonoBehaviour
         _isRunningSimulation = false;
     }
 
-    IEnumerator RefreshingGraphPositionsBackground(Graph graph)
+    IEnumerator RefreshingGraphPositions(Graph graph)
     {
         _isRunningSimulation = true;
 

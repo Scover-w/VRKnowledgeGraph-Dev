@@ -6,7 +6,7 @@ public static class NodgeExtensions
     {
         foreach (Node node in nodes)
         {
-            node.SetActive(false);
+            node.DisplayMainNode(false);
         }
     }
 
@@ -14,7 +14,7 @@ public static class NodgeExtensions
     {
         foreach (Edge edge in edges)
         {
-            edge.SetActive(false);
+            edge.DisplayMainEdge(false);
         }
     }
 }

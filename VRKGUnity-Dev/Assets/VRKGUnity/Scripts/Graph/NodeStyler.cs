@@ -127,33 +127,37 @@ public class NodeStyler : MonoBehaviour
 
 
     #region STYLING
-    public void StyleNodeForFirstTime()
+    public void StyleNodeBeforeFirstSimu(StyleChange styleChange, GraphMode graphMode)
     {
-        _renderer.material.color = GraphConfiguration.NodeColor;
-
-        float scale = (GraphType == GraphType.Main) ? GraphConfiguration.NodeSizeDesk
-                                                    : GraphConfiguration.NodeSizeImmersion;
-        _tf.localScale = new Vector3(scale, scale, scale);
+        StyleNode(styleChange, false, graphMode);
     }
 
-    public void StyleNode(StyleChange styleChange, bool inSimulation)
+    public void StyleNode(StyleChange styleChange, bool inSimulation, GraphMode graphMode)
     {
-        if(styleChange.HasChanged(StyleChangeType.Color))
+        if (GraphType == GraphType.Main && !styleChange.HasChanged(StyleChangeType.MainGraph))
+            return;
+
+        if (GraphType == GraphType.Sub && !styleChange.HasChanged(StyleChangeType.SubGraph))
+            return;
+
+
+        if (styleChange.HasChanged(StyleChangeType.Color))
             StyleColor();
 
         if (styleChange.HasChanged(StyleChangeType.Size))
-            StyleSize();
+            StyleSize(styleChange, graphMode);
 
         if (styleChange.HasChanged(StyleChangeType.Position))
         {
             if (!inSimulation)
-                StylePosition();
+                StylePosition(styleChange, graphMode);
         }
     }
 
     private void StyleColor()
     {
         var selectedMetricType = GraphConfiguration.SelectedMetricTypeColor;
+
         if (selectedMetricType == GraphMetricType.None)
         {
             _propertyBlock.SetColor("_Color", GraphConfiguration.NodeColor);
@@ -166,8 +170,6 @@ public class NodeStyler : MonoBehaviour
             StyleColorOnOntology();
         else
             StyleColorOnMetrics(selectedMetricType);
-
-        
     }
 
 
@@ -215,67 +217,123 @@ public class NodeStyler : MonoBehaviour
     }
 
 
-    private void StyleSize()
+    private void StyleSize(StyleChange styleChange, GraphMode graphMode)
     {
         var selectedMetricType = GraphConfiguration.SelectedMetricTypeSize;
 
         if (selectedMetricType == GraphMetricType.None)
         {
-            float scale = (GraphType == GraphType.Main)? GraphConfiguration.NodeSizeDesk
-                                                        : GraphConfiguration.NodeSizeImmersion;     
-            _tf.localScale = new Vector3(scale, scale, scale);
+            StyleNormalSize(styleChange, graphMode);
             return;
         }
 
-        float scaleB = 0f;
+        StyleMetricSize(selectedMetricType, styleChange, graphMode);
+    }
+
+    private void StyleNormalSize(StyleChange styleChange, GraphMode graphMode)
+    {
+        if (graphMode == GraphMode.Desk && styleChange.HasChanged(StyleChangeType.DeskMode))
+        {
+            if (GraphType == GraphType.Main)
+                SetScale(GraphConfiguration.NodeSizeDesk);
+
+            if (GraphType == GraphType.Sub)
+                SetScale(GraphConfiguration.NodeSizeLens);
+        }
+
+        if (graphMode == GraphMode.Immersion && styleChange.HasChanged(StyleChangeType.ImmersionMode))
+        {
+            if (GraphType == GraphType.Main)
+                SetScale(GraphConfiguration.NodeSizeImmersion);
+
+            if (GraphType == GraphType.Sub)
+                SetScale(GraphConfiguration.NodeSizeWatch);
+        }
+    }
+
+    private void StyleMetricSize(GraphMetricType selectedMetricType, StyleChange styleChange, GraphMode graphMode)
+    {
+        float tScale = 0f;
 
         switch (selectedMetricType)
         {
             case GraphMetricType.AverageShortestPath:
-                scaleB = Node.AverageShortestPathLength;
+                tScale = Node.AverageShortestPathLength;
                 break;
             case GraphMetricType.BetweennessCentrality:
-                scaleB = Node.BetweennessCentrality;
+                tScale = Node.BetweennessCentrality;
                 break;
             case GraphMetricType.ClosenessCentrality:
-                scaleB = Node.ClosenessCentrality;
+                tScale = Node.ClosenessCentrality;
                 break;
             case GraphMetricType.ClusteringCoefficient:
-                scaleB = Node.ClusteringCoefficient;
+                tScale = Node.ClusteringCoefficient;
                 break;
             case GraphMetricType.Degree:
-                scaleB = Node.Degree;
+                tScale = Node.Degree;
                 break;
         }
 
-        float nodeMinSize;
-        float nodeMaxSize;
 
-        if(GraphType == GraphType.Main)
+        if(graphMode == GraphMode.Desk && styleChange.HasChanged(StyleChangeType.DeskMode))
         {
-            nodeMinSize = GraphConfiguration.NodeMinSizeDesk;
-            nodeMaxSize = GraphConfiguration.NodeMinSizeDesk;
-        }
-        else
-        {
-            nodeMinSize = GraphConfiguration.NodeMinSizeImmersion;
-            nodeMaxSize = GraphConfiguration.NodeMinSizeImmersion;
+            if (GraphType == GraphType.Main)
+                SetScale(GraphConfiguration.NodeMinSizeDesk, GraphConfiguration.NodeMaxSizeDesk, tScale);
+            else if(GraphType == GraphType.Sub)
+                SetScale(GraphConfiguration.NodeMinSizeLens, GraphConfiguration.NodeMaxSizeLens, tScale);
+
+            return;
         }
 
-        scaleB = Mathf.Lerp(nodeMinSize, nodeMaxSize, scaleB);
+        if (graphMode == GraphMode.Immersion && styleChange.HasChanged(StyleChangeType.ImmersionMode))
+        {
+            if (GraphType == GraphType.Main)
+                SetScale(GraphConfiguration.NodeMinSizeImmersion, GraphConfiguration.NodeMaxSizeImmersion, tScale);
+            else if (GraphType == GraphType.Sub)
+                SetScale(GraphConfiguration.NodeSizeWatch);
 
-        _tf.localScale = new Vector3(scaleB, scaleB, scaleB);
+            return;
+        }    
     }
 
-    private void StylePosition()
+    private void StylePosition(StyleChange styleChange, GraphMode graphMode)
     {
-        float scalingFactor = (GraphType == GraphType.Main) ? GraphConfiguration.ImmersionGraphSize
-                                                    : GraphConfiguration.GPSGraphSize;
+        if (graphMode == GraphMode.Desk && styleChange.HasChanged(StyleChangeType.DeskMode))
+        {
+            if (GraphType == GraphType.Main)
+                SetPosition(GraphConfiguration.DeskGraphSize);
+            else if(GraphType == GraphType.Sub)
+                SetPosition(GraphConfiguration.LensGraphSize);
+        }
 
-        _tf.localPosition = Node.AbsolutePosition * scalingFactor;
+
+        if (graphMode == GraphMode.Immersion && styleChange.HasChanged(StyleChangeType.ImmersionMode))
+        {
+            if (GraphType == GraphType.Main)
+                SetPosition(GraphConfiguration.ImmersionGraphSize);
+            else if (GraphType == GraphType.Sub)
+                SetPosition(GraphConfiguration.WatchGraphSize);
+        }
+
     }
     #endregion
 
+
+    private void SetScale(float nodeMinSize,float nodeMaxSize, float tScale)
+    {
+        float scale = Mathf.Lerp(nodeMinSize, nodeMaxSize, tScale);
+        _tf.localScale = new Vector3(scale, scale, scale);
+    }
+
+    private void SetScale(float scale)
+    {
+        _tf.localScale = new Vector3(scale, scale, scale);
+    }
+
+    private void SetPosition(float scale)
+    {
+        _tf.localPosition = Node.AbsolutePosition * scale;
+    }
 
     #region EDITOR
     [ContextMenu("OnEnterHover")]

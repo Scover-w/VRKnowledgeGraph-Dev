@@ -4,6 +4,7 @@ using UnityEditor.Graphs;
 using UnityEditor;
 using UnityEngine;
 using System.Xml.Serialization;
+using System.Linq;
 
 public class NodgeSelectionManager : MonoBehaviour
 {
@@ -19,6 +20,15 @@ public class NodgeSelectionManager : MonoBehaviour
                 return _multipleSelectedNodes.Count > 0;
         } 
     }
+
+    public ReadOnlyHashSet<Node> PropagatedNodes { get { return new ReadOnlyHashSet<Node>(_propagatedNodes); } }
+    public ReadOnlyHashSet<Edge> PropagatedEdges { get { return new ReadOnlyHashSet<Edge>(_propagatedEdges); } }
+
+    public delegate void NodeSelectedDel(Node selectedNode);
+    public delegate void NodgesPropagatedDel(Nodges propagatedNodges);
+
+    public NodeSelectedDel OnNodeSelected;
+    public NodgesPropagatedDel OnNodgesPropagated;
 
 
     [SerializeField]
@@ -38,16 +48,15 @@ public class NodgeSelectionManager : MonoBehaviour
     SelectionMode _selectionMode = SelectionMode.Single;
 
     Node _singleSelectedNode;
+    Node _lastMultipleAdded;
 
-    List<Node> _multipleSelectedNodes;
+    HashSet<Node> _multipleSelectedNodes;
 
-    List<Node> _propagatedNodes;
-    List<Edge> _propagatedEdges;
+    HashSet<Node> _propagatedNodes;
+    HashSet<Edge> _propagatedEdges;
 
-    List<Node> _newPropagatedNodes;
-    List<Edge> _newPropagatedEdges;
-
-    IReadOnlyDictionary<Transform, Node> _nodesDicTf;
+    HashSet<Node> _newPropagatedNodes;
+    HashSet<Edge> _newPropagatedEdges;
 
     GraphConfiguration _graphConfiguration;
 
@@ -56,7 +65,7 @@ public class NodgeSelectionManager : MonoBehaviour
     {
         if(_instance != null)
         {
-            Debug.LogError("NodgeSelectionManager: Start->Multiple instance in the scene(s)");
+            Debug.LogError("NodgeSelectionManager: Start -> Multiple instance in the scene(s)");
             Destroy(this); 
             return;
         }
@@ -70,15 +79,6 @@ public class NodgeSelectionManager : MonoBehaviour
 
         _graphConfiguration = _graphManager.GraphConfiguration;
     }
-
-    
-
-    public void SetNodgeTfs(IReadOnlyDictionary<Transform, Node> nodesDicTf)
-    {
-        _nodesDicTf = nodesDicTf;
-    }
-
-    
 
     [ContextMenu("Switch Mode")]
     public void SwitchSelectionMode()
@@ -100,7 +100,7 @@ public class NodgeSelectionManager : MonoBehaviour
         if (_multipleSelectedNodes.Count == 0)
             return;
 
-        _singleSelectedNode = _multipleSelectedNodes[_multipleSelectedNodes.Count - 1];
+        _singleSelectedNode = _lastMultipleAdded;
         ClearSelectionFromSwitchMode(SelectionMode.Multiple);
 
         StartPropagate(_singleSelectedNode);
@@ -112,6 +112,7 @@ public class NodgeSelectionManager : MonoBehaviour
             return;
 
         _multipleSelectedNodes.Add(_singleSelectedNode);
+        _lastMultipleAdded = _singleSelectedNode;
         _singleSelectedNode = null;
     }
 
@@ -144,6 +145,7 @@ public class NodgeSelectionManager : MonoBehaviour
 
     public void Select(Node node)
     {
+        OnNodeSelected?.Invoke(node);
         Debug.Log("Select : " + node.Value);
         if(_selectionMode == SelectionMode.Single)
         {
@@ -169,6 +171,7 @@ public class NodgeSelectionManager : MonoBehaviour
     private void MultipleSelect(Node node)
     {
         _multipleSelectedNodes.Add(node);
+        _lastMultipleAdded = node;
         StartPropagate(node);
     }
 
@@ -265,6 +268,9 @@ public class NodgeSelectionManager : MonoBehaviour
         _newPropagatedEdges = new();
 
         Propagate(node, _graphConfiguration.LabelNodgePropagation);
+
+        Nodges nodges = new Nodges(_propagatedNodes.ToList(), _propagatedEdges.ToList());
+        OnNodgesPropagated?.Invoke(nodges);
     }
 
     private void Propagate(Node node, int propagationValue)
@@ -278,7 +284,7 @@ public class NodgeSelectionManager : MonoBehaviour
         if (!_propagatedNodes.Contains(node))
         {
             _propagatedNodes.Add(node);
-            node.SetPropagation(true);
+            node.SetPropagation(_graphManager.GraphMode, true);
 
             var labelNodgeUI = _labelNodgeManager.GetLabelNodgeUI(GraphType.Main);
             labelNodgeUI.SetFollow(node.MainGraphNodeTf);
@@ -301,7 +307,7 @@ public class NodgeSelectionManager : MonoBehaviour
 
             for (int j = 0; j < nbEdge; j++)
             {
-                var edge = edges[j];
+                Edge edge = edges[j];
 
 
                 if (_newPropagatedEdges.Contains(edge))
@@ -312,6 +318,7 @@ public class NodgeSelectionManager : MonoBehaviour
                 if (!_propagatedEdges.Contains(edge))
                 {
                     _propagatedEdges.Add(edge);
+                    edge.SetPropagation(_graphManager.GraphMode, true);
 
                     var labelNodgeUI = _labelNodgeManager.GetLabelNodgeUI(GraphType.Main);
                     labelNodgeUI.SetFollow(edge.Source.MainGraphNodeTf, edge.Target.MainGraphNodeTf);
@@ -329,7 +336,7 @@ public class NodgeSelectionManager : MonoBehaviour
     {
         foreach (Node node in _propagatedNodes)
         {
-            node.SetPropagation(false);
+            node.SetPropagation(_graphManager.GraphMode, false);
         }
 
         _propagatedNodes = new();

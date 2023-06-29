@@ -1,3 +1,4 @@
+using AngleSharp.Text;
 using UnityEngine;
 
 public class EdgeStyler : MonoBehaviour
@@ -32,55 +33,135 @@ public class EdgeStyler : MonoBehaviour
     Transform _colliderTf;
 
 
-    public void StyleEdgeForFirstTime()
-    {
-        var styleChange = new StyleChange().Add(StyleChangeType.All);
+    bool _isInPropagation = false;
 
-        StyleEdge(styleChange, true);
+    #region Style
+    public void StyleEdgeBeforeFirstSimu(StyleChange styleChange, GraphMode graphMode)
+    {
+        StyleEdge(styleChange, true, graphMode);
     }
 
-    public void StyleEdge(StyleChange styleChange, bool inSimulation)
+    public void StyleEdge(StyleChange styleChange, bool inSimulation, GraphMode graphMode)
     {
-        if (styleChange.HasChanged(StyleChangeType.Collider))
-            _collider.enabled = GraphConfiguration.CanSelectEdges;
+        if (GraphType == GraphType.Main && !styleChange.HasChanged(StyleChangeType.MainGraph))
+            return;
 
-        if (styleChange.HasChanged(StyleChangeType.Color))
+        if (GraphType == GraphType.Sub && !styleChange.HasChanged(StyleChangeType.SubGraph))
+            return;
+
+
+
+        if (styleChange.HasChanged(StyleChangeType.Color) || styleChange.HasChanged(StyleChangeType.Visibility))
             StyleColor();
 
         if (styleChange.HasChanged(StyleChangeType.Size))
-            StyleSize();
+            StyleSize(styleChange, graphMode);
 
         if (styleChange.HasChanged(StyleChangeType.Position))
         {
             if (!inSimulation)
-                StylePosition();
+                StylePosition(styleChange, graphMode);
         }
     }
 
     private void StyleColor()
     {
-        var color = GraphConfiguration.EdgeColor;
+        var color = _isInPropagation? GraphConfiguration.PropagatedEdgeColor : GraphConfiguration.EdgeColor;
 
-        color.a = GraphConfiguration.CanSelectEdges ? 1f : 0f;
-        _lineRenderer.sharedMaterial.color = color; // TODO : Temporary solution
+        color.a = GraphConfiguration.DisplayEdges ? 1f : 0f;
+
+        _lineRenderer.startColor = color;
+        _lineRenderer.endColor = color;
+
+        //_lineRenderer.sharedMaterial.color = color; // TODO : Temporary solution
     }
 
-    private void StyleSize()
+    private void StyleSize(StyleChange styleChange, GraphMode graphMode)
     {
-        var thickness = (GraphType == GraphType.Main)? GraphConfiguration.EdgeThicknessDesk 
-                                                        : GraphConfiguration.EdgeThicknessImmersion;
+        float thickness;
+        
 
+        if(graphMode == GraphMode.Desk && styleChange.HasChanged(StyleChangeType.DeskMode))
+        {
+            if (GraphType == GraphType.Main)
+            {
+                thickness = GraphConfiguration.EdgeThicknessDesk;
+                SetThickness(thickness);
+            }
+            else if(GraphType == GraphType.Sub)
+            {
+                thickness = GraphConfiguration.EdgeThicknessLens;
+                SetThickness(thickness);
+            }
+
+        }
+
+        if (graphMode == GraphMode.Immersion && styleChange.HasChanged(StyleChangeType.ImmersionMode))
+        {
+            if (GraphType == GraphType.Main)
+            {
+                thickness = GraphConfiguration.EdgeThicknessImmersion;
+                SetThickness(thickness);
+            }
+            else if (GraphType == GraphType.Sub)
+            {
+                thickness = GraphConfiguration.EdgeThicknessWatch;
+                SetThickness(thickness);
+            }
+        }
+
+    }
+
+    private void StylePosition(StyleChange styleChange, GraphMode graphMode)
+    {
+        float scalingFactor;
+        
+        if(graphMode == GraphMode.Desk && styleChange.HasChanged(StyleChangeType.DeskMode))
+        {
+            if (GraphType == GraphType.Main)
+            {
+                scalingFactor = GraphConfiguration.DeskGraphSize;
+                SetPosition(scalingFactor);
+            }
+            else if(GraphType == GraphType.Sub)
+            {
+                scalingFactor = GraphConfiguration.LensGraphSize;
+                SetPosition(scalingFactor);
+            }
+
+        }
+
+        if (graphMode == GraphMode.Immersion && styleChange.HasChanged(StyleChangeType.ImmersionMode))
+        {
+            if (GraphType == GraphType.Main)
+            {
+                scalingFactor = GraphConfiguration.ImmersionGraphSize;
+                SetPosition(scalingFactor);
+            }
+            else if (GraphType == GraphType.Sub)
+            {
+                scalingFactor = GraphConfiguration.WatchGraphSize;
+                SetPosition(scalingFactor);
+            }
+        }
+    }
+
+
+    public void SetColliderAfterEndSimu(GraphMode graphMode)
+    {
+        //StylePosition(styleChange, graphMode);
+    }
+
+    private void SetThickness(float thickness)
+    {
         _lineRenderer.startWidth = thickness;
         _lineRenderer.endWidth = thickness;
 
-        _collider.radius = thickness;
+        //_collider.radius = thickness;
     }
 
-    private void StylePosition()
+    private void SetPosition(float scalingFactor)
     {
-        float scalingFactor = (GraphType == GraphType.Main) ? GraphConfiguration.ImmersionGraphSize
-                                                                : GraphConfiguration.GPSGraphSize;
-
         var positionA = Edge.Source.AbsolutePosition * scalingFactor;
         var positionB = Edge.Target.AbsolutePosition * scalingFactor;
 
@@ -88,16 +169,17 @@ public class EdgeStyler : MonoBehaviour
         _lineRenderer.SetPosition(1, positionB);
 
 
-        _colliderTf.localPosition = Vector3.Lerp(positionA, positionB, 0.5f);
-        _collider.height = (positionB - positionA).magnitude;
+        //_colliderTf.localPosition = Vector3.Lerp(positionA, positionB, 0.5f);
+        //_collider.height = (positionB - positionA).magnitude;
 
-        Vector3 worldPositionB = _tf.parent.TransformPoint(positionB);
-        _colliderTf.LookAt(worldPositionB);
+        //Vector3 worldPositionB = _tf.parent.TransformPoint(positionB);
+        //_colliderTf.LookAt(worldPositionB);
     }
+    #endregion
 
-
-    public void SetColliderAfterEndSimu()
+    public void SetPropagation(bool isInPropagation)
     {
-        StylePosition();
+        _isInPropagation = isInPropagation;
+        StyleColor();
     }
 }

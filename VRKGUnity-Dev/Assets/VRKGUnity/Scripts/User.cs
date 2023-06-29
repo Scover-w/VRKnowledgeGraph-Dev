@@ -17,17 +17,20 @@ public class User : MonoBehaviour
     {
         if (_graphManager.IsRunningSimulation)
         {
+            Debug.Log("Can't switch Mode when running simulation");
             // TODO : Notification can't switch mode in simulation
             return;
         }
 
         if(_graphMode == GraphMode.Desk)
         {
+            Debug.Log("Switch to Immersion Mode");
             _graphMode = GraphMode.Immersion;
             _graphManager.TrySwitchModeToImmersion();
         }
         else
         {
+            Debug.Log("Switch to Desk Mode");
             _graphMode = GraphMode.Desk;
             _graphManager.TrySwitchModeToDesk();
         }

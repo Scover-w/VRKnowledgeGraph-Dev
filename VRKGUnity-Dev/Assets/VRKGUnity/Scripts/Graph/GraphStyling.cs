@@ -42,12 +42,12 @@ public class GraphStyling : MonoBehaviour
         if(_isFirstSimu)
         {
             _isFirstSimu = false;
-            StyleGraphForFirstTime();
+            StyleGraphBeforeFirstSimu();
             return;
         }
     }
 
-    private void StyleGraphForFirstTime()
+    private void StyleGraphBeforeFirstSimu()
     {
         var graph = _graphManager.Graph;
         var nodesDicId = graph.NodesDicId;
@@ -55,10 +55,12 @@ public class GraphStyling : MonoBehaviour
         NodeStyler.GraphConfiguration = _graphConfiguration;
         EdgeStyler.GraphConfiguration = _graphConfiguration;
 
+        StyleChange styleChange = new StyleChange().Add(StyleChangeType.All);
+
         foreach (var idAndNode in nodesDicId)
         {
             var node = idAndNode.Value;
-            node.MainGraphStyler.StyleNodeForFirstTime();
+            node.MainGraphStyler.StyleNodeBeforeFirstSimu(styleChange, Settings.DEFAULT_GRAPH_MODE);
         }
 
         var edgeDicId = graph.EdgesDicId;
@@ -66,7 +68,7 @@ public class GraphStyling : MonoBehaviour
         foreach (var idAndEdge in edgeDicId)
         {
             var edge = idAndEdge.Value;
-            edge.MainGraphStyler.StyleEdgeForFirstTime();
+            edge.MainGraphStyler.StyleEdgeBeforeFirstSimu(styleChange, Settings.DEFAULT_GRAPH_MODE);
         }
     }
 
@@ -78,11 +80,11 @@ public class GraphStyling : MonoBehaviour
         foreach (var idAndEdge in edgeDicId)
         {
             var edge = idAndEdge.Value;
-            edge.MainGraphStyler.SetColliderAfterEndSimu();
+            edge.MainGraphStyler.SetColliderAfterEndSimu(_graphManager.GraphMode);
         }
     }
 
-    public void StyleGraph(StyleChange styleChange)
+    public void StyleGraph(StyleChange styleChange, GraphMode graphMode)
     {
         var graph = _graphManager.Graph;
 
@@ -106,10 +108,10 @@ public class GraphStyling : MonoBehaviour
                 var node = idAndNode.Value;
                 
                 if(hasChangedMainGraph)
-                    node.MainGraphStyler.StyleNode(styleChange, isRunningSim);
+                    node.MainGraphStyler.StyleNode(styleChange, isRunningSim, graphMode);
 
                 if(hasChangedSubGraph)
-                    node.SubGraphStyler.StyleNode(styleChange, isRunningSim);
+                    node.SubGraphStyler.StyleNode(styleChange, isRunningSim, graphMode);
             }
         }
 
@@ -123,10 +125,10 @@ public class GraphStyling : MonoBehaviour
             var edge = idAndEdge.Value;
 
             if (hasChangedMainGraph)
-                edge.MainGraphStyler.StyleEdge(styleChange, isRunningSim);
+                edge.MainGraphStyler.StyleEdge(styleChange, isRunningSim, graphMode);
 
             if (hasChangedSubGraph)
-                edge.SubGraphStyler.StyleEdge(styleChange, isRunningSim);
+                edge.SubGraphStyler.StyleEdge(styleChange, isRunningSim, graphMode);
         }
     }
 }

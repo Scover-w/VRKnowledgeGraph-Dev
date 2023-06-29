@@ -7,7 +7,7 @@ using UnityEngine;
 public static class NodgesHelper
 {
 
-    public static async Task<Nodges> RetreiveGraph(string query, GraphDbRepository repo)
+    public static async Task<NodgesDicId> RetreiveGraph(string query, GraphDbRepository repo)
     {
         var debugChrono = DebugChrono.Instance;
         debugChrono.Start("RetreiveGraph");
@@ -26,9 +26,9 @@ public static class NodgesHelper
         return nodges;
     }
 
-    public static Nodges ExtractNodges(this JObject data, GraphDbRepositoryNamespaces repoUri)
+    public static NodgesDicId ExtractNodges(this JObject data, GraphDbRepositoryNamespaces repoUri)
     {
-        var nodges = new Nodges();
+        var nodges = new NodgesDicId();
 
         var nodesDicId = nodges.NodesDicId;
         var edgesDicId = nodges.EdgesDicId;
@@ -106,9 +106,9 @@ public static class NodgesHelper
         return nodges;
     }
 
-    public static Nodges ExtractNodgesForDistantUri(this JObject data)
+    public static NodgesDicId ExtractNodgesForDistantUri(this JObject data)
     {
-        var nodges = new Nodges();
+        var nodges = new NodgesDicId();
 
         var nodesDicId = nodges.NodesDicId;
         var edgesDicId = nodges.EdgesDicId;
@@ -184,7 +184,7 @@ public static class NodgesHelper
     /// Allow to compact the graph by removing solo edge nodes.
     /// </summary>
     /// <param name="nodges"></param>
-    private static void MergePropertiesNodes(this Nodges nodges)
+    private static void MergePropertiesNodes(this NodgesDicId nodges)
     {
         // Remove Nodes than can be properties for other nodes
         List<Node> nodeToRemove = new();
@@ -256,7 +256,7 @@ public static class NodgesHelper
         }
     }
 
-    public static void ExtractNodeNamesToProperties(this Nodges nodges)
+    public static void ExtractNodeNamesToProperties(this NodgesDicId nodges)
     {
         var nodesDicId = nodges.NodesDicId;
 
@@ -371,7 +371,7 @@ public static class NodgesHelper
         }
     }
 
-    public static void AddRetrievedNames(this Nodges nodges, GraphDbRepositoryDistantUris graphDbRepositoryDistantUris)
+    public static void AddRetrievedNames(this NodgesDicId nodges, GraphDbRepositoryDistantUris graphDbRepositoryDistantUris)
     {
         AddRetrievedNames(nodges.NodesDicId, graphDbRepositoryDistantUris);
     }

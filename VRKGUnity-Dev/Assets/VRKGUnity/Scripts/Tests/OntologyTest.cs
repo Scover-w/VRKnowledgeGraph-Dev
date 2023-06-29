@@ -32,7 +32,7 @@ public class OntologyTest : MonoBehaviour
 
         var data = JsonConvert.DeserializeObject<JObject>(json);
 
-        var nodges = new Nodges();
+        var nodges = new NodgesDicId();
 
         var nodesDicId = nodges.NodesDicId;
         var edgesDicId = nodges.EdgesDicId;

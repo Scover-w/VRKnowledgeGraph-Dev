@@ -18,7 +18,7 @@ public class DynamicFilterManager
     }
 
 
-    public Nodges Filter(Nodges nodges)
+    public NodgesDicId Filter(NodgesDicId nodges)
     {
         return nodges;
     }

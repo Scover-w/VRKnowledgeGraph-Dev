@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class NodgeCreator : MonoBehaviour
 {
-    private void RefreshPositions(Nodges nodges, GraphConfiguration config)
+    private void RefreshPositions(NodgesDicId nodges, GraphConfiguration config)
     {
         var idAndNodes = nodges.NodesDicId;
         int seed = config.SeedRandomPosition;
@@ -17,7 +17,7 @@ public class NodgeCreator : MonoBehaviour
         }
     }
 
-    private void GetCentralNode(Nodges nodges)
+    private void GetCentralNode(NodgesDicId nodges)
     {
         int nb = -1;
         Node centralNode = new("","");

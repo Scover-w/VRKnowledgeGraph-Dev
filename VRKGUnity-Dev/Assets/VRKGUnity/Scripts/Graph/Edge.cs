@@ -3,14 +3,6 @@ using UnityEngine;
 
 public class Edge : IEdge<Node>
 {
-    public bool AciveSelf
-    {
-        get
-        {
-            return _activeSelf;
-        }
-    }
-
     public int Id;
     public NodgeType Type;
     public string Value;
@@ -26,7 +18,8 @@ public class Edge : IEdge<Node>
     public EdgeStyler MainGraphStyler;
     public EdgeStyler SubGraphStyler;
 
-    private bool _activeSelf;
+    private bool _doDisplayMainEdge;
+    private bool _doDisplaySubEdge;
 
     public Edge(string type, string value, Node source, Node target) 
     {
@@ -37,14 +30,39 @@ public class Edge : IEdge<Node>
 
         Id = (source.Value + target.Value).GetHashCode();
 
-        _activeSelf = false;
+        _doDisplayMainEdge = false;
+        _doDisplaySubEdge = false;
     }
 
-    public void SetActive(bool value)
+    public void DisplayMainEdge(bool doDisplayMainEdge)
     {
-        _activeSelf = value;
-        MainGraphLine.enabled = value;
+        _doDisplayMainEdge = doDisplayMainEdge;
+        MainGraphLine.enabled = doDisplayMainEdge;
     }
+
+    public void DisplaySubEdge(bool doDisplaySubEdge)
+    {
+        _doDisplaySubEdge = doDisplaySubEdge;
+        MainGraphLine.enabled = _doDisplaySubEdge;
+    }
+
+    public void SetPropagation(GraphMode graphMode, bool isInPropagation)
+    {
+        if (MainGraphStyler != null)
+            MainGraphStyler.SetPropagation(isInPropagation);
+
+        if (SubGraphStyler == null)
+            return;
+
+        SubGraphStyler.SetPropagation(isInPropagation);
+
+        if (graphMode != GraphMode.Desk)
+            return;
+
+        DisplaySubEdge(isInPropagation);
+    }
+
+
 
     public void CleanFromNodes()
     {

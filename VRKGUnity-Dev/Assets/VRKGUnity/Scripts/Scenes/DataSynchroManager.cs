@@ -159,11 +159,12 @@ public class DataSynchroManager : MonoBehaviour
 
 
 
-        Nodges nodges = await NodgesHelper.RetreiveGraph(queryString, _graphRepo);
+        NodgesDicId nodges = await NodgesHelper.RetreiveGraph(queryString, _graphRepo);
         NodgesSimuData nodgesSimuData = new NodgesSimuData(nodges);
         await _graphSimu.Run(nodgesSimuData);
 
         float maxDistance = GetMaxDistance(nodgesSimuData);
+        Debug.Log(maxDistance);
         _referenceHolderSo.MaxDistanceGraph = maxDistance;
     }
 

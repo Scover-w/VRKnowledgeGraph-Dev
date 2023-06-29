@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public delegate void GraphUpdateDel(GraphUpdateType updateType);
+
 
 [DefaultExecutionOrder(-1)]
 public class GraphManager : MonoBehaviour
@@ -16,6 +16,10 @@ public class GraphManager : MonoBehaviour
     public SubGraph SubGraph { get { return _subGraph; } }
 
     public bool IsRunningSimulation { get { return _graphSimulation.IsRunningSimulation; } }
+
+    public GraphMode GraphMode { get { return _graphMode; } }
+
+    public delegate void GraphUpdateDel(GraphUpdateType updateType);
 
     public GraphUpdateDel OnGraphUpdate;
 
@@ -53,6 +57,7 @@ public class GraphManager : MonoBehaviour
     GraphDbRepository _graphRepo;
     GraphConfiguration _graphConfiguration;
 
+    GraphMode _graphMode;
     GraphMode _nextGraphMode;
     bool _switchingMode = false;
 
@@ -61,6 +66,7 @@ public class GraphManager : MonoBehaviour
         Scene currentScene = gameObject.scene; 
         SceneManager.SetActiveScene(currentScene);
 
+        _graphMode = GraphMode.Desk;
         _dynamicFilterManager = new();
         _graphConfiguration = await _graphConfigurationContainerSO.GetGraphConfiguration();
 
@@ -77,8 +83,6 @@ public class GraphManager : MonoBehaviour
         var nodges = await NodgesHelper.RetreiveGraph(queryString, _graphRepo);
 
         _graph = new Graph(this, _graphStyling, nodges, _nodgePool);
-
-        _nodgeSelectionManager.SetNodgeTfs(_graph.NodesDicTf);
 
         _graph.CalculateMetrics(graphRepoUris);
 
@@ -128,7 +132,10 @@ public class GraphManager : MonoBehaviour
     public void TrySwitchModeToDesk()
     {
         if (IsRunningSimulation || _switchingMode)
+        {
+            Debug.Log("Couldn't switch Mode");
             return;
+        }
 
         _nextGraphMode = GraphMode.Desk;
         OnGraphUpdate?.Invoke(GraphUpdateType.BeforeSwitchMode);
@@ -139,7 +146,10 @@ public class GraphManager : MonoBehaviour
     public void TrySwitchModeToImmersion()
     {
         if (IsRunningSimulation || _switchingMode)
+        {
+            Debug.Log("Couldn't switch Mode");
             return;
+        }
 
         _nextGraphMode = GraphMode.Immersion;
         OnGraphUpdate?.Invoke(GraphUpdateType.BeforeSwitchMode);

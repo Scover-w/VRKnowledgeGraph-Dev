@@ -25,12 +25,13 @@ public class LabelNodgeManagerUI : MonoBehaviour
     GraphConfiguration _graphConfig;
     Transform _hmdTf;
 
-    bool _displayInDeskMode = false;
-    bool _displayInImmersionMode = true;
+    bool _displayLabelsDesk;
+    bool _displayLabelsImmersion;
+    bool _displayLabelsLens;
 
     bool _inTransitionForSwitchMode = false;
 
-    GraphMode _graphMode = GraphMode.Desk;
+    GraphMode _graphMode = Settings.DEFAULT_GRAPH_MODE;
 
     Vector2 _baseSizeCanvas = Settings.BASE_SIZE_LABEL_CANVAS;
     float _baseFontSize = Settings.BASE_FONT_SIZE_LABEL;
@@ -44,6 +45,9 @@ public class LabelNodgeManagerUI : MonoBehaviour
         _graphManager.OnGraphUpdate += OnGraphUpdated;
 
         _graphConfig = await _graphConfigurationContainerSO.GetGraphConfiguration();
+        _displayLabelsDesk = _graphConfig.ShowLabelDesk;
+        _displayLabelsImmersion = _graphConfig.ShowLabelImmersion;
+        _displayLabelsLens = _graphConfig.ShowLabelLens;
     }
 
     void Update()
@@ -71,8 +75,8 @@ public class LabelNodgeManagerUI : MonoBehaviour
 
             if (styleChange.HasChanged(StyleChangeType.Visibility))
             {
-                _displayInImmersionMode = _graphConfig.ShowLabelImmersion;
-                SetVisibilityLabels(_labelNodgesMainGraph, _displayInImmersionMode);
+                _displayLabelsImmersion = _graphConfig.ShowLabelImmersion;
+                SetVisibilityLabels(_labelNodgesMainGraph, _displayLabelsImmersion);
             }
             return;
         }
@@ -86,14 +90,14 @@ public class LabelNodgeManagerUI : MonoBehaviour
 
         if (styleChange.HasChanged(StyleChangeType.Visibility))
         {
-            _displayInDeskMode = _graphConfig.ShowLabelDesk;
+            _displayLabelsDesk = _graphConfig.ShowLabelDesk;
             SetVisibilityLabels(_labelNodgesMainGraph, _graphConfig.ShowLabelDesk);
         }
     }
 
     private void StyleLabelFromSubGraph(StyleChange styleChange)
     {
-        // No labels for subgraph immersion mode/gps 
+        // No labels for subgraph immersion mode/watch 
 
 
         if (!(_graphMode == GraphMode.Desk && styleChange.HasChanged(StyleChangeType.DeskMode)))
@@ -105,8 +109,8 @@ public class LabelNodgeManagerUI : MonoBehaviour
 
         if (styleChange.HasChanged(StyleChangeType.Visibility))
         {
-            _displayInDeskMode = _graphConfig.ShowLabelDesk;
-            SetVisibilityLabels(_labelNodgesSubGraph, _displayInDeskMode);
+            _displayLabelsLens = _graphConfig.ShowLabelLens;
+            SetVisibilityLabels(_labelNodgesSubGraph, _displayLabelsDesk);
         }
     }
 
@@ -181,14 +185,14 @@ public class LabelNodgeManagerUI : MonoBehaviour
 
             foreach (LabelNodgeUI label in _labelNodgesMainGraph)
             {
-                label.SetAll(_displayInImmersionMode, sizeConvas, fontSize);
+                label.SetAll(_displayLabelsImmersion, sizeConvas, fontSize);
             }
 
             return;
         }
 
 
-        if(_graphMode == GraphMode.Desk && _displayInDeskMode)
+        if(_graphMode == GraphMode.Desk && _displayLabelsDesk)
         {
 
             float scale = _graphConfig.LabelNodeSizeDesk;
@@ -197,7 +201,7 @@ public class LabelNodgeManagerUI : MonoBehaviour
 
             foreach (LabelNodgeUI label in _labelNodgesMainGraph)
             {
-                label.SetAll(_displayInDeskMode, sizeConvas, fontSize);
+                label.SetAll(_displayLabelsDesk, sizeConvas, fontSize);
             }
 
             scale = _graphConfig.LabelNodeSizeLens;
@@ -206,7 +210,7 @@ public class LabelNodgeManagerUI : MonoBehaviour
 
             foreach (LabelNodgeUI label in _labelNodgesSubGraph)
             {
-                label.SetAll(_displayInDeskMode, sizeConvas, fontSize);
+                label.SetAll(_displayLabelsDesk, sizeConvas, fontSize);
             }
         }
     }
@@ -227,7 +231,7 @@ public class LabelNodgeManagerUI : MonoBehaviour
         }
 
 
-        if (_graphMode == GraphMode.Immersion) // if subgraph is in gps mode
+        if (_graphMode == GraphMode.Immersion) // if subgraph is in watch mode
             return;
 
         float nodeSizeSub = GetNodeSize(GraphType.Sub);
@@ -267,7 +271,7 @@ public class LabelNodgeManagerUI : MonoBehaviour
         bool isChangingSize = _graphConfig.SelectedMetricTypeSize != GraphMetricType.None;
 
 
-        if(_graphMode == GraphMode.Immersion) // Don't handle gps mode because don't display them in it
+        if(_graphMode == GraphMode.Immersion) // Don't handle watch mode because don't display them in it
         {
             if (isChangingSize)
                 return _graphConfig.NodeMaxSizeImmersion;

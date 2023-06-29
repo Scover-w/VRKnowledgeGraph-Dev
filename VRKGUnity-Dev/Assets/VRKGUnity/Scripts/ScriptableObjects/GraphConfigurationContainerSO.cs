@@ -14,6 +14,7 @@ public class GraphConfigurationContainerSO : ScriptableObject
     [Header("Colors")]
     public Color NodeColor = Color.white;
     public Color EdgeColor = Color.white;
+    public Color PropagatedEdgeColor = Color.white;
 
     [Space(10)]
     public Color NodeColorA = Color.white;
@@ -87,6 +88,9 @@ public class GraphConfigurationContainerSO : ScriptableObject
     private async void OnValidate()
     {
         _graphConfiguration.EdgeColor = EdgeColor;
+        _graphConfiguration.PropagatedEdgeColor = PropagatedEdgeColor;
+
+
         _graphConfiguration.NodeColor = NodeColor;
 
         _graphConfiguration.NodeColorMapping.ColorA = NodeColorA;

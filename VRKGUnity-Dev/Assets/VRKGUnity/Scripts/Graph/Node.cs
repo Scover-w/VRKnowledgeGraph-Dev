@@ -13,7 +13,7 @@ public class Node
     {
         get
         {
-            return _activeSelf;
+            return _doDisplayMainNode;
         }
     }
 
@@ -38,7 +38,8 @@ public class Node
     public Vector3 AbsoluteVelocity;
     
     public Dictionary<string, string> Properties;
-    private bool _activeSelf;
+    private bool _doDisplayMainNode;
+    private bool _doDisplaySubNode;
 
     public OntoNodeGroup OntoNodeGroup;
 
@@ -61,7 +62,8 @@ public class Node
 
         Properties = new();
 
-        _activeSelf = false;
+        _doDisplayMainNode = false;
+        _doDisplaySubNode = false;
     }
 
     public Node(string type, string value)
@@ -70,7 +72,7 @@ public class Node
         Value = value;
         Id = Value.GetHashCode();
 
-        _activeSelf = false;
+        _doDisplayMainNode = false;
     }
 
     public string GetName()
@@ -197,10 +199,16 @@ public class Node
     //    }
     //}
 
-    public void SetActive(bool value)
+    public void DisplayMainNode(bool doDisplayMainNode)
     {
-        _activeSelf = value;
-        MainGraphNodeTf.gameObject.SetActive(value);
+        _doDisplayMainNode = doDisplayMainNode;
+        MainGraphNodeTf.gameObject.SetActive(_doDisplayMainNode);
+    }
+
+    public void DisplaySubNode(bool doDisplaySubNode)
+    {
+        _doDisplaySubNode = doDisplaySubNode;
+        SubGraphNodeTf.gameObject.SetActive(_doDisplaySubNode);
     }
 
     public List<Node> GetNeighbors()
@@ -222,13 +230,20 @@ public class Node
         return neighbors;
     }
 
-    public void SetPropagation(bool isInPropagation)
+    public void SetPropagation(GraphMode graphMode, bool isInPropagation)
     {
         if(MainGraphStyler != null)
             MainGraphStyler.SetPropagation(isInPropagation);
 
-        if(SubGraphStyler != null)
-            SubGraphStyler.SetPropagation(isInPropagation);
+        if (SubGraphStyler == null)
+            return;
+
+        SubGraphStyler.SetPropagation(isInPropagation);
+
+        if (graphMode != GraphMode.Desk)
+            return;
+
+        DisplaySubNode(isInPropagation);
     }
 
     public void UnSelect()

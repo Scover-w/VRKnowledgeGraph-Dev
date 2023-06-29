@@ -6,6 +6,9 @@ public class GraphStylingUI : MonoBehaviour
     GraphConfigurationContainerSO _graphConfigContainerSO;
 
     [SerializeField]
+    GraphManager _graphManager;
+
+    [SerializeField]
     GraphStyling _graphStyling;
 
     [SerializeField]
@@ -18,7 +21,7 @@ public class GraphStylingUI : MonoBehaviour
     public float ImmersionGraphSize = 1f;
     public float DeskGraphSize = 1f;
 
-    public float GPSGraphSize = 1f;
+    public float WatchGraphSize = 1f;
     public float LensGraphSize = 1f;
 
     [Header("Node Size")]
@@ -26,7 +29,7 @@ public class GraphStylingUI : MonoBehaviour
     public float NodeSizeDesk = 1f;
 
     [Space(5)]
-    public float NodeSizeGPS = 1f;
+    public float NodeSizeWatch = 1f;
     public float NodeSizeLens = 1f;
 
     [Space(5)]
@@ -50,6 +53,7 @@ public class GraphStylingUI : MonoBehaviour
     [Space(5)]
     public bool ShowLabelImmersion = true;
     public bool ShowLabelDesk = true;
+    public bool ShowLabelLens = true;
 
 
     [Header("Node Color")]
@@ -81,14 +85,16 @@ public class GraphStylingUI : MonoBehaviour
 
     [Header("Edge")]
     public Color EdgeColor;
+    public Color PropagatedEdgeColor;
 
     public float EdgeThicknessImmersion = 1f;
     public float EdgeThicknessDesk = 1f;
     public float EdgeThicknessLens = 1f;
-    public float EdgeThicknessGPS = 1f;
+    public float EdgeThicknessWatch = 1f;
 
 
     public bool CanSelectEdges;
+    public bool DisplayEdges;
 
     [Header("SelectedMetrics")]
     public GraphMetricType SelectedMetricTypeSize = GraphMetricType.None;
@@ -114,7 +120,7 @@ public class GraphStylingUI : MonoBehaviour
         NodeSizeImmersion = _graphConfig.NodeSizeImmersion;
         NodeSizeDesk = _graphConfig.NodeSizeDesk;
 
-        NodeSizeGPS = _graphConfig.NodeSizeGPS;
+        NodeSizeWatch = _graphConfig.NodeSizeWatch;
         NodeSizeLens = _graphConfig.NodeSizeLens;
 
         NodeMinSizeImmersion = _graphConfig.NodeMinSizeImmersion;
@@ -126,8 +132,6 @@ public class GraphStylingUI : MonoBehaviour
         NodeMinSizeLens = _graphConfig.NodeMinSizeLens;
         NodeMaxSizeLens = _graphConfig.NodeMaxSizeLens;
 
-
-
         LabelNodeSizeImmersion = _graphConfig.LabelNodeSizeImmersion;
         LabelNodeSizeDesk = _graphConfig.LabelNodeSizeDesk;
 
@@ -135,6 +139,8 @@ public class GraphStylingUI : MonoBehaviour
 
         ShowLabelImmersion = _graphConfig.ShowLabelImmersion;
         ShowLabelDesk = _graphConfig.ShowLabelDesk;
+
+        ShowLabelLens = _graphConfig.ShowLabelLens;
 
 
         NodeColor = _graphConfig.NodeColor;
@@ -164,18 +170,20 @@ public class GraphStylingUI : MonoBehaviour
         ImmersionGraphSize = _graphConfig.ImmersionGraphSize;
         DeskGraphSize = _graphConfig.DeskGraphSize;
 
-        GPSGraphSize = _graphConfig.GPSGraphSize;
+        WatchGraphSize = _graphConfig.WatchGraphSize;
         LensGraphSize = _graphConfig.LensGraphSize;
 
 
         EdgeColor = _graphConfig.EdgeColor;
+        PropagatedEdgeColor = _graphConfig.PropagatedEdgeColor;
 
         EdgeThicknessImmersion = _graphConfig.EdgeThicknessImmersion;
         EdgeThicknessDesk = _graphConfig.EdgeThicknessDesk;
         EdgeThicknessLens = _graphConfig.EdgeThicknessLens;
-        EdgeThicknessGPS = _graphConfig.EdgeThicknessGPS;
+        EdgeThicknessWatch = _graphConfig.EdgeThicknessWatch;
 
         CanSelectEdges = _graphConfig.CanSelectEdges;
+        DisplayEdges = _graphConfig.DisplayEdges;
 
 
         LabelNodgePropagation = _graphConfig.LabelNodgePropagation;
@@ -185,10 +193,10 @@ public class GraphStylingUI : MonoBehaviour
         SeedRandomPosition = _graphConfig.SeedRandomPosition;
  
         GraphModeTransitionTime = _graphConfig.GraphModeTransitionTime;
-}
+    }
 
 
-    public void UpdateGraph(StyleChange styleChange)
+    public void UpdateGraph(StyleChange styleChange, GraphMode graphMode)
     {
         if (_graphConfig == null)
             return;
@@ -196,7 +204,7 @@ public class GraphStylingUI : MonoBehaviour
         if (styleChange.HasChanged(StyleChangeType.Label))
             _labelNodgeManagerUI.StyleLabels(styleChange);
         else
-            _graphStyling.StyleGraph(styleChange);
+            _graphStyling.StyleGraph(styleChange, graphMode);
 
         _graphConfig.Save();
 
@@ -256,9 +264,9 @@ public class GraphStylingUI : MonoBehaviour
         }
 
 
-        if (_graphConfig.NodeSizeGPS != NodeSizeGPS)
+        if (_graphConfig.NodeSizeWatch != NodeSizeWatch)
         {
-            _graphConfig.NodeSizeGPS = NodeSizeGPS;
+            _graphConfig.NodeSizeWatch = NodeSizeWatch;
             styleChange = styleChange.Add(StyleChangeType.SubGraph)
                 .Add(StyleChangeType.ImmersionMode)
                 .Add(StyleChangeType.Node)
@@ -497,9 +505,9 @@ public class GraphStylingUI : MonoBehaviour
                 .Add(StyleChangeType.Position);
         }
 
-        if (_graphConfig.GPSGraphSize != GPSGraphSize)
+        if (_graphConfig.WatchGraphSize != WatchGraphSize)
         {
-            _graphConfig.GPSGraphSize = GPSGraphSize;
+            _graphConfig.WatchGraphSize = WatchGraphSize;
             styleChange = styleChange.Add(StyleChangeType.SubGraph)
                 .Add(StyleChangeType.ImmersionMode)
                 .Add(StyleChangeType.Node)
@@ -538,6 +546,15 @@ public class GraphStylingUI : MonoBehaviour
                 .Add(StyleChangeType.Edge)
                 .Add(StyleChangeType.Color);
         }
+        
+        if (_graphConfig.PropagatedEdgeColor != PropagatedEdgeColor)
+        {
+            _graphConfig.PropagatedEdgeColor = PropagatedEdgeColor;
+            styleChange = styleChange.Add(StyleChangeType.SubGraph)
+                .Add(StyleChangeType.MainGraph)
+                .Add(StyleChangeType.Edge)
+                .Add(StyleChangeType.Color);
+        }
 
 
         if (_graphConfig.EdgeThicknessImmersion != EdgeThicknessImmersion)
@@ -567,9 +584,9 @@ public class GraphStylingUI : MonoBehaviour
                 .Add(StyleChangeType.Size);
         }
 
-        if (_graphConfig.EdgeThicknessGPS != EdgeThicknessGPS)
+        if (_graphConfig.EdgeThicknessWatch != EdgeThicknessWatch)
         {
-            _graphConfig.EdgeThicknessGPS = EdgeThicknessGPS;
+            _graphConfig.EdgeThicknessWatch = EdgeThicknessWatch;
             styleChange = styleChange.Add(StyleChangeType.SubGraph)
                 .Add(StyleChangeType.ImmersionMode)
                 .Add(StyleChangeType.Edge)
@@ -586,6 +603,17 @@ public class GraphStylingUI : MonoBehaviour
                 .Add(StyleChangeType.Edge)
                 .Add(StyleChangeType.Color)
                 .Add(StyleChangeType.Collider);
+        }
+
+        if (_graphConfig.DisplayEdges != DisplayEdges)
+        {
+            _graphConfig.DisplayEdges = DisplayEdges;
+            styleChange = styleChange.Add(StyleChangeType.SubGraph)
+                .Add(StyleChangeType.MainGraph)
+                .Add(StyleChangeType.ImmersionMode)
+                .Add(StyleChangeType.DeskMode)
+                .Add(StyleChangeType.Edge)
+                .Add(StyleChangeType.Visibility);
         }
         #endregion
 
@@ -622,8 +650,7 @@ public class GraphStylingUI : MonoBehaviour
         if (_graphConfig.ShowLabelImmersion != ShowLabelImmersion)
         {
             _graphConfig.ShowLabelImmersion = ShowLabelImmersion;
-            styleChange = styleChange.Add(StyleChangeType.SubGraph)
-                .Add(StyleChangeType.MainGraph)
+            styleChange = styleChange.Add(StyleChangeType.MainGraph)
                 .Add(StyleChangeType.ImmersionMode)
                 .Add(StyleChangeType.Label)
                 .Add(StyleChangeType.Visibility);
@@ -632,8 +659,16 @@ public class GraphStylingUI : MonoBehaviour
         if (_graphConfig.ShowLabelDesk != ShowLabelDesk)
         {
             _graphConfig.ShowLabelDesk = ShowLabelDesk;
+            styleChange = styleChange.Add(StyleChangeType.MainGraph)
+                .Add(StyleChangeType.DeskMode)
+                .Add(StyleChangeType.Label)
+                .Add(StyleChangeType.Visibility);
+        }
+
+        if (_graphConfig.ShowLabelLens != ShowLabelLens)
+        {
+            _graphConfig.ShowLabelLens = ShowLabelLens;
             styleChange = styleChange.Add(StyleChangeType.SubGraph)
-                .Add(StyleChangeType.MainGraph)
                 .Add(StyleChangeType.DeskMode)
                 .Add(StyleChangeType.Label)
                 .Add(StyleChangeType.Visibility);
@@ -668,6 +703,6 @@ public class GraphStylingUI : MonoBehaviour
 
 
 
-        UpdateGraph(styleChange);
+        UpdateGraph(styleChange, _graphManager.GraphMode);
     }
 }

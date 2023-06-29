@@ -61,7 +61,7 @@ public class Graph
     int _metricsCalculated;
 
     #region CREATION_UPDATE_NODGES
-    public Graph(GraphManager graphManager, GraphStyling graphStyling, Nodges nodges, NodgePool nodgePool)
+    public Graph(GraphManager graphManager, GraphStyling graphStyling, NodgesDicId nodges, NodgePool nodgePool)
     {
         _nodesDicId = nodges.NodesDicId; 
         _edgesDicId = nodges.EdgesDicId;
@@ -172,7 +172,7 @@ public class Graph
         _edgesDicTf.Add(edgeStyler.ColliderTf, edge);
     }
 
-    public async Task UpdateNodges(Nodges nodges)
+    public async Task UpdateNodges(NodgesDicId nodges)
     {
         UpdateNodesInGraph(nodges.NodesDicId);
         UpdateEdgesInGraph(nodges.EdgesDicId);
@@ -300,7 +300,7 @@ public class Graph
     {
 
         // DebugChrono.Instance.Start("RefreshTransformPositionsBackground");
-        var scalingFactor = _graphConfiguration.ImmersionGraphSize;
+        var scalingFactor =  (_graphManager.GraphMode == GraphMode.Desk)? _graphConfiguration.DeskGraphSize : _graphConfiguration.ImmersionGraphSize;
 
         foreach (var idAnData in nodeSimuDatas)
         {
@@ -354,7 +354,7 @@ public class Graph
 
         int threadId = Thread.CurrentThread.ManagedThreadId;
 
-        _graphStyling.StyleGraph(new StyleChange().Add(StyleChangeType.All));
+        _graphStyling.StyleGraph(new StyleChange().Add(StyleChangeType.All), _graphManager.GraphMode);
 
 
         void CalculateMetric(Action metricCalculation)

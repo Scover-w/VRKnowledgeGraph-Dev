@@ -38,7 +38,7 @@ public class GraphConfiguration
     public float ImmersionGraphSize = 1f;
     public float DeskGraphSize = 1f;
     [Space(5)]
-    public float GPSGraphSize = 1f;
+    public float WatchGraphSize = 1f;
     public float LensGraphSize = 1f;
 
 
@@ -48,7 +48,7 @@ public class GraphConfiguration
     public float NodeSizeDesk = 1f;
 
     [Space(5)]
-    public float NodeSizeGPS = 1f;
+    public float NodeSizeWatch = 1f;
     public float NodeSizeLens = 1f;
 
     [Space(5)]
@@ -73,15 +73,18 @@ public class GraphConfiguration
     public bool ShowLabelImmersion = true;
     public bool ShowLabelDesk = true;
 
+    public bool ShowLabelLens = true;
+
 
     [Space(10)]
     [Header("Edge")]
     public float EdgeThicknessImmersion = 1f;
     public float EdgeThicknessDesk = 1f;
     public float EdgeThicknessLens = 1f;
-    public float EdgeThicknessGPS = 1f;
+    public float EdgeThicknessWatch = 1f;
     [Space(5)]
     public bool CanSelectEdges = true;
+    public bool DisplayEdges = true;
 
 
     [JsonIgnore]
@@ -123,6 +126,19 @@ public class GraphConfiguration
         }
     }
 
+    [JsonIgnore]
+    public Color PropagatedEdgeColor
+    {
+        get
+        {
+            return _propagatedEdgeColor.ToUnityColor();
+        }
+        set
+        {
+            _propagatedEdgeColor = value.ToSystemColor();
+        }
+    }
+
 
 
     [JsonProperty("NodeColor_")]
@@ -137,6 +153,8 @@ public class GraphConfiguration
     [JsonProperty("EdgeColor_")]
     [SerializeField]
     private System.Drawing.Color _edgeColor = System.Drawing.Color.White;
+
+    private System.Drawing.Color _propagatedEdgeColor = System.Drawing.Color.White;
 
     [Header("Ontology")]
     [Range(1, 15)]

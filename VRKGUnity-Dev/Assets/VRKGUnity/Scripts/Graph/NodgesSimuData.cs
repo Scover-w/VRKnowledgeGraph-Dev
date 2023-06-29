@@ -15,7 +15,7 @@ public class NodgesSimuData
         EdgeSimuDatas = edgeSimuDatas;
     }
 
-    public NodgesSimuData(Nodges nodges)
+    public NodgesSimuData(NodgesDicId nodges)
     {
         NodeSimuDatas = nodges.NodesDicId.ToSimuDatas();
         EdgeSimuDatas = nodges.EdgesDicId.ToSimuDatas();
