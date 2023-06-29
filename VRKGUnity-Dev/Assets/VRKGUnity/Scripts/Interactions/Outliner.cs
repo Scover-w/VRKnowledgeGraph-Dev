@@ -110,13 +110,13 @@ public class Outliner : MonoBehaviour
         UpdateMaterialProperties();
     }
 
-    public void UpdateInteraction(bool isHovered, bool isSelected, bool isInPropagation)
+    public void UpdateInteraction(bool isHovered, bool isSelected, bool isInPropagation, bool isMainGraph)
     {
         Color color = Color.white;
 
 
-        // Allow to color in the selected when click on node, and not stay in the isHovered Color
-        if(isSelected && _lastIsSelect == false)
+        // Allow to color in the selected when click on node, and not stay in the isHovered Color, but only in the maingraph
+        if(isSelected && (!isMainGraph || _lastIsSelect == false))
         {
             color = _selectedColor;
         }

@@ -191,15 +191,21 @@ public class SubGraph : MonoBehaviour
         if (_subGraphMode != SubGraphMode.Lens)
             return;
 
+        DisplayPropagatedNodes(propagatedNodges);
+        RecenterLensGraph();
+    }
+
+    private void DisplayPropagatedNodes(Nodges propagatedNodges)
+    {
         var nodesToDisplay = propagatedNodges.Nodes;
         var edgesToDisplay = propagatedNodges.Edges;
 
 
-        var newDisplayedNodes = new HashSet<Node>(_displayedNodes);
-        var newDisplayedEdges = new HashSet<Edge>(_displayedEdges);
+        var newDisplayedNodes = new HashSet<Node>();
+        var newDisplayedEdges = new HashSet<Edge>();
 
 
-        foreach(Node nodeToDisplay in nodesToDisplay)
+        foreach (Node nodeToDisplay in nodesToDisplay)
         {
             if (_displayedNodes.Contains(nodeToDisplay))
             {
@@ -212,7 +218,7 @@ public class SubGraph : MonoBehaviour
             newDisplayedNodes.Add(nodeToDisplay);
         }
 
-        foreach(Node nodeToHide in _displayedNodes)
+        foreach (Node nodeToHide in _displayedNodes)
         {
             nodeToHide.DisplaySubNode(false);
         }
@@ -238,6 +244,24 @@ public class SubGraph : MonoBehaviour
         }
 
         _displayedEdges = newDisplayedEdges;
+    }
+
+    private void RecenterLensGraph()
+    {
+        Vector3 centerGraph = Vector3.zero;
+
+        foreach(Node node in _displayedNodes)
+        {
+            centerGraph += node.SubGraphNodeTf.localPosition;
+            Debug.Log("Sub position : " + node.SubGraphNodeTf.localPosition);
+        }
+
+
+        centerGraph /= _displayedNodes.Count;
+
+        Debug.Log("Div by " + _displayedNodes.Count + "  =  " + centerGraph);
+
+        _subGraphTf.position = _lensTf.position - centerGraph;
     }
 
     private void SimulationStopped()

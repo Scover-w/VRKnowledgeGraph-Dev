@@ -43,7 +43,7 @@ public class Edge : IEdge<Node>
     public void DisplaySubEdge(bool doDisplaySubEdge)
     {
         _doDisplaySubEdge = doDisplaySubEdge;
-        MainGraphLine.enabled = _doDisplaySubEdge;
+        SubGraphLine.enabled = _doDisplaySubEdge;
     }
 
     public void SetPropagation(GraphMode graphMode, bool isInPropagation)

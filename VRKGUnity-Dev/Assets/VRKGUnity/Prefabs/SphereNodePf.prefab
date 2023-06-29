@@ -166,9 +166,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6791077673428124150}
-        m_TargetAssemblyTypeName: NodeMaterial, Scripts
-        m_MethodName: OnEnterHover
-        m_Mode: 0
+        m_TargetAssemblyTypeName: NodeStyler, Scripts
+        m_MethodName: OnHover
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -181,9 +181,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6791077673428124150}
-        m_TargetAssemblyTypeName: NodeMaterial, Scripts
-        m_MethodName: OnExitHover
-        m_Mode: 0
+        m_TargetAssemblyTypeName: NodeStyler, Scripts
+        m_MethodName: OnHover
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -202,9 +202,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6791077673428124150}
-        m_TargetAssemblyTypeName: NodeMaterial, Scripts
-        m_MethodName: OnSelectEnter
-        m_Mode: 0
+        m_TargetAssemblyTypeName: NodeStyler, Scripts
+        m_MethodName: OnSelect
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -217,9 +217,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6791077673428124150}
-        m_TargetAssemblyTypeName: NodeMaterial, Scripts
-        m_MethodName: OnSelectExit
-        m_Mode: 0
+        m_TargetAssemblyTypeName: NodeStyler, Scripts
+        m_MethodName: OnSelect
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

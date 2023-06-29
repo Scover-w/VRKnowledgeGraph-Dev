@@ -116,7 +116,6 @@ public class MainGraph : MonoBehaviour
         }
 
         MoveMainGraph(1f);
-
     }
 
     private void MoveMainGraph(float t)

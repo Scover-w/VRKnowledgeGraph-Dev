@@ -339,6 +339,11 @@ public class NodgeSelectionManager : MonoBehaviour
             node.SetPropagation(_graphManager.GraphMode, false);
         }
 
+        foreach (Edge edge in _propagatedEdges)
+        {
+            edge.SetPropagation(_graphManager.GraphMode, false);
+        }
+
         _propagatedNodes = new();
         _propagatedEdges = new();
         _labelNodgeManager.ClearLabelNodges();

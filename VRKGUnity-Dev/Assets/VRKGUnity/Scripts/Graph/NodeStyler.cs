@@ -10,8 +10,6 @@ public class NodeStyler : MonoBehaviour
 
     public GraphType GraphType { private get; set; }
 
-    public bool IsSelected { get {  return _isSelected; } }
-
     public static GraphConfiguration GraphConfiguration;
 
     [SerializeField]
@@ -28,15 +26,9 @@ public class NodeStyler : MonoBehaviour
 
     MaterialPropertyBlock _propertyBlock;
 
-    bool _isHovered = false;
-    bool _isSelected = false;
-    bool _isInPropagation = false;
-
 
     private void OnEnable()
     {
-        _isHovered = false;
-        _isSelected = false;
         _outliner.enabled = false;
 
 
@@ -44,83 +36,28 @@ public class NodeStyler : MonoBehaviour
         _renderer.SetPropertyBlock(_propertyBlock);
     }
 
-    public void SetPropagation(bool isInPropagation)
-    {
-        _isInPropagation = isInPropagation;
-        UpdateMaterial();
-    }
 
-    public void UnSelect()
+    public void TryForceUnselect()
     {
-        if (!_isSelected)
-            return;
-
-        _isSelected = false;
+        // if XR Simple Interactable has select it
         // TODO : force XR Simple Interactable to unselect it
-        UpdateMaterial();
     }
 
     #region INTERACTION
-    public void OnEnterHover(HoverEnterEventArgs args)
+    public void OnHover()
     {
-        if (_isHovered)
-            return;
-
-        _isHovered = true;
-        UpdateMaterial();
+        Node.OnHover();
     }
 
-    public void OnExitHover(HoverExitEventArgs args)
+    public void OnSelect()
     {
-        if(!_isHovered) 
-            return;
-
-        _isHovered = false;
-        UpdateMaterial();
+        Node.OnSelect();
     }
 
-    public void OnSelectEnter(SelectEnterEventArgs args)
+
+    public void UpdateMaterial(bool isHovered, bool isSelected, bool isInPropagation)
     {
-        if (_isSelected)
-            return;
-
-        _isSelected = true;
-        UpdateMaterial();
-
-        var nodgeSelection = NodgeSelectionManager.Instance;
-
-        if(nodgeSelection == null)
-        {
-            Debug.LogError("No NodgeSelectionManager in the scene");
-            return;
-        }
-
-        nodgeSelection.Select(Node);
-    }
-
-    public void OnSelectExit(SelectExitEventArgs args)
-    {
-        if(!_isSelected)
-            return;
-
-
-        _isSelected = false;
-        UpdateMaterial();
-
-        var nodgeSelection = NodgeSelectionManager.Instance;
-
-        if (nodgeSelection == null)
-        {
-            Debug.LogError("No NodgeSelectionManager in the scene");
-            return;
-        }
-
-        nodgeSelection.UnSelect(Node);
-    }
-
-    private void UpdateMaterial()
-    {
-        _outliner.UpdateInteraction(_isHovered, _isSelected, _isInPropagation);
+        _outliner.UpdateInteraction(isHovered, isSelected, isInPropagation, GraphType == GraphType.Main);
     }
 
     #endregion
@@ -336,32 +273,17 @@ public class NodeStyler : MonoBehaviour
     }
 
     #region EDITOR
-    [ContextMenu("OnEnterHover")]
-    private void OnEnterHoverEditor()
+    [ContextMenu("OnHover")]
+    private void OnHoverEditor()
     {
-        HoverEnterEventArgs arg = new();
-        OnEnterHover(arg);
+        OnHover();
     }
 
-    [ContextMenu("OnExitHover")]
-    private void OnExitHoverEditor()
-    {
-        HoverExitEventArgs arg = new();
-        OnExitHover(arg);
-    }
 
-    [ContextMenu("OnSelectEnter")]
-    private void OnSelectEnterEditor()
+    [ContextMenu("OnSelect")]
+    private void OnSelectEditor()
     {
-        SelectEnterEventArgs arg = new();
-        OnSelectEnter(arg);
-    }
-
-    [ContextMenu("OnSelectExit")]
-    private void OnSelectExitEditor()
-    {
-        SelectExitEventArgs arg = new();
-        OnSelectExit(arg);
+        OnSelect();
     }
     #endregion
 }

@@ -13,7 +13,7 @@ public class ClickPC : MonoBehaviour
     [SerializeField]
     NodgeSelectionManager _selectionManager;
 
-    NodeStyler _hoveredNodgeStyler;
+    Node _hoveredNode;
 
     Transform _camTf;
     Camera _cam;
@@ -48,23 +48,25 @@ public class ClickPC : MonoBehaviour
 
         if (!Physics.Raycast(ray, out hit, 100f, layerMask))
         {
-            if (_hoveredNodgeStyler != null)
-                _hoveredNodgeStyler.OnExitHover(null);
+            if (_hoveredNode != null)
+                _hoveredNode.OnHover();
             return;
         }
 
         if (!hit.transform.TryGetComponent<NodeStyler>(out var nodeStyler))
         {
-            if (_hoveredNodgeStyler != null)
-                _hoveredNodgeStyler.OnExitHover(null);
+            if (_hoveredNode != null)
+                _hoveredNode.OnHover();
             return;
         }
 
-        if (_hoveredNodgeStyler != nodeStyler && _hoveredNodgeStyler != null)
-            _hoveredNodgeStyler.OnExitHover(null);
+        var node = nodeStyler.Node;
 
-        _hoveredNodgeStyler = nodeStyler;
-        _hoveredNodgeStyler.OnEnterHover(null);
+        if (_hoveredNode != node && _hoveredNode != null)
+            _hoveredNode.OnHover();
+
+        _hoveredNode = node;
+        _hoveredNode.OnHover();
     }
 
     private void TryRaycastNode()
@@ -76,8 +78,6 @@ public class ClickPC : MonoBehaviour
         if (EventSystem.current.IsPointerOverGameObject())
             return;
 
-
-
         Ray ray = _cam.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
@@ -85,18 +85,13 @@ public class ClickPC : MonoBehaviour
 
         if (!Physics.Raycast(ray, out hit, 100f, layerMask))
         {
-
             _selectionManager.TryClearSelectionFromEmptyUserClick();
             return;
         }
 
-
         if (!hit.transform.TryGetComponent<NodeStyler>(out var nodeStyler))
             return;
 
-        if (nodeStyler.IsSelected)
-            nodeStyler.OnSelectExit(null);
-        else
-            nodeStyler.OnSelectEnter(null);
+        nodeStyler.Node.OnSelect();
     }
 }

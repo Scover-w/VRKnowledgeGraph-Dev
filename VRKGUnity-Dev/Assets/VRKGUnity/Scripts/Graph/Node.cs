@@ -9,11 +9,11 @@ public class Node
                                                         "http://www.w3.org/2004/02/skos/core#altLabel", 
                                                         "http://purl.org/dc/terms/title"};
 
-    public bool ActiveSelf
+    public bool IsSelected
     {
         get
-        {
-            return _doDisplayMainNode;
+        { 
+            return _isSelected; 
         }
     }
 
@@ -49,6 +49,10 @@ public class Node
     public float ClusteringCoefficient;
     public float Degree;
 
+    bool _isHovered = false;
+    bool _isSelected = false;
+    bool _isInPropagation = false;
+
     static System.Random _random;
 
     public Node(int id, string type, string value)
@@ -74,6 +78,9 @@ public class Node
 
         _doDisplayMainNode = false;
     }
+
+
+    
 
     public string GetName()
     {
@@ -230,15 +237,22 @@ public class Node
         return neighbors;
     }
 
+    
+
+
+    #region Interaction
+    public void ResetInteractionState()
+    {
+        _isHovered = false;
+        _isSelected = false;
+        _isInPropagation = false;
+    }
+
     public void SetPropagation(GraphMode graphMode, bool isInPropagation)
     {
-        if(MainGraphStyler != null)
-            MainGraphStyler.SetPropagation(isInPropagation);
+        _isInPropagation = isInPropagation;
 
-        if (SubGraphStyler == null)
-            return;
-
-        SubGraphStyler.SetPropagation(isInPropagation);
+        UpdateMaterials();
 
         if (graphMode != GraphMode.Desk)
             return;
@@ -248,12 +262,60 @@ public class Node
 
     public void UnSelect()
     {
+        if (!_isSelected)
+            return;
+
+        _isSelected = false;
+
+        TryForceUnselect();
+        UpdateMaterials();
+    }
+
+    public void OnHover()
+    {
+        _isHovered = !_isHovered;
+        UpdateMaterials();
+    }
+
+
+    public void OnSelect()
+    {
+        _isSelected = !_isSelected;
+        UpdateMaterials();
+
+        var nodgeSelection = NodgeSelectionManager.Instance;
+
+        if (nodgeSelection == null)
+        {
+            Debug.LogError("No NodgeSelectionManager in the scene");
+            return;
+        }
+
+        if(_isSelected)
+            nodgeSelection.Select(this);
+        else
+            nodgeSelection.UnSelect(this);
+    }
+
+    private void UpdateMaterials()
+    {
         if (MainGraphStyler != null)
-            MainGraphStyler.UnSelect();
+            MainGraphStyler.UpdateMaterial(_isHovered, _isSelected, _isInPropagation);
 
         if (SubGraphStyler != null)
-            SubGraphStyler.UnSelect();
+            SubGraphStyler.UpdateMaterial(_isHovered, _isSelected, _isInPropagation);
     }
+
+    private void TryForceUnselect()
+    {
+        if (MainGraphStyler != null)
+            MainGraphStyler.TryForceUnselect();
+
+        if (SubGraphStyler != null)
+            SubGraphStyler.TryForceUnselect();
+    }
+
+    #endregion
 }
 
 
