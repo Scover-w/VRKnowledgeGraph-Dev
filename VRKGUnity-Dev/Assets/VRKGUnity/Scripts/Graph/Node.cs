@@ -275,6 +275,13 @@ public class Node
     {
         _isHovered = !_isHovered;
         UpdateMaterials();
+
+        var nodgeSelection = NodgeSelectionManager.Instance;
+
+        if (_isHovered)
+            nodgeSelection.Hover(this);
+        else
+            nodgeSelection.UnHover(this);
     }
 
 
@@ -284,12 +291,6 @@ public class Node
         UpdateMaterials();
 
         var nodgeSelection = NodgeSelectionManager.Instance;
-
-        if (nodgeSelection == null)
-        {
-            Debug.LogError("No NodgeSelectionManager in the scene");
-            return;
-        }
 
         if(_isSelected)
             nodgeSelection.Select(this);

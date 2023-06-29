@@ -50,6 +50,8 @@ public class NodgeSelectionManager : MonoBehaviour
     Node _singleSelectedNode;
     Node _lastMultipleAdded;
 
+    Node _currentHoveredNode;
+
     HashSet<Node> _multipleSelectedNodes;
 
     HashSet<Node> _propagatedNodes;
@@ -142,6 +144,25 @@ public class NodgeSelectionManager : MonoBehaviour
         ClearPropagation();
     }
 
+
+    public void Hover(Node node)
+    {
+        if(_currentHoveredNode != node)
+        {
+            // TODO : Hover changed
+            int i = 0;
+        }
+
+        _currentHoveredNode = node;
+    }
+
+    public void UnHover(Node node)
+    {
+        if (_currentHoveredNode != node)
+            return;
+
+        _currentHoveredNode = null;
+    }
 
     public void Select(Node node)
     {

@@ -8,6 +8,14 @@ public class GraphUI : MonoBehaviour
     [SerializeField]
     NodgeInfoUI _nodgeInfoUI;
 
+    [SerializeField]
+    NodgeSelectionManager _selectionManager;
+
+
+    private void Start()
+    {
+        _selectionManager.OnNodeSelected += DisplayInfoNode;
+    }
 
     public void DisplayInfoNode(Node node)
     {

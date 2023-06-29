@@ -2320,6 +2320,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _user: {fileID: 1219762324}
   _nodgeInfoUI: {fileID: 1438755090}
+  _selectionManager: {fileID: 1219762323}
 --- !u!4 &1396796584
 Transform:
   m_ObjectHideFlags: 0

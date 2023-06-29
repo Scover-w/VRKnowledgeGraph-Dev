@@ -253,14 +253,10 @@ public class SubGraph : MonoBehaviour
         foreach(Node node in _displayedNodes)
         {
             centerGraph += node.SubGraphNodeTf.localPosition;
-            Debug.Log("Sub position : " + node.SubGraphNodeTf.localPosition);
         }
 
 
         centerGraph /= _displayedNodes.Count;
-
-        Debug.Log("Div by " + _displayedNodes.Count + "  =  " + centerGraph);
-
         _subGraphTf.position = _lensTf.position - centerGraph;
     }
 
