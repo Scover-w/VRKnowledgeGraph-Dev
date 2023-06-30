@@ -106,6 +106,8 @@ public class NodgeSelectionManager : MonoBehaviour
         ClearSelectionFromSwitchMode(SelectionMode.Multiple);
 
         StartPropagate(_singleSelectedNode);
+
+        TriggerOnPropagated();
     }
 
     private void SwitchToMultiple()
@@ -130,6 +132,7 @@ public class NodgeSelectionManager : MonoBehaviour
             _singleSelectedNode.UnSelect();
             _singleSelectedNode = null;
             ClearPropagation();
+            TriggerOnPropagated();
             return;
         }
 
@@ -142,6 +145,7 @@ public class NodgeSelectionManager : MonoBehaviour
         }
         _multipleSelectedNodes = new();
         ClearPropagation();
+        TriggerOnPropagated();
     }
 
 
@@ -187,6 +191,8 @@ public class NodgeSelectionManager : MonoBehaviour
 
         _singleSelectedNode = node;
         StartPropagate(_singleSelectedNode);
+
+        TriggerOnPropagated();
     }
 
     private void MultipleSelect(Node node)
@@ -194,6 +200,8 @@ public class NodgeSelectionManager : MonoBehaviour
         _multipleSelectedNodes.Add(node);
         _lastMultipleAdded = node;
         StartPropagate(node);
+
+        TriggerOnPropagated();
     }
 
 
@@ -225,6 +233,8 @@ public class NodgeSelectionManager : MonoBehaviour
 
         ClearPropagation();
         _singleSelectedNode = null;
+
+        TriggerOnPropagated();
     }
 
     private void MultipleUnSelect(Node node)
@@ -243,6 +253,8 @@ public class NodgeSelectionManager : MonoBehaviour
         {
             StartPropagate(nodeToPropagate);
         }
+
+        TriggerOnPropagated();
     }
 
     
@@ -289,9 +301,6 @@ public class NodgeSelectionManager : MonoBehaviour
         _newPropagatedEdges = new();
 
         Propagate(node, _graphConfiguration.LabelNodgePropagation);
-
-        Nodges nodges = new Nodges(_propagatedNodes.ToList(), _propagatedEdges.ToList());
-        OnNodgesPropagated?.Invoke(nodges);
     }
 
     private void Propagate(Node node, int propagationValue)
@@ -360,7 +369,11 @@ public class NodgeSelectionManager : MonoBehaviour
         _propagatedEdges = new();
     }
 
-    
+    private void TriggerOnPropagated()
+    {
+        Nodges nodges = new Nodges(_propagatedNodes.ToList(), _propagatedEdges.ToList());
+        OnNodgesPropagated?.Invoke(nodges);
+    }
 
 
 

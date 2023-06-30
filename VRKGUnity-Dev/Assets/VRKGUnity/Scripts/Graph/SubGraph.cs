@@ -280,6 +280,9 @@ public class SubGraph : MonoBehaviour
 
     private void RecenterLensGraph()
     {
+        if (_displayedNodes.Count == 0)
+            return;
+
         Vector3 centerGraph = Vector3.zero;
 
         foreach(Node node in _displayedNodes)

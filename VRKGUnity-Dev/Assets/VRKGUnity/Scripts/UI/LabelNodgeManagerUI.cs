@@ -591,7 +591,7 @@ public class LabelNodgeManagerUI : MonoBehaviour
 
         FilterLabelsToDisplay();
         StyleNewPropagatedLabels(newDisplayedlabels, GraphType.Main);
-        ReleaseLabels(_displayedLabelMainEdgesDict);
+        ReleaseLabels(previousDisplayedLabels);
 
         _displayedLabelMainEdgesDict = updatedDisplayedLabels;
 
@@ -600,9 +600,9 @@ public class LabelNodgeManagerUI : MonoBehaviour
         {
             foreach (Edge edgeToDisplay in labelsToDisplay)
             {
-                if (_displayedLabelMainEdgesDict.TryGetValue(edgeToDisplay, out LabelNodgeUI labelNodge))
+                if (previousDisplayedLabels.TryGetValue(edgeToDisplay, out LabelNodgeUI labelNodge))
                 {
-                    _displayedLabelMainEdgesDict.Remove(edgeToDisplay);
+                    previousDisplayedLabels.Remove(edgeToDisplay);
                     updatedDisplayedLabels.Add(edgeToDisplay, labelNodge);
                     continue;
                 }
@@ -623,7 +623,7 @@ public class LabelNodgeManagerUI : MonoBehaviour
             return;
 
 
-        var previousDisplayedLabels = _displayedLabelMainEdgesDict;
+        var previousDisplayedLabels = _displayedLabelSubEdgesDict;
 
         var updatedDisplayedLabels = new Dictionary<Edge, LabelNodgeUI>();
         var newDisplayedlabels = new Dictionary<Edge, LabelNodgeUI>();
@@ -699,7 +699,6 @@ public class LabelNodgeManagerUI : MonoBehaviour
     private LabelNodgeUI CreateEdgeLabel(Edge edge, GraphType graphType)
     {
         var labelNodgeUI = _nodgePool.GetLabelNodge();
-        _displayedLabelMainEdgesDict.Add(edge, labelNodgeUI);
 
 
         bool isMainGraph = (graphType == GraphType.Main);
