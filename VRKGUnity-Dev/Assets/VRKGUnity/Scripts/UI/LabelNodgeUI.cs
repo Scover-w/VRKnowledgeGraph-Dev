@@ -87,6 +87,8 @@ public class LabelNodgeUI : MonoBehaviour
 
     public void SetActive(bool active)
     {
+        if(_canvasTf == null)
+            _canvasTf = _canvasRect.transform;
         _canvasTf.gameObject.SetActive(active);
     }
 

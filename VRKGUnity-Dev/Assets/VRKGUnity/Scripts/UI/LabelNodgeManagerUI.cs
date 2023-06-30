@@ -300,7 +300,7 @@ public class LabelNodgeManagerUI : MonoBehaviour
 
     private void AfterSwitchModeToDesk()
     {
-        _graphMode = GraphMode.Immersion;
+        _graphMode = GraphMode.Desk;
         _inTransitionForSwitchMode = false;
 
         UpdateValueStyle();
@@ -430,13 +430,13 @@ public class LabelNodgeManagerUI : MonoBehaviour
 
         foreach (Node nodeToDisplay in nodesToDisplay)
         {
-            var labelNode = CreateNodeLabel(nodeToDisplay);
+            var labelNode = CreateNodeLabel(nodeToDisplay, GraphType.Main);
             updatedNodeDisplayedLabels.Add(nodeToDisplay, labelNode);
         }
 
         foreach (Edge edgeToDisplay in edgesToDisplay)
         {
-            var labelNode = CreateEdgeLabel(edgeToDisplay);
+            var labelNode = CreateEdgeLabel(edgeToDisplay, GraphType.Main);
             updatedEdgeDisplayedLabels.Add(edgeToDisplay, labelNode);
         }
 
@@ -458,13 +458,13 @@ public class LabelNodgeManagerUI : MonoBehaviour
 
         foreach (Node nodeToDisplay in nodesToDisplay)
         {
-            var labelNode = CreateNodeLabel(nodeToDisplay);
+            var labelNode = CreateNodeLabel(nodeToDisplay, GraphType.Sub);
             updatedNodeDisplayedLabels.Add(nodeToDisplay, labelNode);
         }
 
         foreach (Edge edgeToDisplay in edgesToDisplay)
         {
-            var labelNode = CreateEdgeLabel(edgeToDisplay);
+            var labelNode = CreateEdgeLabel(edgeToDisplay, GraphType.Sub);
             updatedEdgeDisplayedLabels.Add(edgeToDisplay, labelNode);
         }
 
@@ -490,7 +490,7 @@ public class LabelNodgeManagerUI : MonoBehaviour
         TryDisplaySubEdgesLabels(edgesToDisplay);
     }
 
-    private void TryDisplayMainNodesLabels(List<Node> nodesLabelsToDisplay)
+    private void TryDisplayMainNodesLabels(List<Node> labelsToDisplay)
     {
         if (_graphMode == GraphMode.Desk && !_displayLabelsDesk)
             return;
@@ -500,7 +500,7 @@ public class LabelNodgeManagerUI : MonoBehaviour
 
         var previousDisplayedLabels = _displayedLabelMainNodesDict;
 
-        var labelsToDisplay = GetLabelsToDisplayForMainGraph();
+
 
         var updatedDisplayedLabels = new Dictionary<Node, LabelNodgeUI>();
         var newDisplayedlabels = new Dictionary<Node, LabelNodgeUI>();
@@ -515,17 +515,6 @@ public class LabelNodgeManagerUI : MonoBehaviour
 
 
 
-        HashSet<Node> GetLabelsToDisplayForMainGraph()
-        {
-            var labelsToDisplay = new HashSet<Node>();
-            foreach (Node node in nodesLabelsToDisplay)
-            {
-                if (previousDisplayedLabels.ContainsKey(node))
-                    labelsToDisplay.Add(node);
-            }
-
-            return labelsToDisplay;
-        }
 
         void FilterLabelsToDisplay()
         {
@@ -539,14 +528,14 @@ public class LabelNodgeManagerUI : MonoBehaviour
                 }
 
 
-                var labelNode = CreateNodeLabel(nodeToDisplay);
+                var labelNode = CreateNodeLabel(nodeToDisplay, GraphType.Main);
                 updatedDisplayedLabels.Add(nodeToDisplay, labelNode);
                 newDisplayedlabels.Add(nodeToDisplay, labelNode);
             }
         }
     }
 
-    private void TryDisplaySubNodesLabels(List<Node> nodesLabelsToDisplay)
+    private void TryDisplaySubNodesLabels(List<Node> labelsToDisplay)
     {
         if (_graphMode == GraphMode.Desk && !_displayLabelsDesk)
             return;
@@ -555,8 +544,6 @@ public class LabelNodgeManagerUI : MonoBehaviour
             return;
 
         var previousDisplayedLabels = _displayedLabelSubNodesDict;
-
-        var labelsToDisplay = GetLabelsToDisplayForSubGraph();
 
         var updatedDisplayedLabels = new Dictionary<Node, LabelNodgeUI>();
         var newDisplayedlabels = new Dictionary<Node, LabelNodgeUI>();
@@ -570,18 +557,6 @@ public class LabelNodgeManagerUI : MonoBehaviour
         _displayedLabelSubNodesDict = updatedDisplayedLabels;
 
 
-        HashSet<Node> GetLabelsToDisplayForSubGraph()
-        {
-            var labelsToDisplay = new HashSet<Node>();
-            foreach (Node node in nodesLabelsToDisplay)
-            {
-                if (previousDisplayedLabels.ContainsKey(node))
-                    labelsToDisplay.Add(node);
-            }
-
-            return labelsToDisplay;
-        }
-
         void FilterLabelsToDisplay()
         {
             foreach (Node nodeToDisplay in labelsToDisplay)
@@ -594,14 +569,14 @@ public class LabelNodgeManagerUI : MonoBehaviour
                 }
 
 
-                var labelNode = CreateNodeLabel(nodeToDisplay);
+                var labelNode = CreateNodeLabel(nodeToDisplay, GraphType.Sub);
                 updatedDisplayedLabels.Add(nodeToDisplay, labelNode);
                 newDisplayedlabels.Add(nodeToDisplay, labelNode);
             }
         }
     }
 
-    private void TryDisplayMainEdgesLabels(List<Edge> edgesLabelsToDisplay)
+    private void TryDisplayMainEdgesLabels(List<Edge> labelsToDisplay)
     {
         if (_graphMode == GraphMode.Desk && !_displayLabelsDesk)
             return;
@@ -610,9 +585,6 @@ public class LabelNodgeManagerUI : MonoBehaviour
             return;
 
         var previousDisplayedLabels = _displayedLabelMainEdgesDict;
-
-
-        var labelsToDisplay = GetLabelsToDisplayForMainGraph();
 
         var updatedDisplayedLabels = new Dictionary<Edge, LabelNodgeUI>();
         var newDisplayedlabels = new Dictionary<Edge, LabelNodgeUI>();
@@ -623,19 +595,6 @@ public class LabelNodgeManagerUI : MonoBehaviour
 
         _displayedLabelMainEdgesDict = updatedDisplayedLabels;
 
-
-
-        HashSet<Edge> GetLabelsToDisplayForMainGraph()
-        {
-            var labelsToDisplay = new HashSet<Edge>();
-            foreach (Edge edge in edgesLabelsToDisplay)
-            {
-                if (previousDisplayedLabels.ContainsKey(edge))
-                    labelsToDisplay.Add(edge);
-            }
-
-            return labelsToDisplay;
-        }
 
         void FilterLabelsToDisplay()
         {
@@ -648,14 +607,14 @@ public class LabelNodgeManagerUI : MonoBehaviour
                     continue;
                 }
 
-                var labelEdge = CreateEdgeLabel(edgeToDisplay);
+                var labelEdge = CreateEdgeLabel(edgeToDisplay, GraphType.Main);
                 updatedDisplayedLabels.Add(edgeToDisplay, labelEdge);
                 newDisplayedlabels.Add(edgeToDisplay, labelEdge);
             }
         }
     }
 
-    private void TryDisplaySubEdgesLabels(List<Edge> edgesLabelsToDisplay)
+    private void TryDisplaySubEdgesLabels(List<Edge> labelsToDisplay)
     {
         if (_graphMode == GraphMode.Desk && !_displayLabelsDesk)
             return;
@@ -666,9 +625,6 @@ public class LabelNodgeManagerUI : MonoBehaviour
 
         var previousDisplayedLabels = _displayedLabelMainEdgesDict;
 
-        var labelsToDisplay = GetLabelsToDisplayForSubGraph();
-
-
         var updatedDisplayedLabels = new Dictionary<Edge, LabelNodgeUI>();
         var newDisplayedlabels = new Dictionary<Edge, LabelNodgeUI>();
 
@@ -678,18 +634,6 @@ public class LabelNodgeManagerUI : MonoBehaviour
 
         _displayedLabelSubEdgesDict = updatedDisplayedLabels;
 
-
-        HashSet<Edge> GetLabelsToDisplayForSubGraph()
-        {
-            var labelsToDisplay = new HashSet<Edge>();
-            foreach (Edge edge in edgesLabelsToDisplay)
-            {
-                if (previousDisplayedLabels.ContainsKey(edge))
-                    labelsToDisplay.Add(edge);
-            }
-
-            return labelsToDisplay;
-        }
 
         void FilterLabelsToDisplay()
         {
@@ -702,7 +646,7 @@ public class LabelNodgeManagerUI : MonoBehaviour
                     continue;
                 }
 
-                var labelEdge = CreateEdgeLabel(edgeToDisplay);
+                var labelEdge = CreateEdgeLabel(edgeToDisplay, GraphType.Sub);
                 updatedDisplayedLabels.Add(edgeToDisplay, labelEdge);
                 newDisplayedlabels.Add(edgeToDisplay, labelEdge);
             }
@@ -741,23 +685,29 @@ public class LabelNodgeManagerUI : MonoBehaviour
 
     #region LabelCreation
 
-    private LabelNodgeUI CreateNodeLabel(Node node)
+    private LabelNodgeUI CreateNodeLabel(Node node, GraphType graphType)
     {
         var labelNodgeUI = _nodgePool.GetLabelNodge();
 
-        labelNodgeUI.SetFollow(node.MainGraphNodeTf);
+        labelNodgeUI.SetFollow((graphType == GraphType.Main)? node.MainGraphNodeTf : node.SubGraphNodeTf);
         var name = node.GetName();
         labelNodgeUI.Text = (name != null) ? name : node.Value;
 
         return labelNodgeUI;
     }
 
-    private LabelNodgeUI CreateEdgeLabel(Edge edge)
+    private LabelNodgeUI CreateEdgeLabel(Edge edge, GraphType graphType)
     {
         var labelNodgeUI = _nodgePool.GetLabelNodge();
         _displayedLabelMainEdgesDict.Add(edge, labelNodgeUI);
 
-        labelNodgeUI.SetFollow(edge.Source.MainGraphNodeTf, edge.Target.MainGraphNodeTf);
+
+        bool isMainGraph = (graphType == GraphType.Main);
+
+        labelNodgeUI.SetFollow(isMainGraph? edge.Source.MainGraphNodeTf :
+                                            edge.Source.SubGraphNodeTf, 
+                               isMainGraph? edge.Target.MainGraphNodeTf :
+                                            edge.Target.SubGraphNodeTf);
         labelNodgeUI.Text = edge.Value;
 
         return labelNodgeUI;

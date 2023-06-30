@@ -210,14 +210,15 @@ public class StylingManager : MonoBehaviour
 
         if (styleChange.HasChanged(StyleChangeType.Label))
             _labelNodgeManagerUI.StyleLabels(styleChange);
-        else
-            _graphStyling.StyleGraph(styleChange, graphMode);
+        
 
         if (styleChange.HasChanged(StyleChangeType.SubGraph)
             && styleChange.HasChanged(StyleChangeType.ImmersionMode)
             && styleChange.HasChanged(StyleChangeType.Visibility))
             _subGraph.SwitchWatchVisibility();
 
+
+        _graphStyling.StyleGraph(styleChange, graphMode);
 
         _graphConfig.Save();
     }
