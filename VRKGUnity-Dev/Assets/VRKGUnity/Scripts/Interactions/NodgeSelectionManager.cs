@@ -306,11 +306,6 @@ public class NodgeSelectionManager : MonoBehaviour
         {
             _propagatedNodes.Add(node);
             node.SetPropagation(_graphManager.GraphMode, true);
-
-            var labelNodgeUI = _labelNodgeManager.GetLabelNodgeUI(GraphType.Main);
-            labelNodgeUI.SetFollow(node.MainGraphNodeTf);
-            var name = node.GetName();
-            labelNodgeUI.Text = (name != null) ? name : node.Value;
         }
 
 
@@ -340,10 +335,6 @@ public class NodgeSelectionManager : MonoBehaviour
                 {
                     _propagatedEdges.Add(edge);
                     edge.SetPropagation(_graphManager.GraphMode, true);
-
-                    var labelNodgeUI = _labelNodgeManager.GetLabelNodgeUI(GraphType.Main);
-                    labelNodgeUI.SetFollow(edge.Source.MainGraphNodeTf, edge.Target.MainGraphNodeTf);
-                    labelNodgeUI.Text = edge.Value;
                 }
 
                 var nextNode = (i == 0) ? edge.Target : edge.Source;
@@ -367,7 +358,6 @@ public class NodgeSelectionManager : MonoBehaviour
 
         _propagatedNodes = new();
         _propagatedEdges = new();
-        _labelNodgeManager.ClearLabelNodges();
     }
 
     

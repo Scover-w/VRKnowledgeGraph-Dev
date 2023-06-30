@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GraphStylingUI : MonoBehaviour
+public class StylingManager : MonoBehaviour
 {
     [SerializeField]
     GraphConfigurationContainerSO _graphConfigContainerSO;
@@ -10,6 +10,9 @@ public class GraphStylingUI : MonoBehaviour
 
     [SerializeField]
     GraphStyling _graphStyling;
+
+    [SerializeField]
+    SubGraph _subGraph;
 
     [SerializeField]
     LabelNodgeManagerUI _labelNodgeManagerUI;
@@ -109,6 +112,8 @@ public class GraphStylingUI : MonoBehaviour
 
     public float GraphModeTransitionTime = 1f;
 
+    public bool ShowWatch = true;
+
 
     GraphConfiguration _graphConfig;
 
@@ -193,10 +198,12 @@ public class GraphStylingUI : MonoBehaviour
         SeedRandomPosition = _graphConfig.SeedRandomPosition;
  
         GraphModeTransitionTime = _graphConfig.GraphModeTransitionTime;
+
+        ShowWatch = _graphConfig.ShowWatch;
     }
 
 
-    public void UpdateGraph(StyleChange styleChange, GraphMode graphMode)
+    public void UpdateStyling(StyleChange styleChange, GraphMode graphMode)
     {
         if (_graphConfig == null)
             return;
@@ -206,8 +213,13 @@ public class GraphStylingUI : MonoBehaviour
         else
             _graphStyling.StyleGraph(styleChange, graphMode);
 
-        _graphConfig.Save();
+        if (styleChange.HasChanged(StyleChangeType.SubGraph)
+            && styleChange.HasChanged(StyleChangeType.ImmersionMode)
+            && styleChange.HasChanged(StyleChangeType.Visibility))
+            _subGraph.SwitchWatchVisibility();
 
+
+        _graphConfig.Save();
     }
 
     private void OnValidate()
@@ -241,6 +253,7 @@ public class GraphStylingUI : MonoBehaviour
             styleChange = styleChange.Add(StyleChangeType.MainGraph)
                 .Add(StyleChangeType.ImmersionMode)
                 .Add(StyleChangeType.Node)
+                .Add(StyleChangeType.Label)
                 .Add(StyleChangeType.Size);
         }
 
@@ -250,6 +263,7 @@ public class GraphStylingUI : MonoBehaviour
             styleChange = styleChange.Add(StyleChangeType.MainGraph)
                 .Add(StyleChangeType.DeskMode)
                 .Add(StyleChangeType.Node)
+                .Add(StyleChangeType.Label)
                 .Add(StyleChangeType.Size);
         }
 
@@ -260,6 +274,7 @@ public class GraphStylingUI : MonoBehaviour
             styleChange = styleChange.Add(StyleChangeType.SubGraph)
                 .Add(StyleChangeType.DeskMode)
                 .Add(StyleChangeType.Node)
+                .Add(StyleChangeType.Label)
                 .Add(StyleChangeType.Size);
         }
 
@@ -281,6 +296,7 @@ public class GraphStylingUI : MonoBehaviour
             styleChange = styleChange.Add(StyleChangeType.MainGraph)
                 .Add(StyleChangeType.ImmersionMode)
                 .Add(StyleChangeType.Node)
+                .Add(StyleChangeType.Label)
                 .Add(StyleChangeType.Size);
         }
 
@@ -290,6 +306,7 @@ public class GraphStylingUI : MonoBehaviour
             styleChange = styleChange.Add(StyleChangeType.MainGraph)
                 .Add(StyleChangeType.ImmersionMode)
                 .Add(StyleChangeType.Node)
+                .Add(StyleChangeType.Label)
                 .Add(StyleChangeType.Size);
         }
 
@@ -300,6 +317,7 @@ public class GraphStylingUI : MonoBehaviour
             styleChange = styleChange.Add(StyleChangeType.MainGraph)
                 .Add(StyleChangeType.DeskMode)
                 .Add(StyleChangeType.Node)
+                .Add(StyleChangeType.Label)
                 .Add(StyleChangeType.Size);
         }
 
@@ -309,6 +327,7 @@ public class GraphStylingUI : MonoBehaviour
             styleChange = styleChange.Add(StyleChangeType.MainGraph)
                 .Add(StyleChangeType.DeskMode)
                 .Add(StyleChangeType.Node)
+                .Add(StyleChangeType.Label)
                 .Add(StyleChangeType.Size);
         }
 
@@ -319,6 +338,7 @@ public class GraphStylingUI : MonoBehaviour
             styleChange = styleChange.Add(StyleChangeType.SubGraph)
                 .Add(StyleChangeType.DeskMode)
                 .Add(StyleChangeType.Node)
+                .Add(StyleChangeType.Label)
                 .Add(StyleChangeType.Size);
         }
 
@@ -328,6 +348,7 @@ public class GraphStylingUI : MonoBehaviour
             styleChange = styleChange.Add(StyleChangeType.SubGraph)
                 .Add(StyleChangeType.DeskMode)
                 .Add(StyleChangeType.Node)
+                .Add(StyleChangeType.Label)
                 .Add(StyleChangeType.Size);
         }
 
@@ -699,10 +720,18 @@ public class GraphStylingUI : MonoBehaviour
             _graphConfig.GraphModeTransitionTime = GraphModeTransitionTime;
         }
 
+        if(_graphConfig.ShowWatch != ShowWatch)
+        {
+            _graphConfig.ShowWatch = ShowWatch;
+            styleChange = styleChange.Add(StyleChangeType.SubGraph)
+                .Add(StyleChangeType.ImmersionMode)
+                .Add(StyleChangeType.Visibility);
+        }
+
         #endregion
 
 
 
-        UpdateGraph(styleChange, _graphManager.GraphMode);
+        UpdateStyling(styleChange, _graphManager.GraphMode);
     }
 }

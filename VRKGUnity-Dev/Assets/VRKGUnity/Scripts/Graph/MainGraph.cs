@@ -49,6 +49,7 @@ public class MainGraph : MonoBehaviour
     }
 
 
+    #region OnGraphUpdated
     public void OnGraphUpdated(GraphUpdateType updateType)
     {
         switch (updateType)
@@ -75,15 +76,7 @@ public class MainGraph : MonoBehaviour
         }
     }
 
-    public void SwitchMode(GraphMode graphMode)
-    {
-        if (graphMode == GraphMode.Desk && _mainGraphMode == MainGraphMode.Desk ||
-            graphMode == GraphMode.Immersion && _mainGraphMode == MainGraphMode.Desk)
-            return;
 
-
-
-    }
 
     private void BeforeSwitchMode()
     {
@@ -129,7 +122,7 @@ public class MainGraph : MonoBehaviour
             _mainGraphTf.position = Vector3.Lerp(_deskTf.position, Vector3.zero, _easingFunction(t));
         }
     }
-
+    #endregion
 
     enum MainGraphMode
     {

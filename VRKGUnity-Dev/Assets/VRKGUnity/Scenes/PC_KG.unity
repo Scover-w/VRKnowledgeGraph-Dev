@@ -2351,6 +2351,7 @@ MonoBehaviour:
   _graphConfigContainerSO: {fileID: 11400000, guid: 7086a0d0e5c5fa74c91774d1597bf4fc, type: 2}
   _graphManager: {fileID: 1187437327}
   _graphStyling: {fileID: 1187437328}
+  _subGraph: {fileID: 366778062}
   _labelNodgeManagerUI: {fileID: 1396796587}
   ImmersionGraphSize: 1
   DeskGraphSize: 1
@@ -2398,6 +2399,7 @@ MonoBehaviour:
   ResetPositionNodeOnUpdate: 1
   SeedRandomPosition: 0
   GraphModeTransitionTime: 1
+  ShowWatch: 1
 --- !u!114 &1396796586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2426,6 +2428,7 @@ MonoBehaviour:
   _graphConfigurationContainerSO: {fileID: 11400000, guid: 7086a0d0e5c5fa74c91774d1597bf4fc, type: 2}
   _graphManager: {fileID: 1187437327}
   _nodgePool: {fileID: 1187437331}
+  _selectionManager: {fileID: 1219762323}
 --- !u!1 &1438755089
 GameObject:
   m_ObjectHideFlags: 0

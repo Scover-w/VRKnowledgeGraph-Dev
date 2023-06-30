@@ -171,12 +171,11 @@ public class GraphConfiguration
     [Header("Miscelaneous")]
     [Space(5)]
     public int LabelNodgePropagation = 1;
-
     public bool ResetPositionNodeOnUpdate = true;
-    
     public int SeedRandomPosition = 0;
-
     public float GraphModeTransitionTime = 1f;
+
+    public bool ShowWatch = true;
 
     public GraphMetricType SelectedMetricTypeSize = GraphMetricType.None;
     public GraphMetricType SelectedMetricTypeColor = GraphMetricType.None;

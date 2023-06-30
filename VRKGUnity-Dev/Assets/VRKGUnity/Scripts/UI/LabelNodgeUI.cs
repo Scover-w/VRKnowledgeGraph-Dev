@@ -44,7 +44,7 @@ public class LabelNodgeUI : MonoBehaviour
         _follow2Tf = follow2Tf;
     }
 
-    public void UpdateTransform(Vector3 hmdPosition, float nodeSize)
+    public void UpdateTransform(Vector3 hmdPosition, float nodeSize = 0f)
     {
         Vector3 newCanvasPosition = Vector3.zero;
 
@@ -87,7 +87,6 @@ public class LabelNodgeUI : MonoBehaviour
 
     public void SetActive(bool active)
     {
-        _canvasTf = _canvasRect.transform;
         _canvasTf.gameObject.SetActive(active);
     }
 

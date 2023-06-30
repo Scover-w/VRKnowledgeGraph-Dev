@@ -18,9 +18,15 @@ public class LabelNodgeManagerUI : MonoBehaviour
     [SerializeField]
     NodgePool _nodgePool;
 
+    [SerializeField]
+    NodgeSelectionManager _selectionManager;
 
-    List<LabelNodgeUI> _labelNodgesMainGraph;
-    List<LabelNodgeUI> _labelNodgesSubGraph;
+
+    Dictionary<Node, LabelNodgeUI> _displayedLabelMainNodesDict;
+    Dictionary<Node, LabelNodgeUI> _displayedLabelSubNodesDict;
+
+    Dictionary<Edge, LabelNodgeUI> _displayedLabelMainEdgesDict;
+    Dictionary<Edge, LabelNodgeUI> _displayedLabelSubEdgesDict;
 
     GraphConfiguration _graphConfig;
     Transform _hmdTf;
@@ -30,6 +36,14 @@ public class LabelNodgeManagerUI : MonoBehaviour
     bool _displayLabelsLens;
 
     bool _inTransitionForSwitchMode = false;
+    bool _isRunningSimulation = false;
+
+    bool _hasAlreadyRunASimulation = false;
+
+
+    // Value Style
+    float _sizeMainNode;
+    float _sizeSubNode;
 
     GraphMode _graphMode = Settings.DEFAULT_GRAPH_MODE;
 
@@ -39,123 +53,222 @@ public class LabelNodgeManagerUI : MonoBehaviour
 
     async void Start()
     {
-        _labelNodgesMainGraph = new();
-        _labelNodgesSubGraph = new();
+        _displayedLabelMainNodesDict = new();
+        _displayedLabelSubNodesDict = new();
+
+        _displayedLabelMainEdgesDict = new();
+        _displayedLabelSubEdgesDict = new();
+
         _hmdTf = _referenceHolderSO.HMDCamSA.Value.transform;
         _graphManager.OnGraphUpdate += OnGraphUpdated;
 
+
         _graphConfig = await _graphConfigurationContainerSO.GetGraphConfiguration();
+
         _displayLabelsDesk = _graphConfig.ShowLabelDesk;
         _displayLabelsImmersion = _graphConfig.ShowLabelImmersion;
         _displayLabelsLens = _graphConfig.ShowLabelLens;
+
+        UpdateValueStyle();
+
+        Invoke(nameof(DelayedSubscribe), 1f);
     }
 
+
+    void DelayedSubscribe()
+    {
+        _selectionManager.OnNodgesPropagated += OnNodgesPropagated;
+    }
+
+
+    #region Update
     void Update()
     {
-        UpdateLabelNodges();
-    }
-
-
-    public void StyleLabels(StyleChange styleChange)
-    {
-        if (styleChange.HasChanged(StyleChangeType.MainGraph))
-            StyleLabelFromMainGraph(styleChange);
-
-        if (styleChange.HasChanged(StyleChangeType.SubGraph))
-            StyleLabelFromSubGraph(styleChange);
-    }
-
-    private void StyleLabelFromMainGraph(StyleChange styleChange)
-    {
-
-        if (_graphMode == GraphMode.Immersion && styleChange.HasChanged(StyleChangeType.ImmersionMode))
-        {
-            if (styleChange.HasChanged(StyleChangeType.Size))
-                SetSizeLabels(_labelNodgesMainGraph, _graphConfig.LabelNodeSizeImmersion);
-
-            if (styleChange.HasChanged(StyleChangeType.Visibility))
-            {
-                _displayLabelsImmersion = _graphConfig.ShowLabelImmersion;
-                SetVisibilityLabels(_labelNodgesMainGraph, _displayLabelsImmersion);
-            }
+        if ( (_inTransitionForSwitchMode || _isRunningSimulation) && !_hasAlreadyRunASimulation)
             return;
+
+        Vector3 hmdPosition = _hmdTf.position;
+
+        if ( (_graphMode == GraphMode.Desk && _displayLabelsDesk) || (_graphMode == GraphMode.Immersion && _displayLabelsImmersion) )
+            UpdateMainLabels(hmdPosition);
+
+        if(_graphMode == GraphMode.Desk && _displayLabelsLens)
+            UpdateSubLabels(hmdPosition);
+    }
+
+ 
+    private void UpdateMainLabels(Vector3 hmdPosition)
+    {
+        float mainNodeSize = _sizeMainNode;
+
+        foreach (LabelNodgeUI nodgeUI in _displayedLabelMainNodesDict.Values)
+        {
+            nodgeUI.UpdateTransform(hmdPosition, mainNodeSize);
         }
 
-        if (!(_graphMode == GraphMode.Desk && styleChange.HasChanged(StyleChangeType.DeskMode)))
-            return;
+        foreach (LabelNodgeUI nodgeUI in _displayedLabelMainEdgesDict.Values)
+        {
+            nodgeUI.UpdateTransform(hmdPosition);
+        }
+    }
 
+    private void UpdateSubLabels(Vector3 hmdPosition)
+    {
+        float subNodeSize = _sizeSubNode;
+
+        foreach (LabelNodgeUI nodgeUI in _displayedLabelSubNodesDict.Values)
+        {
+            nodgeUI.UpdateTransform(hmdPosition, subNodeSize);
+        }
+
+        foreach (LabelNodgeUI nodgeUI in _displayedLabelSubEdgesDict.Values)
+        {
+            nodgeUI.UpdateTransform(hmdPosition);
+        }
+    }
+
+    #endregion
+
+
+    #region Styling
+    public void StyleLabels(StyleChange styleChange)
+    {
+        UpdateValueStyle();
+
+        if (styleChange.HasChanged(StyleChangeType.MainGraph))
+            StyleForMainGraph(styleChange);
+
+        if (styleChange.HasChanged(StyleChangeType.SubGraph))
+            StyleForSubGraph(styleChange);
+    }
+
+    private void StyleForMainGraph(StyleChange styleChange)
+    {
+        if (_graphMode == GraphMode.Immersion && styleChange.HasChanged(StyleChangeType.ImmersionMode))
+            StyleImmersionMode(styleChange);
+
+        if (_graphMode == GraphMode.Desk && styleChange.HasChanged(StyleChangeType.DeskMode))
+            StyleDeskMode(styleChange);
+    }
+
+    private void StyleImmersionMode(StyleChange styleChange)
+    {
         if (styleChange.HasChanged(StyleChangeType.Size))
-            SetSizeLabels(_labelNodgesMainGraph, _graphConfig.LabelNodeSizeDesk);
+            SetSizeLabels(GraphType.Main, _graphConfig.LabelNodeSizeImmersion);
+
+        if (styleChange.HasChanged(StyleChangeType.Visibility))
+        {
+            _displayLabelsImmersion = _graphConfig.ShowLabelImmersion;
+            SwitchDisplayMain(_displayLabelsImmersion);
+        }
+    }
+
+    private void StyleDeskMode(StyleChange styleChange)
+    {
+        if (styleChange.HasChanged(StyleChangeType.Size))
+            SetSizeLabels(GraphType.Main, _graphConfig.LabelNodeSizeDesk);
 
 
         if (styleChange.HasChanged(StyleChangeType.Visibility))
         {
             _displayLabelsDesk = _graphConfig.ShowLabelDesk;
-            SetVisibilityLabels(_labelNodgesMainGraph, _graphConfig.ShowLabelDesk);
+            SwitchDisplayMain(_displayLabelsDesk);
         }
     }
 
-    private void StyleLabelFromSubGraph(StyleChange styleChange)
+    private void StyleForSubGraph(StyleChange styleChange)
     {
-        // No labels for subgraph immersion mode/watch 
+        if (_graphMode == GraphMode.Desk && styleChange.HasChanged(StyleChangeType.DeskMode))
+            StyleLensMode(styleChange);
 
+        // Don't style watch because don't have labels
+    }
 
-        if (!(_graphMode == GraphMode.Desk && styleChange.HasChanged(StyleChangeType.DeskMode)))
-            return;
-
+    private void StyleLensMode(StyleChange styleChange)
+    {
         if (styleChange.HasChanged(StyleChangeType.Size))
-            SetSizeLabels(_labelNodgesSubGraph, _graphConfig.LabelNodeSizeDesk);
+            SetSizeLabels(GraphType.Sub, _graphConfig.LabelNodeSizeLens);
 
 
         if (styleChange.HasChanged(StyleChangeType.Visibility))
         {
             _displayLabelsLens = _graphConfig.ShowLabelLens;
-            SetVisibilityLabels(_labelNodgesSubGraph, _displayLabelsDesk);
+            SwitchDisplayLens(_displayLabelsLens);
         }
     }
 
 
-    private void SetSizeLabels(List<LabelNodgeUI> labels, float scale)
+    private void SetSizeLabels(GraphType graphType, float scaleSize)
     {
-        Vector2 sizeConvas = _baseSizeCanvas * scale;
-        float fontSize = _baseFontSize * scale;
+        var displayedNodesLabels = (graphType == GraphType.Main) ? _displayedLabelMainNodesDict : _displayedLabelSubNodesDict;
+        var displayedEdgeslabels = (graphType == GraphType.Main) ? _displayedLabelMainEdgesDict : _displayedLabelSubEdgesDict;
 
-        foreach (LabelNodgeUI label in labels)
+        Vector2 sizeConvas = _baseSizeCanvas * scaleSize;
+        float fontSize = _baseFontSize * scaleSize;
+
+        foreach (LabelNodgeUI label in displayedNodesLabels.Values)
+        {
+            label.SetSize(sizeConvas, fontSize);
+        }
+
+        foreach (LabelNodgeUI label in displayedEdgeslabels.Values)
         {
             label.SetSize(sizeConvas, fontSize);
         }
     }
 
-    private void SetVisibilityLabels(List<LabelNodgeUI> labels, bool isVisible)
+    private void SwitchDisplayMain(bool displayLabels)
     {
-        foreach (LabelNodgeUI label in labels)
-        {
-            label.SetActive(isVisible);
-        }
+        if (displayLabels)
+            CreateMainLabels();
+        else
+            ReleaseMainLabels();
     }
 
-   
 
+    private void SwitchDisplayLens(bool displayLabels)
+    {
+        if (displayLabels)
+            CreateSubLabels();
+        else
+            ReleaseSubLabels();
+    }
+
+    private float GetLabelSize(GraphType graphType)
+    {
+        if(_graphMode == GraphMode.Desk)
+        {
+            return (graphType == GraphType.Main) ? _graphConfig.LabelNodeSizeDesk : _graphConfig.LabelNodeSizeLens;
+        }
+
+
+        // No Labels Watch
+        return _graphConfig.LabelNodeSizeImmersion;
+       
+    }
+    #endregion
+
+
+    #region OnGraphUpdated
     public void OnGraphUpdated(GraphUpdateType updateType)
     {
         switch (updateType)
         {
             case GraphUpdateType.BeforeSimulationStart:
-
+                _isRunningSimulation = true;
                 break;
             case GraphUpdateType.AfterSimulationHasStopped:
-
+                _isRunningSimulation = false;
+                _hasAlreadyRunASimulation = true;
                 break;
             case GraphUpdateType.BeforeSwitchMode:
                 HideLabelsForTransition();
                 break;
             case GraphUpdateType.AfterSwitchModeToDesk:
-                _graphMode = GraphMode.Immersion;
-                SetLabelsAfterSwitchMode();
+                AfterSwitchModeToDesk();
                 break;
             case GraphUpdateType.AfterSwitchModeToImmersion:
-                _graphMode = GraphMode.Immersion;
-                SetLabelsAfterSwitchMode();
+                AfterSwitchModeToImmersion();
                 break;
         }
     }
@@ -164,106 +277,498 @@ public class LabelNodgeManagerUI : MonoBehaviour
     {
         _inTransitionForSwitchMode = true;
 
-        foreach (LabelNodgeUI label in _labelNodgesMainGraph)
+        foreach (LabelNodgeUI label in _displayedLabelMainNodesDict.Values)
         {
             label.SetActive(false);
         }
 
-        foreach (LabelNodgeUI label in _labelNodgesSubGraph)
+        foreach (LabelNodgeUI label in _displayedLabelSubNodesDict.Values)
+        {
+            label.SetActive(false);
+        }
+
+        foreach (LabelNodgeUI label in _displayedLabelMainEdgesDict.Values)
+        {
+            label.SetActive(false);
+        }
+
+        foreach (LabelNodgeUI label in _displayedLabelSubEdgesDict.Values)
         {
             label.SetActive(false);
         }
     }
 
-    private void SetLabelsAfterSwitchMode()
+    private void AfterSwitchModeToDesk()
     {
-        if(_graphMode == GraphMode.Immersion)
+        _graphMode = GraphMode.Immersion;
+        _inTransitionForSwitchMode = false;
+
+        UpdateValueStyle();
+        AfterSwitchModeToDeskForMain();
+        AfterSwitchModeToDeskForLens();
+    }
+
+    private void AfterSwitchModeToDeskForMain()
+    {
+        if (!_displayLabelsDesk && _displayLabelsImmersion) // Release labels like they are not displayed
         {
-            float scale = _graphConfig.LabelNodeSizeImmersion;
-            Vector2 sizeConvas = _baseSizeCanvas * scale;
-            float fontSize = _baseFontSize * scale;
-
-            foreach (LabelNodgeUI label in _labelNodgesMainGraph)
-            {
-                label.SetAll(_displayLabelsImmersion, sizeConvas, fontSize);
-            }
-
+            ReleaseMainLabels();
             return;
         }
 
-
-        if(_graphMode == GraphMode.Desk && _displayLabelsDesk)
+        if (_displayLabelsImmersion) // Labels were displayed before, so they are already created
         {
+            DisplayMainLabels();
+            return;
+        }
 
-            float scale = _graphConfig.LabelNodeSizeDesk;
-            Vector2 sizeConvas = _baseSizeCanvas * scale;
-            float fontSize = _baseFontSize * scale;
+        CreateMainLabels(); // Labels weren't displayed before, so need to create them
+    }
 
-            foreach (LabelNodgeUI label in _labelNodgesMainGraph)
+    private void AfterSwitchModeToDeskForLens()
+    {
+        if (!_displayLabelsLens) // Don't release labels because watch don't display them
+            return;
+
+        CreateSubLabels(); 
+    }
+
+    private void AfterSwitchModeToImmersion()
+    {
+        _graphMode = GraphMode.Immersion;
+        _inTransitionForSwitchMode = false;
+
+        UpdateValueStyle();
+        AfterSwitchModeToImmersionForMain();
+        AfterSwitchModeToImmersionForWatch();
+    }
+
+    private void AfterSwitchModeToImmersionForMain()
+    {
+        if (!_displayLabelsImmersion && _displayLabelsDesk) // Release labels like they are not displayed
+        {
+            ReleaseMainLabels();
+            return;
+        }
+
+        if (_displayLabelsDesk) // Labels were displayed before, so they are already created
+        {
+            DisplayMainLabels();
+            return;
+        }
+
+        CreateMainLabels(); // Labels weren't displayed before, so need to create them
+    }
+
+    private void AfterSwitchModeToImmersionForWatch()
+    {
+        if (!_displayLabelsLens) // labels weren't displayed before
+            return;
+
+        ReleaseSubLabels(); // Don't display labels in watch mode, so release them
+    }
+
+
+    private void ReleaseMainLabels()
+    {
+        foreach (LabelNodgeUI label in _displayedLabelMainNodesDict.Values)
+        {
+            _nodgePool.Release(label);
+        }
+
+        foreach (LabelNodgeUI label in _displayedLabelMainEdgesDict.Values)
+        {
+            _nodgePool.Release(label);
+        }
+
+        _displayedLabelMainNodesDict = new();
+        _displayedLabelMainEdgesDict = new();
+    }
+
+    private void ReleaseSubLabels()
+    {
+        foreach (LabelNodgeUI label in _displayedLabelSubNodesDict.Values)
+        {
+            _nodgePool.Release(label);
+        }
+
+        foreach (LabelNodgeUI label in _displayedLabelSubEdgesDict.Values)
+        {
+            _nodgePool.Release(label);
+        }
+
+        _displayedLabelSubNodesDict = new();
+        _displayedLabelSubEdgesDict = new();
+    }
+
+    private void DisplayMainLabels()
+    {
+        float scale = (_graphMode == GraphMode.Immersion) ? _graphConfig.LabelNodeSizeImmersion : _graphConfig.LabelNodeSizeDesk;
+        Vector2 sizeConvas = _baseSizeCanvas * scale;
+        float fontSize = _baseFontSize * scale;
+
+        foreach (LabelNodgeUI label in _displayedLabelMainNodesDict.Values)
+        {
+            label.SetAll(_displayLabelsDesk, sizeConvas, fontSize);
+            label.SetActive(true);
+        }
+
+        foreach (LabelNodgeUI label in _displayedLabelMainEdgesDict.Values)
+        {
+            label.SetAll(_displayLabelsDesk, sizeConvas, fontSize);
+            label.SetActive(true);
+        }
+    }
+
+    private void CreateMainLabels()
+    {
+        var nodesToDisplay = _selectionManager.PropagatedNodes;
+        var edgesToDisplay = _selectionManager.PropagatedEdges;
+
+        var updatedNodeDisplayedLabels = new Dictionary<Node, LabelNodgeUI>();
+        var updatedEdgeDisplayedLabels = new Dictionary<Edge, LabelNodgeUI>();
+
+        foreach (Node nodeToDisplay in nodesToDisplay)
+        {
+            var labelNode = CreateNodeLabel(nodeToDisplay);
+            updatedNodeDisplayedLabels.Add(nodeToDisplay, labelNode);
+        }
+
+        foreach (Edge edgeToDisplay in edgesToDisplay)
+        {
+            var labelNode = CreateEdgeLabel(edgeToDisplay);
+            updatedEdgeDisplayedLabels.Add(edgeToDisplay, labelNode);
+        }
+
+        StyleNewPropagatedLabels(updatedNodeDisplayedLabels, GraphType.Main);
+        StyleNewPropagatedLabels(updatedEdgeDisplayedLabels, GraphType.Main);
+
+        _displayedLabelMainNodesDict = updatedNodeDisplayedLabels;
+        _displayedLabelMainEdgesDict = updatedEdgeDisplayedLabels;
+
+    }
+
+    private void CreateSubLabels()
+    {
+        var nodesToDisplay = _selectionManager.PropagatedNodes;
+        var edgesToDisplay = _selectionManager.PropagatedEdges;
+
+        var updatedNodeDisplayedLabels = new Dictionary<Node, LabelNodgeUI>();
+        var updatedEdgeDisplayedLabels = new Dictionary<Edge, LabelNodgeUI>();
+
+        foreach (Node nodeToDisplay in nodesToDisplay)
+        {
+            var labelNode = CreateNodeLabel(nodeToDisplay);
+            updatedNodeDisplayedLabels.Add(nodeToDisplay, labelNode);
+        }
+
+        foreach (Edge edgeToDisplay in edgesToDisplay)
+        {
+            var labelNode = CreateEdgeLabel(edgeToDisplay);
+            updatedEdgeDisplayedLabels.Add(edgeToDisplay, labelNode);
+        }
+
+        StyleNewPropagatedLabels(updatedNodeDisplayedLabels, GraphType.Sub);
+        StyleNewPropagatedLabels(updatedEdgeDisplayedLabels, GraphType.Sub);
+
+        _displayedLabelSubNodesDict = updatedNodeDisplayedLabels;
+        _displayedLabelSubEdgesDict = updatedEdgeDisplayedLabels;
+    }
+    #endregion
+
+
+    #region OnNodgesPropagated
+    public void OnNodgesPropagated(Nodges propagatedNodges)
+    {
+        var nodesToDisplay = propagatedNodges.Nodes;
+        var edgesToDisplay = propagatedNodges.Edges;
+
+        TryDisplayMainNodesLabels(nodesToDisplay);
+        TryDisplaySubNodesLabels(nodesToDisplay);
+
+        TryDisplayMainEdgesLabels(edgesToDisplay);
+        TryDisplaySubEdgesLabels(edgesToDisplay);
+    }
+
+    private void TryDisplayMainNodesLabels(List<Node> nodesLabelsToDisplay)
+    {
+        if (_graphMode == GraphMode.Desk && !_displayLabelsDesk)
+            return;
+
+        if (_graphMode == GraphMode.Immersion && !_displayLabelsImmersion)
+            return;
+
+        var previousDisplayedLabels = _displayedLabelMainNodesDict;
+
+        var labelsToDisplay = GetLabelsToDisplayForMainGraph();
+
+        var updatedDisplayedLabels = new Dictionary<Node, LabelNodgeUI>();
+        var newDisplayedlabels = new Dictionary<Node, LabelNodgeUI>();
+
+        FilterLabelsToDisplay();
+
+        StyleNewPropagatedLabels(newDisplayedlabels, GraphType.Main);
+
+        ReleaseLabels(previousDisplayedLabels);
+
+        _displayedLabelMainNodesDict = updatedDisplayedLabels;
+
+
+
+        HashSet<Node> GetLabelsToDisplayForMainGraph()
+        {
+            var labelsToDisplay = new HashSet<Node>();
+            foreach (Node node in nodesLabelsToDisplay)
             {
-                label.SetAll(_displayLabelsDesk, sizeConvas, fontSize);
+                if (previousDisplayedLabels.ContainsKey(node))
+                    labelsToDisplay.Add(node);
             }
 
-            scale = _graphConfig.LabelNodeSizeLens;
-            sizeConvas = _baseSizeCanvas * scale;
-            fontSize = _baseFontSize * scale;
+            return labelsToDisplay;
+        }
 
-            foreach (LabelNodgeUI label in _labelNodgesSubGraph)
+        void FilterLabelsToDisplay()
+        {
+            foreach (Node nodeToDisplay in labelsToDisplay)
             {
-                label.SetAll(_displayLabelsDesk, sizeConvas, fontSize);
+                if (previousDisplayedLabels.TryGetValue(nodeToDisplay, out LabelNodgeUI labelNodge))
+                {
+                    previousDisplayedLabels.Remove(nodeToDisplay);
+                    updatedDisplayedLabels.Add(nodeToDisplay, labelNodge);
+                    continue;
+                }
+
+
+                var labelNode = CreateNodeLabel(nodeToDisplay);
+                updatedDisplayedLabels.Add(nodeToDisplay, labelNode);
+                newDisplayedlabels.Add(nodeToDisplay, labelNode);
             }
         }
     }
 
-    private void UpdateLabelNodges()
+    private void TryDisplaySubNodesLabels(List<Node> nodesLabelsToDisplay)
     {
-        if (_labelNodgesMainGraph == null)
+        if (_graphMode == GraphMode.Desk && !_displayLabelsDesk)
             return;
 
-        Vector3 hmdPosition = _hmdTf.position;
+        if (_graphMode == GraphMode.Immersion) // Don't display label for watch
+            return;
 
-        float nodeSizeMain = GetNodeSize(GraphType.Main);
+        var previousDisplayedLabels = _displayedLabelSubNodesDict;
+
+        var labelsToDisplay = GetLabelsToDisplayForSubGraph();
+
+        var updatedDisplayedLabels = new Dictionary<Node, LabelNodgeUI>();
+        var newDisplayedlabels = new Dictionary<Node, LabelNodgeUI>();
+
+        FilterLabelsToDisplay();
+
+        StyleNewPropagatedLabels(newDisplayedlabels, GraphType.Sub);
+
+        ReleaseLabels(previousDisplayedLabels);
+
+        _displayedLabelSubNodesDict = updatedDisplayedLabels;
 
 
-        foreach(LabelNodgeUI nodgeUI in _labelNodgesMainGraph)
+        HashSet<Node> GetLabelsToDisplayForSubGraph()
         {
-            nodgeUI.UpdateTransform(hmdPosition, nodeSizeMain);
+            var labelsToDisplay = new HashSet<Node>();
+            foreach (Node node in nodesLabelsToDisplay)
+            {
+                if (previousDisplayedLabels.ContainsKey(node))
+                    labelsToDisplay.Add(node);
+            }
+
+            return labelsToDisplay;
         }
 
-
-        if (_graphMode == GraphMode.Immersion) // if subgraph is in watch mode
-            return;
-
-        float nodeSizeSub = GetNodeSize(GraphType.Sub);
-
-        foreach (LabelNodgeUI nodgeUI in _labelNodgesSubGraph)
+        void FilterLabelsToDisplay()
         {
-            nodgeUI.UpdateTransform(hmdPosition, nodeSizeMain);
+            foreach (Node nodeToDisplay in labelsToDisplay)
+            {
+                if (previousDisplayedLabels.TryGetValue(nodeToDisplay, out LabelNodgeUI labelNodge))
+                {
+                    previousDisplayedLabels.Remove(nodeToDisplay);
+                    updatedDisplayedLabels.Add(nodeToDisplay, labelNodge);
+                    continue;
+                }
+
+
+                var labelNode = CreateNodeLabel(nodeToDisplay);
+                updatedDisplayedLabels.Add(nodeToDisplay, labelNode);
+                newDisplayedlabels.Add(nodeToDisplay, labelNode);
+            }
         }
     }
 
-    public void ClearLabelNodges()
+    private void TryDisplayMainEdgesLabels(List<Edge> edgesLabelsToDisplay)
     {
-        int nb = _labelNodgesMainGraph.Count;
+        if (_graphMode == GraphMode.Desk && !_displayLabelsDesk)
+            return;
 
-        for (int i = 0; i < nb; i++)
+        if (_graphMode == GraphMode.Immersion && !_displayLabelsImmersion)
+            return;
+
+        var previousDisplayedLabels = _displayedLabelMainEdgesDict;
+
+
+        var labelsToDisplay = GetLabelsToDisplayForMainGraph();
+
+        var updatedDisplayedLabels = new Dictionary<Edge, LabelNodgeUI>();
+        var newDisplayedlabels = new Dictionary<Edge, LabelNodgeUI>();
+
+        FilterLabelsToDisplay();
+        StyleNewPropagatedLabels(newDisplayedlabels, GraphType.Main);
+        ReleaseLabels(_displayedLabelMainEdgesDict);
+
+        _displayedLabelMainEdgesDict = updatedDisplayedLabels;
+
+
+
+        HashSet<Edge> GetLabelsToDisplayForMainGraph()
         {
-            _nodgePool.Release(_labelNodgesMainGraph[i]);
+            var labelsToDisplay = new HashSet<Edge>();
+            foreach (Edge edge in edgesLabelsToDisplay)
+            {
+                if (previousDisplayedLabels.ContainsKey(edge))
+                    labelsToDisplay.Add(edge);
+            }
+
+            return labelsToDisplay;
         }
 
-        _labelNodgesMainGraph = new();
+        void FilterLabelsToDisplay()
+        {
+            foreach (Edge edgeToDisplay in labelsToDisplay)
+            {
+                if (_displayedLabelMainEdgesDict.TryGetValue(edgeToDisplay, out LabelNodgeUI labelNodge))
+                {
+                    _displayedLabelMainEdgesDict.Remove(edgeToDisplay);
+                    updatedDisplayedLabels.Add(edgeToDisplay, labelNodge);
+                    continue;
+                }
+
+                var labelEdge = CreateEdgeLabel(edgeToDisplay);
+                updatedDisplayedLabels.Add(edgeToDisplay, labelEdge);
+                newDisplayedlabels.Add(edgeToDisplay, labelEdge);
+            }
+        }
     }
 
-    public LabelNodgeUI GetLabelNodgeUI(GraphType forGraph)
+    private void TryDisplaySubEdgesLabels(List<Edge> edgesLabelsToDisplay)
     {
-        var labelNodge = _nodgePool.GetLabelNodge();
+        if (_graphMode == GraphMode.Desk && !_displayLabelsDesk)
+            return;
 
-        if(forGraph == GraphType.Main)
-            _labelNodgesMainGraph.Add(labelNodge);
-        else
-            _labelNodgesSubGraph.Add(labelNodge);
+        if (_graphMode == GraphMode.Immersion) // Don't display label for watch
+            return;
 
-        return labelNodge;
+
+        var previousDisplayedLabels = _displayedLabelMainEdgesDict;
+
+        var labelsToDisplay = GetLabelsToDisplayForSubGraph();
+
+
+        var updatedDisplayedLabels = new Dictionary<Edge, LabelNodgeUI>();
+        var newDisplayedlabels = new Dictionary<Edge, LabelNodgeUI>();
+
+        FilterLabelsToDisplay();
+        StyleNewPropagatedLabels(newDisplayedlabels, GraphType.Sub);
+        ReleaseLabels(previousDisplayedLabels);
+
+        _displayedLabelSubEdgesDict = updatedDisplayedLabels;
+
+
+        HashSet<Edge> GetLabelsToDisplayForSubGraph()
+        {
+            var labelsToDisplay = new HashSet<Edge>();
+            foreach (Edge edge in edgesLabelsToDisplay)
+            {
+                if (previousDisplayedLabels.ContainsKey(edge))
+                    labelsToDisplay.Add(edge);
+            }
+
+            return labelsToDisplay;
+        }
+
+        void FilterLabelsToDisplay()
+        {
+            foreach (Edge edgeToDisplay in labelsToDisplay)
+            {
+                if (previousDisplayedLabels.TryGetValue(edgeToDisplay, out LabelNodgeUI labelNodge))
+                {
+                    previousDisplayedLabels.Remove(edgeToDisplay);
+                    updatedDisplayedLabels.Add(edgeToDisplay, labelNodge);
+                    continue;
+                }
+
+                var labelEdge = CreateEdgeLabel(edgeToDisplay);
+                updatedDisplayedLabels.Add(edgeToDisplay, labelEdge);
+                newDisplayedlabels.Add(edgeToDisplay, labelEdge);
+            }
+        }
+    }
+
+    private void ReleaseLabels(Dictionary<Node, LabelNodgeUI> nodeLabelsToRelease)
+    {
+        foreach (var nodeAndLabel in nodeLabelsToRelease)
+        {
+            _nodgePool.Release(nodeAndLabel.Value);
+        }
+    }
+
+    private void ReleaseLabels(Dictionary<Edge, LabelNodgeUI> edgeLabelsToRelease)
+    {
+        foreach (var edgeAndLabel in edgeLabelsToRelease)
+        {
+            _nodgePool.Release(edgeAndLabel.Value);
+        }
+    }
+
+    private void StyleNewPropagatedLabels<T>(Dictionary<T, LabelNodgeUI> newLabels, GraphType graphType)
+    {
+        float sizeScale = GetLabelSize(graphType);
+        Vector2 sizeConvas = _baseSizeCanvas * sizeScale;
+        float fontSize = _baseFontSize * sizeScale;
+
+        foreach (var label in newLabels.Values)
+        {
+            label.SetSize(sizeConvas, fontSize);
+        }
+    }
+    #endregion
+
+
+    #region LabelCreation
+
+    private LabelNodgeUI CreateNodeLabel(Node node)
+    {
+        var labelNodgeUI = _nodgePool.GetLabelNodge();
+
+        labelNodgeUI.SetFollow(node.MainGraphNodeTf);
+        var name = node.GetName();
+        labelNodgeUI.Text = (name != null) ? name : node.Value;
+
+        return labelNodgeUI;
+    }
+
+    private LabelNodgeUI CreateEdgeLabel(Edge edge)
+    {
+        var labelNodgeUI = _nodgePool.GetLabelNodge();
+        _displayedLabelMainEdgesDict.Add(edge, labelNodgeUI);
+
+        labelNodgeUI.SetFollow(edge.Source.MainGraphNodeTf, edge.Target.MainGraphNodeTf);
+        labelNodgeUI.Text = edge.Value;
+
+        return labelNodgeUI;
+    }
+    #endregion
+
+
+    private void UpdateValueStyle()
+    {
+        _sizeMainNode = GetNodeSize(GraphType.Main);
+        _sizeSubNode = GetNodeSize(GraphType.Sub);
     }
 
     private float GetNodeSize(GraphType graphType)

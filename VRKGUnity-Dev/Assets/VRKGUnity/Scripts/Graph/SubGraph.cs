@@ -61,9 +61,12 @@ public class SubGraph : MonoBehaviour
 
     void DelayedSubscribe()
     {
+        _displayWatch = _graphManager.GraphConfiguration.ShowWatch;
         _selectionManager.OnNodgesPropagated += OnNodgesPropagated;
     }
 
+
+    #region Update
     private void Update()
     {
         if (_subGraphMode == SubGraphMode.Watch)
@@ -85,10 +88,14 @@ public class SubGraph : MonoBehaviour
 
     private void UpdateSubGraphPositionToWatch()
     {
+        if (!_displayWatch)
+            return;
         _subGraphTf.position = _watchTf.position + _watchTf.up * _deltaHeightWatch;
     }
+    #endregion
 
 
+    #region OnGraphUpdated
     public void OnGraphUpdated(GraphUpdateType updateType)
     {
         switch (updateType)
@@ -111,6 +118,27 @@ public class SubGraph : MonoBehaviour
                 AfterSwitchModeToImmersion();
                 break;
         }            
+    }
+
+    private void SimulationStopped()
+    {
+        if (_isFirstSimulationStopped)
+        {
+            _isFirstSimulationStopped = false;
+            _subGraphTf.position = _lensTf.position;
+            return;
+        }
+
+
+        // TODO : SimulationStopped
+        if (_subGraphMode == SubGraphMode.Lens)
+        {
+
+        }
+        else // Watch
+        {
+
+        }
     }
 
     private void BeforeSwitchMode()
@@ -185,27 +213,26 @@ public class SubGraph : MonoBehaviour
         _subGraphMode = SubGraphMode.Watch;
         _subGraphTf.gameObject.SetActive(true);
     }
+    #endregion
 
+
+    #region OnNodgesPropagated
     private void OnNodgesPropagated(Nodges propagatedNodges)
     {
         if (_subGraphMode != SubGraphMode.Lens)
             return;
 
-        DisplayPropagatedNodes(propagatedNodges);
+        DisplayNewPropagatedNodes(propagatedNodges.Nodes);
+        DisplayNewPropagatedEdges(propagatedNodges.Edges);
+
         RecenterLensGraph();
     }
 
-    private void DisplayPropagatedNodes(Nodges propagatedNodges)
+    private void DisplayNewPropagatedNodes(List<Node> newNodesToDisplay)
     {
-        var nodesToDisplay = propagatedNodges.Nodes;
-        var edgesToDisplay = propagatedNodges.Edges;
-
-
         var newDisplayedNodes = new HashSet<Node>();
-        var newDisplayedEdges = new HashSet<Edge>();
 
-
-        foreach (Node nodeToDisplay in nodesToDisplay)
+        foreach (Node nodeToDisplay in newNodesToDisplay)
         {
             if (_displayedNodes.Contains(nodeToDisplay))
             {
@@ -224,8 +251,13 @@ public class SubGraph : MonoBehaviour
         }
 
         _displayedNodes = newDisplayedNodes;
+    }
 
-        foreach (Edge edgeToDisplay in edgesToDisplay)
+    private void DisplayNewPropagatedEdges(List<Edge> newEdgesToDisplay) 
+    {
+        var newDisplayedEdges = new HashSet<Edge>();
+
+        foreach (Edge edgeToDisplay in newEdgesToDisplay)
         {
             if (_displayedEdges.Contains(edgeToDisplay))
             {
@@ -259,35 +291,17 @@ public class SubGraph : MonoBehaviour
         centerGraph /= _displayedNodes.Count;
         _subGraphTf.position = _lensTf.position - centerGraph;
     }
-
-    private void SimulationStopped()
-    {
-        if(_isFirstSimulationStopped)
-        {
-            _isFirstSimulationStopped = false;
-            _subGraphTf.position = _lensTf.position;
-            return;
-        }
+    #endregion
 
 
-        // TODO : SimulationStopped
-        if(_subGraphMode == SubGraphMode.Lens)
-        {
-
-        }
-        else // Watch
-        {
-
-        }
-    }
 
     [ContextMenu("SwitchWatchVisibility")]
-    public void SetWatchVisibility(bool isVisible)
+    public void SwitchWatchVisibility()
     {
         if (_subGraphMode != SubGraphMode.Watch)
             return;
 
-        _displayWatch = isVisible;
+        _displayWatch = _graphManager.GraphConfiguration.ShowWatch;
         _subGraphTf.gameObject.SetActive(_displayWatch);
     }
 
