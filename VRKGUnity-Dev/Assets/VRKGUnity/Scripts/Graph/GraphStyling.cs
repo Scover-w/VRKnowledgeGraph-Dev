@@ -10,6 +10,8 @@ public class GraphStyling : MonoBehaviour
 
     GraphConfiguration _graphConfiguration;
 
+    GraphMode _graphMode = Settings.DEFAULT_GRAPH_MODE;
+
     bool _isFirstSimu = true;
 
     async void Start()
@@ -31,8 +33,10 @@ public class GraphStyling : MonoBehaviour
             case GraphUpdateType.BeforeSwitchMode:
                 break;
             case GraphUpdateType.AfterSwitchModeToImmersion:
+                AfterSwitchModeToImmersion();
                 break;
             case GraphUpdateType.AfterSwitchModeToDesk:
+                AfterSwitchModeToDesk();
                 break;
         }         
     }
@@ -61,6 +65,7 @@ public class GraphStyling : MonoBehaviour
         {
             var node = idAndNode.Value;
             node.MainGraphStyler.StyleNodeBeforeFirstSimu(styleChange, Settings.DEFAULT_GRAPH_MODE);
+            node.SubGraphStyler.StyleNodeBeforeFirstSimu(styleChange, Settings.DEFAULT_GRAPH_MODE);
         }
 
         var edgeDicId = graph.EdgesDicId;
@@ -69,6 +74,7 @@ public class GraphStyling : MonoBehaviour
         {
             var edge = idAndEdge.Value;
             edge.MainGraphStyler.StyleEdgeBeforeFirstSimu(styleChange, Settings.DEFAULT_GRAPH_MODE);
+            edge.SubGraphStyler.StyleEdgeBeforeFirstSimu(styleChange, Settings.DEFAULT_GRAPH_MODE);
         }
     }
 
@@ -82,6 +88,57 @@ public class GraphStyling : MonoBehaviour
             var edge = idAndEdge.Value;
             edge.MainGraphStyler.SetColliderAfterEndSimu(_graphManager.GraphMode);
         }
+
+        SetSubNodePositionsAfterSimu();
+    }
+
+    private void SetSubNodePositionsAfterSimu()
+    {
+        var graph = _graphManager.Graph;
+        var nodesDicId = graph.NodesDicId;
+        var edgeDicId = graph.EdgesDicId;
+
+        NodeStyler.GraphConfiguration = _graphConfiguration;
+        EdgeStyler.GraphConfiguration = _graphConfiguration;
+
+        StyleChange styleChange = new StyleChange().Add(StyleChangeType.SubGraph)
+                                                    .Add(StyleChangeType.DeskMode)
+                                                    .Add(StyleChangeType.ImmersionMode)
+                                                    .Add(StyleChangeType.Position);
+
+        foreach (Node node in nodesDicId.Values)
+        {
+            node.SubGraphStyler.StyleNode(styleChange, false, _graphMode);
+        }
+
+        foreach (Edge edge in edgeDicId.Values)
+        {
+            edge.SubGraphStyler.StyleEdge(styleChange, false, _graphMode);
+        }
+    }
+
+    private void AfterSwitchModeToImmersion()
+    {
+        _graphMode = GraphMode.Immersion;
+    }
+
+    private void AfterSwitchModeToDesk()
+    {
+        _graphMode = GraphMode.Desk;
+
+        var graph = _graphManager.Graph;
+        var nodesDicId = graph.NodesDicId;
+
+        StyleChange styleChange = new StyleChange().Add(StyleChangeType.SubGraph)
+                                                    .Add(StyleChangeType.DeskMode)
+                                                    .Add(StyleChangeType.Node)
+                                                    .Add(StyleChangeType.Position);
+
+        foreach (var node in nodesDicId.Values)
+        {
+            node.MainGraphStyler.StyleNode(styleChange, false, GraphMode.Desk);
+        }
+
     }
 
     public void StyleGraph(StyleChange styleChange, GraphMode graphMode)

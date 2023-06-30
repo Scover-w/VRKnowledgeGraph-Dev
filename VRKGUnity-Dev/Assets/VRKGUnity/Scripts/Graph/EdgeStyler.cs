@@ -113,20 +113,16 @@ public class EdgeStyler : MonoBehaviour
     }
 
     private void StylePosition(StyleChange styleChange, GraphMode graphMode)
-    {
-        float scalingFactor;
-        
+    {  
         if(graphMode == GraphMode.Desk && styleChange.HasChanged(StyleChangeType.DeskMode))
         {
             if (GraphType == GraphType.Main)
             {
-                scalingFactor = GraphConfiguration.DeskGraphSize;
-                SetPosition(scalingFactor);
+                SetPosition(GraphConfiguration.DeskGraphSize);
             }
             else if(GraphType == GraphType.Sub)
             {
-                scalingFactor = GraphConfiguration.LensGraphSize;
-                SetPosition(scalingFactor);
+                SetPosition(GraphConfiguration.LensGraphSize);
             }
 
         }
@@ -135,13 +131,11 @@ public class EdgeStyler : MonoBehaviour
         {
             if (GraphType == GraphType.Main)
             {
-                scalingFactor = GraphConfiguration.ImmersionGraphSize;
-                SetPosition(scalingFactor);
+                SetPosition(GraphConfiguration.ImmersionGraphSize);
             }
             else if (GraphType == GraphType.Sub)
             {
-                scalingFactor = GraphConfiguration.WatchGraphSize;
-                SetPosition(scalingFactor);
+                SetPosition(GraphConfiguration.WatchGraphSize);
             }
         }
     }

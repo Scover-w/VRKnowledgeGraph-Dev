@@ -90,6 +90,7 @@ public class SubGraph : MonoBehaviour
     {
         if (!_displayWatch)
             return;
+
         _subGraphTf.position = _watchTf.position + _watchTf.up * _deltaHeightWatch;
     }
     #endregion
@@ -101,6 +102,7 @@ public class SubGraph : MonoBehaviour
         switch (updateType)
         {
             case GraphUpdateType.BeforeSimulationStart:
+                BeforeSimulationStart();
                 break;
             case GraphUpdateType.AfterSimulationHasStopped:
                 SimulationStopped();
@@ -120,12 +122,23 @@ public class SubGraph : MonoBehaviour
         }            
     }
 
+    private void BeforeSimulationStart()
+    {
+
+    }
+
     private void SimulationStopped()
     {
         if (_isFirstSimulationStopped)
         {
             _isFirstSimulationStopped = false;
             _subGraphTf.position = _lensTf.position;
+
+            if (_subGraphMode == SubGraphMode.Lens)
+                AfterSwitchModeToDesk();
+            else
+                AfterSwitchModeToImmersion();
+
             return;
         }
 
