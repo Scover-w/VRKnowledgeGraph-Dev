@@ -93,10 +93,6 @@ public class Outliner : MonoBehaviour
         }
     }
 
-    void OnDisable()
-    {
-        TryRemoveOutline();
-    }
 
     public void SetOutlineWidth(float outlineWidth)
     {
