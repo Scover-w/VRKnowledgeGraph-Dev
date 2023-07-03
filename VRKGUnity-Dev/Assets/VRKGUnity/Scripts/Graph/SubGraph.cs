@@ -333,7 +333,6 @@ public class SubGraph : MonoBehaviour
         if (_subGraphMode == SubGraphMode.Watch)
             return;
 
-        Debug.Log("Displayed Nodes,subgraph : " + _displayedNodes.Count);
 
         if (_displayedNodes.Count == 0)
             return;
