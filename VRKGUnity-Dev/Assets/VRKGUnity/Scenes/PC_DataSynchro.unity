@@ -463,6 +463,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95bebbfb8624ff349930b987a8400a6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _graphConfigContainerSo: {fileID: 11400000, guid: 7086a0d0e5c5fa74c91774d1597bf4fc, type: 2}
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _loadingBarUI: {fileID: 1889292029}
   _graphSimu: {fileID: 795284832}

@@ -10,6 +10,9 @@ using UnityEngine;
 public class DataSynchroManager : MonoBehaviour
 {
     [SerializeField]
+    GraphConfigurationContainerSO _graphConfigContainerSo;
+
+    [SerializeField]
     ReferenceHolderSO _referenceHolderSo;
 
     [SerializeField]
@@ -21,6 +24,8 @@ public class DataSynchroManager : MonoBehaviour
     GraphDbRepository _graphRepo;
     GraphDBAPI _graphDbAPI;
 
+    GraphConfiguration _graphConfiguration;
+
     JObject _data;
 
     public ConcurrentQueue<LoadingDistantUriData> DataQueue = new ConcurrentQueue<LoadingDistantUriData>();
@@ -28,12 +33,12 @@ public class DataSynchroManager : MonoBehaviour
     bool _needUpdateLoadingBar = false;
     int _nbDistantUri;
 
-    private void Start()
+    private async void Start()
     {
         _graphRepo = _referenceHolderSo.SelectedGraphDbRepository;
-
         _graphDbAPI = _graphRepo.GraphDBAPI;
 
+        _graphConfiguration = await _graphConfigContainerSo.GetGraphConfiguration();
         Invoke(nameof(SyncData), .2f);
     }
 
@@ -99,9 +104,9 @@ public class DataSynchroManager : MonoBehaviour
         });
 
 
-        //_loadingBarUI.Refresh(.8f, "Calculate Max Bounds");
+        _loadingBarUI.Refresh(.8f, "Calculate Max Bounds");
         //// Calculate Max Bounds
-        //await CalculateMaxBound();
+        await CalculateMaxBound();
 
 
         _loadingBarUI.Refresh(1f, "Loading Scene");
@@ -160,6 +165,9 @@ public class DataSynchroManager : MonoBehaviour
 
 
         NodgesDicId nodges = await NodgesHelper.RetreiveGraph(queryString, _graphRepo);
+
+        nodges.ResetAbsolutePosition(_graphConfiguration);
+
         NodgesSimuData nodgesSimuData = new NodgesSimuData(nodges);
         await _graphSimu.Run(nodgesSimuData);
 

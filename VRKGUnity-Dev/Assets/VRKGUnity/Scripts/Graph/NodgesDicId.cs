@@ -11,6 +11,17 @@ public class NodgesDicId
         NodesDicId = new();
         EdgesDicId = new();
     }
+
+    public void ResetAbsolutePosition(GraphConfiguration config)
+    {
+        int seed = config.SeedRandomPosition;
+
+
+        foreach (var idAndNode in NodesDicId)
+        {
+            idAndNode.Value.ResetAbsolutePosition(seed);
+        }
+    }
 }
 
 

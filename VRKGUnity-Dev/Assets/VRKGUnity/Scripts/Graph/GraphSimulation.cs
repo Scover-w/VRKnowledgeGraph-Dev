@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -132,12 +133,12 @@ public class GraphSimulation : MonoBehaviour
         float timer = 0f;
         _isRunningSimulation = true;
 
-
         while (_isRunningSimulation && !hasReachStopVelocity)
         {
             DebugChrono.Instance.Start("tickGRaph");
 
             hasReachStopVelocity = CalculateNodeSimuData(nodgesSimuDatas);
+
             if (firstTick && _refreshGraph)
             {
                 firstTick = false;
@@ -157,6 +158,7 @@ public class GraphSimulation : MonoBehaviour
                 timer = 0f;
             }
         }
+
         _newNodeSimuDatas = nodgesSimuDatas.NodeSimuDatas.Clone();
         _isRunningSimulation = false;
 
