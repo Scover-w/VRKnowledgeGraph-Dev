@@ -26,15 +26,17 @@ public class NodeStyler : MonoBehaviour
 
     MaterialPropertyBlock _propertyBlock;
 
-
-    private void OnEnable()
+    private void Awake()
     {
-        _outliner.enabled = false;
-
-
         _propertyBlock = new MaterialPropertyBlock();
         _renderer.SetPropertyBlock(_propertyBlock);
     }
+
+    //private void OnEnable()
+    //{
+    //    _propertyBlock = new MaterialPropertyBlock();
+    //    _renderer.SetPropertyBlock(_propertyBlock);
+    //}
 
 
     public void TryForceUnselect()

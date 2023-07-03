@@ -132,7 +132,7 @@ MonoBehaviour:
   _tf: {fileID: 1577208894705107027}
   _renderer: {fileID: 1247492717272893670}
   _outliner: {fileID: 7832868374192515532}
-  _interactable: {fileID: 0}
+  _interactable: {fileID: 4619141745406792243}
 --- !u!114 &4619141745406792243
 MonoBehaviour:
   m_ObjectHideFlags: 0

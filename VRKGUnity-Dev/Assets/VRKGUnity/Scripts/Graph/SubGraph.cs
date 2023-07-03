@@ -158,6 +158,7 @@ public class SubGraph : MonoBehaviour
     {
         _subGraphMode = SubGraphMode.InTransition;
         _subGraphTf.gameObject.SetActive(false);
+        _gpsPointTf.gameObject.SetActive(false);
 
 
         var graph = _graphManager.Graph;
@@ -225,6 +226,7 @@ public class SubGraph : MonoBehaviour
         UpdateSubGraphPositionToWatch();
         _subGraphMode = SubGraphMode.Watch;
         _subGraphTf.gameObject.SetActive(true);
+        _gpsPointTf.gameObject.SetActive(true);
     }
     #endregion
 
