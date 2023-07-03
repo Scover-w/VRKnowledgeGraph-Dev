@@ -5,6 +5,10 @@ public class AppManager : MonoBehaviour
     [SerializeField]
     ReferenceHolderSO _referenceHolderSo;
 
+
+    [SerializeField]
+    GraphConfigurationContainerSO _graphConfigurationContainer;
+
     [SerializeField]
     LifeCycleSceneManager _lifeCycleSceneManager;
 
@@ -13,5 +17,10 @@ public class AppManager : MonoBehaviour
     {
         _referenceHolderSo.AppManagerSA.Value = this;
         
+    }
+
+    private void OnDisable()
+    {
+        _graphConfigurationContainer.RefreshWindowsEditor();
     }
 }

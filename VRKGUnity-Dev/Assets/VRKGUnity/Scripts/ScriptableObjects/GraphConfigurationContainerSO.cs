@@ -8,7 +8,7 @@ public class GraphConfigurationContainerSO : ScriptableObject
 {
     [SerializeField]
     [Space(20)]
-    public GraphConfiguration _graphConfiguration;
+    GraphConfiguration _graphConfiguration;
 
     [Space(20)]
     [Header("Colors")]
@@ -28,31 +28,19 @@ public class GraphConfigurationContainerSO : ScriptableObject
     [SerializeField]
     private List<Color> OntologyViewerColors;
 
-    private async void Awake()
+    async void Awake()
     {
         _graphConfiguration = await GraphConfiguration.Load();
     }
 
-    private void OnEnable()
+    async void OnEnable()
     {
-        ForceLoad();
+        _graphConfiguration = await GraphConfiguration.Load();
     }
 
 
-    [ContextMenu("ForceLoad")]
-    public async Task ForceLoad()
-    {
-        Debug.LogWarning("ForceLoad");
 
-        try
-        {
-            _graphConfiguration = await GraphConfiguration.Load();
-        }
-        catch(Exception ex) 
-        {
-            Debug.LogError(ex);
-        }
-    }
+ 
 
     public async void Save()
     {
@@ -83,6 +71,26 @@ public class GraphConfigurationContainerSO : ScriptableObject
 
         return _graphConfiguration;
     }
+
+
+
+    public async void RefreshWindowsEditor()
+    {
+#if !UNITY_EDITOR
+        return;
+#endif
+
+        _graphConfiguration = await GraphConfiguration.Load();
+        NodeColor = _graphConfiguration.NodeColor;
+        EdgeColor = _graphConfiguration.EdgeColor;
+        PropagatedEdgeColor = _graphConfiguration.PropagatedEdgeColor;
+
+        NodeColorA = _graphConfiguration.NodeColorMapping.ColorA;
+        NodeColorB = _graphConfiguration.NodeColorMapping.ColorB;
+        NodeColorC = _graphConfiguration.NodeColorMapping.ColorC;
+
+        NodeColorNoOntology = _graphConfiguration.NodeColorNoOntology;
+}
 
 
     private async void OnValidate()

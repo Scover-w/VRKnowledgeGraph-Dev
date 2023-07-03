@@ -236,8 +236,6 @@ public class StylingManager : MonoBehaviour
         if (_graphConfig == null)
             return;
 
-        
-
 
         StyleChange styleChange = new();
 

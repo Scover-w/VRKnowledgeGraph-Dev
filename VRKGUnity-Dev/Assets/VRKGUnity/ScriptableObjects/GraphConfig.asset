@@ -32,11 +32,11 @@ MonoBehaviour:
     ImmersionGraphSize: 1
     DeskGraphSize: 0.1
     WatchGraphSize: 1
-    LensGraphSize: 0.15
+    LensGraphSize: 1.74
     NodeSizeImmersion: 0.91
     NodeSizeDesk: 0.03
     NodeSizeWatch: 1
-    NodeSizeLens: 0.02
+    NodeSizeLens: 0.2
     NodeMinSizeImmersion: 0.8
     NodeMaxSizeImmersion: 0.8
     NodeMinSizeDesk: 0.8
@@ -45,13 +45,13 @@ MonoBehaviour:
     NodeMaxSizeLens: 0.8
     LabelNodeSizeImmersion: 1
     LabelNodeSizeDesk: 1
-    LabelNodeSizeLens: 1
+    LabelNodeSizeLens: 1.35
     ShowLabelImmersion: 1
     ShowLabelDesk: 0
     ShowLabelLens: 1
     EdgeThicknessImmersion: 1
     EdgeThicknessDesk: 0.001
-    EdgeThicknessLens: 1
+    EdgeThicknessLens: 0.005
     EdgeThicknessWatch: 1
     CanSelectEdges: 0
     DisplayEdges: 1
@@ -71,7 +71,7 @@ MonoBehaviour:
     SelectedMetricTypeColor: 0
   NodeColor: {r: 0, g: 1, b: 0.9329295, a: 1}
   EdgeColor: {r: 0.7264151, g: 0.7264151, b: 0.7264151, a: 1}
-  PropagatedEdgeColor: {r: 0, g: 1, b: 0.7822676, a: 1}
+  PropagatedEdgeColor: {r: 0, g: 0.10394716, b: 1, a: 1}
   NodeColorA: {r: 1, g: 0, b: 0, a: 1}
   NodeColorB: {r: 0, g: 1, b: 0, a: 1}
   NodeColorC: {r: 0, g: 0, b: 1, a: 1}
