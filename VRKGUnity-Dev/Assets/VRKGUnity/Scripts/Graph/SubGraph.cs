@@ -15,7 +15,16 @@ public class SubGraph : MonoBehaviour
     GraphManager _graphManager;
 
     [SerializeField]
+    ReferenceHolderSO _referenceHolderSO;
+
+    [SerializeField]
+    GraphConfigurationContainerSO _graphConfigContainerSo;
+
+    [SerializeField]
     Transform _subGraphTf;
+
+    [SerializeField]
+    Transform _mainGraphTf;
 
     [SerializeField]
     Transform _watchTf;
@@ -28,6 +37,9 @@ public class SubGraph : MonoBehaviour
 
     [SerializeField]
     NodgeSelectionManager _selectionManager;
+
+    Transform _playerHeadTf;
+    GraphConfiguration _graphConfig;
 
     HashSet<Node> _displayedNodes;
     HashSet<Edge> _displayedEdges;
@@ -46,11 +58,13 @@ public class SubGraph : MonoBehaviour
 
     bool _isFirstSimulationStopped = true;
 
-    private void Start()
+    private async void Start()
     {
         _subGraphMode = (Settings.DEFAULT_GRAPH_MODE == GraphMode.Desk)? SubGraphMode.Lens : SubGraphMode.Watch;
         _displayedNodes = new();
         _displayedEdges = new();
+
+        _playerHeadTf = _referenceHolderSO.HMDCamSA.Value.transform;
 
         _easingFunction = Easing.GetEasing(_easingType);
 
@@ -58,6 +72,8 @@ public class SubGraph : MonoBehaviour
 
         if(_subGraphMode == SubGraphMode.Lens)
             _subGraphTf.gameObject.SetActive(false);
+
+        _graphConfig = await _graphConfigContainerSo.GetGraphConfiguration();
 
         Invoke(nameof(DelayedSubscribe), 1f);
     }
@@ -82,6 +98,7 @@ public class SubGraph : MonoBehaviour
     void UpdateWatch()
     {
         UpdateSubGraphPositionToWatch();
+        UpdateGpsPoint();
     }
 
     void UpdateLens()
@@ -95,6 +112,18 @@ public class SubGraph : MonoBehaviour
             return;
 
         _subGraphTf.position = _watchTf.position + _watchTf.up * _deltaHeightWatch;
+    }
+
+    private void UpdateGpsPoint()
+    {
+         var relativePosition = _playerHeadTf.position - _mainGraphTf.position;
+        relativePosition /= _graphConfig.ImmersionGraphSize;
+
+        relativePosition *= _graphConfig.WatchGraphSize;
+
+        _gpsPointTf.localPosition = relativePosition;
+
+
     }
     #endregion
 
@@ -229,6 +258,7 @@ public class SubGraph : MonoBehaviour
 
         UpdateSubGraphPositionToWatch();
         _subGraphMode = SubGraphMode.Watch;
+
         _subGraphTf.gameObject.SetActive(true);
         _gpsPointTf.gameObject.SetActive(true);
     }
