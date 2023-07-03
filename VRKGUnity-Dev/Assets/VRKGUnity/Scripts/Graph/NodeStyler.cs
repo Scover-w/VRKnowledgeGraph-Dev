@@ -68,10 +68,10 @@ public class NodeStyler : MonoBehaviour
     #region STYLING
     public void StyleNodeBeforeFirstSimu(StyleChange styleChange, GraphMode graphMode)
     {
-        StyleNode(styleChange, false, graphMode);
+        StyleNode(styleChange, graphMode);
     }
 
-    public void StyleNode(StyleChange styleChange, bool inSimulation, GraphMode graphMode)
+    public void StyleNode(StyleChange styleChange, GraphMode graphMode, bool inSimulation = false)
     {
         if (GraphType == GraphType.Main && !styleChange.HasChanged(StyleChangeType.MainGraph))
             return;
@@ -254,6 +254,78 @@ public class NodeStyler : MonoBehaviour
                 SetPosition(GraphConfiguration.WatchGraphSize);
         }
 
+    }
+
+
+    public void StyleTransitionNode(float t, bool isNextDesk)
+    {
+        if (GraphType == GraphType.Sub)
+            return;
+
+        StyleTransitionPosition(t, isNextDesk);
+        StyleTransitionSize(t, isNextDesk);
+    }
+
+
+    private void StyleTransitionPosition(float t, bool isNextDesk)
+    {
+        float scale = isNextDesk ? Mathf.Lerp(GraphConfiguration.ImmersionGraphSize, GraphConfiguration.DeskGraphSize, t) :
+                                    Mathf.Lerp(GraphConfiguration.DeskGraphSize, GraphConfiguration.ImmersionGraphSize, t);
+        SetPosition(scale);
+    }
+
+    private void StyleTransitionSize(float t, bool isNextDesk)
+    {
+        var selectedMetricType = GraphConfiguration.SelectedMetricTypeSize;
+
+        if (selectedMetricType == GraphMetricType.None)
+        {
+            StyleTransitionNormalSize(t, isNextDesk);
+            return;
+        }
+
+        StyleTransitionMetricSize(t, isNextDesk);
+    }
+
+    private void StyleTransitionNormalSize(float t, bool isNextDesk)
+    {
+        float scale = isNextDesk ? Mathf.Lerp(GraphConfiguration.NodeSizeImmersion, GraphConfiguration.NodeSizeDesk, t) :
+                                    Mathf.Lerp(GraphConfiguration.NodeSizeDesk, GraphConfiguration.NodeSizeImmersion, t);
+        SetScale(scale);
+    }
+
+    private void StyleTransitionMetricSize(float t, bool isNextDesk)
+    {
+        var selectedMetricType = GraphConfiguration.SelectedMetricTypeSize;
+        float tScale = 0f;
+
+        switch (selectedMetricType)
+        {
+            case GraphMetricType.AverageShortestPath:
+                tScale = Node.AverageShortestPathLength;
+                break;
+            case GraphMetricType.BetweennessCentrality:
+                tScale = Node.BetweennessCentrality;
+                break;
+            case GraphMetricType.ClosenessCentrality:
+                tScale = Node.ClosenessCentrality;
+                break;
+            case GraphMetricType.ClusteringCoefficient:
+                tScale = Node.ClusteringCoefficient;
+                break;
+            case GraphMetricType.Degree:
+                tScale = Node.Degree;
+                break;
+        }
+
+
+        float minScale = isNextDesk ? Mathf.Lerp(GraphConfiguration.NodeMinSizeImmersion, GraphConfiguration.NodeMinSizeDesk, t) :
+                                    Mathf.Lerp(GraphConfiguration.NodeMinSizeDesk, GraphConfiguration.NodeMinSizeImmersion, t);
+
+        float maxScale = isNextDesk ? Mathf.Lerp(GraphConfiguration.NodeMaxSizeImmersion, GraphConfiguration.NodeMaxSizeDesk, t) :
+                                    Mathf.Lerp(GraphConfiguration.NodeMaxSizeDesk, GraphConfiguration.NodeMaxSizeImmersion, t);
+
+        SetScale(minScale, maxScale, tScale);
     }
     #endregion
 

@@ -15,8 +15,8 @@ public class Edge : IEdge<Node>
     public LineRenderer MainGraphLine;
     public LineRenderer SubGraphLine;
 
-    public EdgeStyler MainGraphStyler;
-    public EdgeStyler SubGraphStyler;
+    public EdgeStyler MainEdgeStyler;
+    public EdgeStyler SubEdgeStyler;
 
     private bool _doDisplayMainEdge;
     private bool _doDisplaySubEdge;
@@ -48,13 +48,13 @@ public class Edge : IEdge<Node>
 
     public void SetPropagation(GraphMode graphMode, bool isInPropagation)
     {
-        if (MainGraphStyler != null)
-            MainGraphStyler.SetPropagation(isInPropagation);
+        if (MainEdgeStyler != null)
+            MainEdgeStyler.SetPropagation(isInPropagation);
 
-        if (SubGraphStyler == null)
+        if (SubEdgeStyler == null)
             return;
 
-        SubGraphStyler.SetPropagation(isInPropagation);
+        SubEdgeStyler.SetPropagation(isInPropagation);
 
         if (graphMode != GraphMode.Desk)
             return;

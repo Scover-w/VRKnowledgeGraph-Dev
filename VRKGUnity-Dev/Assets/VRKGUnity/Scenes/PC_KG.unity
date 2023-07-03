@@ -1968,6 +1968,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b66c3fe33c438fd4bb2225fa38ce5114, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _easingType: 6
   _graphManager: {fileID: 1187437327}
   _graphConfigurationContainerSO: {fileID: 11400000, guid: 7086a0d0e5c5fa74c91774d1597bf4fc, type: 2}
 --- !u!114 &1187437329

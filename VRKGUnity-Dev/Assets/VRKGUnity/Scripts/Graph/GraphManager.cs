@@ -160,9 +160,15 @@ public class GraphManager : MonoBehaviour
     private void AfterSwitchMode()
     {
         if (_nextGraphMode == GraphMode.Desk)
+        {
+            _graphMode = GraphMode.Desk;
             OnGraphUpdate?.Invoke(GraphUpdateType.AfterSwitchModeToDesk);
+        }
         else
+        {
+            _graphMode = GraphMode.Immersion;
             OnGraphUpdate?.Invoke(GraphUpdateType.AfterSwitchModeToImmersion);
+        }
     }
 
     #endregion

@@ -1,4 +1,5 @@
 using AngleSharp.Text;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 
 public class EdgeStyler : MonoBehaviour
@@ -38,10 +39,10 @@ public class EdgeStyler : MonoBehaviour
     #region Style
     public void StyleEdgeBeforeFirstSimu(StyleChange styleChange, GraphMode graphMode)
     {
-        StyleEdge(styleChange, true, graphMode);
+        StyleEdge(styleChange, graphMode, true);
     }
 
-    public void StyleEdge(StyleChange styleChange, bool inSimulation, GraphMode graphMode)
+    public void StyleEdge(StyleChange styleChange, GraphMode graphMode, bool inSimulation = false)
     {
         if (GraphType == GraphType.Main && !styleChange.HasChanged(StyleChangeType.MainGraph))
             return;
@@ -78,38 +79,30 @@ public class EdgeStyler : MonoBehaviour
 
     private void StyleSize(StyleChange styleChange, GraphMode graphMode)
     {
-        float thickness;
-        
-
         if(graphMode == GraphMode.Desk && styleChange.HasChanged(StyleChangeType.DeskMode))
         {
             if (GraphType == GraphType.Main)
             {
-                thickness = GraphConfiguration.EdgeThicknessDesk;
-                SetThickness(thickness);
+                SetThickness(GraphConfiguration.EdgeThicknessDesk);
             }
             else if(GraphType == GraphType.Sub)
             {
-                thickness = GraphConfiguration.EdgeThicknessLens;
-                SetThickness(thickness);
+                SetThickness(GraphConfiguration.EdgeThicknessLens);
             }
-
         }
+
 
         if (graphMode == GraphMode.Immersion && styleChange.HasChanged(StyleChangeType.ImmersionMode))
         {
             if (GraphType == GraphType.Main)
             {
-                thickness = GraphConfiguration.EdgeThicknessImmersion;
-                SetThickness(thickness);
+                SetThickness(GraphConfiguration.EdgeThicknessImmersion);
             }
             else if (GraphType == GraphType.Sub)
             {
-                thickness = GraphConfiguration.EdgeThicknessWatch;
-                SetThickness(thickness);
+                SetThickness(GraphConfiguration.EdgeThicknessWatch);
             }
         }
-
     }
 
     private void StylePosition(StyleChange styleChange, GraphMode graphMode)
@@ -169,6 +162,33 @@ public class EdgeStyler : MonoBehaviour
         //Vector3 worldPositionB = _tf.parent.TransformPoint(positionB);
         //_colliderTf.LookAt(worldPositionB);
     }
+
+    public void StyleTransitionEdge(float t, bool isNextDesk)
+    {
+        if (GraphType == GraphType.Sub)
+            return;
+
+        StyleTransitionPosition(t, isNextDesk);
+        StyleTransitionThickness(t, isNextDesk);
+    }
+
+
+    private void StyleTransitionPosition(float t, bool isNextDesk)
+    {
+        float scale = isNextDesk ? Mathf.Lerp(GraphConfiguration.ImmersionGraphSize, GraphConfiguration.DeskGraphSize, t) :
+                                    Mathf.Lerp(GraphConfiguration.DeskGraphSize, GraphConfiguration.ImmersionGraphSize, t);
+        SetPosition(scale);
+    }
+
+    private void StyleTransitionThickness(float t, bool isNextDesk)
+    {
+        float thickness = isNextDesk ? Mathf.Lerp(GraphConfiguration.EdgeThicknessImmersion, GraphConfiguration.EdgeThicknessDesk, t) :
+                                    Mathf.Lerp(GraphConfiguration.EdgeThicknessDesk, GraphConfiguration.EdgeThicknessImmersion, t);
+
+        SetThickness(thickness);
+    }
+
+
     #endregion
 
     public void SetPropagation(bool isInPropagation)

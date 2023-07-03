@@ -115,7 +115,7 @@ public class Graph
         if(isForMainGraph)
         {
             nodeStyler.GraphType = GraphType.Main;
-            node.MainGraphStyler = nodeStyler;
+            node.MainNodeStyler = nodeStyler;
             node.MainGraphNodeTf = nodeTf;
             nodeTf.parent = _mainGraphTf;
             
@@ -123,7 +123,7 @@ public class Graph
         else
         {
             nodeStyler.GraphType = GraphType.Sub;
-            node.SubGraphStyler = nodeStyler;
+            node.SubNodeStyler = nodeStyler;
             node.SubGraphNodeTf = nodeTf;
             nodeTf.parent = _subGraphTf;
         }
@@ -154,7 +154,7 @@ public class Graph
         {
             edgeStyler.GraphType = GraphType.Main;
             edge.MainGraphLine = edgeStyler.LineRenderer;
-            edge.MainGraphStyler = edgeStyler;
+            edge.MainEdgeStyler = edgeStyler;
             edge.MainGraphEdgeTf = edgeStyler.ColliderTf;
             edgeStyler.Tf.parent = _mainGraphTf;
         }
@@ -162,7 +162,7 @@ public class Graph
         {
             edgeStyler.GraphType = GraphType.Sub;
             edge.SubGraphLine = edgeStyler.LineRenderer;
-            edge.SubGraphStyler = edgeStyler;
+            edge.SubEdgeStyler = edgeStyler;
             edge.SubGraphEdgeTf = edgeStyler.ColliderTf;
             edgeStyler.Tf.parent = _subGraphTf;
         }
@@ -230,8 +230,8 @@ public class Graph
             // Remove nodes that aren't in the graph anymore
             foreach (var idAndNode in _nodesDicId)
             {
-                var mainGraphStyler = idAndNode.Value.MainGraphStyler;
-                var subGraphStyler = idAndNode.Value.SubGraphStyler;
+                var mainGraphStyler = idAndNode.Value.MainNodeStyler;
+                var subGraphStyler = idAndNode.Value.SubNodeStyler;
 
                 _nodgePool.Release(mainGraphStyler);
                 _nodgePool.Release(subGraphStyler);
@@ -277,8 +277,8 @@ public class Graph
             foreach (var idAndEdge in _edgesDicId)
             {
                 var edge = idAndEdge.Value;
-                var mainGraphStyler = edge.MainGraphStyler;
-                var subGraphStyler = edge.SubGraphStyler;
+                var mainGraphStyler = edge.MainEdgeStyler;
+                var subGraphStyler = edge.SubEdgeStyler;
 
                 _nodgePool.Release(mainGraphStyler);
                 _nodgePool.Release(subGraphStyler);

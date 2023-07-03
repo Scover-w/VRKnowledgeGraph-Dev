@@ -25,8 +25,8 @@ public class Node
     /// </summary>
     public string Value;
 
-    public NodeStyler MainGraphStyler;
-    public NodeStyler SubGraphStyler;
+    public NodeStyler MainNodeStyler;
+    public NodeStyler SubNodeStyler;
 
     public List<Edge> EdgeSource;
     public List<Edge> EdgeTarget;
@@ -300,20 +300,20 @@ public class Node
 
     private void UpdateMaterials()
     {
-        if (MainGraphStyler != null)
-            MainGraphStyler.UpdateMaterial(_isHovered, _isSelected, _isInPropagation);
+        if (MainNodeStyler != null)
+            MainNodeStyler.UpdateMaterial(_isHovered, _isSelected, _isInPropagation);
 
-        if (SubGraphStyler != null)
-            SubGraphStyler.UpdateMaterial(_isHovered, _isSelected, _isInPropagation);
+        if (SubNodeStyler != null)
+            SubNodeStyler.UpdateMaterial(_isHovered, _isSelected, _isInPropagation);
     }
 
     private void TryForceUnselect()
     {
-        if (MainGraphStyler != null)
-            MainGraphStyler.TryForceUnselect();
+        if (MainNodeStyler != null)
+            MainNodeStyler.TryForceUnselect();
 
-        if (SubGraphStyler != null)
-            SubGraphStyler.TryForceUnselect();
+        if (SubNodeStyler != null)
+            SubNodeStyler.TryForceUnselect();
     }
 
     #endregion
