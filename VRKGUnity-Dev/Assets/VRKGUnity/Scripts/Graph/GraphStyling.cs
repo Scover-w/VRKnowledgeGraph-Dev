@@ -98,6 +98,33 @@ public class GraphStyling : MonoBehaviour
             var edge = idAndEdge.Value;
             edge.MainEdgeStyler.SetColliderAfterEndSimu(_graphManager.GraphMode);
         }
+
+        SetSubNodePositionsAfterSimu();
+    }
+
+    private void SetSubNodePositionsAfterSimu()
+    {
+        var graph = _graphManager.Graph;
+        var nodesDicId = graph.NodesDicId;
+        var edgeDicId = graph.EdgesDicId;
+
+        NodeStyler.GraphConfiguration = _graphConfiguration;
+        EdgeStyler.GraphConfiguration = _graphConfiguration;
+
+        StyleChange styleChange = new StyleChange().Add(StyleChangeType.SubGraph)
+                                                    .Add(StyleChangeType.DeskMode)
+                                                    .Add(StyleChangeType.ImmersionMode)
+                                                    .Add(StyleChangeType.Position);
+
+        foreach (Node node in nodesDicId.Values)
+        {
+            node.SubNodeStyler.StyleNode(styleChange, _graphMode, false);
+        }
+
+        foreach (Edge edge in edgeDicId.Values)
+        {
+            edge.SubEdgeStyler.StyleEdge(styleChange, _graphMode, false);
+        }
     }
 
     private void BeforeSwitchMode()

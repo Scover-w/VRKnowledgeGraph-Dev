@@ -99,9 +99,9 @@ public class DataSynchroManager : MonoBehaviour
         });
 
 
-        _loadingBarUI.Refresh(.8f, "Calculate Max Bounds");
-        // Calculate Max Bounds
-        await CalculateMaxBound();
+        //_loadingBarUI.Refresh(.8f, "Calculate Max Bounds");
+        //// Calculate Max Bounds
+        //await CalculateMaxBound();
 
 
         _loadingBarUI.Refresh(1f, "Loading Scene");

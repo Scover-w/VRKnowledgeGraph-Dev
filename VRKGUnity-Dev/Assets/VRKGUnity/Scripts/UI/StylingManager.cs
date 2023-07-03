@@ -217,6 +217,11 @@ public class StylingManager : MonoBehaviour
             && styleChange.HasChanged(StyleChangeType.Visibility))
             _subGraph.SwitchWatchVisibility();
 
+        if(styleChange.HasChanged(StyleChangeType.SubGraph)
+            && styleChange.HasChanged(StyleChangeType.DeskMode)
+            && styleChange.HasChanged(StyleChangeType.Position))
+            _subGraph.RecenterLensGraph();
+
 
         _graphStyling.StyleGraph(styleChange, graphMode);
 

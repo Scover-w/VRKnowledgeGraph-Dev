@@ -56,6 +56,9 @@ public class SubGraph : MonoBehaviour
 
         _graphManager.OnGraphUpdate += OnGraphUpdated;
 
+        if(_subGraphMode == SubGraphMode.Lens)
+            _subGraphTf.gameObject.SetActive(false);
+
         Invoke(nameof(DelayedSubscribe), 1f);
     }
 
@@ -202,8 +205,9 @@ public class SubGraph : MonoBehaviour
         }
 
         _subGraphMode = SubGraphMode.Lens;
-        _subGraphTf.position = _lensTf.position;
         _subGraphTf.gameObject.SetActive(true);
+
+        RecenterLensGraph();
     }
 
     private void AfterSwitchModeToImmersion()
@@ -293,20 +297,29 @@ public class SubGraph : MonoBehaviour
         _displayedEdges = newDisplayedEdges;
     }
 
-    private void RecenterLensGraph()
+    public void RecenterLensGraph()
     {
+
+        if (_subGraphMode == SubGraphMode.Watch)
+            return;
+
+        Debug.Log("Displayed Nodes,subgraph : " + _displayedNodes.Count);
+
         if (_displayedNodes.Count == 0)
             return;
 
         Vector3 centerGraph = Vector3.zero;
 
+        var scaleGraph = _graphManager.GraphConfiguration.LensGraphSize;
+
         foreach(Node node in _displayedNodes)
         {
-            centerGraph += node.SubGraphNodeTf.localPosition;
+            centerGraph += node.AbsolutePosition;
         }
 
 
         centerGraph /= _displayedNodes.Count;
+        centerGraph *= scaleGraph;
         _subGraphTf.position = _lensTf.position - centerGraph;
     }
     #endregion
