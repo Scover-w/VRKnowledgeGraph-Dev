@@ -43,3 +43,23 @@ public class Nodges
         Edges = edges;
     }
 }
+
+
+public class HashSetNodges
+{
+    public HashSet<Node> Nodes;
+    public HashSet<Edge> Edges;
+
+
+    public HashSetNodges()
+    {
+        Nodes = new();
+        Edges = new();
+    }
+
+    public HashSetNodges(HashSet<Node> nodes, HashSet<Edge> edges)
+    {
+        Nodes = nodes;
+        Edges = edges;
+    }
+}

@@ -21,6 +21,31 @@ public class NodgeSelectionManager : MonoBehaviour
         } 
     }
 
+    public ReadOnlyHashSet<Node> SelectedNodes 
+    { 
+        get 
+        { 
+            if(_selectionMode == SelectionMode.Single)
+            {
+                if (_singleSelectedNode == null)
+                    return null;
+
+                var hashset = new HashSet<Node>
+                {
+                    _singleSelectedNode
+                };
+
+                return new ReadOnlyHashSet<Node>(hashset);
+            }
+
+
+            if (_multipleSelectedNodes.Count == 0)
+                return null;
+
+            return new ReadOnlyHashSet<Node>(_multipleSelectedNodes); 
+        } 
+    }
+
     public ReadOnlyHashSet<Node> PropagatedNodes { get { return new ReadOnlyHashSet<Node>(_propagatedNodes); } }
     public ReadOnlyHashSet<Edge> PropagatedEdges { get { return new ReadOnlyHashSet<Edge>(_propagatedEdges); } }
 
@@ -305,7 +330,6 @@ public class NodgeSelectionManager : MonoBehaviour
 
     private void Propagate(Node node, int propagationValue)
     {
-
         if (_newPropagatedNodes.Contains(node))
             return;
 
@@ -334,7 +358,6 @@ public class NodgeSelectionManager : MonoBehaviour
             {
                 Edge edge = edges[j];
 
-
                 if (_newPropagatedEdges.Contains(edge))
                     continue;
 
@@ -348,7 +371,8 @@ public class NodgeSelectionManager : MonoBehaviour
 
                 var nextNode = (i == 0) ? edge.Target : edge.Source;
 
-                Propagate(nextNode, propagationValue);
+                if(nextNode.IsAvailable)
+                    Propagate(nextNode, propagationValue);
             }
         }
     }
@@ -375,6 +399,55 @@ public class NodgeSelectionManager : MonoBehaviour
         OnNodgesPropagated?.Invoke(nodges);
     }
 
+
+    public void NodgesHidden(HashSetNodges nodges)
+    {
+        HashSet<Node> hiddenNodes = nodges.Nodes;
+
+
+        // Clear from selection
+        if(_selectionMode == SelectionMode.Single)
+        {
+            if(hiddenNodes.Contains(_singleSelectedNode))
+                _singleSelectedNode = null;
+        }
+        else
+        {
+
+            HashSet<Node> selectedNodeToRemove = new();
+
+            foreach(Node node in _multipleSelectedNodes)
+            {
+                if (!hiddenNodes.Contains(node))
+                    continue;
+
+                selectedNodeToRemove.Add(node);
+            }
+
+
+            foreach(Node node in selectedNodeToRemove)
+            {
+                _multipleSelectedNodes.Remove(node);
+            }
+        }
+
+        ClearPropagation();
+
+
+        if(_selectionMode == SelectionMode.Single && _singleSelectedNode != null)
+        {
+            StartPropagate(_singleSelectedNode);
+        }
+        else if(_selectionMode == SelectionMode.Multiple && _multipleSelectedNodes.Count > 0)
+        {
+            foreach (Node nodeToPropagate in _multipleSelectedNodes)
+            {
+                StartPropagate(nodeToPropagate);
+            }
+        }
+
+        TriggerOnPropagated();
+    }
 
 
     #region OLD

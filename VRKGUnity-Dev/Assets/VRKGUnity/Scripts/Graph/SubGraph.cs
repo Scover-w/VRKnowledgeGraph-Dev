@@ -18,9 +18,6 @@ public class SubGraph : MonoBehaviour
     ReferenceHolderSO _referenceHolderSO;
 
     [SerializeField]
-    GraphConfigurationContainerSO _graphConfigContainerSo;
-
-    [SerializeField]
     Transform _subGraphTf;
 
     [SerializeField]
@@ -58,7 +55,7 @@ public class SubGraph : MonoBehaviour
 
     bool _isFirstSimulationStopped = true;
 
-    private async void Start()
+    private void Start()
     {
         _subGraphMode = (Settings.DEFAULT_GRAPH_MODE == GraphMode.Desk)? SubGraphMode.Lens : SubGraphMode.Watch;
         _displayedNodes = new();
@@ -73,7 +70,7 @@ public class SubGraph : MonoBehaviour
         if(_subGraphMode == SubGraphMode.Lens)
             _subGraphTf.gameObject.SetActive(false);
 
-        _graphConfig = await _graphConfigContainerSo.GetGraphConfiguration();
+        _graphConfig = GraphConfiguration.Instance;
 
         Invoke(nameof(DelayedSubscribe), 1f);
     }

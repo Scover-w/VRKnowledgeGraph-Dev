@@ -18,6 +18,8 @@ public class Edge : IEdge<Node>
     public EdgeStyler MainEdgeStyler;
     public EdgeStyler SubEdgeStyler;
 
+    public bool IsAvailable = true;
+
     private bool _doDisplayMainEdge;
     private bool _doDisplaySubEdge;
 
@@ -36,14 +38,28 @@ public class Edge : IEdge<Node>
 
     public void DisplayMainEdge(bool doDisplayMainEdge)
     {
+        if (!IsAvailable)
+            return;
+
         _doDisplayMainEdge = doDisplayMainEdge;
         MainGraphLine.enabled = doDisplayMainEdge;
     }
 
     public void DisplaySubEdge(bool doDisplaySubEdge)
     {
+        if (!IsAvailable)
+            return;
+
         _doDisplaySubEdge = doDisplaySubEdge;
         SubGraphLine.enabled = _doDisplaySubEdge;
+    }
+
+    public void HideEdge()
+    {
+        DisplayMainEdge(false);
+        DisplaySubEdge(false);
+
+        IsAvailable = false;
     }
 
     public void SetPropagation(GraphMode graphMode, bool isInPropagation)

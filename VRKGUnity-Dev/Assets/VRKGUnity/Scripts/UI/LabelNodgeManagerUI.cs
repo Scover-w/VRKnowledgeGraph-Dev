@@ -10,9 +10,6 @@ public class LabelNodgeManagerUI : MonoBehaviour
     ReferenceHolderSO _referenceHolderSO;
 
     [SerializeField]
-    GraphConfigurationContainerSO _graphConfigurationContainerSO;
-
-    [SerializeField]
     GraphManager _graphManager;
 
     [SerializeField]
@@ -51,7 +48,7 @@ public class LabelNodgeManagerUI : MonoBehaviour
     float _baseFontSize = Settings.BASE_FONT_SIZE_LABEL;
 
 
-    async void Start()
+    void Start()
     {
         _displayedLabelMainNodesDict = new();
         _displayedLabelSubNodesDict = new();
@@ -63,7 +60,7 @@ public class LabelNodgeManagerUI : MonoBehaviour
         _graphManager.OnGraphUpdate += OnGraphUpdated;
 
 
-        _graphConfig = await _graphConfigurationContainerSO.GetGraphConfiguration();
+        _graphConfig = GraphConfiguration.Instance;
 
         _displayLabelsDesk = _graphConfig.ShowLabelDesk;
         _displayLabelsImmersion = _graphConfig.ShowLabelImmersion;

@@ -59,6 +59,15 @@ public class SPARQLAdditiveBuilder
         _additiveQueries.Add(sparqlQuery.Query);
     }
 
+    public void Add(List<SPARQLQuery> sparqlQueries)
+    {
+
+        foreach(SPARQLQuery sparqlQuery in sparqlQueries) 
+        { 
+            _additiveQueries.Add(sparqlQuery.Query);
+        }
+    }
+
 
     public string Build()
     {

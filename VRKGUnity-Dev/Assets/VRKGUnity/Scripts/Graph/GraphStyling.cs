@@ -9,9 +9,6 @@ public class GraphStyling : MonoBehaviour
     [SerializeField]
     GraphManager _graphManager;
 
-    [SerializeField]
-    GraphConfigurationContainerSO _graphConfigurationContainerSO;
-
     GraphConfiguration _graphConfiguration;
 
     GraphMode _graphMode = Settings.DEFAULT_GRAPH_MODE;
@@ -20,9 +17,9 @@ public class GraphStyling : MonoBehaviour
 
     bool _isFirstSimu = true;
 
-    async void Start()
+    void Start()
     {
-        _graphConfiguration = await _graphConfigurationContainerSO.GetGraphConfiguration();
+        _graphConfiguration = GraphConfiguration.Instance;
         _graphManager.OnGraphUpdate += OnGraphUpdated;
 
         _easingFunction = Easing.GetEasing(_easingType);

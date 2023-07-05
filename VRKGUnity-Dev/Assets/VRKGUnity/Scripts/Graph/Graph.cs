@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using UnityEditor;
 using UnityEngine;
 
 public class Graph
@@ -15,9 +14,6 @@ public class Graph
 
     public IReadOnlyDictionary<int, Node> NodesDicId => _nodesDicId;
     public IReadOnlyDictionary<int, Edge> EdgesDicId => _edgesDicId;
-
-    public IReadOnlyDictionary<Transform, Node> NodesDicTf => _nodesDicTf;
-    public IReadOnlyDictionary<Transform, Edge> EdgesDicTf => _edgesDicTf;
 
     public GraphConfiguration Configuration 
     {
@@ -40,9 +36,6 @@ public class Graph
 
     GraphConfiguration _graphConfiguration;
 
-    Dictionary<Transform, Node> _nodesDicTf;
-    Dictionary<Transform, Edge> _edgesDicTf;
-
     BidirectionalGraph<Node, Edge> _graphDatas;
 
     GraphDbRepository _repository;
@@ -60,14 +53,11 @@ public class Graph
 
     int _metricsCalculated;
 
-    #region CREATION_UPDATE_NODGES
+    #region NodgesUpdateOrCreation
     public Graph(GraphManager graphManager, GraphStyling graphStyling, NodgesDicId nodges, NodgePool nodgePool)
     {
         _nodesDicId = nodges.NodesDicId; 
         _edgesDicId = nodges.EdgesDicId;
-
-        _nodesDicTf = new();
-        _edgesDicTf = new();
 
         _graphManager = graphManager;
 
@@ -129,8 +119,6 @@ public class Graph
         }
 
         nodeTf.localPosition = node.AbsolutePosition;
-
-        _nodesDicTf.Add(nodeTf, node);
     }
 
     private void SetupEdges()
@@ -168,8 +156,6 @@ public class Graph
         }
 
         edgeStyler.Tf.localPosition = Vector3.zero;
-
-        _edgesDicTf.Add(edgeStyler.ColliderTf, edge);
     }
 
     public async Task UpdateNodges(NodgesDicId nodges)
@@ -235,8 +221,6 @@ public class Graph
 
                 _nodgePool.Release(mainGraphStyler);
                 _nodgePool.Release(subGraphStyler);
-                _nodesDicTf.Remove(mainGraphStyler.Tf);
-                _nodesDicTf.Remove(subGraphStyler.Tf);
 
                 _graphDatas.RemoveVertex(idAndNode.Value);
             }
@@ -282,8 +266,6 @@ public class Graph
 
                 _nodgePool.Release(mainGraphStyler);
                 _nodgePool.Release(subGraphStyler);
-                _edgesDicTf.Remove(mainGraphStyler.ColliderTf);
-                _edgesDicTf.Remove(subGraphStyler.ColliderTf);
 
                 // Clean unused edge from staying Nodes
                 edge.CleanFromNodes(); 
@@ -296,46 +278,90 @@ public class Graph
     #endregion
 
 
-    public void RefreshMainNodePositions(Dictionary<int, NodeSimuData> nodeSimuDatas)
+    #region DynamicFilter
+    public DynamicFilter Hide(HashSet<Node> nodeToHide)
     {
+        DynamicFilter filter = new (nodeToHide);
 
-        // DebugChrono.Instance.Start("RefreshTransformPositionsBackground");
-        var scalingFactor =  (_graphManager.GraphMode == GraphMode.Desk)? _graphConfiguration.DeskGraphSize : _graphConfiguration.ImmersionGraphSize;
+        HashSet<Node> nodeToRemove = new();
+        HashSet<Edge> edgeToHide = new();
 
-        foreach (var idAnData in nodeSimuDatas)
+        foreach (Node node in nodeToHide) 
         {
-            if (!_nodesDicId.TryGetValue(idAnData.Key, out Node node))
-                continue;
+            node.HideNodeWithEdges();
+            node.HideNodeWithEdges();
 
-            var megaTf = node.MainGraphNodeTf;
-
-            var newCalculatedPosition = idAnData.Value.Position;
-            var absolutePosition = node.AbsolutePosition;
-
-            var lerpPosition = Vector3.Lerp(absolutePosition, newCalculatedPosition, .01f);
-            var megaLerpPosition = Vector3.Lerp(megaTf.localPosition, newCalculatedPosition * scalingFactor, .01f);
-
-            node.AbsolutePosition = lerpPosition;
-            megaTf.localPosition = megaLerpPosition;
+            nodeToRemove.Add(node);
         }
 
-        foreach (var idAndEdge in _edgesDicId)
+        foreach (Node node in nodeToRemove)
         {
-            var edge = idAndEdge.Value;
+            _nodesDicId.Remove(node.Id);
 
-            var absoluteSourcePos = edge.Source.AbsolutePosition;
-            var absoluteTargetPos = edge.Target.AbsolutePosition;
+            var edges = node.Edges;
 
-            var megaLine = edge.MainGraphLine;
-            megaLine.SetPosition(0, absoluteSourcePos * scalingFactor);
-            megaLine.SetPosition(1, absoluteTargetPos * scalingFactor);
+            foreach (Edge edge in edges)
+            {
+                _edgesDicId.Remove(edge.Id);
+                edgeToHide.Add(edge);
+            }
         }
 
-        // DebugChrono.Instance.Stop("RefreshTransformPositionsBackground");
+        filter.HiddenEdges = edgeToHide;
+        return filter;
     }
 
+    public DynamicFilter HideAllExcept(HashSet<Node> nodeToKeepDisplay)
+    {
+        HashSet<Node> nodeToHide = new();
 
-    #region METRICS_CALCULATIONS
+        HashSet<Node> nodeToRemove = new();
+        HashSet<Edge> edgeToHide = new();
+
+
+        foreach (Node node in _nodesDicId.Values)
+        {
+
+            if (nodeToKeepDisplay.Contains(node))
+                continue;
+
+            nodeToHide.Add(node);
+            node.HideNodeWithEdges();
+            node.HideNodeWithEdges();
+
+            nodeToRemove.Remove(node);
+        }
+
+        foreach(Node node in nodeToRemove)
+        {
+            _nodesDicId.Remove(node.Id);
+
+            var edges = node.Edges;
+
+            foreach (Edge edge in edges)
+            {
+                _edgesDicId.Remove(edge.Id);
+                edgeToHide.Add(edge);
+            }
+        }
+
+        DynamicFilter filter = new(nodeToKeepDisplay, nodeToHide);
+        filter.HiddenEdges = edgeToHide;
+
+        return filter;
+    }
+
+    public void Cancel(DynamicFilter filter)
+    {
+        // TODO : Cancel Dynamic filter
+        // Need tpknow if can DisplayMainNode/DisplaySubNode from Mode
+    }
+
+    #endregion
+
+
+
+    #region MetricCalculations
     public async void CalculateMetrics(GraphDbRepositoryNamespaces graphRepoUris)
     {
         _repoNamespaces = graphRepoUris;
@@ -596,6 +622,45 @@ public class Graph
         _ontoNodeTree = OntoNodeGroupTree.CreateOntoNodeTree(_repoNamespaces.OntoTreeDict, Configuration);
     }
     #endregion
+
+
+    public void RefreshMainNodePositions(Dictionary<int, NodeSimuData> nodeSimuDatas)
+    {
+
+        // DebugChrono.Instance.Start("RefreshTransformPositionsBackground");
+        var scalingFactor = (_graphManager.GraphMode == GraphMode.Desk) ? _graphConfiguration.DeskGraphSize : _graphConfiguration.ImmersionGraphSize;
+
+        foreach (var idAnData in nodeSimuDatas)
+        {
+            if (!_nodesDicId.TryGetValue(idAnData.Key, out Node node))
+                continue;
+
+            var megaTf = node.MainGraphNodeTf;
+
+            var newCalculatedPosition = idAnData.Value.Position;
+            var absolutePosition = node.AbsolutePosition;
+
+            var lerpPosition = Vector3.Lerp(absolutePosition, newCalculatedPosition, .01f);
+            var megaLerpPosition = Vector3.Lerp(megaTf.localPosition, newCalculatedPosition * scalingFactor, .01f);
+
+            node.AbsolutePosition = lerpPosition;
+            megaTf.localPosition = megaLerpPosition;
+        }
+
+        foreach (var idAndEdge in _edgesDicId)
+        {
+            var edge = idAndEdge.Value;
+
+            var absoluteSourcePos = edge.Source.AbsolutePosition;
+            var absoluteTargetPos = edge.Target.AbsolutePosition;
+
+            var megaLine = edge.MainGraphLine;
+            megaLine.SetPosition(0, absoluteSourcePos * scalingFactor);
+            megaLine.SetPosition(1, absoluteTargetPos * scalingFactor);
+        }
+
+        // DebugChrono.Instance.Stop("RefreshTransformPositionsBackground");
+    }
 
     public NodgesSimuData CreateSimuDatas()
     {

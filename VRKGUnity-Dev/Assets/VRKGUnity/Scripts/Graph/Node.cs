@@ -9,6 +9,23 @@ public class Node
                                                         "http://www.w3.org/2004/02/skos/core#altLabel", 
                                                         "http://purl.org/dc/terms/title"};
 
+    public HashSet<Edge> Edges 
+    { 
+        get 
+        {
+
+            HashSet<Edge> edges = new();
+
+            foreach(Edge edge in EdgeSource)
+                edges.Add(edge);
+
+            foreach (Edge edge in EdgeTarget)
+                edges.Add(edge);
+
+            return edges;
+        } 
+    }
+
     public bool IsSelected
     {
         get
@@ -49,6 +66,8 @@ public class Node
     public float ClusteringCoefficient;
     public float Degree;
 
+    public bool IsAvailable = true;
+
     bool _isHovered = false;
     bool _isSelected = false;
     bool _isInPropagation = false;
@@ -68,6 +87,8 @@ public class Node
 
         _doDisplayMainNode = false;
         _doDisplaySubNode = false;
+
+        IsAvailable = true;
     }
 
     public Node(string type, string value)
@@ -77,6 +98,8 @@ public class Node
         Id = Value.GetHashCode();
 
         _doDisplayMainNode = false;
+
+        IsAvailable = true;
     }
 
 
@@ -208,15 +231,41 @@ public class Node
 
     public void DisplayMainNode(bool doDisplayMainNode)
     {
+        if (!IsAvailable)
+            return;
+
         _doDisplayMainNode = doDisplayMainNode;
         MainGraphNodeTf.gameObject.SetActive(_doDisplayMainNode);
     }
 
     public void DisplaySubNode(bool doDisplaySubNode)
     {
+        if (!IsAvailable)
+            return;
+
+
         _doDisplaySubNode = doDisplaySubNode;
         SubGraphNodeTf.gameObject.SetActive(_doDisplaySubNode);
     }
+
+    public void HideNodeWithEdges()
+    {
+        DisplayMainNode(false);
+        DisplaySubNode(false);
+
+        IsAvailable = false;
+
+        foreach (Edge edge in EdgeSource)
+        {
+            edge.HideEdge();
+        }
+
+        foreach (Edge edge in EdgeTarget)
+        {
+            edge.HideEdge();
+        }
+    }
+
 
     public List<Node> GetNeighbors()
     {

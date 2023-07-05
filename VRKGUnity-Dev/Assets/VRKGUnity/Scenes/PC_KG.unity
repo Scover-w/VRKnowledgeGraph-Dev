@@ -698,7 +698,6 @@ MonoBehaviour:
   _easingType: 14
   _graphManager: {fileID: 1187437327}
   _referenceHolderSO: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
-  _graphConfigContainerSo: {fileID: 11400000, guid: 7086a0d0e5c5fa74c91774d1597bf4fc, type: 2}
   _subGraphTf: {fileID: 921206259}
   _mainGraphTf: {fileID: 717365171}
   _watchTf: {fileID: 997226357}
@@ -1931,6 +1930,7 @@ GameObject:
   - component: {fileID: 1187437328}
   - component: {fileID: 1187437332}
   - component: {fileID: 1187437331}
+  - component: {fileID: 1187437333}
   m_Layer: 0
   m_Name: Graph
   m_TagString: Untagged
@@ -1954,11 +1954,11 @@ MonoBehaviour:
   _graphSimulation: {fileID: 1187437329}
   _graphUI: {fileID: 1396796583}
   _graphStyling: {fileID: 1187437328}
-  _graphConfigurationContainerSO: {fileID: 11400000, guid: 7086a0d0e5c5fa74c91774d1597bf4fc, type: 2}
   _mainGraph: {fileID: 366778061}
   _subGraph: {fileID: 366778062}
   _nodgeSelectionManager: {fileID: 1219762323}
   _nodgePool: {fileID: 1187437331}
+  _dynamicFilterManager: {fileID: 1187437333}
 --- !u!114 &1187437328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1973,7 +1973,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _easingType: 6
   _graphManager: {fileID: 1187437327}
-  _graphConfigurationContainerSO: {fileID: 11400000, guid: 7086a0d0e5c5fa74c91774d1597bf4fc, type: 2}
 --- !u!114 &1187437329
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1986,7 +1985,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bab297ae37bb8445af935c88af069e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _graphConfigurationContainerSO: {fileID: 11400000, guid: 7086a0d0e5c5fa74c91774d1597bf4fc, type: 2}
   _graphManager: {fileID: 1187437327}
 --- !u!4 &1187437330
 Transform:
@@ -2032,6 +2030,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dbc7af2a4c69d94087a7b3f26cae53e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1187437333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1187437326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c06702b69f587a24da231d97d0dc1dc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _graphManager: {fileID: 1187437327}
+  _nodeSelectionManager: {fileID: 1219762323}
 --- !u!1 &1190159039
 GameObject:
   m_ObjectHideFlags: 0
@@ -2255,7 +2267,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _graphManager: {fileID: 1187437327}
-  _nodeSelectionManager: {fileID: 1219762323}
 --- !u!1 &1314565755
 GameObject:
   m_ObjectHideFlags: 0
@@ -2352,7 +2363,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b54e6a0b51e04f4db3f8ac4ba0ada9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _graphConfigContainerSO: {fileID: 11400000, guid: 7086a0d0e5c5fa74c91774d1597bf4fc, type: 2}
   _graphManager: {fileID: 1187437327}
   _graphStyling: {fileID: 1187437328}
   _subGraph: {fileID: 366778062}
@@ -2429,7 +2439,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _referenceHolderSO: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
-  _graphConfigurationContainerSO: {fileID: 11400000, guid: 7086a0d0e5c5fa74c91774d1597bf4fc, type: 2}
   _graphManager: {fileID: 1187437327}
   _nodgePool: {fileID: 1187437331}
   _selectionManager: {fileID: 1219762323}

@@ -183,6 +183,7 @@ public class GraphConfiguration
 
     private static string _graphConfigPath;
 
+    public static GraphConfiguration Instance;
 
     public async static Task<GraphConfiguration> Load()
     {
@@ -192,11 +193,14 @@ public class GraphConfiguration
         {
             string json = await File.ReadAllTextAsync(_graphConfigPath);
             var graphConfig = JsonConvert.DeserializeObject<GraphConfiguration>(json);
+            Instance = graphConfig;
             return graphConfig;
         }
         
         
         var graphConfigB = new GraphConfiguration();
+        Instance = graphConfigB;
+
         await graphConfigB.Save();
         return graphConfigB;
     }

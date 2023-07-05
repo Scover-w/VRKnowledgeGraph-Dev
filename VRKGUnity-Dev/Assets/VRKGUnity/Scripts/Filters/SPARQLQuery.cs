@@ -1,30 +1,67 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+using UnityEngine;
+
 public class SPARQLQuery
 {
-    public SPARQLType Type { get { return _type; } }
-
     public string Query { get { return _query; } }
 
-    SPARQLType _type;
     string _query;
 
-    public SPARQLQuery(Node node)
+    public SPARQLQuery(Node node, DynamicFilterType type)
     {
-        _type = SPARQLType.HideNode;
         string uri = node.Value;
-        _query = "FILTER(!(?s = <" + uri + "> || ?o = <" + uri + ">))";
+
+        _query = "FILTER( + " + (type == DynamicFilterType.ExcludeAll? "!" : "") + "(?s = <" + uri + "> || ?o = <" + uri + ">) )";
     }
 
-    public SPARQLQuery(Edge edge)
+    public SPARQLQuery(HashSet<Node> nodes, DynamicFilterType type)
     {
-        _type = SPARQLType.HideEdge;
-        string uri = edge.Value;
-        _query = "FILTER(?p != < " + uri + ">)";
+        if (nodes == null || nodes.Count == 0)
+            Debug.LogError("nodes is null or length equal 0.");
+
+        StringBuilder sb = new StringBuilder();
+
+
+        if(type == DynamicFilterType.ExcludeAll)
+        {
+            sb.Append("FILTER( !(");
+
+            int nbNodes = nodes.Count;
+            int i = 0;
+
+            foreach (Node node in nodes)
+            {
+                i++;
+                string uri = node.Value;
+                sb.Append("(?s = <" + uri + "> || ?o = <" + uri + ">)");
+
+                if(i != nbNodes)
+                    sb.Append(" || ");
+
+            }
+        }
+        else
+        {
+            sb.Append("FILTER( (");
+
+            int nbNodes = nodes.Count;
+            int i = 0;
+
+            foreach (Node node in nodes)
+            {
+                i++;
+                string uri = node.Value;
+                sb.Append("(?s = <" + uri + "> || ?o = <" + uri + ">)");
+
+                if (i != nbNodes)
+                    sb.Append(" || ");
+
+            }
+        }
+
+        sb.Append("))");
+        _query = sb.ToString();
     }
-}
-
-
-public enum SPARQLType
-{
-    HideNode,
-    HideEdge
 }

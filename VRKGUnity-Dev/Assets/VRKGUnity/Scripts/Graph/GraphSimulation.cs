@@ -11,9 +11,6 @@ public class GraphSimulation : MonoBehaviour
     public bool IsRunningSimulation { get { return _isRunningSimulation; } }
 
     [SerializeField]
-    GraphConfigurationContainerSO _graphConfigurationContainerSO;
-
-    [SerializeField]
     GraphManager _graphManager;
 
     Dictionary<int, NodeSimuData> _nodeSimuDatas;
@@ -29,9 +26,9 @@ public class GraphSimulation : MonoBehaviour
     float _refreshDuration;
     bool _refreshGraph;
 
-    private async void Start()
+    private void Start()
     {
-        _graphConfiguration = await _graphConfigurationContainerSO.GetGraphConfiguration();
+        _graphConfiguration = GraphConfiguration.Instance;
     }
 
     public void Run(Graph graph)

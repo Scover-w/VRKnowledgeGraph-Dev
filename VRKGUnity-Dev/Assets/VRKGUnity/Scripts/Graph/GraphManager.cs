@@ -36,9 +36,6 @@ public class GraphManager : MonoBehaviour
     GraphStyling _graphStyling;
 
     [SerializeField]
-    GraphConfigurationContainerSO _graphConfigurationContainerSO;
-
-    [SerializeField]
     MainGraph _mainGraph;
 
     [SerializeField]
@@ -50,9 +47,11 @@ public class GraphManager : MonoBehaviour
     [SerializeField]
     NodgePool _nodgePool;
 
+    [SerializeField]
+    DynamicFilterManager _dynamicFilterManager;
+
     Graph _graph;
     SPARQLAdditiveBuilder _sparqlBuilder;
-    DynamicFilterManager _dynamicFilterManager;
 
     GraphDbRepository _graphRepo;
     GraphConfiguration _graphConfiguration;
@@ -61,14 +60,13 @@ public class GraphManager : MonoBehaviour
     GraphMode _nextGraphMode;
     bool _switchingMode = false;
 
-    async void Start()
+    void Start()
     {
         Scene currentScene = gameObject.scene; 
         SceneManager.SetActiveScene(currentScene);
 
         _graphMode = GraphMode.Desk;
-        _dynamicFilterManager = new();
-        _graphConfiguration = await _graphConfigurationContainerSO.GetGraphConfiguration();
+        _graphConfiguration = GraphConfiguration.Instance;
 
         Invoke(nameof(CreateStartGraphAsync), 1f);
     }
@@ -91,21 +89,19 @@ public class GraphManager : MonoBehaviour
     }
 
 
-    public void Add(SPARQLQuery query)
-    {
-        _sparqlBuilder.Add(query);
-        string queryString = _sparqlBuilder.Build();
-        Debug.Log(queryString);
-        UpdateGraph(queryString);
-    }
-
-    public async void UpdateGraph(string query)
+    [ContextMenu("Update Graph")]
+    public async void UpdateGraph()
     {
         if (_graphSimulation.IsRunningSimulation)
             _graphSimulation.ForceStop();
 
+
+        var filters = _dynamicFilterManager.ApplyFilters();
+        _sparqlBuilder.Add(filters);
+
+        string query = _sparqlBuilder.Build();
+
         var nodges = await NodgesHelper.RetreiveGraph(query, _graphRepo);
-        nodges = _dynamicFilterManager.Filter(nodges);
 
         DebugChrono.Instance.Start("UpdateGraph");
         await _graph.UpdateNodges(nodges);

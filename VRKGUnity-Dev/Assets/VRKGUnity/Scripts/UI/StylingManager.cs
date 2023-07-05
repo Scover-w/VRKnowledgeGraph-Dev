@@ -3,9 +3,6 @@ using UnityEngine;
 public class StylingManager : MonoBehaviour
 {
     [SerializeField]
-    GraphConfigurationContainerSO _graphConfigContainerSO;
-
-    [SerializeField]
     GraphManager _graphManager;
 
     [SerializeField]
@@ -117,9 +114,9 @@ public class StylingManager : MonoBehaviour
 
     GraphConfiguration _graphConfig;
 
-    async void Start()
+    void Start()
     {
-        _graphConfig = await _graphConfigContainerSO.GetGraphConfiguration();
+        _graphConfig = GraphConfiguration.Instance;
 
 
         NodeSizeImmersion = _graphConfig.NodeSizeImmersion;

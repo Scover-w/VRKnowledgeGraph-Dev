@@ -13,10 +13,11 @@ public class AppManager : MonoBehaviour
     LifeCycleSceneManager _lifeCycleSceneManager;
 
 
-    void Start()
+    async void Start()
     {
         _referenceHolderSo.AppManagerSA.Value = this;
-        
+
+        await _graphConfigurationContainer.GetGraphConfiguration();
     }
 
     private void OnDisable()
