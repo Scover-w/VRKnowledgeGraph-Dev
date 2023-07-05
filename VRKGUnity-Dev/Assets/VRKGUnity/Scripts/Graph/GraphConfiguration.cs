@@ -154,6 +154,7 @@ public class GraphConfiguration
     [SerializeField]
     private System.Drawing.Color _edgeColor = System.Drawing.Color.White;
 
+    [JsonProperty("PropagatedEdgeColor_")]
     private System.Drawing.Color _propagatedEdgeColor = System.Drawing.Color.White;
 
     [Header("Ontology")]

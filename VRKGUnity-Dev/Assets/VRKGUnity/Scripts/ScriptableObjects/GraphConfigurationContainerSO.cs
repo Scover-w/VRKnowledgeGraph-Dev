@@ -95,6 +95,17 @@ public class GraphConfigurationContainerSO : ScriptableObject
 
     private async void OnValidate()
     {
+
+        if (Application.isPlaying)
+        {
+            Debug.LogWarning("Tried to save ConfigSo while in play mode");
+            return;
+        }
+
+
+        if (_graphConfiguration.ImmersionGraphSize == 1f)
+            Debug.LogWarning("Stop");
+
         _graphConfiguration.EdgeColor = EdgeColor;
         _graphConfiguration.PropagatedEdgeColor = PropagatedEdgeColor;
 
