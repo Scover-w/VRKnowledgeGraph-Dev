@@ -613,7 +613,7 @@ public class LabelNodgeManagerUI : MonoBehaviour
 
     private void TryDisplaySubEdgesLabels(List<Edge> labelsToDisplay)
     {
-        if (_graphMode == GraphMode.Desk && !_displayLabelsDesk)
+        if (_graphMode == GraphMode.Desk && !_displayLabelsLens)
             return;
 
         if (_graphMode == GraphMode.Immersion) // Don't display label for watch
