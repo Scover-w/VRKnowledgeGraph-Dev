@@ -24,4 +24,9 @@ public class AppManager : MonoBehaviour
     {
         _graphConfigurationContainer.RefreshWindowsEditor();
     }
+
+    public void ReloadKG()
+    {
+        _lifeCycleSceneManager.LoadScene(Scenes.KG);
+    }
 }

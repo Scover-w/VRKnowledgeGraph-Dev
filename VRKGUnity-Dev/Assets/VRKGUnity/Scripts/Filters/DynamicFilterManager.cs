@@ -14,6 +14,9 @@ public class DynamicFilterManager : MonoBehaviour
     [SerializeField]
     GraphStyling _graphStyling;
 
+    [SerializeField]
+    NodgePool _nodgePool;
+
     List<DynamicFilter> _filters;
 
     private void Start()
@@ -146,6 +149,7 @@ public class DynamicFilterManager : MonoBehaviour
         foreach(DynamicFilter filter in _filters)
         {
             sparqlQueries.Add(filter.Query);
+            filter.ReleaseNodges(_nodgePool);
         }
 
         _filters = new();

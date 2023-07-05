@@ -34,8 +34,10 @@ public class SPARQLQuery
             foreach (Node node in nodes)
             {
                 i++;
-                string uri = node.Value;
-                sb.Append("(?s = <" + uri + "> || ?o = <" + uri + ">)");
+
+                string value = node.Value;
+                string decoratedValue = (node.Type == NodgeType.Uri) ? "<" + value + ">" : value;
+                sb.Append("(?s = " + decoratedValue + " || ?o = " + decoratedValue + ")");
 
                 if(i != nbNodes)
                     sb.Append(" || ");

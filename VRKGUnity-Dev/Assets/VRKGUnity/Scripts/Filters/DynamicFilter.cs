@@ -40,12 +40,19 @@ public class DynamicFilter
     }
 
 
-    public SPARQLQuery GetQuery()
+    public void ReleaseNodges(NodgePool pool)
     {
-        if (_sparqlQuery == null)
-            Debug.LogError("sparqlquery is null");
+        foreach(Node node in HiddenNodes)
+        {
+            pool.Release(node.MainNodeStyler);
+            pool.Release(node.SubNodeStyler);
+        }
 
-        return _sparqlQuery;
+        foreach (Edge edge in HiddenEdges)
+        {
+            pool.Release(edge.MainEdgeStyler);
+            pool.Release(edge.SubEdgeStyler);
+        }
     }
 
 }

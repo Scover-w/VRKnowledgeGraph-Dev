@@ -54,7 +54,7 @@ public class Graph
     int _metricsCalculated;
 
     #region NodgesUpdateOrCreation
-    public Graph(GraphManager graphManager, GraphStyling graphStyling, NodgesDicId nodges, NodgePool nodgePool)
+    public Graph(GraphManager graphManager, GraphStyling graphStyling, NodgesDicId nodges, NodgePool nodgePool, GraphDbRepository repository)
     {
         _nodesDicId = nodges.NodesDicId; 
         _edgesDicId = nodges.EdgesDicId;
@@ -70,6 +70,7 @@ public class Graph
         _mainGraphTf = _graphManager.MainGraph.Tf;
 
         _nodgePool = nodgePool;
+        _repository = repository;
 
         SetupNodes();
         SetupEdges();
@@ -678,6 +679,25 @@ public class Graph
         }
 
         // DebugChrono.Instance.Stop("RefreshTransformPositionsBackground");
+    }
+
+
+    public void ReleaseAll()
+    {
+        foreach(Node node  in _nodesDicId.Values)
+        {
+            _nodgePool.Release(node.MainNodeStyler);
+            _nodgePool.Release(node.SubNodeStyler);
+        }
+
+        foreach (Edge edge in _edgesDicId.Values)
+        {
+            _nodgePool.Release(edge.MainEdgeStyler);
+            _nodgePool.Release(edge.SubEdgeStyler);
+        }
+
+        _nodesDicId = new();
+        _edgesDicId = new();
     }
 
     public NodgesSimuData CreateSimuDatas()

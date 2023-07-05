@@ -80,7 +80,7 @@ public class GraphManager : MonoBehaviour
         string queryString = _sparqlBuilder.Build();
         var nodges = await NodgesHelper.RetreiveGraph(queryString, _graphRepo);
 
-        _graph = new Graph(this, _graphStyling, nodges, _nodgePool);
+        _graph = new Graph(this, _graphStyling, nodges, _nodgePool, _graphRepo);
 
         _graph.CalculateMetrics(graphRepoUris);
 
@@ -113,6 +113,11 @@ public class GraphManager : MonoBehaviour
         _graphSimulation.Run(_graph);
     }
 
+
+    public void ResetAll()
+    {
+        _referenceHolderSo.AppManagerSA.Value.ReloadKG();
+    }
 
     #region GRAPH_UPDATES_EVENT
     public void SimulationWillStart()
