@@ -11,6 +11,8 @@ public class DynamicFilterManager : MonoBehaviour
     [SerializeField]
     NodgeSelectionManager _nodeSelectionManager;
 
+    [SerializeField]
+    GraphStyling _graphStyling;
 
     List<DynamicFilter> _filters;
 
@@ -55,16 +57,16 @@ public class DynamicFilterManager : MonoBehaviour
             return;
 
 
-        HashSet<Node> nodesToHide = new();
+        HashSet<Node> nodesToKeep = new();
 
         foreach (Node node in selectedNodes)
         {
-            nodesToHide.Add(node);
+            nodesToKeep.Add(node);
         }
 
         var graph = _graphManager.Graph;
 
-        DynamicFilter filter = graph.HideAllExcept(nodesToHide);
+        DynamicFilter filter = graph.HideAllExcept(nodesToKeep);
         _filters.Add(filter);
 
         HashSetNodges nodges = new(filter.HiddenNodes, filter.HiddenEdges);
@@ -105,20 +107,36 @@ public class DynamicFilterManager : MonoBehaviour
             return;
 
 
-        HashSet<Node> nodesToHide = new();
+        HashSet<Node> nodesToKeep = new();
 
         foreach (Node node in propagatedNodes)
         {
-            nodesToHide.Add(node);
+            nodesToKeep.Add(node);
         }
 
         var graph = _graphManager.Graph;
 
-        DynamicFilter filter = graph.HideAllExcept(nodesToHide);
+        DynamicFilter filter = graph.HideAllExcept(nodesToKeep);
         _filters.Add(filter);
 
         HashSetNodges nodges = new(filter.HiddenNodes, filter.HiddenEdges);
         _nodeSelectionManager.NodgesHidden(nodges);
+    }
+
+    [ContextMenu("Cancel Last Filter")]
+    public void CancelLastFilter()
+    {
+        if (_filters.Count == 0)
+            return;
+
+        var filterIdToCancel = _filters.Count - 1;
+        var filterToCancel = _filters[filterIdToCancel];
+        _filters.RemoveAt(filterIdToCancel);
+
+        _graphManager.Graph.CancelFilter(filterToCancel);
+
+        StyleChange styleChange = new StyleChange().Add(StyleChangeType.All);
+        _graphStyling.StyleGraph(styleChange, _graphManager.GraphMode);
     }
 
     public List<SPARQLQuery> ApplyFilters()

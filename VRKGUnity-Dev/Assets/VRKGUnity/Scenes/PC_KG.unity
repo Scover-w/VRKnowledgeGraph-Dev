@@ -2044,6 +2044,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _graphManager: {fileID: 1187437327}
   _nodeSelectionManager: {fileID: 1219762323}
+  _graphStyling: {fileID: 1187437328}
 --- !u!1 &1190159039
 GameObject:
   m_ObjectHideFlags: 0

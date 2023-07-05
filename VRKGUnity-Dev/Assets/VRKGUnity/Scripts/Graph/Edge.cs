@@ -18,7 +18,7 @@ public class Edge : IEdge<Node>
     public EdgeStyler MainEdgeStyler;
     public EdgeStyler SubEdgeStyler;
 
-    public bool IsAvailable = true;
+    public bool IsHidden = true;
 
     private bool _doDisplayMainEdge;
     private bool _doDisplaySubEdge;
@@ -38,7 +38,7 @@ public class Edge : IEdge<Node>
 
     public void DisplayMainEdge(bool doDisplayMainEdge)
     {
-        if (!IsAvailable)
+        if (!IsHidden)
             return;
 
         _doDisplayMainEdge = doDisplayMainEdge;
@@ -47,7 +47,7 @@ public class Edge : IEdge<Node>
 
     public void DisplaySubEdge(bool doDisplaySubEdge)
     {
-        if (!IsAvailable)
+        if (!IsHidden)
             return;
 
         _doDisplaySubEdge = doDisplaySubEdge;
@@ -56,10 +56,39 @@ public class Edge : IEdge<Node>
 
     public void HideEdge()
     {
+        ResetInteractionValues();
+
         DisplayMainEdge(false);
         DisplaySubEdge(false);
 
-        IsAvailable = false;
+        IsHidden = false;
+    }
+
+    public void UnhideEdge(GraphMode graphMode)
+    {
+        IsHidden = true;
+
+        var graphConfig = GraphConfiguration.Instance;
+
+        if (!graphConfig.DisplayEdges)
+            return;
+
+        DisplayMainEdge(true);
+
+        if (!(graphMode == GraphMode.Immersion && graphConfig.ShowWatch))
+            return;
+
+        DisplaySubEdge(true);
+
+    }
+
+    private void ResetInteractionValues()
+    {
+        if (MainEdgeStyler != null)
+            MainEdgeStyler.SetPropagation(false);
+
+        if (SubEdgeStyler != null)
+            SubEdgeStyler.SetPropagation(false);
     }
 
     public void SetPropagation(GraphMode graphMode, bool isInPropagation)

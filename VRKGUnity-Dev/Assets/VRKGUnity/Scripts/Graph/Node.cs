@@ -66,7 +66,7 @@ public class Node
     public float ClusteringCoefficient;
     public float Degree;
 
-    public bool IsAvailable = true;
+    public bool IsHidden = true;
 
     bool _isHovered = false;
     bool _isSelected = false;
@@ -88,7 +88,7 @@ public class Node
         _doDisplayMainNode = false;
         _doDisplaySubNode = false;
 
-        IsAvailable = true;
+        IsHidden = true;
     }
 
     public Node(string type, string value)
@@ -99,7 +99,7 @@ public class Node
 
         _doDisplayMainNode = false;
 
-        IsAvailable = true;
+        IsHidden = true;
     }
 
 
@@ -231,7 +231,7 @@ public class Node
 
     public void DisplayMainNode(bool doDisplayMainNode)
     {
-        if (!IsAvailable)
+        if (!IsHidden)
             return;
 
         _doDisplayMainNode = doDisplayMainNode;
@@ -240,7 +240,7 @@ public class Node
 
     public void DisplaySubNode(bool doDisplaySubNode)
     {
-        if (!IsAvailable)
+        if (!IsHidden)
             return;
 
 
@@ -248,13 +248,36 @@ public class Node
         SubGraphNodeTf.gameObject.SetActive(_doDisplaySubNode);
     }
 
-    public void HideNodeWithEdges()
+    public void HideNode()
     {
+        ResetInteractionState();
+
         DisplayMainNode(false);
         DisplaySubNode(false);
 
-        IsAvailable = false;
+        IsHidden = false;
 
+        HideEdges();
+    }
+
+    public void Unhide(GraphMode graphMode)
+    {
+        IsHidden = true;
+
+        DisplayMainNode(true);
+
+        UnhideEdges(graphMode);
+
+        var graphConfig = GraphConfiguration.Instance;
+
+        if (!(graphMode == GraphMode.Immersion && graphConfig.ShowWatch))
+            return;
+
+        DisplaySubNode(true);
+    }
+
+    private void HideEdges()
+    {
         foreach (Edge edge in EdgeSource)
         {
             edge.HideEdge();
@@ -266,6 +289,18 @@ public class Node
         }
     }
 
+    private void UnhideEdges(GraphMode graphMode)
+    {
+        foreach (Edge edge in EdgeSource)
+        {
+            edge.UnhideEdge(graphMode);
+        }
+
+        foreach (Edge edge in EdgeTarget)
+        {
+            edge.UnhideEdge(graphMode);
+        }
+    }
 
     public List<Node> GetNeighbors()
     {
@@ -286,15 +321,16 @@ public class Node
         return neighbors;
     }
 
-    
+
 
 
     #region Interaction
-    public void ResetInteractionState()
+    private void ResetInteractionState()
     {
         _isHovered = false;
         _isSelected = false;
         _isInPropagation = false;
+        UpdateMaterials();
     }
 
     public void SetPropagation(GraphMode graphMode, bool isInPropagation)

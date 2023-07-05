@@ -288,8 +288,8 @@ public class Graph
 
         foreach (Node node in nodeToHide) 
         {
-            node.HideNodeWithEdges();
-            node.HideNodeWithEdges();
+            node.HideNode();
+            node.HideNode();
 
             nodeToRemove.Add(node);
         }
@@ -326,10 +326,10 @@ public class Graph
                 continue;
 
             nodeToHide.Add(node);
-            node.HideNodeWithEdges();
-            node.HideNodeWithEdges();
+            node.HideNode();
+            node.HideNode();
 
-            nodeToRemove.Remove(node);
+            nodeToRemove.Add(node);
         }
 
         foreach(Node node in nodeToRemove)
@@ -351,10 +351,28 @@ public class Graph
         return filter;
     }
 
-    public void Cancel(DynamicFilter filter)
+    public void CancelFilter(DynamicFilter filter)
     {
-        // TODO : Cancel Dynamic filter
-        // Need tpknow if can DisplayMainNode/DisplaySubNode from Mode
+        var nodesToUnhide = filter.HiddenNodes;
+
+        foreach(Node node in nodesToUnhide)
+        {
+            if (_nodesDicId.ContainsKey(node.Id))
+                continue;
+
+            _nodesDicId.Add(node.Id, node);
+            node.Unhide(_graphManager.GraphMode);
+
+            var edges = node.Edges;
+
+            foreach (Edge edge in edges)
+            {
+                if (_edgesDicId.ContainsKey(edge.Id))
+                    continue;
+
+                _edgesDicId.Add(edge.Id, edge);
+            }
+        }
     }
 
     #endregion

@@ -371,7 +371,7 @@ public class NodgeSelectionManager : MonoBehaviour
 
                 var nextNode = (i == 0) ? edge.Target : edge.Source;
 
-                if(nextNode.IsAvailable)
+                if(nextNode.IsHidden)
                     Propagate(nextNode, propagationValue);
             }
         }
