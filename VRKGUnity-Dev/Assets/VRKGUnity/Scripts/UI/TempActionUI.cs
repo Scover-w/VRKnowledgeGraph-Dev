@@ -19,49 +19,49 @@ public class TempActionUI : MonoBehaviour
     [ContextMenu("Switch Selection Mode")]
     public void SwitchSelectionMode()
     {
-        _user.SwitchGraphMode();
+        _user.SwitchSelectionMode();
     }
 
     [ContextMenu("Hide Selected Node")]
     public void HideSelectedNode()
     {
-        _user.SwitchGraphMode();
+        _user.HideSelectedNode();
     }
 
     [ContextMenu("Hide Unselected Node")]
     public void HideUnSelectedNode()
     {
-        _user.SwitchGraphMode();
+        _user.HideUnSelectedNode();
     }
 
     [ContextMenu("Hide Propagated Node")]
     public void HidePropagatedNode()
     {
-        _user.SwitchGraphMode();
+        _user.HidePropagatedNode();
     }
 
     [ContextMenu("Hide Unpropagated Node")]
     public void HideUnPropagatedNode()
     {
-        _user.SwitchGraphMode();
+        _user.HideUnPropagatedNode();
     }
 
     [ContextMenu("Cancel Last Filter")]
     public void CancelLastFilter()
     {
-        _user.SwitchGraphMode();
+        _user.CancelLastFilter();
     }
 
     [ContextMenu("Resimulate Graph")]
     public void ResimulateGraph()
     {
-        _user.SwitchGraphMode();
+        _user.ResimulateGraph();
     }
 
     [ContextMenu("Reset All")]
     public void ResetAll()
     {
-        _user.SwitchGraphMode();
+        _user.ResetAll();
     }
 
 }

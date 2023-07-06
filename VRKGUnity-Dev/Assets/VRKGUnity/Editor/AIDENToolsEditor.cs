@@ -8,7 +8,7 @@ using VDS.RDF;
 public class AIDENToolsEditor : MonoBehaviour
 {
     [MenuItem("AIDEN Tools/Scene/Play PC Persistent Scene")]
-    private static void PlayPersistentScene()
+    private static void PlayPCPersistentScene()
     {
         var loadedSceneBeforePlay = EditorSceneManager.GetActiveScene();
         EditorPrefs.SetString("LoadedSceneBeforePlay", loadedSceneBeforePlay.path);
@@ -16,6 +16,18 @@ public class AIDENToolsEditor : MonoBehaviour
         EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo();
 
         EditorSceneManager.OpenScene("Assets/VRKGUnity/Scenes/PC_Persistent.unity", OpenSceneMode.Single);
+        EditorApplication.isPlaying = true;
+    }
+
+    [MenuItem("AIDEN Tools/Scene/Play VR Persistent Scene")]
+    private static void PlayVRPersistentScene()
+    {
+        var loadedSceneBeforePlay = EditorSceneManager.GetActiveScene();
+        EditorPrefs.SetString("LoadedSceneBeforePlay", loadedSceneBeforePlay.path);
+
+        EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo();
+
+        EditorSceneManager.OpenScene("Assets/VRKGUnity/Scenes/VR_Persistent.unity", OpenSceneMode.Single);
         EditorApplication.isPlaying = true;
     }
 
