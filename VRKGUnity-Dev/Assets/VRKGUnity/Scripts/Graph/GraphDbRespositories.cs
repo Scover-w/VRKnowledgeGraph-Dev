@@ -45,11 +45,22 @@ public class GraphDbRepositories
         {
             string json = await File.ReadAllTextAsync(_gdbRepositoriesPath);
             var repositories = JsonConvert.DeserializeObject<GraphDbRepositories>(json);
+
+
+            if(repositories.Repositories.Count == 0)
+            {;
+                repositories.Add(new("http://localhost:7200/", "cap44"));
+
+                await repositories.Save();
+            }
+
             return repositories;
         }
 
 
         var repositoriesB = new GraphDbRepositories();
+        repositoriesB.Add(new("http://localhost:7200/", "cap44"));
+
         await repositoriesB.Save();
         return repositoriesB;
     }
@@ -64,8 +75,11 @@ public class GraphDbRepositories
 
     private static void SetPath()
     {
+#if PLATFORM_ANDROID
+        var folderPath = Path.Combine(Application.persistentDataPath, "VRKGUnity", "Data");
+#else
         var folderPath = Path.Combine(Application.dataPath, "VRKGUnity", "Data");
-
+#endif
         if (!Directory.Exists(folderPath))
             Directory.CreateDirectory(folderPath);
 

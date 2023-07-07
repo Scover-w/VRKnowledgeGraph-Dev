@@ -1,6 +1,8 @@
 using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
+using System.Net.NetworkInformation;
 using UnityEngine;
 
 public class MisceTests : MonoBehaviour
@@ -55,5 +57,33 @@ public class MisceTests : MonoBehaviour
         set.Add(1);
         set.Add(1);
 
+    }
+
+    [Test]
+    public void GetIps()
+    {
+        string hostName = Dns.GetHostName(); // Retrieve the Name of HOST
+                                             // Get the IP
+        var ipEntry = Dns.GetHostEntry(hostName);
+        var addr = ipEntry.AddressList;
+        foreach (var a in addr)
+        {
+            if (a.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork) // Ensure we have an IPv4 address
+            {
+                Debug.Log(a.ToString());
+            }
+        }
+    }
+
+    [Test]
+    public void TestGateway()
+    {
+        foreach (NetworkInterface networkInterface in NetworkInterface.GetAllNetworkInterfaces())
+        {
+            foreach (GatewayIPAddressInformation gatewayAddress in networkInterface.GetIPProperties().GatewayAddresses)
+            {
+                Debug.Log(gatewayAddress.Address.ToString());
+            }
+        }
     }
 }

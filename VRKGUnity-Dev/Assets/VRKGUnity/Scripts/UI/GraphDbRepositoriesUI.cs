@@ -48,8 +48,13 @@ public class GraphDbRepositoriesUI : MonoBehaviour
 
         _graphDbRespositories = await GraphDbRepositories.Load();
 
+        Debug.Log("Startrepo");
+
         if(_graphDbRespositories.Count > 0)
+        {
+            Debug.Log("Count " + _graphDbRespositories.Count);
             SelectRepo(_graphDbRespositories.AutoSelect());
+        }
         else
             _startBtn.interactable = false;
 

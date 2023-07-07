@@ -8,30 +8,33 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/VRKGUnity/Scenes/VR_Persistent.unity
     guid: 7e18fee0b710f494ba7dede1741fb8cd
-  - enabled: 1
+  - enabled: 0
     path: Assets/VRKGUnity/Scenes/PC_Persistent.unity
     guid: d147a051f5479f749b106b846bc657dd
   - enabled: 1
     path: Assets/VRKGUnity/Scenes/VR_MainMenu.unity
     guid: 29037a75f2fa33144bfaccaf959189de
-  - enabled: 1
+  - enabled: 0
     path: Assets/VRKGUnity/Scenes/PC_MainMenu.unity
     guid: 46ca5cc1c7f572946b820a22713bb8e0
   - enabled: 1
     path: Assets/VRKGUnity/Scenes/VR_DataSynchro.unity
     guid: 4597518d5f06d1146ac277906b85099c
-  - enabled: 1
+  - enabled: 0
     path: Assets/VRKGUnity/Scenes/PC_DataSynchro.unity
     guid: 4c96529116fb9ec43a2cc2ff8648c755
   - enabled: 1
     path: Assets/VRKGUnity/Scenes/VR_KG.unity
     guid: 34bbb6f4f554c834a99847efabab9d16
-  - enabled: 1
+  - enabled: 0
     path: Assets/VRKGUnity/Scenes/PC_KG.unity
     guid: 3226650d3becf9b4d80a8ca3c4177600
-  - enabled: 1
+  - enabled: 0
     path: Assets/VRKGUnity/Scenes/Tests/ForceTest.unity
     guid: 7707a8ae0e61fda4fb464bbf9777589d
+  - enabled: 0
+    path: Assets/VRKGUnity/Scenes/Tests/IP_VR_Test.unity
+    guid: b67618c40d81c2a4f86ab624d65f79a1
   m_configObjects:
     com.htc.upm.wave.xrsdk.xrsettings: {fileID: 11400000, guid: 945a77cbdb7c38c438c6bd9b555da2d1, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: daefebf28cba9914fbbba8b7c2b18f28, type: 2}

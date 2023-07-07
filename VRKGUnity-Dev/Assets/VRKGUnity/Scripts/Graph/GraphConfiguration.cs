@@ -35,55 +35,55 @@ public class GraphConfiguration
     [Header("Styling")]
     [Space(10)]
     [Header("Graph Size")]
-    public float ImmersionGraphSize = 1f;
-    public float DeskGraphSize = 1f;
+    public float ImmersionGraphSize = 12.75f;
+    public float DeskGraphSize = .1f;
     [Space(5)]
-    public float WatchGraphSize = 1f;
-    public float LensGraphSize = 1f;
+    public float WatchGraphSize = .025f;
+    public float LensGraphSize = 1.74f;
 
 
     [Space(10)]
     [Header("Node Size")]
     public float NodeSizeImmersion = 1f;
-    public float NodeSizeDesk = 1f;
+    public float NodeSizeDesk = .03f;
 
     [Space(5)]
-    public float NodeSizeWatch = 1f;
-    public float NodeSizeLens = 1f;
+    public float NodeSizeWatch = .006f;
+    public float NodeSizeLens = .2f;
 
     [Space(5)]
-    public float NodeMinSizeImmersion = .8f;
-    public float NodeMaxSizeImmersion = .8f;
+    public float NodeMinSizeImmersion = 1f;
+    public float NodeMaxSizeImmersion = .6f;
 
     [Space(5)]
-    public float NodeMinSizeDesk = .8f;
-    public float NodeMaxSizeDesk = .8f;
+    public float NodeMinSizeDesk = .03f;
+    public float NodeMaxSizeDesk = .01f;
 
     [Space(5)]
-    public float NodeMinSizeLens = .8f;
-    public float NodeMaxSizeLens = .8f;
+    public float NodeMinSizeLens = .2f;
+    public float NodeMaxSizeLens = .1f;
 
     [Space(10)]
     [Header("Label")]
-    public float LabelNodeSizeImmersion = 1f;
-    public float LabelNodeSizeDesk = 1f;
+    public float LabelNodeSizeImmersion = 5f;
+    public float LabelNodeSizeDesk = .1f;
 
-    public float LabelNodeSizeLens = 1f;
+    public float LabelNodeSizeLens = 1.36f;
 
     public bool ShowLabelImmersion = true;
-    public bool ShowLabelDesk = true;
+    public bool ShowLabelDesk = false;
 
     public bool ShowLabelLens = true;
 
 
     [Space(10)]
     [Header("Edge")]
-    public float EdgeThicknessImmersion = 1f;
-    public float EdgeThicknessDesk = 1f;
-    public float EdgeThicknessLens = 1f;
-    public float EdgeThicknessWatch = 1f;
+    public float EdgeThicknessImmersion = .05f;
+    public float EdgeThicknessDesk = .001f;
+    public float EdgeThicknessLens = .005f;
+    public float EdgeThicknessWatch = .0002f;
     [Space(5)]
-    public bool CanSelectEdges = true;
+    public bool CanSelectEdges = false;
     public bool DisplayEdges = true;
 
 
@@ -142,30 +142,30 @@ public class GraphConfiguration
 
 
     [JsonProperty("NodeColor_")]
-    private System.Drawing.Color _nodeColor = System.Drawing.Color.White;
+    private System.Drawing.Color _nodeColor = System.Drawing.Color.FromArgb(255, 255, 255);
 
-    public ColorLerpMapper NodeColorMapping;
+    public ColorLerpMapper NodeColorMapping = new ColorLerpMapper();
 
     
     [JsonProperty("NodeColorNoOntology_")]
-    private System.Drawing.Color _nodeColorNoOntology = System.Drawing.Color.White;
+    private System.Drawing.Color _nodeColorNoOntology = System.Drawing.Color.FromArgb(178, 178, 178);
 
     [JsonProperty("EdgeColor_")]
     [SerializeField]
-    private System.Drawing.Color _edgeColor = System.Drawing.Color.White;
+    private System.Drawing.Color _edgeColor = System.Drawing.Color.FromArgb(255, 255, 255);
 
     [JsonProperty("PropagatedEdgeColor_")]
-    private System.Drawing.Color _propagatedEdgeColor = System.Drawing.Color.White;
+    private System.Drawing.Color _propagatedEdgeColor = System.Drawing.Color.FromArgb(0, 56, 255);
 
     [Header("Ontology")]
     [Range(1, 15)]
-    public int NbOntologyColor;
+    public int NbOntologyColor = 7;
     [Range(0, 15)]
-    public int MaxDeltaOntologyAlgo;
+    public int MaxDeltaOntologyAlgo = 1;
     [Range(0f, 1f)]
-    public float SaturationOntologyColor;
+    public float SaturationOntologyColor = .772f;
     [Range(0f, 1f)]
-    public float ValueOntologyColor;
+    public float ValueOntologyColor = .767f;
 
 
     [Space(30)]
@@ -217,7 +217,11 @@ public class GraphConfiguration
 
     private static void SetPath()
     {
+#if PLATFORM_ANDROID
+        var folderPath = Path.Combine(Application.persistentDataPath, "VRKGUnity", "Data");
+#else
         var folderPath = Path.Combine(Application.dataPath, "VRKGUnity", "Data");
+#endif
 
         if (!Directory.Exists(folderPath))
             Directory.CreateDirectory(folderPath);

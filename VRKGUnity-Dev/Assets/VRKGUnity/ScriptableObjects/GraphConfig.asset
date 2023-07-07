@@ -29,30 +29,30 @@ MonoBehaviour:
     DenseCoulombDistance: 30
     DenseMaxVelocity: 10
     DenseStopVelocity: 2
-    ImmersionGraphSize: 1
+    ImmersionGraphSize: 12.75
     DeskGraphSize: 0.1
-    WatchGraphSize: 1
+    WatchGraphSize: 0.025
     LensGraphSize: 1.74
-    NodeSizeImmersion: 0.91
+    NodeSizeImmersion: 1
     NodeSizeDesk: 0.03
-    NodeSizeWatch: 1
+    NodeSizeWatch: 0.006
     NodeSizeLens: 0.2
-    NodeMinSizeImmersion: 0.8
-    NodeMaxSizeImmersion: 0.8
-    NodeMinSizeDesk: 0.8
-    NodeMaxSizeDesk: 0.8
-    NodeMinSizeLens: 0.8
-    NodeMaxSizeLens: 0.8
-    LabelNodeSizeImmersion: 1
-    LabelNodeSizeDesk: 1
-    LabelNodeSizeLens: 1.35
+    NodeMinSizeImmersion: 1
+    NodeMaxSizeImmersion: 0.6
+    NodeMinSizeDesk: 0.03
+    NodeMaxSizeDesk: 0.01
+    NodeMinSizeLens: 0.2
+    NodeMaxSizeLens: 0.1
+    LabelNodeSizeImmersion: 5.01
+    LabelNodeSizeDesk: 0.1
+    LabelNodeSizeLens: 1.36
     ShowLabelImmersion: 1
     ShowLabelDesk: 0
     ShowLabelLens: 1
-    EdgeThicknessImmersion: 1
+    EdgeThicknessImmersion: 0.05
     EdgeThicknessDesk: 0.001
     EdgeThicknessLens: 0.005
-    EdgeThicknessWatch: 1
+    EdgeThicknessWatch: 0.0002
     CanSelectEdges: 0
     DisplayEdges: 1
     NodeColorMapping:
@@ -67,15 +67,16 @@ MonoBehaviour:
     ResetPositionNodeOnUpdate: 1
     SeedRandomPosition: 0
     GraphModeTransitionTime: 1
+    ShowWatch: 1
     SelectedMetricTypeSize: 0
     SelectedMetricTypeColor: 0
-  NodeColor: {r: 0, g: 1, b: 0.9329295, a: 1}
-  EdgeColor: {r: 0.7264151, g: 0.7264151, b: 0.7264151, a: 1}
-  PropagatedEdgeColor: {r: 0, g: 0.10394716, b: 1, a: 1}
+  NodeColor: {r: 1, g: 0.97085756, b: 0.35294116, a: 1}
+  EdgeColor: {r: 0.7254902, g: 0.7254902, b: 0.7254902, a: 1}
+  PropagatedEdgeColor: {r: 0, g: 0.21960784, b: 1, a: 1}
   NodeColorA: {r: 1, g: 0, b: 0, a: 1}
   NodeColorB: {r: 0, g: 1, b: 0, a: 1}
   NodeColorC: {r: 0, g: 0, b: 1, a: 1}
-  NodeColorNoOntology: {r: 0.6981132, g: 0.6981132, b: 0.6981132, a: 1}
+  NodeColorNoOntology: {r: 0.69803923, g: 0.69803923, b: 0.69803923, a: 1}
   OntologyViewerColors:
   - {r: 0.767, g: 0.17487599, b: 0.17487599, a: 1}
   - {r: 0.767, g: 0.6824109, b: 0.17487599, a: 1}

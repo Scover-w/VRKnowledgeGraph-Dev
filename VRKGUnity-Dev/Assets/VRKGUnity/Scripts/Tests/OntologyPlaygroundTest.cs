@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using VDS.RDF;
 
@@ -11,8 +12,12 @@ public class OntologyPlaygroundTest : MonoBehaviour
     [ContextMenu("Load Ontology")]
     private async void LoadOntology()
     {
-
+#if PLATFORM_ANDROID
+        var xmlContent = await FileHelper.LoadAsync(Application.persistentDataPath, "VRKGUnity", "Data", "cap44_1455283593", OntologyToLoadFileName);
+#else
         var xmlContent = await FileHelper.LoadAsync(Application.dataPath, "VRKGUnity", "Data", "cap44_1455283593", OntologyToLoadFileName);
+#endif
+
 
         IGraph graph = new VDS.RDF.Graph();
 

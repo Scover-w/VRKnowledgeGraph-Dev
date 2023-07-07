@@ -103,15 +103,15 @@ public class ColorLerpMapper
 
     [JsonProperty("ColorA_")]
     [SerializeField]
-    System.Drawing.Color _colorA;
+    System.Drawing.Color _colorA = System.Drawing.Color.FromArgb(255, 0, 0);
 
     [JsonProperty("ColorB_")]
     [SerializeField]
-    System.Drawing.Color _colorB;
+    System.Drawing.Color _colorB = System.Drawing.Color.FromArgb(0, 255, 0);
 
     [JsonProperty("ColorC_")]
     [SerializeField]
-    System.Drawing.Color _colorC;
+    System.Drawing.Color _colorC = System.Drawing.Color.FromArgb(0, 0, 255);
 
     [JsonProperty("BoundaryColorA_")]
     [SerializeField]

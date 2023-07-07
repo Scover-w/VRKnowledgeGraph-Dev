@@ -33,6 +33,11 @@ public class GraphDBAPI
         _repositoryId = graphDbRepository.RepositoryId;
     }
 
+    public void OverrideForTest(string serverUrl)
+    {
+        _serverUrl = serverUrl;
+    }
+
     /// <summary>
     /// For Select query.
     /// Max sparqlQuery length is 8000.

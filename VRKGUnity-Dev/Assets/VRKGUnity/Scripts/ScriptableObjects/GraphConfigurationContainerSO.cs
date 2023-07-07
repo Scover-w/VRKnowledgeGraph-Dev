@@ -30,7 +30,7 @@ public class GraphConfigurationContainerSO : ScriptableObject
 
     async void Awake()
     {
-        _graphConfiguration = await GraphConfiguration.Load();
+        //_graphConfiguration = await GraphConfiguration.Load();
     }
 
     async void OnEnable()

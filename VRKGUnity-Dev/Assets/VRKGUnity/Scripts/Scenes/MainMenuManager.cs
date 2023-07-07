@@ -6,9 +6,12 @@ public class MainMenuManager : MonoBehaviour
     ReferenceHolderSO _referenceHolderSO;
 
 
-#if UNITY_EDITOR
+
     [SerializeField]
     bool _autoPlay = true;
+
+    [SerializeField]
+    string _ipGraphDb;
 
 
     private void Start()
@@ -16,13 +19,19 @@ public class MainMenuManager : MonoBehaviour
         if(_autoPlay)
             Invoke(nameof(Play), .2f);
     }
-#endif
+
 
     public void Play()
     {
         if (_referenceHolderSO.SelectedGraphDbRepository == null)
             return;
 
+        var graphDbApi = _referenceHolderSO.SelectedGraphDbRepository.GraphDBAPI;
+
+
+#if UNITY_ANDROID
+        graphDbApi.OverrideForTest(_ipGraphDb);
+#endif
 
         var lifeCycleScene = _referenceHolderSO.LifeCycleSceneManagerSA.Value;
         lifeCycleScene.LoadScene(Scenes.DataSynchro);

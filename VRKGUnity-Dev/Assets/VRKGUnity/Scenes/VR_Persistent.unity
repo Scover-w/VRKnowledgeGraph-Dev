@@ -406,6 +406,10 @@ PrefabInstance:
       propertyPath: m_BackGroundColor.r
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5055723754228682276, guid: 3c6ecdaedc0582e489f69d810209726c, type: 3}
+      propertyPath: m_AllowDynamicResolution
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5055723754721804891, guid: 3c6ecdaedc0582e489f69d810209726c, type: 3}
       propertyPath: m_RaycastMask.m_Bits
       value: 2147483937
