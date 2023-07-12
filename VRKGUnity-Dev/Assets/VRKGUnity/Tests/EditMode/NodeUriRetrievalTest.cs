@@ -1,24 +1,11 @@
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
 using NUnit.Framework;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using static GraphDBAPI;
-using System.Net.Http;
-using System.Net;
 using System;
-using UnityEditor.Search;
-using System.Linq;
-using System.Text.RegularExpressions;
-using UnityEditor.Graphs;
-using System.Xml;
-using static System.Net.WebRequestMethods;
-using System.Xml.Linq;
-using System.Data.SqlTypes;
+using System.Collections.Generic;
 using System.IO;
-using System.Drawing;
-using System.Runtime.InteropServices;
+using System.Net.Http;
+using System.Xml;
+using System.Xml.Linq;
+using UnityEngine;
 
 public class NodeUriRetrievalTest : MonoBehaviour
 {

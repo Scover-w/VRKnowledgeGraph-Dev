@@ -2,8 +2,10 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using UnityEngine;
 using VDS.RDF;
 
@@ -13,18 +15,24 @@ public class GraphDbRepositoryNamespaces
     public IReadOnlyDictionary<string, OntologyTree> OntoTreeDict => _ontoTreeDict;
 
 
-    [JsonProperty("Uris_")]
-    HashSet<string> _namespaces;
+    [JsonProperty("UrisWithPrefixs_")]
+    Dictionary<string, string> _namespacesAndPrefixs;
 
     Dictionary<string, OntologyTree> _ontoTreeDict;
 
+    [JsonIgnore]
     private static string _fullpathFile;
+    [JsonIgnore]
     private static string _pathRepo;
+
+    [JsonIgnore]
+    Dictionary<string, string> _defaultPrefixsDict;
+
 
     public GraphDbRepositoryNamespaces()
     {
         _ontoTreeDict = new();
-        _namespaces = new();
+        _namespacesAndPrefixs = new();
     }
 
     public async Task RetrieveNewNamespaces(JObject data,GraphDBAPI graphDBAPI)
@@ -62,13 +70,16 @@ public class GraphDbRepositoryNamespaces
             }
         }
 
-        foreach (string namepsce in namespaces)
+        LoadDefaultPrefixsList();
+
+
+        foreach (string namespce in namespaces)
         {
-            if(_namespaces.Contains(namepsce))
+            if(_namespacesAndPrefixs.ContainsKey(namespce))
                 continue;
 
-            await TryRetrieveOntologyAndLoadInDatabase(graphDBAPI, _pathRepo, namepsce);
-            _namespaces.Add(namepsce);
+            await TryRetrieveOntologyAndLoadInDatabase(graphDBAPI, _pathRepo, namespce);
+            TryLoadPrefixFromList(namespce);
         }
 
         await Save();
@@ -81,17 +92,100 @@ public class GraphDbRepositoryNamespaces
 
         if (xmlContent.Length == 0)
             return;
+
         IGraph graph = new VDS.RDF.Graph();
 
         if (!graph.TryLoadFromRdf(xmlContent))
             return;
 
-        //Debug.Log(namespce + " has a ontology. " + "----");
 
         await FileHelper.SaveAsync(xmlContent, pathRepo, namespce.CleanUriFromUrlPart() + ".rdf");
         graph.CleanFromLabelAndComment();
         string turtleContent = graph.ToTurtle();
         await graphDBAPI.LoadFileContentInDatabase(turtleContent, GraphDBAPIFileType.Turtle);
+    }
+
+    private void TryLoadPrefixFromList(string namespce)
+    {
+        if(_defaultPrefixsDict.ContainsKey(namespce))
+        {
+            AddPrefix(namespce, _defaultPrefixsDict[namespce]);
+            return;
+        }
+
+        string prefix = CreatePrefix(namespce);
+        AddPrefix(namespce, prefix);
+
+        Debug.LogWarning("namepsace " + namespce + " couldn't be found in the default prefix list. Created " + prefix + ".");
+    }
+
+    private string CreatePrefix(string namespce)
+    {
+        var prefix = namespce.Replace("http://", "")
+                             .Replace("https://", "");
+
+        prefix = prefix.Split("/")[0];
+
+        prefix = prefix.Replace("www.", "")
+              .Replace(".com", "")
+              .Replace(".fr", "")
+              .Replace(".org", "");
+
+        prefix = CapitalizeOnCharacter(prefix, '.');
+        prefix = CapitalizeOnCharacter(prefix, '-');
+        prefix = CapitalizeOnCharacter(prefix, '_');
+
+        return prefix;
+    }
+
+    private void AddPrefix(string namespce, string prefix)
+    {
+
+        if(namespce.Contains("ark:"))
+        {
+            _namespacesAndPrefixs.Add(namespce, prefix);
+            return;
+        }
+
+
+        HashSet<string> existingPrefixs = new();
+
+        foreach(string existingPrefix in _namespacesAndPrefixs.Values)
+        {
+            existingPrefixs.Add(existingPrefix);
+        }
+
+        if (!existingPrefixs.Contains(prefix))
+        {
+            _namespacesAndPrefixs.Add(namespce, prefix);
+            return;
+        }
+
+        int i = 1;
+        string prefixNumbered;
+
+        do
+        {
+            i++;
+            prefixNumbered = prefix + i;
+
+
+        } while (existingPrefixs.Contains(prefixNumbered));
+
+        _namespacesAndPrefixs.Add(namespce, prefixNumbered);
+    }
+
+    // Exemple : purl.ontology.test -> purlOntologyTest
+    public string CapitalizeOnCharacter(string input, char separator)
+    {
+        string[] words = input.Split(separator);
+
+        for (int i = 1; i < words.Length; i++)
+        {
+            words[i] = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(words[i]);
+        }
+
+        return string.Concat(words);
     }
 
 
@@ -248,13 +342,53 @@ public class GraphDbRepositoryNamespaces
 
         foreach(string namespce in newNamespaces)
         {
-            if (_namespaces.Contains(namespce))
+            if (_namespacesAndPrefixs.ContainsKey(namespce))
                 continue;
 
-            _namespaces.Add(namespce);
+            _namespacesAndPrefixs.Add(namespce, "");
         }
 
         await Save();
+    }
+
+
+    private void LoadDefaultPrefixsList()
+    {
+        var path = Path.Combine(Application.streamingAssetsPath, "prefixsList.ttl");
+
+
+        _defaultPrefixsDict = new();
+
+        if (!File.Exists(path))
+        {
+            Debug.LogError("prefixsList.ttl has been deleted");
+            return;
+        }
+
+        using (StreamReader reader = new StreamReader(path))
+        {
+            string line;
+            while ((line = reader.ReadLine()) != null)
+            {
+
+                line = line.Replace("@prefix ", "");
+
+                var elements = line.Split("<");
+
+                string prefix = elements[0];
+                string namespce = elements[1];
+
+
+                prefix = prefix.Replace(" ", "").Replace(":", "");
+                namespce = namespce.Replace(">", "");
+                namespce = namespce.Substring(0, namespce.Length - 1);
+
+                if (_defaultPrefixsDict.ContainsKey(namespce))
+                    continue;
+
+                _defaultPrefixsDict.Add(namespce, prefix);
+            }
+        }
     }
 
     #region SAVE_LOAD

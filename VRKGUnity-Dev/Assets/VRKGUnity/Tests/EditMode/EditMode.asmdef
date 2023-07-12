@@ -15,7 +15,10 @@
     "overrideReferences": true,
     "precompiledReferences": [
         "nunit.framework.dll",
-        "Newtonsoft.Json.dll"
+        "Newtonsoft.Json.dll",
+        "VDS.Common.dll",
+        "dotNetRdf.dll",
+        "QuikGraph.dll"
     ],
     "autoReferenced": false,
     "defineConstraints": [
