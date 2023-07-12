@@ -29,7 +29,7 @@ public class MainMenuManager : MonoBehaviour
         var graphDbApi = _referenceHolderSO.SelectedGraphDbRepository.GraphDBAPI;
 
 
-#if UNITY_ANDROID
+#if UNITY_ANDROID && !UNITY_EDITOR
         graphDbApi.OverrideForTest(_ipGraphDb);
 #endif
 

@@ -28,6 +28,9 @@ public class LabelNodgeManagerUI : MonoBehaviour
     GraphConfiguration _graphConfig;
     Transform _hmdTf;
 
+    LabelNodgeUI _hoveredLabelUI;
+
+
     bool _displayLabelsDesk;
     bool _displayLabelsImmersion;
     bool _displayLabelsLens;
@@ -46,6 +49,8 @@ public class LabelNodgeManagerUI : MonoBehaviour
 
     Vector2 _baseSizeCanvas = Settings.BASE_SIZE_LABEL_CANVAS;
     float _baseFontSize = Settings.BASE_FONT_SIZE_LABEL;
+
+    bool _isHovered = false;
 
 
     void Start()
@@ -75,6 +80,9 @@ public class LabelNodgeManagerUI : MonoBehaviour
     void DelayedSubscribe()
     {
         _selectionManager.OnNodgesPropagated += OnNodgesPropagated;
+
+        _hoveredLabelUI = _nodgePool.GetLabelNodge();
+        _hoveredLabelUI.SetActive(false);
     }
 
 
@@ -91,6 +99,9 @@ public class LabelNodgeManagerUI : MonoBehaviour
 
         if(_graphMode == GraphMode.Desk && _displayLabelsLens)
             UpdateSubLabels(hmdPosition);
+
+        if (_isHovered)
+            UpdateHoveredLabel(hmdPosition);
     }
 
  
@@ -124,8 +135,31 @@ public class LabelNodgeManagerUI : MonoBehaviour
         }
     }
 
+    private void UpdateHoveredLabel(Vector3 hmdPosition)
+    {
+        _hoveredLabelUI.UpdateTransform(hmdPosition, _sizeMainNode);
+    }
+
+
+
     #endregion
 
+    #region HoverLabel
+    public void SetHover(Node node)
+    {
+        _isHovered = true;
+        _hoveredLabelUI.SetFollow(node.MainGraphNodeTf);
+        var name = node.GetName();
+        _hoveredLabelUI.Text = (name != null) ? name : node.Value;
+        _hoveredLabelUI.SetActive(true);
+    }
+
+    public void CancelHover()
+    {
+        _isHovered = false;
+        _hoveredLabelUI.SetActive(false);
+    }
+    #endregion
 
     #region Styling
     public void StyleLabels(StyleChange styleChange)

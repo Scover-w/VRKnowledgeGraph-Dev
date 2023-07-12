@@ -12,7 +12,7 @@ public class OntologyPlaygroundTest : MonoBehaviour
     [ContextMenu("Load Ontology")]
     private async void LoadOntology()
     {
-#if PLATFORM_ANDROID
+#if PLATFORM_ANDROID && !UNITY_EDITOR
         var xmlContent = await FileHelper.LoadAsync(Application.persistentDataPath, "VRKGUnity", "Data", "cap44_1455283593", OntologyToLoadFileName);
 #else
         var xmlContent = await FileHelper.LoadAsync(Application.dataPath, "VRKGUnity", "Data", "cap44_1455283593", OntologyToLoadFileName);

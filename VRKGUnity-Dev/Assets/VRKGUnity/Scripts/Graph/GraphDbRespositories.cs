@@ -75,7 +75,7 @@ public class GraphDbRepositories
 
     private static void SetPath()
     {
-#if PLATFORM_ANDROID
+#if PLATFORM_ANDROID && !UNITY_EDITOR
         var folderPath = Path.Combine(Application.persistentDataPath, "VRKGUnity", "Data");
 #else
         var folderPath = Path.Combine(Application.dataPath, "VRKGUnity", "Data");

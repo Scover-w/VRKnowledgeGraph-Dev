@@ -172,13 +172,12 @@ public class NodgeSelectionManager : MonoBehaviour
 
     public void Hover(Node node)
     {
-        if(_currentHoveredNode != node)
-        {
-            // TODO : Hover changed
-            int i = 0;
-        }
+        if (_currentHoveredNode == node)
+            return;
 
         _currentHoveredNode = node;
+        _labelNodgeManager.SetHover(node);
+
     }
 
     public void UnHover(Node node)
@@ -187,6 +186,7 @@ public class NodgeSelectionManager : MonoBehaviour
             return;
 
         _currentHoveredNode = null;
+        _labelNodgeManager.CancelHover();
     }
 
     public void Select(Node node)

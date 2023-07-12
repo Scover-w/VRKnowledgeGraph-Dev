@@ -222,7 +222,8 @@ public class GraphDbRepositoryDistantUris
     {
         foreach (Node node in nodeIds.Values) 
         {
-            _distantUriLabels.Add(node.Value, ("-1", "-1"));
+            if(!_distantUriLabels.ContainsKey(node.Value))
+                _distantUriLabels.Add(node.Value, ("-1", "-1"));
         }
 
         await Save();
