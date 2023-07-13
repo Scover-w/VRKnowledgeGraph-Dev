@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
@@ -85,5 +86,14 @@ public class MisceTests : MonoBehaviour
                 Debug.Log(gatewayAddress.Address.ToString());
             }
         }
+    }
+
+    [Test]
+    public void GUUID()
+    {
+        Guid guid = Guid.NewGuid();
+        string uniqueId = guid.ToString();
+        Debug.Log("http://www.cidoc-crm.org/cidoc-crm/".Length);
+
     }
 }

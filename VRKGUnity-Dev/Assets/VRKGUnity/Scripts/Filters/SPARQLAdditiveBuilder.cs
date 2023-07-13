@@ -10,13 +10,9 @@ public class SPARQLAdditiveBuilder
     string _startAdditiveQuery;
     string _endAdditiveQuery;
 
-    string _firstAdditiveQuery;
-
     List<string> _additiveQueries;
 
-    Ontology _ontology;
-
-    public SPARQLAdditiveBuilder(GraphDbRepositoryNamespaces repoNamespaces)
+    public SPARQLAdditiveBuilder()
     {
         _startBaseQuery = "SELECT ?s ?p ?o WHERE {";
         _endBaseQuery = "}";
@@ -24,33 +20,7 @@ public class SPARQLAdditiveBuilder
         _startAdditiveQuery = "{ SELECT ?s ?p ?o WHERE { ?s ?p ?o . ";
         _endAdditiveQuery = "} }";
 
-        _firstAdditiveQuery = "{ SELECT ?s ?p ?o " +
-                              "WHERE { " +
-                              "?s ?p ?o. " +
-                              "FILTER NOT EXISTS { {" +
-                              "?s ?p ?o . " +
-                              "FILTER (?p = <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> && (?o = <http://www.w3.org/2000/01/rdf-schema#Class> || ?o = <http://www.w3.org/2002/07/owl#Class>)) } " +
-                              "UNION { " +
-                              "?s ?p ?o." +
-                              " FILTER(?p = <http://www.w3.org/2000/01/rdf-schema#subClassOf> || ?p = <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> || ?p = <http://www.w3.org/2000/01/rdf-schema#domain> " +
-                              "|| ?p = <http://www.w3.org/2000/01/rdf-schema#range> || ?p = <http://www.w3.org/2002/07/owl#inverseOf> || " +
-                              "?o = <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> || ?p = <http://www.w3.org/2000/01/rdf-schema#isDefinedBy>) } " +
-                              "UNION { " +
-                              "BIND (\"http://www.w3.org/\" AS ?w3) " +
-                              "BIND (\"https://www.w3.org/\" AS ?w3s) " +
-                              "?s ?p ?o. " +
-                              "FILTER ( ( " +
-                              "(strStarts(str(?s), ?w3) || strStarts(str(?s), ?w3s)) && " +
-                              "(strStarts(str(?o), ?w3) || strStarts(str(?o), ?w3s))) || " +
-                              "((strStarts(str(?s), ?w3) || strStarts(str(?s), ?w3s)) && " +
-                              "(strStarts(str(?p), ?w3) || strStarts(str(?p), ?w3s))) || " +
-                              "((strStarts(str(?p), ?w3) || strStarts(str(?p), ?w3s)) && " +
-                              "(strStarts(str(?o), ?w3) || strStarts(str(?o), ?w3s))) ) " +
-                              "}}}} ";
-
         _additiveQueries = new List<string>();
-
-        //_ontology = new(ontology);
     }
 
 
@@ -71,15 +41,17 @@ public class SPARQLAdditiveBuilder
 
     public string Build()
     {
-        StringBuilder sb = new StringBuilder();
+        int nbAdditiveQuery = _additiveQueries.Count;
 
-        //sb.Append(_ontology.QueryPrefixs);
+        if(nbAdditiveQuery == 0)
+        {
+            return "SELECT * WHERE { ?s ?p ?o . }";
+        }
+
+        StringBuilder sb = new StringBuilder();
 
         sb.Append(_startBaseQuery);
 
-        sb.Append(_firstAdditiveQuery);
-
-        int nbAdditiveQuery = _additiveQueries.Count;
 
         for (int i = 0; i < nbAdditiveQuery; i++)
         {
@@ -87,10 +59,6 @@ public class SPARQLAdditiveBuilder
             sb.Append(_additiveQueries[i]);
             sb.Append(_endAdditiveQuery);
         }
-
-        //sb.Append(_startAdditiveQuery);
-        //sb.Append(_ontology.QueryFilter);
-        //sb.Append(_endAdditiveQuery);
 
         sb.Append(_endBaseQuery);
 

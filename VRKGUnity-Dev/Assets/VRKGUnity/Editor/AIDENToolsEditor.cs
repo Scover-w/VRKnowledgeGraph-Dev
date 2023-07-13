@@ -80,7 +80,7 @@ public class AIDENToolsEditor : MonoBehaviour
 
         var turtleContent = await FileHelper.LoadAsync(Application.dataPath, "VRKGUnity", "Data", "Tools", "cap44_items.ttl");
 
-        var hasUpdated = await api.LoadFileContentInDatabase(turtleContent, GraphDBAPIFileType.Turtle);
+        var hasUpdated = await api.LoadFileContentInDatabase(turtleContent, "<http://data>", GraphDBAPIFileType.Turtle);
 
         if(!hasUpdated) 
         {

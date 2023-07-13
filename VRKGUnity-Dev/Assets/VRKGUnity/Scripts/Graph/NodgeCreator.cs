@@ -5,36 +5,36 @@ using UnityEngine;
 
 public class NodgeCreator : MonoBehaviour
 {
-    private void RefreshPositions(NodgesDicId nodges, GraphConfiguration config)
-    {
-        var idAndNodes = nodges.NodesDicId;
-        int seed = config.SeedRandomPosition;
+    //private void RefreshPositions(NodgesDicId nodges, GraphConfiguration config)
+    //{
+    //    var idAndNodes = nodges.NodesDicId;
+    //    int seed = config.SeedRandomPosition;
 
 
-        foreach (var idAndNode in idAndNodes)
-        {
-            idAndNode.Value.ResetAbsolutePosition(seed);
-        }
-    }
+    //    foreach (var idAndNode in idAndNodes)
+    //    {
+    //        idAndNode.Value.ResetAbsolutePosition(seed);
+    //    }
+    //}
 
-    private void GetCentralNode(NodgesDicId nodges)
-    {
-        int nb = -1;
-        Node centralNode = new("","");
+    //private void GetCentralNode(NodgesDicId nodges)
+    //{
+    //    int nb = -1;
+    //    Node centralNode = new("","");
 
-        var nodesDicId = nodges.NodesDicId;
+    //    var nodesDicId = nodges.NodesDicId;
 
-        foreach (var kvp in nodesDicId)
-        {
-            Node node = kvp.Value;
+    //    foreach (var kvp in nodesDicId)
+    //    {
+    //        Node node = kvp.Value;
 
-            int nbEdge = node.EdgeSource.Count + node.EdgeTarget.Count;
+    //        int nbEdge = node.EdgeSource.Count + node.EdgeTarget.Count;
 
-            if (nbEdge < nb)
-                continue;
+    //        if (nbEdge < nb)
+    //            continue;
 
-            centralNode = node;
-            nb = nbEdge;
-        }
-    }
+    //        centralNode = node;
+    //        nb = nbEdge;
+    //    }
+    //}
 }

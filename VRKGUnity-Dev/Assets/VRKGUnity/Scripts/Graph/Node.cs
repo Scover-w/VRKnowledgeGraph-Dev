@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 
 public class Node
@@ -26,6 +27,17 @@ public class Node
         } 
     }
 
+    public string PrefixValue
+    {
+        get
+        {
+            if (Type == NodgeType.Literal)
+                return Value;
+
+            return Prefix + ":" + Value;
+        }
+    }
+
     public bool IsSelected
     {
         get
@@ -34,13 +46,34 @@ public class Node
         }
     }
 
-    public int Id;
-    public NodgeType Type;
+    public string Uri
+    {
+        get
+        {
+            if (Type == NodgeType.Literal)
+                return Value;
+
+            return Namespace + Value;
+        }
+    }
+
+    public readonly int Id;
+    public readonly NodgeType Type;
+
 
     /// <summary>
-    /// Is a uri (namespace + localName) or a literal.
+    /// Null if Type is a literal
     /// </summary>
-    public string Value;
+    public readonly string Prefix;
+    /// <summary>
+    /// Null if Type is a literal
+    /// </summary>
+    public readonly string Namespace;
+
+    /// <summary>
+    /// Is a localName (if Type is a Uri) or a literal.
+    /// </summary>
+    public readonly string Value;
 
     public NodeStyler MainNodeStyler;
     public NodeStyler SubNodeStyler;
@@ -74,11 +107,26 @@ public class Node
 
     static System.Random _random;
 
-    public Node(int id, string type, string value)
+    public Node(int id, string type, string value, GraphDbRepositoryNamespaces repoNamespaces)
     {
         Id = id;
         Type = (type == "uri") ? NodgeType.Uri : NodgeType.Literal;
-        Value = value;
+
+
+        if(Type == NodgeType.Literal)
+        {
+            Value = value;
+        }
+        else
+        {
+            var uri = value.ExtractUri();
+
+            Value = uri.localName;
+            Namespace = uri.namespce;
+
+            Prefix = repoNamespaces.GetPrefix(Namespace);
+        }
+
 
         EdgeSource = new();
         EdgeTarget = new();
@@ -91,13 +139,33 @@ public class Node
         IsHidden = true;
     }
 
-    public Node(string type, string value)
+    public Node(string type, string value, GraphDbRepositoryNamespaces repoNamespaces)
     {
+        Id = value.GetHashCode();
         Type = (type == "uri") ? NodgeType.Uri : NodgeType.Literal;
-        Value = value;
-        Id = Value.GetHashCode();
+
+
+        if (Type == NodgeType.Literal)
+        {
+            Value = value;
+        }
+        else
+        {
+            var uri = Value.ExtractUri();
+
+            Value = uri.localName;
+            Namespace = uri.namespce;
+
+            Prefix = repoNamespaces.GetPrefix(Namespace);
+        }
+
+        EdgeSource = new();
+        EdgeTarget = new();
+
+        Properties = new();
 
         _doDisplayMainNode = false;
+        _doDisplaySubNode = false;
 
         IsHidden = true;
     }
@@ -163,7 +231,7 @@ public class Node
             if (edge.Type == NodgeType.Literal)
                 continue;
 
-            string edgeValue = edge.Value;
+            string edgeValue = edge.Uri;
 
             if (!ContainNameUri(edgeValue))
                 continue;
@@ -171,7 +239,7 @@ public class Node
             if (Properties.ContainsKey(edgeValue))
                 continue;
 
-            Properties.Add(edgeValue, edge.Target.Value);
+            Properties.Add(edgeValue, edge.Target.Uri);
         }
     }
 

@@ -150,7 +150,7 @@ public class LabelNodgeManagerUI : MonoBehaviour
         _isHovered = true;
         _hoveredLabelUI.SetFollow(node.MainGraphNodeTf);
         var name = node.GetName();
-        _hoveredLabelUI.Text = (name != null) ? name : node.Value;
+        _hoveredLabelUI.Text = (name != null) ? name : node.PrefixValue;
         _hoveredLabelUI.SetActive(true);
     }
 
@@ -722,7 +722,7 @@ public class LabelNodgeManagerUI : MonoBehaviour
 
         labelNodgeUI.SetFollow((graphType == GraphType.Main)? node.MainGraphNodeTf : node.SubGraphNodeTf);
         var name = node.GetName();
-        labelNodgeUI.Text = (name != null) ? name : node.Value;
+        labelNodgeUI.Text = (name != null) ? name : node.PrefixValue;
 
         return labelNodgeUI;
     }
@@ -738,7 +738,7 @@ public class LabelNodgeManagerUI : MonoBehaviour
                                             edge.Source.SubGraphNodeTf, 
                                isMainGraph? edge.Target.MainGraphNodeTf :
                                             edge.Target.SubGraphNodeTf);
-        labelNodgeUI.Text = edge.Value;
+        labelNodgeUI.Text = edge.PrefixValue;
 
         return labelNodgeUI;
     }

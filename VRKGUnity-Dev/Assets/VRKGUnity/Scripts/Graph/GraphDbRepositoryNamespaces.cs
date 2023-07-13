@@ -102,9 +102,10 @@ public class GraphDbRepositoryNamespaces
         await FileHelper.SaveAsync(xmlContent, pathRepo, namespce.CleanUriFromUrlPart() + ".rdf");
         graph.CleanFromLabelAndComment();
         string turtleContent = graph.ToTurtle();
-        await graphDBAPI.LoadFileContentInDatabase(turtleContent, GraphDBAPIFileType.Turtle);
+        await graphDBAPI.LoadFileContentInDatabase(turtleContent, "<http://ontology>", GraphDBAPIFileType.Turtle);
     }
 
+    #region Prefix
     private void TryLoadPrefixFromList(string namespce)
     {
         if(_defaultPrefixsDict.ContainsKey(namespce))
@@ -187,6 +188,18 @@ public class GraphDbRepositoryNamespaces
 
         return string.Concat(words);
     }
+    #endregion
+
+    public string GetPrefix(string namespce)
+    {
+        if(_namespacesAndPrefixs.TryGetValue(namespce, out string prefix))
+        {
+            return prefix;
+        }
+
+        Debug.LogWarning("No prefix founded : " + namespce);
+        return "";
+    }
 
 
     public async Task CreateOntologyTrees(GraphDBAPI graphDBAPI)
@@ -195,7 +208,8 @@ public class GraphDbRepositoryNamespaces
                            "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> " +
                            "PREFIX owl: <http://www.w3.org/2002/07/owl#> " +
                            "SELECT ?s ?p ?o " +
-                           " WHERE {  { " +
+                           "FROM <http://data> " + 
+                           "WHERE {  { " +
                            "?s ?p ?o. " +
                            "FILTER( ( (?p = rdf:type && (?o = rdfs:Class || ?o = owl:Class)) || ?p = rdfs:subClassOf ) )  }}";
 
@@ -282,7 +296,7 @@ public class GraphDbRepositoryNamespaces
 
     public bool TryAddNodeToOntoNode(Node definedNode, Node simpleOntoNode)
     {
-        if(!_ontoTreeDict.TryGetValue(simpleOntoNode.Value.ExtractUri().namespce, out OntologyTree ontoTree))
+        if(!_ontoTreeDict.TryGetValue(simpleOntoNode.Namespace, out OntologyTree ontoTree))
         {
             return false;
         }
@@ -299,7 +313,7 @@ public class GraphDbRepositoryNamespaces
     public bool CanAddNodeToOntoNode(Node simpleOntoNode, out OntoNode ontoNode)
     {
         ontoNode = null;
-        if (!_ontoTreeDict.TryGetValue(simpleOntoNode.Value.ExtractUri().namespce, out OntologyTree ontoTree))
+        if (!_ontoTreeDict.TryGetValue(simpleOntoNode.Namespace, out OntologyTree ontoTree))
         {
             return false;
         }
@@ -318,37 +332,6 @@ public class GraphDbRepositoryNamespaces
         {
             ontoUri.Value.ResetDefinedNodes();
         }
-    }
-
-    public async Task BlockNamespaceToBeRetrieved(Dictionary<int, Node> nodeIds)
-    {
-        HashSet<string> newNamespaces = new();
-
-        foreach(Node node in nodeIds.Values)
-        {
-            var value = node.Value;
-
-            if (!value.StartsWith("http"))
-                continue;
-
-            var namepsce = node.Value.ExtractUri().namespce;
-
-            if (newNamespaces.Contains(namepsce))
-                continue;
-
-            newNamespaces.Add(namepsce);
-        }
-
-
-        foreach(string namespce in newNamespaces)
-        {
-            if (_namespacesAndPrefixs.ContainsKey(namespce))
-                continue;
-
-            _namespacesAndPrefixs.Add(namespce, "");
-        }
-
-        await Save();
     }
 
 

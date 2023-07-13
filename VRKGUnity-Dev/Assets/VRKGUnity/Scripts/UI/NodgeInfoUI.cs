@@ -31,7 +31,7 @@ public class NodgeInfoUI : MonoBehaviour
         var name = node.GetName();
 
         if (name == null)
-            name = node.Value;
+            name = node.PrefixValue;
 
         if (name.Length > 30)
             name = name.Substring(0, 30) + "...";
@@ -49,7 +49,7 @@ public class NodgeInfoUI : MonoBehaviour
             return;
 
         _typeTxt.text = edge.Type.ToString();
-        _valueTxt.text = edge.Value;
+        _valueTxt.text = edge.PrefixValue;
 
         StringBuilder sb = new();
 
@@ -60,10 +60,10 @@ public class NodgeInfoUI : MonoBehaviour
         var nameTargetNode = nodeTarget.GetName();
 
         if (nameSourceNode == null)
-            nameSourceNode = nodeSource.Value;
+            nameSourceNode = nodeSource.PrefixValue;
 
         if(nameTargetNode == null)
-            nameTargetNode = nodeTarget.Value;
+            nameTargetNode = nodeTarget.PrefixValue;
 
 
         if(nameSourceNode.Length > 30)

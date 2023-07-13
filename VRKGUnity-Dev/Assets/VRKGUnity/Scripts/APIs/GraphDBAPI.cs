@@ -129,12 +129,12 @@ public class GraphDBAPI
         }
     }
 
-    public async Task<bool> LoadFileContentInDatabase(string fileContent, GraphDBAPIFileType type)
+    public async Task<bool> LoadFileContentInDatabase(string fileContent, string graphName, GraphDBAPIFileType type)
     {
 
         using (HttpClient client = new HttpClient())
         {
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, _serverUrl + "repositories/" + _repositoryId + "/statements");
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, _serverUrl + "repositories/" + _repositoryId + "/statements?context=" + graphName);
             request.Content = new StringContent(fileContent, Encoding.UTF8, (type == GraphDBAPIFileType.Turtle) ? "text/turtle" : "application/rdf+xml");
 
             HttpResponseMessage response;
@@ -154,6 +154,7 @@ public class GraphDBAPI
 
             if (!response.IsSuccessStatusCode)
             {
+                string error = await response.Content.ReadAsStringAsync();
                 OnErrorQuery?.Invoke(response);
                 return false;
             }

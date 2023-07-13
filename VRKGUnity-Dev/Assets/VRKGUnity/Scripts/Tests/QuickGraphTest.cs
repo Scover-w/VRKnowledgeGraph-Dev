@@ -6,9 +6,9 @@ public class QuickGraphTest : MonoBehaviour
     void Start()
     {
 
-        var nodeA = new Node("literal", "carotte");
-        var nodeB = new Node("literal", "courgette");
-        var edge = new QuikGraph.Edge<Node>(nodeA,nodeB);
+        //var nodeA = new Node("literal", "carotte");
+        //var nodeB = new Node("literal", "courgette");
+        //var edge = new QuikGraph.Edge<Node>(nodeA,nodeB);
 
     }
 

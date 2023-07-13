@@ -36,9 +36,9 @@ public class GraphDbRepositoryDistantUris
     }
 
 
-    public async Task RetrieveNames(JObject data, IReadOnlyDictionary<string, OntologyTree> ontoTreeDict, DataSynchroManager dataSynchro)
+    public async Task RetrieveNames(JObject data, IReadOnlyDictionary<string, OntologyTree> ontoTreeDict, DataSynchroManager dataSynchro, GraphDbRepositoryNamespaces repoNamespaces)
     {
-        var nodges = data.ExtractNodgesForDistantUri();
+        var nodges = data.ExtractNodgesForDistantUri(repoNamespaces);
 
         await RetrieveNames(nodges.NodesDicId, ontoTreeDict, dataSynchro);
     }
@@ -110,7 +110,7 @@ public class GraphDbRepositoryDistantUris
         try
         {
             var node = (Node)obj;
-            string uri = node.Value;
+            string uri = node.Uri;
 
             // Set value if already successfull retrieve saved
             bool needReturn = false;
@@ -217,17 +217,6 @@ public class GraphDbRepositoryDistantUris
         return false;
     }
 
-
-    public async Task BlockNodesToBeRetrieved(Dictionary<int, Node> nodeIds)
-    {
-        foreach (Node node in nodeIds.Values) 
-        {
-            if(!_distantUriLabels.ContainsKey(node.Value))
-                _distantUriLabels.Add(node.Value, ("-1", "-1"));
-        }
-
-        await Save();
-    }
 
     #region SAVE_LOAD
     public static async Task<GraphDbRepositoryDistantUris> LoadAsync(string pathRepo)

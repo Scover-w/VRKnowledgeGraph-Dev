@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
+using UnityEngine;
 
 public class Ontology
 {
@@ -190,6 +191,13 @@ public static class OntologyHelperExtension
 {
     public static (string namespce, string localName) ExtractUri(this string uri)
     {
+
+        if (uri == null)
+        {
+            Debug.Log("fse");
+            return ("", "");
+        }
+
         string separator = "/";
         if (uri.Contains("#"))
         {

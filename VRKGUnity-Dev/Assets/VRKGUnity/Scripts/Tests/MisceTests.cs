@@ -27,7 +27,7 @@ public class MisceTests : MonoBehaviour
         var repo = new GraphDbRepository("http://localhost:7200/", "TestOntology");
         var api = new GraphDBAPI(repo);
 
-        var bipbop = await api.LoadFileContentInDatabase(turtleContent, GraphDBAPIFileType.Turtle);
+        var bipbop = await api.LoadFileContentInDatabase(turtleContent, "<http://ontology>", GraphDBAPIFileType.Turtle);
     }
 
     [ContextMenu("Select Test")]

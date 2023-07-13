@@ -3,9 +3,46 @@ using UnityEngine;
 
 public class Edge : IEdge<Node>
 {
+    public string PrefixValue
+    {
+        get
+        {
+            if (Type == NodgeType.Literal)
+                return Value;
+
+            return Prefix + ":" + Value;
+        }
+    }
+
+    public string Uri
+    {
+        get
+        {
+            if (Type == NodgeType.Literal)
+                return Value;
+
+            return Namespace + Value;
+        }
+    }
+
     public int Id;
     public NodgeType Type;
-    public string Value;
+
+    /// <summary>
+    /// Null if Type is a literal
+    /// </summary>
+    public readonly string Prefix;
+    /// <summary>
+    /// Null if Type is a literal
+    /// </summary>
+    public readonly string Namespace;
+
+    /// <summary>
+    /// Is a localName (if Type is a Uri) or a literal.
+    /// </summary>
+    public readonly string Value;
+
+
     public Node Source { get; }
     public Node Target { get; }
 
@@ -23,14 +60,29 @@ public class Edge : IEdge<Node>
     private bool _doDisplayMainEdge;
     private bool _doDisplaySubEdge;
 
-    public Edge(string type, string value, Node source, Node target) 
+    public Edge(string type, string value, Node source, Node target, GraphDbRepositoryNamespaces repoNamespaces) 
     {
+        Id = (source.Uri + target.Uri).GetHashCode();
         Type = (type == "uri") ? NodgeType.Uri : NodgeType.Literal;
-        Value = value;
+
+
+        if (Type == NodgeType.Literal)
+        {
+            Value = value;
+        }
+        else
+        {
+            var uri = value.ExtractUri();
+
+            Value = uri.localName;
+            Namespace = uri.namespce;
+
+            Prefix = repoNamespaces.GetPrefix(Namespace);
+        }
+
         Source = source;
         Target = target;    
 
-        Id = (source.Value + target.Value).GetHashCode();
 
         _doDisplayMainEdge = false;
         _doDisplaySubEdge = false;

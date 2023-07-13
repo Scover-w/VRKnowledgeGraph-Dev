@@ -11,7 +11,7 @@ public class SPARQLQuery
 
     public SPARQLQuery(Node node, DynamicFilterType type)
     {
-        string uri = node.Value;
+        string uri = node.Uri;
 
         _query = "FILTER( + " + (type == DynamicFilterType.ExcludeAll? "!" : "") + "(?s = <" + uri + "> || ?o = <" + uri + ">) )";
     }
@@ -35,7 +35,7 @@ public class SPARQLQuery
             {
                 i++;
 
-                string value = node.Value;
+                string value = node.Uri;
                 string decoratedValue = (node.Type == NodgeType.Uri) ? "<" + value + ">" : value;
                 sb.Append("(?s = " + decoratedValue + " || ?o = " + decoratedValue + ")");
 
@@ -54,7 +54,7 @@ public class SPARQLQuery
             foreach (Node node in nodes)
             {
                 i++;
-                string uri = node.Value;
+                string uri = node.Uri;
                 sb.Append("(?s = <" + uri + "> || ?o = <" + uri + ">)");
 
                 if (i != nbNodes)

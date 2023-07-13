@@ -74,11 +74,11 @@ public class GraphManager : MonoBehaviour
     private async Task CreateStartGraphAsync()
     {
         _graphRepo = _referenceHolderSo.SelectedGraphDbRepository;
-        var graphRepoUris = _graphRepo.GraphDbRepositoryUris;
+        var graphRepoUris = _graphRepo.GraphDbRepositoryNamespaces;
 
-        _sparqlBuilder = new(graphRepoUris);
+        _sparqlBuilder = new();
         string queryString = _sparqlBuilder.Build();
-        var nodges = await NodgesHelper.RetreiveGraph(queryString, _graphRepo);
+        var nodges = await NodgesHelper.RetrieveGraph(queryString, _graphRepo);
 
         _graph = new Graph(this, _graphStyling, nodges, _nodgePool, _graphRepo);
 
@@ -101,13 +101,13 @@ public class GraphManager : MonoBehaviour
 
         string query = _sparqlBuilder.Build();
 
-        var nodges = await NodgesHelper.RetreiveGraph(query, _graphRepo);
+        var nodges = await NodgesHelper.RetrieveGraph(query, _graphRepo);
 
         DebugChrono.Instance.Start("UpdateGraph");
         await _graph.UpdateNodges(nodges);
         DebugChrono.Instance.Stop("UpdateGraph");
 
-        _graph.CalculateMetrics(_graphRepo.GraphDbRepositoryUris);
+        _graph.CalculateMetrics(_graphRepo.GraphDbRepositoryNamespaces);
 
         SimulationWillStart();
         _graphSimulation.Run(_graph);

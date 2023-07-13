@@ -24,13 +24,13 @@ public class DepthOntologyLinker
         if(!_repoNamespaces.CanAddNodeToOntoNode(simpleOntoNode, out OntoNode ontoNode))
             return false;
 
-        var value = definedNode.Value;
+        var uri = definedNode.Uri;
 
 
-        if(!_deepOntologyLinks.TryGetValue(value, out DeepOntologyLink deepOntologyLink))
+        if(!_deepOntologyLinks.TryGetValue(uri, out DeepOntologyLink deepOntologyLink))
         {
             deepOntologyLink = new(definedNode);
-            _deepOntologyLinks.Add(value, deepOntologyLink);
+            _deepOntologyLinks.Add(uri, deepOntologyLink);
         }
 
         deepOntologyLink.TryAdd(ontoNode);

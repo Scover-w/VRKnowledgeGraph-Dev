@@ -7,7 +7,7 @@ using UnityEngine;
 [Serializable]
 public class GraphDbRepository
 {
-    public GraphDbRepositoryNamespaces GraphDbRepositoryUris { get; private set; }
+    public GraphDbRepositoryNamespaces GraphDbRepositoryNamespaces { get; private set; }
     public GraphDbRepositoryDistantUris GraphDbRepositoryDistantUris { get; private set; }
 
     public GraphDBAPI GraphDBAPI { get; private set; }
@@ -41,7 +41,7 @@ public class GraphDbRepository
 
     public async Task LoadChilds()
     {
-        GraphDbRepositoryUris = await GraphDbRepositoryNamespaces.Load(PathRepo);
+        GraphDbRepositoryNamespaces = await GraphDbRepositoryNamespaces.Load(PathRepo);
 
         GraphDbRepositoryDistantUris = await GraphDbRepositoryDistantUris.LoadAsync(PathRepo);
     }

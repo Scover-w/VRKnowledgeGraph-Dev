@@ -1,1115 +1,1268 @@
+@prefix bibo: <http://purl.org/ontology/bibo/> .
 @prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix ns1: <http://omeka.org/s/vocabs/o#> .
 @prefix rdaa: <http://rdaregistry.info/Elements/a/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix skos1: <http://www.w3.org/2004/02/skos/core#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 
 <https://cap44.univ-nantes.fr/api/items/104> a crm:E29_Design_or_Procedure ;
     rdfs:label "Plan du projet du 3ème étage du CAP 44 en 1972" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
     dcterms:creator <https://cap44.univ-nantes.fr/api/items/145>,
-        <https://cap44.univ-nantes.fr/api/items/146>,
-        "Société d'études techniques Arles Belim et l'Atelier 44" ;
-    dcterms:source "Archives départementales de Loire-Atlantique, Fonds Ferronière, plans, cote 168 J 957" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Plan du projet du 3ème étage du CAP 44 en 1972" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
-        "1972" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/12>,
+        <https://cap44.univ-nantes.fr/api/items/146> ;
+    dcterms:source <http://viaf.org/viaf/132539787>,
+        "Archives départementales (Loire-Atlantique)",
+        "Archives départementales de Loire-Atlantique, Fonds Ferronière, plans, cote 168 J 957" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
+        "1972",
+        "3e quart du 20e siècle (Agorha)" ;
+    bibo:shortTitle "Plan projet 3e étage CAP 44 (1972)" ;
+    crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/12>,
+        <https://cap44.univ-nantes.fr/api/items/459>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Projet 3e 72" ;
-    skos1:prefLabel "Plan du projet du 3ème étage du CAP 44 en 1972" .
+    skos:altLabel "Projet 3e 72" ;
+    skos:prefLabel "Plan du projet du 3ème étage du CAP 44 en 1972" .
 
 <https://cap44.univ-nantes.fr/api/items/108> a crm:E29_Design_or_Procedure ;
     rdfs:label "Projet du plan du 4ème étage du CAP 44 en 1972" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
     dcterms:creator <https://cap44.univ-nantes.fr/api/items/145>,
-        <https://cap44.univ-nantes.fr/api/items/146>,
-        "Société d'études techniques Arles Belim et l'Atelier 44" ;
-    dcterms:source "Archives départementales de Loire-Atlantique, Fonds Ferronière, plans, cote 168 J 957" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Projet du plan du 4ème étage du CAP 44 en 1972" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
-        "1972" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/12>,
+        <https://cap44.univ-nantes.fr/api/items/146> ;
+    dcterms:source <http://viaf.org/viaf/132539787>,
+        "Archives départementales (Loire-Atlantique)",
+        "Archives départementales de Loire-Atlantique, Fonds Ferronière, plans, cote 168 J 957" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
+        "1972",
+        "3e quart du 20e siècle (Agorha)" ;
+    bibo:shortTitle "Projet plan 4e étage CAP 44 (1972)" ;
+    crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/12>,
+        <https://cap44.univ-nantes.fr/api/items/459>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Projet 4e 72" ;
-    skos1:prefLabel "Projet du plan du 4ème étage du CAP 44 en 1972" .
+    skos:altLabel "Projet 4e 72" ;
+    skos:prefLabel "Projet du plan du 4ème étage du CAP 44 en 1972" .
 
 <https://cap44.univ-nantes.fr/api/items/112> a crm:E29_Design_or_Procedure ;
     rdfs:label "Projet du plan du Rez-de-chaussée du CAP 44 en 1972" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
     dcterms:creator <https://cap44.univ-nantes.fr/api/items/145>,
-        <https://cap44.univ-nantes.fr/api/items/146>,
-        "Société d'études techniques Arles Belim et l'Atelier 44" ;
-    dcterms:source "Archives départementales de Loire-Atlantique, Fonds Ferronière, plans, cote 168 J 957" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Projet du plan du Rez-de-chaussée du CAP 44 en 1972" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
-        "1972" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/12>,
+        <https://cap44.univ-nantes.fr/api/items/146> ;
+    dcterms:source <http://viaf.org/viaf/132539787>,
+        "Archives départementales (Loire-Atlantique)",
+        "Archives départementales de Loire-Atlantique, Fonds Ferronière, plans, cote 168 J 957" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
+        "1972",
+        "3e quart du 20e siècle (Agorha)" ;
+    bibo:shortTitle "Projet plan rdc CAP 44 (1972)" ;
+    crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/12>,
+        <https://cap44.univ-nantes.fr/api/items/459>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Projet rdc 72" ;
-    skos1:prefLabel "Projet du plan du Rez-de-chaussée du CAP 44 en 1972" .
+    skos:altLabel "Projet rdc 72" ;
+    skos:prefLabel "Projet du plan du Rez-de-chaussée du CAP 44 en 1972" .
 
 <https://cap44.univ-nantes.fr/api/items/120> a crm:E29_Design_or_Procedure ;
     rdfs:label "Projet du plan du Sous-sol du CAP 44 en 1972" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
     dcterms:creator <https://cap44.univ-nantes.fr/api/items/145>,
-        <https://cap44.univ-nantes.fr/api/items/146>,
-        "Société d'études techniques Arles Belim et l'Atelier 44" ;
-    dcterms:source "Archives départementales de Loire-Atlantique, Fonds Ferronière, plans, cote 168 J 957" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Projet du plan du Sous-sol du CAP 44 en 1972" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
-        "1972" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/12>,
+        <https://cap44.univ-nantes.fr/api/items/146> ;
+    dcterms:source <http://viaf.org/viaf/132539787>,
+        "Archives départementales (Loire-Atlantique)",
+        "Archives départementales de Loire-Atlantique, Fonds Ferronière, plans, cote 168 J 957" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
+        "1972",
+        "3e quart du 20e siècle (Agorha)" ;
+    bibo:shortTitle "Projet plan sous-sol CAP 44 (1972)" ;
+    crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/12>,
+        <https://cap44.univ-nantes.fr/api/items/459>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Projet Sous-sol 72" ;
-    skos1:prefLabel "Projet du plan du Sous-sol du CAP 44 en 1972" .
+    skos:altLabel "Projet Sous-sol 72" ;
+    skos:prefLabel "Projet du plan du Sous-sol du CAP 44 en 1972" .
 
 <https://cap44.univ-nantes.fr/api/items/127> a crm:E31_Document ;
     rdfs:label "Démolitions et construction de bureaux et parking - Devis descriptif" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:creator <https://cap44.univ-nantes.fr/api/items/145>,
-        "Société d'études techniques Arles Belim " ;
-    dcterms:source "Archives départementales de Loire-Atlantique, Fonds Ferronière, correspondance, cote 168 J 957" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Démolitions et construction de bureaux et parking - Devis descriptif" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
-        "1972" ;
+    dcterms:creator <https://cap44.univ-nantes.fr/api/items/145> ;
+    dcterms:source <http://viaf.org/viaf/132539787>,
+        "Archives départementales (Loire-Atlantique)",
+        "Archives départementales de Loire-Atlantique, Fonds Ferronière, correspondance, cote 168 J 957" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
+        "1972",
+        "3e quart du 20e siècle (Agorha)" ;
+    bibo:shortTitle "Devis démolitions/construction bureaux + parking" ;
     crm:P70_documents <https://cap44.univ-nantes.fr/api/items/12>,
+        <https://cap44.univ-nantes.fr/api/items/459>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "bureaux et parking" ;
-    skos1:prefLabel "Démolitions et construction de bureaux et parking - Devis descriptif" .
+    skos:altLabel "Bureaux et parking" ;
+    skos:prefLabel "Démolitions et construction de bureaux et parking - Devis descriptif" .
 
 <https://cap44.univ-nantes.fr/api/items/13> a crm:E31_Document ;
     rdfs:label "Liquidation judiciaire des Moulins de Nantes" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
     dcterms:creator "Conseil d'administration des Moulins de Nantes" ;
-    dcterms:source "Archives municipales - cote F2C21D15/D16" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Liquidation judiciaire des Moulins de Nantes" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/bcce037d-aeae-4e69-ab45-e1af5d993cea>,
-        "1897" ;
+    dcterms:source <https://cap44.univ-nantes.fr/api/items/457>,
+        "Archives municipales - cote F2C21D15/D16" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/bcce037d-aeae-4e69-ab45-e1af5d993cea>,
+        "1897",
+        "4ème quart du 19ème siècle (Agorha)" ;
     crm:P70_documents <https://cap44.univ-nantes.fr/api/items/10>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Liquidation judiciaire" ;
-    skos1:prefLabel "Liquidation judiciaire des Moulins de Nantes" .
+    skos:altLabel "Liquidation judiciaire" ;
+    skos:prefLabel "Liquidation judiciaire des Moulins de Nantes" .
 
 <https://cap44.univ-nantes.fr/api/items/132> a crm:E31_Document ;
     rdfs:label "Obligations des Grands Moulins de la Loire" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
     dcterms:creator "Le conseil d'administration des Grands Moulins de la Loire" ;
-    dcterms:source "Archives départementales de Loire-Atlantique, Fonds Ferronière, correspondance, cote 168 J 957" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Obligations des Grands Moulins de la Loire" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/2c15d08b-a718-4a91-af8f-71c696b32e0c>,
-        "1922" ;
+    dcterms:source <http://viaf.org/viaf/132539787>,
+        "Archives départementales (Loire-Atlantique)",
+        "Archives départementales de Loire-Atlantique, Fonds Ferronière, correspondance, cote 168 J 957" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/2c15d08b-a718-4a91-af8f-71c696b32e0c>,
+        "1922-11",
+        "1er quart du 20e siècle (Agorha)" ;
     crm:P70_documents <https://cap44.univ-nantes.fr/api/items/10>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Obligations GMDL" ;
-    skos1:prefLabel "Obligations des Grands Moulins de la Loire" .
+    skos:altLabel "Obligations GMDL" ;
+    skos:prefLabel "Obligations des Grands Moulins de la Loire" .
 
 <https://cap44.univ-nantes.fr/api/items/135> a crm:E31_Document ;
     rdfs:label "Note programme concernant la transformation d'un immeuble d'entrepôt à Nantes" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:source "Archives départementales de Loire-Atlantique, Fonds Ferronière, correspondance, cote 168 J 957" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Note programme concernant la transformation d'un immeuble d'entrepôt à Nantes" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/2c15d08b-a718-4a91-af8f-71c696b32e0c>,
-        "1972" ;
+    dcterms:source <http://viaf.org/viaf/132539787>,
+        "Archives départementales (Loire-Atlantique)",
+        "Archives départementales de Loire-Atlantique, Fonds Ferronière, correspondance, cote 168 J 957" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
+        "1971-07-30",
+        "3e quart du 20e siècle (Agorha)" ;
+    bibo:shortTitle "Note sur transformation d'un immeuble d'entrepôt" ;
     crm:P70_documents <https://cap44.univ-nantes.fr/api/items/12>,
+        <https://cap44.univ-nantes.fr/api/items/459>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Programme entrepot" ;
-    skos1:prefLabel "Note programme concernant la transformation d'un immeuble d'entrepôt à Nantes" .
+    skos:altLabel "Programme entrepôt" ;
+    skos:prefLabel "Note programme concernant la transformation d'un immeuble d'entrepôt à Nantes" .
 
 <https://cap44.univ-nantes.fr/api/items/140> a crm:E31_Document ;
     rdfs:label "Permis de construire" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
     dcterms:creator "S.C.I Marcel Sembat, Jean Guillet" ;
-    dcterms:source "Archives départementales de Loire-Atlantique, Fonds Ferronière, correspondance, cote 168 J 957" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Permis de construire" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c> ;
+    dcterms:source <http://viaf.org/viaf/132539787>,
+        "Archives départementales (Loire-Atlantique)",
+        "Archives départementales de Loire-Atlantique, Fonds Ferronière, correspondance, cote 168 J 957" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
+        "3e quart du 20e siècle (Agorha)" ;
     crm:P70_documents <https://cap44.univ-nantes.fr/api/items/12>,
+        <https://cap44.univ-nantes.fr/api/items/459>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Permis" ;
-    skos1:prefLabel "Permis de construire" .
+    skos:altLabel "Permis" ;
+    skos:prefLabel "Permis de construire" .
 
 <https://cap44.univ-nantes.fr/api/items/143> a crm:E31_Document ;
     rdfs:label "Lettre de Monsieur Ferronnière Architecte" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
     dcterms:creator <https://cap44.univ-nantes.fr/api/items/146>,
         "Monsieur Ferronnière Architecte" ;
-    dcterms:source "Archives départementales de Loire-Atlantique, Fonds Ferronière, correspondance, cote 168 J 957" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Lettre de Monsieur Ferronnière Architecte" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
-        "1971" ;
+    dcterms:source <http://viaf.org/viaf/132539787>,
+        "Archives départementales (Loire-Atlantique)",
+        "Archives départementales de Loire-Atlantique, Fonds Ferronière, correspondance, cote 168 J 957" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
+        "1971-11-19",
+        "3e quart du 20e siècle (Agorha)" ;
     crm:P70_documents <https://cap44.univ-nantes.fr/api/items/12>,
+        <https://cap44.univ-nantes.fr/api/items/459>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Lettre F" ;
-    skos1:prefLabel "Lettre de Monsieur Ferronnière Architecte" .
+    skos:altLabel "Lettre Ferronière" ;
+    skos:prefLabel "Lettre de Monsieur Ferronnière Architecte" .
 
 <https://cap44.univ-nantes.fr/api/items/149> a crm:E31_Document ;
     rdfs:label "Rapport de visite SCI Marcel Sembat" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
     dcterms:creator <https://cap44.univ-nantes.fr/api/items/145>,
         <https://cap44.univ-nantes.fr/api/items/146> ;
-    dcterms:source "Archives départementales de Loire-Atlantique, Fonds Ferronière, correspondance, cote 168 J 957" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Rapport de visite SCI Marcel Sembat" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
-        "04/11/1971" ;
+    dcterms:source <http://viaf.org/viaf/132539787>,
+        "Archives départementales (Loire-Atlantique)",
+        "Archives départementales de Loire-Atlantique, Fonds Ferronière, correspondance, cote 168 J 957" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
+        "1971-11-04",
+        "3e quart du 20e siècle (Agorha)" ;
     crm:P70_documents <https://cap44.univ-nantes.fr/api/items/12>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Rapport visite SCI" ;
-    skos1:prefLabel "Rapport de visite SCI Marcel Sembat" .
+    skos:altLabel "Rapport visite SCI" ;
+    skos:prefLabel "Rapport de visite SCI Marcel Sembat" .
 
 <https://cap44.univ-nantes.fr/api/items/156> a crm:E31_Document ;
     rdfs:label "Rapport pour l'appréciation des apports en nature et des avantages particuliers - Grands Moulins de la Loire" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
     dcterms:creator <https://cap44.univ-nantes.fr/api/items/51>,
         "Grands Moulins de la Loire" ;
-    dcterms:source "Archives départementales de Loire-Atlantique, Fonds Ferronière, correspondance, cote 168 J 957" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Rapport pour l'appréciation des apports en nature et des avantages particuliers - Grands Moulins de la Loire" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/2c15d08b-a718-4a91-af8f-71c696b32e0c> ;
+    dcterms:source <http://viaf.org/viaf/132539787>,
+        "Archives départementales (Loire-Atlantique)",
+        "Archives départementales de Loire-Atlantique, Fonds Ferronière, correspondance, cote 168 J 957" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/2c15d08b-a718-4a91-af8f-71c696b32e0c>,
+        "1921-03-01",
+        "1er quart du 20e siècle (Agorha)" ;
+    bibo:shortTitle "Rapport appréciation GML" ;
     crm:P70_documents <https://cap44.univ-nantes.fr/api/items/10>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Rapport apports GML" ;
-    skos1:prefLabel "Rapport pour l'appréciation des apports en nature et des avantages particuliers - Grands Moulins de la Loire" .
+    skos:altLabel "Rapport apports GML" ;
+    skos:prefLabel "Rapport pour l'appréciation des apports en nature et des avantages particuliers - Grands Moulins de la Loire" .
 
 <https://cap44.univ-nantes.fr/api/items/163> a crm:E36_Visual_Item ;
     rdfs:label "Photographie de la construction de l'Usine de la Piperie" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:creator <http://viaf.org/viaf/21377236> ;
+    dcterms:creator <http://viaf.org/viaf/21377236>,
+        "François Hennebique" ;
     dcterms:source <http://viaf.org/viaf/157364120>,
+        "Cité de l'architecture et du patrimoine",
         "Cité de l'architecture et du patrimoine, cote 76-IFA-35-1" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Photographie de la construction de l'Usine de la Piperie" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/bcce037d-aeae-4e69-ab45-e1af5d993cea>,
-        "1894" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/7>,
-        <https://cap44.univ-nantes.fr/api/items/9> ;
-    skos1:altLabel "Photo construction Piperie" ;
-    skos1:prefLabel "Photographie de la construction de l'Usine de la Piperie" .
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/bcce037d-aeae-4e69-ab45-e1af5d993cea>,
+        "1894",
+        "4e quart du 19e siècle (Agorha)" ;
+    bibo:shortTitle "Photo construction Usine de la Piperie" ;
+    crm:P138_represents <http://vocab.getty.edu/aat/300010775>,
+        <https://cap44.univ-nantes.fr/api/items/7>,
+        <https://cap44.univ-nantes.fr/api/items/9>,
+        "Béton armé (Getty)" ;
+    skos:altLabel "Photo construction Piperie" ;
+    skos:prefLabel "Photographie de la construction de l'Usine de la Piperie" .
 
 <https://cap44.univ-nantes.fr/api/items/166> a crm:E36_Visual_Item ;
     rdfs:label "Minoterie de Nort-sur-Erdre" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:creator <http://viaf.org/viaf/21377236> ;
+    dcterms:creator """A. Chéau
+B. Arnaud""" ;
     dcterms:source <http://viaf.org/viaf/157364120>,
+        "Cité de l'architecture et du patrimoine",
         "Cité de l'architecture et du patrimoine, cote 76-IFA-35-3" ;
-    dcterms:spatial "sws.geonames.org/2990085" ;
-    dcterms:title "Minoterie de Nort-sur-Erdre" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/bcce037d-aeae-4e69-ab45-e1af5d993cea>,
-        "1898" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/297>,
-        "Construction du Moulin idéal de Nort-sur-Erdre" ;
-    skos1:altLabel "Minoterie NsE" ;
-    skos1:prefLabel "Minoterie de Nort-sur-Erdre" .
+    dcterms:spatial <https://sws.geonames.org/2990085>,
+        "Nort-sur-Erdre" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/bcce037d-aeae-4e69-ab45-e1af5d993cea>,
+        """1898-03-11
+1898-03-21
+1898-03-28
+1898-03-31
+1898-04-21
+1898-05-12""",
+        "4e quart du 19e siècle (Agorha)" ;
+    crm:P138_represents <https://cap44.univ-nantes.fr/api/items/297>,
+        "Construction du Moulin idéal de Nort-sur-Edre" ;
+    skos:altLabel "Minoterie NsE" ;
+    skos:prefLabel "Minoterie de Nort-sur-Erdre" .
 
 <https://cap44.univ-nantes.fr/api/items/177> a crm:E36_Visual_Item ;
     rdfs:label "Roue à inertie de l'Usine de la Piperie" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:creator <http://viaf.org/viaf/21377236> ;
+    dcterms:creator <http://viaf.org/viaf/21377236>,
+        "François Hennebique" ;
     dcterms:source <http://viaf.org/viaf/157364120>,
+        "Archives de la Cité de l'Architecture",
         "Archives de la Cité de l'Architecture, cote 76-IFA-65-10" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Roue à inertie de l'Usine de la Piperie" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/bcce037d-aeae-4e69-ab45-e1af5d993cea> ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/10>,
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/bcce037d-aeae-4e69-ab45-e1af5d993cea>,
+        "4e quart du 19e siècle (Agorha)" ;
+    crm:P138_represents <https://cap44.univ-nantes.fr/api/items/10>,
         <https://cap44.univ-nantes.fr/api/items/7>,
         <https://cap44.univ-nantes.fr/api/items/9> ;
-    skos1:altLabel "Roue inertie" ;
-    skos1:prefLabel "Roue à inertie de l'Usine de la Piperie" .
+    skos:altLabel "Roue inertie" ;
+    skos:prefLabel "Roue à inertie de l'Usine de la Piperie" .
 
 <https://cap44.univ-nantes.fr/api/items/182> a crm:E36_Visual_Item ;
     rdfs:label "Minoterie de Bouvron" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:creator <http://viaf.org/viaf/21377236> ;
+    dcterms:creator "B. Arnaud" ;
     dcterms:source <http://viaf.org/viaf/157364120>,
+        "Archives de la Cité de l'Architecture",
         "Archives de la Cité de l'Architecture, cote 76-IFA-123-26" ;
-    dcterms:spatial "sws.geonames.org/6449078" ;
-    dcterms:title "Minoterie de Bouvron" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/2c15d08b-a718-4a91-af8f-71c696b32e0c>,
-        <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/ccad15e7-4cd2-4601-8117-e8df60dd4cb7> ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/295>,
+    dcterms:spatial <https://sws.geonames.org/6449078>,
+        "Bouvron" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/2c15d08b-a718-4a91-af8f-71c696b32e0c>,
+        <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/ccad15e7-4cd2-4601-8117-e8df60dd4cb7>,
+        "1er quart du 20e siècle (Agorha)",
+        "2e moitié du 19e siècle (Agorha)" ;
+    crm:P138_represents <https://cap44.univ-nantes.fr/api/items/295>,
         "Construction de la minoterie de Bouvron" ;
-    skos1:altLabel "Minoterie Bvrn" ;
-    skos1:prefLabel "Minoterie de Bouvron" .
-
-<https://cap44.univ-nantes.fr/api/items/184> a crm:E36_Visual_Item ;
-    rdfs:label "Effondrement de Marquette-lez-Lilles" ;
-    ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:creator <http://viaf.org/viaf/21377236> ;
-    dcterms:source <http://viaf.org/viaf/157364120>,
-        "Archives de la Cité de l'Architecture, cote 76-IFA-140-14" ;
-    dcterms:spatial "sws.geonames.org/6617195" ;
-    dcterms:title "Effondrement de Marquette-lez-Lilles" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/2c15d08b-a718-4a91-af8f-71c696b32e0c> ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/296>,
-        "Effondrement de Marquette-lez-Lilles" ;
-    skos1:altLabel "Effondrement MlL" ;
-    skos1:prefLabel "Effondrement de Marquette-lez-Lilles" .
+    skos:altLabel "Minoterie Bvrn" ;
+    skos:prefLabel "Minoterie de Bouvron" .
 
 <https://cap44.univ-nantes.fr/api/items/188> a crm:E29_Design_or_Procedure ;
     rdfs:label "Plan de l'estacade et des magasins des Grands Moulins de Nantes" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:creator <http://viaf.org/viaf/21377236> ;
+    dcterms:creator <http://viaf.org/viaf/21377236>,
+        "François Hennebique" ;
     dcterms:source <http://viaf.org/viaf/157364120>,
+        "Archives de la Cité de l'Architecture",
         "Archives de la Cité de l'Architecture, cote 76-IFA-289" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Plan de l'estacade et des magasins des Grands Moulins de Nantes" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/bcce037d-aeae-4e69-ab45-e1af5d993cea> ;
-    crm:P70_documents <http://viaf.org/viaf/21377236>,
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/bcce037d-aeae-4e69-ab45-e1af5d993cea>,
+        "4e quart du 19e siècle  (Agorha)" ;
+    bibo:shortTitle "Plan estacade et magasins GMN" ;
+    crm:P129_is_about <http://viaf.org/viaf/21377236>,
         <https://cap44.univ-nantes.fr/api/items/10>,
-        <https://cap44.univ-nantes.fr/api/items/8> ;
-    skos1:altLabel """Plan estacade
+        <https://cap44.univ-nantes.fr/api/items/8>,
+        "François Hennebique" ;
+    skos:altLabel """Plan estacade
 """ ;
-    skos1:prefLabel "Plan de l'estacade et des magasins des Grands Moulins de Nantes" .
+    skos:prefLabel "Plan de l'estacade et des magasins des Grands Moulins de Nantes" .
 
 <https://cap44.univ-nantes.fr/api/items/191> a crm:E31_Document ;
     rdfs:label "Correspondance entre François Hennebique et la Société anonyme des Grands Moulins de Nantes concernant les calculs pour les silos et estacades des Grands Moulins de Nantes" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:creator <http://viaf.org/viaf/21377236> ;
-    dcterms:source "Archives de la Cité de l'Architecture, cote 76-IFA-1019-4" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Correspondance entre François Hennebique et la Société anonyme des Grands Moulins de Nantes concernant les calculs pour les silos et estacades des Grands Moulins de Nantes" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/bcce037d-aeae-4e69-ab45-e1af5d993cea> ;
+    dcterms:creator <http://viaf.org/viaf/21377236>,
+        "François Hennebique" ;
+    dcterms:source <http://viaf.org/viaf/157364120>,
+        "Archives de la Cité de l'Architecture",
+        "Archives de la Cité de l'Architecture, cote 76-IFA-1019-4" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/bcce037d-aeae-4e69-ab45-e1af5d993cea>,
+        """1879-01-05
+1896-12-15""",
+        "4e quart du 19e siècle (Agorha)" ;
+    bibo:shortTitle "Lettres entre F. Hennebique et  S.A.G.M.N. sur GMN" ;
     crm:P70_documents <http://viaf.org/viaf/21377236>,
+        <http://vocab.getty.edu/aat/300010775>,
         <https://cap44.univ-nantes.fr/api/items/10>,
-        <https://cap44.univ-nantes.fr/api/items/8> ;
-    skos1:altLabel "Correspondance FH" ;
-    skos1:prefLabel "Correspondance entre François Hennebique et la Société anonyme des Grands Moulins de Nantes concernant les calculs pour les silos et estacades des Grands Moulins de Nantes" .
+        <https://cap44.univ-nantes.fr/api/items/8>,
+        "Béton armé (Getty)",
+        "François Hennebique" ;
+    skos:altLabel "Correspondance F. Hennebique" ;
+    skos:prefLabel "Correspondance entre François Hennebique et la Société anonyme des Grands Moulins de Nantes concernant les calculs pour les silos et estacades des Grands Moulins de Nantes" .
 
 <https://cap44.univ-nantes.fr/api/items/208> a crm:E36_Visual_Item ;
     rdfs:label "Vue des entrepôts" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:source "Arnaud Biette" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Vue des entrepôts" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/afa39eff-09bb-43d0-86f9-abc3ee70a352> ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/11>,
+    dcterms:source <http://viaf.org/viaf/306491150>,
+        "Arnaud Biette" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/afa39eff-09bb-43d0-86f9-abc3ee70a352>,
+        "1ère moitié du 20e siècle (Agorha)" ;
+    crm:P138_represents <https://cap44.univ-nantes.fr/api/items/11>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Vue entrepots" ;
-    skos1:prefLabel "Vue des entrepôts" .
+    skos:altLabel "Vue entrepôts" ;
+    skos:prefLabel "Vue des entrepôts" .
 
 <https://cap44.univ-nantes.fr/api/items/210> a crm:E36_Visual_Item ;
     rdfs:label "Gravure de la minoterie" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:creator "Remi Pinurt ?" ;
-    dcterms:source "Arnaud Biette" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Gravure de la minoterie" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/2c15d08b-a718-4a91-af8f-71c696b32e0c>,
-        "1913" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/10>,
+    dcterms:creator <http://viaf.org/viaf/96353901>,
+        "René Pinard" ;
+    dcterms:source <http://viaf.org/viaf/306491150>,
+        "Arnaud Biette" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/2c15d08b-a718-4a91-af8f-71c696b32e0c>,
+        "1913",
+        "1er quart du 20e siècle (Agorha)" ;
+    crm:P138_represents <https://cap44.univ-nantes.fr/api/items/10>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Gravure" ;
-    skos1:prefLabel "Gravure de la minoterie" .
+    skos:altLabel "Gravure" ;
+    skos:prefLabel "Gravure de la minoterie" .
 
 <https://cap44.univ-nantes.fr/api/items/212> a crm:E36_Visual_Item ;
     rdfs:label "Gravure de la minoterie" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:source "Arnaud Biette" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Gravure de la minoterie" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/2c15d08b-a718-4a91-af8f-71c696b32e0c>,
-        "1924" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/10>,
+    dcterms:creator <http://viaf.org/viaf/12317884>,
+        "Eugène Béjot" ;
+    dcterms:source <http://viaf.org/viaf/306491150>,
+        "Arnaud Biette" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/2c15d08b-a718-4a91-af8f-71c696b32e0c>,
+        "1924",
+        "1er quart du 20e siècle (Agorha)" ;
+    crm:P138_represents <https://cap44.univ-nantes.fr/api/items/10>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Gravure" ;
-    skos1:prefLabel "Gravure de la minoterie" .
+    skos:altLabel "Gravure" ;
+    skos:prefLabel "Gravure de la minoterie" .
 
 <https://cap44.univ-nantes.fr/api/items/214> a crm:E31_Document ;
     rdfs:label "Lettre de la direction de la caisse de crédit agricole de Nantes à Maître Ricordeau" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
     dcterms:creator "Direction de la caisse de crédit agricole de Nantes " ;
-    dcterms:source "Arnaud Biette" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Lettre de la direction de la caisse de crédit agricole de Nantes à Maître Ricordeau" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
-        "22/10/1955" ;
+    dcterms:source <http://viaf.org/viaf/306491150>,
+        "Arnaud Biette" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
+        "1955-10-22",
+        "3e quart du 20e siècle (Agorha)" ;
+    bibo:shortTitle "Lettre crédit agricole de Nantes à Me Ricordeau" ;
     crm:P70_documents <https://cap44.univ-nantes.fr/api/items/11>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Lettre a Maitre " ;
-    skos1:prefLabel "Lettre de la direction de la caisse de crédit agricole de Nantes à Maître Ricordeau" .
+    skos:altLabel "Lettre à Maître" ;
+    skos:prefLabel "Lettre de la direction de la caisse de crédit agricole de Nantes à Maître Ricordeau" .
 
 <https://cap44.univ-nantes.fr/api/items/216> a crm:E36_Visual_Item ;
     rdfs:label "Photographie montrant l'intérieur du CAP 44" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Photographie montrant l'intérieur du CAP 44" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/d8a3610b-3210-4499-a61f-f1cfdb65e892>,
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/d8a3610b-3210-4499-a61f-f1cfdb65e892>,
+        "1er quart du 21e siècle (Agorha)",
         "2012-2015" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/12>,
+    crm:P138_represents <https://cap44.univ-nantes.fr/api/items/12>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Interieur C44" ;
-    skos1:prefLabel "Photographie montrant l'intérieur du CAP 44" .
+    skos:altLabel "Intérieur C44" ;
+    skos:prefLabel "Photographie montrant l'intérieur du CAP 44" .
 
 <https://cap44.univ-nantes.fr/api/items/221> a crm:E36_Visual_Item ;
     rdfs:label "Photographie montrant l'extérieur du CAP 44" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Photographie montrant l'extérieur du CAP 44" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/d8a3610b-3210-4499-a61f-f1cfdb65e892>,
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/d8a3610b-3210-4499-a61f-f1cfdb65e892>,
+        "1er quart du 21e siècle (Agorha)",
         "2012-2015" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/12>,
+    crm:P138_represents <https://cap44.univ-nantes.fr/api/items/12>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Exterieur C44" ;
-    skos1:prefLabel "Photographie montrant l'extérieur du CAP 44" .
+    skos:altLabel "Extérieur C44" ;
+    skos:prefLabel "Photographie montrant l'extérieur du CAP 44" .
 
 <https://cap44.univ-nantes.fr/api/items/222> a crm:E36_Visual_Item ;
     rdfs:label "Photographie aérienne du CAP 44" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Photographie aérienne du CAP 44" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/d8a3610b-3210-4499-a61f-f1cfdb65e892>,
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/d8a3610b-3210-4499-a61f-f1cfdb65e892>,
+        "1er quart du 21e siècle (Agorha)",
         "2012" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/12>,
+    crm:P138_represents <https://cap44.univ-nantes.fr/api/items/12>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Aerienne C44" ;
-    skos1:prefLabel "Photographie aérienne du CAP 44" .
+    skos:altLabel "Aérienne C44" ;
+    skos:prefLabel "Photographie aérienne du CAP 44" .
 
 <https://cap44.univ-nantes.fr/api/items/224> a crm:E31_Document ;
     rdfs:label "Correspondances entre Monsieur le Maire et le Moulin à vapeur des sècheries de Propser Thebaud" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
     dcterms:creator "Moulin à vapeur des sècheries de Propser Thebaud" ;
-    dcterms:source "Archives municipales - cote 37Fi1246 ; 37Fi300" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Correspondances entre Monsieur le Maire et le Moulin à vapeur des sècheries de Propser Thebaud" ;
+    dcterms:source <https://cap44.univ-nantes.fr/api/items/457>,
+        "Archives municipales - cote 37Fi1246 ; 37Fi300" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/8bd1120c-fb4a-43fb-a1f0-bdbd31afda47>,
+        <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/bcce037d-aeae-4e69-ab45-e1af5d993cea>,
+        """1862-04-22
+1881-12-18
+1888-01-13""",
+        "3e quart du 19e siècle (Agorha)",
+        "4e quart du 19e siècle (Agorha)" ;
+    bibo:shortTitle "Lettres entre M. le Maire et Moulin à vapeur de Propser Thebaud" ;
     crm:P70_documents <https://cap44.univ-nantes.fr/api/items/294>,
         "Correspondances entre Monsieur le Maire et le Moulin à vapeur des sècheries de Propser Thebaud" ;
-    skos1:altLabel "Lettre Maire Propser" ;
-    skos1:prefLabel "Correspondances entre Monsieur le Maire et le Moulin à vapeur des sècheries de Propser Thebaud" .
+    skos:altLabel "Lettre Maire Propser" ;
+    skos:prefLabel "Correspondances entre Monsieur le Maire et le Moulin à vapeur des sècheries de Propser Thebaud" .
 
 <https://cap44.univ-nantes.fr/api/items/268> a crm:E29_Design_or_Procedure ;
     rdfs:label "Carte de la carrière Misery - Bas Chantenay" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:source "Gaëlle Caudal" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Carte de la carrière Misery - Bas Chantenay" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/f3ae6525-57d0-4caa-ba6a-7d3dd8d936ba>,
-        "1766" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/294>,
+    dcterms:source <http://viaf.org/viaf/308765785>,
+        "Gaëlle Caudal" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/f3ae6525-57d0-4caa-ba6a-7d3dd8d936ba>,
+        "1766",
+        "3e quart du 18e siècle (Agorha)" ;
+    crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/294>,
         "La parcelle sur laquelle va se positionner l'Usine de la Piperie" ;
-    skos1:altLabel "Carte Misery" ;
-    skos1:prefLabel "Carte de la carrière Misery - Bas Chantenay" .
+    skos:altLabel "Carte Misery" ;
+    skos:prefLabel "Carte de la carrière Misery - Bas Chantenay" .
 
 <https://cap44.univ-nantes.fr/api/items/270> a crm:E29_Design_or_Procedure ;
     rdfs:label "Carte de la carrière Misery" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:source "Gaëlle Caudal" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Carte de la carrière Misery" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/56387ea5-f963-49bd-aea4-56c4ecd1f14c>,
-        "1833" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/294>,
+    dcterms:source <http://viaf.org/viaf/308765785>,
+        "Gaëlle Caudal" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/56387ea5-f963-49bd-aea4-56c4ecd1f14c>,
+        "1833",
+        "2e quart du 19e siècle  (Agorha)" ;
+    crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/294>,
         "La parcelle sur laquelle va se positionner l'Usine de la Piperie" ;
-    skos1:altLabel "Carte Misery" ;
-    skos1:prefLabel "Carte de la carrière Misery" .
+    skos:altLabel "Carte Misery" ;
+    skos:prefLabel "Carte de la carrière Misery" .
 
 <https://cap44.univ-nantes.fr/api/items/272> a crm:E29_Design_or_Procedure ;
     rdfs:label "Carte de la carrière Misery - Quai Saint-Louis" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:source "Gaëlle Caudal" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Carte de la carrière Misery - Quai Saint-Louis" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/56387ea5-f963-49bd-aea4-56c4ecd1f14c>,
-        "1849" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/294>,
+    dcterms:source <http://viaf.org/viaf/308765785>,
+        "Gaëlle Caudal" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/56387ea5-f963-49bd-aea4-56c4ecd1f14c>,
+        "1849",
+        "2e quart du 19e siècle (Agorha)" ;
+    crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/294>,
         "La parcelle sur laquelle va se positionner l'Usine de la Piperie" ;
-    skos1:altLabel "Carte Misery - Quai" ;
-    skos1:prefLabel "Carte de la carrière Misery - Quai Saint-Louis" .
+    skos:altLabel "Carte Misery - Quai" ;
+    skos:prefLabel "Carte de la carrière Misery - Quai Saint-Louis" .
 
 <https://cap44.univ-nantes.fr/api/items/275> a crm:E29_Design_or_Procedure ;
     rdfs:label "Carte de la carrière Misery - Quai Saint-Louis" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:source "Gaëlle Caudal" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Carte de la carrière Misery - Quai Saint-Louis" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/8bd1120c-fb4a-43fb-a1f0-bdbd31afda47>,
-        "1854" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/294>,
+    dcterms:source <http://viaf.org/viaf/308765785>,
+        "Gaëlle Caudal" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/8bd1120c-fb4a-43fb-a1f0-bdbd31afda47>,
+        "1854",
+        "3e quart du 19e siècle (Agorha)" ;
+    crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/294>,
         "La parcelle sur laquelle va se positionner l'Usine de la Piperie" ;
-    skos1:altLabel "Carte Misery - Quai" ;
-    skos1:prefLabel "Carte de la carrière Misery - Quai Saint-Louis" .
+    skos:altLabel "Carte Misery - Quai" ;
+    skos:prefLabel "Carte de la carrière Misery - Quai Saint-Louis" .
 
 <https://cap44.univ-nantes.fr/api/items/277> a crm:E29_Design_or_Procedure ;
     rdfs:label "Carte de la carrière Misery - Quai Saint-Louis" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:source "Gaëlle Caudal" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Carte de la carrière Misery - Quai Saint-Louis" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/8bd1120c-fb4a-43fb-a1f0-bdbd31afda47>,
-        "1869" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/294>,
+    dcterms:source <http://viaf.org/viaf/308765785>,
+        "Gaëlle Caudal" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/8bd1120c-fb4a-43fb-a1f0-bdbd31afda47>,
+        "1869",
+        "3e quart du 19e siècle (Agorha)" ;
+    crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/294>,
         "La parcelle sur laquelle va se positionner l'Usine de la Piperie" ;
-    skos1:altLabel "Carte Misery - Quai" ;
-    skos1:prefLabel "Carte de la carrière Misery - Quai Saint-Louis" .
+    skos:altLabel "Carte Misery - Quai" ;
+    skos:prefLabel "Carte de la carrière Misery - Quai Saint-Louis" .
 
 <https://cap44.univ-nantes.fr/api/items/279> a crm:E29_Design_or_Procedure ;
     rdfs:label "Carte de la carrière Misery - Quai Saint-Louis" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:source "Gaëlle Caudal" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Carte de la carrière Misery - Quai Saint-Louis" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/bcce037d-aeae-4e69-ab45-e1af5d993cea>,
-        "1877" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/294>,
+    dcterms:source <http://viaf.org/viaf/308765785>,
+        "Gaëlle Caudal" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/bcce037d-aeae-4e69-ab45-e1af5d993cea>,
+        "1877",
+        "4e quart du 19e siècle (Agorha)" ;
+    crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/294>,
         "La parcelle sur laquelle va se positionner l'Usine de la Piperie" ;
-    skos1:altLabel "Carte Misery - Quai" ;
-    skos1:prefLabel "Carte de la carrière Misery - Quai Saint-Louis" .
+    skos:altLabel "Carte Misery - Quai" ;
+    skos:prefLabel "Carte de la carrière Misery - Quai Saint-Louis" .
 
 <https://cap44.univ-nantes.fr/api/items/281> a crm:E29_Design_or_Procedure ;
     rdfs:label "Carte de la carrière Misery - Bas Chantenay - Quai Saint-Louis" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:source "Gaëlle Caudal" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Carte de la carrière Misery - Bas Chantenay - Quai Saint-Louis" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/bcce037d-aeae-4e69-ab45-e1af5d993cea>,
-        "1888" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/294>,
+    dcterms:source <http://viaf.org/viaf/308765785>,
+        "Gaëlle Caudal" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/bcce037d-aeae-4e69-ab45-e1af5d993cea>,
+        "1888",
+        "4e quart du 19e siècle (Agorha)" ;
+    crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/294>,
         "La parcelle sur laquelle va se positionner l'Usine de la Piperie" ;
-    skos1:altLabel "Carte Misery - BC - Quai" ;
-    skos1:prefLabel "Carte de la carrière Misery - Bas Chantenay - Quai Saint-Louis" .
+    skos:altLabel "Carte Misery - BC - Quai" ;
+    skos:prefLabel "Carte de la carrière Misery - Bas Chantenay - Quai Saint-Louis" .
 
 <https://cap44.univ-nantes.fr/api/items/283> a crm:E29_Design_or_Procedure ;
     rdfs:label "Carte de la carrière Misery - Quai Saint-Louis" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:source "Archives municipales - cote 1Fi6068" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Carte de la carrière Misery - Quai Saint-Louis" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/277cf3a2-97e8-481f-aa7d-62cb7609da3b>,
-        <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/92287c1d-010b-49bd-bb0e-3e82798c9966> ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/294>,
+    dcterms:source <https://cap44.univ-nantes.fr/api/items/457>,
+        "Archives municipales - cote 1Fi6068" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/277cf3a2-97e8-481f-aa7d-62cb7609da3b>,
+        <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/92287c1d-010b-49bd-bb0e-3e82798c9966>,
+        "18e siècle (Agorha)",
+        "19e siècle  (Agorha)" ;
+    crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/294>,
         "La parcelle sur laquelle va se positionner l'Usine de la Piperie" ;
-    skos1:altLabel "Carte Misery - Quai" ;
-    skos1:prefLabel "Carte de la carrière Misery - Quai Saint-Louis" .
+    skos:altLabel "Carte Misery - Quai" ;
+    skos:prefLabel "Carte de la carrière Misery - Quai Saint-Louis" .
 
 <https://cap44.univ-nantes.fr/api/items/286> a crm:E29_Design_or_Procedure ;
     rdfs:label "Carte du Quai Saint-Louis" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:source "Archives municipales" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Carte du Quai Saint-Louis" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/dfe4fe5b-87e7-4794-8111-30936d1189c2>,
-        "05/1781" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/294>,
+    dcterms:source <https://cap44.univ-nantes.fr/api/items/457> ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/dfe4fe5b-87e7-4794-8111-30936d1189c2>,
+        "1781-05",
+        "4e quart du 18e siècle (Agorha)" ;
+    crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/294>,
         "La parcelle sur laquelle va se positionner l'Usine de la Piperie" ;
-    skos1:altLabel "Carte Quai " ;
-    skos1:prefLabel "Carte du Quai Saint-Louis" .
+    skos:altLabel "Carte Quai " ;
+    skos:prefLabel "Carte du Quai Saint-Louis" .
 
 <https://cap44.univ-nantes.fr/api/items/288> a crm:E29_Design_or_Procedure ;
     rdfs:label "Carte du Quai Saint-Louis" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:source "Archives municipales" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Carte du Quai Saint-Louis" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/dfe4fe5b-87e7-4794-8111-30936d1189c2>,
-        "05/1781" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/294>,
+    dcterms:source <https://cap44.univ-nantes.fr/api/items/457> ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/dfe4fe5b-87e7-4794-8111-30936d1189c2>,
+        "1781-05",
+        "4e quart du 18e siècle (Agorha)" ;
+    crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/294>,
         "La parcelle sur laquelle va se positionner l'Usine de la Piperie" ;
-    skos1:altLabel "Carte Quai" ;
-    skos1:prefLabel "Carte du Quai Saint-Louis" .
+    skos:altLabel "Carte Quai" ;
+    skos:prefLabel "Carte du Quai Saint-Louis" .
 
 <https://cap44.univ-nantes.fr/api/items/290> a crm:E29_Design_or_Procedure ;
     rdfs:label "Carte du Quai Saint-Louis" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:source "Archives municipales" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Carte du Quai Saint-Louis" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/dfe4fe5b-87e7-4794-8111-30936d1189c2>,
-        "21/07/1781" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/294>,
+    dcterms:source <https://cap44.univ-nantes.fr/api/items/457> ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/dfe4fe5b-87e7-4794-8111-30936d1189c2>,
+        "1781-07-21",
+        "4e quart du 18e siècle (Agorha)" ;
+    crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/294>,
         "La parcelle sur laquelle va se positionner l'Usine de la Piperie" ;
-    skos1:altLabel "Carte Quai" ;
-    skos1:prefLabel "Carte du Quai Saint-Louis" .
-
-<https://cap44.univ-nantes.fr/api/items/292> a crm:E29_Design_or_Procedure ;
-    rdfs:label "Elévation de la maison à construire sur le terrein de Mrs Prébois et Plumard" ;
-    ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:source "Archives municipales" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Elévation de la maison à construire sur le terrein de Mrs Prébois et Plumard" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/dfe4fe5b-87e7-4794-8111-30936d1189c2>,
-        "23/02/1789" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/294>,
-        "Elévation de la maison à construire sur le terrein de Mrs Prébois et Plumard" ;
-    skos1:altLabel "Elevation maison" ;
-    skos1:prefLabel "Elévation de la maison à construire sur le terrein de Mrs Prébois et Plumard" .
+    skos:altLabel "Carte Quai" ;
+    skos:prefLabel "Carte du Quai Saint-Louis" .
 
 <https://cap44.univ-nantes.fr/api/items/298> a crm:E29_Design_or_Procedure ;
     rdfs:label "Projet de Nouvelle construction à la Piperie greffé par les Ordres de M Le Duc D'Aiguillon Pair de France Chevalier des Ordres du Roy & Commandant en chef de Bretagne" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:source "Archives municipales" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Projet de Nouvelle construction à la Piperie greffé par les Ordres de M Le Duc D'Aiguillon Pair de France Chevalier des Ordres du Roy & Commandant en chef de Bretagne" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/f3ae6525-57d0-4caa-ba6a-7d3dd8d936ba>,
-        "1764" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/294>,
-        "Projet de Nouvelle construction à la Piperie" ;
-    skos1:altLabel "Projet Nvelle Piperie " ;
-    skos1:prefLabel "Projet de Nouvelle construction à la Piperie greffé par les Ordres de M Le Duc D'Aiguillon Pair de France Chevalier des Ordres du Roy & Commandant en chef de Bretagne" .
+    dcterms:source <https://cap44.univ-nantes.fr/api/items/457> ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/f3ae6525-57d0-4caa-ba6a-7d3dd8d936ba>,
+        "1764",
+        "3e quart du 18e siècle (Agorha)" ;
+    bibo:shortTitle "Projet construction à la Piperie " ;
+    crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/294> ;
+    skos:altLabel "Projet Nvelle Piperie " ;
+    skos:prefLabel "Projet de Nouvelle construction à la Piperie greffé par les Ordres de M Le Duc D'Aiguillon Pair de France Chevalier des Ordres du Roy & Commandant en chef de Bretagne" .
 
 <https://cap44.univ-nantes.fr/api/items/301> a crm:E29_Design_or_Procedure ;
-    rdfs:label "Atterrissement Projeté & en Partie Formé au Bord  Septentrional de la Loire, en descendant du quartier de la Siperie Vers Chantenai, à Diviser en neuf Portions Pour Servir de Chantiers de Construction" ;
+    rdfs:label "Atterrissement projeté & en partie formé au bord  septentrional de la Loire, à diviser en neuf portions pour servie de chantiers de construction" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:source "Archives municipales" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
+    dcterms:source <https://cap44.univ-nantes.fr/api/items/457> ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/f3ae6525-57d0-4caa-ba6a-7d3dd8d936ba>,
+        "1791",
+        "4e quart du 18e siècle (Agorha)" ;
     dcterms:title "Atterrissement Projeté & en Partie Formé au Bord  Septentrional de la Loire, en descendant du quartier de la Siperie Vers Chantenai, à Diviser en neuf Portions Pour Servir de Chantiers de Construction" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/f3ae6525-57d0-4caa-ba6a-7d3dd8d936ba>,
-        "1791" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/294>,
-        "Bord  Septentrional de la Loire",
-        "Division en neuf portions pour un chantiers de construction" ;
-    skos1:altLabel "Portions chantiers" ;
-    skos1:prefLabel "Atterrissement projeté & en partie formé au bord  septentrional de la Loire, à diviser en neuf portions pour servie de chantiers de construction" .
+    bibo:shortTitle "Projet atterissement bord  nord de la Loire" ;
+    crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/294>,
+        "Bord Septentrional de la Loire",
+        "Division en neuf portions pour un chantier de construction" ;
+    skos:altLabel "Portions chantiers" ;
+    skos:prefLabel "Atterrissement projeté & en partie formé au bord  septentrional de la Loire, à diviser en neuf portions pour servie de chantiers de construction" .
 
 <https://cap44.univ-nantes.fr/api/items/303> a crm:E31_Document ;
     rdfs:label "Description des Grands Moulins de Nantes issue de la revue Le béton armé" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
     dcterms:creator <http://viaf.org/viaf/21377236>,
+        "François Hennebique",
         "Revue le Béton armée, première année, mai 1899, numéro 12" ;
-    dcterms:source <http://viaf.org/viaf/143903205> ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Description des Grands Moulins de Nantes issue de la revue Le béton armé " ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/bcce037d-aeae-4e69-ab45-e1af5d993cea>,
-        "1899" ;
+    dcterms:source <http://viaf.org/viaf/143903205>,
+        "France. Bibliothèque nationale" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/bcce037d-aeae-4e69-ab45-e1af5d993cea>,
+        "1899-05",
+        "4e quart du 19e siècle (Agorha)" ;
+    bibo:shortTitle "Description GMN dans Le Bêton Armé" ;
     crm:P70_documents <https://cap44.univ-nantes.fr/api/items/10>,
         <https://cap44.univ-nantes.fr/api/items/7>,
         <https://cap44.univ-nantes.fr/api/items/9> ;
-    skos1:altLabel "Description béton armé " ;
-    skos1:prefLabel "Description des Grands Moulins de Nantes issue de la revue Le béton armé " .
+    skos:altLabel "Description béton armé " ;
+    skos:prefLabel "Description des Grands Moulins de Nantes issue de la revue Le béton armé " .
 
 <https://cap44.univ-nantes.fr/api/items/306> a crm:E36_Visual_Item ;
     rdfs:label "Photographie des Grands Moulins de Nantes issue de la revue Le béton armé" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
     dcterms:creator <http://viaf.org/viaf/21377236>,
+        "François Hennebique",
         "Revue le Béton armée" ;
-    dcterms:source <http://viaf.org/viaf/143903205> ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Photographie des Grands Moulins de Nantes issue de la revue Le béton armé " ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/bcce037d-aeae-4e69-ab45-e1af5d993cea>,
-        "1899" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/10>,
+    dcterms:source <http://viaf.org/viaf/143903205>,
+        "France. Bibliothèque nationale" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/bcce037d-aeae-4e69-ab45-e1af5d993cea>,
+        "1899-05",
+        "4e quart du 19e siècle (Agorha)" ;
+    bibo:shortTitle "Photo des GMN dans Le Bêton Armé" ;
+    crm:P138_represents <https://cap44.univ-nantes.fr/api/items/10>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "GMN béton armé " ;
-    skos1:prefLabel "Photographie des Grands Moulins de Nantes issue de la revue Le béton armé " .
+    skos:altLabel "GMN béton armé " ;
+    skos:prefLabel "Photographie des Grands Moulins de Nantes issue de la revue Le béton armé " .
 
 <https://cap44.univ-nantes.fr/api/items/308> a crm:E36_Visual_Item ;
     rdfs:label "Photographie de chantier. François Hennebique (en blanc au centre), lors d'une visite officielle du chantier du pont du Risorgimento à Rome (1909-1911)." ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:creator <http://viaf.org/viaf/21377236> ;
-    dcterms:publisher <http://viaf.org/viaf/157364120> ;
+    dcterms:creator <http://viaf.org/viaf/21377236>,
+        "François Hennebique" ;
+    dcterms:publisher <http://viaf.org/viaf/157364120>,
+        "Archives de la Cité de l'Architecture" ;
     dcterms:source "76-IFA-43/12 (2/3)" ;
-    dcterms:spatial <https://sws.geonames.org/3169071> ;
-    dcterms:title "Photographie de chantier. François Hennebique (en blanc au centre), lors d'une visite officielle du chantier du pont du Risorgimento à Rome (1909-1911). " ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/2c15d08b-a718-4a91-af8f-71c696b32e0c>,
-        "07/10/1915" ;
-    crm:P70_documents <http://viaf.org/viaf/21377236> ;
-    skos1:altLabel "Pont Risorgimento" ;
-    skos1:prefLabel "Photographie de chantier. François Hennebique (en blanc au centre), lors d'une visite officielle du chantier du pont du Risorgimento à Rome (1909-1911). " .
+    dcterms:spatial <https://sws.geonames.org/3169071>,
+        "Rome" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/2c15d08b-a718-4a91-af8f-71c696b32e0c>,
+        "1915-10-07",
+        "1er quart du 20e siècle (Agorha)" ;
+    bibo:shortTitle "Photo de chantier. François Hennebique à Rome" ;
+    crm:P138_represents <http://viaf.org/viaf/21377236>,
+        "François Hennebique" ;
+    skos:altLabel "Pont Risorgimento" ;
+    skos:prefLabel "Photographie de chantier. François Hennebique (en blanc au centre), lors d'une visite officielle du chantier du pont du Risorgimento à Rome (1909-1911). " .
 
 <https://cap44.univ-nantes.fr/api/items/310> a crm:E36_Visual_Item ;
     rdfs:label "Dessin technique du procédé Hennebique" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:creator <http://viaf.org/viaf/21377236> ;
+    dcterms:creator <http://viaf.org/viaf/21377236>,
+        "François Hennebique" ;
     dcterms:source <http://viaf.org/viaf/157364120>,
         "Archives de la Cité de l'Architecture" ;
-    dcterms:title "Dessin technique du procédé Hennebique" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/9> ;
-    skos1:altLabel "Dessin technique" ;
-    skos1:prefLabel "Dessin technique du procédé Hennebique" .
+    crm:P138_represents <http://vocab.getty.edu/aat/300010775>,
+        <https://cap44.univ-nantes.fr/api/items/9>,
+        "Béton armé (Getty)" ;
+    skos:altLabel "Dessin technique" ;
+    skos:prefLabel "Dessin technique du procédé Hennebique" .
 
 <https://cap44.univ-nantes.fr/api/items/312> a crm:E36_Visual_Item ;
     rdfs:label "Coupe de Chantenay, Profil transversal du square et vue de Luzançay" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:source "Archives municipales " ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Coupe de Chantenay, Profil transversal du square et vue de Luzançay" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/c59f9c55-41ff-44fc-b53d-82fa85c06a7b>,
-        "30/01/1930" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/11>,
+    dcterms:source <https://cap44.univ-nantes.fr/api/items/457> ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/c59f9c55-41ff-44fc-b53d-82fa85c06a7b>,
+        "1930-01-30",
+        "2e quart du 20e siècle (Agorha)" ;
+    bibo:shortTitle "Profil transversal square et vue Luzançay" ;
+    crm:P138_represents <https://cap44.univ-nantes.fr/api/items/11>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Coupe Chantenay" ;
-    skos1:prefLabel "Coupe de Chantenay, Profil transversal du square et vue de Luzançay" .
+    skos:altLabel "Coupe Chantenay" ;
+    skos:prefLabel "Coupe de Chantenay, Profil transversal du square et vue de Luzançay" .
 
 <https://cap44.univ-nantes.fr/api/items/314> a crm:E36_Visual_Item ;
     rdfs:label "Point de vue le plus avantagé de l'ensemble du jardin" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:source "Archives municipales " ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Point de vue le plus avantagé de l'ensemble du jardin" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/c59f9c55-41ff-44fc-b53d-82fa85c06a7b>,
-        "Février 1935" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/11>,
+    dcterms:source <https://cap44.univ-nantes.fr/api/items/457> ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/c59f9c55-41ff-44fc-b53d-82fa85c06a7b>,
+        "1935-02",
+        "2e quart du 20e siècle (Agorha)" ;
+    bibo:shortTitle "Pdv avantagé du jardin" ;
+    crm:P138_represents <https://cap44.univ-nantes.fr/api/items/11>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Vue " ;
-    skos1:prefLabel "Point de vue le plus avantagé de l'ensemble du jardin" .
+    skos:altLabel "Vue  jardin" ;
+    skos:prefLabel "Point de vue le plus avantagé de l'ensemble du jardin" .
 
 <https://cap44.univ-nantes.fr/api/items/316> a crm:E36_Visual_Item ;
     rdfs:label "Usine du quai Saint-Louis, à Nantes" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:source "Archives municipales, cote 5Fi0250" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Usine du quai Saint-Louis, à Nantes" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/afa39eff-09bb-43d0-86f9-abc3ee70a352> ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/10>,
+    dcterms:source <https://cap44.univ-nantes.fr/api/items/457>,
+        "Archives municipales, cote 5Fi0250" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/afa39eff-09bb-43d0-86f9-abc3ee70a352>,
+        "1ère moitié du 20e siècle (Agorha)" ;
+    crm:P138_represents <https://cap44.univ-nantes.fr/api/items/10>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Usine Saint-Louis" ;
-    skos1:prefLabel "Usine du quai Saint-Louis, à Nantes" .
+    skos:altLabel "Usine Saint-Louis" ;
+    skos:prefLabel "Usine du quai Saint-Louis, à Nantes" .
 
 <https://cap44.univ-nantes.fr/api/items/318> a crm:E36_Visual_Item ;
     rdfs:label "Usine du quai Saint-Louis, à Nantes" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:source "Archives municipales, cote 5Fi0289" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Usine du quai Saint-Louis, à Nantes" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/afa39eff-09bb-43d0-86f9-abc3ee70a352> ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/10>,
+    dcterms:source <https://cap44.univ-nantes.fr/api/items/457>,
+        "Archives municipales, cote 5Fi0289" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/afa39eff-09bb-43d0-86f9-abc3ee70a352>,
+        "1ère moitié du 20e siècle (Agorha)" ;
+    crm:P138_represents <https://cap44.univ-nantes.fr/api/items/10>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Usine Saint-Louis" ;
-    skos1:prefLabel "Usine du quai Saint-Louis, à Nantes" .
+    skos:altLabel "Usine Saint-Louis" ;
+    skos:prefLabel "Usine du quai Saint-Louis, à Nantes" .
 
 <https://cap44.univ-nantes.fr/api/items/32> a crm:E31_Document ;
     rdfs:label "Rapport sur la Vérification des Apports et les avantages particuliers" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
     dcterms:creator "Société anonyme des Moulins de Nantes" ;
-    dcterms:source "Archives municipales - cote F2C21D15/D16" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Rapport sur la Vérification des Apports et les avantages particuliers" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/bcce037d-aeae-4e69-ab45-e1af5d993cea>,
-        "1896" ;
+    dcterms:source <https://cap44.univ-nantes.fr/api/items/457>,
+        "Archives municipales - cote F2C21D15/D16" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/bcce037d-aeae-4e69-ab45-e1af5d993cea>,
+        "1896-01-18",
+        "4ème quart du 19ème siècle (Agorha)" ;
+    bibo:shortTitle "Rapport apports et avantages" ;
     crm:P70_documents <https://cap44.univ-nantes.fr/api/items/10>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Rapport Apports" ;
-    skos1:prefLabel "Rapport sur la Vérification des Apports et les avantages particuliers" .
+    skos:altLabel "Rapport apports" ;
+    skos:prefLabel "Rapport sur la Vérification des Apports et les avantages particuliers" .
 
 <https://cap44.univ-nantes.fr/api/items/320> a crm:E36_Visual_Item ;
     rdfs:label "Usine du quai Saint-Louis, à Nantes" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:source "Archives municipales" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Usine du quai Saint-Louis, à Nantes" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/afa39eff-09bb-43d0-86f9-abc3ee70a352> ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/10>,
+    dcterms:source <https://cap44.univ-nantes.fr/api/items/457> ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/afa39eff-09bb-43d0-86f9-abc3ee70a352>,
+        "1ère moitié du 20e siècle (Agorha)" ;
+    crm:P138_represents <https://cap44.univ-nantes.fr/api/items/10>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Usine Saint-Louis" ;
-    skos1:prefLabel "Usine du quai Saint-Louis, à Nantes" .
+    skos:altLabel "Usine Saint-Louis" ;
+    skos:prefLabel "Usine du quai Saint-Louis, à Nantes" .
 
 <https://cap44.univ-nantes.fr/api/items/322> a crm:E36_Visual_Item ;
     rdfs:label "Nantes Magasins, Compagnie des Chargeurs réunis où sont entreposés les régimes de bananes" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:source "Archives municipales, cote 13Fi2825" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Nantes Magasins, Compagnie des Chargeurs réunis où sont entreposés les régimes de bananes" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/c59f9c55-41ff-44fc-b53d-82fa85c06a7b> ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/11>,
+    dcterms:source <https://cap44.univ-nantes.fr/api/items/457>,
+        "Archives municipales, cote 13Fi2825" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/c59f9c55-41ff-44fc-b53d-82fa85c06a7b>,
+        "1935-03-11",
+        "2e quart du 20e siècle (Agorha)" ;
+    bibo:shortTitle "Nantes Magasins, entrepôt régimes bananes" ;
+    crm:P138_represents <https://cap44.univ-nantes.fr/api/items/11>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Cie Chargeurs" ;
-    skos1:prefLabel "Nantes Magasins, Compagnie des Chargeurs réunis où sont entreposés les régimes de bananes" .
+    skos:altLabel "Cie Chargeurs" ;
+    skos:prefLabel "Nantes Magasins, Compagnie des Chargeurs réunis où sont entreposés les régimes de bananes" .
 
 <https://cap44.univ-nantes.fr/api/items/324> a crm:E36_Visual_Item ;
     rdfs:label "Chantier Bougainville - Vue prise de la passerelle de la Béhinière - prise vers  l'Est" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:source "Archives municipales, cote 13Fi3423" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Chantier Bougainville - Vue prise de la passerelle de la Béhinière - prise vers  l'Est" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/c59f9c55-41ff-44fc-b53d-82fa85c06a7b> ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/11>,
+    dcterms:source <https://cap44.univ-nantes.fr/api/items/457>,
+        "Archives municipales, cote 13Fi3423" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/c59f9c55-41ff-44fc-b53d-82fa85c06a7b>,
+        "1946-03-8",
+        "2e quart du 20e siècle (Agorha)" ;
+    bibo:shortTitle "Vue Est Chantier Bougainville" ;
+    crm:P138_represents <https://cap44.univ-nantes.fr/api/items/11>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Vue Béhinière" ;
-    skos1:prefLabel "Chantier Bougainville - Vue prise de la passerelle de la Béhinière - prise vers  l'Est" .
+    skos:altLabel "Vue Béhinière" ;
+    skos:prefLabel "Chantier Bougainville - Vue prise de la passerelle de la Béhinière - prise vers  l'Est" .
 
 <https://cap44.univ-nantes.fr/api/items/326> a crm:E36_Visual_Item ;
     rdfs:label "379 - Nantes - Vue des bâtiments des brasseries Nantaises, des Moulins Nantais et du Quai Saint-Louis" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
     dcterms:creator "Artaud-Nozais, Nantes" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "379 - Nantes - Vue des bâtiments des brasseries Nantaises, des Moulins Nantais et du Quai Saint-Louis" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/afa39eff-09bb-43d0-86f9-abc3ee70a352> ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/10>,
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/afa39eff-09bb-43d0-86f9-abc3ee70a352>,
+        "1ère moitié du 20e siècle (Agorha)" ;
+    bibo:shortTitle "Vue brasseries Nantaises, Moulins et Quai St-Louis" ;
+    crm:P138_represents <https://cap44.univ-nantes.fr/api/items/10>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Vue brasseries Moulins" ;
-    skos1:prefLabel "379 - Nantes - Vue des bâtiments des brasseries Nantaises, des Moulins Nantais et du Quai Saint-Louis" .
+    skos:altLabel "Vue brasseries Moulins" ;
+    skos:prefLabel "379 - Nantes - Vue des bâtiments des brasseries Nantaises, des Moulins Nantais et du Quai Saint-Louis" .
 
 <https://cap44.univ-nantes.fr/api/items/328> a crm:E36_Visual_Item ;
     rdfs:label "Photographie de la rue de Luzançay" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:source "Archives municipales, cote 28Fi0505" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Photographie de la rue de Luzançay" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/afa39eff-09bb-43d0-86f9-abc3ee70a352> ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/10>,
+    dcterms:source <https://cap44.univ-nantes.fr/api/items/457>,
+        "Archives municipales, cote 28Fi0505" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/afa39eff-09bb-43d0-86f9-abc3ee70a352>,
+        "1ère moitié du 20e siècle (Agorha)" ;
+    crm:P138_represents <https://cap44.univ-nantes.fr/api/items/10>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "rue Luzançay" ;
-    skos1:prefLabel "Photographie de la rue de Luzançay" .
+    skos:altLabel "Rue Luzançay" ;
+    skos:prefLabel "Photographie de la rue de Luzançay" .
 
 <https://cap44.univ-nantes.fr/api/items/330> a crm:E36_Visual_Item ;
     rdfs:label "Diverses vues du Cap 44" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Diverses vues du Cap 44" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/afa39eff-09bb-43d0-86f9-abc3ee70a352> ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/10>,
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/afa39eff-09bb-43d0-86f9-abc3ee70a352>,
+        "1ère moitié du 20e siècle (Agorha)" ;
+    crm:P138_represents <https://cap44.univ-nantes.fr/api/items/10>,
         <https://cap44.univ-nantes.fr/api/items/11>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Divers" ;
-    skos1:prefLabel "Diverses vues du Cap 44" .
+    skos:altLabel "Diverses vues Cap 44" ;
+    skos:prefLabel "Diverses vues du Cap 44" .
 
 <https://cap44.univ-nantes.fr/api/items/342> a crm:E36_Visual_Item ;
     rdfs:label "Photographie des sacs de farines des Grands Moulins de Loire" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Photographie des sacs de farines des Grands Moulins de Loire " ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/afa39eff-09bb-43d0-86f9-abc3ee70a352> ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/10>,
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/afa39eff-09bb-43d0-86f9-abc3ee70a352>,
+        "1ère moitié du 20e siècle (Agorha)" ;
+    bibo:shortTitle "Photo sacs farines des GML" ;
+    crm:P138_represents <https://cap44.univ-nantes.fr/api/items/10>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Photographie des sacs de farines des Grands Moulins de Loire " ;
-    skos1:prefLabel "Photographie des sacs de farines des Grands Moulins de Loire " .
+    skos:altLabel "Photographie des sacs de farines des Grands Moulins de Loire " ;
+    skos:prefLabel "Photographie des sacs de farines des Grands Moulins de Loire " .
 
 <https://cap44.univ-nantes.fr/api/items/344> a crm:E36_Visual_Item ;
     rdfs:label """Vue panoramique prise de la Brasserie - Raccordement du chemin de Fer
 Vue de l'usine de la Piperie""" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
     dcterms:creator "Photographie J.BRON" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title """Vue panoramique prise de la Brasserie - Raccordement du chemin de Fer
-Vue de l'usine de la Piperie""" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/afa39eff-09bb-43d0-86f9-abc3ee70a352> ;
-    crm:P70_documents "Bas-Chantenay" ;
-    skos1:altLabel "Brasserie Raccordement-Piperie" ;
-    skos1:prefLabel "Vue panoramique prise de la Brasserie - Raccordement du chemin de Fer" .
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/afa39eff-09bb-43d0-86f9-abc3ee70a352>,
+        "1ère moitié du 20e siècle (Agorha)" ;
+    bibo:shortTitle "Vue usine Piperie depuis Brasserie" ;
+    crm:P138_represents "Bas-Chantenay" ;
+    skos:altLabel "Brasserie Raccordement-Piperie" ;
+    skos:prefLabel """Vue panoramique prise de la Brasserie - Raccordement du chemin de Fer
+Vue de l'usine de la Piperie""" .
 
 <https://cap44.univ-nantes.fr/api/items/349> a crm:E36_Visual_Item ;
     rdfs:label "Bateau devant estacade" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Bateau devant estacade" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/8> ;
-    skos1:altLabel "Bateau estacade" ;
-    skos1:prefLabel "Bateau devant estacade" .
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    crm:P138_represents <https://cap44.univ-nantes.fr/api/items/8> ;
+    skos:altLabel "Bâteau estacade" ;
+    skos:prefLabel "Bateau devant estacade" .
 
 <https://cap44.univ-nantes.fr/api/items/353> a crm:E29_Design_or_Procedure ;
     rdfs:label "Plan du magasin à silo" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Plan du magasin à silo" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/bcce037d-aeae-4e69-ab45-e1af5d993cea> ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/8> ;
-    skos1:altLabel "magasin à silo" ;
-    skos1:prefLabel "Plan du magasin à silo" .
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/bcce037d-aeae-4e69-ab45-e1af5d993cea>,
+        "4e quart du 19e siècle (Agorha)" ;
+    crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/8>,
+        <https://cap44.univ-nantes.fr/api/items/9> ;
+    skos:altLabel "Magasin à silo" ;
+    skos:prefLabel "Plan du magasin à silo" .
 
 <https://cap44.univ-nantes.fr/api/items/356> a crm:E36_Visual_Item ;
     rdfs:label "Diverses vues de la Coopérative Agricole de Nantes" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:source "Gaëlle Caudal" ;
-    dcterms:title "Diverses vues de la Coopérative Agricole de Nantes" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/c59f9c55-41ff-44fc-b53d-82fa85c06a7b> ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/11> ;
-    skos1:altLabel " vues CAN" ;
-    skos1:prefLabel "Diverses vues de la Coopérative Agricole de Nantes" .
+    dcterms:source <http://viaf.org/viaf/308765785>,
+        "Gaëlle Caudal" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/c59f9c55-41ff-44fc-b53d-82fa85c06a7b>,
+        "2e quart du 20e siècle (Agorha)" ;
+    bibo:shortTitle "Vues de la CAN" ;
+    crm:P138_represents <https://cap44.univ-nantes.fr/api/items/11> ;
+    skos:altLabel " Vues CAN" ;
+    skos:prefLabel "Diverses vues de la Coopérative Agricole de Nantes" .
 
 <https://cap44.univ-nantes.fr/api/items/366> a crm:E36_Visual_Item ;
     rdfs:label "Location de  bureaux SCI CAP 44" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
     dcterms:creator "SCI CAP 44" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Location de  bureaux SCI CAP 44" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c> ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/12>,
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
+        "3e quart du 20e siècle" ;
+    crm:P138_represents <https://cap44.univ-nantes.fr/api/items/12>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "SCI CAP 44" ;
-    skos1:prefLabel "Location de  bureaux SCI CAP 44" .
+    skos:altLabel "SCI CAP 44" ;
+    skos:prefLabel "Location de  bureaux SCI CAP 44" .
 
 <https://cap44.univ-nantes.fr/api/items/370> a crm:E36_Visual_Item ;
     rdfs:label "Réhabilitation de la minoterie-entrepôt en immeuble de bureaux" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Réhabilitation de la minoterie-entrepôt en immeuble de bureaux" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c> ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/10>,
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
+        "3e quart du 20e siècle (Agorha)" ;
+    bibo:shortTitle "Réhabilitation minoterie en bureaux" ;
+    crm:P138_represents <https://cap44.univ-nantes.fr/api/items/10>,
         <https://cap44.univ-nantes.fr/api/items/11>,
         <https://cap44.univ-nantes.fr/api/items/12>,
-        <https://cap44.univ-nantes.fr/api/items/7>,
-        "Réhabilitation du CAP44 en immeuble de bureaux" ;
-    skos1:altLabel "Réhabilitation immeuble" ;
-    skos1:prefLabel "Réhabilitation de la minoterie-entrepôt en immeuble de bureaux" .
+        <https://cap44.univ-nantes.fr/api/items/459>,
+        <https://cap44.univ-nantes.fr/api/items/7> ;
+    skos:altLabel "Réhabilitation immeuble" ;
+    skos:prefLabel "Réhabilitation de la minoterie-entrepôt en immeuble de bureaux" .
 
 <https://cap44.univ-nantes.fr/api/items/372> a crm:E36_Visual_Item ;
     rdfs:label "Plan Masse Situation" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
     dcterms:creator <https://cap44.univ-nantes.fr/api/items/145>,
-        <https://cap44.univ-nantes.fr/api/items/146>,
-        "Société d'études techniques Arles Belim et l'Atelier 44" ;
-    dcterms:source "Archives départementales de Loire-Atlantique, Fonds Ferronière, plans, cote 168 J 957" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Plan Masse Situation" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
-        "28/11/1971" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/12>,
-        <https://cap44.univ-nantes.fr/api/items/7>,
-        "Plan Masse",
-        "Réhabilitation du CAP44 en immeuble de bureaux" ;
-    skos1:altLabel "Plan Masse" ;
-    skos1:prefLabel "Plan Masse Situation" .
+        <https://cap44.univ-nantes.fr/api/items/146> ;
+    dcterms:source <http://viaf.org/viaf/132539787>,
+        "Archives départementales (Loire-Atlantique)",
+        "Archives départementales de Loire-Atlantique, Fonds Ferronière, plans, cote 168 J 957" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
+        "1971-11-28",
+        "3e quart du 20e siècle (Agorha)" ;
+    crm:P138_represents <https://cap44.univ-nantes.fr/api/items/12>,
+        <https://cap44.univ-nantes.fr/api/items/459>,
+        <https://cap44.univ-nantes.fr/api/items/7> ;
+    skos:altLabel "Plan Masse" ;
+    skos:prefLabel "Plan Masse Situation" .
 
 <https://cap44.univ-nantes.fr/api/items/374> a crm:E36_Visual_Item ;
     rdfs:label "Immeuble sis Quai MARCELSEMBAS (Etat avant transformation) coupes" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
     dcterms:creator "P. Vouzellaud, géomètre expert DPLG à Nantes" ;
-    dcterms:source "Archives départementales de Loire-Atlantique" ;
-    dcterms:title "Immeuble sis Quai MARCELSEMBAS (Etat avant transformation) coupes" ;
-    crm:P4_has_time-span <https://sws.geonames.org/2990969> ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/10>,
+    dcterms:source <http://viaf.org/viaf/132539787>,
+        "Archives départementales (Loire-Atlantique)",
+        "Archives départementales de Loire-Atlantique" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
+        "1971-11-25",
+        "3e quart du 20e siècle (Agorha)" ;
+    bibo:shortTitle "Coupe immeuble quai Marcelsembas" ;
+    crm:P138_represents <https://cap44.univ-nantes.fr/api/items/10>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Immeuble coupes" ;
-    skos1:prefLabel "Immeuble sis Quai MARCELSEMBAS (Etat avant transformation) coupes" .
-
-<https://cap44.univ-nantes.fr/api/items/376> a crm:E36_Visual_Item ;
-    rdfs:label "Chemisage des poteaux intérieurs" ;
-    ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:creator <https://cap44.univ-nantes.fr/api/items/145>,
-        <https://cap44.univ-nantes.fr/api/items/146>,
-        "Société d'études techniques Arles Belim et l'Atelier 44" ;
-    dcterms:source "Archives départementales de Loire-Atlantique, Fonds Ferronière, plans, cote 168 J 957" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Chemisage des poteaux intérieurs" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
-        "1972" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/12>,
-        <https://cap44.univ-nantes.fr/api/items/7>,
-        <https://cap44.univ-nantes.fr/api/items/9>,
-        "Chemisage des poteaux intérieurs",
-        "Réhabilitation du CAP44 en immeuble de bureaux" ;
-    skos1:altLabel "Chemisage" ;
-    skos1:prefLabel "Chemisage des poteaux intérieurs" .
+    skos:altLabel "Immeuble coupes" ;
+    skos:prefLabel "Immeuble sis Quai MARCELSEMBAS (Etat avant transformation) coupes" .
 
 <https://cap44.univ-nantes.fr/api/items/378> a crm:E29_Design_or_Procedure ;
     rdfs:label "Plans des fondations en vue de la réhabilitation du CAP 44" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:creator <https://cap44.univ-nantes.fr/api/items/145>,
-        "Société d'études techniques Arles Belim " ;
-    dcterms:source "Archives départementales de Loire-Atlantique, Fonds Ferronière, plans, cote 168 J 957" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Plans des fondations en vue de la réhabilitation du CAP 44" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
-        "1972" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/11>,
+    dcterms:creator <https://cap44.univ-nantes.fr/api/items/145> ;
+    dcterms:source <http://viaf.org/viaf/132539787>,
+        "Archives départementales (Loire-Atlantique)",
+        "Archives départementales de Loire-Atlantique, Fonds Ferronière, plans, cote 168 J 957" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
+        "1972",
+        "3e quart du 20e siècle (Agorha)" ;
+    crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/11>,
         <https://cap44.univ-nantes.fr/api/items/12>,
-        <https://cap44.univ-nantes.fr/api/items/7>,
-        "Réhabilitation du CAP44 en immeuble de bureaux" ;
-    skos1:altLabel "Réhabilitation fondation" ;
-    skos1:prefLabel "Plans des fondations en vue de la réhabilitation du CAP 44" .
+        <https://cap44.univ-nantes.fr/api/items/459>,
+        <https://cap44.univ-nantes.fr/api/items/7> ;
+    skos:altLabel "Réhabilitation fondation" ;
+    skos:prefLabel "Plans des fondations en vue de la réhabilitation du CAP 44" .
 
 <https://cap44.univ-nantes.fr/api/items/384> a crm:E29_Design_or_Procedure ;
     rdfs:label "Implantation murs rideaux - étage courant" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
     dcterms:creator "Ouest Alu" ;
-    dcterms:source "Archives départementales de Loire-Atlantique, Fonds Ferronière, plans, cote 168 J 957" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Implantation murs rideaux - étage courant" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
-        "1972" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/11>,
+    dcterms:source <http://viaf.org/viaf/132539787>,
+        "Archives départementales (Loire-Atlantique)",
+        "Archives départementales de Loire-Atlantique, Fonds Ferronière, plans, cote 168 J 957" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
+        "1972",
+        "3e quart du 20e siècle (Agorha)" ;
+    crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/11>,
         <https://cap44.univ-nantes.fr/api/items/12>,
-        <https://cap44.univ-nantes.fr/api/items/7>,
-        "Implantation murs rideaux",
-        "Réhabilitation du CAP44 en immeuble de bureaux" ;
-    skos1:altLabel "Murs rideaux " ;
-    skos1:prefLabel "Implantation murs rideaux - étage courant" .
-
-<https://cap44.univ-nantes.fr/api/items/386> a crm:E29_Design_or_Procedure ;
-    rdfs:label "Renforcement des dalles et des poteaux" ;
-    ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:creator <https://cap44.univ-nantes.fr/api/items/145> ;
-    dcterms:source "Archives départementales de Loire-Atlantique, Fonds Ferronière, plans, cote 168 J 957" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Renforcement des dalles et des poteaux" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
-        "1972" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/11>,
-        <https://cap44.univ-nantes.fr/api/items/12>,
-        <https://cap44.univ-nantes.fr/api/items/7>,
-        "Renforcement des dalles et des poteaux",
-        "Réhabilitation du CAP44 en immeuble de bureaux" ;
-    skos1:altLabel "Renforcement" ;
-    skos1:prefLabel "Renforcement des dalles et des poteaux" .
+        <https://cap44.univ-nantes.fr/api/items/459>,
+        <https://cap44.univ-nantes.fr/api/items/7> ;
+    skos:altLabel "Murs rideaux " ;
+    skos:prefLabel "Implantation murs rideaux - étage courant" .
 
 <https://cap44.univ-nantes.fr/api/items/391> a crm:E29_Design_or_Procedure ;
-    rdfs:label "Plans  des Planchers Hauts du 2ème étage" ;
+    rdfs:label "Plans du 2ème étage" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:creator <https://cap44.univ-nantes.fr/api/items/145>,
-        "Société d'études techniques Arles Belim" ;
-    dcterms:source "Archives départementales de Loire-Atlantique, Fonds Ferronière, plans, cote 168 J 957" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Plans  des Planchers Hauts du 2ème étage" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
-        "1972" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/11>,
+    dcterms:creator <https://cap44.univ-nantes.fr/api/items/145> ;
+    dcterms:source <http://viaf.org/viaf/132539787>,
+        "Archives départementales (Loire-Atlantique)",
+        "Archives départementales de Loire-Atlantique, Fonds Ferronière, plans, cote 168 J 957" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
+        "1972",
+        "3e quart du 20e siècle (Agorha)" ;
+    crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/11>,
         <https://cap44.univ-nantes.fr/api/items/12>,
-        <https://cap44.univ-nantes.fr/api/items/7>,
-        "Réhabilitation du CAP44 en immeuble de bureaux" ;
-    skos1:altLabel "Plans 2" ;
-    skos1:prefLabel "Plans du 2ème étage" .
+        <https://cap44.univ-nantes.fr/api/items/459>,
+        <https://cap44.univ-nantes.fr/api/items/7> ;
+    skos:altLabel "Plans 2" ;
+    skos:prefLabel "Plans du 2ème étage" .
 
 <https://cap44.univ-nantes.fr/api/items/395> a crm:E29_Design_or_Procedure ;
     rdfs:label "Plans du rez-de-chaussée" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:creator <https://cap44.univ-nantes.fr/api/items/145>,
-        "Société d'études techniques Arles Belim" ;
-    dcterms:source "Archives départementales de Loire-Atlantique, Fonds Ferronière, plans, cote 168 J 957" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Plans du rez-de-chaussée" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
-        "1972" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/11>,
+    dcterms:creator <https://cap44.univ-nantes.fr/api/items/145> ;
+    dcterms:source <http://viaf.org/viaf/132539787>,
+        "Archives départementales (Loire-Atlantique)",
+        "Archives départementales de Loire-Atlantique, Fonds Ferronière, plans, cote 168 J 957" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
+        "1972",
+        "3e quart du 20e siècle (Agorha)" ;
+    crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/11>,
         <https://cap44.univ-nantes.fr/api/items/12>,
-        <https://cap44.univ-nantes.fr/api/items/7>,
-        "Réhabilitation du CAP44 en immeuble de bureaux" ;
-    skos1:altLabel "Plans rdc" ;
-    skos1:prefLabel "Plans du rez-de-chaussée" .
+        <https://cap44.univ-nantes.fr/api/items/459>,
+        <https://cap44.univ-nantes.fr/api/items/7> ;
+    skos:altLabel "Plans rdc" ;
+    skos:prefLabel "Plans du rez-de-chaussée" .
 
 <https://cap44.univ-nantes.fr/api/items/400> a crm:E29_Design_or_Procedure ;
     rdfs:label "Plans d'intérieur du CAP 44 en 2013" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:creator "Société Civile Professionnelle Maïore Vrignon Jouck Baisieux, Géàmètres-Experts Fonciers D.P.L.G" ;
+    dcterms:creator "Société Civile Professionnelle Maïore Vrignon Jouck Baisieux, Géomètres-Experts Fonciers D.P.L.G" ;
     dcterms:source "Nantes Métropole Aménagement" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Plans d'intérieur du CAP 44 en 2013" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/d8a3610b-3210-4499-a61f-f1cfdb65e892>,
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/d8a3610b-3210-4499-a61f-f1cfdb65e892>,
+        "1er quart du 21e siècle (Agorha)",
         "2013" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/12>,
+    crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/12>,
         <https://cap44.univ-nantes.fr/api/items/7>,
         "L'architecture du CAP44" ;
-    skos1:altLabel "Plans 2013" ;
-    skos1:prefLabel "Plans d'intérieur du CAP 44 en 2013" .
+    skos:altLabel "Plans 2013" ;
+    skos:prefLabel "Plans d'intérieur du CAP 44 en 2013" .
 
 <https://cap44.univ-nantes.fr/api/items/414> a crm:E36_Visual_Item ;
     rdfs:label "Vue de la structure Hennebique après retrait des ajouts 1970" ;
-    dcterms:source "Jean-Louis Kerouanton" ;
+    dcterms:creator <http://viaf.org/viaf/76439780>,
+        "Jean-Louis Kerouanton" ;
     dcterms:spatial <https://sws.geonames.org/2990969>,
         "Nantes" ;
-    dcterms:title "Vue de la structure Hennebique après retrait des ajouts 1970" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/d8a3610b-3210-4499-a61f-f1cfdb65e892>,
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/d8a3610b-3210-4499-a61f-f1cfdb65e892>,
+        "1er quart du 21e siècle (Agorha)",
         "2018" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/10>,
+    bibo:shortTitle "Vue structure Hennebique après retrait des ajouts 1970" ;
+    crm:P138_represents <http://vocab.getty.edu/aat/300010775>,
+        <https://cap44.univ-nantes.fr/api/items/10>,
         <https://cap44.univ-nantes.fr/api/items/12>,
         <https://cap44.univ-nantes.fr/api/items/7>,
-        <https://cap44.univ-nantes.fr/api/items/9> ;
-    skos1:altLabel "Retrait ajouts" ;
-    skos1:prefLabel "Vue de la structure Hennebique après retrait des ajouts 1970" .
+        <https://cap44.univ-nantes.fr/api/items/9>,
+        "Béton armé (Getty)" ;
+    skos:altLabel "Retrait ajouts" ;
+    skos:prefLabel "Vue de la structure Hennebique après retrait des ajouts 1970" .
 
 <https://cap44.univ-nantes.fr/api/items/418> a crm:E36_Visual_Item ;
     rdfs:label "Vue de la voute de la salle de la roue après chemisage des années 1970" ;
-    dcterms:source "Jean-Louis Kerouanton" ;
+    dcterms:creator <http://viaf.org/viaf/76439780>,
+        "Jean-Louis Kerouanton " ;
     dcterms:spatial <https://sws.geonames.org/2990969>,
         "Nantes" ;
-    dcterms:title "Vue de la voute de la salle de la roue après chemisage des années 1970" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/d8a3610b-3210-4499-a61f-f1cfdb65e892>,
-        "17/05/2022" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/10>,
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/d8a3610b-3210-4499-a61f-f1cfdb65e892>,
+        "1er quart du 21e siècle (Agorha)",
+        "2022-05-17" ;
+    bibo:shortTitle "Vue salle de la roue après chemisage (1970)" ;
+    crm:P138_represents <https://cap44.univ-nantes.fr/api/items/10>,
         <https://cap44.univ-nantes.fr/api/items/12>,
         <https://cap44.univ-nantes.fr/api/items/7>,
         <https://cap44.univ-nantes.fr/api/items/9> ;
-    skos1:altLabel "voute 1970" ;
-    skos1:prefLabel "Vue de la voute de la salle de la roue après chemisage des années 1970" .
+    skos:altLabel "Voute 1970" ;
+    skos:prefLabel "Vue de la voute de la salle de la roue après chemisage des années 1970" .
 
 <https://cap44.univ-nantes.fr/api/items/420> a crm:E31_Document ;
     rdfs:label "Histoire des Moulins et Silos" ;
-    dcterms:creator "Sophie AUDOUX" ;
-    dcterms:title "Histoire des Moulins et Silos" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/d8a3610b-3210-4499-a61f-f1cfdb65e892>,
+    dcterms:creator <http://viaf.org/viaf/50158367854901282324>,
+        "Sophie Audoux" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/d8a3610b-3210-4499-a61f-f1cfdb65e892>,
+        "1er quart du 21e siècle (Agorha)",
         "2022" ;
     crm:P70_documents <https://cap44.univ-nantes.fr/api/items/10>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Moulins et Silos" ;
-    skos1:prefLabel "Histoire des Moulins et Silos" .
+    skos:altLabel "Moulins et Silos" ;
+    skos:prefLabel "Histoire des Moulins et Silos" .
 
 <https://cap44.univ-nantes.fr/api/items/422> a crm:E31_Document ;
     rdfs:label "Le béton armé et l'entreprise Hennebique" ;
-    dcterms:creator "Sophie AUDOUX" ;
-    dcterms:title "Le béton armé et l'entreprise Hennebique" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/d8a3610b-3210-4499-a61f-f1cfdb65e892>,
+    dcterms:creator <http://viaf.org/viaf/50158367854901282324>,
+        "Sophie Audoux" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/d8a3610b-3210-4499-a61f-f1cfdb65e892>,
+        "1er quart du 21e siècle (Agorha)",
         "2022" ;
-    crm:P70_documents <http://viaf.org/viaf/21377236> ;
-    skos1:altLabel "Hennebique" ;
-    skos1:prefLabel "Le béton armé et l'entreprise Hennebique" .
+    crm:P70_documents <http://viaf.org/viaf/21377236>,
+        <http://vocab.getty.edu/aat/300010775>,
+        "Béton armé (Getty)",
+        "François Hennebique" ;
+    skos:altLabel "Béton armé et entreprise Hennebique" ;
+    skos:prefLabel "Le béton armé et l'entreprise Hennebique" .
 
 <https://cap44.univ-nantes.fr/api/items/424> a crm:E31_Document ;
     rdfs:label "Blé et contingentement" ;
-    dcterms:creator "Sophie AUDOUX" ;
-    dcterms:title "Blé et contingentement" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/d8a3610b-3210-4499-a61f-f1cfdb65e892>,
+    dcterms:creator <http://viaf.org/viaf/50158367854901282324>,
+        "Sophie Audoux" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/d8a3610b-3210-4499-a61f-f1cfdb65e892>,
+        "1er quart du 21e siècle (Agorha)",
         "2022" ;
     crm:P70_documents <https://cap44.univ-nantes.fr/api/items/10> ;
-    skos1:altLabel "Blé contingentement" ;
-    skos1:prefLabel "Blé et contingentement" .
+    skos:altLabel "Blé contingentement" ;
+    skos:prefLabel "Blé et contingentement" .
 
 <https://cap44.univ-nantes.fr/api/items/426> a crm:E31_Document ;
     rdfs:label "La réhabilitation" ;
-    dcterms:creator "Sophie AUDOUX" ;
-    dcterms:title "La réhabilitation" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/d8a3610b-3210-4499-a61f-f1cfdb65e892>,
+    dcterms:creator <http://viaf.org/viaf/50158367854901282324>,
+        "Sophie Audoux" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/d8a3610b-3210-4499-a61f-f1cfdb65e892>,
+        "1er quart du 21e siècle (Agorha)",
         "2022" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/12> ;
-    skos1:altLabel "Réhabilitation" ;
-    skos1:prefLabel "La réhabilitation" .
+    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/12>,
+        <https://cap44.univ-nantes.fr/api/items/459> ;
+    skos:altLabel "Réhabilitation" ;
+    skos:prefLabel "La réhabilitation" .
 
 <https://cap44.univ-nantes.fr/api/items/428> a crm:E31_Document ;
     rdfs:label "Le CAP 44" ;
-    dcterms:creator "Sophie AUDOUX" ;
-    dcterms:title "Le CAP 44" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/d8a3610b-3210-4499-a61f-f1cfdb65e892>,
+    dcterms:creator <http://viaf.org/viaf/50158367854901282324>,
+        "Sophie Audoux" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/d8a3610b-3210-4499-a61f-f1cfdb65e892>,
+        "1er quart du 21e siècle (Agorha)",
         "2022" ;
     crm:P70_documents <https://cap44.univ-nantes.fr/api/items/10>,
         <https://cap44.univ-nantes.fr/api/items/11>,
         <https://cap44.univ-nantes.fr/api/items/12>,
         <https://cap44.univ-nantes.fr/api/items/294>,
+        <https://cap44.univ-nantes.fr/api/items/459>,
         <https://cap44.univ-nantes.fr/api/items/51>,
         <https://cap44.univ-nantes.fr/api/items/7>,
         <https://cap44.univ-nantes.fr/api/items/8>,
         <https://cap44.univ-nantes.fr/api/items/9> ;
-    skos1:altLabel "CAP 44" ;
-    skos1:prefLabel "Le CAP 44" .
+    skos:altLabel "CAP 44" ;
+    skos:prefLabel "Le CAP 44" .
 
 <https://cap44.univ-nantes.fr/api/items/434> a crm:E31_Document ;
     rdfs:label "Chronologie Histoire du béton" ;
-    dcterms:creator "Sophie AUDOUX" ;
-    dcterms:title "Chronologie Histoire du béton" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/d8a3610b-3210-4499-a61f-f1cfdb65e892> ;
-    crm:P70_documents "Le béton armé" ;
-    skos1:altLabel "Chrono béton" ;
-    skos1:prefLabel "Chronologie Histoire du béton" .
+    dcterms:creator <http://viaf.org/viaf/50158367854901282324>,
+        "Sophie Audoux" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/d8a3610b-3210-4499-a61f-f1cfdb65e892>,
+        "1er quart du 21e siècle (Agorha)" ;
+    crm:P70_documents <http://vocab.getty.edu/aat/300010775>,
+        "Béton armé (Getty)" ;
+    skos:altLabel "Chrono béton" ;
+    skos:prefLabel "Chronologie Histoire du béton" .
 
 <https://cap44.univ-nantes.fr/api/items/436> a crm:E31_Document ;
-    rdfs:label "Chronologie CAP44" ;
-    dcterms:creator "Sophie AUDOUX" ;
-    dcterms:title "Chronologie CAP44" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/d8a3610b-3210-4499-a61f-f1cfdb65e892> ;
+    rdfs:label "Chronologie CAP 44" ;
+    dcterms:creator <http://viaf.org/viaf/50158367854901282324>,
+        "Sophie Audoux" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/d8a3610b-3210-4499-a61f-f1cfdb65e892>,
+        "1er quart du 21e siècle (Agorha)" ;
     crm:P70_documents <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Chrono CAP 44" ;
-    skos1:prefLabel "Chronologie CAP 44" .
+    skos:altLabel "Chrono CAP 44" ;
+    skos:prefLabel "Chronologie CAP 44" .
 
 <https://cap44.univ-nantes.fr/api/items/45> a crm:E29_Design_or_Procedure ;
     rdfs:label "Plans des Grands Moulins de la Loire issus de l'inventaire de 1931" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
     dcterms:creator "Cabinet Roux, experts industriels" ;
     dcterms:source "Archives de l'Hotel de région des Pays-de-la-Loire" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Plans des Grands Moulins de la Loire issus de l'inventaire de 1931" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/c59f9c55-41ff-44fc-b53d-82fa85c06a7b>,
-        "1931" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/10>,
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/c59f9c55-41ff-44fc-b53d-82fa85c06a7b>,
+        "1931",
+        "2ème quart du 20ème siècle (Agorha)" ;
+    bibo:shortTitle "Plans GML (1931)" ;
+    crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/10>,
         <https://cap44.univ-nantes.fr/api/items/11>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Plans 1931" ;
-    skos1:prefLabel "Plans des Grands Moulins de la Loire issus de l'inventaire de 1931" .
+    skos:altLabel "Plans 1931" ;
+    skos:prefLabel "Plans des Grands Moulins de la Loire issus de l'inventaire de 1931" .
 
 <https://cap44.univ-nantes.fr/api/items/455> rdfs:label "numasurf nuage de point" ;
     dcterms:title "numasurf nuage de point" .
@@ -1117,256 +1270,391 @@ Vue de l'usine de la Piperie""" ;
 <https://cap44.univ-nantes.fr/api/items/46> a crm:E36_Visual_Item ;
     rdfs:label "Fragment de la coupe montrant la salle des machines et les silos" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:creator <http://viaf.org/viaf/21377236> ;
+    dcterms:creator <http://viaf.org/viaf/21377236>,
+        "François Hennebique" ;
     dcterms:source <http://viaf.org/viaf/157364120>,
+        "Archives de la Cité de l'Architecture",
         "Archives de la Cité de l'Architecture, cote 76-IFA-65-9" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Fragment de la coupe montrant la salle des machines et les silos" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/bcce037d-aeae-4e69-ab45-e1af5d993cea>,
-        "4e quart du 19e siècle" ;
-    crm:P67_refers_to <https://cap44.univ-nantes.fr/api/items/47> ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/7>,
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/bcce037d-aeae-4e69-ab45-e1af5d993cea>,
+        "4e quart du 19e siècle (Agorha)" ;
+    bibo:shortTitle "Coupe salle des machines" ;
+    crm:P138_represents <https://cap44.univ-nantes.fr/api/items/7>,
         <https://cap44.univ-nantes.fr/api/items/9> ;
-    skos1:altLabel "Salle machines" ;
-    skos1:prefLabel "Fragment de la coupe montrant la salle des machines et les silos" .
+    crm:P67_refers_to <https://cap44.univ-nantes.fr/api/items/47> ;
+    skos:altLabel "Salle machines" ;
+    skos:prefLabel "Fragment de la coupe montrant la salle des machines et les silos" .
 
 <https://cap44.univ-nantes.fr/api/items/52> a crm:E31_Document ;
     rdfs:label "Dissolution de la Société anonyme des Grands Moulins de la Loire par suite de sa fusion avec la Société Laraison Frères" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
     dcterms:creator "Compagnie des agents de change, Chambre syndicale" ;
-    dcterms:source "Archives départementales de Loire-Atlantique, Fonds Ferronière, correspondance, cote 168 J 956" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Dissolution de la Société anonyme des Grands Moulins de la Loire par suite de sa fusion avec la Société Laraison Frères" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
-        "1967" ;
+    dcterms:source <http://viaf.org/viaf/132539787>,
+        "Archives départementales (Loire-Atlantique)",
+        "Archives départementales de Loire-Atlantique, Fonds Ferronière, correspondance, cote 168 J 956" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
+        "1967-12-11",
+        "3e quart du 20e siècle (Agorha)" ;
+    bibo:shortTitle "Dissolution S.A.G.M.L. par fusion " ;
     crm:P70_documents <https://cap44.univ-nantes.fr/api/items/51> ;
-    skos1:altLabel "Dissolution S. A. G. M. L." ;
-    skos1:prefLabel "Dissolution de la Société anonyme des Grands Moulins de la Loire par suite de sa fusion avec la Société Laraison Frères" .
+    skos:altLabel "Dissolution S. A. G. M. L." ;
+    skos:prefLabel "Dissolution de la Société anonyme des Grands Moulins de la Loire par suite de sa fusion avec la Société Laraison Frères" .
 
 <https://cap44.univ-nantes.fr/api/items/54> a crm:E31_Document ;
-    rdfs:label "Notice publié au Bulletin des Annonces légales obligatoires à la charge des Sociétés financières du 20 novembre 2022 - Grands Moulins de la Loire" ;
+    rdfs:label "Notice publié au Bulletin des Annonces légales obligatoires à la charge des Sociétés financières du 20 novembre 1922 - Grands Moulins de la Loire" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
     dcterms:creator "Bulletin des Annonces légales obligatoires à la charge des Sociétés financières" ;
-    dcterms:source "Archives départementales de Loire-Atlantique, Fonds Ferronière, correspondance, cote 168 J 956" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Notice publié au Bulletin des Annonces légales obligatoires à la charge des Sociétés financières du 20 novembre 2022 - Grands Moulins de la Loire" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/2c15d08b-a718-4a91-af8f-71c696b32e0c>,
-        "1922" ;
+    dcterms:source <http://viaf.org/viaf/132539787>,
+        "Archives départementales (Loire-Atlantique)",
+        "Archives départementales de Loire-Atlantique, Fonds Ferronière, correspondance, cote 168 J 956" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/2c15d08b-a718-4a91-af8f-71c696b32e0c>,
+        "1922-11-20",
+        "1er quart du 20e siècle (Agorha)" ;
+    bibo:shortTitle "Notice Bulletin des Annonces légales " ;
     crm:P70_documents <https://cap44.univ-nantes.fr/api/items/10>,
         <https://cap44.univ-nantes.fr/api/items/11>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Notice G. M. L" ;
-    skos1:prefLabel "Notice publié au Bulletin des Annonces légales obligatoires à la charge des Sociétés financières du 20 novembre 2022 - Grands Moulins de la Loire" .
+    skos:altLabel "Notice G. M. L" ;
+    skos:prefLabel "Notice publié au Bulletin des Annonces légales obligatoires à la charge des Sociétés financières du 20 novembre 1922 - Grands Moulins de la Loire" .
 
 <https://cap44.univ-nantes.fr/api/items/56> a crm:E29_Design_or_Procedure ;
     rdfs:label "Relevés du 1er étage du CAP 44 utilisé par la Coopérative Agricole de Nantes" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:creator <https://cap44.univ-nantes.fr/api/items/147>,
-        "R&G Joly, Géomètres Experts, Nantes" ;
-    dcterms:source "Archives départementales de Loire-Atlantique, Fonds Ferronière, plans, cote 168 J 957" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Relevés du 1er étage du CAP 44 utilisé par la Coopérative Agricole de Nantes" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/c59f9c55-41ff-44fc-b53d-82fa85c06a7b>,
-        "1939-1946" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/11>,
+    dcterms:creator <https://cap44.univ-nantes.fr/api/items/147> ;
+    dcterms:source <http://viaf.org/viaf/132539787>,
+        "Archives départementales (Loire-Atlantique)",
+        "Archives départementales de Loire-Atlantique, Fonds Ferronière, plans, cote 168 J 957" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/c59f9c55-41ff-44fc-b53d-82fa85c06a7b>,
+        "1939-1946",
+        "2e quart du 20e siècle (Agorha)" ;
+    bibo:shortTitle "Relevés 1er étage CAP 44 (CAN)" ;
+    crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/11>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Releves 1er CAN" ;
-    skos1:prefLabel "Relevés du 1er étage du CAP 44 utilisé par la Coopérative Agricole de Nantes" .
+    skos:altLabel "Relevés 1er CAN" ;
+    skos:prefLabel "Relevés du 1er étage du CAP 44 utilisé par la Coopérative Agricole de Nantes" .
 
 <https://cap44.univ-nantes.fr/api/items/61> a crm:E29_Design_or_Procedure ;
     rdfs:label "Relevés du 2ème étage du CAP 44 utilisé par la Coopérative Agricole de Nantes" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:creator <https://cap44.univ-nantes.fr/api/items/147>,
-        "R&G Joly, Géomètres Experts, Nantes" ;
-    dcterms:source "Archives départementales de Loire-Atlantique, Fonds Ferronière, plans, cote 168 J 957" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Relevés du 2ème étage du CAP 44 utilisé par la Coopérative Agricole de Nantes" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/c59f9c55-41ff-44fc-b53d-82fa85c06a7b>,
-        "1939-1946" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/11>,
+    dcterms:creator <https://cap44.univ-nantes.fr/api/items/147> ;
+    dcterms:source <http://viaf.org/viaf/132539787>,
+        "Archives départementales (Loire-Atlantique)",
+        "Archives départementales de Loire-Atlantique, Fonds Ferronière, plans, cote 168 J 957" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/c59f9c55-41ff-44fc-b53d-82fa85c06a7b>,
+        "1939-1946",
+        "2e quart du 20e siècle (Agorha)" ;
+    bibo:shortTitle "Relevés 2ème étage CAP 44 (CAN)" ;
+    crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/11>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Releves 2e CAN" ;
-    skos1:prefLabel "Relevés du 2ème étage du CAP 44 utilisé par la Coopérative Agricole de Nantes" .
+    skos:altLabel "Relevés 2e CAN" ;
+    skos:prefLabel "Relevés du 2ème étage du CAP 44 utilisé par la Coopérative Agricole de Nantes" .
 
 <https://cap44.univ-nantes.fr/api/items/65> a crm:E29_Design_or_Procedure ;
     rdfs:label "Relevés du 3ème étage du CAP 44 utilisé par la Coopérative Agricole de Nantes" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:creator <https://cap44.univ-nantes.fr/api/items/147>,
-        "R&G Joly, Géomètres Experts, Nantes" ;
-    dcterms:source "Archives départementales de Loire-Atlantique, Fonds Ferronière, plans, cote 168 J 957" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Relevés du 3ème étage du CAP 44 utilisé par la Coopérative Agricole de Nantes" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/c59f9c55-41ff-44fc-b53d-82fa85c06a7b>,
-        "1939-1946" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/11>,
+    dcterms:creator <https://cap44.univ-nantes.fr/api/items/147> ;
+    dcterms:source <http://viaf.org/viaf/132539787>,
+        "Archives départementales (Loire-Atlantique)",
+        "Archives départementales de Loire-Atlantique, Fonds Ferronière, plans, cote 168 J 957" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/c59f9c55-41ff-44fc-b53d-82fa85c06a7b>,
+        "1939-1946",
+        "2e quart du 20e siècle (Agorha)" ;
+    bibo:shortTitle "Relevés 3ème étage CAP 44 (CAN)" ;
+    crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/11>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Releves 3e CAN" ;
-    skos1:prefLabel "Relevés du 3ème étage du CAP 44 utilisé par la Coopérative Agricole de Nantes" .
+    skos:altLabel "Relevés 3e CAN" ;
+    skos:prefLabel "Relevés du 3ème étage du CAP 44 utilisé par la Coopérative Agricole de Nantes" .
 
 <https://cap44.univ-nantes.fr/api/items/70> a crm:E29_Design_or_Procedure ;
     rdfs:label "Relevés du 4ème étage du CAP 44 utilisé par la Coopérative Agricole de Nantes" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:creator <https://cap44.univ-nantes.fr/api/items/147>,
-        "R&G Joly, Géomètres Experts, Nantes" ;
-    dcterms:source "Archives départementales de Loire-Atlantique, Fonds Ferronière, plans, cote 168 J 957" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Relevés du 4ème étage du CAP 44 utilisé par la Coopérative Agricole de Nantes" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/c59f9c55-41ff-44fc-b53d-82fa85c06a7b>,
-        "1939-1946" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/11>,
+    dcterms:creator <https://cap44.univ-nantes.fr/api/items/147> ;
+    dcterms:source <http://viaf.org/viaf/132539787>,
+        "Archives départementales (Loire-Atlantique)",
+        "Archives départementales de Loire-Atlantique, Fonds Ferronière, plans, cote 168 J 957" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/c59f9c55-41ff-44fc-b53d-82fa85c06a7b>,
+        "1939-1946",
+        "2e quart du 20e siècle (Agorha)" ;
+    bibo:shortTitle "Relevés  4ème étage CAP 44 (CAN)" ;
+    crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/11>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Releves 4e CAN" ;
-    skos1:prefLabel "Relevés du 4ème étage du CAP 44 utilisé par la Coopérative Agricole de Nantes" .
+    skos:altLabel "Relevés 4e CAN" ;
+    skos:prefLabel "Relevés du 4ème étage du CAP 44 utilisé par la Coopérative Agricole de Nantes" .
 
 <https://cap44.univ-nantes.fr/api/items/75> a crm:E29_Design_or_Procedure ;
     rdfs:label "Relevés du rez-de-chaussée du CAP 44 utilisé par la Coopérative Agricole de Nantes" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:creator <https://cap44.univ-nantes.fr/api/items/147>,
-        "R&G Joly, Géomètres Experts, Nantes" ;
-    dcterms:source "Archives départementales de Loire-Atlantique, Fonds Ferronière, plans, cote 168 J 957" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Relevés du rez-de-chaussée du CAP 44 utilisé par la Coopérative Agricole de Nantes" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/c59f9c55-41ff-44fc-b53d-82fa85c06a7b>,
-        "1939-1946" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/11>,
+    dcterms:creator <https://cap44.univ-nantes.fr/api/items/147> ;
+    dcterms:source <http://viaf.org/viaf/132539787>,
+        "Archives départementales (Loire-Atlantique)",
+        "Archives départementales de Loire-Atlantique, Fonds Ferronière, plans, cote 168 J 957" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/c59f9c55-41ff-44fc-b53d-82fa85c06a7b>,
+        "1939-1946",
+        "2e quart du 20e siècle (Agorha)" ;
+    bibo:shortTitle "Relevés rdc CAP 44 (CAN)" ;
+    crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/11>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Releves rdc CAN" ;
-    skos1:prefLabel "Relevés du rez-de-chaussée du CAP 44 utilisé par la Coopérative Agricole de Nantes" .
+    skos:altLabel "Relevés rdc CAN" ;
+    skos:prefLabel "Relevés du rez-de-chaussée du CAP 44 utilisé par la Coopérative Agricole de Nantes" .
 
 <https://cap44.univ-nantes.fr/api/items/78> a crm:E29_Design_or_Procedure ;
     rdfs:label "Nomenclature des lots vendus" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
     dcterms:creator <https://cap44.univ-nantes.fr/api/items/145>,
-        <https://cap44.univ-nantes.fr/api/items/146>,
-        "Atelier 44" ;
-    dcterms:source "Archives départementales de Loire-Atlantique, Fonds Ferronière, plans, cote 168 J 957" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Nomenclature des lots vendus" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
-        "05/02/1973" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/12>,
+        <https://cap44.univ-nantes.fr/api/items/146> ;
+    dcterms:source <http://viaf.org/viaf/132539787>,
+        "Archives départementales (Loire-Atlantique)",
+        "Archives départementales de Loire-Atlantique, Fonds Ferronière, plans, cote 168 J 957" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
+        "1973-02-05",
+        "3e quart du 20e siècle (Agorha)" ;
+    crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/12>,
+        <https://cap44.univ-nantes.fr/api/items/459>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Lots " ;
-    skos1:prefLabel "Nomenclature des lots vendus" .
+    skos:altLabel "Lots " ;
+    skos:prefLabel "Nomenclature des lots vendus" .
 
 <https://cap44.univ-nantes.fr/api/items/81> a crm:E31_Document ;
     rdfs:label "Compte rendu technique du 8 novembre 1972" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    dcterms:creator <https://cap44.univ-nantes.fr/api/items/146>,
-        "Atelier 44" ;
-    dcterms:source "Archives départementales de Loire-Atlantique, Fonds Ferronière, plans, cote 168 J 957" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Compte rendu technique du 8 novembre 1972" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
-        "08/11/1972" ;
+    dcterms:creator <https://cap44.univ-nantes.fr/api/items/146> ;
+    dcterms:source <http://viaf.org/viaf/132539787>,
+        "Archives départementales (Loire-Atlantique)",
+        "Archives départementales de Loire-Atlantique, Fonds Ferronière, plans, cote 168 J 957" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
+        "1972-11-08",
+        "3e quart du 20e siècle (Agorha)" ;
+    bibo:shortTitle "Compte rendu technique 72-11-08" ;
     crm:P70_documents <https://cap44.univ-nantes.fr/api/items/12>,
+        <https://cap44.univ-nantes.fr/api/items/459>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Compte rendu technique" ;
-    skos1:prefLabel "Compte rendu technique du 8 novembre 1972" .
+    skos:altLabel "Compte rendu technique" ;
+    skos:prefLabel "Compte rendu technique du 8 novembre 1972" .
 
 <https://cap44.univ-nantes.fr/api/items/83> a crm:E29_Design_or_Procedure ;
     rdfs:label "Bardage du CAP 44" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
     dcterms:creator <https://cap44.univ-nantes.fr/api/items/145>,
-        <https://cap44.univ-nantes.fr/api/items/146>,
-        "Société d'études techniques Arles Belim et l'Atelier 44" ;
-    dcterms:source "Archives départementales de Loire-Atlantique, Fonds Ferronière, plans, cote 168 J 957" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Bardage du CAP 44" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
-        "1972" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/12>,
+        <https://cap44.univ-nantes.fr/api/items/146> ;
+    dcterms:source <http://viaf.org/viaf/132539787>,
+        "Archives départementales (Loire-Atlantique)",
+        "Archives départementales de Loire-Atlantique, Fonds Ferronière, plans, cote 168 J 957" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
+        "1972",
+        "3e quart du 20e siècle (Agorha)" ;
+    crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/12>,
+        <https://cap44.univ-nantes.fr/api/items/459>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Bardage" ;
-    skos1:prefLabel "Bardage du CAP 44" .
+    skos:altLabel "Bardage" ;
+    skos:prefLabel "Bardage du CAP 44" .
 
 <https://cap44.univ-nantes.fr/api/items/88> a crm:E29_Design_or_Procedure ;
     rdfs:label "Projet du Rez-de-Chaussée du CAP 44 en 1972" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
     dcterms:creator <https://cap44.univ-nantes.fr/api/items/145>,
-        <https://cap44.univ-nantes.fr/api/items/146>,
-        "Société d'études techniques Arles Belim et l'Atelier 44" ;
-    dcterms:source "Archives départementales de Loire-Atlantique, Fonds Ferronière, plans, cote 168 J 957" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title """Projet du Rez-de-Chaussée du CAP 44 en 1972
-""" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
-        "1972" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/12>,
+        <https://cap44.univ-nantes.fr/api/items/146> ;
+    dcterms:source <http://viaf.org/viaf/132539787>,
+        "Archives départementales (Loire-Atlantique)",
+        "Archives départementales de Loire-Atlantique, Fonds Ferronière, plans, cote 168 J 957" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
+        "1972",
+        "3e quart du 20e siècle (Agorha)" ;
+    bibo:shortTitle "Projet rdc CAP 44 (1972)" ;
+    crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/12>,
+        <https://cap44.univ-nantes.fr/api/items/459>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Projet rdc 72" ;
-    skos1:prefLabel "Projet du Rez-de-Chaussée du CAP 44 en 1972" .
+    skos:altLabel "Projet rdc 72" ;
+    skos:prefLabel "Projet du Rez-de-Chaussée du CAP 44 en 1972" .
 
 <https://cap44.univ-nantes.fr/api/items/92> a crm:E29_Design_or_Procedure ;
     rdfs:label "Projet du restaurant d'entreprise du Rez-de-Chaussée du CAP 44 en 1972" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
     dcterms:creator <https://cap44.univ-nantes.fr/api/items/145>,
-        <https://cap44.univ-nantes.fr/api/items/146>,
-        "Société d'études techniques Arles Belim et l'Atelier 44" ;
-    dcterms:source "Archives départementales de Loire-Atlantique, Fonds Ferronière, plans, cote 168 J 957" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Projet du restaurant d'entreprise du Rez-de-Chaussée du CAP 44 en 1972" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
-        "1972" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/12>,
+        <https://cap44.univ-nantes.fr/api/items/146> ;
+    dcterms:source <http://viaf.org/viaf/132539787>,
+        "Archives départementales (Loire-Atlantique)",
+        "Archives départementales de Loire-Atlantique, Fonds Ferronière, plans, cote 168 J 957" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
+        "1972",
+        "3e quart du 20e siècle (Agorha)" ;
+    bibo:shortTitle "Projet restaurant du rdc CAP 44 (1972)" ;
+    crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/12>,
+        <https://cap44.univ-nantes.fr/api/items/459>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Projet restaurant 72" ;
-    skos1:prefLabel "Projet du restaurant d'entreprise du Rez-de-Chaussée du CAP 44 en 1972" .
+    skos:altLabel "Projet restaurant 72" ;
+    skos:prefLabel "Projet du restaurant d'entreprise du Rez-de-Chaussée du CAP 44 en 1972" .
 
 <https://cap44.univ-nantes.fr/api/items/96> a crm:E29_Design_or_Procedure ;
     rdfs:label "Projet du niveau terrasse du CAP 44 en 1972" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
     dcterms:creator <https://cap44.univ-nantes.fr/api/items/145>,
-        <https://cap44.univ-nantes.fr/api/items/146>,
-        "Société d'études techniques Arles Belim et l'Atelier 44" ;
-    dcterms:source "Archives départementales de Loire-Atlantique, Fonds Ferronière, plans, cote 168 J 957" ;
-    dcterms:spatial <https://sws.geonames.org/2990969> ;
-    dcterms:title "Projet du niveau terrasse du CAP 44 en 1972" ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
-        "1972" ;
-    crm:P70_documents <https://cap44.univ-nantes.fr/api/items/12>,
+        <https://cap44.univ-nantes.fr/api/items/146> ;
+    dcterms:source <http://viaf.org/viaf/132539787>,
+        "Archives départementales (Loire-Atlantique)",
+        "Archives départementales de Loire-Atlantique, Fonds Ferronière, plans, cote 168 J 957" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
+        "1972",
+        "3e quart du 20e siècle (Agorha)" ;
+    bibo:shortTitle "Projet terrasse CAP 44 (1972)" ;
+    crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/12>,
+        <https://cap44.univ-nantes.fr/api/items/459>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Projet terrasse 72" ;
-    skos1:prefLabel "Projet du niveau terrasse du CAP 44 en 1972" .
+    skos:altLabel "Projet terrasse 72" ;
+    skos:prefLabel "Projet du niveau terrasse du CAP 44 en 1972" .
 
-<https://cap44.univ-nantes.fr/api/items/295> a crm:E24_Physical_Human-Made_Thing ;
+<https://cap44.univ-nantes.fr/api/items/184> a crm:E36_Visual_Item ;
+    rdfs:label "Effondrement de Marquette-lez-Lilles" ;
+    ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
+    dcterms:creator <http://viaf.org/viaf/21377236>,
+        "François Hennebique" ;
+    dcterms:source <http://viaf.org/viaf/157364120>,
+        "Archives de la Cité de l'Architecture",
+        "Archives de la Cité de l'Architecture, cote 76-IFA-140-14" ;
+    dcterms:spatial <https://sws.geonames.org/6617195>,
+        "Marquette-lez-Lilles" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/2c15d08b-a718-4a91-af8f-71c696b32e0c>,
+        "1907-08",
+        "1er quart du 20e siècle (Agorha)" ;
+    crm:P138_represents <https://cap44.univ-nantes.fr/api/items/184>,
+        <https://cap44.univ-nantes.fr/api/items/296> ;
+    skos:altLabel "Effondrement MlL" ;
+    skos:prefLabel "Effondrement de Marquette-lez-Lilles" .
+
+<https://cap44.univ-nantes.fr/api/items/292> a crm:E29_Design_or_Procedure ;
+    rdfs:label "Elévation de la maison à construire sur le terrain de Mrs Prébois et Plumard" ;
+    ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
+    dcterms:source <https://cap44.univ-nantes.fr/api/items/457> ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/dfe4fe5b-87e7-4794-8111-30936d1189c2>,
+        "1789-02-23",
+        "4e quart du 18e siècle (Agorha)" ;
+    bibo:shortTitle "Elévation maison à construire sur terrain de Mrs Prébois et Plumard" ;
+    crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/292>,
+        <https://cap44.univ-nantes.fr/api/items/294> ;
+    skos:altLabel "Elévation maison" ;
+    skos:prefLabel "Elévation de la maison à construire sur le terrain de Mrs Prébois et Plumard" .
+
+<https://cap44.univ-nantes.fr/api/items/295> a crm:E22_Human-Made_Object ;
     rdfs:label "Minoterie de Bouvron" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
     dcterms:description "L’industrie de la meunerie est florissante dans la première partie du Xxème siècle. Louis Guihot, commerçant en grains, et maire de Bouvron de 1892 à 1925, va racheter une ancienne minoterie rue de Bardoux et la développer. Cet ensemble comprenant un immeuble de 4 étages a été bâti en remplacement de structures antérieures datant du début de la minoterie (vers 1895-1900). Le bâtiment est conçu en pierre mais les planchers et linteaux sont en bétons armés. Il fut réalisé par l’architecte A.Chauvet et le bureau technique de l’ouest des Bétons Armés Hennebique." ;
-    dcterms:title "Minoterie de Bouvron" ;
-    crm:P101_had_as_general_use <http://data.culture.fr/thesaurus/resource/ark:/67717/T96-834> ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/2c15d08b-a718-4a91-af8f-71c696b32e0c>,
-        <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/ccad15e7-4cd2-4601-8117-e8df60dd4cb7> ;
-    crm:P53_has_former_or_current_location "+47.418530357806006 -1.8483586759679465",
-        "sws.geonames.org/6449078" ;
-    skos1:altLabel "Minoterie Bvrn" ;
-    skos1:prefLabel "Minoterie de Bouvron" .
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/2c15d08b-a718-4a91-af8f-71c696b32e0c>,
+        <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/ccad15e7-4cd2-4601-8117-e8df60dd4cb7>,
+        "1er quart du 20e siècle (Agorha)",
+        "2e moitié du 19e siècle (Agorha)" ;
+    crm:P101_had_as_general_use <http://data.culture.fr/thesaurus/resource/ark:/67717/T96-834>,
+        "Minoterie" ;
+    crm:P45_consists_of <http://vocab.getty.edu/aat/300010775>,
+        "Béton armé (Getty)" ;
+    crm:P53_has_former_or_current_location <https://sws.geonames.org/6449078>,
+        "+47.418530357806006 -1.8483586759679465",
+        "Bouvron" ;
+    skos:altLabel "Minoterie Bvrn" ;
+    skos:prefLabel "Minoterie de Bouvron" .
 
-<https://cap44.univ-nantes.fr/api/items/296> a crm:E24_Physical_Human-Made_Thing ;
+<https://cap44.univ-nantes.fr/api/items/296> a crm:E22_Human-Made_Object ;
     rdfs:label "Minoterie de Marquette-lez-Lilles" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
     dcterms:description "La minoterie de Marquette-lez-Lilles s'est effondrée en 1907, elle était réalisée en ciment armé." ;
-    dcterms:title "Minoterie de Marquette-lez-Lilles" ;
-    crm:P101_had_as_general_use <http://data.culture.fr/thesaurus/resource/ark:/67717/T96-834> ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/2c15d08b-a718-4a91-af8f-71c696b32e0c>,
-        <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/92287c1d-010b-49bd-bb0e-3e82798c9966> ;
-    crm:P53_has_former_or_current_location "sws.geonames.org/6617195" ;
-    skos1:altLabel "Minoterie MlL" ;
-    skos1:prefLabel "Minoterie de Marquette-lez-Lilles" .
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/2c15d08b-a718-4a91-af8f-71c696b32e0c>,
+        <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/92287c1d-010b-49bd-bb0e-3e82798c9966>,
+        "19e siècle (Agorha)",
+        "1er quart du 20e siècle (Agorha)" ;
+    crm:P101_had_as_general_use <http://data.culture.fr/thesaurus/resource/ark:/67717/T96-834>,
+        "Minoterie" ;
+    crm:P53_has_former_or_current_location <https://sws.geonames.org/6617195>,
+        "Marquette-lez-Lilles" ;
+    skos:altLabel "Minoterie MlL" ;
+    skos:prefLabel "Minoterie de Marquette-lez-Lilles" .
 
-<https://cap44.univ-nantes.fr/api/items/297> a crm:E24_Physical_Human-Made_Thing ;
+<https://cap44.univ-nantes.fr/api/items/297> a crm:E22_Human-Made_Object ;
     rdfs:label "Minoterie de Nort-sur-Erdre" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
     dcterms:description """Ensemble de bâtiment construit en aval du pont Saint-Georges sur commande de Messieurs Duvallet et Guéneux en 1898. Il est constitué d’un entrepôt pour les farines en moellons de schistes et d’un moulin en forme de tour haute de 7 étages réalisé en béton armé par François Hennebique. Cet ensemble marque bien l’implantation locale de l’entrepreneur suite à la construction de l’Usine de la Piperie, à Nantes. 
 Le moulin pouvait stocker de 750 kg à 1500 kg de farine par mètre carré. """ ;
-    dcterms:title "Minoterie de Nort-sur-Erdre" ;
-    crm:P101_had_as_general_use <http://data.culture.fr/thesaurus/resource/ark:/67717/T96-834> ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/bcce037d-aeae-4e69-ab45-e1af5d993cea>,
-        <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/cf851dbc-124a-42c3-94e1-00fb087b532a> ;
-    crm:P53_has_former_or_current_location "+47.439216319762565 -1.4945612073612622",
-        "sws.geonames.org/2990085" ;
-    skos1:altLabel "Minoterie NsE" ;
-    skos1:prefLabel "Minoterie de Nort-sur-Erdre" .
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/bcce037d-aeae-4e69-ab45-e1af5d993cea>,
+        <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/cf851dbc-124a-42c3-94e1-00fb087b532a>,
+        "20e siècle (Agorha)",
+        "4e quart du 19e siècle (Agorha)" ;
+    crm:P101_had_as_general_use <http://data.culture.fr/thesaurus/resource/ark:/67717/T96-834>,
+        "Minoterie" ;
+    crm:P43_has_dimension "7 x 6 x 18 (mètres)" ;
+    crm:P45_consists_of <http://vocab.getty.edu/aat/300010775>,
+        "Béton armé (Getty)" ;
+    crm:P53_has_former_or_current_location <https://sws.geonames.org/2990085>,
+        "+47.439216319762565 -1.4945612073612622",
+        "Nort-sur-Erdre" ;
+    skos:altLabel "Minoterie NsE" ;
+    skos:prefLabel "Minoterie de Nort-sur-Erdre" .
+
+<https://cap44.univ-nantes.fr/api/items/376> a crm:E36_Visual_Item ;
+    rdfs:label "Chemisage des poteaux intérieurs" ;
+    ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
+    dcterms:creator <https://cap44.univ-nantes.fr/api/items/145>,
+        <https://cap44.univ-nantes.fr/api/items/146> ;
+    dcterms:source <http://viaf.org/viaf/132539787>,
+        "Archives départementales (Loire-Atlantique)",
+        "Archives départementales de Loire-Atlantique, Fonds Ferronière, plans, cote 168 J 957" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
+        "1972",
+        "3e quart du 20e siècle (Agorha)" ;
+    crm:P138_represents <https://cap44.univ-nantes.fr/api/items/12>,
+        <https://cap44.univ-nantes.fr/api/items/376>,
+        <https://cap44.univ-nantes.fr/api/items/459>,
+        <https://cap44.univ-nantes.fr/api/items/7>,
+        <https://cap44.univ-nantes.fr/api/items/9> ;
+    skos:altLabel "Chemisage" ;
+    skos:prefLabel "Chemisage des poteaux intérieurs" .
+
+<https://cap44.univ-nantes.fr/api/items/386> a crm:E29_Design_or_Procedure ;
+    rdfs:label "Renforcement des dalles et des poteaux" ;
+    ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
+    dcterms:creator <https://cap44.univ-nantes.fr/api/items/145> ;
+    dcterms:source <http://viaf.org/viaf/132539787>,
+        "Archives départementales (Loire-Atlantique)",
+        "Archives départementales de Loire-Atlantique, Fonds Ferronière, plans, cote 168 J 957" ;
+    dcterms:spatial <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
+        "1972",
+        "3e quart du 20e siècle (Agorha)" ;
+    crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/11>,
+        <https://cap44.univ-nantes.fr/api/items/12>,
+        <https://cap44.univ-nantes.fr/api/items/386>,
+        <https://cap44.univ-nantes.fr/api/items/459>,
+        <https://cap44.univ-nantes.fr/api/items/7> ;
+    skos:altLabel "Renforcement" ;
+    skos:prefLabel "Renforcement des dalles et des poteaux" .
 
 <https://cap44.univ-nantes.fr/api/items/47> a crm:E74_Group ;
     rdfs:label "Architectes M.M Léon Lenoir, et M. Etève à Nantes" ;
@@ -1374,86 +1662,112 @@ Le moulin pouvait stocker de 750 kg à 1500 kg de farine par mètre carré. """ 
     dcterms:description """Léon Lenoir est un architecte Français né à Nantes en 1830 et décédé à  Nantes en 1909. Il est l'un des premiers à utiliser le béton armé, notamment avec les Grands Moulins de Nantes.
 
 Paul Alexandre Emile Etève est né le 8 avril 1855 à Nantes.""" ;
-    dcterms:title "Architectes M.M Léon Lenoir, et M. Etève à Nantes" ;
-    rdaa:P50022 <http://dewey.info/class/720>,
-        "Dewey - 720 - Architecture" ;
+    rdaa:P50022 <http://data.culture.fr/thesaurus/resource/ark:/67717/T15-8>,
+        <http://vocab.getty.edu/aat/300024987>,
+        "Architect (Getty)",
+        "Architecte (MH)" ;
     rdaa:P50041 "Architectes M.M Léon Lenoir, et M. Etève à Nantes" ;
-    skos1:altLabel "Leon Lenoir, Eteve" ;
-    skos1:prefLabel "Architectes M.M Léon Lenoir, et M. Etève à Nantes" .
+    skos:altLabel "Léon Lenoir, Etève" ;
+    skos:prefLabel "Architectes M.M Léon Lenoir, et M. Etève à Nantes" .
 
 <https://cap44.univ-nantes.fr/api/items/51> a crm:E74_Group ;
     rdfs:label "Société anonyme des Grands Moulins de Loire" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
     dcterms:description """La Société Anonyme des Grands Moulins de Loire est constituée en 1921 par la fusion des 3 principales firmes de meunerie du département. Dirigée par Auguste Laraison, elle rassemble les moulins de Machecoul et Pornic  (aujourd’hui intégré au Groupe Soufflet), ceux de Bouvron et Nort-sur-Erdre appartenant à Louis Guihot, et enfin celui du quai Saint-Louis, situé boulevard Victor Hugo à Nantes, acheté en 1920.
 En 1922, 210 personnes travaillent dans les six usines, produisant quotidiennement 2 700 quintaux de blé. Ceci représente alors 70 % de la fabrication du département de la Loire-Inférieure. La société possède alors 60 000 mètres carrés de terrains industriels dont 11 000 mètres carrés bâtis. Ainsi, le blé est débarqué au quai Saint-Louis et repart vers les minoteries par petits bateaux (Pornic) ou par wagons (Bouvron, Machecoul).""" ;
-    rdaa:P50022 <http://data.culture.fr/thesaurus/resource/ark:/67717/T96-834> ;
+    rdaa:P50022 <http://data.culture.fr/thesaurus/resource/ark:/67717/T96-834>,
+        "Minoterie" ;
     rdaa:P50041 "Société anonyme des Grands Moulins de Loire" ;
-    skos1:altLabel "S. A. G. M. L" ;
-    skos1:prefLabel "Société anonyme des Grands Moulins de Loire" .
+    skos:altLabel "S. A. G. M. L" ;
+    skos:prefLabel "Société anonyme des Grands Moulins de Loire" .
 
 <https://cap44.univ-nantes.fr/api/items/147> a crm:E74_Group ;
     rdfs:label "R&G Joly, Géomètres Experts, Nantes" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
-    rdaa:P50022 <http://data.culture.fr/thesaurus/resource/ark:/67717/T15-103> ;
+    rdaa:P50022 <http://data.culture.fr/thesaurus/resource/ark:/67717/T15-103>,
+        "géomètre (MH)" ;
     rdaa:P50041 "R&G Joly, Géomètres Experts, Nantes" ;
-    skos1:altLabel "Geometres" ;
-    skos1:prefLabel "R&G Joly, Géomètres Experts, Nantes" .
+    skos:altLabel "R&G Joly, Géomètres" ;
+    skos:prefLabel "R&G Joly, Géomètres Experts, Nantes" .
 
-<https://cap44.univ-nantes.fr/api/items/8> a crm:E24_Physical_Human-Made_Thing ;
+<https://cap44.univ-nantes.fr/api/items/8> a crm:E22_Human-Made_Object ;
     rdfs:label "Estacade et silo de l'usine de la Piperie" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
     dcterms:description "En 1897, Paul Perraud ajoute pour faciliter la production, un silo à grains et une estacade. Ceux-ci, construits en béton armé par les ingénieurs Sée sont situés sur l’emplacement actuel des entrepôts Saint-Louis, 200 mètres plus loin à l’ouest de la minoterie. Ainsi, les blés acheminés par voie fluviale sont stockés avant d’être transformés ou transportés vers d’autres minoteries de Nantes par petits bateaux. L’usine de la piperie est située dans une région productrice de blé. Sa situation près du fleuve permet aussi l’apport de blés exogènes. Elle fournit ainsi le sud Loire en céréales par sa capacité à moudre jusqu'à 400 tonnes de blés par jour. Enfin, un transporteur souterrain mû par l’électricité dans le sous-sol de la rue de Luzançay assure la communication entre l’usine et le magasin de la Piperie." ;
-    dcterms:title "Estacade et silo de l'usine de la Piperie" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/bcce037d-aeae-4e69-ab45-e1af5d993cea>,
+        "1897",
+        "4ème quart du 19ème siècle (Agorha)" ;
     crm:P101_had_as_general_use <http://data.culture.fr/thesaurus/resource/ark:/67717/T96-1106>,
-        <http://data.culture.fr/thesaurus/resource/ark:/67717/T96-1353> ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/bcce037d-aeae-4e69-ab45-e1af5d993cea>,
-        "1897" ;
+        <http://data.culture.fr/thesaurus/resource/ark:/67717/T96-1353>,
+        "Embarcadère",
+        "Silo" ;
+    crm:P45_consists_of <http://vocab.getty.edu/aat/300010775>,
+        "Béton armé (Getty)" ;
     crm:P53_has_former_or_current_location <https://sws.geonames.org/2990969>,
-        "+47.198756226204594 -1.5806021061078723" ;
-    skos1:altLabel "Estacade et silo" ;
-    skos1:prefLabel "Estacade et silo de l'usine de la Piperie" .
+        "+47.198756226204594 -1.5806021061078723",
+        "Nantes" ;
+    skos:altLabel "Estacade et silo" ;
+    skos:prefLabel "Estacade et silo de l'usine de la Piperie" .
 
 <https://cap44.univ-nantes.fr/api/items/9> a crm:E12_Production ;
     rdfs:label "Construction de l'usine de la Piperie" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
     dcterms:description "En 1895, Paul Perraud, meunier entreprenant originaire d’Issé, en Loire-Atlantique, achète le terrain et implante une nouvelle minoterie ; l’usine de la Piperie. Celle-ci est alors à la pointe de la technologie puisqu’elle utilise des machines à cylindres qui remplacent les meules en France, dès 1887. Plus performantes, elles entraînent une augmentation considérable de la production de farine. Cette nouvelle minoterie est placée sur la rive droite de la Loire dans le quartier de Chantenay. Elle alimente en farine la biscuiterie LU et les nombreuses boulangeries avoisinantes. Son emplacement est stratégique." ;
-    dcterms:title "Construction de l'usine de la Piperie" ;
     crm:P108_has_produced <https://cap44.univ-nantes.fr/api/items/7> ;
     crm:P10_falls_within <https://cap44.univ-nantes.fr/api/items/10> ;
+    crm:P126_employed <http://vocab.getty.edu/aat/300010775>,
+        "Béton armé (Getty)" ;
     crm:P14_carried_out_by <http://viaf.org/viaf/21377236>,
-        <https://cap44.univ-nantes.fr/api/items/47> ;
-    crm:P2_has_type <http://data.culture.fr/thesaurus/resource/ark:/67717/T1-595> ;
+        <https://cap44.univ-nantes.fr/api/items/47>,
+        "François Hennebique" ;
+    crm:P2_has_type <http://data.culture.fr/thesaurus/resource/ark:/67717/T1-595>,
+        "Chantier" ;
     crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/bcce037d-aeae-4e69-ab45-e1af5d993cea>,
-        "1895" ;
+        "1895",
+        "4ème quart du 19ème siècle (Agorha)" ;
     crm:P7_took_place_at <https://sws.geonames.org/2990969>,
-        "+47.19990255657179 -1.5791996915415039" ;
+        "+47.19990255657179 -1.5791996915415039",
+        "Nantes" ;
     crm:P8_took_place_on_or_within <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Construction" ;
-    skos1:prefLabel "Construction de l'usine de la Piperie" .
+    skos:altLabel "Construction" ;
+    skos:prefLabel "Construction de l'usine de la Piperie" .
 
 <https://cap44.univ-nantes.fr/api/items/146> a crm:E74_Group ;
     rdfs:label "Atelier 44" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
     dcterms:description "Architectes ayant réalisé la réhabilitation des bâtiments de la Coopérative Agricole de Nantes en 1972 pour les transformer en bureaux." ;
     rdaa:P50022 <http://data.culture.fr/thesaurus/resource/ark:/67717/T15-8>,
-        "Architecte" ;
+        <http://vocab.getty.edu/aat/300024987>,
+        "Architect (Getty)",
+        "Architecte (MH)" ;
     rdaa:P50041 "Atelier 44" ;
-    skos1:altLabel "Atelier 44" ;
-    skos1:prefLabel "Atelier 44" .
+    skos:altLabel "Atelier 44" ;
+    skos:prefLabel "Atelier 44" .
 
 <https://cap44.univ-nantes.fr/api/items/294> a crm:E4_Period ;
-    rdfs:label "Période avant 1895" ;
+    rdfs:label "Avant 1895" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
     dcterms:description "Les éléments liés à cette période documentent la parcelle sur laquelle sera construit l'Usine de la Piperie en 1895." ;
-    dcterms:title "Période avant 1895" ;
     crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/277cf3a2-97e8-481f-aa7d-62cb7609da3b>,
+        <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/56387ea5-f963-49bd-aea4-56c4ecd1f14c>,
+        <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/8bd1120c-fb4a-43fb-a1f0-bdbd31afda47>,
         <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/92287c1d-010b-49bd-bb0e-3e82798c9966>,
         <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/bcce037d-aeae-4e69-ab45-e1af5d993cea>,
-        "1700-1895" ;
-    crm:P7_took_place_at <https://sws.geonames.org/2990969> ;
+        <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/c37aab47-fb71-4abd-b64b-58335c26278a>,
+        <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/dfe4fe5b-87e7-4794-8111-30936d1189c2>,
+        "1700-1895",
+        "18e siècle (Agorha)",
+        "19e siècle (Agorha)",
+        "2e quart du 19e siècle (Agorha)",
+        "3e quart du 18e siècle (Agorha)",
+        "3e quart du 19e siècle (Agorha)",
+        "4e quart du 18e siècle (Agorha)",
+        "4e quart du 19e siècle (Agorha)" ;
+    crm:P7_took_place_at <https://sws.geonames.org/2990969>,
+        "Nantes" ;
     crm:P8_took_place_on_or_within <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Période avant 1895" ;
-    skos1:prefLabel "Avant 1895" .
+    skos:altLabel "Période avant 1895" ;
+    skos:prefLabel "Avant 1895" .
 
 <https://cap44.univ-nantes.fr/api/items/145> a crm:E74_Group ;
     rdfs:label "Société d'études techniques Arles Belim" ;
@@ -1462,8 +1776,12 @@ En 1922, 210 personnes travaillent dans les six usines, produisant quotidienneme
     dcterms:title "Société d'études techniques Arles Belim" ;
     rdaa:P50022 "Société d'études technique" ;
     rdaa:P50041 "Société d'études techniques Arles Belim" ;
-    skos1:altLabel "Societe d'etudes" ;
-    skos1:prefLabel "Société d'études technique" .
+    skos:altLabel "Société d'études" ;
+    skos:prefLabel "Société d'études technique" .
+
+<https://cap44.univ-nantes.fr/api/items/457> a crm:E74_Group ;
+    rdfs:label "Archives municipales de Nantes" ;
+    skos:prefLabel "Archives municipales de Nantes" .
 
 <https://cap44.univ-nantes.fr/api/items/11> a crm:E4_Period ;
     rdfs:label "Période d'entrepôt" ;
@@ -1471,45 +1789,66 @@ En 1922, 210 personnes travaillent dans les six usines, produisant quotidienneme
     dcterms:description """La période d'entrepôt débute à la création de la Société Anonyme des Magasins et Silos Nantais en 1912, date à laquelle la minoterie fonctionne encore. Mais, en 1939, le matériel de la minoterie est démonté et en 1940, les bâtiments sont loués à la coopérative Agricole de Nantes, une centrale d’achat et de vente de 150 syndicats agricoles pour devenir des entrepôts.
 
 En 1946, la Compagnie des Chargeurs de l’Ouest achète les magasins et les silos Nantais qui sont alors convertis en chais à vin. En 1968, absorbée par la Nouvelle Compagnie Havraise Péninsulaire, la Compagnie des Chargeurs de l’Ouest prit le nom de Société Nantaises des chargeurs de l’Ouest et abandonne les entrepôt de Nantes.""" ;
-    dcterms:title "Période d'entrepôt" ;
     crm:P132_spatiotemporally_overlaps_with <https://cap44.univ-nantes.fr/api/items/10> ;
-    crm:P2_has_type <http://data.culture.fr/thesaurus/resource/ark:/67717/T96-617> ;
+    crm:P2_has_type <http://data.culture.fr/thesaurus/resource/ark:/67717/T96-617>,
+        "Entrepôt commercial" ;
     crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/cf851dbc-124a-42c3-94e1-00fb087b532a>,
-        "1912-1972" ;
-    crm:P7_took_place_at <https://sws.geonames.org/2990969> ;
+        "1912-1972",
+        "20ème siècle (Agorha)" ;
+    crm:P7_took_place_at <https://sws.geonames.org/2990969>,
+        "Nantes" ;
     crm:P8_took_place_on_or_within <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Entrepot" ;
-    skos1:prefLabel "Période d'entrepôt" .
+    skos:altLabel "Entrepôt" ;
+    skos:prefLabel "Période d'entrepôt" .
+
+<https://cap44.univ-nantes.fr/api/items/459> a crm:E11_Modification ;
+    rdfs:label "Réhabilitation de la minoterie en immeuble de bureaux" ;
+    crm:P14_carried_out_by <https://cap44.univ-nantes.fr/api/items/146> ;
+    crm:P31_has_modified <https://cap44.univ-nantes.fr/api/items/7> ;
+    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c>,
+        "1972",
+        "3e quart du 20e siècle (Agorha)" ;
+    crm:P7_took_place_at <https://sws.geonames.org/2990969>,
+        "Nantes" ;
+    crm:P8_took_place_on_or_within <https://cap44.univ-nantes.fr/api/items/7> ;
+    skos:prefLabel "Réhabilitation de la minoterie en immeuble de bureaux" .
 
 <https://cap44.univ-nantes.fr/api/items/10> a crm:E4_Period ;
     rdfs:label "Période de  minoterie" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
     dcterms:description """La période de minoterie débute à la création de l'usine de la Piperie, en 1895 et se termine en 1934. Cependant, dès  1912,  l'usine alors constituée en Société Anonyme des Magasins et Silos Nantais loue les magasins pour l'entrepôt des grains, farines, céréales et toutes autres  marchandises. 
 La période de Minoterie  est donc confondue avec celle d'Entrepôt, de 1912 à 1934.""" ;
-    dcterms:title "Période de  minoterie" ;
-    crm:P2_has_type <http://data.culture.fr/thesaurus/resource/ark:/67717/T96-834> ;
+    crm:P2_has_type <http://data.culture.fr/thesaurus/resource/ark:/67717/T96-834>,
+        "Minoterie" ;
     crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/afa39eff-09bb-43d0-86f9-abc3ee70a352>,
         <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/bcce037d-aeae-4e69-ab45-e1af5d993cea>,
-        "1895-1934" ;
-    crm:P7_took_place_at <https://sws.geonames.org/2990969> ;
+        <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/c59f9c55-41ff-44fc-b53d-82fa85c06a7b>,
+        "1895-1934",
+        "1ère moitié du 20e siècle (Agorha)",
+        "2e quart du 20e siècle (Agorha)",
+        "4e quart du 19e siècle (Agorha)" ;
+    crm:P7_took_place_at <https://sws.geonames.org/2990969>,
+        "Nantes" ;
     crm:P8_took_place_on_or_within <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Minoterie" ;
-    skos1:prefLabel "Période de  minoterie" .
+    skos:altLabel "Minoterie" ;
+    skos:prefLabel "Période de  minoterie" .
 
 <https://cap44.univ-nantes.fr/api/items/12> a crm:E4_Period ;
     rdfs:label "Période tertiaire" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
     dcterms:description "En 1972, les bâtiments sont vendus à la Société Civile Immobilière CAP 44 qui les convertissent en bureaux. C’est l’architecte Ferronnière de l’Atelier 44 qui est chargé de la réhabilitation : les poteaux et les dalles sont chemisés pour pouvoir répondre à la nouvelle fonction tertiaire du bâtiment. Cela permet aussi de pallier les pathologies du vieillissement du béton d’origine. Est ajouté à ce moment le bardage métallique bleu. Enfin, les allèges sont démolies et les fenêtres recalibrées selon une taille unique dans l'esprit de composition du mur rideau. Des faux plafonds sont ajoutés. En 2010, le bâtiment est une nouvelle fois vidé, et est racheté en 2018 par Nantes Métropole Aménagement." ;
-    dcterms:title "Période tertiaire" ;
-    crm:P2_has_type <http://data.culture.fr/thesaurus/resource/ark:/67717/T96-624> ;
+    crm:P2_has_type <http://data.culture.fr/thesaurus/resource/ark:/67717/T96-624>,
+        "Immeubles de bureaux" ;
     crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/1042d6cb-86c8-4ba9-bbfd-6d070e9f9844>,
-        "1972-2010" ;
-    crm:P7_took_place_at <https://sws.geonames.org/2990969> ;
+        "1972-2010",
+        "2ème moitié du 20ème siècle (Agorha)" ;
+    crm:P7_took_place_at <https://sws.geonames.org/2990969>,
+        "Nantes" ;
     crm:P8_took_place_on_or_within <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos1:altLabel "Tertiaire" ;
-    skos1:prefLabel "Période tertiaire" .
+    skos:altLabel "Tertiaire" ;
+    skos:prefLabel "Période tertiaire" .
 
-<https://cap44.univ-nantes.fr/api/items/7> a crm:E24_Physical_Human-Made_Thing ;
+<https://cap44.univ-nantes.fr/api/items/7> a crm:E22_Human-Made_Object ;
     rdfs:label "CAP-44" ;
     ns1:item_set <https://cap44.univ-nantes.fr/api/item_sets/148> ;
     dcterms:description """Le Cap 44 est une ancienne minoterie industrielle situé sur le quai Marquis-d'Aiguillon dans le quartier de Chantenay, à Nantes. Il a été construit en 1894 en béton armé, par le procédé de François Hennebique, alors révolutionnaire pour l’époque.
@@ -1517,6 +1856,9 @@ La période de Minoterie  est donc confondue avec celle d'Entrepôt, de 1912 à 
 Témoin de l’histoire de ce quartier industrialo-portuaire, il a été soumis aux évolutions du travail au long des XIXème siècle et XXème siècle. Sa position en bord de Loire est évocatrice de l’histoire qui lie Nantes à son fleuve : son activité était liée à une filière « amont » constituée des exploitations céréalières qui fournissaient le blé et d’une filière « aval » qui était celle de la diffusion de la farine pour l’alimentation et la fabrication de produits alimentaires (pâtes, pains, biscuits etc.,).
 
 Aujourd’hui, le quartier de Chantenay est l’objet d’un projet urbain qui passe notamment par une reconquête des rives. Une concertation citoyenne portant sur l’avenir du bâtiment entraîne actuellement une réhabilitation de ce lieu. Les habitants du quartier ont été amenés à répondre à deux questions : « Quels usages imagineriez-vous sur le site CAP 44 – les grands moulins de Loire ? Et quel niveau de transformation du bâtiment ces usages induiraient-ils, en cohérence avec l’aménagement du secteur de la carrière dans sa globalité ? ».""" ;
+    dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/cf851dbc-124a-42c3-94e1-00fb087b532a>,
+        "1895-présent",
+        "20ème siècle (Agorha)" ;
     dcterms:title "CAP-44",
         "Coopérative Agricole de Nantes",
         "Grands Moulins de Loire",
@@ -1526,11 +1868,65 @@ Aujourd’hui, le quartier de Chantenay est l’objet d’un projet urbain qui p
         "Usine de la Piperie" ;
     crm:P101_had_as_general_use <http://data.culture.fr/thesaurus/resource/ark:/67717/T96-617>,
         <http://data.culture.fr/thesaurus/resource/ark:/67717/T96-624>,
-        <http://data.culture.fr/thesaurus/resource/ark:/67717/T96-834> ;
-    crm:P4_has_time-span <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/cf851dbc-124a-42c3-94e1-00fb087b532a>,
-        "1895-présent" ;
+        <http://data.culture.fr/thesaurus/resource/ark:/67717/T96-834>,
+        "Entrepôt commercial",
+        "Immeuble de bureaux",
+        "Minoterie" ;
+    crm:P43_has_dimension "63 x 24 x 25 (mètres)" ;
+    crm:P45_consists_of <http://vocab.getty.edu/aat/300010775>,
+        "Béton armé (Getty)" ;
     crm:P53_has_former_or_current_location <https://sws.geonames.org/2990969>,
-        "+47.19990255657179 -1.5791996915415039" ;
-    skos1:altLabel "CAP-44" ;
-    skos1:prefLabel "CAP-44" .
+        "+47.19990255657179 -1.5791996915415039",
+        "Nantes" ;
+    skos:altLabel "CAP-44" ;
+    skos:prefLabel "CAP-44" .
 
+
+<https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/c59f9c55-41ff-44fc-b53d-82fa85c06a7b> a crm:E52_Time-Span .
+<https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/bcce037d-aeae-4e69-ab45-e1af5d993cea> a crm:E52_Time-Span .
+<https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/2c15d08b-a718-4a91-af8f-71c696b32e0c> a crm:E52_Time-Span .
+<https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/ccad15e7-4cd2-4601-8117-e8df60dd4cb7> a crm:E52_Time-Span .
+<https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/1042d6cb-86c8-4ba9-bbfd-6d070e9f9844> a crm:E52_Time-Span .
+<https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/2c15d08b-a718-4a91-af8f-71c696b32e0c> a crm:E52_Time-Span .
+<https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/d8a3610b-3210-4499-a61f-f1cfdb65e892> a crm:E52_Time-Span .
+<https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/cf851dbc-124a-42c3-94e1-00fb087b532a> a crm:E52_Time-Span .
+<https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/8bd1120c-fb4a-43fb-a1f0-bdbd31afda47> a crm:E52_Time-Span .
+<https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/dfe4fe5b-87e7-4794-8111-30936d1189c2> a crm:E52_Time-Span .
+<https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/afa39eff-09bb-43d0-86f9-abc3ee70a352> a crm:E52_Time-Span .
+<https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/56387ea5-f963-49bd-aea4-56c4ecd1f14c> a crm:E52_Time-Span .
+<https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/f3ae6525-57d0-4caa-ba6a-7d3dd8d936ba> a crm:E52_Time-Span .
+<https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/277cf3a2-97e8-481f-aa7d-62cb7609da3b> a crm:E52_Time-Span .
+<https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/92287c1d-010b-49bd-bb0e-3e82798c9966> a crm:E52_Time-Span .
+<https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/c37aab47-fb71-4abd-b64b-58335c26278a> a crm:E52_Time_Span .
+<https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c> a crm:E52_Time_Span .
+
+<https://sws.geonames.org/6449078> a crm:E53_Place .
+<https://sws.geonames.org/6617195> a crm:E53_Place .
+<https://sws.geonames.org/2990085> a crm:E53_Place .
+<https://sws.geonames.org/6449078> a crm:E53_Place .
+<https://sws.geonames.org/3169071> a crm:E53_Place .
+<https://sws.geonames.org/2990969> a crm:E53_Place .
+
+<http://viaf.org/viaf/76439780> a crm:E21_Person .
+<http://viaf.org/viaf/132539787> a crm:E21_Person .
+<http://viaf.org/viaf/96353901> a crm:E21_Person .
+<http://viaf.org/viaf/50158367854901282324> a crm:E21_Person .
+<http://viaf.org/viaf/308765785> a crm:E21_Person .
+<http://viaf.org/viaf/12317884> a crm:E21_Person .
+<http://viaf.org/viaf/306491150> a crm:E21_Person .
+<http://viaf.org/viaf/21377236> a crm:E21_Person .
+
+<http://viaf.org/viaf/157364120> a crm:E74_Group .
+<http://viaf.org/viaf/143903205> a crm:E74_Group .
+
+<http://data.culture.fr/thesaurus/resource/ark:/67717/T96-1353> a crm:E55_Type .
+<http://data.culture.fr/thesaurus/resource/ark:/67717/T96-617> a crm:E55_Type .
+<http://data.culture.fr/thesaurus/resource/ark:/67717/T96-834> a crm:E55_Type .
+<http://data.culture.fr/thesaurus/resource/ark:/67717/T96-1106> a crm:E55_Type .
+<http://data.culture.fr/thesaurus/resource/ark:/67717/T96-624> a crm:E55_Type .
+<http://data.culture.fr/thesaurus/resource/ark:/67717/T1-595> a crm:E55_Type .
+<http://vocab.getty.edu/aat/300024987> a crm:E55_Type .
+<http://data.culture.fr/thesaurus/resource/ark:/67717/T15-8> a crm:E55_Type .
+<http://data.culture.fr/thesaurus/resource/ark:/67717/T15-103> a crm:E55_Type .
+
+<http://vocab.getty.edu/aat/300010775> a crm:E57_Material .

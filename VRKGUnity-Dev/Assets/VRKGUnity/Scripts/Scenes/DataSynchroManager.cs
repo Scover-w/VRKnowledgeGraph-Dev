@@ -87,13 +87,6 @@ public class DataSynchroManager : MonoBehaviour
             ontoUris = await UpdateGraphDbRepoFromGraphDbServer();
         });
 
-        _loadingBarUI.Refresh(.15f, "Block New Namespaces");
-
-        await Task.Run(async () =>
-        {
-            await BlockOntologyToBeRetreived();
-        });
-
         _loadingBarUI.Refresh(.2f, "Retrieve Distant Namespace");
 
         await Task.Run(async () =>
@@ -103,7 +96,7 @@ public class DataSynchroManager : MonoBehaviour
 
 
         _loadingBarUI.Refresh(.8f, "Calculate Max Bounds");
-        //// Calculate Max Bounds
+    
         await CalculateMaxBound();
 
 
@@ -122,9 +115,9 @@ public class DataSynchroManager : MonoBehaviour
     private async Task<IReadOnlyDictionary<string, OntologyTree>> UpdateGraphDbRepoFromGraphDbServer()
     {
         await _graphRepo.LoadChilds();
-        var repoUris = _graphRepo.GraphDbRepositoryUris;
+        var repoUris = _graphRepo.GraphDbRepositoryNamespaces;
 
-        var json = await _graphDbAPI.SelectQuery("select * where { ?s ?p ?o .}");
+        var json = await _graphDbAPI.SelectQuery("SELECT * FROM <http://data> WHERE { ?s ?p ?o .}");
         _data = JsonConvert.DeserializeObject<JObject>(json);
 
         await repoUris.RetrieveNewNamespaces(_data, _graphDbAPI);
@@ -135,34 +128,16 @@ public class DataSynchroManager : MonoBehaviour
         return readOntoTreeDict;
     }
 
-    private async Task BlockOntologyToBeRetreived()
-    {
-        var json = await _graphDbAPI.SelectQuery("select * where { ?s ?p ?o .}");
-        var dataAfterAddedOntology = JsonConvert.DeserializeObject<JObject>(json);
-
-        var dataNodeIds = _data.ExtractNodes();
-        var dataAfterNodeIds = dataAfterAddedOntology.ExtractNodes();
-        dataAfterNodeIds.RemoveNodes(dataNodeIds);
-
-
-        await _graphRepo.GraphDbRepositoryUris.BlockNamespaceToBeRetrieved(dataAfterNodeIds);
-        await _graphRepo.GraphDbRepositoryDistantUris.BlockNodesToBeRetrieved(dataAfterNodeIds);
-    }
-
     private async Task RetrieveDistantUri(IReadOnlyDictionary<string, OntologyTree> readOntoTreeDict)
     {
         var graphDistantUri = _graphRepo.GraphDbRepositoryDistantUris;
-        await graphDistantUri.RetrieveNames(_data, readOntoTreeDict, this);
+        await graphDistantUri.RetrieveNames(_data, readOntoTreeDict, this, _graphRepo.GraphDbRepositoryNamespaces);
     }
 
     private async Task CalculateMaxBound()
     {
-        SPARQLAdditiveBuilder sparqlBuilder = new(_graphRepo.GraphDbRepositoryUris);
-        string queryString = sparqlBuilder.Build();
-
-
-
-        NodgesDicId nodges = await NodgesHelper.RetreiveGraph(queryString, _graphRepo);
+        var ontoUris = await NodgesHelper.RetrieveOnto(_graphRepo);
+        var nodges = await NodgesHelper.RetrieveData(_graphRepo, ontoUris);
 
         nodges.ResetAbsolutePosition(_graphConfiguration);
 
@@ -170,7 +145,7 @@ public class DataSynchroManager : MonoBehaviour
         await _graphSimu.Run(nodgesSimuData);
 
         float maxDistance = GetMaxDistance(nodgesSimuData);
-        Debug.Log(maxDistance);
+        Debug.Log("MaxDistance : " + maxDistance);
         _referenceHolderSo.MaxDistanceGraph = maxDistance;
     }
 

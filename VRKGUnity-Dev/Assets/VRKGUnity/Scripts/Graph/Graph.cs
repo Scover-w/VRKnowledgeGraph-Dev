@@ -137,7 +137,7 @@ public class Graph
         var edgeStyler = _nodgePool.GetEdgeStyler();
         edgeStyler.Edge = edge;
 
-        edgeStyler.gameObject.name = "Edge " + edge.Value.ToString();
+        edgeStyler.gameObject.name = "Edge " + edge.PrefixValue;
         
         if(isForMainGraph)
         {
