@@ -6,29 +6,7 @@ using UnityEngine;
 
 public static class NodgesHelper
 {
-
-    public static async Task<NodgesDicId> RetrieveGraph(string query, GraphDbRepository repo)
-    {
-        var debugChrono = DebugChrono.Instance;
-        debugChrono.Start("RetreiveGraph");
-        var api = repo.GraphDBAPI;
-        var json = await api.SelectQuery(query, true);
-        var data = JsonConvert.DeserializeObject<JObject>(json);
-
-
-        NodgesDicId nodges = data.ExtractNodges(repo.GraphDbRepositoryNamespaces);
-        nodges.AddRetrievedNames(repo.GraphDbRepositoryDistantUris);
-        nodges.ExtractNodeNamesToProperties();
-
-
-        debugChrono.Stop("RetreiveGraph");
-
-        return nodges;
-    }
-
-
-    
-
+    #region DataSync
     public static async Task<HashSet<string>> RetrieveOnto(GraphDbRepository repo)
     {
         var api = repo.GraphDBAPI;
@@ -150,86 +128,6 @@ public static class NodgesHelper
     }
 
 
-    public static NodgesDicId ExtractNodges(this JObject data, GraphDbRepositoryNamespaces repoNamespaces)
-    {
-        var nodges = new NodgesDicId();
-
-        var nodesDicId = nodges.NodesDicId;
-        var edgesDicId = nodges.EdgesDicId;
-
-        repoNamespaces.ResetDefinedNodes();
-
-        DepthOntologyLinker ontologyLinker = new(repoNamespaces);
-
-        foreach (JToken binding in data["results"]["bindings"])
-        {
-            string sType = binding["s"]["type"].Value<string>();
-            string sValue = binding["s"]["value"].Value<string>();
-
-            string pType = binding["p"]["type"].Value<string>();
-            string pValue = binding["p"]["value"].Value<string>();
-
-            string oType = binding["o"]["type"].Value<string>();
-            string oValue = binding["o"]["value"].Value<string>();
-
-
-            bool isObjectPossiblyAnOnto = repoNamespaces.IsUriAnOnto(oValue) && pValue == "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
-
-            int sId = sValue.GetHashCode();
-            int oId = oValue.GetHashCode();
-
-            Node s;
-            Node o;
-
-            if (nodesDicId.TryGetValue(sId, out Node sNodeExisting))
-            {
-                s = sNodeExisting;
-            }
-            else
-            {
-                s = new Node(sId, sType, sValue, repoNamespaces);
-                nodesDicId.Add(sId, s);
-            }
-
-            if(isObjectPossiblyAnOnto)
-            {
-                var simpleOntoNode = new Node(oId, oType, oValue, repoNamespaces);
-
-                if (ontologyLinker.TryLink(s, simpleOntoNode))
-                    continue;
-            }
-
-            if (nodesDicId.TryGetValue(oId, out Node oNodeExisting))
-            {
-                o = oNodeExisting;
-            }
-            else
-            {
-                o = new Node(oId, oType, oValue, repoNamespaces);
-                nodesDicId.Add(oId, o);
-            }
-
-
-            var edge = new Edge(pType, pValue, s, o, repoNamespaces);
-
-            if (edgesDicId.TryGetValue(edge.Id, out Edge edgeExisting))
-            {
-                continue;
-            }
-
-            edgesDicId.Add(edge.Id, edge);
-
-            s.EdgeSource.Add(edge);
-            o.EdgeTarget.Add(edge);
-        }
-
-        ontologyLinker.AttachNodesToOntoNodes();
-
-        nodges.MergePropertiesNodes();
-
-        return nodges;
-    }
-
     public static NodgesDicId ExtractNodgesForDistantUri(this JObject data, GraphDbRepositoryNamespaces repoNamespaces)
     {
         var nodges = new NodgesDicId();
@@ -301,6 +199,162 @@ public static class NodgesHelper
 
         return nodges;
     }
+
+    public static Dictionary<int, Node> GetNoLabeledNodes(this Dictionary<int, Node> idAndNodes)
+    {
+        Dictionary<int, Node> nolabeled = new();
+
+        foreach (var idAndNode in idAndNodes)
+        {
+            var node = idAndNode.Value;
+
+            if (node.Type != NodgeType.Uri)
+                continue;
+
+            if (node.DoesPropertiesContainName())
+                continue;
+
+            nolabeled.Add(idAndNode.Key, idAndNode.Value);
+        }
+
+        return nolabeled;
+    }
+
+    public static Dictionary<int, Node> GetNoOntoUriNodes(this Dictionary<int, Node> idAndNodes, IReadOnlyDictionary<string, OntologyTree> ontoTreeDict)
+    {
+
+        Dictionary<int, Node> noOntoned = new();
+
+        foreach (var idAndNode in idAndNodes)
+        {
+            var node = idAndNode.Value;
+
+            if (node.Type != NodgeType.Uri)
+                continue;
+
+            var namespce = node.Namespace;
+
+            if (!ontoTreeDict.TryGetValue(namespce, out OntologyTree ontoTree))
+            {
+                noOntoned.Add(idAndNode.Key, idAndNode.Value);
+                continue;
+            }
+
+            if (!ontoTree.TryGetOntoNode(idAndNode.Key, out OntoNode ontoNode))
+            {
+                noOntoned.Add(idAndNode.Key, idAndNode.Value);
+                continue;
+            }
+        }
+
+        return noOntoned;
+    }
+    #endregion
+
+
+    #region Graph
+    public static async Task<NodgesDicId> RetrieveGraph(string query, GraphDbRepository repo)
+    {
+        var debugChrono = DebugChrono.Instance;
+        debugChrono.Start("RetreiveGraph");
+        var api = repo.GraphDBAPI;
+        var json = await api.SelectQuery(query, true);
+        var data = JsonConvert.DeserializeObject<JObject>(json);
+
+
+        NodgesDicId nodges = data.ExtractNodges(repo.GraphDbRepositoryNamespaces);
+        nodges.AddRetrievedNames(repo.GraphDbRepositoryDistantUris);
+        nodges.ExtractNodeNamesToProperties();
+
+
+        debugChrono.Stop("RetreiveGraph");
+
+        return nodges;
+    }
+
+    public static NodgesDicId ExtractNodges(this JObject data, GraphDbRepositoryNamespaces repoNamespaces)
+    {
+        var nodges = new NodgesDicId();
+
+        var nodesDicId = nodges.NodesDicId;
+        var edgesDicId = nodges.EdgesDicId;
+
+        repoNamespaces.DetachNodesFromOntoNodes();
+
+        DepthOntologyLinker ontologyLinker = new(repoNamespaces);
+
+        foreach (JToken binding in data["results"]["bindings"])
+        {
+            string sType = binding["s"]["type"].Value<string>();
+            string sValue = binding["s"]["value"].Value<string>();
+
+            string pType = binding["p"]["type"].Value<string>();
+            string pValue = binding["p"]["value"].Value<string>();
+
+            string oType = binding["o"]["type"].Value<string>();
+            string oValue = binding["o"]["value"].Value<string>();
+
+            if (repoNamespaces.IsUriAnOnto(sValue))
+                continue;
+
+            bool isObjectPossiblyAnOnto = repoNamespaces.IsUriAnOnto(oValue) && pValue == "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
+
+            int sId = sValue.GetHashCode();
+            int oId = oValue.GetHashCode();
+
+            Node s;
+            Node o;
+
+            if (nodesDicId.TryGetValue(sId, out Node sNodeExisting))
+            {
+                s = sNodeExisting;
+            }
+            else
+            {
+                s = new Node(sId, sType, sValue, repoNamespaces);
+                nodesDicId.Add(sId, s);
+            }
+
+            if(isObjectPossiblyAnOnto)
+            {
+                var simpleOntoNode = new Node(oId, oType, oValue, repoNamespaces);
+
+                if (ontologyLinker.TryEstablishLink(s, simpleOntoNode))
+                    continue;
+            }
+
+            if (nodesDicId.TryGetValue(oId, out Node oNodeExisting))
+            {
+                o = oNodeExisting;
+            }
+            else
+            {
+                o = new Node(oId, oType, oValue, repoNamespaces);
+                nodesDicId.Add(oId, o);
+            }
+
+
+            var edge = new Edge(pType, pValue, s, o, repoNamespaces);
+
+            if (edgesDicId.TryGetValue(edge.Id, out Edge edgeExisting))
+            {
+                continue;
+            }
+
+            edgesDicId.Add(edge.Id, edge);
+
+            s.EdgeSource.Add(edge);
+            o.EdgeTarget.Add(edge);
+        }
+
+        ontologyLinker.AttachNodesToOntoNodes();
+
+        nodges.MergePropertiesNodes();
+
+        return nodges;
+    }
+
+    #endregion
 
 
     /// <summary>
@@ -400,55 +454,9 @@ public static class NodgesHelper
         }
     }
 
-    public static Dictionary<int, Node> GetNoLabeledNodes(this Dictionary<int, Node> idAndNodes)
-    {
-        Dictionary<int, Node> nolabeled = new();
+   
 
-        foreach (var idAndNode in idAndNodes)
-        {
-            var node = idAndNode.Value;
-
-            if (node.Type != NodgeType.Uri)
-                continue;
-
-            if (node.DoesPropertiesContainName())
-                continue;
-
-            nolabeled.Add(idAndNode.Key, idAndNode.Value);
-        }
-
-        return nolabeled;
-    }
-
-    public static Dictionary<int, Node> GetNoOntoUriNodes(this Dictionary<int, Node> idAndNodes, IReadOnlyDictionary<string, OntologyTree> ontoTreeDict)
-    {
-
-        Dictionary<int, Node> noOntoned = new();
-
-        foreach (var idAndNode in idAndNodes)
-        {
-            var node = idAndNode.Value;
-
-            if (node.Type != NodgeType.Uri)
-                continue;
-
-            var namespce = node.Namespace;
-
-            if (!ontoTreeDict.TryGetValue(namespce, out OntologyTree ontoTree))
-            {
-                noOntoned.Add(idAndNode.Key, idAndNode.Value);
-                continue;
-            }
-
-            if(!ontoTree.TryGetOntoNode(idAndNode.Key, out OntoNode ontoNode))
-            {
-                noOntoned.Add(idAndNode.Key, idAndNode.Value);
-                continue;
-            }
-        }
-
-        return noOntoned;
-    }
+    
 
 
     public static Dictionary<int, Node> ExtractNodes(this JObject data, GraphDbRepositoryNamespaces repoNamespaces)
@@ -500,7 +508,6 @@ public static class NodgesHelper
         AddRetrievedNames(nodges.NodesDicId, graphDbRepositoryDistantUris);
     }
     
-
     public static void AddRetrievedNames(this Dictionary<int, Node> idAndNodes, GraphDbRepositoryDistantUris graphDbRepositoryDistantUris)
     {
         var distantUriDict = graphDbRepositoryDistantUris.DistantUriLabels;

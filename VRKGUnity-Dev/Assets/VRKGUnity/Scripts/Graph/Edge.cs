@@ -25,8 +25,8 @@ public class Edge : IEdge<Node>
         }
     }
 
-    public int Id;
-    public NodgeType Type;
+    public readonly int Id;
+    public readonly NodgeType Type;
 
     /// <summary>
     /// Null if Type is a literal

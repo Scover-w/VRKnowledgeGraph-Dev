@@ -82,10 +82,9 @@ public class DataSynchroManager : MonoBehaviour
         _loadingBarUI.Refresh(.1f, "Update GraphDbRepo From GraphDbServer");
         IReadOnlyDictionary<string, OntologyTree> ontoUris = null;
 
-        await Task.Run(async () =>
-        {
-            ontoUris = await UpdateGraphDbRepoFromGraphDbServer();
-        });
+
+        ontoUris = await UpdateGraphDbRepoFromGraphDbServer();
+
 
         _loadingBarUI.Refresh(.2f, "Retrieve Distant Namespace");
 

@@ -208,7 +208,7 @@ public class GraphDbRepositoryNamespaces
                            "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> " +
                            "PREFIX owl: <http://www.w3.org/2002/07/owl#> " +
                            "SELECT ?s ?p ?o " +
-                           "FROM <http://data> " + 
+                           "FROM <http://ontology> " + 
                            "WHERE {  { " +
                            "?s ?p ?o. " +
                            "FILTER( ( (?p = rdf:type && (?o = rdfs:Class || ?o = owl:Class)) || ?p = rdfs:subClassOf ) )  }}";
@@ -294,43 +294,26 @@ public class GraphDbRepositoryNamespaces
         return _ontoTreeDict.ContainsKey(namespce);
     }
 
-    public bool TryAddNodeToOntoNode(Node definedNode, Node simpleOntoNode)
-    {
-        if(!_ontoTreeDict.TryGetValue(simpleOntoNode.Namespace, out OntologyTree ontoTree))
-        {
-            return false;
-        }
-
-        if(!ontoTree.TryGetOntoNode(simpleOntoNode.Id, out OntoNode ontoNode))
-        {
-            return false;
-        }
-
-        ontoNode.NodesAttached.Add(definedNode);
-        return true;
-    }
-
-    public bool CanAddNodeToOntoNode(Node simpleOntoNode, out OntoNode ontoNode)
+    public bool DoesOntoNodeExistInOntologyTree(Node simpleOntoNode, out OntoNode ontoNode)
     {
         ontoNode = null;
-        if (!_ontoTreeDict.TryGetValue(simpleOntoNode.Namespace, out OntologyTree ontoTree))
-        {
-            return false;
-        }
 
-        if (!ontoTree.TryGetOntoNode(simpleOntoNode.Id, out ontoNode))
-        {
+        // Does an ontologytree exist with this namespace
+        if (!_ontoTreeDict.TryGetValue(simpleOntoNode.Namespace, out OntologyTree ontoTree))
             return false;
-        }
+
+        // Does an ontoNode exist in the ontologytree
+        if (!ontoTree.TryGetOntoNode(simpleOntoNode.Id, out ontoNode))
+            return false;
 
         return true;
     }
 
-    public void ResetDefinedNodes()
+    public void DetachNodesFromOntoNodes()
     {
         foreach(var ontoUri in _ontoTreeDict)
         {
-            ontoUri.Value.ResetDefinedNodes();
+            ontoUri.Value.DetachNodesFromOntoNodes();
         }
     }
 

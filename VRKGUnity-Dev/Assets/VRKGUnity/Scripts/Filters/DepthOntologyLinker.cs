@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-
+using UnityEngine;
 
 /// <summary>
 /// With inference at true, all parent subClassOf are link to nodes.
@@ -7,81 +7,78 @@ using System.Collections.Generic;
 /// </summary>
 public class DepthOntologyLinker
 {
+    readonly GraphDbRepositoryNamespaces _repoNamespaces;
 
-    GraphDbRepositoryNamespaces _repoNamespaces;
-
-    Dictionary<string, DeepOntologyLink> _deepOntologyLinks;
+    /// <summary>
+    /// string is a node uri
+    /// </summary>
+    readonly Dictionary<string, DepthOntologyLink> _depthOntologyLinks;
 
     public DepthOntologyLinker(GraphDbRepositoryNamespaces repoNamespaces)
     {
         _repoNamespaces = repoNamespaces;
-        _deepOntologyLinks = new();
+        _depthOntologyLinks = new();
     }
 
 
-    public bool TryLink(Node definedNode, Node simpleOntoNode)
+    /// <summary>
+    /// Try to link a Node to an OntoNode
+    /// </summary>
+    public bool TryEstablishLink(Node candidateDefinedNode, Node candidateOntoNode)
     {
-        if(!_repoNamespaces.CanAddNodeToOntoNode(simpleOntoNode, out OntoNode ontoNode))
+        if(!_repoNamespaces.DoesOntoNodeExistInOntologyTree(candidateOntoNode, out OntoNode ontoNode))
             return false;
 
-        var uri = definedNode.Uri;
+        var uri = candidateDefinedNode.Uri;
 
-
-        if(!_deepOntologyLinks.TryGetValue(uri, out DeepOntologyLink deepOntologyLink))
+        // Check if a DeepOntologyLink has already been created for this node
+        if(!_depthOntologyLinks.TryGetValue(uri, out DepthOntologyLink deepOntologyLink))
         {
-            deepOntologyLink = new(definedNode);
-            _deepOntologyLinks.Add(uri, deepOntologyLink);
+            deepOntologyLink = new(candidateDefinedNode, ontoNode);
+            _depthOntologyLinks.Add(uri, deepOntologyLink);
+            return true;
         }
-
-        deepOntologyLink.TryAdd(ontoNode);
+         
+        deepOntologyLink.TrySetDeeperOntoNode(ontoNode);
         return true;
     }
 
     public void AttachNodesToOntoNodes()
     {
-        foreach(DeepOntologyLink deepOntologyLink in _deepOntologyLinks.Values)
+        foreach(DepthOntologyLink deepOntologyLink in _depthOntologyLinks.Values)
         {
-            deepOntologyLink.Attach();
+            deepOntologyLink.AttachNodeToOntoNode();
         }
     }
 
 }
 
-public class DeepOntologyLink
+/// <summary>
+/// Allow to select the deepest OntoNode for the Node to link
+/// </summary>
+public class DepthOntologyLink
 {
-    Node _node;
+    Node _nodeToLink;
+    OntoNode _currentOntoNodeToAttach;
 
-    Dictionary<string, OntoNode> _deepOntoNodeLinks;
-
-    public DeepOntologyLink(Node node)
+    public DepthOntologyLink(Node node, OntoNode currentOntoNodeToAttach)
     {
-        _node = node;
-        _deepOntoNodeLinks = new();
+        _nodeToLink = node;
+        _currentOntoNodeToAttach = currentOntoNodeToAttach;
     }
 
-    public void TryAdd(OntoNode ontoNode)
-    {
-        var namespce = ontoNode.Value.ExtractUri().namespce;
-        
-        if(!_deepOntoNodeLinks.TryGetValue(namespce, out OntoNode currentOntoNode))
-        {
-            _deepOntoNodeLinks.Add(namespce, ontoNode);
-            return;
-        }
-
-        if (ontoNode.Depth <= currentOntoNode.Depth)
+    public void TrySetDeeperOntoNode(OntoNode newOntoNode)
+    {        
+        // Check if the new OntoNode is deeper that the already present one
+        if (newOntoNode.Depth <= _currentOntoNodeToAttach.Depth)
             return;
 
-
-        _deepOntoNodeLinks[namespce] = ontoNode;
+        _currentOntoNodeToAttach = newOntoNode;
     }
 
-    public void Attach()
+    public void AttachNodeToOntoNode()
     {
-        foreach(OntoNode ontoNode in _deepOntoNodeLinks.Values)
-        {
-            ontoNode.NodesAttached.Add(_node);
-        }
+        _currentOntoNodeToAttach.NodesAttached.Add(_nodeToLink);
     }
 
 }

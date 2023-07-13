@@ -8,8 +8,8 @@ public class OntoNode
     public bool IsFrozen { get { return _isFrozen; } }
 
 
-    public int Id;
-    public string Value;
+    public readonly int Id;
+    public readonly string Value;
 
     public int Depth = int.MaxValue;
 

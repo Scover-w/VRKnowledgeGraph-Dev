@@ -96,7 +96,7 @@ public class OntologyTree
         return true;
     }
 
-    public void ResetDefinedNodes()
+    public void DetachNodesFromOntoNodes()
     {
         foreach(var idAndOntoNode in _ontoNodes)
         {

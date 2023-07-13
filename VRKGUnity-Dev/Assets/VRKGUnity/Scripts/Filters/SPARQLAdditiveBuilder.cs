@@ -10,6 +10,8 @@ public class SPARQLAdditiveBuilder
     string _startAdditiveQuery;
     string _endAdditiveQuery;
 
+    string _firstQuery;
+
     List<string> _additiveQueries;
 
     public SPARQLAdditiveBuilder()
@@ -19,6 +21,16 @@ public class SPARQLAdditiveBuilder
 
         _startAdditiveQuery = "{ SELECT ?s ?p ?o WHERE { ?s ?p ?o . ";
         _endAdditiveQuery = "} }";
+
+
+        _firstQuery = "{?s ?p ?o ." +
+                      "FILTER EXISTS " +
+                      "{ " +
+                      "     GRAPH <http://data> " +
+                      "     { " +
+                      "         ?s ?p1 ?o1 . " +
+                      "     }" +
+                      "}}";
 
         _additiveQueries = new List<string>();
     }
@@ -43,15 +55,11 @@ public class SPARQLAdditiveBuilder
     {
         int nbAdditiveQuery = _additiveQueries.Count;
 
-        if(nbAdditiveQuery == 0)
-        {
-            return "SELECT * WHERE { ?s ?p ?o . }";
-        }
-
         StringBuilder sb = new StringBuilder();
 
         sb.Append(_startBaseQuery);
 
+        sb.Append(_firstQuery);
 
         for (int i = 0; i < nbAdditiveQuery; i++)
         {
