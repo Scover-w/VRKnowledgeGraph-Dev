@@ -239,12 +239,12 @@ public class LabelNodgeManagerUI : MonoBehaviour
 
         foreach (LabelNodgeUI label in displayedNodesLabels.Values)
         {
-            label.SetSize(sizeConvas, fontSize);
+            label.SetSize(scaleSize, sizeConvas, fontSize);
         }
 
         foreach (LabelNodgeUI label in displayedEdgeslabels.Values)
         {
-            label.SetSize(sizeConvas, fontSize);
+            label.SetSize(scaleSize, sizeConvas, fontSize);
         }
     }
 
@@ -440,13 +440,13 @@ public class LabelNodgeManagerUI : MonoBehaviour
 
         foreach (LabelNodgeUI label in _displayedLabelMainNodesDict.Values)
         {
-            label.SetAll(_displayLabelsDesk, sizeConvas, fontSize);
+            label.SetAll(_displayLabelsDesk, scale, sizeConvas, fontSize);
             label.SetActive(true);
         }
 
         foreach (LabelNodgeUI label in _displayedLabelMainEdgesDict.Values)
         {
-            label.SetAll(_displayLabelsDesk, sizeConvas, fontSize);
+            label.SetAll(_displayLabelsDesk, scale, sizeConvas, fontSize);
             label.SetActive(true);
         }
     }
@@ -702,13 +702,13 @@ public class LabelNodgeManagerUI : MonoBehaviour
 
     private void StyleNewPropagatedLabels<T>(Dictionary<T, LabelNodgeUI> newLabels, GraphType graphType)
     {
-        float sizeScale = GetLabelSize(graphType);
-        Vector2 sizeConvas = _baseSizeCanvas * sizeScale;
-        float fontSize = _baseFontSize * sizeScale;
+        float scaleSize = GetLabelSize(graphType);
+        Vector2 sizeConvas = _baseSizeCanvas * scaleSize;
+        float fontSize = _baseFontSize * scaleSize;
 
         foreach (var label in newLabels.Values)
         {
-            label.SetSize(sizeConvas, fontSize);
+            label.SetSize(scaleSize, sizeConvas, fontSize);
         }
     }
     #endregion

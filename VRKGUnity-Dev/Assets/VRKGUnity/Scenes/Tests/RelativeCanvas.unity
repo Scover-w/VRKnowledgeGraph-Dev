@@ -587,7 +587,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ScaleSize: 1
-  MinAtomicFontSize: 0
+  MinReadableFontSize: 0
   _camTf: {fileID: 1338694756}
   _canvasRect: {fileID: 1817322291}
   _labelRect: {fileID: 463501754}
@@ -615,7 +615,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ScaleSize: 1
-  MinAtomicFontSize: 0
+  MinReadableFontSize: 0
   _camTf: {fileID: 1338694756}
   _canvasRect: {fileID: 2100582909}
   _labelRect: {fileID: 78554971}
@@ -740,8 +740,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d405c42deb0e2df4ebe234d3989ccd11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScaleSize: 1
-  MinAtomicFontSize: 36
+  ScaleSize: 0.5
+  MinReadableFontSize: 16
   _camTf: {fileID: 1338694756}
   _canvasRect: {fileID: 2134508164}
   _labelRect: {fileID: 1750917257}
