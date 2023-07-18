@@ -641,6 +641,7 @@ public class Graph
     public void RefreshMainNodePositions(Dictionary<int, NodeSimuData> nodeSimuDatas)
     {
         var scalingFactor = (_graphManager.GraphMode == GraphMode.Desk) ? _graphConfiguration.DeskGraphSize : _graphConfiguration.ImmersionGraphSize;
+        var lerpSmooth = _graphConfiguration.SimuParameters.LerpSmooth;
 
         foreach (var idAnData in nodeSimuDatas)
         {
@@ -652,8 +653,8 @@ public class Graph
             var newCalculatedPosition = idAnData.Value.Position;
             var absolutePosition = node.AbsolutePosition;
 
-            var lerpPosition = Vector3.Lerp(absolutePosition, newCalculatedPosition, .01f);
-            var megaLerpPosition = Vector3.Lerp(mainTf.localPosition, newCalculatedPosition * scalingFactor, .01f);
+            var lerpPosition = Vector3.Lerp(absolutePosition, newCalculatedPosition, lerpSmooth);
+            var megaLerpPosition = Vector3.Lerp(mainTf.localPosition, newCalculatedPosition * scalingFactor, lerpSmooth);
 
             node.AbsolutePosition = lerpPosition;
             mainTf.localPosition = megaLerpPosition;

@@ -14,8 +14,8 @@ public class MisceTests : MonoBehaviour
     public void TestNoDoubleInList()
     {
 
-        List<int> list = new List<int>();
-        HashSet<int> set = new HashSet<int>();
+        List<int> list = new();
+        HashSet<int> set = new();
 
         for (int i = 0; i < 1000; i++)
         {
@@ -54,7 +54,7 @@ public class MisceTests : MonoBehaviour
     [Test]
     public void TestHashSetDuplicate()
     {
-        HashSet<int> set = new HashSet<int>();
+        HashSet<int> set = new();
 
 
         set.Add(1);

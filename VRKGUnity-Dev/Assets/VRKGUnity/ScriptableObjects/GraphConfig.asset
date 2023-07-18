@@ -13,22 +13,40 @@ MonoBehaviour:
   m_Name: GraphConfig
   m_EditorClassIdentifier: 
   _graphConfiguration:
-    TickDeltaTime: 0.016
-    MaxSimulationTime: 15
-    LightSpringForce: 5
-    LightCoulombForce: 0.1
-    LightDamping: 1
-    LightSpringDistance: 1
-    LightCoulombDistance: 2
-    LightMaxVelocity: 10
-    LightStopVelocity: 0.19
-    DenseSpringForce: 5
-    DenseCoulombForce: 0.1
-    DenseDamping: 1
-    DenseSpringDistance: 15
-    DenseCoulombDistance: 30
-    DenseMaxVelocity: 10
-    DenseStopVelocity: 2
+    SimuParameters:
+      TickDeltaTime: 0.016
+      MaxSimulationTime: 15
+      LightSpringForce: 5
+      LightCoulombForce: 0.1
+      LightDamping: 1
+      LightSpringDistance: 1
+      LightCoulombDistance: 2
+      LightMaxVelocity: 10
+      LightStopVelocity: 0.19
+      DenseSpringForce: 5
+      DenseCoulombForce: 0.1
+      DenseDamping: 1
+      DenseSpringDistance: 15
+      DenseCoulombDistance: 30
+      DenseMaxVelocity: 10
+      DenseStopVelocity: 2
+    LensSimuParameters:
+      TickDeltaTime: 0.032
+      MaxSimulationTime: 5
+      LightSpringForce: 10
+      LightCoulombForce: 0.12
+      LightDamping: 1
+      LightSpringDistance: 0.4
+      LightCoulombDistance: 0.8
+      LightMaxVelocity: 30
+      LightStopVelocity: 0.19
+      DenseSpringForce: 10
+      DenseCoulombForce: 0.12
+      DenseDamping: 1
+      DenseSpringDistance: 0.4
+      DenseCoulombDistance: 0.8
+      DenseMaxVelocity: 30
+      DenseStopVelocity: 0.19
     ImmersionGraphSize: 12.75
     DeskGraphSize: 0.1
     WatchGraphSize: 0.025
@@ -37,13 +55,13 @@ MonoBehaviour:
     NodeSizeDesk: 0.03
     NodeSizeWatch: 0.006
     NodeSizeLens: 0.2
-    NodeMinSizeImmersion: 1
+    NodeMinSizeImmersion: 0.6
     NodeMaxSizeImmersion: 0.6
-    NodeMinSizeDesk: 0.03
+    NodeMinSizeDesk: 0.01
     NodeMaxSizeDesk: 0.01
-    NodeMinSizeLens: 0.2
+    NodeMinSizeLens: 0.1
     NodeMaxSizeLens: 0.1
-    LabelNodeSizeImmersion: 5.01
+    LabelNodeSizeImmersion: 5
     LabelNodeSizeDesk: 0.1
     LabelNodeSizeLens: 1.36
     ShowLabelImmersion: 1
@@ -59,7 +77,7 @@ MonoBehaviour:
       _boundaryColorA: 0
       _boundaryColorB: 0.5
       _boundaryColorC: 1
-    NbOntologyColor: 7
+    NbOntologyColor: 9
     MaxDeltaOntologyAlgo: 1
     SaturationOntologyColor: 0.772
     ValueOntologyColor: 0.767
@@ -70,8 +88,8 @@ MonoBehaviour:
     ShowWatch: 1
     SelectedMetricTypeSize: 0
     SelectedMetricTypeColor: 0
-  NodeColor: {r: 1, g: 0.97085756, b: 0.35294116, a: 1}
-  EdgeColor: {r: 0.7254902, g: 0.7254902, b: 0.7254902, a: 1}
+  NodeColor: {r: 1, g: 1, b: 1, a: 1}
+  EdgeColor: {r: 0.83137256, g: 0.83137256, b: 0.83137256, a: 1}
   PropagatedEdgeColor: {r: 0, g: 0.21960784, b: 1, a: 1}
   NodeColorA: {r: 1, g: 0, b: 0, a: 1}
   NodeColorB: {r: 0, g: 1, b: 0, a: 1}
@@ -79,9 +97,11 @@ MonoBehaviour:
   NodeColorNoOntology: {r: 0.69803923, g: 0.69803923, b: 0.69803923, a: 1}
   OntologyViewerColors:
   - {r: 0.767, g: 0.17487599, b: 0.17487599, a: 1}
-  - {r: 0.767, g: 0.6824109, b: 0.17487599, a: 1}
-  - {r: 0.3440542, g: 0.767, b: 0.17487599, a: 1}
-  - {r: 0.17487599, g: 0.767, b: 0.5132327, a: 1}
-  - {r: 0.17487599, g: 0.5132324, b: 0.767, a: 1}
-  - {r: 0.3440542, g: 0.17487599, b: 0.767, a: 1}
-  - {r: 0.767, g: 0.17487599, b: 0.68241066, a: 1}
+  - {r: 0.767, g: 0.5696254, b: 0.17487599, a: 1}
+  - {r: 0.5696253, g: 0.767, b: 0.17487599, a: 1}
+  - {r: 0.17487599, g: 0.767, b: 0.17487599, a: 1}
+  - {r: 0.17487599, g: 0.767, b: 0.5696254, a: 1}
+  - {r: 0.17487599, g: 0.56962526, b: 0.767, a: 1}
+  - {r: 0.17487599, g: 0.17487599, b: 0.767, a: 1}
+  - {r: 0.56962556, g: 0.17487599, b: 0.767, a: 1}
+  - {r: 0.767, g: 0.17487599, b: 0.56962526, a: 1}

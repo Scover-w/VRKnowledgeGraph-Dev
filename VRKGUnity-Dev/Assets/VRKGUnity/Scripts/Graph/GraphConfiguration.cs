@@ -9,31 +9,13 @@ public class GraphConfiguration
 {
     [Header("Simulation Parameters")]
 
-    public float TickDeltaTime = 0.016f;
-    public float MaxSimulationTime = 15f;
+    public SimulationParameters SimuParameters;
+    public SimulationParameters LensSimuParameters;
 
+
+    [Space(15)]
+    [Header("/Styling/")]
     [Space(5)]
-    [Header("Light Graph")]
-    public float LightSpringForce = 5f;
-    public float LightCoulombForce = .1f;
-    public float LightDamping = 1f;
-    public float LightSpringDistance = 1f;
-    public float LightCoulombDistance = 2f;
-    public float LightMaxVelocity = 10f;
-    public float LightStopVelocity = .19f;
-
-    [Header("Dense Graph")]
-    public float DenseSpringForce = 5f;
-    public float DenseCoulombForce = .1f;
-    public float DenseDamping = 1f;
-    public float DenseSpringDistance = 15f;
-    public float DenseCoulombDistance = 30f;
-    public float DenseMaxVelocity = 10f;
-    public float DenseStopVelocity = 2f;
-
-    [Space(30)]
-    [Header("Styling")]
-    [Space(10)]
     [Header("Graph Size")]
     public float ImmersionGraphSize = 12.75f;
     public float DeskGraphSize = .1f;
@@ -144,7 +126,7 @@ public class GraphConfiguration
     [JsonProperty("NodeColor_")]
     private System.Drawing.Color _nodeColor = System.Drawing.Color.FromArgb(255, 255, 255);
 
-    public ColorLerpMapper NodeColorMapping = new ColorLerpMapper();
+    public ColorLerpMapper NodeColorMapping = new();
 
     
     [JsonProperty("NodeColorNoOntology_")]
@@ -157,7 +139,7 @@ public class GraphConfiguration
     [JsonProperty("PropagatedEdgeColor_")]
     private System.Drawing.Color _propagatedEdgeColor = System.Drawing.Color.FromArgb(0, 56, 255);
 
-    [Header("Ontology")]
+    [Header("/Ontology/")]
     [Range(1, 15)]
     public int NbOntologyColor = 7;
     [Range(0, 15)]
@@ -169,7 +151,7 @@ public class GraphConfiguration
 
 
     [Space(30)]
-    [Header("Miscelaneous")]
+    [Header("/Miscelaneous/")]
     [Space(5)]
     public int LabelNodgePropagation = 1;
     public bool ResetPositionNodeOnUpdate = true;

@@ -77,7 +77,7 @@ public class GraphSimulation : MonoBehaviour
         _isRunningSimulation = true;
 
         float time = 0f;
-        float speed = 1f / _graphConfiguration.MaxSimulationTime;
+        float speed = 1f / _graphConfiguration.SimuParameters.MaxSimulationTime;
 
         while (_isRunningSimulation && time < 1f && !_wantStopSimulation)
         {
@@ -103,7 +103,7 @@ public class GraphSimulation : MonoBehaviour
         _isRunningSimulation = true;
 
         float time = 0f;
-        float speed = 1f / _graphConfiguration.MaxSimulationTime;
+        float speed = 1f / _graphConfiguration.SimuParameters.MaxSimulationTime;
 
         while (_isRunningSimulation && time < 1f && !_wantStopSimulation)
         {
@@ -175,7 +175,7 @@ public class GraphSimulation : MonoBehaviour
         var edgesSimuData = nodgesSimuData.EdgeSimuDatas;
 
 
-        var config = _graphConfiguration;
+        var config = _graphConfiguration.SimuParameters;
 
         if (nodesSimuData.Count > 500)
         {

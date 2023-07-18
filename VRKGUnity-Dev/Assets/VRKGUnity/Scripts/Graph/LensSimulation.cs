@@ -111,7 +111,7 @@ public class LensSimulation : MonoBehaviour
 
         _isRunningSimulation = true;
 
-        while (_isRunningSimulation && ( !(!hasReachStopVelocity && timer > .5f) ) && !_wantStopSimulation)
+        while (_isRunningSimulation && ( !(hasReachStopVelocity && timer > 1f) ) && !_wantStopSimulation)
         {
             hasReachStopVelocity = CalculateNodeSimuData(nodgesSimuDatas);
 
@@ -126,10 +126,11 @@ public class LensSimulation : MonoBehaviour
             _newNodeSimuDatas = nodgesSimuDatas.NodeSimuDatas.Clone();
 
             timer += (float)(DateTime.Now - lastTimer).TotalSeconds;
+
             lastTimer = DateTime.Now;
         }
 
-        Debug.Log("Simu Finished");
+        Debug.Log("Simu Finished : /isRunningSimu " +_isRunningSimulation + "/ ,  /wantStopSimu " + _wantStopSimulation + "/ ,  /hasReachStopVelo " + hasReachStopVelocity + "/ , timer > 1f " + (timer > 1f) + "/ , bricbroc " + (!(hasReachStopVelocity && timer > 1f)));
 
         _newNodeSimuDatas = nodgesSimuDatas.NodeSimuDatas.Clone();
         _isRunningSimulation = false;
@@ -147,7 +148,7 @@ public class LensSimulation : MonoBehaviour
         var edgesSimuData = simuData2D.EdgeSimuDatas;
 
 
-        var config = _graphConfiguration;
+        var config = _graphConfiguration.LensSimuParameters;
 
         if (nodesSimuData.Count > 500)
         {
@@ -230,15 +231,17 @@ public class LensSimulation : MonoBehaviour
         {
             var nodeData = idAndNodeData.Value;
             nodeData.Velocity *= damping;
+            velocitySum += nodeData.Velocity.magnitude;
 
             if (nodeData.Velocity.magnitude > maxVelocity)
                 nodeData.Velocity /= nodeData.Velocity.magnitude * invMaxVelocity;
 
-            velocitySum += nodeData.Velocity.magnitude;
             nodeData.Position += nodeData.Velocity * tickDeltaTime;
         }
 
         float velocityGraph = velocitySum / (float)nodesSimuData.Count;
+
+        Debug.Log(velocityGraph);
 
         return velocityGraph < stopVelocity;
     }
@@ -248,7 +251,7 @@ public class LensSimulation : MonoBehaviour
         _isRunningSimulation = true;
 
         float time = 0f;
-        float speed = 1f / _graphConfiguration.MaxSimulationTime;
+        float speed = 1f / _graphConfiguration.LensSimuParameters.MaxSimulationTime;
 
         while (_isRunningSimulation && time < 1f && !_wantStopSimulation)
         {
@@ -276,6 +279,7 @@ public class LensSimulation : MonoBehaviour
     private void RefreshLensNodePositions()
     {
         var scalingFactor = _graphConfiguration.LensGraphSize;
+        var lerpSmooth = _graphConfiguration.LensSimuParameters.LerpSmooth;
 
         foreach (var idAnData in _nodeSimuDatas)
         {
@@ -285,7 +289,7 @@ public class LensSimulation : MonoBehaviour
             var subTf = node.SubGraphNodeTf;
 
             var newCalculatedPosition = idAnData.Value.Position;
-            var subLerpPosition = Vector3.Lerp(subTf.localPosition, newCalculatedPosition * scalingFactor, .01f);
+            var subLerpPosition = Vector3.Lerp(subTf.localPosition, newCalculatedPosition * scalingFactor, lerpSmooth);
             subTf.localPosition = subLerpPosition;
         }
 
