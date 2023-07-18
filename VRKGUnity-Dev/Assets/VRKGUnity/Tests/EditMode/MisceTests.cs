@@ -51,16 +51,6 @@ public class MisceTests : MonoBehaviour
 
     }
 
-    [Test]
-    public void TestHashSetDuplicate()
-    {
-        HashSet<int> set = new();
-
-
-        set.Add(1);
-        set.Add(1);
-
-    }
 
     [Test]
     public void GetIps()
@@ -95,7 +85,7 @@ public class MisceTests : MonoBehaviour
     {
         Guid guid = Guid.NewGuid();
         string uniqueId = guid.ToString();
-        Debug.Log("http://www.cidoc-crm.org/cidoc-crm/".Length);
+        Debug.Log("http://www.cidoc-crm.org/cidoc-crm/".Length + "  " + uniqueId);
 
     }
 

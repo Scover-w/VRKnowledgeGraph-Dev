@@ -9,8 +9,6 @@ using UnityEngine;
 
 public class Graph
 {
-    public bool ReachStopVelocity {  get { return _reachStopVelocity; } }
-
     public IReadOnlyDictionary<int, Node> NodesDicId => _nodesDicId;
     public IReadOnlyDictionary<int, Edge> EdgesDicId => _edgesDicId;
 
@@ -40,9 +38,6 @@ public class Graph
     OntoNodeGroupTree _ontoNodeTree;
 
     GraphDbRepositoryNamespaces _repoNamespaces;
-
-    
-    bool _reachStopVelocity;
 
     int _metricsCalculated;
 

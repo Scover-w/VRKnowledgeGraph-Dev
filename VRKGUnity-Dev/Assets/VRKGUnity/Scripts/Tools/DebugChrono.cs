@@ -10,10 +10,7 @@ public class DebugChrono
     {
         get
         {
-            if(_instance == null)
-            {
-                _instance = new DebugChrono();
-            }
+            _instance ??= new DebugChrono();
             
             return _instance;
         }
@@ -21,8 +18,7 @@ public class DebugChrono
 
     public static DebugChrono _instance;
 
-
-    Dictionary<string, Stopwatch> _chronos;
+    readonly Dictionary<string, Stopwatch> _chronos;
 
 
     public DebugChrono()
@@ -39,7 +35,7 @@ public class DebugChrono
             _chronos.Remove(keyChrono);
         }
 
-        Stopwatch stopwatch = new Stopwatch();
+        Stopwatch stopwatch = new();
         stopwatch.Start();
         _chronos.Add(keyChrono, stopwatch);
     }
