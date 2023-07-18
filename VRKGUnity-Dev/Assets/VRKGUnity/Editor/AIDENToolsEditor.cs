@@ -1,9 +1,13 @@
+using System;
+using System.Diagnostics;
 using System.IO;
 using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.Windows;
 using VDS.RDF;
+using Debug = UnityEngine.Debug;
 
 public class AIDENToolsEditor : MonoBehaviour
 {
@@ -133,5 +137,53 @@ public class AIDENToolsEditor : MonoBehaviour
         }
 
         Debug.Log("Cap44 data has been removed !");
+    }
+
+
+    [MenuItem("AIDEN Tools/Set Wifi IP")]
+    private static void SetWifiIP()
+    {
+
+        string adapterName = "TP-Link Wireless USB Adapter";
+
+        var process = new Process()
+        {
+            StartInfo = new ProcessStartInfo("cmd.exe")
+            {
+                RedirectStandardInput = true,
+                RedirectStandardOutput = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            }
+        };
+
+        process.Start();
+
+        process.StandardInput.WriteLine("wmic nicconfig where \"IPEnabled=True\" get Caption, IPAddress");
+        process.StandardInput.Close(); // Important to close input stream
+
+        string result = process.StandardOutput.ReadToEnd();
+
+        process.WaitForExit();
+
+
+        // Split input into lines
+        string[] lines = result.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+
+        // Iterate through lines
+        foreach (string line in lines)
+        {
+            // Check if line contains the adapter's name
+            if (line.Contains(adapterName))
+            {
+                // Split line into components
+                string[] components = line.Split(new[] { '{', '}', ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+                // The IPv4 address is the second component after the split (trimming to remove any leading/trailing spaces or quotes)
+                string ipv4 = components[1].Trim().Trim('"');
+
+                Debug.Log($"The IP address for the {adapterName} is {ipv4}");
+            }
+        }
     }
 }
