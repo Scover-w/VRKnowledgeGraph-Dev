@@ -1,10 +1,11 @@
 @prefix bibo: <http://purl.org/ontology/bibo/> .
-@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix ns1: <http://omeka.org/s/vocabs/o#> .
 @prefix rdaa: <http://rdaregistry.info/Elements/a/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix skos1: <http://www.w3.org/2004/02/skos/core> .
 
 <https://cap44.univ-nantes.fr/api/items/104> a crm:E29_Design_or_Procedure ;
     rdfs:label "Plan du projet du 3ème étage du CAP 44 en 1972" ;
@@ -23,8 +24,11 @@
     crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/12>,
         <https://cap44.univ-nantes.fr/api/items/459>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Projet 3e 72" ;
-    skos:prefLabel "Plan du projet du 3ème étage du CAP 44 en 1972" .
+    skos1:altLabel "Projet 3e 72" ;
+    skos1:prefLabel "Plan du projet du 3ème étage du CAP 44 en 1972" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/031c5bcf7eb98a9d128b8408ffcde76da4d2c678.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/5942fa7e9105a66d8fc88fe689be982f270677c9.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/cfea18b7f3191de26609fbd2b1cccd2153c52cfc.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/108> a crm:E29_Design_or_Procedure ;
     rdfs:label "Projet du plan du 4ème étage du CAP 44 en 1972" ;
@@ -43,8 +47,11 @@
     crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/12>,
         <https://cap44.univ-nantes.fr/api/items/459>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Projet 4e 72" ;
-    skos:prefLabel "Projet du plan du 4ème étage du CAP 44 en 1972" .
+    skos1:altLabel "Projet 4e 72" ;
+    skos1:prefLabel "Projet du plan du 4ème étage du CAP 44 en 1972" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/45285ab870dd72b331a77d875e6d67ed4e39184d.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/8a3da557ef12b261ccdd8b1638b4ca2d56732cd8.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/cf22eb3bfef74105633b3743ce668592a5cf1fff.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/112> a crm:E29_Design_or_Procedure ;
     rdfs:label "Projet du plan du Rez-de-chaussée du CAP 44 en 1972" ;
@@ -63,8 +70,15 @@
     crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/12>,
         <https://cap44.univ-nantes.fr/api/items/459>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Projet rdc 72" ;
-    skos:prefLabel "Projet du plan du Rez-de-chaussée du CAP 44 en 1972" .
+    skos1:altLabel "Projet rdc 72" ;
+    skos1:prefLabel "Projet du plan du Rez-de-chaussée du CAP 44 en 1972" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/3330e63cf6923a5dae7cc12754f01e6da5bc46ed.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/3c94ba1212a8964aa9bd1bcbdfbf91fcbafb5050.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/418718d548ff82f219f75901d9b308e1145d7bf8.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/5c44207cb243fa790f3207644cbf706e19885f45.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/904670ea783ee12f5dd33ebfbb2546827a04c598.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/b90c109a2240e2e01dda05809f9ecc588f425b38.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/f19581c2fe5356ab62a29170f88fc215892dbcc1.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/120> a crm:E29_Design_or_Procedure ;
     rdfs:label "Projet du plan du Sous-sol du CAP 44 en 1972" ;
@@ -83,8 +97,14 @@
     crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/12>,
         <https://cap44.univ-nantes.fr/api/items/459>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Projet Sous-sol 72" ;
-    skos:prefLabel "Projet du plan du Sous-sol du CAP 44 en 1972" .
+    skos1:altLabel "Projet Sous-sol 72" ;
+    skos1:prefLabel "Projet du plan du Sous-sol du CAP 44 en 1972" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/010c0dfce7de0ac1b2217a21110a2fd98c0695c6.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/10c225b4dd791230271030486a804d32a2c65a8f.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/13255b6a9ded70ae4dad9ab4247ccacd96fdf1b9.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/1553717dff37ee0fdebae5e0dd4b9fcfa7af25a3.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/297f5207fbca2f75166417430aeb70ad5991e695.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/c3ce7782399c6d1e06272648c3d94f8943d71478.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/127> a crm:E31_Document ;
     rdfs:label "Démolitions et construction de bureaux et parking - Devis descriptif" ;
@@ -102,8 +122,12 @@
     crm:P70_documents <https://cap44.univ-nantes.fr/api/items/12>,
         <https://cap44.univ-nantes.fr/api/items/459>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Bureaux et parking" ;
-    skos:prefLabel "Démolitions et construction de bureaux et parking - Devis descriptif" .
+    skos1:altLabel "Bureaux et parking" ;
+    skos1:prefLabel "Démolitions et construction de bureaux et parking - Devis descriptif" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/37171f75ac43560d094b26d40966678cfc6e1eec.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/4e37cdc8719b6c738018e16bac2419180074210b.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/52e404fa80f8a2055edc2af042b9b4844aa5413f.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/6b76c402ed12f83aa987e71ecf87d785680f47aa.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/13> a crm:E31_Document ;
     rdfs:label "Liquidation judiciaire des Moulins de Nantes" ;
@@ -118,8 +142,22 @@
         "4ème quart du 19ème siècle (Agorha)" ;
     crm:P70_documents <https://cap44.univ-nantes.fr/api/items/10>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Liquidation judiciaire" ;
-    skos:prefLabel "Liquidation judiciaire des Moulins de Nantes" .
+    skos1:altLabel "Liquidation judiciaire" ;
+    skos1:prefLabel "Liquidation judiciaire des Moulins de Nantes" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/029699cbeed00386803f29644e7d655f4a097fcd.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/2c3882b374927c95a67dca91733a26b8f92412da.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/2c76eeff34449ed0372502fcc6434d72a0d9e6c7.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/3d7398643c418cbe91a44c26d170ded3f616f648.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/42137d900b0da8535ca38e8bc4ca5cab0c31dac5.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/45b33aedf7b3d315e637afc72f95c6ab7d15218a.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/4b7b879bfd349702f8759da8b2e6f83267e17652.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/6233bdbe672d56753aa3af3807369f3fb067cbc1.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/79aa8f36f88b486f93bb2f36c2dd69991a01e073.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/a83d74c50ef1ae5cd5364eebd0b46eb538ff3dfc.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/cf3f0e51dc2a4b60fa0b3f9aee3650c360a386a9.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/d042201b603b9004f457e683bd83166faccea3d4.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/d17c603abd26e9501cc916e55ba04fa9645b7537.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/fee93fe23420e1a364820121f7bd1168d9f387dd.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/132> a crm:E31_Document ;
     rdfs:label "Obligations des Grands Moulins de la Loire" ;
@@ -135,8 +173,10 @@
         "1er quart du 20e siècle (Agorha)" ;
     crm:P70_documents <https://cap44.univ-nantes.fr/api/items/10>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Obligations GMDL" ;
-    skos:prefLabel "Obligations des Grands Moulins de la Loire" .
+    skos1:altLabel "Obligations GMDL" ;
+    skos1:prefLabel "Obligations des Grands Moulins de la Loire" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/8427a138cb46ab878510dfc4c109bad63b8b77f6.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/9a17ad338c369390644f3da05a426620c52534a8.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/135> a crm:E31_Document ;
     rdfs:label "Note programme concernant la transformation d'un immeuble d'entrepôt à Nantes" ;
@@ -153,8 +193,12 @@
     crm:P70_documents <https://cap44.univ-nantes.fr/api/items/12>,
         <https://cap44.univ-nantes.fr/api/items/459>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Programme entrepôt" ;
-    skos:prefLabel "Note programme concernant la transformation d'un immeuble d'entrepôt à Nantes" .
+    skos1:altLabel "Programme entrepôt" ;
+    skos1:prefLabel "Note programme concernant la transformation d'un immeuble d'entrepôt à Nantes" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/12b698ecda5b3fefa29671b9504f512f28aad953.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/3ba2f49d921346c55cff989e9f42ff74d3f049af.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/528d01805545f6bcd69fd320d7309641e9b87d86.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/97b0a5cbd47e6f4d1a5e9cb9095365105d5c820c.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/140> a crm:E31_Document ;
     rdfs:label "Permis de construire" ;
@@ -170,8 +214,10 @@
     crm:P70_documents <https://cap44.univ-nantes.fr/api/items/12>,
         <https://cap44.univ-nantes.fr/api/items/459>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Permis" ;
-    skos:prefLabel "Permis de construire" .
+    skos1:altLabel "Permis" ;
+    skos1:prefLabel "Permis de construire" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/4e85566e91cfcae0a6e012570ff91dc36f29a71e.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/da9eea86c1e9662882d0bdd12691dc456a996867.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/143> a crm:E31_Document ;
     rdfs:label "Lettre de Monsieur Ferronnière Architecte" ;
@@ -189,8 +235,9 @@
     crm:P70_documents <https://cap44.univ-nantes.fr/api/items/12>,
         <https://cap44.univ-nantes.fr/api/items/459>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Lettre Ferronière" ;
-    skos:prefLabel "Lettre de Monsieur Ferronnière Architecte" .
+    skos1:altLabel "Lettre Ferronière" ;
+    skos1:prefLabel "Lettre de Monsieur Ferronnière Architecte" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/8f0e91520a0a1647c6bcb949c633337850badda1.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/149> a crm:E31_Document ;
     rdfs:label "Rapport de visite SCI Marcel Sembat" ;
@@ -207,8 +254,14 @@
         "3e quart du 20e siècle (Agorha)" ;
     crm:P70_documents <https://cap44.univ-nantes.fr/api/items/12>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Rapport visite SCI" ;
-    skos:prefLabel "Rapport de visite SCI Marcel Sembat" .
+    skos1:altLabel "Rapport visite SCI" ;
+    skos1:prefLabel "Rapport de visite SCI Marcel Sembat" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/07665a926e5f99cb6c4080e9901457b157d87b86.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/380373477cf2b102e7e4db25234a8a403605b1f3.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/6bcaded2cca0f1fcb0d5b6937872f8bd81d6de0c.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/8f24e5b76dcaeaa789858a2dd8b7ef0ac1e93c27.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/a53f2e20bb19d1b3c1e367ac4f0585d627f7c94e.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/d1aa62bc31f73d9352958e2dea52b85563848fe2.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/156> a crm:E31_Document ;
     rdfs:label "Rapport pour l'appréciation des apports en nature et des avantages particuliers - Grands Moulins de la Loire" ;
@@ -226,8 +279,14 @@
     bibo:shortTitle "Rapport appréciation GML" ;
     crm:P70_documents <https://cap44.univ-nantes.fr/api/items/10>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Rapport apports GML" ;
-    skos:prefLabel "Rapport pour l'appréciation des apports en nature et des avantages particuliers - Grands Moulins de la Loire" .
+    skos1:altLabel "Rapport apports GML" ;
+    skos1:prefLabel "Rapport pour l'appréciation des apports en nature et des avantages particuliers - Grands Moulins de la Loire" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/3f61d65bb37f7875b92fbd2a63c1de6c38fc5509.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/9ded9c13d6fa47501694a677f672a4e1429ee90b.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/b99c610ad37101bccd351c7af232f8b6381dd999.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/c8a5468807aa286dd4f96bae1a5b52cb89c4bed7.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/e3e77c5c7aad30e9fe6a5c4b76cd6f56f7b4aa8c.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/ec0075311d84b3c1b039ff6f88988de3927fd7bc.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/163> a crm:E36_Visual_Item ;
     rdfs:label "Photographie de la construction de l'Usine de la Piperie" ;
@@ -247,8 +306,10 @@
         <https://cap44.univ-nantes.fr/api/items/7>,
         <https://cap44.univ-nantes.fr/api/items/9>,
         "Béton armé (Getty)" ;
-    skos:altLabel "Photo construction Piperie" ;
-    skos:prefLabel "Photographie de la construction de l'Usine de la Piperie" .
+    skos1:altLabel "Photo construction Piperie" ;
+    skos1:prefLabel "Photographie de la construction de l'Usine de la Piperie" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/6646a99ca20eeaedaca077eae79fbb966d7b0234.tif>,
+        <https://cap44.univ-nantes.fr/files/original/7d759c3aa965bce6ae939bfe5c747b93ed1ea8e5.tif> .
 
 <https://cap44.univ-nantes.fr/api/items/166> a crm:E36_Visual_Item ;
     rdfs:label "Minoterie de Nort-sur-Erdre" ;
@@ -270,8 +331,18 @@ B. Arnaud""" ;
         "4e quart du 19e siècle (Agorha)" ;
     crm:P138_represents <https://cap44.univ-nantes.fr/api/items/297>,
         "Construction du Moulin idéal de Nort-sur-Edre" ;
-    skos:altLabel "Minoterie NsE" ;
-    skos:prefLabel "Minoterie de Nort-sur-Erdre" .
+    skos1:altLabel "Minoterie NsE" ;
+    skos1:prefLabel "Minoterie de Nort-sur-Erdre" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/1249811836b7efaf51adcea5dd3ff7bf89f91c0b.tif>,
+        <https://cap44.univ-nantes.fr/files/original/125c865c72837c63426c1ba1e44ac3724b7eb327.tif>,
+        <https://cap44.univ-nantes.fr/files/original/2b7e7c6c5eeeb406621b7e23f58363a51b34a570.tif>,
+        <https://cap44.univ-nantes.fr/files/original/5c138de7f4118dc00652447aaf23cfab09ed8acd.tif>,
+        <https://cap44.univ-nantes.fr/files/original/762b563d4105d21dbee27001fe10d753efaf132f.tif>,
+        <https://cap44.univ-nantes.fr/files/original/8c6cf0f12585f92891eb906c78fb087abe45f20b.tif>,
+        <https://cap44.univ-nantes.fr/files/original/9b4eafea09e9f0f3edf510b1f8f504d280c9d35e.tif>,
+        <https://cap44.univ-nantes.fr/files/original/d26a089f89e50225784cb0e61620e5d2b5ce26e4.tif>,
+        <https://cap44.univ-nantes.fr/files/original/e0e0e2e8facb7b3ed9f5078c9c4a2493650400b5.tif>,
+        <https://cap44.univ-nantes.fr/files/original/e8b27d90deb61f5ff5c01954a5fd71eba7c000f7.tif> .
 
 <https://cap44.univ-nantes.fr/api/items/177> a crm:E36_Visual_Item ;
     rdfs:label "Roue à inertie de l'Usine de la Piperie" ;
@@ -288,8 +359,13 @@ B. Arnaud""" ;
     crm:P138_represents <https://cap44.univ-nantes.fr/api/items/10>,
         <https://cap44.univ-nantes.fr/api/items/7>,
         <https://cap44.univ-nantes.fr/api/items/9> ;
-    skos:altLabel "Roue inertie" ;
-    skos:prefLabel "Roue à inertie de l'Usine de la Piperie" .
+    skos1:altLabel "Roue inertie" ;
+    skos1:prefLabel "Roue à inertie de l'Usine de la Piperie" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/39c8744905cdbb620861a4f09df7f10d8ec00a00.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/b79bfa2c3c23c99a97e14c650e820c58d80ea607.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/c0621ddfa58e14b2e3fdba826ea0c88b888c4f08.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/cabaa2acb2b8d71a255c996899547e8511c2d615.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/cb84bf5c2b8c3f030002626c3ba96ad3f24301d8.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/182> a crm:E36_Visual_Item ;
     rdfs:label "Minoterie de Bouvron" ;
@@ -306,8 +382,9 @@ B. Arnaud""" ;
         "2e moitié du 19e siècle (Agorha)" ;
     crm:P138_represents <https://cap44.univ-nantes.fr/api/items/295>,
         "Construction de la minoterie de Bouvron" ;
-    skos:altLabel "Minoterie Bvrn" ;
-    skos:prefLabel "Minoterie de Bouvron" .
+    skos1:altLabel "Minoterie Bvrn" ;
+    skos1:prefLabel "Minoterie de Bouvron" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/d05e3f50a61f985229f468f24cc5fb754f2ee7dc.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/188> a crm:E29_Design_or_Procedure ;
     rdfs:label "Plan de l'estacade et des magasins des Grands Moulins de Nantes" ;
@@ -326,9 +403,11 @@ B. Arnaud""" ;
         <https://cap44.univ-nantes.fr/api/items/10>,
         <https://cap44.univ-nantes.fr/api/items/8>,
         "François Hennebique" ;
-    skos:altLabel """Plan estacade
+    skos1:altLabel """Plan estacade
 """ ;
-    skos:prefLabel "Plan de l'estacade et des magasins des Grands Moulins de Nantes" .
+    skos1:prefLabel "Plan de l'estacade et des magasins des Grands Moulins de Nantes" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/0b2371c34c9a016bff1cdc15b1eb3ab15026ba97.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/9bd012d210bf74ba7d1d7145609ee6e0a27ee345.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/191> a crm:E31_Document ;
     rdfs:label "Correspondance entre François Hennebique et la Société anonyme des Grands Moulins de Nantes concernant les calculs pour les silos et estacades des Grands Moulins de Nantes" ;
@@ -351,8 +430,21 @@ B. Arnaud""" ;
         <https://cap44.univ-nantes.fr/api/items/8>,
         "Béton armé (Getty)",
         "François Hennebique" ;
-    skos:altLabel "Correspondance F. Hennebique" ;
-    skos:prefLabel "Correspondance entre François Hennebique et la Société anonyme des Grands Moulins de Nantes concernant les calculs pour les silos et estacades des Grands Moulins de Nantes" .
+    skos1:altLabel "Correspondance F. Hennebique" ;
+    skos1:prefLabel "Correspondance entre François Hennebique et la Société anonyme des Grands Moulins de Nantes concernant les calculs pour les silos et estacades des Grands Moulins de Nantes" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/069ce90f70f4de07fe394874112b29f39c295e1e.tif>,
+        <https://cap44.univ-nantes.fr/files/original/09f3d64fb54eb74d163323f150b4495a359e14f5.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/2a078fa157e08b74cd820fa498827e5feb4f9669.tif>,
+        <https://cap44.univ-nantes.fr/files/original/47b31433853702177a74f50748966973c5593eef.tif>,
+        <https://cap44.univ-nantes.fr/files/original/52327d068af798f430521c56349d8d14a372effe.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/618a96894e7e1a35ce033511a690607cefcda0a9.tif>,
+        <https://cap44.univ-nantes.fr/files/original/71f2026c003abba123467d23b223ef918c0394aa.tif>,
+        <https://cap44.univ-nantes.fr/files/original/86c0ceb390d15a344d7e8a39c2e73c4318a9246e.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/8d9d5f294cab9c9d494ab4e585eed6ceef8845d7.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/975a30d4d9b884eccb77d4aa54512457c406ad08.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/c107901051e6ee4225e22c1b4e42ef92b344b209.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/c3176363edeb39a6df42fcf8553f6a00195d7b96.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/d04e92a2acec8800b3f90bb82ef17117aa48074a.tif> .
 
 <https://cap44.univ-nantes.fr/api/items/208> a crm:E36_Visual_Item ;
     rdfs:label "Vue des entrepôts" ;
@@ -365,8 +457,9 @@ B. Arnaud""" ;
         "1ère moitié du 20e siècle (Agorha)" ;
     crm:P138_represents <https://cap44.univ-nantes.fr/api/items/11>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Vue entrepôts" ;
-    skos:prefLabel "Vue des entrepôts" .
+    skos1:altLabel "Vue entrepôts" ;
+    skos1:prefLabel "Vue des entrepôts" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/c88c737e2195ffb8418166c0aebaf087a226fb46.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/210> a crm:E36_Visual_Item ;
     rdfs:label "Gravure de la minoterie" ;
@@ -382,8 +475,9 @@ B. Arnaud""" ;
         "1er quart du 20e siècle (Agorha)" ;
     crm:P138_represents <https://cap44.univ-nantes.fr/api/items/10>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Gravure" ;
-    skos:prefLabel "Gravure de la minoterie" .
+    skos1:altLabel "Gravure" ;
+    skos1:prefLabel "Gravure de la minoterie" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/869b046582ab4a6279ea6d7252c67e8a424851c8.pdf> .
 
 <https://cap44.univ-nantes.fr/api/items/212> a crm:E36_Visual_Item ;
     rdfs:label "Gravure de la minoterie" ;
@@ -399,8 +493,9 @@ B. Arnaud""" ;
         "1er quart du 20e siècle (Agorha)" ;
     crm:P138_represents <https://cap44.univ-nantes.fr/api/items/10>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Gravure" ;
-    skos:prefLabel "Gravure de la minoterie" .
+    skos1:altLabel "Gravure" ;
+    skos1:prefLabel "Gravure de la minoterie" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/ed197855fa4693307e3931b3e6da114e6250ecb8.pdf> .
 
 <https://cap44.univ-nantes.fr/api/items/214> a crm:E31_Document ;
     rdfs:label "Lettre de la direction de la caisse de crédit agricole de Nantes à Maître Ricordeau" ;
@@ -416,8 +511,9 @@ B. Arnaud""" ;
     bibo:shortTitle "Lettre crédit agricole de Nantes à Me Ricordeau" ;
     crm:P70_documents <https://cap44.univ-nantes.fr/api/items/11>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Lettre à Maître" ;
-    skos:prefLabel "Lettre de la direction de la caisse de crédit agricole de Nantes à Maître Ricordeau" .
+    skos1:altLabel "Lettre à Maître" ;
+    skos1:prefLabel "Lettre de la direction de la caisse de crédit agricole de Nantes à Maître Ricordeau" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/51e553d3fb9904ddb633545619c34abebe26c723.pdf> .
 
 <https://cap44.univ-nantes.fr/api/items/216> a crm:E36_Visual_Item ;
     rdfs:label "Photographie montrant l'intérieur du CAP 44" ;
@@ -429,8 +525,30 @@ B. Arnaud""" ;
         "2012-2015" ;
     crm:P138_represents <https://cap44.univ-nantes.fr/api/items/12>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Intérieur C44" ;
-    skos:prefLabel "Photographie montrant l'intérieur du CAP 44" .
+    skos1:altLabel "Intérieur C44" ;
+    skos1:prefLabel "Photographie montrant l'intérieur du CAP 44" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/03c18c6c71f50807e783fac946d7bd260556ded1.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/0726d7319298a2e0caf11aae27543135f2c9a257.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/11a75eb4ff234db72d08c2ddf7ae025afddd06d7.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/261bba04dcc93049fc11836d526f7760c629c8c4.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/2dd26418cc2df1fc8140256a6cbd32b24fa8bc58.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/320006de2139f37e368fead6f4c0bfa023f51de3.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/49aeb4be32b8025136b2109e31f9cccbb0df331b.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/5da1390076614934c8ed76077599738611f3de24.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/640c40a57516eb0510de4ed4f72f4f0bdfa9a607.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/690be3d5743118a4609433937fd6128d71f7000c.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/7a015430553775920777ee97a9b84c74920028af.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/7db24509f4ffffacacd7cb8b1fff3db08a002da9.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/800c04e0fd40a02a6cc702aa66cd704a8198eb21.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/839cb742d28fc3a8f021e7a3ce8eb8104b5acc55.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/88bd0f052fa2414267a35ac604dd4170a8ff64b9.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/954c4edf82f21e304e5242770f9861335c2780bc.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/b614bf7261b420deac77d89b2cdbde5829936169.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/bb938756c70e30e8c459b25cdb31db4e8d880af4.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/bcfcc904ba0be3804b6264d98c2486332737affa.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/c2c5f744defcac1d1557e25ff260a43c8202bacf.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/c98b8b6a3720bf308fdee340c0da4940973fa8ee.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/efd0641d1200e3923c1f63c66b00674bcf162d65.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/221> a crm:E36_Visual_Item ;
     rdfs:label "Photographie montrant l'extérieur du CAP 44" ;
@@ -442,8 +560,27 @@ B. Arnaud""" ;
         "2012-2015" ;
     crm:P138_represents <https://cap44.univ-nantes.fr/api/items/12>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Extérieur C44" ;
-    skos:prefLabel "Photographie montrant l'extérieur du CAP 44" .
+    skos1:altLabel "Extérieur C44" ;
+    skos1:prefLabel "Photographie montrant l'extérieur du CAP 44" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/046afa84e192ad2594a71c2c13d7bc59492c6f1c.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/1a7724d6fdd0c39a07f08a09b10eec29c5599c54.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/23c49cd17ff4488c817343979bb368e53e373141.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/3a6355afdaaf1e41b1963dfed32007dd7c5043d4.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/4d4aaaa495545c55f132d8ed5f0e0e736a374905.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/5e4c9ac9745316f252c4f3e5aa9c4f6f107e4f5d.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/8d04664dafe5636111f37d87c69e8cf5f1f65108.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/93587478a7681fd727c79a1670d36dc03d44ea06.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/9a6b01a00f87433e977767fc420cfc9592d53ab5.tif>,
+        <https://cap44.univ-nantes.fr/files/original/9f9cf09bd68fc0cb13ed26feb1aeabdf68489636.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/a10e003b983dd42cae03233048a8f0942ca0b977.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/ae94d3e4b319b2fa596e0cf3e69b0d61a89bdec0.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/b5d476fac92f915606d902cc4337fc83bd72806b.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/cf4cc75abf15e01d089b6fab2ce5d4c6ba2befa2.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/d135b6b84c91e9a08725c8a3e5d290f708a932a8.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/e61daddc0b037c502cd3c5844a0fa918e207783e.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/f1a72590039546929dcbbef1ddd1b80f1ea8ade8.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/fd4f473f519a134bbda9f714927cce90b0e10dd0.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/fec670e03fd416ee4555b2b4cab62f1eef9e3f16.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/222> a crm:E36_Visual_Item ;
     rdfs:label "Photographie aérienne du CAP 44" ;
@@ -455,8 +592,11 @@ B. Arnaud""" ;
         "2012" ;
     crm:P138_represents <https://cap44.univ-nantes.fr/api/items/12>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Aérienne C44" ;
-    skos:prefLabel "Photographie aérienne du CAP 44" .
+    skos1:altLabel "Aérienne C44" ;
+    skos1:prefLabel "Photographie aérienne du CAP 44" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/598a8f7560e6e13c2193d21171b95e391fc29c48.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/83ebae4d060fea8e44bf0bb547087366b9903a67.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/a141fcdc50f1ed3bd4f567b4ea125cbe3e968325.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/224> a crm:E31_Document ;
     rdfs:label "Correspondances entre Monsieur le Maire et le Moulin à vapeur des sècheries de Propser Thebaud" ;
@@ -476,8 +616,11 @@ B. Arnaud""" ;
     bibo:shortTitle "Lettres entre M. le Maire et Moulin à vapeur de Propser Thebaud" ;
     crm:P70_documents <https://cap44.univ-nantes.fr/api/items/294>,
         "Correspondances entre Monsieur le Maire et le Moulin à vapeur des sècheries de Propser Thebaud" ;
-    skos:altLabel "Lettre Maire Propser" ;
-    skos:prefLabel "Correspondances entre Monsieur le Maire et le Moulin à vapeur des sècheries de Propser Thebaud" .
+    skos1:altLabel "Lettre Maire Propser" ;
+    skos1:prefLabel "Correspondances entre Monsieur le Maire et le Moulin à vapeur des sècheries de Propser Thebaud" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/0de08ff58dcd9b0b7ef14b74e27d14a0f35f4638.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/4446fe3126364b26b41394f648ff91683078b4ed.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/b6235779d1fc1e44a93ae41913a524dd500a7234.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/268> a crm:E29_Design_or_Procedure ;
     rdfs:label "Carte de la carrière Misery - Bas Chantenay" ;
@@ -491,8 +634,9 @@ B. Arnaud""" ;
         "3e quart du 18e siècle (Agorha)" ;
     crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/294>,
         "La parcelle sur laquelle va se positionner l'Usine de la Piperie" ;
-    skos:altLabel "Carte Misery" ;
-    skos:prefLabel "Carte de la carrière Misery - Bas Chantenay" .
+    skos1:altLabel "Carte Misery" ;
+    skos1:prefLabel "Carte de la carrière Misery - Bas Chantenay" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/5efac9732a82947b7ef614fe02291059efd0ae88.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/270> a crm:E29_Design_or_Procedure ;
     rdfs:label "Carte de la carrière Misery" ;
@@ -506,8 +650,9 @@ B. Arnaud""" ;
         "2e quart du 19e siècle  (Agorha)" ;
     crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/294>,
         "La parcelle sur laquelle va se positionner l'Usine de la Piperie" ;
-    skos:altLabel "Carte Misery" ;
-    skos:prefLabel "Carte de la carrière Misery" .
+    skos1:altLabel "Carte Misery" ;
+    skos1:prefLabel "Carte de la carrière Misery" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/659cadad90ac43159cbd4955739966b7708927f5.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/272> a crm:E29_Design_or_Procedure ;
     rdfs:label "Carte de la carrière Misery - Quai Saint-Louis" ;
@@ -521,8 +666,10 @@ B. Arnaud""" ;
         "2e quart du 19e siècle (Agorha)" ;
     crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/294>,
         "La parcelle sur laquelle va se positionner l'Usine de la Piperie" ;
-    skos:altLabel "Carte Misery - Quai" ;
-    skos:prefLabel "Carte de la carrière Misery - Quai Saint-Louis" .
+    skos1:altLabel "Carte Misery - Quai" ;
+    skos1:prefLabel "Carte de la carrière Misery - Quai Saint-Louis" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/593a616f3951f9c9f51c1810c91794e00fc8c6fc.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/f2f49641c217fdd5422fcc688c64ca1364fd16d1.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/275> a crm:E29_Design_or_Procedure ;
     rdfs:label "Carte de la carrière Misery - Quai Saint-Louis" ;
@@ -536,8 +683,9 @@ B. Arnaud""" ;
         "3e quart du 19e siècle (Agorha)" ;
     crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/294>,
         "La parcelle sur laquelle va se positionner l'Usine de la Piperie" ;
-    skos:altLabel "Carte Misery - Quai" ;
-    skos:prefLabel "Carte de la carrière Misery - Quai Saint-Louis" .
+    skos1:altLabel "Carte Misery - Quai" ;
+    skos1:prefLabel "Carte de la carrière Misery - Quai Saint-Louis" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/67ca6d418f6a7d80df23b55c933655afb8a51ad9.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/277> a crm:E29_Design_or_Procedure ;
     rdfs:label "Carte de la carrière Misery - Quai Saint-Louis" ;
@@ -551,8 +699,9 @@ B. Arnaud""" ;
         "3e quart du 19e siècle (Agorha)" ;
     crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/294>,
         "La parcelle sur laquelle va se positionner l'Usine de la Piperie" ;
-    skos:altLabel "Carte Misery - Quai" ;
-    skos:prefLabel "Carte de la carrière Misery - Quai Saint-Louis" .
+    skos1:altLabel "Carte Misery - Quai" ;
+    skos1:prefLabel "Carte de la carrière Misery - Quai Saint-Louis" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/ee1d1b311b9e93fc62799038e822513bb65bb5ce.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/279> a crm:E29_Design_or_Procedure ;
     rdfs:label "Carte de la carrière Misery - Quai Saint-Louis" ;
@@ -566,8 +715,9 @@ B. Arnaud""" ;
         "4e quart du 19e siècle (Agorha)" ;
     crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/294>,
         "La parcelle sur laquelle va se positionner l'Usine de la Piperie" ;
-    skos:altLabel "Carte Misery - Quai" ;
-    skos:prefLabel "Carte de la carrière Misery - Quai Saint-Louis" .
+    skos1:altLabel "Carte Misery - Quai" ;
+    skos1:prefLabel "Carte de la carrière Misery - Quai Saint-Louis" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/fca709469f9f2e40169a6591bcab65ab628d053c.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/281> a crm:E29_Design_or_Procedure ;
     rdfs:label "Carte de la carrière Misery - Bas Chantenay - Quai Saint-Louis" ;
@@ -581,8 +731,9 @@ B. Arnaud""" ;
         "4e quart du 19e siècle (Agorha)" ;
     crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/294>,
         "La parcelle sur laquelle va se positionner l'Usine de la Piperie" ;
-    skos:altLabel "Carte Misery - BC - Quai" ;
-    skos:prefLabel "Carte de la carrière Misery - Bas Chantenay - Quai Saint-Louis" .
+    skos1:altLabel "Carte Misery - BC - Quai" ;
+    skos1:prefLabel "Carte de la carrière Misery - Bas Chantenay - Quai Saint-Louis" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/d10aea28ffa05fd37d39e13b2d752f03bd827e29.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/283> a crm:E29_Design_or_Procedure ;
     rdfs:label "Carte de la carrière Misery - Quai Saint-Louis" ;
@@ -597,8 +748,9 @@ B. Arnaud""" ;
         "19e siècle  (Agorha)" ;
     crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/294>,
         "La parcelle sur laquelle va se positionner l'Usine de la Piperie" ;
-    skos:altLabel "Carte Misery - Quai" ;
-    skos:prefLabel "Carte de la carrière Misery - Quai Saint-Louis" .
+    skos1:altLabel "Carte Misery - Quai" ;
+    skos1:prefLabel "Carte de la carrière Misery - Quai Saint-Louis" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/7f41440eab609707ab86683a03e3724195a2a5f3.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/286> a crm:E29_Design_or_Procedure ;
     rdfs:label "Carte du Quai Saint-Louis" ;
@@ -611,8 +763,9 @@ B. Arnaud""" ;
         "4e quart du 18e siècle (Agorha)" ;
     crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/294>,
         "La parcelle sur laquelle va se positionner l'Usine de la Piperie" ;
-    skos:altLabel "Carte Quai " ;
-    skos:prefLabel "Carte du Quai Saint-Louis" .
+    skos1:altLabel "Carte Quai " ;
+    skos1:prefLabel "Carte du Quai Saint-Louis" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/e847c7ec6c341f81f2566baba9d1d7980c4a8e98.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/288> a crm:E29_Design_or_Procedure ;
     rdfs:label "Carte du Quai Saint-Louis" ;
@@ -625,8 +778,9 @@ B. Arnaud""" ;
         "4e quart du 18e siècle (Agorha)" ;
     crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/294>,
         "La parcelle sur laquelle va se positionner l'Usine de la Piperie" ;
-    skos:altLabel "Carte Quai" ;
-    skos:prefLabel "Carte du Quai Saint-Louis" .
+    skos1:altLabel "Carte Quai" ;
+    skos1:prefLabel "Carte du Quai Saint-Louis" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/3e27235f15e16c4cee6de0ce9e8a2f0c617674d5.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/290> a crm:E29_Design_or_Procedure ;
     rdfs:label "Carte du Quai Saint-Louis" ;
@@ -639,8 +793,9 @@ B. Arnaud""" ;
         "4e quart du 18e siècle (Agorha)" ;
     crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/294>,
         "La parcelle sur laquelle va se positionner l'Usine de la Piperie" ;
-    skos:altLabel "Carte Quai" ;
-    skos:prefLabel "Carte du Quai Saint-Louis" .
+    skos1:altLabel "Carte Quai" ;
+    skos1:prefLabel "Carte du Quai Saint-Louis" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/5d12e15e3fe86b5d5bcbb7bfb11b17aa27e4f138.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/298> a crm:E29_Design_or_Procedure ;
     rdfs:label "Projet de Nouvelle construction à la Piperie greffé par les Ordres de M Le Duc D'Aiguillon Pair de France Chevalier des Ordres du Roy & Commandant en chef de Bretagne" ;
@@ -653,8 +808,10 @@ B. Arnaud""" ;
         "3e quart du 18e siècle (Agorha)" ;
     bibo:shortTitle "Projet construction à la Piperie " ;
     crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/294> ;
-    skos:altLabel "Projet Nvelle Piperie " ;
-    skos:prefLabel "Projet de Nouvelle construction à la Piperie greffé par les Ordres de M Le Duc D'Aiguillon Pair de France Chevalier des Ordres du Roy & Commandant en chef de Bretagne" .
+    skos1:altLabel "Projet Nvelle Piperie " ;
+    skos1:prefLabel "Projet de Nouvelle construction à la Piperie greffé par les Ordres de M Le Duc D'Aiguillon Pair de France Chevalier des Ordres du Roy & Commandant en chef de Bretagne" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/2d94296fd6e3fe9d182f49f1a26cc64aa7f7a2b6.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/3eaf597bd5698e5f58acc22c5616ea5cc9e190fa.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/301> a crm:E29_Design_or_Procedure ;
     rdfs:label "Atterrissement projeté & en partie formé au bord  septentrional de la Loire, à diviser en neuf portions pour servie de chantiers de construction" ;
@@ -670,8 +827,9 @@ B. Arnaud""" ;
     crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/294>,
         "Bord Septentrional de la Loire",
         "Division en neuf portions pour un chantier de construction" ;
-    skos:altLabel "Portions chantiers" ;
-    skos:prefLabel "Atterrissement projeté & en partie formé au bord  septentrional de la Loire, à diviser en neuf portions pour servie de chantiers de construction" .
+    skos1:altLabel "Portions chantiers" ;
+    skos1:prefLabel "Atterrissement projeté & en partie formé au bord  septentrional de la Loire, à diviser en neuf portions pour servie de chantiers de construction" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/2dcf14fb5a24c778569d369d8403d6ce4afb7a9f.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/303> a crm:E31_Document ;
     rdfs:label "Description des Grands Moulins de Nantes issue de la revue Le béton armé" ;
@@ -690,8 +848,10 @@ B. Arnaud""" ;
     crm:P70_documents <https://cap44.univ-nantes.fr/api/items/10>,
         <https://cap44.univ-nantes.fr/api/items/7>,
         <https://cap44.univ-nantes.fr/api/items/9> ;
-    skos:altLabel "Description béton armé " ;
-    skos:prefLabel "Description des Grands Moulins de Nantes issue de la revue Le béton armé " .
+    skos1:altLabel "Description béton armé " ;
+    skos1:prefLabel "Description des Grands Moulins de Nantes issue de la revue Le béton armé " ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/1c2981a780a3f0d7884392e740ee363dd1ce015b.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/930bd80f0fffb13b481350f8be5e8e4d55699c56.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/306> a crm:E36_Visual_Item ;
     rdfs:label "Photographie des Grands Moulins de Nantes issue de la revue Le béton armé" ;
@@ -709,8 +869,9 @@ B. Arnaud""" ;
     bibo:shortTitle "Photo des GMN dans Le Bêton Armé" ;
     crm:P138_represents <https://cap44.univ-nantes.fr/api/items/10>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "GMN béton armé " ;
-    skos:prefLabel "Photographie des Grands Moulins de Nantes issue de la revue Le béton armé " .
+    skos1:altLabel "GMN béton armé " ;
+    skos1:prefLabel "Photographie des Grands Moulins de Nantes issue de la revue Le béton armé " ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/2e3d5ae1c4fed06d2f4ebce772f2e89728a3dda1.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/308> a crm:E36_Visual_Item ;
     rdfs:label "Photographie de chantier. François Hennebique (en blanc au centre), lors d'une visite officielle du chantier du pont du Risorgimento à Rome (1909-1911)." ;
@@ -728,8 +889,9 @@ B. Arnaud""" ;
     bibo:shortTitle "Photo de chantier. François Hennebique à Rome" ;
     crm:P138_represents <http://viaf.org/viaf/21377236>,
         "François Hennebique" ;
-    skos:altLabel "Pont Risorgimento" ;
-    skos:prefLabel "Photographie de chantier. François Hennebique (en blanc au centre), lors d'une visite officielle du chantier du pont du Risorgimento à Rome (1909-1911). " .
+    skos1:altLabel "Pont Risorgimento" ;
+    skos1:prefLabel "Photographie de chantier. François Hennebique (en blanc au centre), lors d'une visite officielle du chantier du pont du Risorgimento à Rome (1909-1911). " ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/fbbc2c160ac1dbf51cc8196890a6b0049faab5f7.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/310> a crm:E36_Visual_Item ;
     rdfs:label "Dessin technique du procédé Hennebique" ;
@@ -741,8 +903,9 @@ B. Arnaud""" ;
     crm:P138_represents <http://vocab.getty.edu/aat/300010775>,
         <https://cap44.univ-nantes.fr/api/items/9>,
         "Béton armé (Getty)" ;
-    skos:altLabel "Dessin technique" ;
-    skos:prefLabel "Dessin technique du procédé Hennebique" .
+    skos1:altLabel "Dessin technique" ;
+    skos1:prefLabel "Dessin technique du procédé Hennebique" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/bfb2f757217d236e4c53e797db4bcb5503b4bf7a.gif> .
 
 <https://cap44.univ-nantes.fr/api/items/312> a crm:E36_Visual_Item ;
     rdfs:label "Coupe de Chantenay, Profil transversal du square et vue de Luzançay" ;
@@ -756,8 +919,9 @@ B. Arnaud""" ;
     bibo:shortTitle "Profil transversal square et vue Luzançay" ;
     crm:P138_represents <https://cap44.univ-nantes.fr/api/items/11>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Coupe Chantenay" ;
-    skos:prefLabel "Coupe de Chantenay, Profil transversal du square et vue de Luzançay" .
+    skos1:altLabel "Coupe Chantenay" ;
+    skos1:prefLabel "Coupe de Chantenay, Profil transversal du square et vue de Luzançay" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/ceb56b2025844bfaad2407ceb93e5e066731a779.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/314> a crm:E36_Visual_Item ;
     rdfs:label "Point de vue le plus avantagé de l'ensemble du jardin" ;
@@ -771,8 +935,9 @@ B. Arnaud""" ;
     bibo:shortTitle "Pdv avantagé du jardin" ;
     crm:P138_represents <https://cap44.univ-nantes.fr/api/items/11>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Vue  jardin" ;
-    skos:prefLabel "Point de vue le plus avantagé de l'ensemble du jardin" .
+    skos1:altLabel "Vue  jardin" ;
+    skos1:prefLabel "Point de vue le plus avantagé de l'ensemble du jardin" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/aa3f57e61dd7f24a379d085fb73cfc90f08d2fcb.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/316> a crm:E36_Visual_Item ;
     rdfs:label "Usine du quai Saint-Louis, à Nantes" ;
@@ -785,8 +950,9 @@ B. Arnaud""" ;
         "1ère moitié du 20e siècle (Agorha)" ;
     crm:P138_represents <https://cap44.univ-nantes.fr/api/items/10>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Usine Saint-Louis" ;
-    skos:prefLabel "Usine du quai Saint-Louis, à Nantes" .
+    skos1:altLabel "Usine Saint-Louis" ;
+    skos1:prefLabel "Usine du quai Saint-Louis, à Nantes" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/9ccf645d7da9d07c27137b1bbefa19014a49803a.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/318> a crm:E36_Visual_Item ;
     rdfs:label "Usine du quai Saint-Louis, à Nantes" ;
@@ -799,8 +965,9 @@ B. Arnaud""" ;
         "1ère moitié du 20e siècle (Agorha)" ;
     crm:P138_represents <https://cap44.univ-nantes.fr/api/items/10>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Usine Saint-Louis" ;
-    skos:prefLabel "Usine du quai Saint-Louis, à Nantes" .
+    skos1:altLabel "Usine Saint-Louis" ;
+    skos1:prefLabel "Usine du quai Saint-Louis, à Nantes" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/85ba736543c103914cc67fade8b6097de90c4525.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/32> a crm:E31_Document ;
     rdfs:label "Rapport sur la Vérification des Apports et les avantages particuliers" ;
@@ -816,8 +983,20 @@ B. Arnaud""" ;
     bibo:shortTitle "Rapport apports et avantages" ;
     crm:P70_documents <https://cap44.univ-nantes.fr/api/items/10>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Rapport apports" ;
-    skos:prefLabel "Rapport sur la Vérification des Apports et les avantages particuliers" .
+    skos1:altLabel "Rapport apports" ;
+    skos1:prefLabel "Rapport sur la Vérification des Apports et les avantages particuliers" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/02a1345dcd25f4bb6a0022936e604fda348f76fe.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/10a32859dcec2c730949a809fb9b9a677503bcd6.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/13d8c65990f644f24f60ccb38ab7aa59910f6fa0.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/24a5f6872b6d4b8b13a80f35169cbdc1af3e8d88.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/2ede4b03ea6f588d38ff3986ce6c6b2c0b1c9bbc.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/3f4257df445c85161e98bf3566f6413b2392e55a.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/425ab66141bdf9718f3afae6bce12dc2e90799e9.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/a4ceb13f21bce8a85079992d56cab02cc69dba76.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/a63aa919b38d886a8093a801f4b54f4fe47f8718.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/a8dedc9d28efa824429f07026332d2f2721908dd.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/e18e955aa8f831223887dcaa74941a33685cebd0.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/e3cef2204e8cd7730c146f981cf1cdcd420859d6.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/320> a crm:E36_Visual_Item ;
     rdfs:label "Usine du quai Saint-Louis, à Nantes" ;
@@ -829,8 +1008,9 @@ B. Arnaud""" ;
         "1ère moitié du 20e siècle (Agorha)" ;
     crm:P138_represents <https://cap44.univ-nantes.fr/api/items/10>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Usine Saint-Louis" ;
-    skos:prefLabel "Usine du quai Saint-Louis, à Nantes" .
+    skos1:altLabel "Usine Saint-Louis" ;
+    skos1:prefLabel "Usine du quai Saint-Louis, à Nantes" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/f6f01185ab7bc8efda25f30fb404c21fd8ea881e.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/322> a crm:E36_Visual_Item ;
     rdfs:label "Nantes Magasins, Compagnie des Chargeurs réunis où sont entreposés les régimes de bananes" ;
@@ -845,8 +1025,9 @@ B. Arnaud""" ;
     bibo:shortTitle "Nantes Magasins, entrepôt régimes bananes" ;
     crm:P138_represents <https://cap44.univ-nantes.fr/api/items/11>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Cie Chargeurs" ;
-    skos:prefLabel "Nantes Magasins, Compagnie des Chargeurs réunis où sont entreposés les régimes de bananes" .
+    skos1:altLabel "Cie Chargeurs" ;
+    skos1:prefLabel "Nantes Magasins, Compagnie des Chargeurs réunis où sont entreposés les régimes de bananes" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/0908f643d66056b5a7cd13a6eb5f0fd3341a8487.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/324> a crm:E36_Visual_Item ;
     rdfs:label "Chantier Bougainville - Vue prise de la passerelle de la Béhinière - prise vers  l'Est" ;
@@ -861,8 +1042,9 @@ B. Arnaud""" ;
     bibo:shortTitle "Vue Est Chantier Bougainville" ;
     crm:P138_represents <https://cap44.univ-nantes.fr/api/items/11>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Vue Béhinière" ;
-    skos:prefLabel "Chantier Bougainville - Vue prise de la passerelle de la Béhinière - prise vers  l'Est" .
+    skos1:altLabel "Vue Béhinière" ;
+    skos1:prefLabel "Chantier Bougainville - Vue prise de la passerelle de la Béhinière - prise vers  l'Est" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/201e57ca355ac9522788f4a8d56131bf1b6f0b94.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/326> a crm:E36_Visual_Item ;
     rdfs:label "379 - Nantes - Vue des bâtiments des brasseries Nantaises, des Moulins Nantais et du Quai Saint-Louis" ;
@@ -875,8 +1057,10 @@ B. Arnaud""" ;
     bibo:shortTitle "Vue brasseries Nantaises, Moulins et Quai St-Louis" ;
     crm:P138_represents <https://cap44.univ-nantes.fr/api/items/10>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Vue brasseries Moulins" ;
-    skos:prefLabel "379 - Nantes - Vue des bâtiments des brasseries Nantaises, des Moulins Nantais et du Quai Saint-Louis" .
+    skos1:altLabel "Vue brasseries Moulins" ;
+    skos1:prefLabel "379 - Nantes - Vue des bâtiments des brasseries Nantaises, des Moulins Nantais et du Quai Saint-Louis" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/89051298bd26cd9b52dbd95e3fdab917f033f176.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/c377ecf0fee4db2cd3e69e90cadda6a5e8b818b1.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/328> a crm:E36_Visual_Item ;
     rdfs:label "Photographie de la rue de Luzançay" ;
@@ -889,8 +1073,9 @@ B. Arnaud""" ;
         "1ère moitié du 20e siècle (Agorha)" ;
     crm:P138_represents <https://cap44.univ-nantes.fr/api/items/10>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Rue Luzançay" ;
-    skos:prefLabel "Photographie de la rue de Luzançay" .
+    skos1:altLabel "Rue Luzançay" ;
+    skos1:prefLabel "Photographie de la rue de Luzançay" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/8cd8930973226b5d78df6456c53d2a9bfd2997c8.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/330> a crm:E36_Visual_Item ;
     rdfs:label "Diverses vues du Cap 44" ;
@@ -902,8 +1087,20 @@ B. Arnaud""" ;
     crm:P138_represents <https://cap44.univ-nantes.fr/api/items/10>,
         <https://cap44.univ-nantes.fr/api/items/11>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Diverses vues Cap 44" ;
-    skos:prefLabel "Diverses vues du Cap 44" .
+    skos1:altLabel "Diverses vues Cap 44" ;
+    skos1:prefLabel "Diverses vues du Cap 44" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/0b37ecb2ac3eb6bcbfb7e5527b4c96687cbefead.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/196e30747fc39de588f3b4a94b9a6fe4b6fefe2c.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/1c0d050309710d2d0014730c225c81961c6eddbb.tif>,
+        <https://cap44.univ-nantes.fr/files/original/38f2ad50b5495384c4875c29f1704ee4656a3ed5.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/65640f0dccf1d4ef8a5e357bae057b5c6299962a.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/6e5bb1fa671f907007801ada3e07d7a65ae12771.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/9d8ea63043378eaee0998f4722dc394b96d59cd6.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/c8dbf45b4706d2378ba8947a0438f39d55afac0f.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/cd595b9f75f91e61105562c9098e82de67453bf3.tif>,
+        <https://cap44.univ-nantes.fr/files/original/d5bfe2e79528d167564306a2c023a5f47744cd2a.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/e90286ec63ec66609533a407193153d1e8dc0d99.tif>,
+        <https://cap44.univ-nantes.fr/files/original/ee3a66d65617bfd562e19b51ed89bab4fa575c82.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/342> a crm:E36_Visual_Item ;
     rdfs:label "Photographie des sacs de farines des Grands Moulins de Loire" ;
@@ -915,8 +1112,9 @@ B. Arnaud""" ;
     bibo:shortTitle "Photo sacs farines des GML" ;
     crm:P138_represents <https://cap44.univ-nantes.fr/api/items/10>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Photographie des sacs de farines des Grands Moulins de Loire " ;
-    skos:prefLabel "Photographie des sacs de farines des Grands Moulins de Loire " .
+    skos1:altLabel "Photographie des sacs de farines des Grands Moulins de Loire " ;
+    skos1:prefLabel "Photographie des sacs de farines des Grands Moulins de Loire " ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/26782cc7d7265ffa42b11d320a3082cafeb82951.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/344> a crm:E36_Visual_Item ;
     rdfs:label """Vue panoramique prise de la Brasserie - Raccordement du chemin de Fer
@@ -929,9 +1127,11 @@ Vue de l'usine de la Piperie""" ;
         "1ère moitié du 20e siècle (Agorha)" ;
     bibo:shortTitle "Vue usine Piperie depuis Brasserie" ;
     crm:P138_represents "Bas-Chantenay" ;
-    skos:altLabel "Brasserie Raccordement-Piperie" ;
-    skos:prefLabel """Vue panoramique prise de la Brasserie - Raccordement du chemin de Fer
-Vue de l'usine de la Piperie""" .
+    skos1:altLabel "Brasserie Raccordement-Piperie" ;
+    skos1:prefLabel """Vue panoramique prise de la Brasserie - Raccordement du chemin de Fer
+Vue de l'usine de la Piperie""" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/1ce3a79d51b5d1c29e0f880a43ce05a2a825834b.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/f329089eed0abec29bfb25d780071926bed97051.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/349> a crm:E36_Visual_Item ;
     rdfs:label "Bateau devant estacade" ;
@@ -939,8 +1139,9 @@ Vue de l'usine de la Piperie""" .
     dcterms:spatial <https://sws.geonames.org/2990969>,
         "Nantes" ;
     crm:P138_represents <https://cap44.univ-nantes.fr/api/items/8> ;
-    skos:altLabel "Bâteau estacade" ;
-    skos:prefLabel "Bateau devant estacade" .
+    skos1:altLabel "Bâteau estacade" ;
+    skos1:prefLabel "Bateau devant estacade" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/66174fdff9644656b283fed483850cde42be662f.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/353> a crm:E29_Design_or_Procedure ;
     rdfs:label "Plan du magasin à silo" ;
@@ -951,8 +1152,9 @@ Vue de l'usine de la Piperie""" .
         "4e quart du 19e siècle (Agorha)" ;
     crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/8>,
         <https://cap44.univ-nantes.fr/api/items/9> ;
-    skos:altLabel "Magasin à silo" ;
-    skos:prefLabel "Plan du magasin à silo" .
+    skos1:altLabel "Magasin à silo" ;
+    skos1:prefLabel "Plan du magasin à silo" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/5bde66ed7514b0e25dc040e6f083bbada2c31ee3.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/356> a crm:E36_Visual_Item ;
     rdfs:label "Diverses vues de la Coopérative Agricole de Nantes" ;
@@ -963,8 +1165,17 @@ Vue de l'usine de la Piperie""" .
         "2e quart du 20e siècle (Agorha)" ;
     bibo:shortTitle "Vues de la CAN" ;
     crm:P138_represents <https://cap44.univ-nantes.fr/api/items/11> ;
-    skos:altLabel " Vues CAN" ;
-    skos:prefLabel "Diverses vues de la Coopérative Agricole de Nantes" .
+    skos1:altLabel " Vues CAN" ;
+    skos1:prefLabel "Diverses vues de la Coopérative Agricole de Nantes" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/07d9875aad043d1f5bcdab7fcaa3f117aa354282.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/2a919b214bca95da17363fda135a1cce8ec3aa3f.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/3d7e0b003a065e401d33fdfdebcff574f2f106de.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/40dce0e6c158ebc32faa70673c226659b3e370dc.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/435e8f797bd516751cf0611933aabc387c8d8c03.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/633c64d7353e0212dd8f8810c485ea6804045840.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/8d2c2d0890e198f3bf3a615bad7a18091282a263.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/ca03433ca412eb9476c82fe1a71515d90282cf09.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/e2ed230e41cd3669ea50ab48e4bb1bd421e6ebe9.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/366> a crm:E36_Visual_Item ;
     rdfs:label "Location de  bureaux SCI CAP 44" ;
@@ -976,8 +1187,11 @@ Vue de l'usine de la Piperie""" .
         "3e quart du 20e siècle" ;
     crm:P138_represents <https://cap44.univ-nantes.fr/api/items/12>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "SCI CAP 44" ;
-    skos:prefLabel "Location de  bureaux SCI CAP 44" .
+    skos1:altLabel "SCI CAP 44" ;
+    skos1:prefLabel "Location de  bureaux SCI CAP 44" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/74d744b9700c59ac64a16f75ce3f477b91ce3ae4.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/dbefc1113e049359f9afb7c937f027fa6100b138.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/e589e36204b057cbde1b57e95c514c7cfe69cd08.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/370> a crm:E36_Visual_Item ;
     rdfs:label "Réhabilitation de la minoterie-entrepôt en immeuble de bureaux" ;
@@ -992,8 +1206,9 @@ Vue de l'usine de la Piperie""" .
         <https://cap44.univ-nantes.fr/api/items/12>,
         <https://cap44.univ-nantes.fr/api/items/459>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Réhabilitation immeuble" ;
-    skos:prefLabel "Réhabilitation de la minoterie-entrepôt en immeuble de bureaux" .
+    skos1:altLabel "Réhabilitation immeuble" ;
+    skos1:prefLabel "Réhabilitation de la minoterie-entrepôt en immeuble de bureaux" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/22bb330e695b2459f69f699604ad79cf15936dac.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/372> a crm:E36_Visual_Item ;
     rdfs:label "Plan Masse Situation" ;
@@ -1011,8 +1226,9 @@ Vue de l'usine de la Piperie""" .
     crm:P138_represents <https://cap44.univ-nantes.fr/api/items/12>,
         <https://cap44.univ-nantes.fr/api/items/459>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Plan Masse" ;
-    skos:prefLabel "Plan Masse Situation" .
+    skos1:altLabel "Plan Masse" ;
+    skos1:prefLabel "Plan Masse Situation" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/24deca9bafea3fc34198868041b27a6df5eacfec.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/374> a crm:E36_Visual_Item ;
     rdfs:label "Immeuble sis Quai MARCELSEMBAS (Etat avant transformation) coupes" ;
@@ -1027,8 +1243,9 @@ Vue de l'usine de la Piperie""" .
     bibo:shortTitle "Coupe immeuble quai Marcelsembas" ;
     crm:P138_represents <https://cap44.univ-nantes.fr/api/items/10>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Immeuble coupes" ;
-    skos:prefLabel "Immeuble sis Quai MARCELSEMBAS (Etat avant transformation) coupes" .
+    skos1:altLabel "Immeuble coupes" ;
+    skos1:prefLabel "Immeuble sis Quai MARCELSEMBAS (Etat avant transformation) coupes" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/356ed278a85b96e8638efbbcb64e32526cb74d2d.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/378> a crm:E29_Design_or_Procedure ;
     rdfs:label "Plans des fondations en vue de la réhabilitation du CAP 44" ;
@@ -1046,8 +1263,13 @@ Vue de l'usine de la Piperie""" .
         <https://cap44.univ-nantes.fr/api/items/12>,
         <https://cap44.univ-nantes.fr/api/items/459>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Réhabilitation fondation" ;
-    skos:prefLabel "Plans des fondations en vue de la réhabilitation du CAP 44" .
+    skos1:altLabel "Réhabilitation fondation" ;
+    skos1:prefLabel "Plans des fondations en vue de la réhabilitation du CAP 44" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/9b514de05fa539fc4c4b030e7f79cc2ccfe1a27d.pdf>,
+        <https://cap44.univ-nantes.fr/files/original/bfed2eb34a941bfcd96be103562db077bb8862f6.pdf>,
+        <https://cap44.univ-nantes.fr/files/original/d31379854d357f13d54003d74a306132faad9b58.pdf>,
+        <https://cap44.univ-nantes.fr/files/original/e60255b1c70afef4acf3cf212acb9e8230172a30.pdf>,
+        <https://cap44.univ-nantes.fr/files/original/fad0e3685d23816a84e03baefc7d60def1b0a3a4.pdf> .
 
 <https://cap44.univ-nantes.fr/api/items/384> a crm:E29_Design_or_Procedure ;
     rdfs:label "Implantation murs rideaux - étage courant" ;
@@ -1065,8 +1287,9 @@ Vue de l'usine de la Piperie""" .
         <https://cap44.univ-nantes.fr/api/items/12>,
         <https://cap44.univ-nantes.fr/api/items/459>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Murs rideaux " ;
-    skos:prefLabel "Implantation murs rideaux - étage courant" .
+    skos1:altLabel "Murs rideaux " ;
+    skos1:prefLabel "Implantation murs rideaux - étage courant" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/6dd23e0924299082ee929b41402f49e15739728a.pdf> .
 
 <https://cap44.univ-nantes.fr/api/items/391> a crm:E29_Design_or_Procedure ;
     rdfs:label "Plans du 2ème étage" ;
@@ -1084,8 +1307,11 @@ Vue de l'usine de la Piperie""" .
         <https://cap44.univ-nantes.fr/api/items/12>,
         <https://cap44.univ-nantes.fr/api/items/459>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Plans 2" ;
-    skos:prefLabel "Plans du 2ème étage" .
+    skos1:altLabel "Plans 2" ;
+    skos1:prefLabel "Plans du 2ème étage" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/4d00a80f51aa180bbd81cdd336d0758a3807cf58.pdf>,
+        <https://cap44.univ-nantes.fr/files/original/95cc12c298d878e1f6b16eb993f33f1988f23224.pdf>,
+        <https://cap44.univ-nantes.fr/files/original/b53bc086774d80c89d447825bfbb22110c337a58.pdf> .
 
 <https://cap44.univ-nantes.fr/api/items/395> a crm:E29_Design_or_Procedure ;
     rdfs:label "Plans du rez-de-chaussée" ;
@@ -1103,8 +1329,12 @@ Vue de l'usine de la Piperie""" .
         <https://cap44.univ-nantes.fr/api/items/12>,
         <https://cap44.univ-nantes.fr/api/items/459>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Plans rdc" ;
-    skos:prefLabel "Plans du rez-de-chaussée" .
+    skos1:altLabel "Plans rdc" ;
+    skos1:prefLabel "Plans du rez-de-chaussée" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/40585e0cc42fafba6a2a08bb1006f9b658fdaa28.pdf>,
+        <https://cap44.univ-nantes.fr/files/original/46b7d1f87961ead7b153617481d27d46c9c427d6.pdf>,
+        <https://cap44.univ-nantes.fr/files/original/48a5444bdd294d13b9b08231112e1ff46021a997.pdf>,
+        <https://cap44.univ-nantes.fr/files/original/6870e0df207e6cd8d58836bac6ecde0a930b8544.pdf> .
 
 <https://cap44.univ-nantes.fr/api/items/400> a crm:E29_Design_or_Procedure ;
     rdfs:label "Plans d'intérieur du CAP 44 en 2013" ;
@@ -1119,8 +1349,22 @@ Vue de l'usine de la Piperie""" .
     crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/12>,
         <https://cap44.univ-nantes.fr/api/items/7>,
         "L'architecture du CAP44" ;
-    skos:altLabel "Plans 2013" ;
-    skos:prefLabel "Plans d'intérieur du CAP 44 en 2013" .
+    skos1:altLabel "Plans 2013" ;
+    skos1:prefLabel "Plans d'intérieur du CAP 44 en 2013" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/05a802586727aeef657fb933fe11ad895026b66b.pdf>,
+        <https://cap44.univ-nantes.fr/files/original/0b32297d891eb8c3c9497e68b3a3b8e05bc34576.pdf>,
+        <https://cap44.univ-nantes.fr/files/original/137240a86971dd990354bf34b8773995d2632cb3.pdf>,
+        <https://cap44.univ-nantes.fr/files/original/3d3705499775b7efd26c15a22e154aa11d4ff8e0.pdf>,
+        <https://cap44.univ-nantes.fr/files/original/3f8dc41d44fe7d23a2b35588da7e33cb194d0ad3.pdf>,
+        <https://cap44.univ-nantes.fr/files/original/4c69379329226c3da1899af3c6632a29f50a6867.pdf>,
+        <https://cap44.univ-nantes.fr/files/original/6c80f90830f6f58b299a1385a4bb112f7c3c3d83.pdf>,
+        <https://cap44.univ-nantes.fr/files/original/aff0fc11f2086444a0427384bdb7ac2a17a63df1.pdf>,
+        <https://cap44.univ-nantes.fr/files/original/b32b17f2d35d840618bc6350cc9e2b424f41ff2f.pdf>,
+        <https://cap44.univ-nantes.fr/files/original/b89a48b083a8b750bde2dbe31d1c4a29be05f7d6.pdf>,
+        <https://cap44.univ-nantes.fr/files/original/c51fbd4015cfda437fdb3ba5bd1341af639d58d4.png>,
+        <https://cap44.univ-nantes.fr/files/original/db976b590f1376cd678f9a452587761775474301.pdf>,
+        <https://cap44.univ-nantes.fr/files/original/e5478a73607ea20a133822749cbd81ed96c002a3.pdf>,
+        <https://cap44.univ-nantes.fr/files/original/fa2cdd10e257dbfba404f12516d30c7624d6eefa.pdf> .
 
 <https://cap44.univ-nantes.fr/api/items/414> a crm:E36_Visual_Item ;
     rdfs:label "Vue de la structure Hennebique après retrait des ajouts 1970" ;
@@ -1138,8 +1382,11 @@ Vue de l'usine de la Piperie""" .
         <https://cap44.univ-nantes.fr/api/items/7>,
         <https://cap44.univ-nantes.fr/api/items/9>,
         "Béton armé (Getty)" ;
-    skos:altLabel "Retrait ajouts" ;
-    skos:prefLabel "Vue de la structure Hennebique après retrait des ajouts 1970" .
+    skos1:altLabel "Retrait ajouts" ;
+    skos1:prefLabel "Vue de la structure Hennebique après retrait des ajouts 1970" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/0c93723a0b0b2fa6b1e3aef413f2886e0d734cd8.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/23e6a3b6cf469dea74ace5bd40abe5dceba44342.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/eb9c02a197e3ad472b519167f4aeec974fa08e5f.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/418> a crm:E36_Visual_Item ;
     rdfs:label "Vue de la voute de la salle de la roue après chemisage des années 1970" ;
@@ -1155,8 +1402,9 @@ Vue de l'usine de la Piperie""" .
         <https://cap44.univ-nantes.fr/api/items/12>,
         <https://cap44.univ-nantes.fr/api/items/7>,
         <https://cap44.univ-nantes.fr/api/items/9> ;
-    skos:altLabel "Voute 1970" ;
-    skos:prefLabel "Vue de la voute de la salle de la roue après chemisage des années 1970" .
+    skos1:altLabel "Voute 1970" ;
+    skos1:prefLabel "Vue de la voute de la salle de la roue après chemisage des années 1970" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/f41b1b4042832214ad3be83603003297b2bc8575.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/420> a crm:E31_Document ;
     rdfs:label "Histoire des Moulins et Silos" ;
@@ -1167,8 +1415,9 @@ Vue de l'usine de la Piperie""" .
         "2022" ;
     crm:P70_documents <https://cap44.univ-nantes.fr/api/items/10>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Moulins et Silos" ;
-    skos:prefLabel "Histoire des Moulins et Silos" .
+    skos1:altLabel "Moulins et Silos" ;
+    skos1:prefLabel "Histoire des Moulins et Silos" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/125c8b66b1fcf63a61d0a845b9cd6907e0362721.pdf> .
 
 <https://cap44.univ-nantes.fr/api/items/422> a crm:E31_Document ;
     rdfs:label "Le béton armé et l'entreprise Hennebique" ;
@@ -1181,8 +1430,9 @@ Vue de l'usine de la Piperie""" .
         <http://vocab.getty.edu/aat/300010775>,
         "Béton armé (Getty)",
         "François Hennebique" ;
-    skos:altLabel "Béton armé et entreprise Hennebique" ;
-    skos:prefLabel "Le béton armé et l'entreprise Hennebique" .
+    skos1:altLabel "Béton armé et entreprise Hennebique" ;
+    skos1:prefLabel "Le béton armé et l'entreprise Hennebique" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/02950590807d4e5999f95bbb50a9984714742589.pdf> .
 
 <https://cap44.univ-nantes.fr/api/items/424> a crm:E31_Document ;
     rdfs:label "Blé et contingentement" ;
@@ -1192,8 +1442,9 @@ Vue de l'usine de la Piperie""" .
         "1er quart du 21e siècle (Agorha)",
         "2022" ;
     crm:P70_documents <https://cap44.univ-nantes.fr/api/items/10> ;
-    skos:altLabel "Blé contingentement" ;
-    skos:prefLabel "Blé et contingentement" .
+    skos1:altLabel "Blé contingentement" ;
+    skos1:prefLabel "Blé et contingentement" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/15c06d333e9cf4113b5e0704a43b8dcda086e25e.pdf> .
 
 <https://cap44.univ-nantes.fr/api/items/426> a crm:E31_Document ;
     rdfs:label "La réhabilitation" ;
@@ -1204,8 +1455,9 @@ Vue de l'usine de la Piperie""" .
         "2022" ;
     crm:P70_documents <https://cap44.univ-nantes.fr/api/items/12>,
         <https://cap44.univ-nantes.fr/api/items/459> ;
-    skos:altLabel "Réhabilitation" ;
-    skos:prefLabel "La réhabilitation" .
+    skos1:altLabel "Réhabilitation" ;
+    skos1:prefLabel "La réhabilitation" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/9421a0c9efd742b483d42dd47dee7f557f1845fb.pdf> .
 
 <https://cap44.univ-nantes.fr/api/items/428> a crm:E31_Document ;
     rdfs:label "Le CAP 44" ;
@@ -1223,8 +1475,9 @@ Vue de l'usine de la Piperie""" .
         <https://cap44.univ-nantes.fr/api/items/7>,
         <https://cap44.univ-nantes.fr/api/items/8>,
         <https://cap44.univ-nantes.fr/api/items/9> ;
-    skos:altLabel "CAP 44" ;
-    skos:prefLabel "Le CAP 44" .
+    skos1:altLabel "CAP 44" ;
+    skos1:prefLabel "Le CAP 44" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/1a878db1e677de9a3f7e731ab2b5dd5511c6463e.pdf> .
 
 <https://cap44.univ-nantes.fr/api/items/434> a crm:E31_Document ;
     rdfs:label "Chronologie Histoire du béton" ;
@@ -1234,8 +1487,9 @@ Vue de l'usine de la Piperie""" .
         "1er quart du 21e siècle (Agorha)" ;
     crm:P70_documents <http://vocab.getty.edu/aat/300010775>,
         "Béton armé (Getty)" ;
-    skos:altLabel "Chrono béton" ;
-    skos:prefLabel "Chronologie Histoire du béton" .
+    skos1:altLabel "Chrono béton" ;
+    skos1:prefLabel "Chronologie Histoire du béton" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/bf2f598e1f527d9ca263f14af36ec7c885e505ef.pdf> .
 
 <https://cap44.univ-nantes.fr/api/items/436> a crm:E31_Document ;
     rdfs:label "Chronologie CAP 44" ;
@@ -1244,8 +1498,9 @@ Vue de l'usine de la Piperie""" .
     dcterms:temporal <https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/d8a3610b-3210-4499-a61f-f1cfdb65e892>,
         "1er quart du 21e siècle (Agorha)" ;
     crm:P70_documents <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Chrono CAP 44" ;
-    skos:prefLabel "Chronologie CAP 44" .
+    skos1:altLabel "Chrono CAP 44" ;
+    skos1:prefLabel "Chronologie CAP 44" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/f60e98c02e153af209f3a2791fc2a03863187990.pdf> .
 
 <https://cap44.univ-nantes.fr/api/items/45> a crm:E29_Design_or_Procedure ;
     rdfs:label "Plans des Grands Moulins de la Loire issus de l'inventaire de 1931" ;
@@ -1261,11 +1516,14 @@ Vue de l'usine de la Piperie""" .
     crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/10>,
         <https://cap44.univ-nantes.fr/api/items/11>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Plans 1931" ;
-    skos:prefLabel "Plans des Grands Moulins de la Loire issus de l'inventaire de 1931" .
+    skos1:altLabel "Plans 1931" ;
+    skos1:prefLabel "Plans des Grands Moulins de la Loire issus de l'inventaire de 1931" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/8c20cc47ca815461a19b655f5c87eb8d3d00416e.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/c4183af4b274c4cd1737dda44f0a0a5c043fee8d.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/455> rdfs:label "numasurf nuage de point" ;
-    dcterms:title "numasurf nuage de point" .
+    dcterms:title "numasurf nuage de point" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/073de2452c93c296f63f92722f305f43a3625068.ply> .
 
 <https://cap44.univ-nantes.fr/api/items/46> a crm:E36_Visual_Item ;
     rdfs:label "Fragment de la coupe montrant la salle des machines et les silos" ;
@@ -1283,8 +1541,9 @@ Vue de l'usine de la Piperie""" .
     crm:P138_represents <https://cap44.univ-nantes.fr/api/items/7>,
         <https://cap44.univ-nantes.fr/api/items/9> ;
     crm:P67_refers_to <https://cap44.univ-nantes.fr/api/items/47> ;
-    skos:altLabel "Salle machines" ;
-    skos:prefLabel "Fragment de la coupe montrant la salle des machines et les silos" .
+    skos1:altLabel "Salle machines" ;
+    skos1:prefLabel "Fragment de la coupe montrant la salle des machines et les silos" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/e050cd78c287ac4e09cf32688d4e419929af44e1.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/52> a crm:E31_Document ;
     rdfs:label "Dissolution de la Société anonyme des Grands Moulins de la Loire par suite de sa fusion avec la Société Laraison Frères" ;
@@ -1300,8 +1559,9 @@ Vue de l'usine de la Piperie""" .
         "3e quart du 20e siècle (Agorha)" ;
     bibo:shortTitle "Dissolution S.A.G.M.L. par fusion " ;
     crm:P70_documents <https://cap44.univ-nantes.fr/api/items/51> ;
-    skos:altLabel "Dissolution S. A. G. M. L." ;
-    skos:prefLabel "Dissolution de la Société anonyme des Grands Moulins de la Loire par suite de sa fusion avec la Société Laraison Frères" .
+    skos1:altLabel "Dissolution S. A. G. M. L." ;
+    skos1:prefLabel "Dissolution de la Société anonyme des Grands Moulins de la Loire par suite de sa fusion avec la Société Laraison Frères" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/a86fc7de4be7976d75aed753df29e1f5fd6bed93.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/54> a crm:E31_Document ;
     rdfs:label "Notice publié au Bulletin des Annonces légales obligatoires à la charge des Sociétés financières du 20 novembre 1922 - Grands Moulins de la Loire" ;
@@ -1319,8 +1579,9 @@ Vue de l'usine de la Piperie""" .
     crm:P70_documents <https://cap44.univ-nantes.fr/api/items/10>,
         <https://cap44.univ-nantes.fr/api/items/11>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Notice G. M. L" ;
-    skos:prefLabel "Notice publié au Bulletin des Annonces légales obligatoires à la charge des Sociétés financières du 20 novembre 1922 - Grands Moulins de la Loire" .
+    skos1:altLabel "Notice G. M. L" ;
+    skos1:prefLabel "Notice publié au Bulletin des Annonces légales obligatoires à la charge des Sociétés financières du 20 novembre 1922 - Grands Moulins de la Loire" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/a32cc063b4edc748d6cf10cae3cd6f56cc76f1b8.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/56> a crm:E29_Design_or_Procedure ;
     rdfs:label "Relevés du 1er étage du CAP 44 utilisé par la Coopérative Agricole de Nantes" ;
@@ -1337,8 +1598,12 @@ Vue de l'usine de la Piperie""" .
     bibo:shortTitle "Relevés 1er étage CAP 44 (CAN)" ;
     crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/11>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Relevés 1er CAN" ;
-    skos:prefLabel "Relevés du 1er étage du CAP 44 utilisé par la Coopérative Agricole de Nantes" .
+    skos1:altLabel "Relevés 1er CAN" ;
+    skos1:prefLabel "Relevés du 1er étage du CAP 44 utilisé par la Coopérative Agricole de Nantes" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/315fc4218c5ed47b1f13a9d744b5142a75c8f0ce.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/3cf7efb427c435b06a03a8b0e435d28066b90a7d.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/a9a7d828235bc1363174e6f29742b36e0c8be4e1.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/b0f0327441c2a04c49ebb9fbafe13b3941fe9c85.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/61> a crm:E29_Design_or_Procedure ;
     rdfs:label "Relevés du 2ème étage du CAP 44 utilisé par la Coopérative Agricole de Nantes" ;
@@ -1355,8 +1620,11 @@ Vue de l'usine de la Piperie""" .
     bibo:shortTitle "Relevés 2ème étage CAP 44 (CAN)" ;
     crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/11>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Relevés 2e CAN" ;
-    skos:prefLabel "Relevés du 2ème étage du CAP 44 utilisé par la Coopérative Agricole de Nantes" .
+    skos1:altLabel "Relevés 2e CAN" ;
+    skos1:prefLabel "Relevés du 2ème étage du CAP 44 utilisé par la Coopérative Agricole de Nantes" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/7012abc2aa8063f0327019a6b0411f8caacb4490.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/7df05b03c646c23fbf1d7e49cf0c3559d0cb7d97.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/9c7b848b26a9d7edeb603647c36d902553129e95.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/65> a crm:E29_Design_or_Procedure ;
     rdfs:label "Relevés du 3ème étage du CAP 44 utilisé par la Coopérative Agricole de Nantes" ;
@@ -1373,8 +1641,12 @@ Vue de l'usine de la Piperie""" .
     bibo:shortTitle "Relevés 3ème étage CAP 44 (CAN)" ;
     crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/11>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Relevés 3e CAN" ;
-    skos:prefLabel "Relevés du 3ème étage du CAP 44 utilisé par la Coopérative Agricole de Nantes" .
+    skos1:altLabel "Relevés 3e CAN" ;
+    skos1:prefLabel "Relevés du 3ème étage du CAP 44 utilisé par la Coopérative Agricole de Nantes" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/0c32e34459af576c4024ed9972538e2b9218fd00.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/16b084030882875280443a4ced0a37c089bd4669.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/a561d20cf5feaa677a654b6f7dfd6c35da0783ea.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/bf15b24e1e11cf63f4d02a0aa3843ca981b080ba.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/70> a crm:E29_Design_or_Procedure ;
     rdfs:label "Relevés du 4ème étage du CAP 44 utilisé par la Coopérative Agricole de Nantes" ;
@@ -1391,8 +1663,12 @@ Vue de l'usine de la Piperie""" .
     bibo:shortTitle "Relevés  4ème étage CAP 44 (CAN)" ;
     crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/11>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Relevés 4e CAN" ;
-    skos:prefLabel "Relevés du 4ème étage du CAP 44 utilisé par la Coopérative Agricole de Nantes" .
+    skos1:altLabel "Relevés 4e CAN" ;
+    skos1:prefLabel "Relevés du 4ème étage du CAP 44 utilisé par la Coopérative Agricole de Nantes" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/4be05d40194d7b60782ea36d0dce96bbb72a8f22.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/8e58bc10ca16470edc834715287883185478b4c5.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/f69d0f37cbdfe1d2c58101aac7af2eddc94c50a1.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/f78fad87d5dc628a70cbdbc09230576c299eb0a5.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/75> a crm:E29_Design_or_Procedure ;
     rdfs:label "Relevés du rez-de-chaussée du CAP 44 utilisé par la Coopérative Agricole de Nantes" ;
@@ -1409,8 +1685,10 @@ Vue de l'usine de la Piperie""" .
     bibo:shortTitle "Relevés rdc CAP 44 (CAN)" ;
     crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/11>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Relevés rdc CAN" ;
-    skos:prefLabel "Relevés du rez-de-chaussée du CAP 44 utilisé par la Coopérative Agricole de Nantes" .
+    skos1:altLabel "Relevés rdc CAN" ;
+    skos1:prefLabel "Relevés du rez-de-chaussée du CAP 44 utilisé par la Coopérative Agricole de Nantes" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/23b2b46137a45c0f246c763442ee41b7ba7ffad6.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/a02bfd4460b819b67f95ff1076dd1f33c076a1d3.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/78> a crm:E29_Design_or_Procedure ;
     rdfs:label "Nomenclature des lots vendus" ;
@@ -1428,8 +1706,10 @@ Vue de l'usine de la Piperie""" .
     crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/12>,
         <https://cap44.univ-nantes.fr/api/items/459>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Lots " ;
-    skos:prefLabel "Nomenclature des lots vendus" .
+    skos1:altLabel "Lots " ;
+    skos1:prefLabel "Nomenclature des lots vendus" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/03cb0e73098c5e4a623a4b510b1bb7b378a90868.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/581ba726cdeb3ae9e423646840ef3a95a4f54af1.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/81> a crm:E31_Document ;
     rdfs:label "Compte rendu technique du 8 novembre 1972" ;
@@ -1447,8 +1727,9 @@ Vue de l'usine de la Piperie""" .
     crm:P70_documents <https://cap44.univ-nantes.fr/api/items/12>,
         <https://cap44.univ-nantes.fr/api/items/459>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Compte rendu technique" ;
-    skos:prefLabel "Compte rendu technique du 8 novembre 1972" .
+    skos1:altLabel "Compte rendu technique" ;
+    skos1:prefLabel "Compte rendu technique du 8 novembre 1972" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/611519940d5f26791f69b107fe0d89191c04562f.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/83> a crm:E29_Design_or_Procedure ;
     rdfs:label "Bardage du CAP 44" ;
@@ -1466,8 +1747,12 @@ Vue de l'usine de la Piperie""" .
     crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/12>,
         <https://cap44.univ-nantes.fr/api/items/459>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Bardage" ;
-    skos:prefLabel "Bardage du CAP 44" .
+    skos1:altLabel "Bardage" ;
+    skos1:prefLabel "Bardage du CAP 44" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/2786bd88a0ae91edcad30007c59415d6f619cffd.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/4a5ff39d3e437d5208e7ae950473535670bf6e68.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/56f1d53389da66e184a63bcb8eeacf6056d9cd87.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/a4ef70471ad15c54ad946635c8d87f6f33082136.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/88> a crm:E29_Design_or_Procedure ;
     rdfs:label "Projet du Rez-de-Chaussée du CAP 44 en 1972" ;
@@ -1486,8 +1771,11 @@ Vue de l'usine de la Piperie""" .
     crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/12>,
         <https://cap44.univ-nantes.fr/api/items/459>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Projet rdc 72" ;
-    skos:prefLabel "Projet du Rez-de-Chaussée du CAP 44 en 1972" .
+    skos1:altLabel "Projet rdc 72" ;
+    skos1:prefLabel "Projet du Rez-de-Chaussée du CAP 44 en 1972" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/155b0fba985e6c13f25a5527cd77f2e064f0c130.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/87d322fa622a3d16c319095a3ecee00ef1645158.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/c0dad5a5b0f628b1f1a093a44c699c3d0d86faa6.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/92> a crm:E29_Design_or_Procedure ;
     rdfs:label "Projet du restaurant d'entreprise du Rez-de-Chaussée du CAP 44 en 1972" ;
@@ -1506,8 +1794,11 @@ Vue de l'usine de la Piperie""" .
     crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/12>,
         <https://cap44.univ-nantes.fr/api/items/459>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Projet restaurant 72" ;
-    skos:prefLabel "Projet du restaurant d'entreprise du Rez-de-Chaussée du CAP 44 en 1972" .
+    skos1:altLabel "Projet restaurant 72" ;
+    skos1:prefLabel "Projet du restaurant d'entreprise du Rez-de-Chaussée du CAP 44 en 1972" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/11526542bdef1a6ccd85d54ea6674d1729fa83e9.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/a8de7e537fb94cc63c628c7a6f74aeabbf35cc83.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/ab8ce8e06d61ef0bba43a3f8917507ee5d91b396.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/96> a crm:E29_Design_or_Procedure ;
     rdfs:label "Projet du niveau terrasse du CAP 44 en 1972" ;
@@ -1526,8 +1817,15 @@ Vue de l'usine de la Piperie""" .
     crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/12>,
         <https://cap44.univ-nantes.fr/api/items/459>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Projet terrasse 72" ;
-    skos:prefLabel "Projet du niveau terrasse du CAP 44 en 1972" .
+    skos1:altLabel "Projet terrasse 72" ;
+    skos1:prefLabel "Projet du niveau terrasse du CAP 44 en 1972" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/4a562f0dbf74e3d94b299fe9364486474721463b.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/571bc00d9c7d789ce30c08522fbc1daf55214f61.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/5a7dac885be1fdc3baf0cef9cff8a1ab36849060.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/8c15ba6e505dddb64a7bf380c4f596d5481c6291.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/a311eac39998e1b494cab84b5f60d74448860e4b.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/b15ae7d2340484ce33f495ffab6c0c11082ecbbc.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/d42d0128d49c83114819e03617ca800501fe9ba6.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/184> a crm:E36_Visual_Item ;
     rdfs:label "Effondrement de Marquette-lez-Lilles" ;
@@ -1544,8 +1842,11 @@ Vue de l'usine de la Piperie""" .
         "1er quart du 20e siècle (Agorha)" ;
     crm:P138_represents <https://cap44.univ-nantes.fr/api/items/184>,
         <https://cap44.univ-nantes.fr/api/items/296> ;
-    skos:altLabel "Effondrement MlL" ;
-    skos:prefLabel "Effondrement de Marquette-lez-Lilles" .
+    skos1:altLabel "Effondrement MlL" ;
+    skos1:prefLabel "Effondrement de Marquette-lez-Lilles" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/1707b7c9256cba7fd142546be0b1c91645d3d022.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/5eadd6acad4dc9602c3122ba266efb6698ae761f.jpg>,
+        <https://cap44.univ-nantes.fr/files/original/ee8ecbe72f71aa26f76713baf2abe6703d29c831.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/292> a crm:E29_Design_or_Procedure ;
     rdfs:label "Elévation de la maison à construire sur le terrain de Mrs Prébois et Plumard" ;
@@ -1559,8 +1860,9 @@ Vue de l'usine de la Piperie""" .
     bibo:shortTitle "Elévation maison à construire sur terrain de Mrs Prébois et Plumard" ;
     crm:P129_is_about <https://cap44.univ-nantes.fr/api/items/292>,
         <https://cap44.univ-nantes.fr/api/items/294> ;
-    skos:altLabel "Elévation maison" ;
-    skos:prefLabel "Elévation de la maison à construire sur le terrain de Mrs Prébois et Plumard" .
+    skos1:altLabel "Elévation maison" ;
+    skos1:prefLabel "Elévation de la maison à construire sur le terrain de Mrs Prébois et Plumard" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/29df63e26de2073efa3d33c7cdc01ce635fbb87e.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/295> a crm:E22_Human-Made_Object ;
     rdfs:label "Minoterie de Bouvron" ;
@@ -1577,8 +1879,8 @@ Vue de l'usine de la Piperie""" .
     crm:P53_has_former_or_current_location <https://sws.geonames.org/6449078>,
         "+47.418530357806006 -1.8483586759679465",
         "Bouvron" ;
-    skos:altLabel "Minoterie Bvrn" ;
-    skos:prefLabel "Minoterie de Bouvron" .
+    skos1:altLabel "Minoterie Bvrn" ;
+    skos1:prefLabel "Minoterie de Bouvron" .
 
 <https://cap44.univ-nantes.fr/api/items/296> a crm:E22_Human-Made_Object ;
     rdfs:label "Minoterie de Marquette-lez-Lilles" ;
@@ -1592,8 +1894,8 @@ Vue de l'usine de la Piperie""" .
         "Minoterie" ;
     crm:P53_has_former_or_current_location <https://sws.geonames.org/6617195>,
         "Marquette-lez-Lilles" ;
-    skos:altLabel "Minoterie MlL" ;
-    skos:prefLabel "Minoterie de Marquette-lez-Lilles" .
+    skos1:altLabel "Minoterie MlL" ;
+    skos1:prefLabel "Minoterie de Marquette-lez-Lilles" .
 
 <https://cap44.univ-nantes.fr/api/items/297> a crm:E22_Human-Made_Object ;
     rdfs:label "Minoterie de Nort-sur-Erdre" ;
@@ -1612,8 +1914,8 @@ Le moulin pouvait stocker de 750 kg à 1500 kg de farine par mètre carré. """ 
     crm:P53_has_former_or_current_location <https://sws.geonames.org/2990085>,
         "+47.439216319762565 -1.4945612073612622",
         "Nort-sur-Erdre" ;
-    skos:altLabel "Minoterie NsE" ;
-    skos:prefLabel "Minoterie de Nort-sur-Erdre" .
+    skos1:altLabel "Minoterie NsE" ;
+    skos1:prefLabel "Minoterie de Nort-sur-Erdre" .
 
 <https://cap44.univ-nantes.fr/api/items/376> a crm:E36_Visual_Item ;
     rdfs:label "Chemisage des poteaux intérieurs" ;
@@ -1633,8 +1935,9 @@ Le moulin pouvait stocker de 750 kg à 1500 kg de farine par mètre carré. """ 
         <https://cap44.univ-nantes.fr/api/items/459>,
         <https://cap44.univ-nantes.fr/api/items/7>,
         <https://cap44.univ-nantes.fr/api/items/9> ;
-    skos:altLabel "Chemisage" ;
-    skos:prefLabel "Chemisage des poteaux intérieurs" .
+    skos1:altLabel "Chemisage" ;
+    skos1:prefLabel "Chemisage des poteaux intérieurs" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/50dabbc7a166082cb63ff9d3c38f2fecba44c44c.jpg> .
 
 <https://cap44.univ-nantes.fr/api/items/386> a crm:E29_Design_or_Procedure ;
     rdfs:label "Renforcement des dalles et des poteaux" ;
@@ -1653,8 +1956,12 @@ Le moulin pouvait stocker de 750 kg à 1500 kg de farine par mètre carré. """ 
         <https://cap44.univ-nantes.fr/api/items/386>,
         <https://cap44.univ-nantes.fr/api/items/459>,
         <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Renforcement" ;
-    skos:prefLabel "Renforcement des dalles et des poteaux" .
+    skos1:altLabel "Renforcement" ;
+    skos1:prefLabel "Renforcement des dalles et des poteaux" ;
+    foaf:depiction <https://cap44.univ-nantes.fr/files/original/64e3a8196d08be673b3f079cecd07c9397ef308d.pdf>,
+        <https://cap44.univ-nantes.fr/files/original/a9807a68f0c9c697a9b2b18d75bf59d6e3a9c1ee.pdf>,
+        <https://cap44.univ-nantes.fr/files/original/c5d63b8e4574bbe3aab48e9052b2fc81b7eac77e.pdf>,
+        <https://cap44.univ-nantes.fr/files/original/edaf8f05a03f7464f299f910ad503c021c76da66.pdf> .
 
 <https://cap44.univ-nantes.fr/api/items/47> a crm:E74_Group ;
     rdfs:label "Architectes M.M Léon Lenoir, et M. Etève à Nantes" ;
@@ -1667,8 +1974,8 @@ Paul Alexandre Emile Etève est né le 8 avril 1855 à Nantes.""" ;
         "Architect (Getty)",
         "Architecte (MH)" ;
     rdaa:P50041 "Architectes M.M Léon Lenoir, et M. Etève à Nantes" ;
-    skos:altLabel "Léon Lenoir, Etève" ;
-    skos:prefLabel "Architectes M.M Léon Lenoir, et M. Etève à Nantes" .
+    skos1:altLabel "Léon Lenoir, Etève" ;
+    skos1:prefLabel "Architectes M.M Léon Lenoir, et M. Etève à Nantes" .
 
 <https://cap44.univ-nantes.fr/api/items/51> a crm:E74_Group ;
     rdfs:label "Société anonyme des Grands Moulins de Loire" ;
@@ -1678,8 +1985,8 @@ En 1922, 210 personnes travaillent dans les six usines, produisant quotidienneme
     rdaa:P50022 <http://data.culture.fr/thesaurus/resource/ark:/67717/T96-834>,
         "Minoterie" ;
     rdaa:P50041 "Société anonyme des Grands Moulins de Loire" ;
-    skos:altLabel "S. A. G. M. L" ;
-    skos:prefLabel "Société anonyme des Grands Moulins de Loire" .
+    skos1:altLabel "S. A. G. M. L" ;
+    skos1:prefLabel "Société anonyme des Grands Moulins de Loire" .
 
 <https://cap44.univ-nantes.fr/api/items/147> a crm:E74_Group ;
     rdfs:label "R&G Joly, Géomètres Experts, Nantes" ;
@@ -1687,8 +1994,8 @@ En 1922, 210 personnes travaillent dans les six usines, produisant quotidienneme
     rdaa:P50022 <http://data.culture.fr/thesaurus/resource/ark:/67717/T15-103>,
         "géomètre (MH)" ;
     rdaa:P50041 "R&G Joly, Géomètres Experts, Nantes" ;
-    skos:altLabel "R&G Joly, Géomètres" ;
-    skos:prefLabel "R&G Joly, Géomètres Experts, Nantes" .
+    skos1:altLabel "R&G Joly, Géomètres" ;
+    skos1:prefLabel "R&G Joly, Géomètres Experts, Nantes" .
 
 <https://cap44.univ-nantes.fr/api/items/8> a crm:E22_Human-Made_Object ;
     rdfs:label "Estacade et silo de l'usine de la Piperie" ;
@@ -1706,8 +2013,8 @@ En 1922, 210 personnes travaillent dans les six usines, produisant quotidienneme
     crm:P53_has_former_or_current_location <https://sws.geonames.org/2990969>,
         "+47.198756226204594 -1.5806021061078723",
         "Nantes" ;
-    skos:altLabel "Estacade et silo" ;
-    skos:prefLabel "Estacade et silo de l'usine de la Piperie" .
+    skos1:altLabel "Estacade et silo" ;
+    skos1:prefLabel "Estacade et silo de l'usine de la Piperie" .
 
 <https://cap44.univ-nantes.fr/api/items/9> a crm:E12_Production ;
     rdfs:label "Construction de l'usine de la Piperie" ;
@@ -1729,8 +2036,8 @@ En 1922, 210 personnes travaillent dans les six usines, produisant quotidienneme
         "+47.19990255657179 -1.5791996915415039",
         "Nantes" ;
     crm:P8_took_place_on_or_within <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Construction" ;
-    skos:prefLabel "Construction de l'usine de la Piperie" .
+    skos1:altLabel "Construction" ;
+    skos1:prefLabel "Construction de l'usine de la Piperie" .
 
 <https://cap44.univ-nantes.fr/api/items/146> a crm:E74_Group ;
     rdfs:label "Atelier 44" ;
@@ -1741,8 +2048,8 @@ En 1922, 210 personnes travaillent dans les six usines, produisant quotidienneme
         "Architect (Getty)",
         "Architecte (MH)" ;
     rdaa:P50041 "Atelier 44" ;
-    skos:altLabel "Atelier 44" ;
-    skos:prefLabel "Atelier 44" .
+    skos1:altLabel "Atelier 44" ;
+    skos1:prefLabel "Atelier 44" .
 
 <https://cap44.univ-nantes.fr/api/items/294> a crm:E4_Period ;
     rdfs:label "Avant 1895" ;
@@ -1766,8 +2073,8 @@ En 1922, 210 personnes travaillent dans les six usines, produisant quotidienneme
     crm:P7_took_place_at <https://sws.geonames.org/2990969>,
         "Nantes" ;
     crm:P8_took_place_on_or_within <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Période avant 1895" ;
-    skos:prefLabel "Avant 1895" .
+    skos1:altLabel "Période avant 1895" ;
+    skos1:prefLabel "Avant 1895" .
 
 <https://cap44.univ-nantes.fr/api/items/145> a crm:E74_Group ;
     rdfs:label "Société d'études techniques Arles Belim" ;
@@ -1776,12 +2083,12 @@ En 1922, 210 personnes travaillent dans les six usines, produisant quotidienneme
     dcterms:title "Société d'études techniques Arles Belim" ;
     rdaa:P50022 "Société d'études technique" ;
     rdaa:P50041 "Société d'études techniques Arles Belim" ;
-    skos:altLabel "Société d'études" ;
-    skos:prefLabel "Société d'études technique" .
+    skos1:altLabel "Société d'études" ;
+    skos1:prefLabel "Société d'études technique" .
 
 <https://cap44.univ-nantes.fr/api/items/457> a crm:E74_Group ;
     rdfs:label "Archives municipales de Nantes" ;
-    skos:prefLabel "Archives municipales de Nantes" .
+    skos1:prefLabel "Archives municipales de Nantes" .
 
 <https://cap44.univ-nantes.fr/api/items/11> a crm:E4_Period ;
     rdfs:label "Période d'entrepôt" ;
@@ -1798,8 +2105,8 @@ En 1946, la Compagnie des Chargeurs de l’Ouest achète les magasins et les sil
     crm:P7_took_place_at <https://sws.geonames.org/2990969>,
         "Nantes" ;
     crm:P8_took_place_on_or_within <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Entrepôt" ;
-    skos:prefLabel "Période d'entrepôt" .
+    skos1:altLabel "Entrepôt" ;
+    skos1:prefLabel "Période d'entrepôt" .
 
 <https://cap44.univ-nantes.fr/api/items/459> a crm:E11_Modification ;
     rdfs:label "Réhabilitation de la minoterie en immeuble de bureaux" ;
@@ -1811,7 +2118,7 @@ En 1946, la Compagnie des Chargeurs de l’Ouest achète les magasins et les sil
     crm:P7_took_place_at <https://sws.geonames.org/2990969>,
         "Nantes" ;
     crm:P8_took_place_on_or_within <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:prefLabel "Réhabilitation de la minoterie en immeuble de bureaux" .
+    skos1:prefLabel "Réhabilitation de la minoterie en immeuble de bureaux" .
 
 <https://cap44.univ-nantes.fr/api/items/10> a crm:E4_Period ;
     rdfs:label "Période de  minoterie" ;
@@ -1830,8 +2137,8 @@ La période de Minoterie  est donc confondue avec celle d'Entrepôt, de 1912 à 
     crm:P7_took_place_at <https://sws.geonames.org/2990969>,
         "Nantes" ;
     crm:P8_took_place_on_or_within <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Minoterie" ;
-    skos:prefLabel "Période de  minoterie" .
+    skos1:altLabel "Minoterie" ;
+    skos1:prefLabel "Période de  minoterie" .
 
 <https://cap44.univ-nantes.fr/api/items/12> a crm:E4_Period ;
     rdfs:label "Période tertiaire" ;
@@ -1845,8 +2152,8 @@ La période de Minoterie  est donc confondue avec celle d'Entrepôt, de 1912 à 
     crm:P7_took_place_at <https://sws.geonames.org/2990969>,
         "Nantes" ;
     crm:P8_took_place_on_or_within <https://cap44.univ-nantes.fr/api/items/7> ;
-    skos:altLabel "Tertiaire" ;
-    skos:prefLabel "Période tertiaire" .
+    skos1:altLabel "Tertiaire" ;
+    skos1:prefLabel "Période tertiaire" .
 
 <https://cap44.univ-nantes.fr/api/items/7> a crm:E22_Human-Made_Object ;
     rdfs:label "CAP-44" ;
@@ -1878,55 +2185,6 @@ Aujourd’hui, le quartier de Chantenay est l’objet d’un projet urbain qui p
     crm:P53_has_former_or_current_location <https://sws.geonames.org/2990969>,
         "+47.19990255657179 -1.5791996915415039",
         "Nantes" ;
-    skos:altLabel "CAP-44" ;
-    skos:prefLabel "CAP-44" .
+    skos1:altLabel "CAP-44" ;
+    skos1:prefLabel "CAP-44" .
 
-
-<https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/c59f9c55-41ff-44fc-b53d-82fa85c06a7b> a crm:E52_Time-Span .
-<https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/bcce037d-aeae-4e69-ab45-e1af5d993cea> a crm:E52_Time-Span .
-<https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/2c15d08b-a718-4a91-af8f-71c696b32e0c> a crm:E52_Time-Span .
-<https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/ccad15e7-4cd2-4601-8117-e8df60dd4cb7> a crm:E52_Time-Span .
-<https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/1042d6cb-86c8-4ba9-bbfd-6d070e9f9844> a crm:E52_Time-Span .
-<https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/2c15d08b-a718-4a91-af8f-71c696b32e0c> a crm:E52_Time-Span .
-<https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/d8a3610b-3210-4499-a61f-f1cfdb65e892> a crm:E52_Time-Span .
-<https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/cf851dbc-124a-42c3-94e1-00fb087b532a> a crm:E52_Time-Span .
-<https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/8bd1120c-fb4a-43fb-a1f0-bdbd31afda47> a crm:E52_Time-Span .
-<https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/dfe4fe5b-87e7-4794-8111-30936d1189c2> a crm:E52_Time-Span .
-<https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/afa39eff-09bb-43d0-86f9-abc3ee70a352> a crm:E52_Time-Span .
-<https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/56387ea5-f963-49bd-aea4-56c4ecd1f14c> a crm:E52_Time-Span .
-<https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/f3ae6525-57d0-4caa-ba6a-7d3dd8d936ba> a crm:E52_Time-Span .
-<https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/277cf3a2-97e8-481f-aa7d-62cb7609da3b> a crm:E52_Time-Span .
-<https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/92287c1d-010b-49bd-bb0e-3e82798c9966> a crm:E52_Time-Span .
-<https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/c37aab47-fb71-4abd-b64b-58335c26278a> a crm:E52_Time_Span .
-<https://thesaurus.inha.fr/thesaurus/resource/ark:/54721/6f9f7eed-da2b-49f4-be26-61d6d85b2e1c> a crm:E52_Time_Span .
-
-<https://sws.geonames.org/6449078> a crm:E53_Place .
-<https://sws.geonames.org/6617195> a crm:E53_Place .
-<https://sws.geonames.org/2990085> a crm:E53_Place .
-<https://sws.geonames.org/6449078> a crm:E53_Place .
-<https://sws.geonames.org/3169071> a crm:E53_Place .
-<https://sws.geonames.org/2990969> a crm:E53_Place .
-
-<http://viaf.org/viaf/76439780> a crm:E21_Person .
-<http://viaf.org/viaf/132539787> a crm:E21_Person .
-<http://viaf.org/viaf/96353901> a crm:E21_Person .
-<http://viaf.org/viaf/50158367854901282324> a crm:E21_Person .
-<http://viaf.org/viaf/308765785> a crm:E21_Person .
-<http://viaf.org/viaf/12317884> a crm:E21_Person .
-<http://viaf.org/viaf/306491150> a crm:E21_Person .
-<http://viaf.org/viaf/21377236> a crm:E21_Person .
-
-<http://viaf.org/viaf/157364120> a crm:E74_Group .
-<http://viaf.org/viaf/143903205> a crm:E74_Group .
-
-<http://data.culture.fr/thesaurus/resource/ark:/67717/T96-1353> a crm:E55_Type .
-<http://data.culture.fr/thesaurus/resource/ark:/67717/T96-617> a crm:E55_Type .
-<http://data.culture.fr/thesaurus/resource/ark:/67717/T96-834> a crm:E55_Type .
-<http://data.culture.fr/thesaurus/resource/ark:/67717/T96-1106> a crm:E55_Type .
-<http://data.culture.fr/thesaurus/resource/ark:/67717/T96-624> a crm:E55_Type .
-<http://data.culture.fr/thesaurus/resource/ark:/67717/T1-595> a crm:E55_Type .
-<http://vocab.getty.edu/aat/300024987> a crm:E55_Type .
-<http://data.culture.fr/thesaurus/resource/ark:/67717/T15-8> a crm:E55_Type .
-<http://data.culture.fr/thesaurus/resource/ark:/67717/T15-103> a crm:E55_Type .
-
-<http://vocab.getty.edu/aat/300010775> a crm:E57_Material .
