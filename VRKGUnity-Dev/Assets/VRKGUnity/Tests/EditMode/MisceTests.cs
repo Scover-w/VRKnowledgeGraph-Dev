@@ -2,9 +2,11 @@ using NUnit.Framework;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net;
 using System.Net.NetworkInformation;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class MisceTests : MonoBehaviour
 {
@@ -94,6 +96,20 @@ public class MisceTests : MonoBehaviour
         Guid guid = Guid.NewGuid();
         string uniqueId = guid.ToString();
         Debug.Log("http://www.cidoc-crm.org/cidoc-crm/".Length);
+
+    }
+
+    [Test]
+    public void TestVector()
+    {
+        Vector3 v = new(1f, 2f, 3f);
+        Debug.Log(v.ToString());
+        Vector2 v2 = v;
+        Debug.Log(v2.ToString());
+
+        Vector3 vB = v2;
+        Debug.Log(vB.ToString());
+
 
     }
 }

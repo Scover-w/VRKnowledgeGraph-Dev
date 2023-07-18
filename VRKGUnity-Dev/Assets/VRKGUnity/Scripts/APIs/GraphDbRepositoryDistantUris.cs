@@ -22,7 +22,6 @@ public class GraphDbRepositoryDistantUris
 
     int _nbFinishedThread;
     int _nbPackFinishedThread;
-    int _nbPackThread;
     int _nbStarted;
     int _nbPackbThreadToLaunch;
 
@@ -59,10 +58,9 @@ public class GraphDbRepositoryDistantUris
 
         var tasks = new List<Task>();
 
-        SemaphoreSlim semaphore = new SemaphoreSlim(0);
+        SemaphoreSlim semaphore = new(0);
 
 
-        _nbPackThread = 0;
         _nbPackFinishedThread = 0;
         _nbFinishedThread = 0;
         _nbPackbThreadToLaunch = Mathf.Clamp(_nbNodes - _nbFinishedThread, 0, MAX_THREAD);
@@ -78,7 +76,7 @@ public class GraphDbRepositoryDistantUris
                 await RetrieveName(node);
                 Interlocked.Increment(ref _nbFinishedThread);
 
-                LoadingDistantUriData data = new LoadingDistantUriData(_nbFinishedThread);
+                LoadingDistantUriData data = new(_nbFinishedThread);
                 dataSynchro.DataQueue.Enqueue(data);
 
                 // Increment the finished thread count atomically
@@ -106,7 +104,6 @@ public class GraphDbRepositoryDistantUris
 
     private async Task RetrieveName(object obj)
     {
-        string namespce = "";
         try
         {
             var node = (Node)obj;
@@ -133,7 +130,7 @@ public class GraphDbRepositoryDistantUris
             if (needReturn)
                 return;
 
-            namespce = uri.ExtractUri().namespce;
+            string namespce = uri.ExtractUri().namespce;
 
             string xmlContent = null;
 
@@ -173,7 +170,7 @@ public class GraphDbRepositoryDistantUris
                 return;
             }
         }
-        catch(Exception ex) 
+        catch(Exception) 
         {
             return;
         }
@@ -187,28 +184,26 @@ public class GraphDbRepositoryDistantUris
 
         try
         {
-            using (StringReader stringReader = new StringReader(xmlContent))
+            using StringReader stringReader = new(xmlContent);
+            using XmlReader xmlReader = XmlReader.Create(stringReader);
 
-            using (XmlReader xmlReader = XmlReader.Create(stringReader))
+            while (xmlReader.Read())
             {
-                while (xmlReader.Read())
-                {
-                    if (xmlReader.NodeType != XmlNodeType.Element)
-                        continue;
+                if (xmlReader.NodeType != XmlNodeType.Element)
+                    continue;
 
-                    var name = xmlReader.Name.ToLower();
+                var name = xmlReader.Name.ToLower();
 
-                    if (!(name.Contains("label") || name.Contains("title") || name.Contains("name")))
-                        continue;
+                if (!(name.Contains("label") || name.Contains("title") || name.Contains("name")))
+                    continue;
 
-                    property = xmlReader.Name;
-                    value = xmlReader.ReadElementContentAsString();
+                property = xmlReader.Name;
+                value = xmlReader.ReadElementContentAsString();
 
-                    return true;
-                }
+                return true;
             }
         }
-        catch(Exception e) 
+        catch(Exception) 
         {
             return false;    
         }

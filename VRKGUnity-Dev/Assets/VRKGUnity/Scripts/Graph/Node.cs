@@ -5,7 +5,7 @@ using UnityEngine;
 public class Node
 {
 
-    private static string[] _nameUris = new string[] {  "http://www.w3.org/2004/02/skos/core#prefLabel", 
+    private static readonly string[] _nameUris = new string[] {  "http://www.w3.org/2004/02/skos/core#prefLabel", 
                                                         "http://www.w3.org/2000/01/rdf-schema#label",
                                                         "http://www.w3.org/2004/02/skos/core#altLabel", 
                                                         "http://purl.org/dc/terms/title"};
@@ -85,7 +85,6 @@ public class Node
     public Transform SubGraphNodeTf;
 
     public Vector3 AbsolutePosition;
-    public Vector3 AbsoluteVelocity;
     
     public Dictionary<string, string> Properties;
     private bool _doDisplayMainNode;
@@ -119,10 +118,10 @@ public class Node
         }
         else
         {
-            var uri = value.ExtractUri();
+            var (namespce, localName) = value.ExtractUri();
 
-            Value = uri.localName;
-            Namespace = uri.namespce;
+            Value = localName;
+            Namespace = namespce;
 
             Prefix = repoNamespaces.GetPrefix(Namespace);
         }
@@ -151,10 +150,10 @@ public class Node
         }
         else
         {
-            var uri = Value.ExtractUri();
+            var (namespce, localName) = Value.ExtractUri();
 
-            Value = uri.localName;
-            Namespace = uri.namespce;
+            Value = localName;
+            Namespace = namespce;
 
             Prefix = repoNamespaces.GetPrefix(Namespace);
         }
@@ -175,9 +174,6 @@ public class Node
 
     public string GetName()
     {
-        int nbProperties = Properties.Count;
-
-
         foreach(var propNameAndValue in Properties)
         {
             var propName = propNameAndValue.Key;
@@ -200,8 +196,6 @@ public class Node
 
     public bool DoesPropertiesContainName()
     {
-        int nbProperties = Properties.Count;
-
         foreach(var prop in Properties) 
         {
             string propType = prop.Key.ToLower();
@@ -245,7 +239,12 @@ public class Node
 
     public NodeSimuData ToSimuData()
     {
-        return new NodeSimuData(Id, AbsolutePosition, AbsoluteVelocity);
+        return new NodeSimuData(Id, AbsolutePosition);
+    }
+
+    public NodeSimuData2D ToSimuData2D()
+    {
+        return new NodeSimuData2D(Id, AbsolutePosition);
     }
 
     private bool ContainNameUri(string value)

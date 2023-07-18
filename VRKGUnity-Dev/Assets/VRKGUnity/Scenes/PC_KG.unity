@@ -640,8 +640,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 366778060}
-  - component: {fileID: 366778062}
-  - component: {fileID: 366778061}
   m_Layer: 0
   m_Name: Graphs---------------------
   m_TagString: Untagged
@@ -666,44 +664,6 @@ Transform:
   m_Father: {fileID: 561248033}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &366778061
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 366778059}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e7aed00c55ec154e98fb39c0a6348e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _easingType: 14
-  _graphManager: {fileID: 1187437327}
-  _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
-  _mainGraphTf: {fileID: 717365171}
-  _deskTf: {fileID: 1847664501}
---- !u!114 &366778062
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 366778059}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05267057bf1ebef4fb496427cb651008, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _easingType: 14
-  _graphManager: {fileID: 1187437327}
-  _referenceHolderSO: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
-  _subGraphTf: {fileID: 921206259}
-  _mainGraphTf: {fileID: 717365171}
-  _watchTf: {fileID: 997226357}
-  _lensTf: {fileID: 60676796}
-  _gpsPointTf: {fileID: 1091564544}
-  _selectionManager: {fileID: 1219762323}
 --- !u!1 &539010125
 GameObject:
   m_ObjectHideFlags: 0
@@ -1945,7 +1905,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1187437330}
   - component: {fileID: 1187437327}
-  - component: {fileID: 1187437329}
+  - component: {fileID: 1187437335}
+  - component: {fileID: 1187437334}
   - component: {fileID: 1187437328}
   - component: {fileID: 1187437332}
   - component: {fileID: 1187437331}
@@ -1970,11 +1931,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
-  _graphSimulation: {fileID: 1187437329}
+  _graphSimulation: {fileID: 1810606790}
   _graphUI: {fileID: 1396796583}
   _graphStyling: {fileID: 1187437328}
-  _mainGraph: {fileID: 366778061}
-  _subGraph: {fileID: 366778062}
+  _mainGraph: {fileID: 1187437335}
+  _subGraph: {fileID: 1187437334}
   _nodgeSelectionManager: {fileID: 1219762323}
   _nodgePool: {fileID: 1187437331}
   _dynamicFilterManager: {fileID: 1187437333}
@@ -1991,19 +1952,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _easingType: 6
-  _graphManager: {fileID: 1187437327}
---- !u!114 &1187437329
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1187437326}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bab297ae37bb8445af935c88af069e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   _graphManager: {fileID: 1187437327}
 --- !u!4 &1187437330
 Transform:
@@ -2065,6 +2013,45 @@ MonoBehaviour:
   _nodeSelectionManager: {fileID: 1219762323}
   _graphStyling: {fileID: 1187437328}
   _nodgePool: {fileID: 1187437331}
+--- !u!114 &1187437334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1187437326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05267057bf1ebef4fb496427cb651008, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _easingType: 14
+  _graphManager: {fileID: 1187437327}
+  _referenceHolderSO: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
+  _lensSimulation: {fileID: 1810606789}
+  _subGraphTf: {fileID: 921206259}
+  _mainGraphTf: {fileID: 717365171}
+  _watchTf: {fileID: 997226357}
+  _lensTf: {fileID: 60676796}
+  _gpsPointTf: {fileID: 1091564544}
+  _selectionManager: {fileID: 1219762323}
+--- !u!114 &1187437335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1187437326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e7aed00c55ec154e98fb39c0a6348e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _easingType: 14
+  _graphManager: {fileID: 1187437327}
+  _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
+  _mainGraphTf: {fileID: 717365171}
+  _deskTf: {fileID: 1847664501}
 --- !u!1 &1190159039
 GameObject:
   m_ObjectHideFlags: 0
@@ -2321,6 +2308,7 @@ Transform:
   - {fileID: 1396796584}
   - {fileID: 1187437330}
   - {fileID: 1219762320}
+  - {fileID: 1810606791}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2388,7 +2376,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _graphManager: {fileID: 1187437327}
   _graphStyling: {fileID: 1187437328}
-  _subGraph: {fileID: 366778062}
+  _subGraph: {fileID: 1187437334}
   _labelNodgeManagerUI: {fileID: 1396796587}
   ImmersionGraphSize: 1
   DeskGraphSize: 1
@@ -3048,6 +3036,64 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1663390261}
   m_CullTransparentMesh: 1
+--- !u!1 &1810606788
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1810606791}
+  - component: {fileID: 1810606790}
+  - component: {fileID: 1810606789}
+  m_Layer: 0
+  m_Name: Simulations
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1810606789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1810606788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12fea7f4922c0904aa3d51e772cd4273, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1810606790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1810606788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bab297ae37bb8445af935c88af069e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _graphManager: {fileID: 1187437327}
+--- !u!4 &1810606791
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1810606788}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1314565758}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1847664500
 GameObject:
   m_ObjectHideFlags: 0

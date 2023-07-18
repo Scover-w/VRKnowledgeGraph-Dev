@@ -26,14 +26,14 @@ public class OntologySwitchTypeUI : MonoBehaviour
     Ontology _ontology;
     GraphDbRepositoryNamespaces _graphDbRepoOnto;
 
-    List<Button> _uriTypeBtns;
+    //List<Button> _uriTypeBtns;
 
     public void Display(Ontology ontology, GraphDbRepositoryNamespaces onto)
     {
         _ontology = ontology;
         _graphDbRepoOnto = onto;
 
-        _uriTypeBtns = new();
+        //_uriTypeBtns = new();
 
         //_noneOntoImg.color = GetColorFromType(UserNamespceType.None);
         //_ontoImg.color = GetColorFromType(UserNamespceType.DomainOntology);
@@ -67,21 +67,21 @@ public class OntologySwitchTypeUI : MonoBehaviour
     }
 
 
-    public void UriAndTypeClick(int id, string namespce)
-    {
-        Debug.Log("UriAndTypeClick " + id);
-        var btn = _uriTypeBtns[id];
+    //public void UriAndTypeClick(int id, string namespce)
+    //{
+    //    Debug.Log("UriAndTypeClick " + id);
+    //    var btn = _uriTypeBtns[id];
 
 
-        btn.OnDeselect(null);
-        ColorBlock colors = btn.colors;
-        colors.normalColor = Color.red;
-        colors.selectedColor = colors.normalColor;
-        colors.highlightedColor = colors.normalColor.Lighten(.1f);
-        btn.colors = colors;
+    //    btn.OnDeselect(null);
+    //    ColorBlock colors = btn.colors;
+    //    colors.normalColor = Color.red;
+    //    colors.selectedColor = colors.normalColor;
+    //    colors.highlightedColor = colors.normalColor.Lighten(.1f);
+    //    btn.colors = colors;
 
-        _graphDbRepoOnto.Save();
-    }
+    //    _ = _graphDbRepoOnto.Save();
+    //}
 
     public void ValidateClick()
     {

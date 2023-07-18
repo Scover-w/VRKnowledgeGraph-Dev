@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RelativeCanvasTest : MonoBehaviour
 {
@@ -21,6 +22,12 @@ public class RelativeCanvasTest : MonoBehaviour
     [SerializeField]
     TMP_Text _labelTxt;
 
+    [SerializeField]
+    TMP_Text _valueTxt;
+
+    [SerializeField]
+    Slider _slider;
+
     Transform _canvasTf;
     Vector2 _baseSizeCanvas = Settings.BASE_SIZE_LABEL_CANVAS;
     float _baseFontSize = Settings.BASE_FONT_SIZE_LABEL;
@@ -30,6 +37,12 @@ public class RelativeCanvasTest : MonoBehaviour
         _canvasTf = _canvasRect.transform;
     }
 
+
+    public void OnValueChanged()
+    {
+        MinReadableFontSize = _slider.value;
+        _valueTxt.text = _slider.value.ToString();
+    }
 
     void Update()
     {

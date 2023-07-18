@@ -22,13 +22,16 @@ public class GraphSimulation : MonoBehaviour
 
     GraphConfiguration _graphConfiguration;
 
-    bool _isRunningSimulation = false;
+    bool _isRunningSimulation;
+    bool _wantStopSimulation;
+
     float _refreshDuration;
     bool _refreshGraph;
 
     private void Start()
     {
         _graphConfiguration = GraphConfiguration.Instance;
+        _isRunningSimulation = false;
     }
 
     public void Run(Graph graph)
@@ -38,6 +41,7 @@ public class GraphSimulation : MonoBehaviour
         _refreshDuration = -1f;
         _newNodeSimuDatas = null;
         _refreshGraph = true;
+        _wantStopSimulation = false;
         _threadEndedSemaphore = new SemaphoreSlim(0);
 
         var nodgesSimuDatas = graph.CreateSimuDatas();
@@ -45,7 +49,7 @@ public class GraphSimulation : MonoBehaviour
 
         ThreadPool.QueueUserWorkItem(CalculatingPositionsBackground, nodgesSimuDatas);
 
-        StartCoroutine(RefreshingGraphPositions(graph));
+        StartCoroutine(RefreshingNodesPositions(graph));
     }
 
     public async Task Run(NodgesSimuData nodgesSimuDatas)
@@ -53,6 +57,7 @@ public class GraphSimulation : MonoBehaviour
         _newNodeSimuDatas = null;
         _threadEndedSemaphore = new SemaphoreSlim(0);
         _refreshGraph = false;
+        _wantStopSimulation = false;
 
         ThreadPool.QueueUserWorkItem(CalculatingPositionsBackground, nodgesSimuDatas);
         StartCoroutine(MonitoringSimulationTime());
@@ -64,17 +69,17 @@ public class GraphSimulation : MonoBehaviour
 
     public void ForceStop()
     {
-        _isRunningSimulation = false;
+        _wantStopSimulation = false;
     }
 
-    IEnumerator RefreshingGraphPositions(Graph graph)
+    IEnumerator RefreshingNodesPositions(Graph graph)
     {
         _isRunningSimulation = true;
 
         float time = 0f;
         float speed = 1f / _graphConfiguration.MaxSimulationTime;
 
-        while (_isRunningSimulation && time < 1f)
+        while (_isRunningSimulation && time < 1f && !_wantStopSimulation)
         {
             if(_newNodeSimuDatas != null)
             {
@@ -88,9 +93,9 @@ public class GraphSimulation : MonoBehaviour
             time += Time.deltaTime * speed;
         }
 
-        _isRunningSimulation = false;
+        _wantStopSimulation = true;
 
-        EndRefreshingPosition(graph);
+        _ = EndRefreshingPosition(graph);
     }
 
     IEnumerator MonitoringSimulationTime()
@@ -100,14 +105,14 @@ public class GraphSimulation : MonoBehaviour
         float time = 0f;
         float speed = 1f / _graphConfiguration.MaxSimulationTime;
 
-        while (_isRunningSimulation && time < 1f)
+        while (_isRunningSimulation && time < 1f && !_wantStopSimulation)
         {
             yield return null;
 
             time += Time.deltaTime * speed;
         }
 
-        _isRunningSimulation = false;
+        _wantStopSimulation = true;
     }
 
     private async Task EndRefreshingPosition(Graph graph)
@@ -123,14 +128,14 @@ public class GraphSimulation : MonoBehaviour
 
     private void CalculatingPositionsBackground(object state)
     {
-        DebugChrono.Instance.Start("firstTickGRaph");
         var nodgesSimuDatas = (NodgesSimuData) state;
         var hasReachStopVelocity = false;
         bool firstTick = true;
         float timer = 0f;
         _isRunningSimulation = true;
+        DebugChrono.Instance.Start("firstTickGRaph");
 
-        while (_isRunningSimulation && !hasReachStopVelocity)
+        while (_isRunningSimulation && !hasReachStopVelocity && !_wantStopSimulation)
         {
             DebugChrono.Instance.Start("tickGRaph");
 
@@ -141,10 +146,8 @@ public class GraphSimulation : MonoBehaviour
                 firstTick = false;
                 var durationB = DebugChrono.Instance.Stop("firstTickGRaph", true);
                 _refreshDuration = durationB * 3f;
-                DebugChrono.Instance.Start("tickGRaph");
                 continue;
             }
-
 
             var duration = DebugChrono.Instance.Stop("tickGRaph", false);
             timer += duration;
@@ -229,14 +232,10 @@ public class GraphSimulation : MonoBehaviour
         {
             var edge = idAndEdgeData.Value;
 
-            NodeSimuData nodeDataA;
-            NodeSimuData nodeDataB;
-
-
-            if (!nodesSimuData.TryGetValue(edge.IdA, out nodeDataA))
+            if (!nodesSimuData.TryGetValue(edge.IdA, out NodeSimuData nodeDataA))
                 continue;
 
-            if (!nodesSimuData.TryGetValue(edge.IdB, out nodeDataB))
+            if (!nodesSimuData.TryGetValue(edge.IdB, out NodeSimuData nodeDataB))
                 continue;
 
 
@@ -275,6 +274,6 @@ public class GraphSimulation : MonoBehaviour
 
     private void OnDisable()
     {
-        _isRunningSimulation = false;
+        _wantStopSimulation = true;
     }
 }

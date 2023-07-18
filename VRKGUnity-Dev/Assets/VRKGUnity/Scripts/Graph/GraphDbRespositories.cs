@@ -90,7 +90,7 @@ public class GraphDbRepositories
     {
         _repositories.Add(repository);
 
-        Save();
+        _ = Save();
     }
 
     public void Remove(GraphDbRepository repository) 
@@ -106,7 +106,8 @@ public class GraphDbRepositories
         }
 
         _repositories.Remove(repository);
-        Save();
+
+        _ = Save();
     }
 
     public void Select(GraphDbRepository repository)
@@ -115,7 +116,7 @@ public class GraphDbRepositories
 
         Debug.Log("Select Repo : " + repository.ServerURL + " , " + repository.RepositoryId);
 
-        Save();
+        _ = Save();
     }
 
     public GraphDbRepository Select(int id)

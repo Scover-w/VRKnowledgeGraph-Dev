@@ -28,10 +28,10 @@ public class GraphConfigurationContainerSO : ScriptableObject
     [SerializeField]
     private List<Color> OntologyViewerColors;
 
-    async void Awake()
-    {
-        //_graphConfiguration = await GraphConfiguration.Load();
-    }
+    //async void Awake()
+    //{
+    //    _graphConfiguration = await GraphConfiguration.Load();
+    //}
 
     async void OnEnable()
     {
@@ -64,10 +64,7 @@ public class GraphConfigurationContainerSO : ScriptableObject
         }
 #endif
 
-
-
-        if (_graphConfiguration == null)
-            _graphConfiguration = await GraphConfiguration.Load();
+        _graphConfiguration ??= await GraphConfiguration.Load();
 
         return _graphConfiguration;
     }

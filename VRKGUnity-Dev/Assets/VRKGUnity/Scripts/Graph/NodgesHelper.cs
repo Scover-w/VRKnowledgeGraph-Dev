@@ -109,7 +109,7 @@ public static class NodgesHelper
 
             var edge = new Edge(pType, pValue, s, o, repoNamespaces);
 
-            if (edgesDicId.TryGetValue(edge.Id, out Edge edgeExisting))
+            if (edgesDicId.TryGetValue(edge.Id, out _))
             {
                 continue;
             }
@@ -240,7 +240,7 @@ public static class NodgesHelper
                 continue;
             }
 
-            if (!ontoTree.TryGetOntoNode(idAndNode.Key, out OntoNode ontoNode))
+            if (!ontoTree.TryGetOntoNode(idAndNode.Key, out _))
             {
                 noOntoned.Add(idAndNode.Key, idAndNode.Value);
                 continue;
@@ -336,7 +336,7 @@ public static class NodgesHelper
 
             var edge = new Edge(pType, pValue, s, o, repoNamespaces);
 
-            if (edgesDicId.TryGetValue(edge.Id, out Edge edgeExisting))
+            if (edgesDicId.TryGetValue(edge.Id, out _))
             {
                 continue;
             }

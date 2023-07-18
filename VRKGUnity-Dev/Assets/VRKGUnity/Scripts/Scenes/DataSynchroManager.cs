@@ -26,9 +26,8 @@ public class DataSynchroManager : MonoBehaviour
 
     JObject _data;
 
-    public ConcurrentQueue<LoadingDistantUriData> DataQueue = new ConcurrentQueue<LoadingDistantUriData>();
+    public ConcurrentQueue<LoadingDistantUriData> DataQueue = new();
 
-    bool _needUpdateLoadingBar = false;
     int _nbDistantUri;
 
     private async void Start()
@@ -48,10 +47,9 @@ public class DataSynchroManager : MonoBehaviour
 
     private void UpdateLoadingDistantUri()
     {
-        LoadingDistantUriData distantData = null;
         LoadingDistantUriData lastdistantData = null;
 
-        while (DataQueue.TryDequeue(out distantData))
+        while (DataQueue.TryDequeue(out LoadingDistantUriData distantData))
         {
             lastdistantData = distantData;
 
@@ -140,7 +138,7 @@ public class DataSynchroManager : MonoBehaviour
 
         nodges.ResetAbsolutePosition(_graphConfiguration);
 
-        NodgesSimuData nodgesSimuData = new NodgesSimuData(nodges);
+        NodgesSimuData nodgesSimuData = new(nodges);
         await _graphSimu.Run(nodgesSimuData);
 
         float maxDistance = GetMaxDistance(nodgesSimuData);

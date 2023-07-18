@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/VRKGUnity/Scenes/Tests/VR_RelativeScaleSet.unity
+    guid: c26d4ad23b3dddb47a5c067a95ef20fa
+  - enabled: 1
     path: Assets/VRKGUnity/Scenes/VR_Persistent.unity
     guid: 7e18fee0b710f494ba7dede1741fb8cd
   - enabled: 1

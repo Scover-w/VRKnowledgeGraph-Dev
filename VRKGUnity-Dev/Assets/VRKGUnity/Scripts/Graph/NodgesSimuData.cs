@@ -29,6 +29,13 @@ public class NodeSimuData
     public Vector3 Position;
     public Vector3 Velocity;
 
+    public NodeSimuData(int id, Vector3 position)
+    {
+        Id = id;
+        Position = position;
+        Velocity = Vector3.zero;
+    }
+
     public NodeSimuData(int id, Vector3 position, Vector3 velocity)
     {
         Id = id;

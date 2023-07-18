@@ -104,7 +104,7 @@ public class GraphManager : MonoBehaviour
         var nodges = await NodgesHelper.RetrieveGraph(query, _graphRepo);
 
         DebugChrono.Instance.Start("UpdateGraph");
-        await _graph.UpdateNodges(nodges);
+        _graph.UpdateNodges(nodges);
         DebugChrono.Instance.Stop("UpdateGraph");
 
         _graph.CalculateMetrics(_graphRepo.GraphDbRepositoryNamespaces);
@@ -138,6 +138,7 @@ public class GraphManager : MonoBehaviour
             return;
         }
 
+        _switchingMode = true;
         _nextGraphMode = GraphMode.Desk;
         OnGraphUpdate?.Invoke(GraphUpdateType.BeforeSwitchMode);
 
@@ -152,6 +153,7 @@ public class GraphManager : MonoBehaviour
             return;
         }
 
+        _switchingMode = true;
         _nextGraphMode = GraphMode.Immersion;
         OnGraphUpdate?.Invoke(GraphUpdateType.BeforeSwitchMode);
 
@@ -160,6 +162,8 @@ public class GraphManager : MonoBehaviour
 
     private void AfterSwitchMode()
     {
+        _switchingMode = false;
+
         if (_nextGraphMode == GraphMode.Desk)
         {
             _graphMode = GraphMode.Desk;

@@ -9,7 +9,6 @@ using UnityEngine;
 
 public class Graph
 {
-    public float Velocity { get { return _velocity; } }
     public bool ReachStopVelocity {  get { return _reachStopVelocity; } }
 
     public IReadOnlyDictionary<int, Node> NodesDicId => _nodesDicId;
@@ -21,34 +20,28 @@ public class Graph
         {
             return _graphConfiguration;
         } 
-        set 
-        { 
-            _graphConfiguration = value; 
-        } 
     }
 
-    GraphManager _graphManager;
-    GraphStyling _graphStyling;
-    
+    readonly GraphConfiguration _graphConfiguration;
+    readonly GraphDbRepository _repository;
+    readonly GraphManager _graphManager;
+    readonly GraphStyling _graphStyling;
+    readonly NodgePool _nodgePool;
+
+    readonly Transform _mainGraphTf;
+    readonly Transform _subGraphTf;
 
     Dictionary<int, Node> _nodesDicId;
     Dictionary<int, Edge> _edgesDicId;
 
-    GraphConfiguration _graphConfiguration;
 
     BidirectionalGraph<Node, Edge> _graphDatas;
 
-    GraphDbRepository _repository;
-    GraphDbRepositoryNamespaces _repoNamespaces;
-
     OntoNodeGroupTree _ontoNodeTree;
 
-    NodgePool _nodgePool;
+    GraphDbRepositoryNamespaces _repoNamespaces;
 
-    Transform _mainGraphTf;
-    Transform _subGraphTf;
-
-    float _velocity;
+    
     bool _reachStopVelocity;
 
     int _metricsCalculated;
@@ -159,7 +152,7 @@ public class Graph
         edgeStyler.Tf.localPosition = Vector3.zero;
     }
 
-    public async Task UpdateNodges(NodgesDicId nodges)
+    public void UpdateNodges(NodgesDicId nodges)
     {
         UpdateNodesInGraph(nodges.NodesDicId);
         UpdateEdgesInGraph(nodges.EdgesDicId);
@@ -346,8 +339,10 @@ public class Graph
             }
         }
 
-        DynamicFilter filter = new(nodeToKeepDisplay, nodeToHide);
-        filter.HiddenEdges = edgeToHide;
+        DynamicFilter filter = new(nodeToKeepDisplay, nodeToHide)
+        {
+            HiddenEdges = edgeToHide
+        };
 
         return filter;
     }
@@ -388,7 +383,7 @@ public class Graph
 
         var tasks = new List<Task>();
 
-        SemaphoreSlim semaphore = new SemaphoreSlim(0);
+        SemaphoreSlim semaphore = new(0);
 
         CalculateMetric(CalculateShortestPathsAndCentralities);
         CalculateMetric(CalculateDegrees);
@@ -420,14 +415,14 @@ public class Graph
 
     private void CalculateShortestPathsAndCentralities()
     {
-        Func<Edge, double> edgeCost = edge => 1;
+        static double edgeCost(Edge edge) => 1;
 
         // Betweenness Centrality
-        Dictionary<Node, int> inShortestPathCountBC = new Dictionary<Node, int>();
+        Dictionary<Node, int> inShortestPathCountBC = new();
         int nbOfPaths = 0;
 
         // Closeness Centrality
-        Dictionary<Node, int> shortPathLengthSumCC = new Dictionary<Node, int>();
+        Dictionary<Node, int> shortPathLengthSumCC = new();
 
         foreach (var idAndNodeSource in _nodesDicId)
         {
@@ -645,8 +640,6 @@ public class Graph
 
     public void RefreshMainNodePositions(Dictionary<int, NodeSimuData> nodeSimuDatas)
     {
-
-        // DebugChrono.Instance.Start("RefreshTransformPositionsBackground");
         var scalingFactor = (_graphManager.GraphMode == GraphMode.Desk) ? _graphConfiguration.DeskGraphSize : _graphConfiguration.ImmersionGraphSize;
 
         foreach (var idAnData in nodeSimuDatas)
@@ -654,16 +647,16 @@ public class Graph
             if (!_nodesDicId.TryGetValue(idAnData.Key, out Node node))
                 continue;
 
-            var megaTf = node.MainGraphNodeTf;
+            var mainTf = node.MainGraphNodeTf;
 
             var newCalculatedPosition = idAnData.Value.Position;
             var absolutePosition = node.AbsolutePosition;
 
             var lerpPosition = Vector3.Lerp(absolutePosition, newCalculatedPosition, .01f);
-            var megaLerpPosition = Vector3.Lerp(megaTf.localPosition, newCalculatedPosition * scalingFactor, .01f);
+            var megaLerpPosition = Vector3.Lerp(mainTf.localPosition, newCalculatedPosition * scalingFactor, .01f);
 
             node.AbsolutePosition = lerpPosition;
-            megaTf.localPosition = megaLerpPosition;
+            mainTf.localPosition = megaLerpPosition;
         }
 
         foreach (var idAndEdge in _edgesDicId)
@@ -677,8 +670,6 @@ public class Graph
             megaLine.SetPosition(0, absoluteSourcePos * scalingFactor);
             megaLine.SetPosition(1, absoluteTargetPos * scalingFactor);
         }
-
-        // DebugChrono.Instance.Stop("RefreshTransformPositionsBackground");
     }
 
 

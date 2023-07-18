@@ -16,6 +16,9 @@ public class SubGraph : MonoBehaviour
 
     [SerializeField]
     ReferenceHolderSO _referenceHolderSO;
+    
+    [SerializeField]
+    LensSimulation _lensSimulation;
 
     [SerializeField]
     Transform _subGraphTf;
@@ -38,15 +41,14 @@ public class SubGraph : MonoBehaviour
     Transform _playerHeadTf;
     GraphConfiguration _graphConfig;
 
-    HashSet<Node> _displayedNodes;
-    HashSet<Edge> _displayedEdges;
+    Dictionary<int, Node> _displayedNodes;
+    Dictionary<int, Edge> _displayedEdges;
 
     SubGraphMode _subGraphMode;
 
     EasingDel _easingFunction;
 
     bool _displayWatch = true;
-    bool _inTransition = false;
 
     float _deltaHeightWatch = .105f;
     float _deltaHeightDesk = .5f;
@@ -218,7 +220,7 @@ public class SubGraph : MonoBehaviour
             node.DisplaySubNode(displayNode);
 
             if (displayNode)
-                _displayedNodes.Add(node);
+                _displayedNodes.Add(node.Id, node);
         }
 
         foreach(Edge edge in edges)
@@ -227,7 +229,7 @@ public class SubGraph : MonoBehaviour
             edge.DisplaySubEdge(displayEdge);
 
             if(displayEdge)
-                _displayedEdges.Add(edge);
+                _displayedEdges.Add(edge.Id, edge);
         }
 
         _subGraphMode = SubGraphMode.Lens;
@@ -271,27 +273,30 @@ public class SubGraph : MonoBehaviour
         DisplayNewPropagatedNodes(propagatedNodges.Nodes);
         DisplayNewPropagatedEdges(propagatedNodges.Edges);
 
-        RecenterLensGraph();
+        ConstructLayoutLensGraph();
+        //RecenterLensGraph();
     }
 
     private void DisplayNewPropagatedNodes(List<Node> newNodesToDisplay)
     {
-        var newDisplayedNodes = new HashSet<Node>();
+        var newDisplayedNodes = new Dictionary<int, Node>();
+        var oldDisplayedNodes = _displayedNodes;
 
         foreach (Node nodeToDisplay in newNodesToDisplay)
         {
-            if (_displayedNodes.Contains(nodeToDisplay))
+            int nodeToDisplayId = nodeToDisplay.Id;
+            if (oldDisplayedNodes.ContainsKey(nodeToDisplayId))
             {
-                _displayedNodes.Remove(nodeToDisplay);
-                newDisplayedNodes.Add(nodeToDisplay);
+                oldDisplayedNodes.Remove(nodeToDisplayId);
+                newDisplayedNodes.Add(nodeToDisplayId, nodeToDisplay);
                 continue;
             }
 
             nodeToDisplay.DisplaySubNode(true);
-            newDisplayedNodes.Add(nodeToDisplay);
+            newDisplayedNodes.Add(nodeToDisplayId, nodeToDisplay);
         }
 
-        foreach (Node nodeToHide in _displayedNodes)
+        foreach (Node nodeToHide in oldDisplayedNodes.Values)
         {
             nodeToHide.DisplaySubNode(false);
         }
@@ -301,22 +306,25 @@ public class SubGraph : MonoBehaviour
 
     private void DisplayNewPropagatedEdges(List<Edge> newEdgesToDisplay) 
     {
-        var newDisplayedEdges = new HashSet<Edge>();
+        var newDisplayedEdges = new Dictionary<int, Edge>();
+        var oldDisplayedEdges = _displayedEdges;
 
         foreach (Edge edgeToDisplay in newEdgesToDisplay)
         {
-            if (_displayedEdges.Contains(edgeToDisplay))
+            var edgeToDisplaId = edgeToDisplay.Id;
+
+            if (oldDisplayedEdges.ContainsKey(edgeToDisplaId))
             {
-                _displayedEdges.Remove(edgeToDisplay);
-                newDisplayedEdges.Add(edgeToDisplay);
+                oldDisplayedEdges.Remove(edgeToDisplaId);
+                newDisplayedEdges.Add(edgeToDisplaId, edgeToDisplay);
                 continue;
             }
 
             edgeToDisplay.DisplaySubEdge(true);
-            newDisplayedEdges.Add(edgeToDisplay);
+            newDisplayedEdges.Add(edgeToDisplaId, edgeToDisplay);
         }
 
-        foreach (Edge edgeToHide in _displayedEdges)
+        foreach (Edge edgeToHide in oldDisplayedEdges.Values)
         {
             edgeToHide.DisplaySubEdge(false);
         }
@@ -324,12 +332,19 @@ public class SubGraph : MonoBehaviour
         _displayedEdges = newDisplayedEdges;
     }
 
+
+    public void ConstructLayoutLensGraph()
+    {
+        var displaydNodeClone = new Dictionary<int, Node>(_displayedNodes);
+        var displaydEdgeClone = new Dictionary<int, Edge>(_displayedEdges);
+
+        _lensSimulation.Run(displaydNodeClone, displaydEdgeClone);
+    }
+
     public void RecenterLensGraph()
     {
-
         if (_subGraphMode == SubGraphMode.Watch)
             return;
-
 
         if (_displayedNodes.Count == 0)
             return;
@@ -338,7 +353,7 @@ public class SubGraph : MonoBehaviour
 
         var scaleGraph = _graphManager.GraphConfiguration.LensGraphSize;
 
-        foreach(Node node in _displayedNodes)
+        foreach(Node node in _displayedNodes.Values)
         {
             centerGraph += node.AbsolutePosition;
         }
@@ -362,7 +377,7 @@ public class SubGraph : MonoBehaviour
         _subGraphTf.gameObject.SetActive(_displayWatch);
     }
 
-    public void UpdateGPSPoint(Vector3 normPosition)
+    public void UpdateGPSPoint(/*Vector3 normPosition*/)
     {
         // TODO : convert to miniGraph scale
     }
