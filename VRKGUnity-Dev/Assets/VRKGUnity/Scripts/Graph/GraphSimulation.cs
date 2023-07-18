@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -86,8 +87,9 @@ public class GraphSimulation : MonoBehaviour
                 _nodeSimuDatas = _newNodeSimuDatas;
                 _newNodeSimuDatas = null;
             }
+            
+            graph.RefreshMainNodePositions(_nodeSimuDatas); // Take 1 to 2ms
 
-            graph.RefreshMainNodePositions(_nodeSimuDatas);
             yield return null;
 
             time += Time.deltaTime * speed;
@@ -134,6 +136,7 @@ public class GraphSimulation : MonoBehaviour
         float timer = 0f;
         _isRunningSimulation = true;
         DebugChrono.Instance.Start("firstTickGRaph");
+        
 
         while (_isRunningSimulation && !hasReachStopVelocity && !_wantStopSimulation)
         {

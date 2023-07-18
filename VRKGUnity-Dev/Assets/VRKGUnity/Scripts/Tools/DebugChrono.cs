@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class DebugChrono
 {
@@ -20,7 +22,7 @@ public class DebugChrono
     public static DebugChrono _instance;
 
 
-    Dictionary<string, DateTime> _chronos;
+    Dictionary<string, Stopwatch> _chronos;
 
 
     public DebugChrono()
@@ -37,41 +39,46 @@ public class DebugChrono
             _chronos.Remove(keyChrono);
         }
 
-        _chronos.Add(keyChrono, DateTime.Now);
+        Stopwatch stopwatch = new Stopwatch();
+        stopwatch.Start();
+        _chronos.Add(keyChrono, stopwatch);
     }
 
     public void Stop(string keyChrono) 
     { 
-        if(!_chronos.TryGetValue(keyChrono,out DateTime start)) 
+        if(!_chronos.TryGetValue(keyChrono,out Stopwatch stopwatch)) 
         {
             Debug.LogWarning("[DebugChrono] Stop() keyChrono " + keyChrono + " not in.");
             return;
         }
 
-
+        stopwatch.Stop();
         _chronos.Remove(keyChrono);
 
-        var secondsSpan = (DateTime.Now - start).TotalMilliseconds;
-        Debug.Log(keyChrono + " has lasted " + secondsSpan + " ms.");
+
+        TimeSpan ts = stopwatch.Elapsed;
+        var msSpan = ts.TotalMilliseconds;
+        Debug.Log(keyChrono + " has lasted " + msSpan + " ms.");
     }
 
     public float Stop(string keyChrono, bool displayLog)
     {
-        if (!_chronos.TryGetValue(keyChrono, out DateTime start))
+        if (!_chronos.TryGetValue(keyChrono, out Stopwatch stopwatch))
         {
             Debug.LogWarning("[DebugChrono] Stop() keyChrono " + keyChrono + " not in.");
             return 0f;
         }
 
-
+        stopwatch.Stop();
         _chronos.Remove(keyChrono);
 
-        var secondsSpan = (float)(DateTime.Now - start).TotalMilliseconds;
+        TimeSpan ts = stopwatch.Elapsed;
+        var msSpan = ts.TotalMilliseconds;
 
-        if(displayLog)
-            Debug.Log(keyChrono + " has lasted " + secondsSpan + " ms.");
+        if (displayLog)
+            Debug.Log(keyChrono + " has lasted " + msSpan + " ms.");
 
-        return (float)(DateTime.Now - start).TotalSeconds;
+        return (float)ts.TotalSeconds;
     }
 
 

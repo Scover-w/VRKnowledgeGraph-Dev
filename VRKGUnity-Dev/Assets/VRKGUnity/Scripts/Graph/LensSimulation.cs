@@ -130,7 +130,6 @@ public class LensSimulation : MonoBehaviour
             lastTimer = DateTime.Now;
         }
 
-        Debug.Log("Simu Finished : /isRunningSimu " +_isRunningSimulation + "/ ,  /wantStopSimu " + _wantStopSimulation + "/ ,  /hasReachStopVelo " + hasReachStopVelocity + "/ , timer > 1f " + (timer > 1f) + "/ , bricbroc " + (!(hasReachStopVelocity && timer > 1f)));
 
         _newNodeSimuDatas = nodgesSimuDatas.NodeSimuDatas.Clone();
         _isRunningSimulation = false;
@@ -240,8 +239,6 @@ public class LensSimulation : MonoBehaviour
         }
 
         float velocityGraph = velocitySum / (float)nodesSimuData.Count;
-
-        Debug.Log(velocityGraph);
 
         return velocityGraph < stopVelocity;
     }

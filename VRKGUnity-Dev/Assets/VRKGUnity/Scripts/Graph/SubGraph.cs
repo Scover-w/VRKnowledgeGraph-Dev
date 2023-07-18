@@ -233,9 +233,10 @@ public class SubGraph : MonoBehaviour
         }
 
         _subGraphMode = SubGraphMode.Lens;
+        _subGraphTf.position = _lensTf.position;
         _subGraphTf.gameObject.SetActive(true);
 
-        RecenterLensGraph();
+        TryConstructLayoutLensGraph();
     }
 
     private void AfterSwitchModeToImmersion()
@@ -273,8 +274,7 @@ public class SubGraph : MonoBehaviour
         DisplayNewPropagatedNodes(propagatedNodges.Nodes);
         DisplayNewPropagatedEdges(propagatedNodges.Edges);
 
-        ConstructLayoutLensGraph();
-        //RecenterLensGraph();
+        TryConstructLayoutLensGraph();
     }
 
     private void DisplayNewPropagatedNodes(List<Node> newNodesToDisplay)
@@ -333,35 +333,15 @@ public class SubGraph : MonoBehaviour
     }
 
 
-    public void ConstructLayoutLensGraph()
+    public void TryConstructLayoutLensGraph()
     {
+        if (_displayedNodes.Count == 0)
+            return;
+
         var displaydNodeClone = new Dictionary<int, Node>(_displayedNodes);
         var displaydEdgeClone = new Dictionary<int, Edge>(_displayedEdges);
 
         _lensSimulation.Run(displaydNodeClone, displaydEdgeClone);
-    }
-
-    public void RecenterLensGraph()
-    {
-        if (_subGraphMode == SubGraphMode.Watch)
-            return;
-
-        if (_displayedNodes.Count == 0)
-            return;
-
-        Vector3 centerGraph = Vector3.zero;
-
-        var scaleGraph = _graphManager.GraphConfiguration.LensGraphSize;
-
-        foreach(Node node in _displayedNodes.Values)
-        {
-            centerGraph += node.AbsolutePosition;
-        }
-
-
-        centerGraph /= _displayedNodes.Count;
-        centerGraph *= scaleGraph;
-        _subGraphTf.position = _lensTf.position - centerGraph;
     }
     #endregion
 
