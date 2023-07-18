@@ -16,6 +16,7 @@ MonoBehaviour:
     SimuParameters:
       TickDeltaTime: 0.016
       MaxSimulationTime: 15
+      LerpSmooth: 0.01
       LightSpringForce: 5
       LightCoulombForce: 0.1
       LightDamping: 1
@@ -31,22 +32,23 @@ MonoBehaviour:
       DenseMaxVelocity: 10
       DenseStopVelocity: 2
     LensSimuParameters:
-      TickDeltaTime: 0.032
+      TickDeltaTime: 0.008
       MaxSimulationTime: 5
+      LerpSmooth: 0.1
       LightSpringForce: 10
       LightCoulombForce: 0.12
       LightDamping: 1
       LightSpringDistance: 0.4
       LightCoulombDistance: 0.8
       LightMaxVelocity: 30
-      LightStopVelocity: 0.19
+      LightStopVelocity: 0.00001
       DenseSpringForce: 10
       DenseCoulombForce: 0.12
       DenseDamping: 1
       DenseSpringDistance: 0.4
       DenseCoulombDistance: 0.8
       DenseMaxVelocity: 30
-      DenseStopVelocity: 0.19
+      DenseStopVelocity: 0.1
     ImmersionGraphSize: 12.75
     DeskGraphSize: 0.1
     WatchGraphSize: 0.025

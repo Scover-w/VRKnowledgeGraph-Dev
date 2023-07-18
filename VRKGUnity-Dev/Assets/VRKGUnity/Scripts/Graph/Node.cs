@@ -87,6 +87,8 @@ public class Node
     public Vector3 AbsolutePosition;
     
     public Dictionary<string, string> Properties;
+    public Dictionary<string, Texture2D> Medias;
+
     private bool _doDisplayMainNode;
     private bool _doDisplaySubNode;
 
@@ -131,6 +133,7 @@ public class Node
         EdgeTarget = new();
 
         Properties = new();
+        Medias = new();
 
         _doDisplayMainNode = false;
         _doDisplaySubNode = false;
@@ -162,6 +165,7 @@ public class Node
         EdgeTarget = new();
 
         Properties = new();
+        Medias = new();
 
         _doDisplayMainNode = false;
         _doDisplaySubNode = false;

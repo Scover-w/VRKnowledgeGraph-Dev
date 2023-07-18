@@ -67,47 +67,41 @@ public static class NodgesHelper
 
         foreach (JToken binding in data["results"]["bindings"])
         {
-            string sType = binding["s"]["type"].Value<string>();
-            string sValue = binding["s"]["value"].Value<string>();
+            var sToken = binding["s"];
+            string sType = sToken["type"].Value<string>();
+            string sValue = sToken["value"].Value<string>();
 
-            string pType = binding["p"]["type"].Value<string>();
-            string pValue = binding["p"]["value"].Value<string>();
+            var pToken = binding["p"];
+            string pType = pToken["type"].Value<string>();
+            string pValue = pToken["value"].Value<string>();
 
-            string oType = binding["o"]["type"].Value<string>();
-            string oValue = binding["o"]["value"].Value<string>();
+            var oToken = binding["o"];
+            string oType = oToken["type"].Value<string>();
+            string oValue = oToken["value"].Value<string>();
 
 
             if (ontoUris.Contains(sValue) || ontoUris.Contains(oValue))
                 continue;
 
-            int sId = sValue.GetHashCode();
-            int oId = oValue.GetHashCode();
 
-            Node s;
-            Node o;
+            Node sNode = GetNodeFromDictOrCreate(sToken, nodesDicId, repoNamespaces);
 
-            if (nodesDicId.TryGetValue(sId, out Node sNodeExisting))
+            if (oType == "literal" && sType == "uri")
             {
-                s = sNodeExisting;
-            }
-            else
-            {
-                s = new Node(sId, sType, sValue, repoNamespaces);
-                nodesDicId.Add(sId, s);
+                AddToNodeAsProperty(sNode, pValue, oValue);
+                continue;
             }
 
-            if (nodesDicId.TryGetValue(oId, out Node oNodeExisting))
+            if(pValue == "http://xmlns.com/foaf/0.1/depiction")
             {
-                o = oNodeExisting;
-            }
-            else
-            {
-                o = new Node(oId, oType, oValue, repoNamespaces);
-                nodesDicId.Add(oId, o);
+                AddToNodeAsMedia(sNode, pValue, oValue);
+                continue;
             }
 
 
-            var edge = new Edge(pType, pValue, s, o, repoNamespaces);
+            Node oNode = GetNodeFromDictOrCreate(oToken, nodesDicId, repoNamespaces);
+
+            var edge = new Edge(pType, pValue, sNode, oNode, repoNamespaces);
 
             if (edgesDicId.TryGetValue(edge.Id, out _))
             {
@@ -116,13 +110,11 @@ public static class NodgesHelper
 
             edgesDicId.Add(edge.Id, edge);
 
-            s.EdgeSource.Add(edge);
-            o.EdgeTarget.Add(edge);
+            sNode.EdgeSource.Add(edge);
+            oNode.EdgeTarget.Add(edge);
         }
 
         Debug.Log("Retrieve Data : Nb Nodes : " + nodesDicId.Count + " , Nb Edges : " + edgesDicId.Count);
-
-        nodges.MergePropertiesNodes();
 
         return nodges;
     }
@@ -135,54 +127,34 @@ public static class NodgesHelper
         var nodesDicId = nodges.NodesDicId;
         var edgesDicId = nodges.EdgesDicId;
 
-#if UNITY_EDITOR && FALSE
-        var folderPath = Path.Combine(Application.dataPath, "VRKGUnity", "Data");
-
-        if (!Directory.Exists(folderPath))
-            Directory.CreateDirectory(folderPath);
-
-        await File.WriteAllTextAsync(Path.Combine(folderPath, "AllQuery.json"), json);
-#endif
-
         foreach (JToken binding in data["results"]["bindings"])
         {
-            string sType = binding["s"]["type"].Value<string>();
-            string sValue = binding["s"]["value"].Value<string>();
+            var sToken = binding["s"];
+            string sType = sToken["type"].Value<string>();
+            string sValue = sToken["value"].Value<string>();
 
-            string pType = binding["p"]["type"].Value<string>();
-            string pValue = binding["p"]["value"].Value<string>();
+            var pToken = binding["p"];
+            string pType = pToken["type"].Value<string>();
+            string pValue = pToken["value"].Value<string>();
 
-            string oType = binding["o"]["type"].Value<string>();
-            string oValue = binding["o"]["value"].Value<string>();
+            var oToken = binding["o"];
+            string oType = oToken["type"].Value<string>();
+            string oValue = oToken["value"].Value<string>();
 
 
-            int sId = sValue.GetHashCode();
-            int oId = oValue.GetHashCode();
+            Node sNode = GetNodeFromDictOrCreate(sToken, nodesDicId, repoNamespaces);
 
-            Node s;
-            Node o;
 
-            if (nodesDicId.TryGetValue(sId, out Node sNodeExisting))
-            {
-                s = sNodeExisting;
-            }
-            else
-            {
-                s = new Node(sId, sType, sValue, repoNamespaces);
-                nodesDicId.Add(sId, s);
-            }
+            if (oType == "literal" && sType == "uri") // oNode is a literal
+                continue;
 
-            if (nodesDicId.TryGetValue(oId, out Node oNodeExisting))
-            {
-                o = oNodeExisting;
-            }
-            else
-            {
-                o = new Node(oId, oType, oValue, repoNamespaces);
-                nodesDicId.Add(oId, o);
-            }
+            if (pValue == "http://xmlns.com/foaf/0.1/depiction") // oNode is a media
+                continue;
 
-            var edge = new Edge(pType, pValue, s, o, repoNamespaces);
+
+            Node oNode = GetNodeFromDictOrCreate(oToken, nodesDicId, repoNamespaces);
+
+            var edge = new Edge(pType, pValue, sNode, oNode, repoNamespaces);
 
             if (edgesDicId.TryGetValue(edge.Id, out Edge edgeExisting))
             {
@@ -191,11 +163,9 @@ public static class NodgesHelper
 
             edgesDicId.Add(edge.Id, edge);
 
-            s.EdgeSource.Add(edge);
-            o.EdgeTarget.Add(edge);
+            sNode.EdgeSource.Add(edge);
+            oNode.EdgeTarget.Add(edge);
         }
-
-        nodges.MergePropertiesNodes();
 
         return nodges;
     }
@@ -285,56 +255,54 @@ public static class NodgesHelper
 
         foreach (JToken binding in data["results"]["bindings"])
         {
-            string sType = binding["s"]["type"].Value<string>();
-            string sValue = binding["s"]["value"].Value<string>();
-
-            string pType = binding["p"]["type"].Value<string>();
-            string pValue = binding["p"]["value"].Value<string>();
-
-            string oType = binding["o"]["type"].Value<string>();
-            string oValue = binding["o"]["value"].Value<string>();
+            var sToken = binding["s"];
+            string sType = sToken["type"].Value<string>();
+            string sValue = sToken["value"].Value<string>();
 
             if (repoNamespaces.IsUriAnOnto(sValue))
                 continue;
 
+            var pToken = binding["p"];
+            string pType = pToken["type"].Value<string>();
+            string pValue = pToken["value"].Value<string>();
+
+            var oToken = binding["o"];
+            string oType = oToken["type"].Value<string>();
+            string oValue = oToken["value"].Value<string>();
+
+
             bool isObjectPossiblyAnOnto = repoNamespaces.IsUriAnOnto(oValue) && pValue == "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
 
-            int sId = sValue.GetHashCode();
             int oId = oValue.GetHashCode();
 
-            Node s;
-            Node o;
 
-            if (nodesDicId.TryGetValue(sId, out Node sNodeExisting))
-            {
-                s = sNodeExisting;
-            }
-            else
-            {
-                s = new Node(sId, sType, sValue, repoNamespaces);
-                nodesDicId.Add(sId, s);
-            }
+            Node sNode = GetNodeFromDictOrCreate(sToken, nodesDicId, repoNamespaces);
 
             if(isObjectPossiblyAnOnto)
             {
                 var simpleOntoNode = new Node(oId, oType, oValue, repoNamespaces);
 
-                if (ontologyLinker.TryEstablishLink(s, simpleOntoNode))
+                if (ontologyLinker.TryEstablishLink(sNode, simpleOntoNode))
                     continue;
             }
 
-            if (nodesDicId.TryGetValue(oId, out Node oNodeExisting))
+
+            if(oType == "literal" && sType == "uri")
             {
-                o = oNodeExisting;
-            }
-            else
-            {
-                o = new Node(oId, oType, oValue, repoNamespaces);
-                nodesDicId.Add(oId, o);
+                AddToNodeAsProperty(sNode, pValue, oValue);
+                continue;
             }
 
+            if (pValue == "http://xmlns.com/foaf/0.1/depiction")
+            {
+                AddToNodeAsMedia(sNode, pValue, oValue);
+                continue;
+            }
 
-            var edge = new Edge(pType, pValue, s, o, repoNamespaces);
+            Node oNode = GetNodeFromDictOrCreate(oToken, nodesDicId, repoNamespaces);
+
+
+            var edge = new Edge(pType, pValue, sNode, oNode, repoNamespaces);
 
             if (edgesDicId.TryGetValue(edge.Id, out _))
             {
@@ -343,96 +311,50 @@ public static class NodgesHelper
 
             edgesDicId.Add(edge.Id, edge);
 
-            s.EdgeSource.Add(edge);
-            o.EdgeTarget.Add(edge);
+            sNode.EdgeSource.Add(edge);
+            oNode.EdgeTarget.Add(edge);
         }
 
         ontologyLinker.AttachNodesToOntoNodes();
 
-        nodges.MergePropertiesNodes();
-
         return nodges;
     }
 
-    #endregion
 
-
-    /// <summary>
-    /// Merge litteral nodes to its only node connection in its properties.
-    /// Allow to compact the graph by removing solo edge nodes.
-    /// </summary>
-    /// <param name="nodges"></param>
-    private static void MergePropertiesNodes(this NodgesDicId nodges)
+    private static void AddToNodeAsProperty(Node node, string edgeUri, string propValue)
     {
-        // Remove Nodes than can be properties for other nodes
-        List<Node> nodeToRemove = new();
-        List<Edge> edgeToRemove = new();
+        if (node.Properties.ContainsKey(edgeUri))
+            return;
 
-
-        var edgesDicId = nodges.EdgesDicId;
-        var nodesDicId = nodges.NodesDicId;
-
-
-        foreach (var kvp in nodesDicId)
-        {
-            Node node = kvp.Value;
-
-            if (node.Type != NodgeType.Literal)
-                continue;
-
-            bool onlyOneTarget = (node.EdgeSource.Count == 0 && node.EdgeTarget.Count == 1);
-            bool onlyOneSource = (node.EdgeSource.Count == 1 && node.EdgeTarget.Count == 0);
-
-            if (!(onlyOneSource || onlyOneTarget)) // Is link to multiple nodes
-            {
-                // TODO : Get labels and all to properties
-                continue;
-            }
-
-            bool nodeToMergeIsATarget = onlyOneTarget;
-
-            Edge edge;
-            Node nodeToAddProperty;
-
-            if(nodeToMergeIsATarget)
-            {
-                edge = node.EdgeTarget[0];
-                nodeToAddProperty = edge.Source;
-
-                if (nodeToAddProperty.Type == NodgeType.Literal)
-                    continue;
-
-                nodeToAddProperty.EdgeSource.Remove(edge);
-            }
-            else
-            {
-                edge = node.EdgeSource[0];
-                nodeToAddProperty = edge.Target;
-
-                if (nodeToAddProperty.Type == NodgeType.Literal)
-                    continue;
-
-                nodeToAddProperty.EdgeTarget.Remove(edge);
-            }
-
-            if (!nodeToAddProperty.Properties.ContainsKey(edge.Uri))
-                nodeToAddProperty.Properties.Add(edge.Uri, node.Uri);
-
-            nodeToRemove.Add(node);
-            edgeToRemove.Add(edge);
-
-        }
-
-        foreach (var node in nodeToRemove)
-        {
-            nodesDicId.Remove(node.Id);
-        }
-
-        foreach (var edge in edgeToRemove)
-        {
-            edgesDicId.Remove(edge.Id);
-        }
+        node.Properties.Add(edgeUri, propValue);
     }
+
+    private static void AddToNodeAsMedia(Node node, string edgeUri, string propValue)
+    {
+        if (node.Medias.ContainsKey(propValue))
+            return;
+
+        node.Medias.Add(propValue, null);
+    }
+
+    private static Node GetNodeFromDictOrCreate(JToken nodeToken, Dictionary<int, Node> nodeDic, GraphDbRepositoryNamespaces repoNamespaces)
+    {
+        string value = nodeToken["value"].Value<string>();
+        int id = value.GetHashCode();
+
+        if (nodeDic.TryGetValue(id, out Node existingNode))
+        {
+            return existingNode;
+        }
+        var type = nodeToken["type"].Value<string>();
+
+        var newNode = new Node(id, type, value, repoNamespaces);
+        nodeDic.Add(id, newNode);
+
+        return newNode;
+    }
+
+    #endregion
 
     public static void ExtractNodeNamesToProperties(this NodgesDicId nodges)
     {
@@ -451,55 +373,6 @@ public static class NodgesHelper
                 continue;
 
             node.NodeNamesToProperties();
-        }
-    }
-
-   
-
-    
-
-
-    public static Dictionary<int, Node> ExtractNodes(this JObject data, GraphDbRepositoryNamespaces repoNamespaces)
-    {
-        Dictionary<int, Node> nodesDicId = new();
-
-        foreach (JToken binding in data["results"]["bindings"])
-        {
-            string sType = binding["s"]["type"].Value<string>();
-            string sValue = binding["s"]["value"].Value<string>();
-
-            string oType = binding["o"]["type"].Value<string>();
-            string oValue = binding["o"]["value"].Value<string>();
-
-            int sId = sValue.GetHashCode();
-            int oId = oValue.GetHashCode();
-
-            Node s;
-            Node o;
-
-            if (!nodesDicId.ContainsKey(sId))
-            {
-                s = new Node(sId, sType, sValue, repoNamespaces);
-                nodesDicId.Add(sId, s);
-            }
-
-            if (!nodesDicId.ContainsKey(oId))
-            {
-                o = new Node(oId, oType, oValue, repoNamespaces);
-                nodesDicId.Add(oId, o);
-            }
-
-        }
-
-        return nodesDicId;
-    }
-
-    public static void RemoveNodes(this Dictionary<int, Node> nodeIds, Dictionary<int, Node> nodeIdsToRemove)
-    {
-        foreach(int idNode in nodeIdsToRemove.Keys)
-        {
-            if(nodeIds.ContainsKey(idNode))
-                nodeIds.Remove(idNode);
         }
     }
 
