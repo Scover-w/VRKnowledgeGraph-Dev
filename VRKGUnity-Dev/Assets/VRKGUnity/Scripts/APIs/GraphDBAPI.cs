@@ -11,14 +11,12 @@ public class GraphDBAPI
     public static ErrorQuery OnErrorQuery;
 
     private string _serverUrl;
-    private string _repositoryId;
+    private readonly string _repositoryId;
 
     public GraphDBAPI(GraphDbRepository graphDbRepository)
     {
         if(graphDbRepository == null)
         {
-            
-
             _serverUrl = "http://localhost:7200/";
             _repositoryId = "cap44";
 
@@ -46,41 +44,45 @@ public class GraphDBAPI
     /// <returns></returns>
     public async Task<string> SelectQuery(string sparqlQuery, bool doInfer = false)
     {
-        using (HttpClient client = new HttpClient())
+        using HttpClient client = new();
+
+        string encodedQuery = WebUtility.UrlEncode(sparqlQuery);
+        HttpRequestMessage request = new(HttpMethod.Get, _serverUrl + "repositories/" + _repositoryId + "?query=" + encodedQuery + "&infer=" + doInfer.ToString().ToLower());
+        request.Headers.Add("Accept", "application/sparql-results+json");
+
+        HttpResponseMessage response;
+
+        try
         {
-
-            string encodedQuery = WebUtility.UrlEncode(sparqlQuery);
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, _serverUrl + "repositories/" + _repositoryId + "?query=" + encodedQuery + "&infer=" + doInfer.ToString().ToLower());
-            request.Headers.Add("Accept", "application/sparql-results+json");
-
-            HttpResponseMessage response;
-
-            try
-            {
-                response = await client.SendAsync(request);
-            }
-            catch (Exception e)
-            {
-                var responseB = new HttpResponseMessage();
-                responseB.StatusCode = HttpStatusCode.ServiceUnavailable;
-                responseB.Content = new StringContent(e.Message);
-                OnErrorQuery?.Invoke(responseB);
-                return "";
-            }
-
-            if (!response.IsSuccessStatusCode)
-            {
-                string error = await response.Content.ReadAsStringAsync();
-                var responseC = new HttpResponseMessage();
-                responseC.StatusCode = response.StatusCode;
-                responseC.Content = new StringContent(error);
-                OnErrorQuery?.Invoke(responseC);
-                return "";
-            }
-
-            string responseBody = await response.Content.ReadAsStringAsync();
-            return responseBody;
+            response = await client.SendAsync(request);
         }
+        catch (Exception e)
+        {
+            HttpResponseMessage responseB = new()
+            {
+                StatusCode = HttpStatusCode.ServiceUnavailable,
+                Content = new StringContent(e.Message)
+            };
+
+            OnErrorQuery?.Invoke(responseB);
+            return "";
+        }
+
+        if (!response.IsSuccessStatusCode)
+        {
+            string error = await response.Content.ReadAsStringAsync();
+            HttpResponseMessage responseC = new()
+            {
+                StatusCode = response.StatusCode,
+                Content = new StringContent(error)
+            };
+
+            OnErrorQuery?.Invoke(responseC);
+            return "";
+        }
+
+        string responseBody = await response.Content.ReadAsStringAsync();
+        return responseBody;
     }
 
 
@@ -91,116 +93,132 @@ public class GraphDBAPI
     /// <returns></returns>
     public async Task<bool> UpdateQuery(string sparqlQuery)
     {
-        using (HttpClient client = new HttpClient())
+        using HttpClient client = new();
+
+        HttpRequestMessage request = new(HttpMethod.Post, _serverUrl + "repositories/" + _repositoryId + "/statements");
+
+        MultipartFormDataContent multiPartContent = new()
         {
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, _serverUrl + "repositories/" + _repositoryId + "/statements");
+            { new StringContent(sparqlQuery), "update" }
+        };
 
-            var multiPartContent = new MultipartFormDataContent();
-            multiPartContent.Add(new StringContent(sparqlQuery), "update");
+        request.Content = multiPartContent;
 
-            request.Content = multiPartContent;
+        HttpResponseMessage response;
 
-            HttpResponseMessage response;
-
-            try
-            {
-                response = await client.SendAsync(request);
-            }
-            catch (Exception e)
-            {
-                var responseB = new HttpResponseMessage();
-                responseB.StatusCode = HttpStatusCode.ServiceUnavailable;
-                responseB.Content = new StringContent(e.Message);
-                OnErrorQuery?.Invoke(responseB);
-                return false;
-            }
-
-            if (!response.IsSuccessStatusCode)
-            {
-                string error = await response.Content.ReadAsStringAsync();
-                var responseC = new HttpResponseMessage();
-                responseC.StatusCode = response.StatusCode;
-                responseC.Content = new StringContent(error);
-                OnErrorQuery?.Invoke(responseC);
-                return false;
-            }
-
-            return true;
+        try
+        {
+            response = await client.SendAsync(request);
         }
+        catch (Exception e)
+        {
+            HttpResponseMessage responseB = new()
+            {
+                StatusCode = HttpStatusCode.ServiceUnavailable,
+                Content = new StringContent(e.Message)
+            };
+
+            OnErrorQuery?.Invoke(responseB);
+            return false;
+        }
+
+        if (!response.IsSuccessStatusCode)
+        {
+            string error = await response.Content.ReadAsStringAsync();
+
+            HttpResponseMessage responseC = new()
+            {
+                StatusCode = response.StatusCode,
+                Content = new StringContent(error)
+            };
+
+            OnErrorQuery?.Invoke(responseC);
+            return false;
+        }
+
+        return true;
     }
 
     public async Task<bool> LoadFileContentInDatabase(string fileContent, string graphName, GraphDBAPIFileType type)
     {
 
-        using (HttpClient client = new HttpClient())
+        using HttpClient client = new();
+
+        HttpRequestMessage request = new(HttpMethod.Post, _serverUrl + "repositories/" + _repositoryId + "/statements?context=" + graphName)
         {
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, _serverUrl + "repositories/" + _repositoryId + "/statements?context=" + graphName);
-            request.Content = new StringContent(fileContent, Encoding.UTF8, (type == GraphDBAPIFileType.Turtle) ? "text/turtle" : "application/rdf+xml");
+            Content = new StringContent(fileContent, Encoding.UTF8, (type == GraphDBAPIFileType.Turtle) ? "text/turtle" : "application/rdf+xml")
+        };
 
-            HttpResponseMessage response;
+        HttpResponseMessage response;
 
-            try
-            {
-                response = await client.SendAsync(request);
-            }
-            catch (Exception e)
-            {
-                var responseB = new HttpResponseMessage();
-                responseB.StatusCode = HttpStatusCode.ServiceUnavailable;
-                responseB.Content = new StringContent(e.Message);
-                OnErrorQuery?.Invoke(responseB);
-                return false;
-            }
-
-            if (!response.IsSuccessStatusCode)
-            {
-                string error = await response.Content.ReadAsStringAsync();
-                OnErrorQuery?.Invoke(response);
-                return false;
-            }
-
-            response.EnsureSuccessStatusCode();
-
-            return true;
+        try
+        {
+            response = await client.SendAsync(request);
         }
+        catch (Exception e)
+        {
+            HttpResponseMessage responseB = new()
+            {
+                StatusCode = HttpStatusCode.ServiceUnavailable,
+                Content = new StringContent(e.Message)
+            };
+
+            OnErrorQuery?.Invoke(responseB);
+            return false;
+        }
+
+        if (!response.IsSuccessStatusCode)
+        {
+            string error = await response.Content.ReadAsStringAsync();
+            OnErrorQuery?.Invoke(response);
+            return false;
+        }
+
+        response.EnsureSuccessStatusCode();
+
+        return true;
     }
 
     public static async Task<bool> DoRepositoryExist(string serverUrl, string repositoryId)
     {
-        using (HttpClient client = new HttpClient())
+        using HttpClient client = new();
+
+        string encodedQuery = WebUtility.UrlEncode("select * where { ?s ?p ?o .} LIMIT 1");
+        HttpRequestMessage request = new(HttpMethod.Get, serverUrl + "repositories/" + repositoryId + "?query=" + encodedQuery);
+        request.Headers.Add("Accept", "application/sparql-results+json");
+
+        HttpResponseMessage response;
+
+        try
         {
-
-            string encodedQuery = WebUtility.UrlEncode("select * where { ?s ?p ?o .} LIMIT 1");
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, serverUrl + "repositories/" + repositoryId + "?query=" + encodedQuery);
-            request.Headers.Add("Accept", "application/sparql-results+json");
-
-            HttpResponseMessage response;
-
-            try
-            {
-                response = await client.SendAsync(request);
-            }
-            catch (Exception e)
-            {
-                var responseB = new HttpResponseMessage();
-                responseB.StatusCode = HttpStatusCode.ServiceUnavailable;
-                responseB.Content = new StringContent(e.Message);
-                OnErrorQuery?.Invoke(responseB);
-                return false;
-            }
-
-            if (!response.IsSuccessStatusCode)
-            {
-                string error = await response.Content.ReadAsStringAsync();
-                var responseC = new HttpResponseMessage();
-                responseC.StatusCode = response.StatusCode;
-                responseC.Content = new StringContent(error);
-                OnErrorQuery?.Invoke(responseC);
-                return false;
-            }
-
-            return true;
+            response = await client.SendAsync(request);
         }
+        catch (Exception e)
+        {
+            HttpResponseMessage responseB = new()
+            {
+                StatusCode = HttpStatusCode.ServiceUnavailable,
+                Content = new StringContent(e.Message)
+            };
+
+            OnErrorQuery?.Invoke(responseB);
+            return false;
+        }
+
+        if (!response.IsSuccessStatusCode)
+        {
+            string error = await response.Content.ReadAsStringAsync();
+            HttpResponseMessage responseC = new()
+            {
+                StatusCode = response.StatusCode,
+                Content = new StringContent(error)
+            };
+
+            OnErrorQuery?.Invoke(responseC);
+            return false;
+        }
+
+        return true;
     }
 }
 
