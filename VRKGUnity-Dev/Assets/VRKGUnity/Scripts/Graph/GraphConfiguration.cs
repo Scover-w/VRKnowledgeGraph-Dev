@@ -199,11 +199,7 @@ public class GraphConfiguration
 
     private static void SetPath()
     {
-#if PLATFORM_ANDROID && !UNITY_EDITOR
-        var folderPath = Path.Combine(Application.persistentDataPath, "VRKGUnity", "Data");
-#else
-        var folderPath = Path.Combine(Application.dataPath, "VRKGUnity", "Data");
-#endif
+        var folderPath = Path.Combine(Application.persistentDataPath, "Data");
 
         if (!Directory.Exists(folderPath))
             Directory.CreateDirectory(folderPath);

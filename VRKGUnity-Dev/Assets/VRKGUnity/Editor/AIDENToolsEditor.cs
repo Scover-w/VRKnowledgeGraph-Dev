@@ -96,7 +96,7 @@ public class AIDENToolsEditor : MonoBehaviour
     [MenuItem("AIDEN Tools/Folders/Reload Data Cap44")]
     private static void RemoveDataFromCap44Folder()
     {
-        var path = Path.Combine(Application.dataPath, "VRKGUnity", "Data", "cap44_1455283593");
+        var path = Path.Combine(Application.persistentDataPath, "Data", "cap44_1455283593");
 
         DirectoryInfo directoryInfo = new(path);
 
@@ -117,7 +117,7 @@ public class AIDENToolsEditor : MonoBehaviour
     [MenuItem("AIDEN Tools/Folders/Reload Data Cap44 Except Distant Uris")]
     private static void RemoveDataFromCap44FolderExceptUris()
     {
-        var path = Path.Combine(Application.dataPath, "VRKGUnity", "Data", "cap44_1455283593");
+        var path = Path.Combine(Application.persistentDataPath, "Data", "cap44_1455283593");
 
         DirectoryInfo directoryInfo = new(path);
 
@@ -135,6 +135,19 @@ public class AIDENToolsEditor : MonoBehaviour
         }
 
         Debug.Log("Cap44 data has been removed !");
+    }
+
+    [MenuItem("AIDEN Tools/Folders/Open Data Folder")]
+    private static void OpenDataFolder()
+    {
+        string path = Path.Combine(Application.persistentDataPath, "Data");
+
+        Process.Start(new ProcessStartInfo()
+        {
+            FileName = path,
+            UseShellExecute = true,
+            Verb = "open"
+        });
     }
 
 

@@ -28,11 +28,7 @@ public class GraphDbRepository
         GraphDBAPI = new GraphDBAPI(this);
 
 
-#if PLATFORM_ANDROID && !UNITY_EDITOR
-        PathRepo = Path.Combine(Application.persistentDataPath, "VRKGUnity", "Data", RepositoryId + "_" + Mathf.Abs(ServerURL.GetHashCode()));
-#else
-        PathRepo = Path.Combine(Application.dataPath, "VRKGUnity", "Data", RepositoryId + "_" + Mathf.Abs(ServerURL.GetHashCode()));
-#endif
+        PathRepo = Path.Combine(Application.persistentDataPath, "Data", RepositoryId + "_" + Mathf.Abs(ServerURL.GetHashCode()));
 
 
         if (!Directory.Exists(PathRepo))
