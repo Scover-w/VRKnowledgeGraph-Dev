@@ -98,7 +98,6 @@ public class GraphDbRepositoryNamespaces
         if (!graph.TryLoadFromRdf(xmlContent))
             return;
 
-
         await FileHelper.SaveAsync(xmlContent, pathRepo, namespce.CleanUriFromUrlPart() + ".rdf");
         graph.CleanFromLabelAndComment();
         string turtleContent = graph.ToTurtle();

@@ -1,11 +1,11 @@
 @prefix bibo: <http://purl.org/ontology/bibo/> .
-@prefix crm: <http://www.cidoc-crm.org/cidoc-crm> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix ns1: <http://omeka.org/s/vocabs/o#> .
 @prefix rdaa: <http://rdaregistry.info/Elements/a/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix skos1: <http://www.w3.org/2004/02/skos/core> .
+@prefix skos1: <http://www.w3.org/2004/02/skos/core#> .
 
 <https://cap44.univ-nantes.fr/api/items/104> a crm:E29_Design_or_Procedure ;
     rdfs:label "Plan du projet du 3ème étage du CAP 44 en 1972" ;
