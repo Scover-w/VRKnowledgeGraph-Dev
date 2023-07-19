@@ -331,10 +331,10 @@ public static class NodgesHelper
 
     private static void AddToNodeAsMedia(Node node, string edgeUri, string propValue)
     {
-        if (node.Medias.ContainsKey(propValue))
+        if (node.Medias.Contains(propValue))
             return;
 
-        node.Medias.Add(propValue, null);
+        node.Medias.Add(propValue);
     }
 
     private static Node GetNodeFromDictOrCreate(JToken nodeToken, Dictionary<int, Node> nodeDic, GraphDbRepositoryNamespaces repoNamespaces)

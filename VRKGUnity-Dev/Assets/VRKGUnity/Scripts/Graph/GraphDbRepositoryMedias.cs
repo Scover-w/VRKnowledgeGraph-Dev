@@ -9,7 +9,7 @@ using UnityEngine;
 public class GraphDbRepositoryMedias
 {
     [JsonProperty("Medias_")]
-    Dictionary<string, Media> _medias;
+    Dictionary<string, MediaState> _medias;
 
     [JsonIgnore]
     private static string _fullpathFile;
@@ -24,20 +24,26 @@ public class GraphDbRepositoryMedias
         _medias = new();
     }
 
-    public async Task AddMedia(string mediaUrl)
+    public async Task AddMedia(string mediaUrl, MediaState state)
     {
-
         if (_medias.ContainsKey(mediaUrl))
             return;
 
-
-        _medias.Add(mediaUrl, new Media(mediaUrl));
+        _medias.Add(mediaUrl, state);
 
         await Save();
     }
 
+    public MediaState TryGetMediaState(string mediaUrl)
+    {
+        if (_medias.TryGetValue(mediaUrl, out var mediaState))
+            return mediaState;
+
+        return MediaState.MediaDoesNotExist;
+    }
+
     #region SAVE_LOAD
-    public async static Task<GraphDbRepositoryNamespaces> Load(string pathRepo)
+    public async static Task<GraphDbRepositoryMedias> Load(string pathRepo)
     {
         _pathRepo = pathRepo;
         SetPaths(_pathRepo);
@@ -45,15 +51,15 @@ public class GraphDbRepositoryMedias
         if (File.Exists(_fullpathFile))
         {
             string json = await File.ReadAllTextAsync(_fullpathFile);
-            var repoNamespaces = JsonConvert.DeserializeObject<GraphDbRepositoryNamespaces>(json);
+            var repoMedias = JsonConvert.DeserializeObject<GraphDbRepositoryMedias>(json);
 
-            return repoNamespaces;
+            return repoMedias;
         }
 
 
-        var repoNamespacesB = new GraphDbRepositoryNamespaces();
-        await repoNamespacesB.Save();
-        return repoNamespacesB;
+        var repoMediasB = new GraphDbRepositoryMedias();
+        await repoMediasB.Save();
+        return repoMediasB;
     }
 
     public async Task Save()
@@ -76,15 +82,9 @@ public class GraphDbRepositoryMedias
     #endregion
 }
 
-public class Media
+public enum MediaState
 {
-    string _nameInFolder;
-
-    public Media(string mediaUrl)
-    {
-        Guid guid = Guid.NewGuid();
-        string uniqueId = guid.ToString();
-
-        _nameInFolder = uniqueId + "_" + mediaUrl;
-    }
+    MediaDoesNotExist, 
+    MediaExistsNotLoaded,
+    MediaExistsAndLoaded,
 }

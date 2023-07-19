@@ -87,7 +87,7 @@ public class Node
     public Vector3 AbsolutePosition;
     
     public Dictionary<string, string> Properties;
-    public Dictionary<string, Texture2D> Medias;
+    public HashSet<string> Medias;
 
     private bool _doDisplayMainNode;
     private bool _doDisplaySubNode;

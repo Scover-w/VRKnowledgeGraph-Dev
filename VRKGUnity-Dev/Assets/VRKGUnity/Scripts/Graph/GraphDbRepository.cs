@@ -9,6 +9,7 @@ public class GraphDbRepository
 {
     public GraphDbRepositoryNamespaces GraphDbRepositoryNamespaces { get; private set; }
     public GraphDbRepositoryDistantUris GraphDbRepositoryDistantUris { get; private set; }
+    public GraphDbRepositoryMedias GraphDbRepositoryMedias { get; private set; }
 
     public GraphDBAPI GraphDBAPI { get; private set; }
 
@@ -44,5 +45,7 @@ public class GraphDbRepository
         GraphDbRepositoryNamespaces = await GraphDbRepositoryNamespaces.Load(PathRepo);
 
         GraphDbRepositoryDistantUris = await GraphDbRepositoryDistantUris.LoadAsync(PathRepo);
+
+        GraphDbRepositoryMedias = await GraphDbRepositoryMedias.Load(PathRepo);
     }
 }

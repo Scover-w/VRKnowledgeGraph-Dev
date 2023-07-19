@@ -3,6 +3,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class GraphDBAPI
@@ -173,8 +174,6 @@ public class GraphDBAPI
             OnErrorQuery?.Invoke(response);
             return false;
         }
-
-        response.EnsureSuccessStatusCode();
 
         return true;
     }

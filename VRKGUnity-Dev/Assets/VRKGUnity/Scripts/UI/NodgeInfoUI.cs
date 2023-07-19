@@ -5,6 +5,9 @@ using UnityEngine;
 public class NodgeInfoUI : MonoBehaviour
 {
     [SerializeField]
+    ReferenceHolderSO _referenceHolderSo;
+
+    [SerializeField]
     GameObject _canvasGo;
 
     [SerializeField]
@@ -16,8 +19,13 @@ public class NodgeInfoUI : MonoBehaviour
     [SerializeField]
     TMP_Text _nbEdgeOrNameNodesTxt;
 
+    GraphDbRepositoryMedias _repoMedias;
+
+    Node _nodeDisplayed;
+
     private void Start()
     {
+        _repoMedias = _referenceHolderSo.SelectedGraphDbRepository.GraphDbRepositoryMedias;
         _canvasGo.SetActive(false);
     }
 
@@ -25,21 +33,38 @@ public class NodgeInfoUI : MonoBehaviour
     {
         _canvasGo.SetActive(node != null);
 
+        _nodeDisplayed = node;
+
         if (node == null)
             return;
 
-        var name = node.GetName();
+        DisplayTexts();
+        //TryLoadMedia();
+    }
 
-        if (name == null)
-            name = node.PrefixValue;
+    private void DisplayTexts()
+    {
+        var name = _nodeDisplayed.GetName();
+
+        name ??= _nodeDisplayed.PrefixValue;
 
         if (name.Length > 30)
-            name = name.Substring(0, 30) + "...";
+            name = name[..30] + "...";
 
-        _typeTxt.text = node.Type.ToString();
+        _typeTxt.text = _nodeDisplayed.Type.ToString();
         _valueTxt.text = name;
-        _nbEdgeOrNameNodesTxt.text = (node.EdgeSource.Count + node.EdgeTarget.Count).ToString();
+        _nbEdgeOrNameNodesTxt.text = (_nodeDisplayed.EdgeSource.Count + _nodeDisplayed.EdgeTarget.Count).ToString();
     }
+
+    //private void TryLoadMedia()
+    //{
+    //    foreach (string urlMedia in _nodeDisplayed.Medias)
+    //    {
+
+    //        MediaState state = _repoMedias.TryGetMediaState
+
+    //    }
+    //}
 
     public void DisplayInfoEdge(Edge edge)
     {
@@ -59,18 +84,15 @@ public class NodgeInfoUI : MonoBehaviour
         var nameSourceNode = nodeSource.GetName();
         var nameTargetNode = nodeTarget.GetName();
 
-        if (nameSourceNode == null)
-            nameSourceNode = nodeSource.PrefixValue;
-
-        if(nameTargetNode == null)
-            nameTargetNode = nodeTarget.PrefixValue;
+        nameSourceNode ??= nodeSource.PrefixValue;
+        nameTargetNode ??= nodeTarget.PrefixValue;
 
 
         if(nameSourceNode.Length > 30)
-            nameSourceNode = nameSourceNode.Substring(0, 30) + "...";
+            nameSourceNode = nameSourceNode[..30] + "...";
         
         if(nameTargetNode.Length > 30)
-            nameTargetNode = nameTargetNode.Substring(0, 30) + "...";
+            nameTargetNode = nameTargetNode[..30] + "...";
 
         sb.Append(nameSourceNode);
         sb.Append("\n |\n\\/\n");
