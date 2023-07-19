@@ -10,35 +10,34 @@ using System.Xml.Linq;
 public class PrefixListTest
 {
     [Test]
-    public async void LoadPrefixsInDict()
+    public void LoadPrefixsInDict()
     {
         var path = Path.Combine(Application.streamingAssetsPath, "prefixsList.ttl");
 
 
         Dictionary<string, string> namespaceAndPrefixs = new();
 
-        using (StreamReader reader = new StreamReader(path))
+        using StreamReader reader = new(path);
+        string line;
+
+        while ((line = reader.ReadLine()) != null)
         {
-            string line;
-            while ((line = reader.ReadLine()) != null)
-            {
 
-                line = line.Replace("@prefix ", "");
+            line = line.Replace("@prefix ", "");
 
-                var elements = line.Split("<");
+            var elements = line.Split("<");
 
-                string prefix = elements[0];
-                string namespce = elements[1];
+            string prefix = elements[0];
+            string namespce = elements[1];
 
 
-                prefix = prefix.Replace(" ", "").Replace(":", "");
-                namespce = namespce.Replace(">", "");
-                namespce = namespce.Substring(0, namespce.Length - 1);
+            prefix = prefix.Replace(" ", "").Replace(":", "");
+            namespce = namespce.Replace(">", "");
+            namespce = namespce.Substring(0, namespce.Length - 1);
 
-                namespaceAndPrefixs.Add(namespce, prefix);
+            namespaceAndPrefixs.Add(namespce, prefix);
 
 
-            }
         }
 
     }
@@ -50,7 +49,6 @@ public class PrefixListTest
         string rdf = FileHelper.Load(Application.dataPath, "VRKGUnity", "Data", "Tests", "CidocCrm.json");
 
         XElement root = XElement.Parse(rdf);
-        XAttribute nameAttribute = null;
 
         var elements = root.Elements();
 

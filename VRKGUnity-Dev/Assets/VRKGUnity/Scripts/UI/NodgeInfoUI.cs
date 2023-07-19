@@ -1,9 +1,14 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Threading;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Networking;
+using Debug = UnityEngine.Debug;
 
 public class NodgeInfoUI : MonoBehaviour
 {
@@ -83,7 +88,7 @@ public class NodgeInfoUI : MonoBehaviour
         RetrieveMedias(mediaToRetrieve);
     }
 
-    private async void LoadMedia(string mediaUrl)
+    private void LoadMedia(string mediaUrl)
     {
         string filePath = _repoMedias.GetPath(mediaUrl);
 
@@ -93,45 +98,104 @@ public class NodgeInfoUI : MonoBehaviour
             return;
         }
 
-        var imageBytes = await File.ReadAllBytesAsync(filePath);
-
-        Texture2D texture = new(2, 2);
-        texture.LoadImage(imageBytes);
-
-        // TODO : Load image somewhere
-        // _image.texture = texture;
-        // Need to set the width, height of the texture to the image
+        StartCoroutine(DownloadLocalTexture(filePath, _nodeDisplayed));      
     }
 
-    private void RetrieveMedias(List<string> mediaToRetrieve) 
+    private async void RetrieveMedias(List<string> mediaToRetrieve) 
     {
         var node = _nodeDisplayed;
 
-        Debug.Log("RetrieveMedias thread : " + Thread.CurrentThread.ManagedThreadId);
 
         foreach(string urlMedia in mediaToRetrieve) 
         {
-            RetrieveMedia(node, urlMedia);
+
+            string extension = Path.GetExtension(urlMedia).ToLower();
+
+            if (!(extension.Contains(".jpg") || extension.Contains(".png")))
+            {
+                await _repoMedias.AddMedia(urlMedia, MediaState.Unloadable);
+                continue;
+            }
+
+            StartCoroutine(DownloadTexture(urlMedia, node));
         }
     }
 
-
-    private async void RetrieveMedia(Node node, string urlMedia)
+    IEnumerator DownloadLocalTexture(string filePath, Node node)
     {
-        Debug.Log("Start RetrieveMedia");
-        string savePath = _repoMedias.GetPath(urlMedia);
+        using UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(filePath);
 
-        Texture2D text = await MediaAPI.DownloadAndSaveImage(urlMedia, savePath);
+        yield return uwr.SendWebRequest();
 
-        await _repoMedias.AddMedia(urlMedia, (text == null) ? MediaState.Unloadable : MediaState.Loadable);
+        if (uwr.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(uwr.error);
+            yield break;
+        }
 
-        Debug.Log("RetrieveMedia thread : " + Thread.CurrentThread.ManagedThreadId);
+        Stopwatch stopwatch = new();
+        stopwatch.Start();
+        Texture2D texture = DownloadHandlerTexture.GetContent(uwr);
 
+        stopwatch.Stop();
+
+        TimeSpan ts = stopwatch.Elapsed;
+        var msSpan = ts.TotalMilliseconds;
+        Debug.Log(" has lasted " + msSpan + " ms.");
+
+        DisplayTexture(texture, node);
+    }
+
+    IEnumerator DownloadTexture(string mediaUrl, Node node)
+    {
+        using UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(mediaUrl);
+        yield return uwr.SendWebRequest();
+
+        if (uwr.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(uwr.error);
+            Debug.Log(mediaUrl);
+            _ = _repoMedias.AddMedia(mediaUrl, MediaState.Unloadable);
+            yield break;
+        }
+
+        _ = _repoMedias.AddMedia(mediaUrl, MediaState.Loadable);
+
+
+        Stopwatch stopwatch = new();
+        stopwatch.Start();
+        Texture2D texture = DownloadHandlerTexture.GetContent(uwr);
+        stopwatch.Stop();
+
+        TimeSpan ts = stopwatch.Elapsed;
+        var msSpan = ts.TotalMilliseconds;
+        Debug.Log(" has lasted " + msSpan + " ms.");
+
+
+        string savePath = _repoMedias.GetPath(mediaUrl);
+        byte[] bytes;
+
+        if (Path.GetExtension(savePath).ToLower() == ".png")
+            bytes = texture.EncodeToPNG();
+        else
+            bytes = texture.EncodeToJPG();
+
+        SaveMedia(savePath, bytes);
+
+        DisplayTexture(texture, node);
+    }
+
+    private async void SaveMedia(string savePath, byte[] byteMedia)
+    {
+        await File.WriteAllBytesAsync(savePath, byteMedia);
+    }
+
+    private void DisplayTexture(Texture2D texture, Node node)
+    {
         if (node != _nodeDisplayed)
             return;
 
-        // TODO : Load Image somewhere
-        // _image.texture = texture;
+        Debug.Log("DisplayTexture");
     }
 
     public void DisplayInfoEdge(Edge edge)

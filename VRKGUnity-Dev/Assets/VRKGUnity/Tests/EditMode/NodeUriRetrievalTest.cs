@@ -18,25 +18,22 @@ public class NodeUriRetrievalTest : MonoBehaviour
 
         try
         {
-            using (HttpClient client = new HttpClient())
-            {
-                string encodedUrl = System.Net.WebUtility.UrlEncode(url[0]);
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, url[0]);
-                request.Headers.Add("Accept", "application/rdf+xml");
+            using HttpClient client = new();
 
-                HttpResponseMessage response;
+            string encodedUrl = System.Net.WebUtility.UrlEncode(url[0]);
+            HttpRequestMessage request = new (HttpMethod.Get, url[0]);
+            request.Headers.Add("Accept", "application/rdf+xml");
 
-                response = await client.SendAsync(request);
+            HttpResponseMessage response;
 
-                response.EnsureSuccessStatusCode();
-                string responseBody = await response.Content.ReadAsStringAsync();
+            response = await client.SendAsync(request);
 
-                Debug.Log(responseBody);
+            response.EnsureSuccessStatusCode();
+            string responseBody = await response.Content.ReadAsStringAsync();
 
-                TestXMLUri(responseBody);
+            Debug.Log(responseBody);
 
-
-            }
+            TestXMLUri(responseBody);
 
         }
         catch(Exception e)
@@ -77,20 +74,18 @@ public class NodeUriRetrievalTest : MonoBehaviour
 
     public static string ExtractNameFromXml(string xmlContent)
     {
-        XmlDocument xmlDoc = new XmlDocument();
+        XmlDocument xmlDoc = new ();
         xmlDoc.LoadXml(xmlContent);
 
-        XmlNamespaceManager namespaceManager = new XmlNamespaceManager(xmlDoc.NameTable);
+        XmlNamespaceManager namespaceManager = new(xmlDoc.NameTable);
         namespaceManager.AddNamespace("rdfs", "http://www.w3.org/2000/01/rdf-schema#");
         namespaceManager.AddNamespace("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#");
         namespaceManager.AddNamespace("skos", "http://www.w3.org/2004/02/skos/core#");
         namespaceManager.AddNamespace("skos1", "http://www.w3.org/2004/02/skos/core#");
         namespaceManager.AddNamespace("dcterms", "http://purl.org/dc/terms/");
     
-        XmlNode nameNode = null;
-
         // Try to get name from 'gn:name' element
-        nameNode = xmlDoc.SelectSingleNode("//rdfs:label", namespaceManager);
+        XmlNode nameNode = xmlDoc.SelectSingleNode("//rdfs:label", namespaceManager);
 
         if (nameNode != null)
             return nameNode.InnerText;
@@ -120,24 +115,23 @@ public class NodeUriRetrievalTest : MonoBehaviour
 
 
 
-        List<XmlLine> _xmlLines = new List<XmlLine>();
+        List<XmlLine> _xmlLines = new();
 
-        using (StringReader stringReader = new StringReader(xmlContent))
-        using (XmlReader xmlReader = XmlReader.Create(stringReader))
+        using StringReader stringReader = new(xmlContent);
+        using XmlReader xmlReader = XmlReader.Create(stringReader);
+
+        while (xmlReader.Read())
         {
-            while (xmlReader.Read())
-            {
-                if ((xmlReader.NodeType != XmlNodeType.Element))
-                    continue;
+            if ((xmlReader.NodeType != XmlNodeType.Element))
+                continue;
 
-                var name = xmlReader.Name.ToLower();
+            var name = xmlReader.Name.ToLower();
 
-                if (!(name.Contains("label") || name.Contains("title") || name.Contains("name")))
-                    continue;
+            if (!(name.Contains("label") || name.Contains("title") || name.Contains("name")))
+                continue;
 
-                _xmlLines.Add(new XmlLine(xmlReader));
-                
-            }
+            _xmlLines.Add(new XmlLine(xmlReader));
+
         }
     }
 
@@ -155,7 +149,7 @@ public class NodeUriRetrievalTest : MonoBehaviour
 
             Attributes = new();
 
-            string lang = xmlReader.GetAttribute("xml:lang");
+            //string lang = xmlReader.GetAttribute("xml:lang");
 
 
             if (!xmlReader.HasAttributes)
