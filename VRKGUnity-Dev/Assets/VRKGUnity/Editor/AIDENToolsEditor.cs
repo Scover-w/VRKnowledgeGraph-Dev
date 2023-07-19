@@ -70,8 +70,6 @@ public class AIDENToolsEditor : MonoBehaviour
     [MenuItem("AIDEN Tools/GraphDb/Reload Data Cap44")]
     private async static void ReloadDataCap44()
     {
-        IGraph d;
-
         var api = new GraphDBAPI(null);
 
         var hasDeletedAll = await api.UpdateQuery("DELETE\r\nWHERE {\r\n  ?s ?p ?o .\r\n}");
@@ -100,7 +98,7 @@ public class AIDENToolsEditor : MonoBehaviour
     {
         var path = Path.Combine(Application.dataPath, "VRKGUnity", "Data", "cap44_1455283593");
 
-        DirectoryInfo directoryInfo = new DirectoryInfo(path);
+        DirectoryInfo directoryInfo = new(path);
 
         foreach (FileInfo file in directoryInfo.GetFiles())
         {
@@ -121,7 +119,7 @@ public class AIDENToolsEditor : MonoBehaviour
     {
         var path = Path.Combine(Application.dataPath, "VRKGUnity", "Data", "cap44_1455283593");
 
-        DirectoryInfo directoryInfo = new DirectoryInfo(path);
+        DirectoryInfo directoryInfo = new(path);
 
         foreach (FileInfo file in directoryInfo.GetFiles())
         {

@@ -57,6 +57,6 @@ public class SOTestUI : MonoBehaviour
         _soTest.EnumTest = EnumTest;
 
 
-        _soTest.Save();
+        _ = _soTest.Save();
     }
 }

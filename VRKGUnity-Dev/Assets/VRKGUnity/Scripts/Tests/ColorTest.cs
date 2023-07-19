@@ -24,9 +24,6 @@ public class ColorTest : MonoBehaviour
     {
         colors = new List<Color>();
 
-        float hue = 1;
-
-
         float deltaHue = 1f / NbColor;
 
 

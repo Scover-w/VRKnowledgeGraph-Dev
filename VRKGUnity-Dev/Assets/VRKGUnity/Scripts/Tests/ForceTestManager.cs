@@ -11,7 +11,7 @@ public class ForceTestManager : MonoBehaviour
 
 
 
-    private async void Awake()
+    private void Awake()
     {
         _referenceHolderSO.HMDCamSA.Value = _cam;
     }

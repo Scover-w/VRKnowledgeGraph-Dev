@@ -50,8 +50,8 @@ public class SubGraph : MonoBehaviour
 
     bool _displayWatch = true;
 
-    float _deltaHeightWatch = .105f;
-    float _deltaHeightDesk = .5f;
+    readonly float _deltaHeightWatch = .105f;
+    readonly float _deltaHeightDesk = .5f;
 
     float _sizeWatchGraph = .15f;
 

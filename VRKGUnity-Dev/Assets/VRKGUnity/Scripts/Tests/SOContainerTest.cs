@@ -12,15 +12,14 @@ public class SOContainerTest : ScriptableObject
 
     public Color TestColor = Color.white;
 
-    private async void Awake()
+    private void Awake()
     {
         RefreshEditor();
-        
     }
 
     private void OnEnable()
     {
-        ForceLoad();
+        _ = ForceLoad();
     }
 
     public async void RefreshEditor()
@@ -71,8 +70,7 @@ public class SOContainerTest : ScriptableObject
 
 
 
-        if (_soTest == null)
-            _soTest = await SOTest.Load();
+        _soTest ??= await SOTest.Load();
 
         return _soTest;
     }

@@ -8,39 +8,38 @@ public static class HttpHelper
     {
         try
         {
-            using (HttpClient client = new HttpClient())
+            using HttpClient client = new();
+
+            client.Timeout = TimeSpan.FromSeconds(15);
+            HttpRequestMessage request = new(HttpMethod.Get, uri);
+
+            request.Headers.Add("Accept", "application/rdf+xml");
+
+            HttpResponseMessage response;
+
+            try
             {
-                client.Timeout = TimeSpan.FromSeconds(15);
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, uri);
-
-                request.Headers.Add("Accept", "application/rdf+xml");
-
-                HttpResponseMessage response;
-
-                try
-                {
-                    response = await client.SendAsync(request);
-                }
-                catch (Exception e)
-                {
-                    //Debug.Log("HttpHelper : " + e + " \n" + e.Message);
-                    return "";
-                }
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    //string error = await response.Content.ReadAsStringAsync();
-                    //Debug.Log("HttpHelper : " + error);
-                    return "";
-                }
-
-                string responseBody = await response.Content.ReadAsStringAsync();
-
-                return responseBody;
+                response = await client.SendAsync(request);
+            }
+            catch (Exception)
+            {
+                //Debug.Log("HttpHelper : " + e + " \n" + e.Message);
+                return "";
             }
 
+            if (!response.IsSuccessStatusCode)
+            {
+                //string error = await response.Content.ReadAsStringAsync();
+                //Debug.Log("HttpHelper : " + error);
+                return "";
+            }
+
+            string responseBody = await response.Content.ReadAsStringAsync();
+
+            return responseBody;
+
         }
-        catch (Exception e)
+        catch (Exception)
         {
             //Debug.Log("HttpHelper : " + e);
             return "";

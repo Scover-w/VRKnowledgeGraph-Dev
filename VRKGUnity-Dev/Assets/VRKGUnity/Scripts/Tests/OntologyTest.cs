@@ -9,23 +9,18 @@ public class OntologyTest : MonoBehaviour
     public string OntologyName;
     public List<string> Ontologies;
 
-    GraphDBAPI _api;
-    Ontology _ontology;
+    //GraphDBAPI _api;
+    //Ontology _ontology;
 
     // Start is called before the first frame update
-    void Start()
-    {
+    //void Start()
+    //{
         //RetrieveAllAndSaveUris();
-    }
+    //}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     [ContextMenu("Retrieve")]
-    public async void Retrieve()
+    public void Retrieve()
     {
 
         //var json = await _api.SelectQuery("select * where { \r\n\t?s ?p ?o .\r\n}");

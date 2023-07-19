@@ -28,16 +28,15 @@ public static class IGraphExtensions
     /// <returns></returns>
     public static bool TryLoadFromRdf(this IGraph graph, string rdfContent)
     {
-        RdfXmlParser parser = new RdfXmlParser();
+        RdfXmlParser parser = new();
 
         try
         {
-            using (StringReader reader = new StringReader(rdfContent))
-            {
-                parser.Load(graph, reader);
-            }
+            using StringReader reader = new(rdfContent);
+
+            parser.Load(graph, reader);
         }
-        catch (RdfParseException e)
+        catch (RdfParseException)
         {
             return false;
         }
@@ -48,8 +47,8 @@ public static class IGraphExtensions
 
     public static string ToSparql(this IGraph graph) 
     {
-        SparqlFormatter formatter = new SparqlFormatter();
-        StringBuilder queryBuilder = new StringBuilder();
+        SparqlFormatter formatter = new();
+        StringBuilder queryBuilder = new();
 
         queryBuilder.AppendLine("INSERT DATA {");
 

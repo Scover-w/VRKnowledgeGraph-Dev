@@ -28,6 +28,7 @@ public class MisceTests : MonoBehaviour
         var api = new GraphDBAPI(repo);
 
         var bipbop = await api.LoadFileContentInDatabase(turtleContent, "<http://ontology>", GraphDBAPIFileType.Turtle);
+        Debug.Log(bipbop);
     }
 
     [ContextMenu("Select Test")]
@@ -36,7 +37,7 @@ public class MisceTests : MonoBehaviour
         var repo = new GraphDbRepository("http://localhost:7200/", "TestOntology");
         var api = new GraphDBAPI(repo);
 
-        Dictionary<char, double> frequencies = new Dictionary<char, double>()
+        Dictionary<char, double> frequencies = new()
         {
             { 'a', 8.167 },
             { 'b', 1.492 },
@@ -67,9 +68,9 @@ public class MisceTests : MonoBehaviour
             { ' ', 18.000 } 
         };
 
-        System.Random random = new System.Random();
+        System.Random random = new();
 
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new();
         sb.Append("select * where { ?s ?p ?o .}#");
 
         int lengthbase = sb.Length;
@@ -123,36 +124,35 @@ public class MisceTests : MonoBehaviour
     {
         try
         {
-            using (HttpClient client = new())
+            using HttpClient client = new();
+
+            client.Timeout = TimeSpan.FromSeconds(30);
+            HttpRequestMessage request = new(HttpMethod.Get, "http://www.cidoc-crm.org/cidoc-crm/");
+
+            request.Headers.Add("Accept", "application/rdf+xml");
+
+            HttpResponseMessage response;
+
+            try
             {
-                client.Timeout = TimeSpan.FromSeconds(30);
-                HttpRequestMessage request = new(HttpMethod.Get, "http://www.cidoc-crm.org/cidoc-crm/");
-
-                request.Headers.Add("Accept", "application/rdf+xml");
-
-                HttpResponseMessage response;
-
-                try
-                {
-                    response = await client.SendAsync(request);
-                }
-                catch (Exception)
-                {
-                    return;
-                }
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    return;
-                }
-
-                string responseBody = await response.Content.ReadAsStringAsync();
-
+                response = await client.SendAsync(request);
+            }
+            catch (Exception)
+            {
                 return;
             }
 
+            if (!response.IsSuccessStatusCode)
+            {
+                return;
+            }
+
+            string responseBody = await response.Content.ReadAsStringAsync();
+
+            return;
+
         }
-        catch (Exception e)
+        catch (Exception)
         {
             return;
         }
