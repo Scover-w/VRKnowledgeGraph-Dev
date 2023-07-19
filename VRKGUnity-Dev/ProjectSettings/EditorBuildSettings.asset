@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/VRKGUnity/Scenes/Tests/VR_RelativeScaleSet.unity
     guid: c26d4ad23b3dddb47a5c067a95ef20fa
   - enabled: 1

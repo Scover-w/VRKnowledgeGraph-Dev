@@ -10,7 +10,7 @@ public class SimulationParameters
 {
     public float TickDeltaTime = 0.016f;
     public float MaxSimulationTime = 15f;
-    public float LerpSmooth = .1f;
+    public float LerpSmooth = .01f;
 
     [Space(5)]
     [Header("Light Graph")]
@@ -30,4 +30,10 @@ public class SimulationParameters
     public float DenseCoulombDistance = 30f;
     public float DenseMaxVelocity = 10f;
     public float DenseStopVelocity = 2f;
+
+    public SimulationParameters(bool isForLens)
+    {
+        if (isForLens)
+            LerpSmooth = .1f;
+    }
 }

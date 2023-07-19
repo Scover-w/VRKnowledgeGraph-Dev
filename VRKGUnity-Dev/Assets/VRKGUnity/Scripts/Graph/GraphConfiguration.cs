@@ -9,8 +9,8 @@ public class GraphConfiguration
 {
     [Header("Simulation Parameters")]
 
-    public SimulationParameters SimuParameters;
-    public SimulationParameters LensSimuParameters;
+    public SimulationParameters SimuParameters = new(false);
+    public SimulationParameters LensSimuParameters = new(true);
 
 
     [Space(15)]
