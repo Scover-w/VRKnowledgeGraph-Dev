@@ -9,7 +9,7 @@ using UnityEngine;
 
 public class MediaAPI
 {
-    private async Task<Texture2D> DownloadAndSaveImage(string imageUrl, string savePath)
+    public static async Task<Texture2D> DownloadAndSaveImage(string imageUrl, string savePath)
     {
         string extension = Path.GetExtension(imageUrl).ToLower();
 

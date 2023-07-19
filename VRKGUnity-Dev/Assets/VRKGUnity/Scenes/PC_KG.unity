@@ -2482,6 +2482,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ff2a5468092a5c4d99a0b2b707ad77d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _canvasGo: {fileID: 255558694}
   _typeTxt: {fileID: 888367362}
   _valueTxt: {fileID: 1446793921}

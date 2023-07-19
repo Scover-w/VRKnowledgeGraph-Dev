@@ -39,7 +39,13 @@ public class GraphDbRepositoryMedias
         if (_medias.TryGetValue(mediaUrl, out var mediaState))
             return mediaState;
 
-        return MediaState.MediaDoesNotExist;
+        return MediaState.None;
+    }
+
+    public string GetPath(string mediaUrl)
+    {
+        string fileName = Path.GetFileName(mediaUrl);
+        return Path.Combine(_mediaPath, fileName);
     }
 
     #region SAVE_LOAD
@@ -84,7 +90,7 @@ public class GraphDbRepositoryMedias
 
 public enum MediaState
 {
-    MediaDoesNotExist, 
-    MediaExistsNotLoaded,
-    MediaExistsAndLoaded,
+    None, 
+    Loadable,
+    Unloadable
 }
