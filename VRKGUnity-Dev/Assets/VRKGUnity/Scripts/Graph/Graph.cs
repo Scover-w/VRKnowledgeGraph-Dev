@@ -88,7 +88,7 @@ public class Graph
         nodeStyler.Node = node;
 
         var nodeTf = nodeStyler.Tf;
-        nodeTf.name = "Node " + node.GetName();
+        nodeTf.name = "Node " + node.GetShorterName();
         nodeTf.position = node.AbsolutePosition;
 
         if(isForMainGraph)

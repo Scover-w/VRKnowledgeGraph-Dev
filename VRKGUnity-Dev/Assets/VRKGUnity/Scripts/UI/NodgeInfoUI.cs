@@ -47,7 +47,7 @@ public class NodgeInfoUI : MonoBehaviour
 
     private void DisplayTexts()
     {
-        var name = _nodeDisplayed.GetName();
+        var name = _nodeDisplayed.GetPrefName();
 
         name ??= _nodeDisplayed.PrefixValue;
 
@@ -149,8 +149,8 @@ public class NodgeInfoUI : MonoBehaviour
         var nodeSource = edge.Source;
         var nodeTarget = edge.Target;
 
-        var nameSourceNode = nodeSource.GetName();
-        var nameTargetNode = nodeTarget.GetName();
+        var nameSourceNode = nodeSource.GetPrefName();
+        var nameTargetNode = nodeTarget.GetPrefName();
 
         nameSourceNode ??= nodeSource.PrefixValue;
         nameTargetNode ??= nodeTarget.PrefixValue;
@@ -168,6 +168,5 @@ public class NodgeInfoUI : MonoBehaviour
 
 
         _nbEdgeOrNameNodesTxt.text = sb.ToString();
-
     }
 }

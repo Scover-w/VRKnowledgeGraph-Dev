@@ -176,18 +176,56 @@ public class Node
 
     
 
-    public string GetName()
+    public string GetShorterName()
     {
+        string shorterName = null;
+
         foreach(var propNameAndValue in Properties)
         {
-            var propName = propNameAndValue.Key;
+            var propName = propNameAndValue.Key.ToLower();
 
-            if (propName.Contains("label") || propName.Contains("title") || propName.Contains("name"))
-                return propNameAndValue.Value;
+            if (!(propName.Contains("label") || propName.Contains("title") || propName.Contains("name")))
+                continue;
+
+            string name = propNameAndValue.Value;
+
+            if(shorterName == null)
+            {
+                shorterName = name;
+                continue;
+            }
+
+            if (name.Length < shorterName.Length)
+                shorterName = name;
 
         }
 
-        return null;
+        return shorterName;
+    }
+
+    public string GetPrefName()
+    {
+        string prefName = "";
+
+        foreach (var propNameAndValue in Properties)
+        {
+            var propName = propNameAndValue.Key.ToLower();
+
+            if(propName.Contains("prefLabel"))
+                return propNameAndValue.Value;
+
+            if (!(propName.Contains("label") || propName.Contains("title") || propName.Contains("name")))
+                continue;
+
+
+            string name = propNameAndValue.Value;
+
+            if (name.Length > prefName.Length)
+                prefName = name;
+
+        }
+
+        return (prefName.Length == 0) ? null : prefName;
     }
 
     public void ResetAbsolutePosition(int seed)
