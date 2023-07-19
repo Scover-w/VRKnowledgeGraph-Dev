@@ -102,4 +102,16 @@ public class MisceTests : MonoBehaviour
 
 
     }
+
+    [Test]
+    public void TestChangeScript()
+    {
+        string scriptPath = Application.dataPath + "/VRKGUnity/Scripts/Scenes/MainMenuManager.cs";
+        string scriptText = System.IO.File.ReadAllText(scriptPath);
+
+        string[] lines = scriptText.Split("http://");
+        string oldIp = lines[1].Split('"')[0]; // 192.168.137.1:7200/
+
+        Debug.Log(oldIp);
+    }
 }

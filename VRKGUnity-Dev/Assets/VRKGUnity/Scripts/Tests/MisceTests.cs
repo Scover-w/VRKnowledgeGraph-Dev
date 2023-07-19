@@ -123,10 +123,10 @@ public class MisceTests : MonoBehaviour
     {
         try
         {
-            using (HttpClient client = new HttpClient())
+            using (HttpClient client = new())
             {
                 client.Timeout = TimeSpan.FromSeconds(30);
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "http://www.cidoc-crm.org/cidoc-crm/");
+                HttpRequestMessage request = new(HttpMethod.Get, "http://www.cidoc-crm.org/cidoc-crm/");
 
                 request.Headers.Add("Accept", "application/rdf+xml");
 
@@ -136,7 +136,7 @@ public class MisceTests : MonoBehaviour
                 {
                     response = await client.SendAsync(request);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     return;
                 }

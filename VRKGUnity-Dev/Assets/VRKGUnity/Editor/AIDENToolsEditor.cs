@@ -143,7 +143,34 @@ public class AIDENToolsEditor : MonoBehaviour
     [MenuItem("AIDEN Tools/Set Wifi IP")]
     private static void SetWifiIP()
     {
+        string newIp = GetWifiIP();
 
+        if(newIp == null)
+        {
+            Debug.LogWarning("The Wifi Key IP couldn't be retrieved.");
+            return;
+        }
+
+        string scriptPath = Application.dataPath + "/VRKGUnity/Scripts/Scenes/MainMenuManager.cs";
+        string scriptText = System.IO.File.ReadAllText(scriptPath);
+
+        string[] lines = scriptText.Split("graphDbApi.OverrideForTest(\"");
+        string oldIp = lines[1].Split('"')[0]; // http://130....
+
+
+        scriptText = scriptText.Replace(oldIp, "http://" + newIp + ":7200/");
+
+
+        System.IO.File.WriteAllText(scriptPath, scriptText);
+        AssetDatabase.Refresh();
+
+        Debug.Log("Wifi Ip set as " + newIp);
+    }
+
+
+
+    private static string GetWifiIP() 
+    {
         string adapterName = "TP-Link Wireless USB Adapter";
 
         var process = new Process()
@@ -170,10 +197,9 @@ public class AIDENToolsEditor : MonoBehaviour
         // Split input into lines
         string[] lines = result.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
 
-        // Iterate through lines
+
         foreach (string line in lines)
         {
-            // Check if line contains the adapter's name
             if (line.Contains(adapterName))
             {
                 // Split line into components
@@ -182,8 +208,10 @@ public class AIDENToolsEditor : MonoBehaviour
                 // The IPv4 address is the second component after the split (trimming to remove any leading/trailing spaces or quotes)
                 string ipv4 = components[1].Trim().Trim('"');
 
-                Debug.Log($"The IP address for the {adapterName} is {ipv4}");
+                return ipv4;
             }
         }
+
+        return null;
     }
 }

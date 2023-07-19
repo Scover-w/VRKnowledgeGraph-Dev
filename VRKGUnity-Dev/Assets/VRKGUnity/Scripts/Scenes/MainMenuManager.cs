@@ -10,9 +10,6 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField]
     bool _autoPlay = true;
 
-    [SerializeField]
-    string _ipGraphDb;
-
 
     private void Start()
     {
@@ -30,7 +27,7 @@ public class MainMenuManager : MonoBehaviour
 
 
 #if UNITY_ANDROID && !UNITY_EDITOR
-        graphDbApi.OverrideForTest(_ipGraphDb);
+        graphDbApi.OverrideForTest("http://130.66.203.189:7200/");
 #endif
 
         var lifeCycleScene = _referenceHolderSO.LifeCycleSceneManagerSA.Value;
