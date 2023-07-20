@@ -68,13 +68,36 @@ public class EdgeStyler : MonoBehaviour
     private void StyleColor()
     {
         var color = _isInPropagation? GraphConfiguration.PropagatedEdgeColor : GraphConfiguration.EdgeColor;
-
         color.a = GraphConfiguration.DisplayEdges ? 1f : 0f;
 
-        _lineRenderer.startColor = color;
-        _lineRenderer.endColor = color;
+        _lineRenderer.colorGradient = CreateGradient(color);
+    }
 
-        //_lineRenderer.sharedMaterial.color = color; // TODO : Temporary solution
+    private Gradient CreateGradient(Color color)
+    {
+        var gradient = new Gradient();
+
+        // Set up the color keys
+        var colorKey = new GradientColorKey[2];
+        colorKey[0].color = color;
+        colorKey[0].time = 0.2f;
+
+
+        colorKey[1].color = (Edge.EdgeDirection == EdgeDirection.Both)? color : Color.black;
+        colorKey[1].time = .8f;
+
+        // Set up the alpha keys
+        var alphaKey = new GradientAlphaKey[2];
+
+        alphaKey[0].alpha = color.a;
+        alphaKey[0].time = 0f;
+        alphaKey[1].alpha = color.a;
+        alphaKey[1].time = 1f;
+
+        // Apply the color and alpha keys to the gradient
+        gradient.SetKeys(colorKey, alphaKey);
+
+        return gradient;
     }
 
     private void StyleSize(StyleChange styleChange, GraphMode graphMode)
@@ -152,8 +175,12 @@ public class EdgeStyler : MonoBehaviour
         var positionA = Edge.Source.AbsolutePosition * scalingFactor;
         var positionB = Edge.Target.AbsolutePosition * scalingFactor;
 
+        Vector3 direction = positionB - positionA;
+
         _lineRenderer.SetPosition(0, positionA);
-        _lineRenderer.SetPosition(1, positionB);
+        _lineRenderer.SetPosition(1, positionA + direction * .2f);
+        _lineRenderer.SetPosition(2, positionA + direction * .8f);
+        _lineRenderer.SetPosition(3, positionB);
 
 
         //_colliderTf.localPosition = Vector3.Lerp(positionA, positionB, 0.5f);

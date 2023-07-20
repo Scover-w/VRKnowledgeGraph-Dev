@@ -48,14 +48,6 @@ public class GraphSimulation : MonoBehaviour
 
         ThreadPool.QueueUserWorkItem(CalculatingPositionsBackground, nodgesSimuDatas);
         StartCoroutine(RefreshingNodesPositions(graph));
-
-        //await _threadEndedSemaphore.WaitAsync();
-        //_threadEndedSemaphore = null;
-
-        //float maxDistance = GetMaxDistance(nodgesSimuDatas);
-        //Debug.Log("MaxDistance : " + maxDistance);
-        //_referenceHolderSO.MaxDistanceGraph = maxDistance;
-
     }
 
     public void ForceStop()

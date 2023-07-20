@@ -297,9 +297,13 @@ public class LensSimulation : MonoBehaviour
             var sourcePos = edge.Source.SubGraphNodeTf.localPosition;
             var targetPos = edge.Target.SubGraphNodeTf.localPosition;
 
+            Vector3 direction = targetPos - sourcePos;
+
             var subLine = edge.SubGraphLine;
             subLine.SetPosition(0, sourcePos);
-            subLine.SetPosition(1, targetPos);
+            subLine.SetPosition(1, sourcePos + direction * .2f);
+            subLine.SetPosition(2, sourcePos + direction * .8f);
+            subLine.SetPosition(3, targetPos);
         }
     }
 

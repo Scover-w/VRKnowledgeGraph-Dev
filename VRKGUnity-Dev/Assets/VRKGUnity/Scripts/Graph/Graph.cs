@@ -642,13 +642,13 @@ public class Graph
             if (!_nodesDicId.TryGetValue(idAnData.Key, out Node node))
                 continue;
 
-            var mainTf = node.MainGraphNodeTf;
+            Transform mainTf = node.MainGraphNodeTf;
 
-            var newCalculatedPosition = idAnData.Value.Position;
-            var absolutePosition = node.AbsolutePosition;
+            Vector3 newCalculatedPosition = idAnData.Value.Position;
+            Vector3 absolutePosition = node.AbsolutePosition;
 
-            var lerpPosition = Vector3.Lerp(absolutePosition, newCalculatedPosition, lerpSmooth);
-            var megaLerpPosition = Vector3.Lerp(mainTf.localPosition, newCalculatedPosition * scalingFactor, lerpSmooth);
+            Vector3 lerpPosition = Vector3.Lerp(absolutePosition, newCalculatedPosition, lerpSmooth);
+            Vector3 megaLerpPosition = Vector3.Lerp(mainTf.localPosition, newCalculatedPosition * scalingFactor, lerpSmooth);
 
             node.AbsolutePosition = lerpPosition;
             mainTf.localPosition = megaLerpPosition;
@@ -656,14 +656,18 @@ public class Graph
 
         foreach (var idAndEdge in _edgesDicId)
         {
-            var edge = idAndEdge.Value;
+            Edge edge = idAndEdge.Value;
 
-            var absoluteSourcePos = edge.Source.AbsolutePosition;
-            var absoluteTargetPos = edge.Target.AbsolutePosition;
+            Vector3 sourcePos = edge.Source.AbsolutePosition * scalingFactor;
+            Vector3 targetPos = edge.Target.AbsolutePosition * scalingFactor;
 
-            var megaLine = edge.MainGraphLine;
-            megaLine.SetPosition(0, absoluteSourcePos * scalingFactor);
-            megaLine.SetPosition(1, absoluteTargetPos * scalingFactor);
+            Vector3 direction = targetPos - sourcePos;
+
+            var mainLine = edge.MainGraphLine;
+            mainLine.SetPosition(0, sourcePos);
+            mainLine.SetPosition(1, sourcePos + direction * .2f);
+            mainLine.SetPosition(2, sourcePos + direction * .8f);
+            mainLine.SetPosition(3, targetPos);
         }
     }
 
