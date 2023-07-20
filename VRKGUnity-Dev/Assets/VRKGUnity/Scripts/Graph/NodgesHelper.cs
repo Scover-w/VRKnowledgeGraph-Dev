@@ -7,18 +7,17 @@ using UnityEngine;
 public static class NodgesHelper
 {
     #region DataSync
-    public static NodgesDicId ExtractNodgesForDistantUri(this JObject data, GraphDbRepositoryNamespaces repoNamespaces)
+    public static NodgesDicUID ExtractNodgesForDistantUri(this JObject data, GraphDbRepositoryNamespaces repoNamespaces)
     {
-        var nodges = new NodgesDicId();
+        var nodges = new NodgesDicUID();
 
-        var nodesDicId = nodges.NodesDicId;
-        var edgesDicId = nodges.EdgesDicId;
+        var nodesDicUID = nodges.NodesDicUID;
+        var edgesDicUID = nodges.EdgesDicUID;
 
         foreach (JToken binding in data["results"]["bindings"])
         {
             var sToken = binding["s"];
             string sType = sToken["type"].Value<string>();
-            string sValue = sToken["value"].Value<string>();
 
             var pToken = binding["p"];
             string pType = pToken["type"].Value<string>();
@@ -26,10 +25,9 @@ public static class NodgesHelper
 
             var oToken = binding["o"];
             string oType = oToken["type"].Value<string>();
-            string oValue = oToken["value"].Value<string>();
 
 
-            Node sNode = GetNodeFromDictOrCreate(sToken, nodesDicId, repoNamespaces);
+            Node sNode = GetNodeFromDictOrCreate(sToken, nodesDicUID, repoNamespaces);
 
 
             if (oType == "literal" && sType == "uri") // oNode is a literal
@@ -39,13 +37,13 @@ public static class NodgesHelper
                 continue;
 
 
-            Node oNode = GetNodeFromDictOrCreate(oToken, nodesDicId, repoNamespaces);
+            Node oNode = GetNodeFromDictOrCreate(oToken, nodesDicUID, repoNamespaces);
 
-            int edgeId = Edge.GetId(sNode.Uri, oNode.Uri);
+            string edgeUID = Edge.GetUID(sNode.Uri, oNode.Uri);
 
             
 
-            if (edgesDicId.TryGetValue(edgeId, out Edge existingEdge))
+            if (edgesDicUID.TryGetValue(edgeUID, out Edge existingEdge))
             {
                 existingEdge.AddProperty(pType, pValue, sNode, repoNamespaces);
                 continue;
@@ -53,7 +51,7 @@ public static class NodgesHelper
 
             var edge = new Edge(pType, pValue, sNode, oNode, repoNamespaces);
 
-            edgesDicId.Add(edge.Id, edge);
+            edgesDicUID.Add(edge.UID, edge);
 
             sNode.EdgeSource.Add(edge);
             oNode.EdgeTarget.Add(edge);
@@ -62,13 +60,13 @@ public static class NodgesHelper
         return nodges;
     }
 
-    public static Dictionary<int, Node> GetNoLabeledNodes(this Dictionary<int, Node> idAndNodes)
+    public static Dictionary<string, Node> GetNoLabeledNodes(this Dictionary<string, Node> uidAndNodes)
     {
-        Dictionary<int, Node> nolabeled = new();
+        Dictionary<string,Node> nolabeled = new();
 
-        foreach (var idAndNode in idAndNodes)
+        foreach (var uidAndNode in uidAndNodes)
         {
-            var node = idAndNode.Value;
+            var node = uidAndNode.Value;
 
             if (node.Type != NodgeType.Uri)
                 continue;
@@ -76,20 +74,20 @@ public static class NodgesHelper
             if (node.DoesPropertiesContainName())
                 continue;
 
-            nolabeled.Add(idAndNode.Key, idAndNode.Value);
+            nolabeled.Add(uidAndNode.Key, uidAndNode.Value);
         }
 
         return nolabeled;
     }
 
-    public static Dictionary<int, Node> GetNoOntoUriNodes(this Dictionary<int, Node> idAndNodes, IReadOnlyDictionary<string, OntologyTree> ontoTreeDict)
+    public static Dictionary<string, Node> GetNoOntoUriNodes(this Dictionary<string, Node> uidAndNodes, IReadOnlyDictionary<string, OntologyTree> ontoTreeDict)
     {
 
-        Dictionary<int, Node> noOntoned = new();
+        Dictionary<string, Node> noOntoned = new();
 
-        foreach (var idAndNode in idAndNodes)
+        foreach (var uidAndNode in uidAndNodes)
         {
-            var node = idAndNode.Value;
+            var node = uidAndNode.Value;
 
             if (node.Type != NodgeType.Uri)
                 continue;
@@ -98,13 +96,13 @@ public static class NodgesHelper
 
             if (!ontoTreeDict.TryGetValue(namespce, out OntologyTree ontoTree))
             {
-                noOntoned.Add(idAndNode.Key, idAndNode.Value);
+                noOntoned.Add(uidAndNode.Key, uidAndNode.Value);
                 continue;
             }
 
-            if (!ontoTree.TryGetOntoNode(idAndNode.Key, out _))
+            if (!ontoTree.TryGetOntoNode(uidAndNode.Key, out _))
             {
-                noOntoned.Add(idAndNode.Key, idAndNode.Value);
+                noOntoned.Add(uidAndNode.Key, uidAndNode.Value);
                 continue;
             }
         }
@@ -115,7 +113,7 @@ public static class NodgesHelper
 
 
     #region Graph
-    public static async Task<NodgesDicId> RetrieveGraph(string query, GraphDbRepository repo)
+    public static async Task<NodgesDicUID> RetrieveGraph(string query, GraphDbRepository repo)
     {
         var debugChrono = DebugChrono.Instance;
         debugChrono.Start("RetreiveGraph");
@@ -124,7 +122,7 @@ public static class NodgesHelper
         var data = JsonConvert.DeserializeObject<JObject>(json);
 
 
-        NodgesDicId nodges = data.ExtractNodges(repo.GraphDbRepositoryNamespaces);
+        NodgesDicUID nodges = data.ExtractNodges(repo.GraphDbRepositoryNamespaces);
         nodges.AddRetrievedNames(repo.GraphDbRepositoryDistantUris);
 
 
@@ -133,12 +131,12 @@ public static class NodgesHelper
         return nodges;
     }
 
-    public static NodgesDicId ExtractNodges(this JObject data, GraphDbRepositoryNamespaces repoNamespaces)
+    public static NodgesDicUID ExtractNodges(this JObject data, GraphDbRepositoryNamespaces repoNamespaces)
     {
-        var nodges = new NodgesDicId();
+        var nodges = new NodgesDicUID();
 
-        var nodesDicId = nodges.NodesDicId;
-        var edgesDicId = nodges.EdgesDicId;
+        var nodesDicId = nodges.NodesDicUID;
+        var edgesDicId = nodges.EdgesDicUID;
 
         repoNamespaces.DetachNodesFromOntoNodes();
 
@@ -164,14 +162,12 @@ public static class NodgesHelper
 
             bool isObjectPossiblyAnOnto = repoNamespaces.IsUriAnOnto(oValue) && pValue == "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
 
-            int oId = oValue.GetHashCode();
-
 
             Node sNode = GetNodeFromDictOrCreate(sToken, nodesDicId, repoNamespaces);
 
             if(isObjectPossiblyAnOnto)
             {
-                var simpleOntoNode = new Node(oId, oType, oValue, repoNamespaces);
+                var simpleOntoNode = new Node(oType, oValue, repoNamespaces);
 
                 if (ontologyLinker.TryEstablishLink(sNode, simpleOntoNode))
                     continue;
@@ -193,9 +189,9 @@ public static class NodgesHelper
             Node oNode = GetNodeFromDictOrCreate(oToken, nodesDicId, repoNamespaces);
 
 
-            int edgeId = Edge.GetId(sNode.Uri, oNode.Uri);
+            string edgeUID = Edge.GetUID(sNode.Uri, oNode.Uri);
 
-            if (edgesDicId.TryGetValue(edgeId, out Edge existingEdge))
+            if (edgesDicId.TryGetValue(edgeUID, out Edge existingEdge))
             {
                 existingEdge.AddProperty(pType, pValue, sNode, repoNamespaces);
                 continue;
@@ -203,7 +199,7 @@ public static class NodgesHelper
 
             var edge = new Edge(pType, pValue, sNode, oNode, repoNamespaces);
 
-            edgesDicId.Add(edge.Id, edge);
+            edgesDicId.Add(edge.UID, edge);
 
             sNode.EdgeSource.Add(edge);
             oNode.EdgeTarget.Add(edge);
@@ -231,37 +227,37 @@ public static class NodgesHelper
         node.Medias.Add(propValue);
     }
 
-    private static Node GetNodeFromDictOrCreate(JToken nodeToken, Dictionary<int, Node> nodeDic, GraphDbRepositoryNamespaces repoNamespaces)
+    private static Node GetNodeFromDictOrCreate(JToken nodeToken, Dictionary<string, Node> nodeDic, GraphDbRepositoryNamespaces repoNamespaces)
     {
         string value = nodeToken["value"].Value<string>();
-        int id = value.GetHashCode();
+        string uid = value;
 
-        if (nodeDic.TryGetValue(id, out Node existingNode))
+        if (nodeDic.TryGetValue(uid, out Node existingNode))
         {
             return existingNode;
         }
         var type = nodeToken["type"].Value<string>();
 
-        var newNode = new Node(id, type, value, repoNamespaces);
-        nodeDic.Add(id, newNode);
+        var newNode = new Node(type, value, repoNamespaces);
+        nodeDic.Add(uid, newNode);
 
         return newNode;
     }
 
     #endregion
 
-    public static void AddRetrievedNames(this NodgesDicId nodges, GraphDbRepositoryDistantUris graphDbRepositoryDistantUris)
+    public static void AddRetrievedNames(this NodgesDicUID nodges, GraphDbRepositoryDistantUris graphDbRepositoryDistantUris)
     {
-        AddRetrievedNames(nodges.NodesDicId, graphDbRepositoryDistantUris);
+        AddRetrievedNames(nodges.NodesDicUID, graphDbRepositoryDistantUris);
     }
     
-    public static void AddRetrievedNames(this Dictionary<int, Node> idAndNodes, GraphDbRepositoryDistantUris graphDbRepositoryDistantUris)
+    public static void AddRetrievedNames(this Dictionary<string, Node> uidAndNodes, GraphDbRepositoryDistantUris graphDbRepositoryDistantUris)
     {
         var distantUriDict = graphDbRepositoryDistantUris.DistantUriLabels;
 
-        foreach (var idAndNode in idAndNodes)
+        foreach (var uidAndNode in uidAndNodes)
         {
-            var node = idAndNode.Value;
+            var node = uidAndNode.Value;
 
             if (node.Type != NodgeType.Uri)
                 continue;

@@ -61,7 +61,7 @@ public class GraphStyling : MonoBehaviour
     private void StyleGraphBeforeFirstSimu()
     {
         var graph = _graphManager.Graph;
-        var nodesDicId = graph.NodesDicId;
+        var nodesDicId = graph.NodesDicUID;
 
         NodeStyler.GraphConfiguration = _graphConfiguration;
         EdgeStyler.GraphConfiguration = _graphConfiguration;
@@ -75,7 +75,7 @@ public class GraphStyling : MonoBehaviour
             node.SubNodeStyler.StyleNodeBeforeFirstSimu(styleChange, Settings.DEFAULT_GRAPH_MODE);
         }
 
-        var edgeDicId = graph.EdgesDicId;
+        var edgeDicId = graph.EdgesDicUID;
 
         foreach (var idAndEdge in edgeDicId)
         {
@@ -88,7 +88,7 @@ public class GraphStyling : MonoBehaviour
     private void SimulationStopped()
     {
         var graph = _graphManager.Graph;
-        var edgeDicId = graph.EdgesDicId;
+        var edgeDicId = graph.EdgesDicUID;
 
         foreach (var idAndEdge in edgeDicId)
         {
@@ -102,8 +102,8 @@ public class GraphStyling : MonoBehaviour
     private void SetSubNodePositionsAfterSimu()
     {
         var graph = _graphManager.Graph;
-        var nodesDicId = graph.NodesDicId;
-        var edgeDicId = graph.EdgesDicId;
+        var nodesDicId = graph.NodesDicUID;
+        var edgeDicId = graph.EdgesDicUID;
 
         NodeStyler.GraphConfiguration = _graphConfiguration;
         EdgeStyler.GraphConfiguration = _graphConfiguration;
@@ -134,8 +134,8 @@ public class GraphStyling : MonoBehaviour
         bool isNextDesk = (_graphMode != GraphMode.Desk);
 
         var graph = _graphManager.Graph;
-        var nodesDicId = graph.NodesDicId;
-        var edgesDicId = graph.EdgesDicId;
+        var nodesDicId = graph.NodesDicUID;
+        var edgesDicId = graph.EdgesDicUID;
 
         float speed = 1f / _graphConfiguration.GraphModeTransitionTime;
         float time = 0f;
@@ -206,7 +206,7 @@ public class GraphStyling : MonoBehaviour
         if (graph == null)
             return;
 
-        var nodesDicId = graph.NodesDicId;
+        var nodesDicId = graph.NodesDicUID;
 
         NodeStyler.GraphConfiguration = _graphConfiguration;
         EdgeStyler.GraphConfiguration = _graphConfiguration;
@@ -233,7 +233,7 @@ public class GraphStyling : MonoBehaviour
         if (!styleChange.HasChanged(StyleChangeType.Edge))
             return;
 
-        var edgeDicId = graph.EdgesDicId;
+        var edgeDicId = graph.EdgesDicUID;
 
         foreach(var idAndEdge in edgeDicId)
         {

@@ -1,15 +1,15 @@
 using System.Collections.Generic;
 
-public class NodgesDicId
+public class NodgesDicUID
 {
-    public Dictionary<int, Node> NodesDicId;
-    public Dictionary<int, Edge> EdgesDicId;
+    public Dictionary<string, Node> NodesDicUID;
+    public Dictionary<string, Edge> EdgesDicUID;
 
 
-    public NodgesDicId()
+    public NodgesDicUID()
     {
-        NodesDicId = new();
-        EdgesDicId = new();
+        NodesDicUID = new();
+        EdgesDicUID = new();
     }
 
     public void ResetAbsolutePosition(GraphConfiguration config)
@@ -17,7 +17,7 @@ public class NodgesDicId
         int seed = config.SeedRandomPosition;
 
 
-        foreach (var idAndNode in NodesDicId)
+        foreach (var idAndNode in NodesDicUID)
         {
             idAndNode.Value.ResetAbsolutePosition(seed);
         }

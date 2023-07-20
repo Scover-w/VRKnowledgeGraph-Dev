@@ -41,8 +41,8 @@ public class SubGraph : MonoBehaviour
     Transform _playerHeadTf;
     GraphConfiguration _graphConfig;
 
-    Dictionary<int, Node> _displayedNodes;
-    Dictionary<int, Edge> _displayedEdges;
+    Dictionary<string, Node> _displayedNodes;
+    Dictionary<string, Edge> _displayedEdges;
 
     SubGraphMode _subGraphMode;
 
@@ -193,7 +193,7 @@ public class SubGraph : MonoBehaviour
 
 
         var graph = _graphManager.Graph;
-        var edges = graph.EdgesDicId.Values;
+        var edges = graph.EdgesDicUID.Values;
 
         foreach (Edge edge in edges)
         {
@@ -205,8 +205,8 @@ public class SubGraph : MonoBehaviour
     {
         
         var graph = _graphManager.Graph;
-        var nodes = graph.NodesDicId.Values;
-        var edges = graph.EdgesDicId.Values;
+        var nodes = graph.NodesDicUID.Values;
+        var edges = graph.EdgesDicUID.Values;
 
         var propagatedNodes = _selectionManager.PropagatedNodes;
         var propagatedEdges = _selectionManager.PropagatedEdges;
@@ -220,7 +220,7 @@ public class SubGraph : MonoBehaviour
             node.DisplaySubNode(displayNode);
 
             if (displayNode)
-                _displayedNodes.Add(node.Id, node);
+                _displayedNodes.Add(node.UID, node);
         }
 
         foreach(Edge edge in edges)
@@ -229,7 +229,7 @@ public class SubGraph : MonoBehaviour
             edge.DisplaySubEdge(displayEdge);
 
             if(displayEdge)
-                _displayedEdges.Add(edge.Id, edge);
+                _displayedEdges.Add(edge.UID, edge);
         }
 
         _subGraphMode = SubGraphMode.Lens;
@@ -243,8 +243,8 @@ public class SubGraph : MonoBehaviour
     {
         
         var graph = _graphManager.Graph;
-        var nodes = graph.NodesDicId.Values;
-        var edges = graph.EdgesDicId.Values;
+        var nodes = graph.NodesDicUID.Values;
+        var edges = graph.EdgesDicUID.Values;
 
         foreach (Node node in nodes)
         {
@@ -279,21 +279,21 @@ public class SubGraph : MonoBehaviour
 
     private void DisplayNewPropagatedNodes(List<Node> newNodesToDisplay)
     {
-        var newDisplayedNodes = new Dictionary<int, Node>();
+        var newDisplayedNodes = new Dictionary<string, Node>();
         var oldDisplayedNodes = _displayedNodes;
 
         foreach (Node nodeToDisplay in newNodesToDisplay)
         {
-            int nodeToDisplayId = nodeToDisplay.Id;
-            if (oldDisplayedNodes.ContainsKey(nodeToDisplayId))
+            string nodeToDisplayUID = nodeToDisplay.UID;
+            if (oldDisplayedNodes.ContainsKey(nodeToDisplayUID))
             {
-                oldDisplayedNodes.Remove(nodeToDisplayId);
-                newDisplayedNodes.Add(nodeToDisplayId, nodeToDisplay);
+                oldDisplayedNodes.Remove(nodeToDisplayUID);
+                newDisplayedNodes.Add(nodeToDisplayUID, nodeToDisplay);
                 continue;
             }
 
             nodeToDisplay.DisplaySubNode(true);
-            newDisplayedNodes.Add(nodeToDisplayId, nodeToDisplay);
+            newDisplayedNodes.Add(nodeToDisplayUID, nodeToDisplay);
         }
 
         foreach (Node nodeToHide in oldDisplayedNodes.Values)
@@ -306,12 +306,12 @@ public class SubGraph : MonoBehaviour
 
     private void DisplayNewPropagatedEdges(List<Edge> newEdgesToDisplay) 
     {
-        var newDisplayedEdges = new Dictionary<int, Edge>();
+        var newDisplayedEdges = new Dictionary<string, Edge>();
         var oldDisplayedEdges = _displayedEdges;
 
         foreach (Edge edgeToDisplay in newEdgesToDisplay)
         {
-            var edgeToDisplaId = edgeToDisplay.Id;
+            var edgeToDisplaId = edgeToDisplay.UID;
 
             if (oldDisplayedEdges.ContainsKey(edgeToDisplaId))
             {
@@ -338,8 +338,8 @@ public class SubGraph : MonoBehaviour
         if (_displayedNodes.Count == 0)
             return;
 
-        var displaydNodeClone = new Dictionary<int, Node>(_displayedNodes);
-        var displaydEdgeClone = new Dictionary<int, Edge>(_displayedEdges);
+        var displaydNodeClone = new Dictionary<string, Node>(_displayedNodes);
+        var displaydEdgeClone = new Dictionary<string, Edge>(_displayedEdges);
 
         _lensSimulation.Run(displaydNodeClone, displaydEdgeClone);
     }

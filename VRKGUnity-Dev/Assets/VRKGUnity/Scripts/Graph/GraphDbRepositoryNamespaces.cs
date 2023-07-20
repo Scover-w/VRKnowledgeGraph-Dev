@@ -296,7 +296,7 @@ public class GraphDbRepositoryNamespaces
             return false;
 
         // Does an ontoNode exist in the ontologytree
-        if (!ontoTree.TryGetOntoNode(simpleOntoNode.Id, out ontoNode))
+        if (!ontoTree.TryGetOntoNode(simpleOntoNode.UID, out ontoNode))
             return false;
 
         return true;

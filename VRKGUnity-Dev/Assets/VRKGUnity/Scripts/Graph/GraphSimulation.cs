@@ -18,8 +18,8 @@ public class GraphSimulation : MonoBehaviour
     [SerializeField]
     ReferenceHolderSO _referenceHolderSO;
 
-    Dictionary<int, NodeSimuData> _nodeSimuDatas;
-    Dictionary<int, NodeSimuData> _newNodeSimuDatas;
+    Dictionary<string, NodeSimuData> _nodeSimuDatas;
+    Dictionary<string, NodeSimuData> _newNodeSimuDatas;
 
     SemaphoreSlim _threadEndedSemaphore;
 
@@ -173,7 +173,7 @@ public class GraphSimulation : MonoBehaviour
             foreach (var idAndNodeDataB in nodesSimuData)
             {
                 var nodeDataB = idAndNodeDataB.Value;
-                if (nodeDataA.Id == nodeDataB.Id)
+                if (nodeDataA.UID == nodeDataB.UID)
                     continue;
 
                 Vector3 direction = nodeDataB.Position - nodeDataA.Position;
@@ -195,10 +195,10 @@ public class GraphSimulation : MonoBehaviour
         {
             var edge = idAndEdgeData.Value;
 
-            if (!nodesSimuData.TryGetValue(edge.IdA, out NodeSimuData nodeDataA))
+            if (!nodesSimuData.TryGetValue(edge.UidA, out NodeSimuData nodeDataA))
                 continue;
 
-            if (!nodesSimuData.TryGetValue(edge.IdB, out NodeSimuData nodeDataB))
+            if (!nodesSimuData.TryGetValue(edge.UidB, out NodeSimuData nodeDataB))
                 continue;
 
 

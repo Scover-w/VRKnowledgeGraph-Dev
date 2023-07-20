@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 public class OntoNode
 {
@@ -8,7 +9,8 @@ public class OntoNode
     public bool IsFrozen { get { return _isFrozen; } }
 
 
-    public readonly int Id;
+    public string UID => Value;
+
     public readonly string Value;
 
     public int Depth = int.MaxValue;
@@ -24,7 +26,6 @@ public class OntoNode
 
     public OntoNode(string value, bool isFrozen = false)
     {
-        Id = value.GetHashCode();
         Value = value;
 
         OntoNodeSource = new();

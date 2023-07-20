@@ -9,11 +9,11 @@ public class LensSimulation : MonoBehaviour
 {
     GraphConfiguration _graphConfiguration;
 
-    Dictionary<int, NodeSimuData2D> _nodeSimuDatas;
-    Dictionary<int, NodeSimuData2D> _newNodeSimuDatas;
+    Dictionary<string, NodeSimuData2D> _nodeSimuDatas;
+    Dictionary<string, NodeSimuData2D> _newNodeSimuDatas;
 
-    Dictionary<int, Node> _displayedNodesDicId;
-    Dictionary<int, Edge> _displayedEdgesDicId;
+    Dictionary<string, Node> _displayedNodesDicUID;
+    Dictionary<string, Edge> _displayedEdgesDicUID;
 
 
 
@@ -26,40 +26,40 @@ public class LensSimulation : MonoBehaviour
         _graphConfiguration = GraphConfiguration.Instance;
     }
 
-    public void Run(Dictionary<int, Node> nodeAndIds, Dictionary<int,Edge> edgeAndIds)
+    public void Run(Dictionary<string, Node> nodeAndUIDs, Dictionary<string,Edge> edgeAndUIDs)
     {
         if(_isRunningSimulation) 
         {
             _wantStopSimulation = true;
-            StartCoroutine(WaitingToRun(nodeAndIds, edgeAndIds));
+            StartCoroutine(WaitingToRun(nodeAndUIDs, edgeAndUIDs));
             return;
         }
 
-        StartRun(nodeAndIds, edgeAndIds);
+        StartRun(nodeAndUIDs, edgeAndUIDs);
     }
 
-    IEnumerator WaitingToRun(Dictionary<int, Node> nodeAndIds, Dictionary<int, Edge> edgeAndIds)
+    IEnumerator WaitingToRun(Dictionary<string, Node> nodeAndUIDs, Dictionary<string, Edge> edgeAndUIDs)
     {
         while( _isRunningSimulation) 
         {
             yield return null;
         }
 
-        StartRun(nodeAndIds, edgeAndIds);
+        StartRun(nodeAndUIDs, edgeAndUIDs);
     }
 
-    private void StartRun(Dictionary<int, Node> nodeAndIds, Dictionary<int, Edge> edgeAndIds)
+    private void StartRun(Dictionary<string, Node> nodeAndUIDs, Dictionary<string, Edge> edgeAndUIDs)
     {
         _refreshDuration = -1f;
         _newNodeSimuDatas = null;
         _wantStopSimulation = false;
 
 
-        _displayedNodesDicId = nodeAndIds;
-        _displayedEdgesDicId = edgeAndIds;
+        _displayedNodesDicUID = nodeAndUIDs;
+        _displayedEdgesDicUID = edgeAndUIDs;
 
-        _nodeSimuDatas = nodeAndIds.ToSimuDatas2D();
-        var edgeSimuData = edgeAndIds.ToSimuDatas();
+        _nodeSimuDatas = nodeAndUIDs.ToSimuDatas2D();
+        var edgeSimuData = edgeAndUIDs.ToSimuDatas();
         var simuData2D = new NodgesSimuData2D(_nodeSimuDatas, edgeSimuData);
 
         CalculateStartPositions(_nodeSimuDatas);
@@ -68,7 +68,7 @@ public class LensSimulation : MonoBehaviour
         StartCoroutine(RefreshingNodesPositions());
     }
 
-    private void CalculateStartPositions(Dictionary<int, NodeSimuData2D> nodesSimuData2D)
+    private void CalculateStartPositions(Dictionary<string, NodeSimuData2D> nodesSimuData2D)
     {
         Vector2 center = Vector2.zero;
 
@@ -88,7 +88,7 @@ public class LensSimulation : MonoBehaviour
             nodeSimuData2D.Position -= center;
 
 
-            if (!_displayedNodesDicId.TryGetValue(nodeSimuData2D.Id, out Node node))
+            if (!_displayedNodesDicUID.TryGetValue(nodeSimuData2D.UID, out Node node))
                 continue;
 
             var subTf = node.SubGraphNodeTf;
@@ -182,7 +182,7 @@ public class LensSimulation : MonoBehaviour
             foreach (var idAndNodeDataB in nodesSimuData)
             {
                 var nodeDataB = idAndNodeDataB.Value;
-                if (nodeDataA.Id == nodeDataB.Id)
+                if (nodeDataA.UID == nodeDataB.UID)
                     continue;
 
                 Vector2 direction = nodeDataB.Position - nodeDataA.Position;
@@ -201,12 +201,12 @@ public class LensSimulation : MonoBehaviour
         // Spring force - Attractive Force between connected nodes
         foreach (var idAndEdgeData in edgesSimuData)
         {
-            var edge = idAndEdgeData.Value;
+            EdgeSimuData edge = idAndEdgeData.Value;
 
-            if (!nodesSimuData.TryGetValue(edge.IdA, out NodeSimuData2D nodeDataA))
+            if (!nodesSimuData.TryGetValue(edge.UidA, out NodeSimuData2D nodeDataA))
                 continue;
 
-            if (!nodesSimuData.TryGetValue(edge.IdB, out NodeSimuData2D nodeDataB))
+            if (!nodesSimuData.TryGetValue(edge.UidB, out NodeSimuData2D nodeDataB))
                 continue;
 
 
@@ -280,7 +280,7 @@ public class LensSimulation : MonoBehaviour
 
         foreach (var idAnData in _nodeSimuDatas)
         {
-            if (!_displayedNodesDicId.TryGetValue(idAnData.Key, out Node node))
+            if (!_displayedNodesDicUID.TryGetValue(idAnData.Key, out Node node))
                 continue;
 
             var subTf = node.SubGraphNodeTf;
@@ -290,7 +290,7 @@ public class LensSimulation : MonoBehaviour
             subTf.localPosition = subLerpPosition;
         }
 
-        foreach (var idAndEdge in _displayedEdgesDicId)
+        foreach (var idAndEdge in _displayedEdgesDicUID)
         {
             var edge = idAndEdge.Value;
 

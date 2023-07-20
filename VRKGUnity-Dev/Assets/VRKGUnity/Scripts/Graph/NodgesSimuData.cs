@@ -6,57 +6,57 @@ using UnityEngine;
 
 public class NodgesSimuData
 {
-    public Dictionary<int, NodeSimuData> NodeSimuDatas;
-    public Dictionary<int, EdgeSimuData> EdgeSimuDatas;
+    public Dictionary<string, NodeSimuData> NodeSimuDatas;
+    public Dictionary<string, EdgeSimuData> EdgeSimuDatas;
 
-    public NodgesSimuData(Dictionary<int, NodeSimuData> nodeSimuDatas, Dictionary<int, EdgeSimuData> edgeSimuDatas)
+    public NodgesSimuData(Dictionary<string, NodeSimuData> nodeSimuDatas, Dictionary<string, EdgeSimuData> edgeSimuDatas)
     {
         NodeSimuDatas = nodeSimuDatas;
         EdgeSimuDatas = edgeSimuDatas;
     }
 
-    public NodgesSimuData(NodgesDicId nodges)
+    public NodgesSimuData(NodgesDicUID nodges)
     {
-        NodeSimuDatas = nodges.NodesDicId.ToSimuDatas();
-        EdgeSimuDatas = nodges.EdgesDicId.ToSimuDatas();
+        NodeSimuDatas = nodges.NodesDicUID.ToSimuDatas();
+        EdgeSimuDatas = nodges.EdgesDicUID.ToSimuDatas();
     }
 
 }
 
 public class NodeSimuData
 {
-    public int Id;
+    public string UID;
     public Vector3 Position;
     public Vector3 Velocity;
 
-    public NodeSimuData(int id, Vector3 position)
+    public NodeSimuData(string uid, Vector3 position)
     {
-        Id = id;
+        UID = uid;
         Position = position;
         Velocity = Vector3.zero;
     }
 
-    public NodeSimuData(int id, Vector3 position, Vector3 velocity)
+    public NodeSimuData(string uid, Vector3 position, Vector3 velocity)
     {
-        Id = id;
+        UID = uid;
         Position = position;
         Velocity = velocity;
     }
 
     public NodeSimuData Clone()
     {
-        return new NodeSimuData(Id, Position, Velocity);
+        return new NodeSimuData(UID, Position, Velocity);
     }
 }
 
 public class EdgeSimuData
 {
-    public int IdA;
-    public int IdB;
+    public string UidA;
+    public string UidB;
 
-    public EdgeSimuData(int idA, int idB)
+    public EdgeSimuData(string uidA, string uidB)
     {
-        IdA = idA;
-        IdB = idB;
+        UidA = uidA;
+        UidB = uidB;
     }
 }

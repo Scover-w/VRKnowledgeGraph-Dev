@@ -39,19 +39,19 @@ public class GraphDbRepositoryDistantUris
     {
         var nodges = data.ExtractNodgesForDistantUri(repoNamespaces);
 
-        await RetrieveNames(nodges.NodesDicId, ontoTreeDict, dataSynchro);
+        await RetrieveNames(nodges.NodesDicUID, ontoTreeDict, dataSynchro);
     }
 
-    public async Task RetrieveNames(Dictionary<int, Node> idAndNodes, IReadOnlyDictionary<string, OntologyTree> ontoTreeDict, DataSynchroManager dataSynchro)
+    public async Task RetrieveNames(Dictionary<string, Node> uidAndNodes, IReadOnlyDictionary<string, OntologyTree> ontoTreeDict, DataSynchroManager dataSynchro)
     {
-        idAndNodes = idAndNodes.GetNoLabeledNodes();
-        idAndNodes = idAndNodes.GetNoOntoUriNodes(ontoTreeDict);
+        uidAndNodes = uidAndNodes.GetNoLabeledNodes();
+        uidAndNodes = uidAndNodes.GetNoOntoUriNodes(ontoTreeDict);
 
 
-        if (idAndNodes.Count == 0)
+        if (uidAndNodes.Count == 0)
             return;
 
-        _nbNodes = idAndNodes.Count;
+        _nbNodes = uidAndNodes.Count;
 
         var data = new LoadingDistantUriData(_nbNodes,true);
         dataSynchro.DataQueue.Enqueue(data);
@@ -67,7 +67,7 @@ public class GraphDbRepositoryDistantUris
         _nbStarted = 0;
 
 
-        foreach (var idAndNode in idAndNodes)
+        foreach (var idAndNode in uidAndNodes)
         {
             var node = idAndNode.Value;
 

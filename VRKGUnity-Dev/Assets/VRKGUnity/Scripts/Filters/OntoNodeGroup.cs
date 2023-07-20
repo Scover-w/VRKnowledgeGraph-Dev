@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 public class OntoNodeGroup
 {
-    public int Id { get { return OntoNode.Id; } }
+    public string UID { get { return OntoNode.UID; } }
     public int Depth { get { return _depth; } }
 
     public int NodeCount { get { return Nodes.Count; } }

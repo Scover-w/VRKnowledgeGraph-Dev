@@ -57,7 +57,7 @@ public class Node
         }
     }
 
-    public readonly int Id;
+    public string UID => Uri;
     public readonly NodgeType Type;
 
 
@@ -109,9 +109,8 @@ public class Node
 
     static System.Random _random;
 
-    public Node(int id, string type, string value, GraphDbRepositoryNamespaces repoNamespaces)
+    public Node(string type, string value, GraphDbRepositoryNamespaces repoNamespaces)
     {
-        Id = id;
         Type = (type == "uri") ? NodgeType.Uri : NodgeType.Literal;
 
 
@@ -141,40 +140,6 @@ public class Node
 
         IsHidden = true;
     }
-
-    public Node(string type, string value, GraphDbRepositoryNamespaces repoNamespaces)
-    {
-        Id = value.GetHashCode();
-        Type = (type == "uri") ? NodgeType.Uri : NodgeType.Literal;
-
-
-        if (Type == NodgeType.Literal)
-        {
-            Value = value;
-        }
-        else
-        {
-            var (namespce, localName) = Value.ExtractUri();
-
-            Value = localName;
-            Namespace = namespce;
-
-            Prefix = repoNamespaces.GetPrefix(Namespace);
-        }
-
-        EdgeSource = new();
-        EdgeTarget = new();
-
-        Properties = new();
-        Medias = new();
-
-        _doDisplayMainNode = false;
-        _doDisplaySubNode = false;
-
-        IsHidden = true;
-    }
-
-
     
 
     public string GetShorterName()
@@ -231,7 +196,7 @@ public class Node
 
     public void ResetAbsolutePosition(int seed)
     {
-        _random = new System.Random(seed + Id);
+        _random = new System.Random(seed + UID.GetHashCode());
         AbsolutePosition = new Vector3((float)_random.NextDouble() * 0.2f - 0.1f,
                        (float)_random.NextDouble() * 0.2f - 0.1f,
                        (float)_random.NextDouble() * 0.2f - 0.1f);
@@ -260,12 +225,12 @@ public class Node
 
     public NodeSimuData ToSimuData()
     {
-        return new NodeSimuData(Id, AbsolutePosition);
+        return new NodeSimuData(UID, AbsolutePosition);
     }
 
     public NodeSimuData2D ToSimuData2D()
     {
-        return new NodeSimuData2D(Id, AbsolutePosition);
+        return new NodeSimuData2D(UID, AbsolutePosition);
     }
 
     private bool ContainNameUri(string value)

@@ -3,15 +3,14 @@ using UnityEngine;
 
 public class OntologyTree
 {
-    public IReadOnlyDictionary<int, OntoNode> OntoNodes => _ontoNodes;
+    public IReadOnlyDictionary<string, OntoNode> OntoNodes => _ontoNodes;
 
     public OntoNode RootOntoNode { get { return _rootOntoNode; } }
 
     OntoNode _rootOntoNode;
 
-    Dictionary<int, OntoNode> _ontoNodes;
-
-    string _namespce;
+    readonly Dictionary<string, OntoNode> _ontoNodes;
+    readonly string _namespce;
 
 
     public OntologyTree(string namespce)
@@ -22,15 +21,15 @@ public class OntologyTree
 
     public void AddOntoNode(OntoNode ontoNode)
     {
-        _ontoNodes.TryAdd(ontoNode.Id, ontoNode);
+        _ontoNodes.TryAdd(ontoNode.UID, ontoNode);
     }
 
     public OntoNode TryGetOrCreateOntoNode(OntoNode ontoNode)
     {
-        if (_ontoNodes.TryGetValue(ontoNode.Id, out OntoNode ontoNodeResult))
+        if (_ontoNodes.TryGetValue(ontoNode.UID, out OntoNode ontoNodeResult))
             return ontoNodeResult;
 
-        _ontoNodes.Add(ontoNode.Id, ontoNode);
+        _ontoNodes.Add(ontoNode.UID, ontoNode);
 
         return ontoNode;
     }
@@ -73,9 +72,9 @@ public class OntologyTree
         }
     }
 
-    public OntoNode GetOntoNode(int id)
+    public OntoNode GetOntoNode(string uid)
     {
-        if (!_ontoNodes.TryGetValue(id, out var ontoNode))
+        if (!_ontoNodes.TryGetValue(uid, out var ontoNode))
         {
             Debug.LogWarning("OntologyTree : Couldn't get onto node with id");
             return null;
@@ -84,10 +83,10 @@ public class OntologyTree
         return ontoNode;
     }
 
-    public bool TryGetOntoNode(int id, out OntoNode ontoNode)
+    public bool TryGetOntoNode(string uid, out OntoNode ontoNode)
     {
         ontoNode = null;
-        if (!_ontoNodes.TryGetValue(id, out var oNode))
+        if (!_ontoNodes.TryGetValue(uid, out var oNode))
         {
             return false;
         }

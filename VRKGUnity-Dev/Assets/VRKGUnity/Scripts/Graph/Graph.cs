@@ -9,8 +9,8 @@ using UnityEngine;
 
 public class Graph
 {
-    public IReadOnlyDictionary<int, Node> NodesDicId => _nodesDicId;
-    public IReadOnlyDictionary<int, Edge> EdgesDicId => _edgesDicId;
+    public IReadOnlyDictionary<string, Node> NodesDicUID => _nodesDicUID;
+    public IReadOnlyDictionary<string, Edge> EdgesDicUID => _edgesDicUID;
 
     public GraphConfiguration Configuration 
     {
@@ -29,8 +29,8 @@ public class Graph
     readonly Transform _mainGraphTf;
     readonly Transform _subGraphTf;
 
-    Dictionary<int, Node> _nodesDicId;
-    Dictionary<int, Edge> _edgesDicId;
+    Dictionary<string, Node> _nodesDicUID;
+    Dictionary<string, Edge> _edgesDicUID;
 
 
     BidirectionalGraph<Node, Edge> _graphDatas;
@@ -42,10 +42,10 @@ public class Graph
     int _metricsCalculated;
 
     #region NodgesUpdateOrCreation
-    public Graph(GraphManager graphManager, GraphStyling graphStyling, NodgesDicId nodges, NodgePool nodgePool, GraphDbRepository repository)
+    public Graph(GraphManager graphManager, GraphStyling graphStyling, NodgesDicUID nodges, NodgePool nodgePool, GraphDbRepository repository)
     {
-        _nodesDicId = nodges.NodesDicId; 
-        _edgesDicId = nodges.EdgesDicId;
+        _nodesDicUID = nodges.NodesDicUID; 
+        _edgesDicUID = nodges.EdgesDicUID;
 
         _graphManager = graphManager;
 
@@ -66,7 +66,7 @@ public class Graph
 
 
         int seed = Configuration.SeedRandomPosition;
-        foreach (var idAndNode in _nodesDicId)
+        foreach (var idAndNode in _nodesDicUID)
         {
             idAndNode.Value.ResetAbsolutePosition(seed);
         }
@@ -74,7 +74,7 @@ public class Graph
 
     private void SetupNodes()
     {
-        foreach(var idAndNode in _nodesDicId)
+        foreach(var idAndNode in _nodesDicUID)
         {
             SetupNode(idAndNode.Value, true);
             SetupNode(idAndNode.Value, false);
@@ -112,7 +112,7 @@ public class Graph
 
     private void SetupEdges()
     {
-        foreach(var idAndEdge in _edgesDicId)
+        foreach(var idAndEdge in _edgesDicUID)
         {
             SetupEdge(idAndEdge.Value, true);
             SetupEdge(idAndEdge.Value, false);
@@ -147,30 +147,30 @@ public class Graph
         edgeStyler.Tf.localPosition = Vector3.zero;
     }
 
-    public void UpdateNodges(NodgesDicId nodges)
+    public void UpdateNodges(NodgesDicUID nodges)
     {
-        UpdateNodesInGraph(nodges.NodesDicId);
-        UpdateEdgesInGraph(nodges.EdgesDicId);
+        UpdateNodesInGraph(nodges.NodesDicUID);
+        UpdateEdgesInGraph(nodges.EdgesDicUID);
     }
 
-    private void UpdateNodesInGraph(Dictionary<int,Node> nodesDicId)
+    private void UpdateNodesInGraph(Dictionary<string, Node> nodesDicUID)
     {
-        Dictionary<int, Node> newNodes = new();
-        Dictionary<int, Node> newNodesToRetrieveNames = new();
+        Dictionary<string, Node> newNodes = new();
+        Dictionary<string, Node> newNodesToRetrieveNames = new();
 
         bool doResetPosition = Configuration.ResetPositionNodeOnUpdate;
         int seed = Configuration.SeedRandomPosition;
 
-        foreach (var idAndNode in nodesDicId)
+        foreach (var idAndNode in nodesDicUID)
         {
-            var id = idAndNode.Key;
+            var uid = idAndNode.Key;
 
-            if (_nodesDicId.TryGetValue(id, out Node keepNode))
+            if (_nodesDicUID.TryGetValue(uid, out Node keepNode))
             {
                 // Already in the graph
                 keepNode.OntoNodeGroup = null;
-                newNodes.Add(id, keepNode);
-                _nodesDicId.Remove(id);
+                newNodes.Add(uid, keepNode);
+                _nodesDicUID.Remove(uid);
 
                 if (doResetPosition)
                     keepNode.ResetAbsolutePosition(seed);
@@ -179,8 +179,8 @@ public class Graph
             {
                 // New in the graph
                 var newNode = idAndNode.Value;
-                newNodes.Add(id, newNode);
-                newNodesToRetrieveNames.Add(id, newNode);
+                newNodes.Add(uid, newNode);
+                newNodesToRetrieveNames.Add(uid, newNode);
 
                 SetupNode(newNode, true);
                 SetupNode(newNode, false);
@@ -195,14 +195,14 @@ public class Graph
         newNodesToRetrieveNames.AddRetrievedNames(_repository.GraphDbRepositoryDistantUris);
 
 
-        _nodesDicId = newNodes;
+        _nodesDicUID = newNodes;
 
 
         void ReleaseUnusedNodes()
         {
 
             // Remove nodes that aren't in the graph anymore
-            foreach (var idAndNode in _nodesDicId)
+            foreach (var idAndNode in _nodesDicUID)
             {
                 var mainGraphStyler = idAndNode.Value.MainNodeStyler;
                 var subGraphStyler = idAndNode.Value.SubNodeStyler;
@@ -215,24 +215,24 @@ public class Graph
         }
     }
 
-    private void UpdateEdgesInGraph(Dictionary<int, Edge> edgesDicId)
+    private void UpdateEdgesInGraph(Dictionary<string, Edge> edgesDicUID)
     {
-        Dictionary<int, Edge> newEdges = new();
+        Dictionary<string, Edge> newEdges = new();
 
-        foreach (var idAndEdge in edgesDicId)
+        foreach (var idAndEdge in edgesDicUID)
         {
-            var id = idAndEdge.Key;
+            string uid = idAndEdge.Key;
 
-            if (_edgesDicId.TryGetValue(id, out Edge edge))
+            if (_edgesDicUID.TryGetValue(uid, out Edge edge))
             {
                 // Already in the graph
-                newEdges.Add(id, edge);
-                _edgesDicId.Remove(id);
+                newEdges.Add(uid, edge);
+                _edgesDicUID.Remove(uid);
             }
             else
             {
                 // New in the graph
-                newEdges.Add(id, idAndEdge.Value);
+                newEdges.Add(uid, idAndEdge.Value);
                 SetupEdge(idAndEdge.Value, true);
                 SetupEdge(idAndEdge.Value, false);
             }
@@ -241,12 +241,12 @@ public class Graph
         ReleaseUnusedEdges();
        
 
-        _edgesDicId = newEdges;
+        _edgesDicUID = newEdges;
 
         void ReleaseUnusedEdges()
         {
             // Remove edges that aren't in the graph anymore
-            foreach (var idAndEdge in _edgesDicId)
+            foreach (var idAndEdge in _edgesDicUID)
             {
                 var edge = idAndEdge.Value;
                 var mainGraphStyler = edge.MainEdgeStyler;
@@ -284,13 +284,13 @@ public class Graph
 
         foreach (Node node in nodeToRemove)
         {
-            _nodesDicId.Remove(node.Id);
+            _nodesDicUID.Remove(node.UID);
 
             var edges = node.Edges;
 
             foreach (Edge edge in edges)
             {
-                _edgesDicId.Remove(edge.Id);
+                _edgesDicUID.Remove(edge.UID);
                 edgeToHide.Add(edge);
             }
         }
@@ -307,7 +307,7 @@ public class Graph
         HashSet<Edge> edgeToHide = new();
 
 
-        foreach (Node node in _nodesDicId.Values)
+        foreach (Node node in _nodesDicUID.Values)
         {
 
             if (nodeToKeepDisplay.Contains(node))
@@ -322,13 +322,13 @@ public class Graph
 
         foreach(Node node in nodeToRemove)
         {
-            _nodesDicId.Remove(node.Id);
+            _nodesDicUID.Remove(node.UID);
 
             var edges = node.Edges;
 
             foreach (Edge edge in edges)
             {
-                _edgesDicId.Remove(edge.Id);
+                _edgesDicUID.Remove(edge.UID);
                 edgeToHide.Add(edge);
             }
         }
@@ -347,20 +347,20 @@ public class Graph
 
         foreach(Node node in nodesToUnhide)
         {
-            if (_nodesDicId.ContainsKey(node.Id))
+            if (_nodesDicUID.ContainsKey(node.UID))
                 continue;
 
-            _nodesDicId.Add(node.Id, node);
+            _nodesDicUID.Add(node.UID, node);
             node.Unhide(_graphManager.GraphMode);
 
             var edges = node.Edges;
 
             foreach (Edge edge in edges)
             {
-                if (_edgesDicId.ContainsKey(edge.Id))
+                if (_edgesDicUID.ContainsKey(edge.UID))
                     continue;
 
-                _edgesDicId.Add(edge.Id, edge);
+                _edgesDicUID.Add(edge.UID, edge);
             }
         }
     }
@@ -418,7 +418,7 @@ public class Graph
         // Closeness Centrality
         Dictionary<Node, int> shortPathLengthSumCC = new();
 
-        foreach (var idAndNodeSource in _nodesDicId)
+        foreach (var idAndNodeSource in _nodesDicUID)
         {
             var node = idAndNodeSource.Value;
             inShortestPathCountBC.Add(node, 0);
@@ -431,7 +431,7 @@ public class Graph
 
         UndirectedBidirectionalGraph<Node, Edge> undirectedGraphDatas = new(_graphDatas);
 
-        foreach (var idAndNodeSource in _nodesDicId)
+        foreach (var idAndNodeSource in _nodesDicUID)
         {
             var rootNode = idAndNodeSource.Value;
 
@@ -441,7 +441,7 @@ public class Graph
             TryFunc<Node, IEnumerable<Edge>> tryGetPaths = undirectedGraphDatas.ShortestPathsDijkstra(edgeCost, rootNode);
 
             
-            foreach (var idAndNodeTarget in _nodesDicId)
+            foreach (var idAndNodeTarget in _nodesDicUID)
             {
                 var targetNode = idAndNodeTarget.Value;
 
@@ -507,7 +507,7 @@ public class Graph
         float minCC = float.MaxValue;
 
         // Normalize BC
-        foreach (var idAndNodeSource in _nodesDicId)
+        foreach (var idAndNodeSource in _nodesDicUID)
         {
             var node = idAndNodeSource.Value;
 
@@ -528,7 +528,7 @@ public class Graph
             node.AverageShortestPathLength = (node.AverageShortestPathLength - minASP) / (maxASP - minASP);
         }
 
-        foreach (var idAndNodeSource in _nodesDicId)
+        foreach (var idAndNodeSource in _nodesDicUID)
         {
             var node = idAndNodeSource.Value;
             //Debug.Log("----------------------");
@@ -539,7 +539,7 @@ public class Graph
 
 
         // Normalize CC
-        foreach (var idAndNodeSource in _nodesDicId)
+        foreach (var idAndNodeSource in _nodesDicUID)
         {
             var node = idAndNodeSource.Value;
             node.ClosenessCentrality = (node.ClosenessCentrality - minCC) / (maxCC- minCC);
@@ -552,7 +552,7 @@ public class Graph
         int minDegree = int.MaxValue;
 
 
-        foreach (var idAndNodeSource in _nodesDicId)
+        foreach (var idAndNodeSource in _nodesDicUID)
         {
             var node = idAndNodeSource.Value;
             var degree = (node.EdgeSource.Count + node.EdgeTarget.Count);
@@ -565,7 +565,7 @@ public class Graph
                 minDegree = degree;
         }
 
-        foreach (var idAndNodeSource in _nodesDicId)
+        foreach (var idAndNodeSource in _nodesDicUID)
         {
             var node = idAndNodeSource.Value;
             node.Degree = (node.Degree -  minDegree) / (maxDegree - minDegree);
@@ -577,7 +577,7 @@ public class Graph
         float maxCluster = 0;
         float minCluster = float.MaxValue;
 
-        foreach (var idAndNodeSource in _nodesDicId)
+        foreach (var idAndNodeSource in _nodesDicUID)
         {
             var node = idAndNodeSource.Value;
 
@@ -632,14 +632,14 @@ public class Graph
     #endregion
 
 
-    public void RefreshMainNodePositions(Dictionary<int, NodeSimuData> nodeSimuDatas)
+    public void RefreshMainNodePositions(Dictionary<string, NodeSimuData> nodeSimuDatas)
     {
         var scalingFactor = (_graphManager.GraphMode == GraphMode.Desk) ? _graphConfiguration.DeskGraphSize : _graphConfiguration.ImmersionGraphSize;
         var lerpSmooth = _graphConfiguration.SimuParameters.LerpSmooth;
 
         foreach (var idAnData in nodeSimuDatas)
         {
-            if (!_nodesDicId.TryGetValue(idAnData.Key, out Node node))
+            if (!_nodesDicUID.TryGetValue(idAnData.Key, out Node node))
                 continue;
 
             Transform mainTf = node.MainGraphNodeTf;
@@ -654,7 +654,7 @@ public class Graph
             mainTf.localPosition = megaLerpPosition;
         }
 
-        foreach (var idAndEdge in _edgesDicId)
+        foreach (var idAndEdge in _edgesDicUID)
         {
             Edge edge = idAndEdge.Value;
 
@@ -674,26 +674,26 @@ public class Graph
 
     public void ReleaseAll()
     {
-        foreach(Node node  in _nodesDicId.Values)
+        foreach(Node node  in _nodesDicUID.Values)
         {
             _nodgePool.Release(node.MainNodeStyler);
             _nodgePool.Release(node.SubNodeStyler);
         }
 
-        foreach (Edge edge in _edgesDicId.Values)
+        foreach (Edge edge in _edgesDicUID.Values)
         {
             _nodgePool.Release(edge.MainEdgeStyler);
             _nodgePool.Release(edge.SubEdgeStyler);
         }
 
-        _nodesDicId = new();
-        _edgesDicId = new();
+        _nodesDicUID = new();
+        _edgesDicUID = new();
     }
 
     public NodgesSimuData CreateSimuDatas()
     {
-        Dictionary<int, NodeSimuData> nodeSimuDatas = _nodesDicId.ToSimuDatas();
-        Dictionary<int, EdgeSimuData> edgeSimuDatas = _edgesDicId.ToSimuDatas();
+        Dictionary<string, NodeSimuData> nodeSimuDatas = _nodesDicUID.ToSimuDatas();
+        Dictionary<string, EdgeSimuData> edgeSimuDatas = _edgesDicUID.ToSimuDatas();
 
         return new NodgesSimuData(nodeSimuDatas, edgeSimuDatas);
     }

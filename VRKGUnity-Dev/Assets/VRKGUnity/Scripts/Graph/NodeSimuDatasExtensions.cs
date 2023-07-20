@@ -3,9 +3,9 @@
 public static class NodeSimuDatasExtensions
 {
     #region GraphSimulation
-    public static Dictionary<int, NodeSimuData> Clone(this Dictionary<int, NodeSimuData> nodeSimuDatas)
+    public static Dictionary<string, NodeSimuData> Clone(this Dictionary<string, NodeSimuData> nodeSimuDatas)
     {
-        Dictionary<int, NodeSimuData> cloned = new();
+        Dictionary<string, NodeSimuData> cloned = new();
 
         foreach (var idAndData in nodeSimuDatas)
         {
@@ -15,25 +15,25 @@ public static class NodeSimuDatasExtensions
         return cloned;
     }
 
-    public static Dictionary<int, NodeSimuData> ToSimuDatas(this Dictionary<int, Node> nodesDicId)
+    public static Dictionary<string, NodeSimuData> ToSimuDatas(this Dictionary<string, Node> nodesDicUID)
     {
-        Dictionary<int, NodeSimuData> nodeSimuDatas = new();
+        Dictionary<string, NodeSimuData> nodeSimuDatas = new();
 
-        foreach (var idAndNode in nodesDicId)
+        foreach (var uidAndNode in nodesDicUID)
         {
-            nodeSimuDatas.Add(idAndNode.Key, idAndNode.Value.ToSimuData());
+            nodeSimuDatas.Add(uidAndNode.Key, uidAndNode.Value.ToSimuData());
         }
 
         return nodeSimuDatas;
     }
 
-    public static Dictionary<int, EdgeSimuData> ToSimuDatas(this Dictionary<int, Edge> edgesDicId)
+    public static Dictionary<string, EdgeSimuData> ToSimuDatas(this Dictionary<string, Edge> edgesDicUID)
     {
-        Dictionary<int, EdgeSimuData> edgeSimuDatas = new();
+        Dictionary<string, EdgeSimuData> edgeSimuDatas = new();
 
-        foreach (var idAndEdge in edgesDicId)
+        foreach (var uidAndEdge in edgesDicUID)
         {
-            edgeSimuDatas.Add(idAndEdge.Key, idAndEdge.Value.ToSimuData());
+            edgeSimuDatas.Add(uidAndEdge.Key, uidAndEdge.Value.ToSimuData());
         }
 
         return edgeSimuDatas;
@@ -42,9 +42,9 @@ public static class NodeSimuDatasExtensions
 
 
     #region LensSimulation
-    public static Dictionary<int, NodeSimuData2D> Clone(this Dictionary<int, NodeSimuData2D> nodeSimuDatas)
+    public static Dictionary<string, NodeSimuData2D> Clone(this Dictionary<string, NodeSimuData2D> nodeSimuDatas)
     {
-        Dictionary<int, NodeSimuData2D> cloned = new();
+        Dictionary<string, NodeSimuData2D> cloned = new();
 
         foreach (var idAndData in nodeSimuDatas)
         {
@@ -54,9 +54,9 @@ public static class NodeSimuDatasExtensions
         return cloned;
     }
 
-    public static Dictionary<int, NodeSimuData2D> ToSimuDatas2D(this Dictionary<int, Node> nodesAndId)
+    public static Dictionary<string, NodeSimuData2D> ToSimuDatas2D(this Dictionary<string, Node> nodesAndId)
     {
-        Dictionary<int, NodeSimuData2D> nodeSimuDatas2D = new();
+        Dictionary<string, NodeSimuData2D> nodeSimuDatas2D = new();
 
         foreach (var nodeAndId in nodesAndId)
         {
@@ -67,13 +67,13 @@ public static class NodeSimuDatasExtensions
     }
 
 
-    public static Dictionary<int, EdgeSimuData> ToSimuDatas(this HashSet<Edge> edges)
+    public static Dictionary<string, EdgeSimuData> ToSimuDatas(this HashSet<Edge> edges)
     {
-        Dictionary<int, EdgeSimuData> edgeSimuDatas = new();
+        Dictionary<string, EdgeSimuData> edgeSimuDatas = new();
 
         foreach (Edge edge in edges)
         {
-            edgeSimuDatas.Add(edge.Id, edge.ToSimuData());
+            edgeSimuDatas.Add(edge.UID, edge.ToSimuData());
         }
 
         return edgeSimuDatas;

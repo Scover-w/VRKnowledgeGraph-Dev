@@ -26,7 +26,7 @@ public class Edge : IEdge<Node>
         }
     }
 
-    public readonly int Id;
+    public readonly string UID;
 
     public readonly List<EdgeProperty> EdgeProperties;
 
@@ -51,7 +51,7 @@ public class Edge : IEdge<Node>
 
     public Edge(string type, string value, Node source, Node target, GraphDbRepositoryNamespaces repoNamespaces) 
     {
-        Id = GetId(source.Uri, target.Uri);
+        UID = GetUID(source.Uri, target.Uri);
 
         Source = source;
         Target = target;
@@ -177,15 +177,15 @@ public class Edge : IEdge<Node>
 
     public EdgeSimuData ToSimuData()
     {
-        return new EdgeSimuData(Source.Id, Target.Id);
+        return new EdgeSimuData(Source.UID, Target.UID);
     }
 
 
-    public static int GetId(string valueA,string valueB)
+    public static string GetUID(string valueA,string valueB)
     {
         var (valueC, valueD) = Sort(valueA, valueB);
 
-        return (valueC + valueD).GetHashCode();
+        return valueC + valueD;
     }
 
     private static (string, string) Sort(string valueA, string valueB)

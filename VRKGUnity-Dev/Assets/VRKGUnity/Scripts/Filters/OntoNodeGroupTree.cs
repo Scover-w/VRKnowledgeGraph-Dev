@@ -6,13 +6,13 @@ public class OntoNodeGroupTree
 {
     static GraphConfiguration _graphConfiguration;
 
-    private IReadOnlyDictionary<string, OntologyTree> _ontoTreeDict;
+    private readonly IReadOnlyDictionary<string, OntologyTree> _ontoTreeDict;
 
-    Dictionary<int, OntoNodeGroup> _ontoGroups;
+    Dictionary<string, OntoNodeGroup> _ontoGroups;
 
     OntoNodeGroup _ontoGroupRoot;
 
-    private OntoNodeGroupTree(IReadOnlyDictionary<string, OntologyTree> ontoTreeDict, Dictionary<int, OntoNodeGroup> ontoGroups, OntoNodeGroup ontoGroupRoot)
+    private OntoNodeGroupTree(IReadOnlyDictionary<string, OntologyTree> ontoTreeDict, Dictionary<string, OntoNodeGroup> ontoGroups, OntoNodeGroup ontoGroupRoot)
     {
         _ontoTreeDict = ontoTreeDict;
         _ontoGroups = ontoGroups;
@@ -23,7 +23,7 @@ public class OntoNodeGroupTree
     public static OntoNodeGroupTree CreateOntoNodeTree(IReadOnlyDictionary<string, OntologyTree> ontoTreeDict, GraphConfiguration graphConfig, bool wantSpreadOut = true)
     {
         _graphConfiguration = graphConfig;
-        Dictionary<int, OntoNodeGroup> ontoGroups = CreateOntoGroupsFromOntoNodes(ontoTreeDict);
+        Dictionary<string, OntoNodeGroup> ontoGroups = CreateOntoGroupsFromOntoNodes(ontoTreeDict);
         OntoNodeGroup groupTreeRoot = CreateRootOfOntoNodeTree(ontoTreeDict);
 
         if(!PruneTreeToColorLimit(groupTreeRoot, ontoGroups, wantSpreadOut))
@@ -37,9 +37,9 @@ public class OntoNodeGroupTree
         return new OntoNodeGroupTree(ontoTreeDict, ontoGroups, groupTreeRoot);
     }
 
-    private static Dictionary<int, OntoNodeGroup> CreateOntoGroupsFromOntoNodes(IReadOnlyDictionary<string, OntologyTree> ontoTreeDict)
+    private static Dictionary<string, OntoNodeGroup> CreateOntoGroupsFromOntoNodes(IReadOnlyDictionary<string, OntologyTree> ontoTreeDict)
     {
-        Dictionary<int, OntoNodeGroup> ontoGroups = new();
+        Dictionary<string, OntoNodeGroup> ontoGroups = new();
 
         foreach (OntologyTree ontoTree in ontoTreeDict.Values)
         {
@@ -50,7 +50,7 @@ public class OntoNodeGroupTree
             foreach (var ontoNode in ontoNodes.Values)
             {
                 if (ontoNode.CreateGroupIfOwnAttachedNode(out OntoNodeGroup ontoNodeGroup))
-                    ontoGroups.Add(ontoNodeGroup.Id, ontoNodeGroup);
+                    ontoGroups.Add(ontoNodeGroup.UID, ontoNodeGroup);
             }
         }
 
@@ -78,7 +78,7 @@ public class OntoNodeGroupTree
         return groupTreeRoot;
     }
 
-    private static bool PruneTreeToColorLimit(OntoNodeGroup groupTreeRoot, Dictionary<int, OntoNodeGroup> ontoGroups, bool wantSpreadOut)
+    private static bool PruneTreeToColorLimit(OntoNodeGroup groupTreeRoot, Dictionary<string, OntoNodeGroup> ontoGroups, bool wantSpreadOut)
     {
         // Filter to reduce to nbColor
         int nbColors = _graphConfiguration.NbOntologyColor;
@@ -111,10 +111,10 @@ public class OntoNodeGroupTree
                 return;
             }
 
-            if (ontoGroups.TryGetValue(upperOntoNode.Id, out OntoNodeGroup upperOntoGroup))
+            if (ontoGroups.TryGetValue(upperOntoNode.UID, out OntoNodeGroup upperOntoGroup))
             {
                 ontoGroupToDelete.SendNodesTo(upperOntoGroup);
-                ontoGroups.Remove(ontoGroupToDelete.Id);
+                ontoGroups.Remove(ontoGroupToDelete.UID);
 
                 ontoGroupToDelete.RemoveFromParent();
                 ontoGroupToDelete.RemoveFromOntoNode();
@@ -124,8 +124,8 @@ public class OntoNodeGroupTree
             var newOntoGroup = new OntoNodeGroup(upperOntoNode);
             ontoGroupToDelete.SendNodesTo(newOntoGroup);
 
-            ontoGroups.Remove(ontoGroupToDelete.Id);
-            ontoGroups.Add(newOntoGroup.Id, newOntoGroup);
+            ontoGroups.Remove(ontoGroupToDelete.UID);
+            ontoGroups.Add(newOntoGroup.UID, newOntoGroup);
 
             ontoGroupToDelete.ReplaceFromParent(newOntoGroup);
             ontoGroupToDelete.RemoveFromOntoNode();
@@ -182,7 +182,7 @@ public class OntoNodeGroupTree
         }
     }
 
-    private static void ComputeColorValueToGroups(OntoNodeGroup groupTreeRoot, Dictionary<int, OntoNodeGroup> ontoGroups)
+    private static void ComputeColorValueToGroups(OntoNodeGroup groupTreeRoot, Dictionary<string, OntoNodeGroup> ontoGroups)
     {
         float nbColor = (ontoGroups.Count > _graphConfiguration.NbOntologyColor) ? ontoGroups.Count : _graphConfiguration.NbOntologyColor;
 
@@ -194,7 +194,7 @@ public class OntoNodeGroupTree
     public static OntoNodeGroupTree CreateOntoNodeTreeB(IReadOnlyDictionary<string, OntologyTree> ontoTreeDict, bool wantSpreadOut = true)
     {
         HashSet<OntoNodeGroup> ontoGroupToForget = new();
-        Dictionary<int, OntoNodeGroup> ontoGroups = new();
+        Dictionary<string, OntoNodeGroup> ontoGroups = new();
 
         var groupTreeRoot = new OntoNodeGroup(new OntoNode("rootOntoNodeTree",true));
 
@@ -211,12 +211,11 @@ public class OntoNodeGroupTree
                 if (ontoNode.NodesAttached.Count == 0)
                     continue;
 
-                OntoNodeGroup ontoGroup;
 
-                if (!ontoGroups.TryGetValue(ontoNode.Id, out ontoGroup))
+                if (!ontoGroups.TryGetValue(ontoNode.UID, out OntoNodeGroup ontoGroup))
                 {
                     ontoGroup = new OntoNodeGroup(ontoNode);
-                    ontoGroups.Add(ontoGroup.Id, ontoGroup);
+                    ontoGroups.Add(ontoGroup.UID, ontoGroup);
                 }
 
                 foreach (var node in ontoNode.NodesAttached)
@@ -241,17 +240,17 @@ public class OntoNodeGroupTree
                 continue;
             }
 
-            if (ontoGroups.TryGetValue(upperOntoNode.Id, out OntoNodeGroup upperOntoGroup))
+            if (ontoGroups.TryGetValue(upperOntoNode.UID, out OntoNodeGroup upperOntoGroup))
             {
                 ontoGroup.SendNodesTo(upperOntoGroup);
-                ontoGroups.Remove(ontoGroup.Id);
+                ontoGroups.Remove(ontoGroup.UID);
                 continue;
             }
 
             var newOntoGroup = new OntoNodeGroup(upperOntoNode);
             ontoGroup.SendNodesTo(newOntoGroup);
-            ontoGroups.Remove(ontoGroup.Id);
-            ontoGroups.Add(newOntoGroup.Id, newOntoGroup);
+            ontoGroups.Remove(ontoGroup.UID);
+            ontoGroups.Add(newOntoGroup.UID, newOntoGroup);
         }
 
 
