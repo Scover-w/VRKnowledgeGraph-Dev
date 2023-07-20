@@ -36,7 +36,7 @@ public class GraphSimulation : MonoBehaviour
         _isRunningSimulation = false;
     }
 
-    public async void Run(Graph graph)
+    public void Run(Graph graph)
     {
         _newNodeSimuDatas = null;
         _refreshGraph = true;
@@ -49,12 +49,12 @@ public class GraphSimulation : MonoBehaviour
         ThreadPool.QueueUserWorkItem(CalculatingPositionsBackground, nodgesSimuDatas);
         StartCoroutine(RefreshingNodesPositions(graph));
 
-        await _threadEndedSemaphore.WaitAsync();
-        _threadEndedSemaphore = null;
+        //await _threadEndedSemaphore.WaitAsync();
+        //_threadEndedSemaphore = null;
 
-        float maxDistance = GetMaxDistance(nodgesSimuDatas);
-        Debug.Log("MaxDistance : " + maxDistance);
-        _referenceHolderSO.MaxDistanceGraph = maxDistance;
+        //float maxDistance = GetMaxDistance(nodgesSimuDatas);
+        //Debug.Log("MaxDistance : " + maxDistance);
+        //_referenceHolderSO.MaxDistanceGraph = maxDistance;
 
     }
 
@@ -124,6 +124,11 @@ public class GraphSimulation : MonoBehaviour
                 timer = 0f;
             }
         }
+
+
+        float maxDistance = GetMaxDistance(nodgesSimuDatas);
+        Debug.Log("MaxDistance : " + maxDistance);
+        _referenceHolderSO.MaxDistanceGraph = maxDistance;
 
         _newNodeSimuDatas = nodgesSimuDatas.NodeSimuDatas.Clone();
         _isRunningSimulation = false;
