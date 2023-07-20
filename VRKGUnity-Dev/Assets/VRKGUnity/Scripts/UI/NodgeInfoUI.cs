@@ -189,39 +189,39 @@ public class NodgeInfoUI : MonoBehaviour
         // TODO : Display texture
     }
 
-    public void DisplayInfoEdge(Edge edge)
-    {
-        _canvasGo.SetActive(edge != null);
+    //public void DisplayInfoEdge(Edge edge)
+    //{
+    //    _canvasGo.SetActive(edge != null);
 
-        if (edge == null)
-            return;
+    //    if (edge == null)
+    //        return;
 
-        _typeTxt.text = edge.Type.ToString();
-        _valueTxt.text = edge.PrefixValue;
+    //    _typeTxt.text = edge.Type.ToString();
+    //    _valueTxt.text = edge.PrefixValue;
 
-        StringBuilder sb = new();
+    //    StringBuilder sb = new();
 
-        var nodeSource = edge.Source;
-        var nodeTarget = edge.Target;
+    //    var nodeSource = edge.Source;
+    //    var nodeTarget = edge.Target;
 
-        var nameSourceNode = nodeSource.GetPrefName();
-        var nameTargetNode = nodeTarget.GetPrefName();
+    //    var nameSourceNode = nodeSource.GetPrefName();
+    //    var nameTargetNode = nodeTarget.GetPrefName();
 
-        nameSourceNode ??= nodeSource.PrefixValue;
-        nameTargetNode ??= nodeTarget.PrefixValue;
+    //    nameSourceNode ??= nodeSource.PrefixValue;
+    //    nameTargetNode ??= nodeTarget.PrefixValue;
 
 
-        if(nameSourceNode.Length > 30)
-            nameSourceNode = nameSourceNode[..30] + "...";
+    //    if(nameSourceNode.Length > 30)
+    //        nameSourceNode = nameSourceNode[..30] + "...";
         
-        if(nameTargetNode.Length > 30)
-            nameTargetNode = nameTargetNode[..30] + "...";
+    //    if(nameTargetNode.Length > 30)
+    //        nameTargetNode = nameTargetNode[..30] + "...";
 
-        sb.Append(nameSourceNode);
-        sb.Append("\n |\n\\/\n");
-        sb.Append(nameTargetNode);
+    //    sb.Append(nameSourceNode);
+    //    sb.Append("\n |\n\\/\n");
+    //    sb.Append(nameTargetNode);
 
 
-        _nbEdgeOrNameNodesTxt.text = sb.ToString();
-    }
+    //    _nbEdgeOrNameNodesTxt.text = sb.ToString();
+    //}
 }

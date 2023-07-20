@@ -41,12 +41,17 @@ public static class NodgesHelper
 
             Node oNode = GetNodeFromDictOrCreate(oToken, nodesDicId, repoNamespaces);
 
-            var edge = new Edge(pType, pValue, sNode, oNode, repoNamespaces);
+            int edgeId = Edge.GetId(sNode.Uri, oNode.Uri);
 
-            if (edgesDicId.TryGetValue(edge.Id, out Edge edgeExisting))
+            
+
+            if (edgesDicId.TryGetValue(edgeId, out Edge existingEdge))
             {
+                existingEdge.AddProperty(pType, pValue, sNode, repoNamespaces);
                 continue;
             }
+
+            var edge = new Edge(pType, pValue, sNode, oNode, repoNamespaces);
 
             edgesDicId.Add(edge.Id, edge);
 
@@ -188,12 +193,15 @@ public static class NodgesHelper
             Node oNode = GetNodeFromDictOrCreate(oToken, nodesDicId, repoNamespaces);
 
 
-            var edge = new Edge(pType, pValue, sNode, oNode, repoNamespaces);
+            int edgeId = Edge.GetId(sNode.Uri, oNode.Uri);
 
-            if (edgesDicId.TryGetValue(edge.Id, out _))
+            if (edgesDicId.TryGetValue(edgeId, out Edge existingEdge))
             {
+                existingEdge.AddProperty(pType, pValue, sNode, repoNamespaces);
                 continue;
             }
+
+            var edge = new Edge(pType, pValue, sNode, oNode, repoNamespaces);
 
             edgesDicId.Add(edge.Id, edge);
 

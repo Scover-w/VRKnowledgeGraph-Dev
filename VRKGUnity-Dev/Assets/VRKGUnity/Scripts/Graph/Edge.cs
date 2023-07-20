@@ -1,46 +1,34 @@
 ﻿using QuikGraph;
+using System.Collections.Generic;
+using System.Text;
+using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 using UnityEngine;
 
 public class Edge : IEdge<Node>
 {
-    public string PrefixValue
+    public EdgeDirection EdgeDirection { get { return _edgeDirection; } }
+
+    public string NameWithPrefix
     {
         get
         {
-            if (Type == NodgeType.Literal)
-                return Value;
+            StringBuilder sb = new();
 
-            return Prefix + ":" + Value;
-        }
-    }
+            foreach(EdgeProperty edgeProperty in EdgeProperties)
+            {
+                if (edgeProperty.Type == NodgeType.Literal)
+                    sb.AppendLine(edgeProperty.Value);
+                else
+                    sb.AppendLine(edgeProperty.Prefix + ":" + edgeProperty.Value);
+            }
 
-    public string Uri
-    {
-        get
-        {
-            if (Type == NodgeType.Literal)
-                return Value;
-
-            return Namespace + Value;
+            return sb.ToString();
         }
     }
 
     public readonly int Id;
-    public readonly NodgeType Type;
 
-    /// <summary>
-    /// Null if Type is a literal
-    /// </summary>
-    public readonly string Prefix;
-    /// <summary>
-    /// Null if Type is a literal
-    /// </summary>
-    public readonly string Namespace;
-
-    /// <summary>
-    /// Is a localName (if Type is a Uri) or a literal.
-    /// </summary>
-    public readonly string Value;
+    public readonly List<EdgeProperty> EdgeProperties;
 
 
     public Node Source { get; }
@@ -57,35 +45,54 @@ public class Edge : IEdge<Node>
 
     public bool IsHidden = true;
 
+    private EdgeDirection _edgeDirection;
     private bool _doDisplayMainEdge;
     private bool _doDisplaySubEdge;
 
     public Edge(string type, string value, Node source, Node target, GraphDbRepositoryNamespaces repoNamespaces) 
     {
-        Id = (source.Uri + target.Uri).GetHashCode();
-        Type = (type == "uri") ? NodgeType.Uri : NodgeType.Literal;
-
-
-        if (Type == NodgeType.Literal)
-        {
-            Value = value;
-        }
-        else
-        {
-            var uri = value.ExtractUri();
-
-            Value = uri.localName;
-            Namespace = uri.namespce;
-
-            Prefix = repoNamespaces.GetPrefix(Namespace);
-        }
+        Id = GetId(source.Uri, target.Uri);
 
         Source = source;
-        Target = target;    
+        Target = target;
 
+        EdgeProperties = new();
 
         _doDisplayMainEdge = false;
         _doDisplaySubEdge = false;
+
+
+        NodgeType typeP = (type == "uri") ? NodgeType.Uri : NodgeType.Literal;
+
+        if (typeP == NodgeType.Literal)
+        {
+            EdgeProperties.Add(new EdgeProperty(value));
+            return;
+        }
+
+        var (namespce, localName) = value.ExtractUri();
+        EdgeProperties.Add(new EdgeProperty(repoNamespaces.GetPrefix(namespce), namespce, localName));
+
+        _edgeDirection = EdgeDirection.Forward;
+    }
+
+    public void AddProperty(string type, string value, Node source, GraphDbRepositoryNamespaces repoNamespaces)
+    {
+        NodgeType typeP = (type == "uri") ? NodgeType.Uri : NodgeType.Literal;
+        bool isDirectionInverted = (Source != source);
+
+
+        if (typeP == NodgeType.Literal)
+        {
+            EdgeProperties.Add(new EdgeProperty(value, isDirectionInverted));
+            return;
+        }
+
+        var (namespce, localName) = value.ExtractUri();
+        EdgeProperties.Add(new EdgeProperty(repoNamespaces.GetPrefix(namespce), namespce, localName, isDirectionInverted));
+
+        if (isDirectionInverted)
+            _edgeDirection = EdgeDirection.Both;
     }
 
     public void DisplayMainEdge(bool doDisplayMainEdge)
@@ -163,19 +170,78 @@ public class Edge : IEdge<Node>
 
     public void CleanFromNodes()
     {
-        if(Source != null)
-        {
-            Source.CleanEdge(this, true);
-        }
+        Source?.CleanEdge(this, true);
 
-        if(Target != null) 
-        { 
-            Target.CleanEdge(this, false);
-        }
+        Target?.CleanEdge(this, false);
     }
 
     public EdgeSimuData ToSimuData()
     {
         return new EdgeSimuData(Source.Id, Target.Id);
     }
+
+
+    public static int GetId(string valueA,string valueB)
+    {
+        var (valueC, valueD) = Sort(valueA, valueB);
+
+        return (valueC + valueD).GetHashCode();
+    }
+
+    private static (string, string) Sort(string valueA, string valueB)
+    {
+        if (string.Compare(valueA, valueB) > 0)
+        {
+            return (valueB, valueA);
+        }
+        else
+        {
+            return (valueA, valueB);
+        }
+    }
+}
+
+
+public class EdgeProperty
+{
+    public readonly NodgeType Type;
+
+    /// <summary>
+    /// Null if Type is a literal
+    /// </summary>
+    public readonly string Prefix;
+
+    /// <summary>
+    /// Null if Type is a literal
+    /// </summary>
+    public readonly string Namespace;
+
+    /// <summary>
+    /// Is a localName (if Type is a Uri) or a literal.
+    /// </summary>
+    public readonly string Value;
+    public readonly bool IsDirectionInverted;
+
+    public EdgeProperty(string value, bool isDirectionInverted = false)
+    {
+        Type = NodgeType.Literal;
+        Value = value;
+        IsDirectionInverted = isDirectionInverted;
+    }
+
+    public EdgeProperty(string prefix, string namepsce, string value, bool isDirectionInverted = false)
+    {
+        Type = NodgeType.Uri;
+        Prefix = prefix;
+        Namespace = namepsce;
+        Value = value;
+
+        IsDirectionInverted = isDirectionInverted;
+    }
+}
+
+public enum EdgeDirection
+{
+    Forward,
+    Both
 }

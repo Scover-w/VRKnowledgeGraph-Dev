@@ -738,7 +738,7 @@ public class LabelNodgeManagerUI : MonoBehaviour
                                             edge.Source.SubGraphNodeTf, 
                                isMainGraph? edge.Target.MainGraphNodeTf :
                                             edge.Target.SubGraphNodeTf);
-        labelNodgeUI.Text = edge.PrefixValue;
+        labelNodgeUI.Text = edge.NameWithPrefix;
 
         return labelNodgeUI;
     }
