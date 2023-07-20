@@ -92,11 +92,6 @@ public class DataSynchroManager : MonoBehaviour
         });
 
 
-        _loadingBarUI.Refresh(.8f, "Calculate Max Bounds");
-    
-        await CalculateMaxBound();
-
-
         _loadingBarUI.Refresh(1f, "Loading Scene");
         var lifeSceneManager = _referenceHolderSo.LifeCycleSceneManagerSA.Value;
 
@@ -131,39 +126,6 @@ public class DataSynchroManager : MonoBehaviour
         var graphDistantUri = _graphRepo.GraphDbRepositoryDistantUris;
         await graphDistantUri.RetrieveNames(_data, readOntoTreeDict, this, _graphRepo.GraphDbRepositoryNamespaces);
     }
-
-    private async Task CalculateMaxBound()
-    {
-        var ontoUris = await NodgesHelper.RetrieveOnto(_graphRepo);
-        var nodges = await NodgesHelper.RetrieveData(_graphRepo, ontoUris);
-
-        nodges.ResetAbsolutePosition(_graphConfiguration);
-
-        NodgesSimuData nodgesSimuData = new(nodges);
-        await _graphSimu.Run(nodgesSimuData);
-
-        float maxDistance = GetMaxDistance(nodgesSimuData);
-        Debug.Log("MaxDistance : " + maxDistance);
-        _referenceHolderSo.MaxDistanceGraph = maxDistance;
-    }
-
-    private float GetMaxDistance(NodgesSimuData nodgesSimuData)
-    {
-        float maxSqrDistance = 0f;
-
-        var nodesSimuData = nodgesSimuData.NodeSimuDatas;
-
-        foreach (var nodeSimuData in nodesSimuData.Values)
-        {
-            var sqrDistance = nodeSimuData.Position.sqrMagnitude;
-
-            if (sqrDistance > maxSqrDistance)
-                maxSqrDistance = sqrDistance;
-        }
-
-        return Mathf.Sqrt(maxSqrDistance);
-    }
-
 }
 
 

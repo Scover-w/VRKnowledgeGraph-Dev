@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class GraphSimulation : MonoBehaviour
 {
@@ -14,10 +15,11 @@ public class GraphSimulation : MonoBehaviour
     [SerializeField]
     GraphManager _graphManager;
 
+    [SerializeField]
+    ReferenceHolderSO _referenceHolderSO;
+
     Dictionary<int, NodeSimuData> _nodeSimuDatas;
     Dictionary<int, NodeSimuData> _newNodeSimuDatas;
-
-    Graph _graph;
 
     SemaphoreSlim _threadEndedSemaphore;
 
@@ -26,7 +28,6 @@ public class GraphSimulation : MonoBehaviour
     bool _isRunningSimulation;
     bool _wantStopSimulation;
 
-    float _refreshDuration;
     bool _refreshGraph;
 
     private void Start()
@@ -35,11 +36,8 @@ public class GraphSimulation : MonoBehaviour
         _isRunningSimulation = false;
     }
 
-    public void Run(Graph graph)
+    public async void Run(Graph graph)
     {
-        _graph = graph;
-
-        _refreshDuration = -1f;
         _newNodeSimuDatas = null;
         _refreshGraph = true;
         _wantStopSimulation = false;
@@ -49,24 +47,16 @@ public class GraphSimulation : MonoBehaviour
         _nodeSimuDatas = nodgesSimuDatas.NodeSimuDatas.Clone();
 
         ThreadPool.QueueUserWorkItem(CalculatingPositionsBackground, nodgesSimuDatas);
-
         StartCoroutine(RefreshingNodesPositions(graph));
-    }
-
-    public async Task Run(NodgesSimuData nodgesSimuDatas)
-    {
-        _newNodeSimuDatas = null;
-        _threadEndedSemaphore = new SemaphoreSlim(0);
-        _refreshGraph = false;
-        _wantStopSimulation = false;
-
-        ThreadPool.QueueUserWorkItem(CalculatingPositionsBackground, nodgesSimuDatas);
-        StartCoroutine(MonitoringSimulationTime());
 
         await _threadEndedSemaphore.WaitAsync();
         _threadEndedSemaphore = null;
-    }
 
+        float maxDistance = GetMaxDistance(nodgesSimuDatas);
+        Debug.Log("MaxDistance : " + maxDistance);
+        _referenceHolderSO.MaxDistanceGraph = maxDistance;
+
+    }
 
     public void ForceStop()
     {
@@ -100,23 +90,6 @@ public class GraphSimulation : MonoBehaviour
         _ = EndRefreshingPosition(graph);
     }
 
-    IEnumerator MonitoringSimulationTime()
-    {
-        _isRunningSimulation = true;
-
-        float time = 0f;
-        float speed = 1f / _graphConfiguration.SimuParameters.MaxSimulationTime;
-
-        while (_isRunningSimulation && time < 1f && !_wantStopSimulation)
-        {
-            yield return null;
-
-            time += Time.deltaTime * speed;
-        }
-
-        _wantStopSimulation = true;
-    }
-
     private async Task EndRefreshingPosition(Graph graph)
     {
         await _threadEndedSemaphore.WaitAsync();
@@ -125,17 +98,15 @@ public class GraphSimulation : MonoBehaviour
 
         if(_graphManager != null)
             _graphManager.SimulationStopped();
-
     }
 
     private void CalculatingPositionsBackground(object state)
     {
         var nodgesSimuDatas = (NodgesSimuData) state;
         var hasReachStopVelocity = false;
-        bool firstTick = true;
+
         float timer = 0f;
         _isRunningSimulation = true;
-        DebugChrono.Instance.Start("firstTickGRaph");
         
 
         while (_isRunningSimulation && !hasReachStopVelocity && !_wantStopSimulation)
@@ -143,14 +114,6 @@ public class GraphSimulation : MonoBehaviour
             DebugChrono.Instance.Start("tickGRaph");
 
             hasReachStopVelocity = CalculateNodeSimuData(nodgesSimuDatas);
-
-            if (firstTick && _refreshGraph)
-            {
-                firstTick = false;
-                var durationB = DebugChrono.Instance.Stop("firstTickGRaph", true);
-                _refreshDuration = durationB * 3f;
-                continue;
-            }
 
             var duration = DebugChrono.Instance.Stop("tickGRaph", false);
             timer += duration;
@@ -273,6 +236,24 @@ public class GraphSimulation : MonoBehaviour
         float velocityGraph = velocitySum / (float)nodesSimuData.Count;
 
         return velocityGraph < stopVelocity;
+    }
+
+
+    private float GetMaxDistance(NodgesSimuData nodgesSimuData)
+    {
+        float maxSqrDistance = 0f;
+
+        var nodesSimuData = nodgesSimuData.NodeSimuDatas;
+
+        foreach (var nodeSimuData in nodesSimuData.Values)
+        {
+            var sqrDistance = nodeSimuData.Position.sqrMagnitude;
+
+            if (sqrDistance > maxSqrDistance)
+                maxSqrDistance = sqrDistance;
+        }
+
+        return Mathf.Sqrt(maxSqrDistance);
     }
 
     private void OnDisable()
