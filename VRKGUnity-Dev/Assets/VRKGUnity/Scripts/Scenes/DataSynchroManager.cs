@@ -114,7 +114,8 @@ public class DataSynchroManager : MonoBehaviour
         await _graphRepo.LoadChilds();
         var repoUris = _graphRepo.GraphDbRepositoryNamespaces;
 
-        var json = await _graphDbAPI.SelectQuery("SELECT * FROM <http://data> WHERE { ?s ?p ?o .}");
+        string queryString = new SPARQLAdditiveBuilder().Build();
+        var json = await _graphDbAPI.SelectQuery(queryString, true);
         _data = JsonConvert.DeserializeObject<JObject>(json);
 
         await repoUris.RetrieveNewNamespaces(_data, _graphDbAPI);

@@ -50,7 +50,6 @@ public class GraphDbRepositoryNamespaces
             string oType = binding["o"]["type"].Value<string>();
             string oValue = binding["o"]["value"].Value<string>();
 
-
             if (sType == "uri" && sValue.StartsWith("http"))
             {
                 var (namespce, _) = sValue.ExtractUri();

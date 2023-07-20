@@ -79,6 +79,7 @@ public class DepthOntologyLink
     public void AttachNodeToOntoNode()
     {
         _currentOntoNodeToAttach.NodesAttached.Add(_nodeToLink);
+        _nodeToLink.OntoNode = _currentOntoNodeToAttach;
     }
 
 }

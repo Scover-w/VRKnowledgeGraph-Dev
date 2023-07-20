@@ -93,6 +93,7 @@ public class Node
     private bool _doDisplaySubNode;
 
     public OntoNodeGroup OntoNodeGroup;
+    public OntoNode OntoNode;
 
     public float AverageShortestPathLength;
     public float BetweennessCentrality;
