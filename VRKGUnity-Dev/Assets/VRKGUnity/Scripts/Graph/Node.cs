@@ -257,28 +257,6 @@ public class Node
             EdgeTarget.Remove(edge);
     }
 
-    public void NodeNamesToProperties()
-    {
-        if (EdgeTarget.Count == 0)
-            return;
-
-        foreach(var edge in EdgeTarget)
-        {
-            if (edge.Type == NodgeType.Literal)
-                continue;
-
-            string edgeValue = edge.Uri;
-
-            if (!ContainNameUri(edgeValue))
-                continue;
-
-            if (Properties.ContainsKey(edgeValue))
-                continue;
-
-            Properties.Add(edgeValue, edge.Target.Uri);
-        }
-    }
-
     public NodeSimuData ToSimuData()
     {
         return new NodeSimuData(Id, AbsolutePosition);

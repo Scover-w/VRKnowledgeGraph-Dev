@@ -161,16 +161,7 @@ public class NodgeInfoUI : MonoBehaviour
 
         _ = _repoMedias.AddMedia(mediaUrl, MediaState.Loadable);
 
-
-        Stopwatch stopwatch = new();
-        stopwatch.Start();
         Texture2D texture = DownloadHandlerTexture.GetContent(uwr);
-        stopwatch.Stop();
-
-        TimeSpan ts = stopwatch.Elapsed;
-        var msSpan = ts.TotalMilliseconds;
-        Debug.Log(" has lasted " + msSpan + " ms.");
-
 
         string savePath = _repoMedias.GetPath(mediaUrl);
         byte[] bytes;
@@ -195,7 +186,7 @@ public class NodgeInfoUI : MonoBehaviour
         if (node != _nodeDisplayed)
             return;
 
-        Debug.Log("DisplayTexture");
+        // TODO : Display texture
     }
 
     public void DisplayInfoEdge(Edge edge)

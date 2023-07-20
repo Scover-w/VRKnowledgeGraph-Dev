@@ -53,20 +53,20 @@ public class GraphDbRepositoryNamespaces
 
             if (sType == "uri" && sValue.StartsWith("http"))
             {
-                var uri = sValue.ExtractUri();
-                namespaces.Add(uri.namespce);
+                var (namespce, _) = sValue.ExtractUri();
+                namespaces.Add(namespce);
             }
 
             if (pType == "uri" && pValue.StartsWith("http"))
             {
-                var uri = pValue.ExtractUri();
-                namespaces.Add(uri.namespce);
+                var (namespce, _) = pValue.ExtractUri();
+                namespaces.Add(namespce);
             }
 
             if (oType == "uri" && oValue.StartsWith("http"))
             {
-                var uri = oValue.ExtractUri();
-                namespaces.Add(uri.namespce);
+                var (namespce, _) = oValue.ExtractUri();
+                namespaces.Add(namespce);
             }
         }
 
@@ -218,13 +218,8 @@ public class GraphDbRepositoryNamespaces
 
         foreach (JToken binding in data["results"]["bindings"])
         {
-            string sType = binding["s"]["type"].Value<string>();
             string sValue = binding["s"]["value"].Value<string>();
-
-            string pType = binding["p"]["type"].Value<string>();
             string pValue = binding["p"]["value"].Value<string>();
-
-            string oType = binding["o"]["type"].Value<string>();
             string oValue = binding["o"]["value"].Value<string>();
 
 
@@ -236,7 +231,7 @@ public class GraphDbRepositoryNamespaces
                     continue;
 
                 var ontologyTree = TryGetOrCreateOntologyTree(namescpe);
-                OntoNode ontoNode = new OntoNode(sValue);
+                OntoNode ontoNode = new(sValue);
                 ontologyTree.AddOntoNode(ontoNode);
 
                 continue;
@@ -258,8 +253,8 @@ public class GraphDbRepositoryNamespaces
 
                 var ontologyTree = TryGetOrCreateOntologyTree(nameSpceA);
 
-                OntoNode sOntoNode = new OntoNode(sValue);
-                OntoNode oOntoNode = new OntoNode(oValue);
+                OntoNode sOntoNode = new(sValue);
+                OntoNode oOntoNode = new(oValue);
 
                 sOntoNode = ontologyTree.TryGetOrCreateOntoNode(sOntoNode);
                 oOntoNode = ontologyTree.TryGetOrCreateOntoNode(oOntoNode);
@@ -330,29 +325,28 @@ public class GraphDbRepositoryNamespaces
             return;
         }
 
-        using (StreamReader reader = new StreamReader(path))
+        using StreamReader reader = new(path);
+        string line;
+
+        while ((line = reader.ReadLine()) != null)
         {
-            string line;
-            while ((line = reader.ReadLine()) != null)
-            {
 
-                line = line.Replace("@prefix ", "");
+            line = line.Replace("@prefix ", "");
 
-                var elements = line.Split("<");
+            var elements = line.Split("<");
 
-                string prefix = elements[0];
-                string namespce = elements[1];
+            string prefix = elements[0];
+            string namespce = elements[1];
 
 
-                prefix = prefix.Replace(" ", "").Replace(":", "");
-                namespce = namespce.Replace(">", "");
-                namespce = namespce.Substring(0, namespce.Length - 1);
+            prefix = prefix.Replace(" ", "").Replace(":", "");
+            namespce = namespce.Replace(">", "");
+            namespce = namespce.Substring(0, namespce.Length - 1);
 
-                if (_defaultPrefixsDict.ContainsKey(namespce))
-                    continue;
+            if (_defaultPrefixsDict.ContainsKey(namespce))
+                continue;
 
-                _defaultPrefixsDict.Add(namespce, prefix);
-            }
+            _defaultPrefixsDict.Add(namespce, prefix);
         }
     }
 

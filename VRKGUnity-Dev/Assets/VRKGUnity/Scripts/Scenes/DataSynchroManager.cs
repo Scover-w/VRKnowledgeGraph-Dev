@@ -77,11 +77,11 @@ public class DataSynchroManager : MonoBehaviour
         _loadingBarUI.Refresh(0f, "Update GraphDb From Omeka");
         UpdateGraphDbFromOmeka();
 
-        _loadingBarUI.Refresh(.1f, "Update GraphDbRepo From GraphDbServer");
+        _loadingBarUI.Refresh(.1f, "Update Local Repo From GraphDbServer");
         IReadOnlyDictionary<string, OntologyTree> ontoUris = null;
 
 
-        ontoUris = await UpdateGraphDbRepoFromGraphDbServer();
+        ontoUris = await UpdateLocalRepoFromGraphDbServer();
 
 
         _loadingBarUI.Refresh(.2f, "Retrieve Distant Namespace");
@@ -109,7 +109,7 @@ public class DataSynchroManager : MonoBehaviour
         
     }
 
-    private async Task<IReadOnlyDictionary<string, OntologyTree>> UpdateGraphDbRepoFromGraphDbServer()
+    private async Task<IReadOnlyDictionary<string, OntologyTree>> UpdateLocalRepoFromGraphDbServer()
     {
         await _graphRepo.LoadChilds();
         var repoUris = _graphRepo.GraphDbRepositoryNamespaces;

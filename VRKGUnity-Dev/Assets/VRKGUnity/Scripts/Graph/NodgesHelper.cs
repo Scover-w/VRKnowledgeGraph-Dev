@@ -33,7 +33,6 @@ public static class NodgesHelper
 
         NodgesDicId nodges = data.ExtractNodgesWithout(repo.GraphDbRepositoryNamespaces, ontoUris);
         nodges.AddRetrievedNames(repo.GraphDbRepositoryDistantUris);
-        nodges.ExtractNodeNamesToProperties();
 
         return nodges;
     }
@@ -94,7 +93,7 @@ public static class NodgesHelper
 
             if(pValue == "http://xmlns.com/foaf/0.1/depiction")
             {
-                AddToNodeAsMedia(sNode, pValue, oValue);
+                AddToNodeAsMedia(sNode, oValue);
                 continue;
             }
 
@@ -234,7 +233,6 @@ public static class NodgesHelper
 
         NodgesDicId nodges = data.ExtractNodges(repo.GraphDbRepositoryNamespaces);
         nodges.AddRetrievedNames(repo.GraphDbRepositoryDistantUris);
-        nodges.ExtractNodeNamesToProperties();
 
 
         debugChrono.Stop("RetreiveGraph");
@@ -295,7 +293,7 @@ public static class NodgesHelper
 
             if (pValue == "http://xmlns.com/foaf/0.1/depiction")
             {
-                AddToNodeAsMedia(sNode, pValue, oValue);
+                AddToNodeAsMedia(sNode, oValue);
                 continue;
             }
 
@@ -329,7 +327,7 @@ public static class NodgesHelper
         node.Properties.Add(edgeUri, propValue);
     }
 
-    private static void AddToNodeAsMedia(Node node, string edgeUri, string propValue)
+    private static void AddToNodeAsMedia(Node node, string propValue)
     {
         if (node.Medias.Contains(propValue))
             return;
@@ -355,26 +353,6 @@ public static class NodgesHelper
     }
 
     #endregion
-
-    public static void ExtractNodeNamesToProperties(this NodgesDicId nodges)
-    {
-        var nodesDicId = nodges.NodesDicId;
-
-        nodesDicId.ExtractNodeNamesToProperties();
-    }
-
-    public static void ExtractNodeNamesToProperties(this Dictionary<int, Node> idAndNodes)
-    {
-        foreach (var kvp in idAndNodes)
-        {
-            Node node = kvp.Value;
-
-            if (node.Type == NodgeType.Literal)
-                continue;
-
-            node.NodeNamesToProperties();
-        }
-    }
 
     public static void AddRetrievedNames(this NodgesDicId nodges, GraphDbRepositoryDistantUris graphDbRepositoryDistantUris)
     {

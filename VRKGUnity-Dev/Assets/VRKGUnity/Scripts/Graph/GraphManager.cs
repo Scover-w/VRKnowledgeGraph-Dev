@@ -71,7 +71,7 @@ public class GraphManager : MonoBehaviour
         Invoke(nameof(CreateStartGraphAsync), 1f);
     }
 
-    private async Task CreateStartGraphAsync()
+    private async void CreateStartGraphAsync()
     {
         _graphRepo = _referenceHolderSo.SelectedGraphDbRepository;
         var graphRepoUris = _graphRepo.GraphDbRepositoryNamespaces;

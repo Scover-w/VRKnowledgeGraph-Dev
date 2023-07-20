@@ -193,7 +193,6 @@ public class Graph
         
 
         newNodesToRetrieveNames.AddRetrievedNames(_repository.GraphDbRepositoryDistantUris);
-        newNodesToRetrieveNames.ExtractNodeNamesToProperties();
 
 
         _nodesDicId = newNodes;
