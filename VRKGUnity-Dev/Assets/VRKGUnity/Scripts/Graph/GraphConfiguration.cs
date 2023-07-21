@@ -157,6 +157,7 @@ public class GraphConfiguration
     public bool ResetPositionNodeOnUpdate = true;
     public int SeedRandomPosition = 0;
     public float GraphModeTransitionTime = 1f;
+    public bool DisplayInterSelectedNeighborEdges = false;
 
     public bool ShowWatch = true;
 

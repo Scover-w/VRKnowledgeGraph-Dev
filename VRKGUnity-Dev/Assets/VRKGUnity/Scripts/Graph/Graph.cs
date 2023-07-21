@@ -81,10 +81,7 @@ public class Graph
             SetupNode(node, GraphType.Sub);
 
             if (node.IsIsolated)
-            {
-                Debug.Log(node.PrefixValue + " is isolated");
                 continue;
-            }
 
             _graphDatasForASP.AddVertex(node);
         }

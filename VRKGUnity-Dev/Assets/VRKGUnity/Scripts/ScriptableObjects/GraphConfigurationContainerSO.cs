@@ -99,10 +99,6 @@ public class GraphConfigurationContainerSO : ScriptableObject
             return;
         }
 
-
-        if (_graphConfiguration.ImmersionGraphSize == 1f)
-            Debug.LogWarning("Stop");
-
         _graphConfiguration.EdgeColor = EdgeColor;
         _graphConfiguration.PropagatedEdgeColor = PropagatedEdgeColor;
 

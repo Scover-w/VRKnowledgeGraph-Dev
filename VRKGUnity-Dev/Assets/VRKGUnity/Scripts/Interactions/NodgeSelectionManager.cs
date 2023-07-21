@@ -322,6 +322,9 @@ public class NodgeSelectionManager : MonoBehaviour
         _newPropagatedEdges = new();
 
         Propagate(node, _graphConfiguration.LabelNodgePropagation);
+
+        if (_graphConfiguration.DisplayInterSelectedNeighborEdges)
+            TryPropagateInterEdges();
     }
 
     private void Propagate(Node node, int propagationValue)
@@ -336,7 +339,6 @@ public class NodgeSelectionManager : MonoBehaviour
             _propagatedNodes.Add(node);
             node.SetPropagation(_graphManager.GraphMode, true);
         }
-
 
         if (propagationValue == 0)
             return;
@@ -370,6 +372,55 @@ public class NodgeSelectionManager : MonoBehaviour
                 if(nextNode.IsHidden)
                     Propagate(nextNode, propagationValue);
             }
+        }
+    }
+
+    private void TryPropagateInterEdges()
+    {
+        foreach(Node propagatedNode in _propagatedNodes)
+        {
+            TryPropagateInterEdge(propagatedNode);
+        }
+    }
+
+    private void TryPropagateInterEdge(Node node)
+    {
+        foreach(Edge edge in node.EdgeSource)
+        {
+            Node interNode = edge.Target;
+
+            if (!_newPropagatedNodes.Contains(interNode))
+                continue;
+
+            if (_newPropagatedEdges.Contains(edge))
+                continue;
+
+            _newPropagatedEdges.Add(edge);
+
+            if (_propagatedEdges.Contains(edge))
+                continue;
+
+            _propagatedEdges.Add(edge);
+            edge.SetPropagation(_graphManager.GraphMode, true);
+        }
+
+        foreach (Edge edge in node.EdgeTarget)
+        {
+            Node interNode = edge.Source;
+
+            if (!_newPropagatedNodes.Contains(interNode))
+                continue;
+
+            if (_newPropagatedEdges.Contains(edge))
+                continue;
+
+            _newPropagatedEdges.Add(edge);
+
+            if (_propagatedEdges.Contains(edge))
+                continue;
+
+            _propagatedEdges.Add(edge);
+            edge.SetPropagation(_graphManager.GraphMode, true);
         }
     }
 

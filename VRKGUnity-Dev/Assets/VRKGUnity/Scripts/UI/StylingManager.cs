@@ -109,6 +109,8 @@ public class StylingManager : MonoBehaviour
 
     public float GraphModeTransitionTime = 1f;
 
+    public bool DisplayInterSelectedNeighborEdges = false;
+
     public bool ShowWatch = true;
 
 
@@ -195,6 +197,8 @@ public class StylingManager : MonoBehaviour
         SeedRandomPosition = _graphConfig.SeedRandomPosition;
  
         GraphModeTransitionTime = _graphConfig.GraphModeTransitionTime;
+
+        DisplayInterSelectedNeighborEdges = _graphConfig.DisplayInterSelectedNeighborEdges;
 
         ShowWatch = _graphConfig.ShowWatch;
     }
@@ -715,7 +719,15 @@ public class StylingManager : MonoBehaviour
             _graphConfig.GraphModeTransitionTime = GraphModeTransitionTime;
         }
 
-        if(_graphConfig.ShowWatch != ShowWatch)
+
+        if(_graphConfig.DisplayInterSelectedNeighborEdges != DisplayInterSelectedNeighborEdges)
+        {
+            _graphConfig.DisplayInterSelectedNeighborEdges = DisplayInterSelectedNeighborEdges;
+
+            // TODO : refresh selection
+        }
+
+        if (_graphConfig.ShowWatch != ShowWatch)
         {
             _graphConfig.ShowWatch = ShowWatch;
             styleChange = styleChange.Add(StyleChangeType.SubGraph)
