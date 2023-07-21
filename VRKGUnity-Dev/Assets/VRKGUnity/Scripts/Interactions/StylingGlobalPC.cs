@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class StylingManager : MonoBehaviour
+public class StylingGlobalPC : MonoBehaviour
 {
     [SerializeField]
     GraphManager _graphManager;

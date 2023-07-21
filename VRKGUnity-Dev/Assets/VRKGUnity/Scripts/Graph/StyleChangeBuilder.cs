@@ -360,7 +360,10 @@ public class StyleChangeBuilder
         // styleChanges.Add(nameof(GraphConfiguration.Instance.GraphModeTransitionTime), styleChange);
 
 
-        styleChange = StyleChange.Selection;
+        styleChange = StyleChange.Selection
+                      .Add(StyleChange.DeskMode)
+                      .Add(StyleChange.SubGraph)
+                      .Add(StyleChange.Selection);
 
         styleChanges.Add(nameof(GraphConfiguration.Instance.DisplayInterSelectedNeighborEdges), styleChange);
 
