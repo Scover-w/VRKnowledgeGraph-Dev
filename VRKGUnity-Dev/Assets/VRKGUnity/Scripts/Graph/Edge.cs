@@ -34,9 +34,9 @@ public class Edge : IEdge<Node>
         }
     }
 
-    public readonly string UID;
+    public string UID { get; }
 
-    public readonly List<EdgeProperty> EdgeProperties;
+    public List<EdgeProperty> EdgeProperties { get; }
 
 
     public Node Source { get; }
@@ -216,23 +216,23 @@ public class Edge : IEdge<Node>
 
 public class EdgeProperty
 {
-    public readonly NodgeType Type;
+    public NodgeType Type { get; }
 
     /// <summary>
     /// Null if Type is a literal
     /// </summary>
-    public readonly string Prefix;
+    public string Prefix { get; }
 
     /// <summary>
     /// Null if Type is a literal
     /// </summary>
-    public readonly string Namespace;
+    public string Namespace { get; }
 
     /// <summary>
     /// Is a localName (if Type is a Uri) or a literal.
     /// </summary>
-    public readonly string Value;
-    public readonly bool IsDirectionInverted;
+    public string Value { get; }
+    public bool IsDirectionInverted { get; }
 
     public EdgeProperty(string value, bool isDirectionInverted = false)
     {

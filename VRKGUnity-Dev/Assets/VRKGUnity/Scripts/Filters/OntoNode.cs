@@ -11,7 +11,7 @@ public class OntoNode
 
     public string UID => Value;
 
-    public readonly string Value;
+    public string Value { get; }
 
     public int Depth = int.MaxValue;
 
