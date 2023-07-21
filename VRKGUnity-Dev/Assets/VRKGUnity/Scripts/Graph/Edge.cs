@@ -8,6 +8,14 @@ public class Edge : IEdge<Node>
 {
     public EdgeDirection EdgeDirection { get { return _edgeDirection; } }
 
+    public bool IsPropagated
+    {
+        get
+        {
+            return _isPropagated;
+        }
+    }
+
     public string NameWithPrefix
     {
         get
@@ -40,14 +48,16 @@ public class Edge : IEdge<Node>
     public LineRenderer MainGraphLine;
     public LineRenderer SubGraphLine;
 
-    public EdgeStyler MainEdgeStyler;
-    public EdgeStyler SubEdgeStyler;
+    public EdgeStyler MainStyler;
+    public EdgeStyler SubStyler;
 
     public bool IsHidden = true;
 
     private EdgeDirection _edgeDirection;
     private bool _doDisplayMainEdge;
     private bool _doDisplaySubEdge;
+
+    bool _isPropagated = false;
 
     public Edge(string type, string value, Node source, Node target, GraphDbRepositoryNamespaces repoNamespaces) 
     {
@@ -80,7 +90,6 @@ public class Edge : IEdge<Node>
     {
         NodgeType typeP = (type == "uri") ? NodgeType.Uri : NodgeType.Literal;
         bool isDirectionInverted = (Source != source);
-
 
         if (typeP == NodgeType.Literal)
         {
@@ -143,27 +152,30 @@ public class Edge : IEdge<Node>
 
     private void ResetInteractionValues()
     {
-        if (MainEdgeStyler != null)
-            MainEdgeStyler.SetPropagation(false);
+        _isPropagated = false;
 
-        if (SubEdgeStyler != null)
-            SubEdgeStyler.SetPropagation(false);
+        if (MainStyler != null)
+            MainStyler.SetPropagation();
+
+        if (SubStyler != null)
+            SubStyler.SetPropagation();
     }
 
-    public void SetPropagation(GraphMode graphMode, bool isInPropagation)
+    public void SetPropagation(GraphMode graphMode, bool isPropagated)
     {
-        if (MainEdgeStyler != null)
-            MainEdgeStyler.SetPropagation(isInPropagation);
+        _isPropagated = isPropagated;
+        if (MainStyler != null)
+            MainStyler.SetPropagation();
 
-        if (SubEdgeStyler == null)
+        if (SubStyler == null)
             return;
 
-        SubEdgeStyler.SetPropagation(isInPropagation);
+        SubStyler.SetPropagation();
 
         if (graphMode != GraphMode.Desk)
             return;
 
-        DisplaySubEdge(isInPropagation);
+        DisplaySubEdge(isPropagated);
     }
 
 

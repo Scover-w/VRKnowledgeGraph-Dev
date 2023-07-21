@@ -1953,6 +1953,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _easingType: 6
   _graphManager: {fileID: 1187437327}
+  _nodgeSelectionManager: {fileID: 1219762323}
 --- !u!4 &1187437330
 Transform:
   m_ObjectHideFlags: 0
@@ -2402,6 +2403,8 @@ MonoBehaviour:
   NodeMappingAColor: {r: 0, g: 0, b: 0, a: 0}
   NodeMappingBColor: {r: 0, g: 0, b: 0, a: 0}
   NodeMappingCColor: {r: 0, g: 0, b: 0, a: 0}
+  AlphaNodeColorPropagated: 1
+  AlphaNodeColorUnPropagated: 1
   BoundaryColorA: 0
   BoundaryColorB: 0
   BoundaryColorC: 0
@@ -2412,6 +2415,8 @@ MonoBehaviour:
   NodeColorNoOntology: {r: 0, g: 0, b: 0, a: 0}
   EdgeColor: {r: 0, g: 0, b: 0, a: 0}
   PropagatedEdgeColor: {r: 0, g: 0, b: 0, a: 0}
+  AlphaEdgeColorPropagated: 1
+  AlphaEdgeColorUnPropagated: 1
   EdgeThicknessImmersion: 1
   EdgeThicknessDesk: 1
   EdgeThicknessLens: 1
@@ -2424,6 +2429,7 @@ MonoBehaviour:
   ResetPositionNodeOnUpdate: 1
   SeedRandomPosition: 0
   GraphModeTransitionTime: 1
+  DisplayInterSelectedNeighborEdges: 0
   ShowWatch: 1
 --- !u!114 &1396796586
 MonoBehaviour:

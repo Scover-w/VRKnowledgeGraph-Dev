@@ -34,8 +34,6 @@ public class EdgeStyler : MonoBehaviour
     Transform _colliderTf;
 
 
-    bool _isInPropagation = false;
-
     #region Style
     public void StyleEdgeBeforeFirstSimu(StyleChange styleChange, GraphMode graphMode)
     {
@@ -67,8 +65,13 @@ public class EdgeStyler : MonoBehaviour
 
     private void StyleColor()
     {
-        var color = _isInPropagation? GraphConfiguration.PropagatedEdgeColor : GraphConfiguration.EdgeColor;
-        color.a = GraphConfiguration.DisplayEdges ? 1f : 0f;
+        bool isEdgePropagated = Edge.IsPropagated;
+        var color = isEdgePropagated ? GraphConfiguration.PropagatedEdgeColor : GraphConfiguration.EdgeColor;
+
+        if (GraphConfiguration.DisplayEdges)
+            color.a = isEdgePropagated ? GraphConfiguration.AlphaEdgeColorPropagated : GraphConfiguration.AlphaEdgeColorUnPropagated;
+        else
+            color.a =  0f;
 
         _lineRenderer.colorGradient = CreateGradient(color);
     }
@@ -218,9 +221,8 @@ public class EdgeStyler : MonoBehaviour
 
     #endregion
 
-    public void SetPropagation(bool isInPropagation)
+    public void SetPropagation()
     {
-        _isInPropagation = isInPropagation;
         StyleColor();
     }
 }

@@ -128,6 +128,11 @@ public class GraphConfiguration
 
     public ColorLerpMapper NodeColorMapping = new();
 
+    [Range(0f, 1f)]
+    public float AlphaNodeColorPropagated = 1f;
+    [Range(0f, 1f)]
+    public float AlphaNodeColorUnPropagated = 1f;
+
     
     [JsonProperty("NodeColorNoOntology_")]
     private System.Drawing.Color _nodeColorNoValueMetric = System.Drawing.Color.FromArgb(178, 178, 178);
@@ -135,6 +140,11 @@ public class GraphConfiguration
     [JsonProperty("EdgeColor_")]
     [SerializeField]
     private System.Drawing.Color _edgeColor = System.Drawing.Color.FromArgb(255, 255, 255);
+
+    [Range(0f, 1f)]
+    public float AlphaEdgeColorPropagated = 1f;
+    [Range(0f, 1f)]
+    public float AlphaEdgeColorUnPropagated = 1f;
 
     [JsonProperty("PropagatedEdgeColor_")]
     private System.Drawing.Color _propagatedEdgeColor = System.Drawing.Color.FromArgb(0, 56, 255);

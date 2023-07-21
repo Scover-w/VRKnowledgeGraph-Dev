@@ -44,14 +44,14 @@ public class DynamicFilter
     {
         foreach(Node node in HiddenNodes)
         {
-            pool.Release(node.MainNodeStyler);
-            pool.Release(node.SubNodeStyler);
+            pool.Release(node.MainStyler);
+            pool.Release(node.SubStyler);
         }
 
         foreach (Edge edge in HiddenEdges)
         {
-            pool.Release(edge.MainEdgeStyler);
-            pool.Release(edge.SubEdgeStyler);
+            pool.Release(edge.MainStyler);
+            pool.Release(edge.SubStyler);
         }
     }
 

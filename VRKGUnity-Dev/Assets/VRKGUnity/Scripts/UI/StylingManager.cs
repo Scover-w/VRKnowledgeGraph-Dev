@@ -63,6 +63,11 @@ public class StylingManager : MonoBehaviour
     public Color NodeMappingBColor;
     public Color NodeMappingCColor;
 
+    [Range(0f, 1f)]
+    public float AlphaNodeColorPropagated = 1f;
+    [Range(0f, 1f)]
+    public float AlphaNodeColorUnPropagated = 1f;
+
     [Range(0f,1f)]
     public float BoundaryColorA;
     [Range(0f,1f)]
@@ -86,6 +91,11 @@ public class StylingManager : MonoBehaviour
     [Header("Edge")]
     public Color EdgeColor;
     public Color PropagatedEdgeColor;
+
+    [Range(0f, 1f)]
+    public float AlphaEdgeColorPropagated = 1f;
+    [Range(0f, 1f)]
+    public float AlphaEdgeColorUnPropagated = 1f;
 
     public float EdgeThicknessImmersion = 1f;
     public float EdgeThicknessDesk = 1f;
@@ -154,6 +164,9 @@ public class StylingManager : MonoBehaviour
         NodeMappingBColor = colorLerpMapper.ColorB;
         NodeMappingCColor = colorLerpMapper.ColorC;
 
+        AlphaNodeColorPropagated = _graphConfig.AlphaNodeColorPropagated;
+        AlphaNodeColorUnPropagated = _graphConfig.AlphaNodeColorUnPropagated;
+
         BoundaryColorA = colorLerpMapper.BoundaryColorA;
         BoundaryColorB = colorLerpMapper.BoundaryColorB;
         BoundaryColorC = colorLerpMapper.BoundaryColorC;
@@ -180,6 +193,9 @@ public class StylingManager : MonoBehaviour
 
         EdgeColor = _graphConfig.EdgeColor;
         PropagatedEdgeColor = _graphConfig.PropagatedEdgeColor;
+
+        AlphaEdgeColorPropagated = _graphConfig.AlphaEdgeColorPropagated;
+        AlphaEdgeColorUnPropagated = _graphConfig.AlphaEdgeColorUnPropagated;
 
         EdgeThicknessImmersion = _graphConfig.EdgeThicknessImmersion;
         EdgeThicknessDesk = _graphConfig.EdgeThicknessDesk;
@@ -401,6 +417,29 @@ public class StylingManager : MonoBehaviour
                 .Add(StyleChangeType.Color);
         }
 
+        if (_graphConfig.AlphaNodeColorPropagated != AlphaNodeColorPropagated)
+        {
+            _graphConfig.AlphaNodeColorPropagated = AlphaNodeColorPropagated;
+            styleChange = styleChange.Add(StyleChangeType.SubGraph)
+                .Add(StyleChangeType.MainGraph)
+                .Add(StyleChangeType.DeskMode)
+                .Add(StyleChangeType.ImmersionMode)
+                .Add(StyleChangeType.Node)
+                .Add(StyleChangeType.Color);
+        }
+
+        if (_graphConfig.AlphaNodeColorUnPropagated != AlphaNodeColorUnPropagated)
+        {
+            _graphConfig.AlphaNodeColorUnPropagated = AlphaNodeColorUnPropagated;
+            styleChange = styleChange.Add(StyleChangeType.SubGraph)
+                .Add(StyleChangeType.MainGraph)
+                .Add(StyleChangeType.DeskMode)
+                .Add(StyleChangeType.ImmersionMode)
+                .Add(StyleChangeType.Node)
+                .Add(StyleChangeType.Color);
+        }
+
+
 
         if (colorLerpMapper.BoundaryColorA != BoundaryColorA)
         {
@@ -563,6 +602,8 @@ public class StylingManager : MonoBehaviour
             _graphConfig.EdgeColor = EdgeColor;
             styleChange = styleChange.Add(StyleChangeType.SubGraph)
                 .Add(StyleChangeType.MainGraph)
+                .Add(StyleChangeType.DeskMode)
+                .Add(StyleChangeType.ImmersionMode)
                 .Add(StyleChangeType.Edge)
                 .Add(StyleChangeType.Color);
         }
@@ -572,6 +613,32 @@ public class StylingManager : MonoBehaviour
             _graphConfig.PropagatedEdgeColor = PropagatedEdgeColor;
             styleChange = styleChange.Add(StyleChangeType.SubGraph)
                 .Add(StyleChangeType.MainGraph)
+                .Add(StyleChangeType.DeskMode)
+                .Add(StyleChangeType.ImmersionMode)
+                .Add(StyleChangeType.Edge)
+                .Add(StyleChangeType.Color);
+        }
+
+
+        if (_graphConfig.AlphaEdgeColorPropagated != AlphaEdgeColorPropagated)
+        {
+            _graphConfig.AlphaEdgeColorPropagated = AlphaEdgeColorPropagated;
+            styleChange = styleChange.Add(StyleChangeType.SubGraph)
+                .Add(StyleChangeType.MainGraph)
+                .Add(StyleChangeType.DeskMode)
+                .Add(StyleChangeType.ImmersionMode)
+                .Add(StyleChangeType.Edge)
+                .Add(StyleChangeType.Color);
+        }
+
+
+        if (_graphConfig.AlphaEdgeColorUnPropagated != AlphaEdgeColorUnPropagated)
+        {
+            _graphConfig.AlphaEdgeColorUnPropagated = AlphaEdgeColorUnPropagated;
+            styleChange = styleChange.Add(StyleChangeType.SubGraph)
+                .Add(StyleChangeType.MainGraph)
+                .Add(StyleChangeType.DeskMode)
+                .Add(StyleChangeType.ImmersionMode)
                 .Add(StyleChangeType.Edge)
                 .Add(StyleChangeType.Color);
         }

@@ -46,10 +46,11 @@ public class NodgeSelectionManager : MonoBehaviour
     public ReadOnlyHashSet<Edge> PropagatedEdges { get { return new ReadOnlyHashSet<Edge>(_propagatedEdges); } }
 
     public delegate void NodeSelectedDel(Node selectedNode);
-    public delegate void NodgesPropagatedDel(Nodges propagatedNodges);
+    public delegate void NodgesPropagatedDel(Nodges nodges);
 
     public NodeSelectedDel OnNodeSelected;
     public NodgesPropagatedDel OnNodgesPropagated;
+    public NodgesPropagatedDel OnNodgesNewlyUnPropagated;
 
 
     [SerializeField]
@@ -78,6 +79,9 @@ public class NodgeSelectionManager : MonoBehaviour
     HashSet<Node> _propagatedNodes;
     HashSet<Edge> _propagatedEdges;
 
+    HashSet<Node> _newlyUnPropagatedNodes;
+    HashSet<Edge> _newlyUnPropagatedEdges;
+
     HashSet<Node> _newPropagatedNodes;
     HashSet<Edge> _newPropagatedEdges;
 
@@ -99,6 +103,9 @@ public class NodgeSelectionManager : MonoBehaviour
 
         _propagatedEdges = new();
         _propagatedNodes = new();
+
+        _newlyUnPropagatedNodes = new();
+        _newlyUnPropagatedEdges = new();
 
         _graphConfiguration = _graphManager.GraphConfiguration;
     }
@@ -436,14 +443,20 @@ public class NodgeSelectionManager : MonoBehaviour
             edge.SetPropagation(_graphManager.GraphMode, false);
         }
 
+        _newlyUnPropagatedNodes = new(_propagatedNodes);
+        _newlyUnPropagatedEdges = new(_propagatedEdges);
+
         _propagatedNodes = new();
         _propagatedEdges = new();
     }
 
     private void TriggerOnPropagated()
     {
-        Nodges nodges = new Nodges(_propagatedNodes.ToList(), _propagatedEdges.ToList());
-        OnNodgesPropagated?.Invoke(nodges);
+        Nodges propagatedNodges = new(_propagatedNodes.ToList(), _propagatedEdges.ToList());
+        OnNodgesPropagated?.Invoke(propagatedNodges);
+
+        Nodges newlyUnPropagatedNodges = new(_newlyUnPropagatedNodes.ToList(), _newlyUnPropagatedEdges.ToList());
+        OnNodgesNewlyUnPropagated?.Invoke(newlyUnPropagatedNodges);
     }
 
 

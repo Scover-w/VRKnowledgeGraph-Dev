@@ -46,6 +46,14 @@ public class Node
         }
     }
 
+    public bool IsPropagated
+    {
+        get
+        {
+            return _isSelected || _isPropagated;
+        }
+    }
+
     public string Uri
     {
         get
@@ -83,8 +91,8 @@ public class Node
     /// </summary>
     public readonly string Value;
 
-    public NodeStyler MainNodeStyler;
-    public NodeStyler SubNodeStyler;
+    public NodeStyler MainStyler;
+    public NodeStyler SubStyler;
 
     public List<Edge> EdgeSource;
     public List<Edge> EdgeTarget;
@@ -113,7 +121,7 @@ public class Node
 
     bool _isHovered = false;
     bool _isSelected = false;
-    bool _isInPropagation = false;
+    bool _isPropagated = false;
 
     static System.Random _random;
 
@@ -390,13 +398,13 @@ public class Node
     {
         _isHovered = false;
         _isSelected = false;
-        _isInPropagation = false;
+        _isPropagated = false;
         UpdateMaterials();
     }
 
     public void SetPropagation(GraphMode graphMode, bool isInPropagation)
     {
-        _isInPropagation = isInPropagation;
+        _isPropagated = isInPropagation;
 
         UpdateMaterials();
 
@@ -446,20 +454,20 @@ public class Node
 
     private void UpdateMaterials()
     {
-        if (MainNodeStyler != null)
-            MainNodeStyler.UpdateMaterial(_isHovered, _isSelected, _isInPropagation);
+        if (MainStyler != null)
+            MainStyler.UpdateMaterial(_isHovered, _isSelected, _isPropagated);
 
-        if (SubNodeStyler != null)
-            SubNodeStyler.UpdateMaterial(_isHovered, _isSelected, _isInPropagation);
+        if (SubStyler != null)
+            SubStyler.UpdateMaterial(_isHovered, _isSelected, _isPropagated);
     }
 
     private void TryForceUnselect()
     {
-        if (MainNodeStyler != null)
-            MainNodeStyler.TryForceUnselect();
+        if (MainStyler != null)
+            MainStyler.TryForceUnselect();
 
-        if (SubNodeStyler != null)
-            SubNodeStyler.TryForceUnselect();
+        if (SubStyler != null)
+            SubStyler.TryForceUnselect();
     }
 
     #endregion

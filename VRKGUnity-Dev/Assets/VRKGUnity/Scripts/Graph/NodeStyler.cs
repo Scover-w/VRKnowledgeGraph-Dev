@@ -33,12 +33,6 @@ public class NodeStyler : MonoBehaviour
         _renderer.SetPropertyBlock(_propertyBlock);
     }
 
-    //private void OnEnable()
-    //{
-    //    _propertyBlock = new MaterialPropertyBlock();
-    //    _renderer.SetPropertyBlock(_propertyBlock);
-    //}
-
 
     public void TryForceUnselect()
     {
@@ -100,8 +94,7 @@ public class NodeStyler : MonoBehaviour
 
         if (selectedMetricType == GraphMetricType.None)
         {
-            _propertyBlock.SetColor("_Color", GraphConfiguration.NodeColor);
-            _renderer.SetPropertyBlock(_propertyBlock);
+            SetColor(GraphConfiguration.NodeColor);
             return;
         }
 
@@ -136,30 +129,33 @@ public class NodeStyler : MonoBehaviour
                 break;
         }
 
-        if(value == -1f)
-            _propertyBlock.SetColor("_Color", GraphConfiguration.NodeColorNoValueMetric);
-        else
-            _propertyBlock.SetColor("_Color", GraphConfiguration.NodeColorMapping.Lerp(value));
 
-        _renderer.SetPropertyBlock(_propertyBlock);
+        SetColor((value == -1f)? GraphConfiguration.NodeColorNoValueMetric :
+                                 GraphConfiguration.NodeColorMapping.Lerp(value));
     }
 
     private void StyleColorOnOntology()
     {
         if(Node.OntoNodeGroup == null)
         {
-            _propertyBlock.SetColor("_Color", GraphConfiguration.NodeColorNoValueMetric);
-            _renderer.SetPropertyBlock(_propertyBlock);
+            SetColor(GraphConfiguration.NodeColorNoValueMetric);
             return;
         }
 
         float hue = Node.OntoNodeGroup.ColorValue;
 
         Color color = Color.HSVToRGB(hue, GraphConfiguration.SaturationOntologyColor, GraphConfiguration.ValueOntologyColor);
-        _propertyBlock.SetColor("_Color", color);
-        _renderer.SetPropertyBlock(_propertyBlock);
+        SetColor(color);
     }
 
+
+    private void SetColor(Color newColor)
+    {
+        newColor.a = Node.IsPropagated ? GraphConfiguration.AlphaNodeColorPropagated : GraphConfiguration.AlphaNodeColorUnPropagated;
+
+        _propertyBlock.SetColor("_Color", newColor);
+        _renderer.SetPropertyBlock(_propertyBlock);
+    }
 
     private void StyleSize(StyleChange styleChange, GraphMode graphMode)
     {
