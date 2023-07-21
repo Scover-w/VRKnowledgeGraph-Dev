@@ -181,8 +181,8 @@ public class GraphManager : MonoBehaviour
 
 public enum GraphType
 {
-    Sub,
-    Main
+    Main,
+    Sub
 }
 
 public enum GraphMode

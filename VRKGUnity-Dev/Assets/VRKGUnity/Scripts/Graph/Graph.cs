@@ -33,7 +33,7 @@ public class Graph
     Dictionary<string, Edge> _edgesDicUID;
 
 
-    BidirectionalGraph<Node, Edge> _graphDatas;
+    BidirectionalGraph<Node, Edge> _graphDatasForASP;
 
     OntoNodeGroupTree _ontoNodeTree;
 
@@ -52,7 +52,7 @@ public class Graph
 
         _graphConfiguration = _graphManager.GraphConfiguration;
         _graphStyling = graphStyling;
-        _graphDatas = new();
+        _graphDatasForASP = new();
 
         _subGraphTf = _graphManager.SubGraph.Tf;
         _mainGraphTf = _graphManager.MainGraph.Tf;
@@ -66,32 +66,42 @@ public class Graph
 
 
         int seed = Configuration.SeedRandomPosition;
-        foreach (var idAndNode in _nodesDicUID)
+
+        foreach (Node node in _nodesDicUID.Values)
         {
-            idAndNode.Value.ResetAbsolutePosition(seed);
+            node.ResetAbsolutePosition(seed);
         }
     }
 
     private void SetupNodes()
     {
-        foreach(var idAndNode in _nodesDicUID)
+        foreach(Node node in _nodesDicUID.Values)
         {
-            SetupNode(idAndNode.Value, true);
-            SetupNode(idAndNode.Value, false);
-            _graphDatas.AddVertex(idAndNode.Value);
+            SetupNode(node, GraphType.Main);
+            SetupNode(node, GraphType.Sub);
+
+            if (node.IsIsolated)
+            {
+                Debug.Log(node.PrefixValue + " is isolated");
+                continue;
+            }
+
+            _graphDatasForASP.AddVertex(node);
         }
     }
 
-    private void SetupNode(Node node, bool isForMainGraph)
+    private void SetupNode(Node node, GraphType graphType)
     {
         var nodeStyler = _nodgePool.GetNodeStyler();
         nodeStyler.Node = node;
 
         var nodeTf = nodeStyler.Tf;
+#if UNITY_EDITOR
         nodeTf.name = "Node " + node.GetShorterName();
+#endif
         nodeTf.position = node.AbsolutePosition;
 
-        if(isForMainGraph)
+        if(graphType == GraphType.Main)
         {
             nodeStyler.GraphType = GraphType.Main;
             node.MainNodeStyler = nodeStyler;
@@ -112,22 +122,24 @@ public class Graph
 
     private void SetupEdges()
     {
-        foreach(var idAndEdge in _edgesDicUID)
+        foreach(Edge edge in _edgesDicUID.Values)
         {
-            SetupEdge(idAndEdge.Value, true);
-            SetupEdge(idAndEdge.Value, false);
-            _graphDatas.AddEdge(idAndEdge.Value);
+            SetupEdge(edge, GraphType.Main);
+            SetupEdge(edge, GraphType.Sub);
+            _graphDatasForASP.AddEdge(edge);
         }
     }
 
-    private void SetupEdge(Edge edge,bool isForMainGraph)
+    private void SetupEdge(Edge edge, GraphType graphType)
     {
         var edgeStyler = _nodgePool.GetEdgeStyler();
         edgeStyler.Edge = edge;
 
+#if UNITY_EDITOR
         edgeStyler.gameObject.name = "Edge " + edge.NameWithPrefix;
-        
-        if(isForMainGraph)
+#endif
+
+        if(graphType == GraphType.Main)
         {
             edgeStyler.GraphType = GraphType.Main;
             edge.MainGraphLine = edgeStyler.LineRenderer;
@@ -163,7 +175,7 @@ public class Graph
 
         foreach (var idAndNode in nodesDicUID)
         {
-            var uid = idAndNode.Key;
+            string uid = idAndNode.Key;
 
             if (_nodesDicUID.TryGetValue(uid, out Node keepNode))
             {
@@ -182,8 +194,8 @@ public class Graph
                 newNodes.Add(uid, newNode);
                 newNodesToRetrieveNames.Add(uid, newNode);
 
-                SetupNode(newNode, true);
-                SetupNode(newNode, false);
+                SetupNode(newNode, GraphType.Main);
+                SetupNode(newNode, GraphType.Sub);
 
                 newNode.ResetAbsolutePosition(seed);
             }
@@ -202,15 +214,15 @@ public class Graph
         {
 
             // Remove nodes that aren't in the graph anymore
-            foreach (var idAndNode in _nodesDicUID)
+            foreach (Node node in _nodesDicUID.Values)
             {
-                var mainGraphStyler = idAndNode.Value.MainNodeStyler;
-                var subGraphStyler = idAndNode.Value.SubNodeStyler;
+                var mainGraphStyler = node.MainNodeStyler;
+                var subGraphStyler = node.SubNodeStyler;
 
                 _nodgePool.Release(mainGraphStyler);
                 _nodgePool.Release(subGraphStyler);
 
-                _graphDatas.RemoveVertex(idAndNode.Value);
+                _graphDatasForASP.RemoveVertex(node);
             }
         }
     }
@@ -233,8 +245,8 @@ public class Graph
             {
                 // New in the graph
                 newEdges.Add(uid, idAndEdge.Value);
-                SetupEdge(idAndEdge.Value, true);
-                SetupEdge(idAndEdge.Value, false);
+                SetupEdge(idAndEdge.Value, GraphType.Main);
+                SetupEdge(idAndEdge.Value, GraphType.Sub);
             }
         }
 
@@ -246,9 +258,8 @@ public class Graph
         void ReleaseUnusedEdges()
         {
             // Remove edges that aren't in the graph anymore
-            foreach (var idAndEdge in _edgesDicUID)
+            foreach (Edge edge in _edgesDicUID.Values)
             {
-                var edge = idAndEdge.Value;
                 var mainGraphStyler = edge.MainEdgeStyler;
                 var subGraphStyler = edge.SubEdgeStyler;
 
@@ -258,7 +269,7 @@ public class Graph
                 // Clean unused edge from staying Nodes
                 edge.CleanFromNodes(); 
 
-                _graphDatas.RemoveEdge(idAndEdge.Value);
+                _graphDatasForASP.RemoveEdge(edge);
             }
         }
 
@@ -386,8 +397,6 @@ public class Graph
 
         await semaphore.WaitAsync();
 
-        int threadId = Thread.CurrentThread.ManagedThreadId;
-
         _graphStyling.StyleGraph(new StyleChange().Add(StyleChangeType.All), _graphManager.GraphMode);
 
 
@@ -395,10 +404,11 @@ public class Graph
         {
             tasks.Add(Task.Run(() =>
             {
+
                 metricCalculation();
 
-                // Increment the finished thread count atomically
-                if (Interlocked.Increment(ref _metricsCalculated) == 3)
+
+                if (Interlocked.Increment(ref _metricsCalculated) == 4)
                 {
                     // Signal the semaphore when all threads have finished
                     semaphore.Release();
@@ -418,9 +428,8 @@ public class Graph
         // Closeness Centrality
         Dictionary<Node, int> shortPathLengthSumCC = new();
 
-        foreach (var idAndNodeSource in _nodesDicUID)
+        foreach (Node node in _nodesDicUID.Values)
         {
-            var node = idAndNodeSource.Value;
             inShortestPathCountBC.Add(node, 0);
             shortPathLengthSumCC.Add(node, 0);
         }
@@ -429,11 +438,13 @@ public class Graph
         float maxASP = 0;
         float minASP = float.MaxValue;
 
-        UndirectedBidirectionalGraph<Node, Edge> undirectedGraphDatas = new(_graphDatas);
+        UndirectedBidirectionalGraph<Node, Edge> undirectedGraphDatas = new(_graphDatasForASP);
 
-        foreach (var idAndNodeSource in _nodesDicUID)
+        foreach (Node rootNode in _nodesDicUID.Values)
         {
-            var rootNode = idAndNodeSource.Value;
+            if (rootNode.IsIsolated)
+                continue;
+
 
             // ShortestPath
             double totalPathLength = 0;
@@ -488,9 +499,9 @@ public class Graph
 
         foreach (var nodeAndNbInShortPath in inShortestPathCountBC)
         {
-            var node = nodeAndNbInShortPath.Key;
+            Node node = nodeAndNbInShortPath.Key;
 
-            var bc = (float)(nodeAndNbInShortPath.Value) / nbOfPaths;
+            float bc = (float)(nodeAndNbInShortPath.Value) / nbOfPaths;
             node.BetweennessCentrality = bc;
 
             if(bc > maxBc)
@@ -507,9 +518,15 @@ public class Graph
         float minCC = float.MaxValue;
 
         // Normalize BC
-        foreach (var idAndNodeSource in _nodesDicUID)
+        foreach (Node node in _nodesDicUID.Values)
         {
-            var node = idAndNodeSource.Value;
+            if (node.IsIsolated)
+            {
+                node.AverageShortestPathLength = -1f;
+                node.BetweennessCentrality = -1f;
+                node.ClosenessCentrality = -1f;
+                continue;
+            }
 
             float divider = (maxBc - minBc);
 
@@ -528,20 +545,22 @@ public class Graph
             node.AverageShortestPathLength = (node.AverageShortestPathLength - minASP) / (maxASP - minASP);
         }
 
-        foreach (var idAndNodeSource in _nodesDicUID)
-        {
-            var node = idAndNodeSource.Value;
-            //Debug.Log("----------------------");
-            //Debug.Log(node.AverageShortestPathLength);
-            //Debug.Log(node.BetweennessCentrality);
-            //Debug.Log(node.ClosenessCentrality);
-        }
+        //foreach (var idAndNodeSource in _nodesDicUID)
+        //{
+        //    var node = idAndNodeSource.Value;
+        //    //Debug.Log("----------------------");
+        //    //Debug.Log(node.AverageShortestPathLength);
+        //    //Debug.Log(node.BetweennessCentrality);
+        //    //Debug.Log(node.ClosenessCentrality);
+        //}
 
 
         // Normalize CC
-        foreach (var idAndNodeSource in _nodesDicUID)
+        foreach (Node node in _nodesDicUID.Values)
         {
-            var node = idAndNodeSource.Value;
+            if (node.IsIsolated)
+                continue;
+
             node.ClosenessCentrality = (node.ClosenessCentrality - minCC) / (maxCC- minCC);
         }
     }
@@ -552,9 +571,8 @@ public class Graph
         int minDegree = int.MaxValue;
 
 
-        foreach (var idAndNodeSource in _nodesDicUID)
+        foreach (Node node in _nodesDicUID.Values)
         {
-            var node = idAndNodeSource.Value;
             var degree = (node.EdgeSource.Count + node.EdgeTarget.Count);
             node.Degree = degree;
 
@@ -565,9 +583,8 @@ public class Graph
                 minDegree = degree;
         }
 
-        foreach (var idAndNodeSource in _nodesDicUID)
+        foreach (Node node in _nodesDicUID.Values)
         {
-            var node = idAndNodeSource.Value;
             node.Degree = (node.Degree -  minDegree) / (maxDegree - minDegree);
         }
     }
@@ -577,9 +594,8 @@ public class Graph
         float maxCluster = 0;
         float minCluster = float.MaxValue;
 
-        foreach (var idAndNodeSource in _nodesDicUID)
+        foreach (Node node in _nodesDicUID.Values)
         {
-            var node = idAndNodeSource.Value;
 
             var neighbors = node.GetNeighbors();
 

@@ -136,7 +136,11 @@ public class NodeStyler : MonoBehaviour
                 break;
         }
 
-        _propertyBlock.SetColor("_Color", GraphConfiguration.NodeColorMapping.Lerp(value));
+        if(value == -1f)
+            _propertyBlock.SetColor("_Color", GraphConfiguration.NodeColorNoOntology);
+        else
+            _propertyBlock.SetColor("_Color", GraphConfiguration.NodeColorMapping.Lerp(value));
+
         _renderer.SetPropertyBlock(_propertyBlock);
     }
 

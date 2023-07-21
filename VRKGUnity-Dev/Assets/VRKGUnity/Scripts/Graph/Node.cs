@@ -57,6 +57,14 @@ public class Node
         }
     }
 
+    public bool IsIsolated
+    {
+        get
+        {
+            return (EdgeSource.Count + EdgeTarget.Count) == 0;
+        }
+    }
+
     public string UID => Uri;
     public readonly NodgeType Type;
 
