@@ -392,7 +392,7 @@ public class Graph
 
         CalculateMetric(CalculateShortestPathsAndCentralities);
         CalculateMetric(CalculateDegrees);
-        CalculateMetric(CalculateClusteringCoefficients);
+        CalculateMetric(CalculateLocalClusteringCoefficients);
         CalculateMetric(CalculateOntology);
 
         await semaphore.WaitAsync();
@@ -589,7 +589,7 @@ public class Graph
         }
     }
 
-    private void CalculateClusteringCoefficients()
+    private void CalculateLocalClusteringCoefficients()
     {
         float maxCluster = 0;
         float minCluster = float.MaxValue;
@@ -625,6 +625,7 @@ public class Graph
                 }
             }
 
+            // Local Clustering coefficient
             // C_i = 2n / (k_i * (k_i - 1))
             // With n : connection between neighbors
             //      k_i : number of neighbors

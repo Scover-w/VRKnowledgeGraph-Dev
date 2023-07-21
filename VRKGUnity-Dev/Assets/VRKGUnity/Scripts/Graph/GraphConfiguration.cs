@@ -216,7 +216,7 @@ public enum GraphMetricType
     AverageShortestPath,
     BetweennessCentrality,
     ClosenessCentrality,
-    ClusteringCoefficient,
+    LocalClusteringCoefficient,
     Degree,
     Ontology
 }

@@ -128,7 +128,7 @@ public class NodeStyler : MonoBehaviour
             case GraphMetricType.ClosenessCentrality:
                 value = Node.ClosenessCentrality;
                 break;
-            case GraphMetricType.ClusteringCoefficient:
+            case GraphMetricType.LocalClusteringCoefficient:
                 value = Node.ClusteringCoefficient;
                 break;
             case GraphMetricType.Degree:
@@ -210,7 +210,7 @@ public class NodeStyler : MonoBehaviour
             case GraphMetricType.ClosenessCentrality:
                 tScale = Node.ClosenessCentrality;
                 break;
-            case GraphMetricType.ClusteringCoefficient:
+            case GraphMetricType.LocalClusteringCoefficient:
                 tScale = Node.ClusteringCoefficient;
                 break;
             case GraphMetricType.Degree:
@@ -315,7 +315,7 @@ public class NodeStyler : MonoBehaviour
             case GraphMetricType.ClosenessCentrality:
                 tScale = Node.ClosenessCentrality;
                 break;
-            case GraphMetricType.ClusteringCoefficient:
+            case GraphMetricType.LocalClusteringCoefficient:
                 tScale = Node.ClusteringCoefficient;
                 break;
             case GraphMetricType.Degree:
