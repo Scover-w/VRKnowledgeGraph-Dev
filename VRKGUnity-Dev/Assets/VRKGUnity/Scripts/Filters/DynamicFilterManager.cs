@@ -138,7 +138,7 @@ public class DynamicFilterManager : MonoBehaviour
 
         _graphManager.Graph.CancelFilter(filterToCancel);
 
-        StyleChange styleChange = new StyleChange().Add(StyleChangeType.All);
+        StyleChange styleChange = StyleChange.All;
         _graphStyling.StyleGraph(styleChange, _graphManager.GraphMode);
     }
 

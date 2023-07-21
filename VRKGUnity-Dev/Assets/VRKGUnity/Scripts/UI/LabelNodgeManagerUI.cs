@@ -166,28 +166,28 @@ public class LabelNodgeManagerUI : MonoBehaviour
     {
         UpdateValueStyle();
 
-        if (styleChange.HasChanged(StyleChangeType.MainGraph))
+        if (styleChange.HasChanged(StyleChange.MainGraph))
             StyleForMainGraph(styleChange);
 
-        if (styleChange.HasChanged(StyleChangeType.SubGraph))
+        if (styleChange.HasChanged(StyleChange.SubGraph))
             StyleForSubGraph(styleChange);
     }
 
     private void StyleForMainGraph(StyleChange styleChange)
     {
-        if (_graphMode == GraphMode.Immersion && styleChange.HasChanged(StyleChangeType.ImmersionMode))
+        if (_graphMode == GraphMode.Immersion && styleChange.HasChanged(StyleChange.ImmersionMode))
             StyleImmersionMode(styleChange);
 
-        if (_graphMode == GraphMode.Desk && styleChange.HasChanged(StyleChangeType.DeskMode))
+        if (_graphMode == GraphMode.Desk && styleChange.HasChanged(StyleChange.DeskMode))
             StyleDeskMode(styleChange);
     }
 
     private void StyleImmersionMode(StyleChange styleChange)
     {
-        if (styleChange.HasChanged(StyleChangeType.Size))
+        if (styleChange.HasChanged(StyleChange.Size))
             SetSizeLabels(GraphType.Main, _graphConfig.LabelNodeSizeImmersion);
 
-        if (styleChange.HasChanged(StyleChangeType.Visibility))
+        if (styleChange.HasChanged(StyleChange.Visibility))
         {
             _displayLabelsImmersion = _graphConfig.ShowLabelImmersion;
             SwitchDisplayMain(_displayLabelsImmersion);
@@ -196,11 +196,11 @@ public class LabelNodgeManagerUI : MonoBehaviour
 
     private void StyleDeskMode(StyleChange styleChange)
     {
-        if (styleChange.HasChanged(StyleChangeType.Size))
+        if (styleChange.HasChanged(StyleChange.Size))
             SetSizeLabels(GraphType.Main, _graphConfig.LabelNodeSizeDesk);
 
 
-        if (styleChange.HasChanged(StyleChangeType.Visibility))
+        if (styleChange.HasChanged(StyleChange.Visibility))
         {
             _displayLabelsDesk = _graphConfig.ShowLabelDesk;
             SwitchDisplayMain(_displayLabelsDesk);
@@ -209,7 +209,7 @@ public class LabelNodgeManagerUI : MonoBehaviour
 
     private void StyleForSubGraph(StyleChange styleChange)
     {
-        if (_graphMode == GraphMode.Desk && styleChange.HasChanged(StyleChangeType.DeskMode))
+        if (_graphMode == GraphMode.Desk && styleChange.HasChanged(StyleChange.DeskMode))
             StyleLensMode(styleChange);
 
         // Don't style watch because don't have labels
@@ -217,11 +217,11 @@ public class LabelNodgeManagerUI : MonoBehaviour
 
     private void StyleLensMode(StyleChange styleChange)
     {
-        if (styleChange.HasChanged(StyleChangeType.Size))
+        if (styleChange.HasChanged(StyleChange.Size))
             SetSizeLabels(GraphType.Sub, _graphConfig.LabelNodeSizeLens);
 
 
-        if (styleChange.HasChanged(StyleChangeType.Visibility))
+        if (styleChange.HasChanged(StyleChange.Visibility))
         {
             _displayLabelsLens = _graphConfig.ShowLabelLens;
             SwitchDisplayLens(_displayLabelsLens);

@@ -86,7 +86,7 @@ public class StylingManager : MonoBehaviour
     [Range(0f, 1f)]
     public float ValueOntologyColor;
 
-    public Color NodeColorNoOntology;
+    public Color NodeColorNoValueMetric;
 
     [Header("Edge")]
     public Color EdgeColor;
@@ -177,7 +177,7 @@ public class StylingManager : MonoBehaviour
         SaturationOntologyColor = _graphConfig.SaturationOntologyColor;
         ValueOntologyColor = _graphConfig.ValueOntologyColor;
 
-        NodeColorNoOntology = _graphConfig.NodeColorNoValueMetric;
+        NodeColorNoValueMetric = _graphConfig.NodeColorNoValueMetric;
 
 
         SelectedMetricTypeColor = _graphConfig.SelectedMetricTypeColor;
@@ -225,13 +225,13 @@ public class StylingManager : MonoBehaviour
         if (_graphConfig == null)
             return;
 
-        if (styleChange.HasChanged(StyleChangeType.Label))
+        if (styleChange.HasChanged(StyleChange.Label))
             _labelNodgeManagerUI.StyleLabels(styleChange);
         
 
-        if (styleChange.HasChanged(StyleChangeType.SubGraph)
-            && styleChange.HasChanged(StyleChangeType.ImmersionMode)
-            && styleChange.HasChanged(StyleChangeType.Visibility))
+        if (styleChange.HasChanged(StyleChange.SubGraph)
+            && styleChange.HasChanged(StyleChange.ImmersionMode)
+            && styleChange.HasChanged(StyleChange.Visibility))
             _subGraph.SwitchWatchVisibility();
 
         _graphStyling.StyleGraph(styleChange, graphMode);
@@ -248,7 +248,8 @@ public class StylingManager : MonoBehaviour
             return;
 
 
-        StyleChange styleChange = new();
+        StyleChange styleChange = StyleChange.None;
+        StyleChange addedStyleChange = StyleChange.None;
 
         #region NodeSize
 
@@ -265,42 +266,35 @@ public class StylingManager : MonoBehaviour
         if (_graphConfig.NodeSizeImmersion != NodeSizeImmersion)
         {
             _graphConfig.NodeSizeImmersion = NodeSizeImmersion;
-            styleChange = styleChange.Add(StyleChangeType.MainGraph)
-                .Add(StyleChangeType.ImmersionMode)
-                .Add(StyleChangeType.Node)
-                .Add(StyleChangeType.Label)
-                .Add(StyleChangeType.Size);
+
+            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.NodeSizeImmersion));
+            styleChange = styleChange.Add(addedStyleChange);
         }
 
         if (_graphConfig.NodeSizeDesk != NodeSizeDesk)
         {
             _graphConfig.NodeSizeDesk = NodeSizeDesk;
-            styleChange = styleChange.Add(StyleChangeType.MainGraph)
-                .Add(StyleChangeType.DeskMode)
-                .Add(StyleChangeType.Node)
-                .Add(StyleChangeType.Label)
-                .Add(StyleChangeType.Size);
+
+            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.NodeSizeDesk));
+            styleChange = styleChange.Add(addedStyleChange);
         }
 
 
         if (_graphConfig.NodeSizeLens != NodeSizeLens)
         {
             _graphConfig.NodeSizeLens = NodeSizeLens;
-            styleChange = styleChange.Add(StyleChangeType.SubGraph)
-                .Add(StyleChangeType.DeskMode)
-                .Add(StyleChangeType.Node)
-                .Add(StyleChangeType.Label)
-                .Add(StyleChangeType.Size);
+
+            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.NodeSizeLens));
+            styleChange = styleChange.Add(addedStyleChange);
         }
 
 
         if (_graphConfig.NodeSizeWatch != NodeSizeWatch)
         {
             _graphConfig.NodeSizeWatch = NodeSizeWatch;
-            styleChange = styleChange.Add(StyleChangeType.SubGraph)
-                .Add(StyleChangeType.ImmersionMode)
-                .Add(StyleChangeType.Node)
-                .Add(StyleChangeType.Size);
+
+            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.NodeSizeWatch));
+            styleChange = styleChange.Add(addedStyleChange);
         }
 
 
@@ -308,63 +302,51 @@ public class StylingManager : MonoBehaviour
         if (_graphConfig.NodeMinSizeImmersion != NodeMinSizeImmersion)
         {
             _graphConfig.NodeMinSizeImmersion = NodeMinSizeImmersion;
-            styleChange = styleChange.Add(StyleChangeType.MainGraph)
-                .Add(StyleChangeType.ImmersionMode)
-                .Add(StyleChangeType.Node)
-                .Add(StyleChangeType.Label)
-                .Add(StyleChangeType.Size);
+
+            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.NodeMinSizeImmersion));
+            styleChange = styleChange.Add(addedStyleChange);
         }
 
         if (_graphConfig.NodeMaxSizeImmersion != NodeMaxSizeImmersion)
         {
             _graphConfig.NodeMaxSizeImmersion = NodeMaxSizeImmersion;
-            styleChange = styleChange.Add(StyleChangeType.MainGraph)
-                .Add(StyleChangeType.ImmersionMode)
-                .Add(StyleChangeType.Node)
-                .Add(StyleChangeType.Label)
-                .Add(StyleChangeType.Size);
+
+            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.NodeMaxSizeImmersion));
+            styleChange = styleChange.Add(addedStyleChange);
         }
 
 
         if (_graphConfig.NodeMinSizeDesk != NodeMinSizeDesk)
         {
             _graphConfig.NodeMinSizeDesk = NodeMinSizeDesk;
-            styleChange = styleChange.Add(StyleChangeType.MainGraph)
-                .Add(StyleChangeType.DeskMode)
-                .Add(StyleChangeType.Node)
-                .Add(StyleChangeType.Label)
-                .Add(StyleChangeType.Size);
+
+            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.NodeMinSizeDesk));
+            styleChange = styleChange.Add(addedStyleChange);
         }
 
         if (_graphConfig.NodeMaxSizeDesk != NodeMaxSizeDesk)
         {
             _graphConfig.NodeMaxSizeDesk = NodeMaxSizeDesk;
-            styleChange = styleChange.Add(StyleChangeType.MainGraph)
-                .Add(StyleChangeType.DeskMode)
-                .Add(StyleChangeType.Node)
-                .Add(StyleChangeType.Label)
-                .Add(StyleChangeType.Size);
+
+            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.NodeMaxSizeDesk));
+            styleChange = styleChange.Add(addedStyleChange);
         }
 
 
         if (_graphConfig.NodeMinSizeLens != NodeMinSizeLens)
         {
             _graphConfig.NodeMinSizeLens = NodeMinSizeLens;
-            styleChange = styleChange.Add(StyleChangeType.SubGraph)
-                .Add(StyleChangeType.DeskMode)
-                .Add(StyleChangeType.Node)
-                .Add(StyleChangeType.Label)
-                .Add(StyleChangeType.Size);
+
+            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.NodeMinSizeLens));
+            styleChange = styleChange.Add(addedStyleChange);
         }
 
         if (_graphConfig.NodeMaxSizeLens != NodeMaxSizeLens)
         {
             _graphConfig.NodeMaxSizeLens = NodeMaxSizeLens;
-            styleChange = styleChange.Add(StyleChangeType.SubGraph)
-                .Add(StyleChangeType.DeskMode)
-                .Add(StyleChangeType.Node)
-                .Add(StyleChangeType.Label)
-                .Add(StyleChangeType.Size);
+
+            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.NodeMaxSizeLens));
+            styleChange = styleChange.Add(addedStyleChange);
         }
 
         #endregion
@@ -374,12 +356,9 @@ public class StylingManager : MonoBehaviour
         if (_graphConfig.NodeColor != NodeColor)
         {
             _graphConfig.NodeColor = NodeColor;
-            styleChange = styleChange.Add(StyleChangeType.SubGraph)
-                .Add(StyleChangeType.MainGraph)
-                .Add(StyleChangeType.DeskMode)
-                .Add(StyleChangeType.ImmersionMode)
-                .Add(StyleChangeType.Node)
-                .Add(StyleChangeType.Color);
+
+            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.NodeColor));
+            styleChange = styleChange.Add(addedStyleChange);
         }
 
         var colorLerpMapper = _graphConfig.NodeColorMapping;
@@ -387,56 +366,41 @@ public class StylingManager : MonoBehaviour
         if (colorLerpMapper.ColorA != NodeMappingAColor)
         {
             colorLerpMapper.ColorA = NodeMappingAColor;
-            styleChange = styleChange.Add(StyleChangeType.SubGraph)
-                .Add(StyleChangeType.MainGraph)
-                .Add(StyleChangeType.DeskMode)
-                .Add(StyleChangeType.ImmersionMode)
-                .Add(StyleChangeType.Node)
-                .Add(StyleChangeType.Color);
+
+            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.NodeColorMapping));
+            styleChange = styleChange.Add(addedStyleChange);
         }
 
         if (colorLerpMapper.ColorB != NodeMappingBColor)
         {
             colorLerpMapper.ColorB = NodeMappingBColor;
-            styleChange = styleChange.Add(StyleChangeType.SubGraph)
-                .Add(StyleChangeType.MainGraph)
-                .Add(StyleChangeType.DeskMode)
-                .Add(StyleChangeType.ImmersionMode)
-                .Add(StyleChangeType.Node)
-                .Add(StyleChangeType.Color);
+
+            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.NodeColorMapping));
+            styleChange = styleChange.Add(addedStyleChange);
         }
 
         if (colorLerpMapper.ColorC != NodeMappingCColor)
         {
             colorLerpMapper.ColorC = NodeMappingCColor;
-            styleChange = styleChange.Add(StyleChangeType.SubGraph)
-                .Add(StyleChangeType.MainGraph)
-                .Add(StyleChangeType.DeskMode)
-                .Add(StyleChangeType.ImmersionMode)
-                .Add(StyleChangeType.Node)
-                .Add(StyleChangeType.Color);
+
+            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.NodeColorMapping));
+            styleChange = styleChange.Add(addedStyleChange);
         }
 
         if (_graphConfig.AlphaNodeColorPropagated != AlphaNodeColorPropagated)
         {
             _graphConfig.AlphaNodeColorPropagated = AlphaNodeColorPropagated;
-            styleChange = styleChange.Add(StyleChangeType.SubGraph)
-                .Add(StyleChangeType.MainGraph)
-                .Add(StyleChangeType.DeskMode)
-                .Add(StyleChangeType.ImmersionMode)
-                .Add(StyleChangeType.Node)
-                .Add(StyleChangeType.Color);
+
+            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.AlphaNodeColorPropagated));
+            styleChange = styleChange.Add(addedStyleChange);
         }
 
         if (_graphConfig.AlphaNodeColorUnPropagated != AlphaNodeColorUnPropagated)
         {
             _graphConfig.AlphaNodeColorUnPropagated = AlphaNodeColorUnPropagated;
-            styleChange = styleChange.Add(StyleChangeType.SubGraph)
-                .Add(StyleChangeType.MainGraph)
-                .Add(StyleChangeType.DeskMode)
-                .Add(StyleChangeType.ImmersionMode)
-                .Add(StyleChangeType.Node)
-                .Add(StyleChangeType.Color);
+
+            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.AlphaNodeColorUnPropagated));
+            styleChange = styleChange.Add(addedStyleChange);
         }
 
 
@@ -444,34 +408,25 @@ public class StylingManager : MonoBehaviour
         if (colorLerpMapper.BoundaryColorA != BoundaryColorA)
         {
             colorLerpMapper.BoundaryColorA = BoundaryColorA;
-            styleChange = styleChange.Add(StyleChangeType.SubGraph)
-                .Add(StyleChangeType.MainGraph)
-                .Add(StyleChangeType.DeskMode)
-                .Add(StyleChangeType.ImmersionMode)
-                .Add(StyleChangeType.Node)
-                .Add(StyleChangeType.Color);
+
+            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.NodeColorMapping));
+            styleChange = styleChange.Add(addedStyleChange);
         }
 
         if (colorLerpMapper.BoundaryColorB != BoundaryColorB)
         {
             colorLerpMapper.BoundaryColorB = BoundaryColorB;
-            styleChange = styleChange.Add(StyleChangeType.SubGraph)
-                .Add(StyleChangeType.MainGraph)
-                .Add(StyleChangeType.DeskMode)
-                .Add(StyleChangeType.ImmersionMode)
-                .Add(StyleChangeType.Node)
-                .Add(StyleChangeType.Color);
+
+            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.NodeColorMapping));
+            styleChange = styleChange.Add(addedStyleChange);
         }
 
         if (colorLerpMapper.BoundaryColorC != BoundaryColorC)
         {
             colorLerpMapper.BoundaryColorC = BoundaryColorC;
-            styleChange = styleChange.Add(StyleChangeType.SubGraph)
-                .Add(StyleChangeType.MainGraph)
-                .Add(StyleChangeType.DeskMode)
-                .Add(StyleChangeType.ImmersionMode)
-                .Add(StyleChangeType.Node)
-                .Add(StyleChangeType.Color);
+
+            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.NodeColorMapping));
+            styleChange = styleChange.Add(addedStyleChange);
         }
         #endregion
 
@@ -480,12 +435,9 @@ public class StylingManager : MonoBehaviour
         if (_graphConfig.NbOntologyColor != NbOntologyColor)
         {
             _graphConfig.NbOntologyColor = NbOntologyColor;
-            styleChange = styleChange.Add(StyleChangeType.SubGraph)
-                .Add(StyleChangeType.MainGraph)
-                .Add(StyleChangeType.DeskMode)
-                .Add(StyleChangeType.ImmersionMode)
-                .Add(StyleChangeType.Node)
-                .Add(StyleChangeType.Color);
+
+            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.NbOntologyColor));
+            styleChange = styleChange.Add(addedStyleChange);
         }
 
         if (_graphConfig.MaxDeltaOntologyAlgo != MaxDeltaOntologyAlgo)
@@ -496,34 +448,25 @@ public class StylingManager : MonoBehaviour
         if (_graphConfig.SaturationOntologyColor != SaturationOntologyColor)
         {
             _graphConfig.SaturationOntologyColor = SaturationOntologyColor;
-            styleChange = styleChange.Add(StyleChangeType.SubGraph)
-                .Add(StyleChangeType.MainGraph)
-                .Add(StyleChangeType.DeskMode)
-                .Add(StyleChangeType.ImmersionMode)
-                .Add(StyleChangeType.Node)
-                .Add(StyleChangeType.Color);
+
+            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.SaturationOntologyColor));
+            styleChange = styleChange.Add(addedStyleChange);
         }
 
         if (_graphConfig.ValueOntologyColor != ValueOntologyColor)
         {
             _graphConfig.ValueOntologyColor = ValueOntologyColor;
-            styleChange = styleChange.Add(StyleChangeType.SubGraph)
-                .Add(StyleChangeType.MainGraph)
-                .Add(StyleChangeType.DeskMode)
-                .Add(StyleChangeType.ImmersionMode)
-                .Add(StyleChangeType.Node)
-                .Add(StyleChangeType.Color);
+
+            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.ValueOntologyColor));
+            styleChange = styleChange.Add(addedStyleChange);
         }
 
-        if (_graphConfig.NodeColorNoValueMetric != NodeColorNoOntology)
+        if (_graphConfig.NodeColorNoValueMetric != NodeColorNoValueMetric)
         {
-            _graphConfig.NodeColorNoValueMetric = NodeColorNoOntology;
-            styleChange = styleChange.Add(StyleChangeType.SubGraph)
-                .Add(StyleChangeType.MainGraph)
-                .Add(StyleChangeType.DeskMode)
-                .Add(StyleChangeType.ImmersionMode)
-                .Add(StyleChangeType.Node)
-                .Add(StyleChangeType.Color);
+            _graphConfig.NodeColorNoValueMetric = NodeColorNoValueMetric;
+
+            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.NodeColorNoValueMetric));
+            styleChange = styleChange.Add(addedStyleChange);
         }
         #endregion
 
@@ -532,23 +475,17 @@ public class StylingManager : MonoBehaviour
         if (_graphConfig.SelectedMetricTypeColor != SelectedMetricTypeColor)
         {
             _graphConfig.SelectedMetricTypeColor = SelectedMetricTypeColor;
-            styleChange = styleChange.Add(StyleChangeType.SubGraph)
-                .Add(StyleChangeType.MainGraph)
-                .Add(StyleChangeType.DeskMode)
-                .Add(StyleChangeType.ImmersionMode)
-                .Add(StyleChangeType.Node)
-                .Add(StyleChangeType.Color);
+
+            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.SelectedMetricTypeColor));
+            styleChange = styleChange.Add(addedStyleChange);
         }
 
         if (_graphConfig.SelectedMetricTypeSize != SelectedMetricTypeSize)
         {
             _graphConfig.SelectedMetricTypeSize = SelectedMetricTypeSize;
-            styleChange = styleChange.Add(StyleChangeType.SubGraph)
-                .Add(StyleChangeType.MainGraph)
-                .Add(StyleChangeType.DeskMode)
-                .Add(StyleChangeType.ImmersionMode)
-                .Add(StyleChangeType.Node)
-                .Add(StyleChangeType.Size);
+
+            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.SelectedMetricTypeSize));
+            styleChange = styleChange.Add(addedStyleChange);
         }
         #endregion
 
@@ -557,41 +494,33 @@ public class StylingManager : MonoBehaviour
         if (_graphConfig.ImmersionGraphSize != ImmersionGraphSize)
         {
             _graphConfig.ImmersionGraphSize = ImmersionGraphSize;
-            styleChange = styleChange.Add(StyleChangeType.MainGraph)
-                .Add(StyleChangeType.ImmersionMode)
-                .Add(StyleChangeType.Node)
-                .Add(StyleChangeType.Edge)
-                .Add(StyleChangeType.Position);
+
+            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.ImmersionGraphSize));
+            styleChange = styleChange.Add(addedStyleChange);
         }
 
         if (_graphConfig.WatchGraphSize != WatchGraphSize)
         {
             _graphConfig.WatchGraphSize = WatchGraphSize;
-            styleChange = styleChange.Add(StyleChangeType.SubGraph)
-                .Add(StyleChangeType.ImmersionMode)
-                .Add(StyleChangeType.Node)
-                .Add(StyleChangeType.Edge)
-                .Add(StyleChangeType.Position);
+
+            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.WatchGraphSize));
+            styleChange = styleChange.Add(addedStyleChange);
         }
 
         if (_graphConfig.DeskGraphSize != DeskGraphSize)
         {
             _graphConfig.DeskGraphSize = DeskGraphSize;
-            styleChange = styleChange.Add(StyleChangeType.MainGraph)
-                .Add(StyleChangeType.DeskMode)
-                .Add(StyleChangeType.Node)
-                .Add(StyleChangeType.Edge)
-                .Add(StyleChangeType.Position);
+
+            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.DeskGraphSize));
+            styleChange = styleChange.Add(addedStyleChange);
         }
 
         if (_graphConfig.LensGraphSize != LensGraphSize)
         {
             _graphConfig.LensGraphSize = LensGraphSize;
-            styleChange = styleChange.Add(StyleChangeType.SubGraph)
-                .Add(StyleChangeType.DeskMode)
-                .Add(StyleChangeType.Node)
-                .Add(StyleChangeType.Edge)
-                .Add(StyleChangeType.Position);
+
+            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.LensGraphSize));
+            styleChange = styleChange.Add(addedStyleChange);
         }
         #endregion
 
@@ -600,107 +529,84 @@ public class StylingManager : MonoBehaviour
         if (_graphConfig.EdgeColor != EdgeColor)
         {
             _graphConfig.EdgeColor = EdgeColor;
-            styleChange = styleChange.Add(StyleChangeType.SubGraph)
-                .Add(StyleChangeType.MainGraph)
-                .Add(StyleChangeType.DeskMode)
-                .Add(StyleChangeType.ImmersionMode)
-                .Add(StyleChangeType.Edge)
-                .Add(StyleChangeType.Color);
+
+            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.EdgeColor));
+            styleChange = styleChange.Add(addedStyleChange);
         }
         
         if (_graphConfig.PropagatedEdgeColor != PropagatedEdgeColor)
         {
             _graphConfig.PropagatedEdgeColor = PropagatedEdgeColor;
-            styleChange = styleChange.Add(StyleChangeType.SubGraph)
-                .Add(StyleChangeType.MainGraph)
-                .Add(StyleChangeType.DeskMode)
-                .Add(StyleChangeType.ImmersionMode)
-                .Add(StyleChangeType.Edge)
-                .Add(StyleChangeType.Color);
+
+            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.PropagatedEdgeColor));
+            styleChange = styleChange.Add(addedStyleChange);
         }
 
 
         if (_graphConfig.AlphaEdgeColorPropagated != AlphaEdgeColorPropagated)
         {
             _graphConfig.AlphaEdgeColorPropagated = AlphaEdgeColorPropagated;
-            styleChange = styleChange.Add(StyleChangeType.SubGraph)
-                .Add(StyleChangeType.MainGraph)
-                .Add(StyleChangeType.DeskMode)
-                .Add(StyleChangeType.ImmersionMode)
-                .Add(StyleChangeType.Edge)
-                .Add(StyleChangeType.Color);
+
+            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.AlphaEdgeColorPropagated));
+            styleChange = styleChange.Add(addedStyleChange);
         }
 
 
         if (_graphConfig.AlphaEdgeColorUnPropagated != AlphaEdgeColorUnPropagated)
         {
             _graphConfig.AlphaEdgeColorUnPropagated = AlphaEdgeColorUnPropagated;
-            styleChange = styleChange.Add(StyleChangeType.SubGraph)
-                .Add(StyleChangeType.MainGraph)
-                .Add(StyleChangeType.DeskMode)
-                .Add(StyleChangeType.ImmersionMode)
-                .Add(StyleChangeType.Edge)
-                .Add(StyleChangeType.Color);
+
+            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.AlphaEdgeColorUnPropagated));
+            styleChange = styleChange.Add(addedStyleChange);
         }
 
 
         if (_graphConfig.EdgeThicknessImmersion != EdgeThicknessImmersion)
         {
             _graphConfig.EdgeThicknessImmersion = EdgeThicknessImmersion;
-            styleChange = styleChange.Add(StyleChangeType.MainGraph)
-                .Add(StyleChangeType.ImmersionMode)
-                .Add(StyleChangeType.Edge)
-                .Add(StyleChangeType.Size);
+
+            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.EdgeThicknessImmersion));
+            styleChange = styleChange.Add(addedStyleChange);
         }
 
         if (_graphConfig.EdgeThicknessDesk != EdgeThicknessDesk)
         {
             _graphConfig.EdgeThicknessDesk = EdgeThicknessDesk;
-            styleChange = styleChange.Add(StyleChangeType.MainGraph)
-                .Add(StyleChangeType.DeskMode)
-                .Add(StyleChangeType.Edge)
-                .Add(StyleChangeType.Size);
+
+            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.EdgeThicknessDesk));
+            styleChange = styleChange.Add(addedStyleChange);
         }
 
         if (_graphConfig.EdgeThicknessLens != EdgeThicknessLens)
         {
             _graphConfig.EdgeThicknessLens = EdgeThicknessLens;
-            styleChange = styleChange.Add(StyleChangeType.SubGraph)
-                .Add(StyleChangeType.DeskMode)
-                .Add(StyleChangeType.Edge)
-                .Add(StyleChangeType.Size);
+
+            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.EdgeThicknessLens));
+            styleChange = styleChange.Add(addedStyleChange);
         }
 
         if (_graphConfig.EdgeThicknessWatch != EdgeThicknessWatch)
         {
             _graphConfig.EdgeThicknessWatch = EdgeThicknessWatch;
-            styleChange = styleChange.Add(StyleChangeType.SubGraph)
-                .Add(StyleChangeType.ImmersionMode)
-                .Add(StyleChangeType.Edge)
-                .Add(StyleChangeType.Size);
+
+            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.EdgeThicknessWatch));
+            styleChange = styleChange.Add(addedStyleChange);
         }
 
         if (_graphConfig.CanSelectEdges != CanSelectEdges)
         {
             _graphConfig.CanSelectEdges = CanSelectEdges;
-            styleChange = styleChange.Add(StyleChangeType.SubGraph)
-                .Add(StyleChangeType.MainGraph)
-                .Add(StyleChangeType.ImmersionMode)
-                .Add(StyleChangeType.DeskMode)
-                .Add(StyleChangeType.Edge)
-                .Add(StyleChangeType.Color)
-                .Add(StyleChangeType.Collider);
+
+            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.CanSelectEdges));
+            styleChange = styleChange.Add(addedStyleChange);
         }
 
         if (_graphConfig.DisplayEdges != DisplayEdges)
         {
             _graphConfig.DisplayEdges = DisplayEdges;
-            styleChange = styleChange.Add(StyleChangeType.SubGraph)
-                .Add(StyleChangeType.MainGraph)
-                .Add(StyleChangeType.ImmersionMode)
-                .Add(StyleChangeType.DeskMode)
-                .Add(StyleChangeType.Edge)
-                .Add(StyleChangeType.Visibility);
+
+            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.DisplayEdges));
+            styleChange = styleChange.Add(addedStyleChange);
         }
         #endregion
 
@@ -710,55 +616,49 @@ public class StylingManager : MonoBehaviour
         if (_graphConfig.LabelNodeSizeImmersion != LabelNodeSizeImmersion)
         {
             _graphConfig.LabelNodeSizeImmersion = LabelNodeSizeImmersion;
-            styleChange = styleChange.Add(StyleChangeType.MainGraph)
-                .Add(StyleChangeType.ImmersionMode)
-                .Add(StyleChangeType.Label)
-                .Add(StyleChangeType.Size);
+
+            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.LabelNodeSizeImmersion));
+            styleChange = styleChange.Add(addedStyleChange);
         }
 
         if (_graphConfig.LabelNodeSizeDesk != LabelNodeSizeDesk)
         {
             _graphConfig.LabelNodeSizeDesk = LabelNodeSizeDesk;
-            styleChange = styleChange.Add(StyleChangeType.MainGraph)
-                .Add(StyleChangeType.DeskMode)
-                .Add(StyleChangeType.Label)
-                .Add(StyleChangeType.Size);
+
+            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.LabelNodeSizeDesk));
+            styleChange = styleChange.Add(addedStyleChange);
         }
 
         if (_graphConfig.LabelNodeSizeLens != LabelNodeSizeLens)
         {
             _graphConfig.LabelNodeSizeLens = LabelNodeSizeLens;
-            styleChange = styleChange.Add(StyleChangeType.SubGraph)
-                .Add(StyleChangeType.DeskMode)
-                .Add(StyleChangeType.Label)
-                .Add(StyleChangeType.Size);
+
+            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.LabelNodeSizeLens));
+            styleChange = styleChange.Add(addedStyleChange);
         }
 
         if (_graphConfig.ShowLabelImmersion != ShowLabelImmersion)
         {
             _graphConfig.ShowLabelImmersion = ShowLabelImmersion;
-            styleChange = styleChange.Add(StyleChangeType.MainGraph)
-                .Add(StyleChangeType.ImmersionMode)
-                .Add(StyleChangeType.Label)
-                .Add(StyleChangeType.Visibility);
+
+            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.ShowLabelImmersion));
+            styleChange = styleChange.Add(addedStyleChange);
         }
 
         if (_graphConfig.ShowLabelDesk != ShowLabelDesk)
         {
             _graphConfig.ShowLabelDesk = ShowLabelDesk;
-            styleChange = styleChange.Add(StyleChangeType.MainGraph)
-                .Add(StyleChangeType.DeskMode)
-                .Add(StyleChangeType.Label)
-                .Add(StyleChangeType.Visibility);
+
+            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.ShowLabelDesk));
+            styleChange = styleChange.Add(addedStyleChange);
         }
 
         if (_graphConfig.ShowLabelLens != ShowLabelLens)
         {
             _graphConfig.ShowLabelLens = ShowLabelLens;
-            styleChange = styleChange.Add(StyleChangeType.SubGraph)
-                .Add(StyleChangeType.DeskMode)
-                .Add(StyleChangeType.Label)
-                .Add(StyleChangeType.Visibility);
+
+            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.ShowLabelLens));
+            styleChange = styleChange.Add(addedStyleChange);
         }
 
         #endregion
@@ -768,7 +668,9 @@ public class StylingManager : MonoBehaviour
         if (_graphConfig.LabelNodgePropagation != LabelNodgePropagation)
         {
             _graphConfig.LabelNodgePropagation = LabelNodgePropagation;
-            styleChange = styleChange.Add(StyleChangeType.Propagation);
+
+            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.LabelNodgePropagation));
+            styleChange = styleChange.Add(addedStyleChange);
         }
 
         if (_graphConfig.ResetPositionNodeOnUpdate != ResetPositionNodeOnUpdate)
@@ -791,15 +693,17 @@ public class StylingManager : MonoBehaviour
         {
             _graphConfig.DisplayInterSelectedNeighborEdges = DisplayInterSelectedNeighborEdges;
 
-            // TODO : refresh selection
+
+            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.DisplayInterSelectedNeighborEdges));
+            styleChange = styleChange.Add(addedStyleChange);
         }
 
         if (_graphConfig.ShowWatch != ShowWatch)
         {
             _graphConfig.ShowWatch = ShowWatch;
-            styleChange = styleChange.Add(StyleChangeType.SubGraph)
-                .Add(StyleChangeType.ImmersionMode)
-                .Add(StyleChangeType.Visibility);
+
+            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.ShowWatch));
+            styleChange = styleChange.Add(addedStyleChange);
         }
 
         #endregion

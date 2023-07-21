@@ -79,7 +79,7 @@ public class GraphStyling : MonoBehaviour
         NodeStyler.GraphConfiguration = _graphConfiguration;
         EdgeStyler.GraphConfiguration = _graphConfiguration;
 
-        StyleChange styleChange = new StyleChange().Add(StyleChangeType.All);
+        StyleChange styleChange = StyleChange.All;
 
         foreach (var idAndNode in nodesDicId)
         {
@@ -121,10 +121,9 @@ public class GraphStyling : MonoBehaviour
         NodeStyler.GraphConfiguration = _graphConfiguration;
         EdgeStyler.GraphConfiguration = _graphConfiguration;
 
-        StyleChange styleChange = new StyleChange().Add(StyleChangeType.SubGraph)
-                                                    .Add(StyleChangeType.DeskMode)
-                                                    .Add(StyleChangeType.ImmersionMode)
-                                                    .Add(StyleChangeType.Position);
+        StyleChange styleChange = StyleChange.SubGraph.Add(StyleChange.DeskMode)
+                                                    .Add(StyleChange.ImmersionMode)
+                                                    .Add(StyleChange.Position);
 
         foreach (Node node in nodesDicId.Values)
         {
@@ -175,14 +174,13 @@ public class GraphStyling : MonoBehaviour
 
 
 
-        StyleChange styleChange = new StyleChange().Add(StyleChangeType.MainGraph)
-                                                    .Add(StyleChangeType.SubGraph)
-                                                   .Add(StyleChangeType.DeskMode)
-                                                   .Add(StyleChangeType.ImmersionMode)
-                                                   .Add(StyleChangeType.Edge)
-                                                   .Add(StyleChangeType.Node)
-                                                   .Add(StyleChangeType.Position)
-                                                   .Add(StyleChangeType.Size);
+        StyleChange styleChange = StyleChange.MainGraph.Add(StyleChange.SubGraph)
+                                                   .Add(StyleChange.DeskMode)
+                                                   .Add(StyleChange.ImmersionMode)
+                                                   .Add(StyleChange.Edge)
+                                                   .Add(StyleChange.Node)
+                                                   .Add(StyleChange.Position)
+                                                   .Add(StyleChange.Size);
 
         GraphMode nextGraph = isNextDesk ? GraphMode.Desk : GraphMode.Immersion;
 
@@ -216,13 +214,12 @@ public class GraphStyling : MonoBehaviour
 
     public void OnNodgesPropagated(Nodges nodges)
     {
-        StyleChange styleChange = new StyleChange().Add(StyleChangeType.MainGraph)
-                                                    .Add(StyleChangeType.SubGraph)
-                                                    .Add(StyleChangeType.DeskMode)
-                                                    .Add(StyleChangeType.ImmersionMode)
-                                                    .Add(StyleChangeType.Node)
-                                                    .Add(StyleChangeType.Edge)
-                                                    .Add(StyleChangeType.Color);
+        StyleChange styleChange = StyleChange.MainGraph.Add(StyleChange.SubGraph)
+                                                    .Add(StyleChange.DeskMode)
+                                                    .Add(StyleChange.ImmersionMode)
+                                                    .Add(StyleChange.Node)
+                                                    .Add(StyleChange.Edge)
+                                                    .Add(StyleChange.Color);
 
         bool isRunningSim = _graphManager.IsRunningSimulation;
         GraphMode graphMode = _graphManager.GraphMode;
@@ -260,10 +257,10 @@ public class GraphStyling : MonoBehaviour
 
         bool isRunningSim = _graphManager.IsRunningSimulation;
 
-        bool hasChangedMainGraph = styleChange.HasChanged(StyleChangeType.MainGraph);
-        bool hasChangedSubGraph = styleChange.HasChanged(StyleChangeType.SubGraph);
+        bool hasChangedMainGraph = styleChange.HasChanged(StyleChange.MainGraph);
+        bool hasChangedSubGraph = styleChange.HasChanged(StyleChange.SubGraph);
 
-        if (styleChange.HasChanged(StyleChangeType.Node))
+        if (styleChange.HasChanged(StyleChange.Node))
         {
             foreach (var idAndNode in nodesDicId)
             {
@@ -277,7 +274,7 @@ public class GraphStyling : MonoBehaviour
             }
         }
 
-        if (!styleChange.HasChanged(StyleChangeType.Edge))
+        if (!styleChange.HasChanged(StyleChange.Edge))
             return;
 
         var edgeDicId = graph.EdgesDicUID;

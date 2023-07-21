@@ -114,4 +114,10 @@ public class MisceTests : MonoBehaviour
 
         Debug.Log(oldIp);
     }
+
+    [Test]
+    public void TestNameOf()
+    {
+        Debug.Log(nameof(GraphConfiguration.Instance.SimuParameters));
+    }
 }

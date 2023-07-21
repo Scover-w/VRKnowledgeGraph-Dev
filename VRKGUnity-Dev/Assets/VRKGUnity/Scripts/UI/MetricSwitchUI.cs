@@ -39,12 +39,11 @@ public class MetricSwitchUI : MonoBehaviour
         _graphConfig.SelectedMetricTypeSize = newMetric;
 
 
-        var styleChange = new StyleChange().Add(StyleChangeType.SubGraph)
-                .Add(StyleChangeType.MainGraph)
-                .Add(StyleChangeType.DeskMode)
-                .Add(StyleChangeType.ImmersionMode)
-                .Add(StyleChangeType.Node)
-                .Add(StyleChangeType.Size);
+        var styleChange = StyleChange.SubGraph.Add(StyleChange.MainGraph)
+                                                .Add(StyleChange.DeskMode)
+                                                .Add(StyleChange.ImmersionMode)
+                                                .Add(StyleChange.Node)
+                                                .Add(StyleChange.Size);
 
         _graphStyling.StyleGraph(styleChange, _graphManager.GraphMode);
 
@@ -60,12 +59,11 @@ public class MetricSwitchUI : MonoBehaviour
         _graphConfig.SelectedMetricTypeColor = newMetric;
 
 
-        var styleChange = new StyleChange().Add(StyleChangeType.SubGraph)
-                .Add(StyleChangeType.MainGraph)
-                .Add(StyleChangeType.DeskMode)
-                .Add(StyleChangeType.ImmersionMode)
-                .Add(StyleChangeType.Node)
-                .Add(StyleChangeType.Color);
+        var styleChange = StyleChange.SubGraph.Add(StyleChange.MainGraph)
+                                                .Add(StyleChange.DeskMode)
+                                                .Add(StyleChange.ImmersionMode)
+                                                .Add(StyleChange.Node)
+                                                .Add(StyleChange.Color);
 
         _graphStyling.StyleGraph(styleChange, _graphManager.GraphMode);
 

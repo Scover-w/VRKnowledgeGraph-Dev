@@ -42,21 +42,21 @@ public class EdgeStyler : MonoBehaviour
 
     public void StyleEdge(StyleChange styleChange, GraphMode graphMode, bool inSimulation = false)
     {
-        if (GraphType == GraphType.Main && !styleChange.HasChanged(StyleChangeType.MainGraph))
+        if (GraphType == GraphType.Main && !styleChange.HasChanged(StyleChange.MainGraph))
             return;
 
-        if (GraphType == GraphType.Sub && !styleChange.HasChanged(StyleChangeType.SubGraph))
+        if (GraphType == GraphType.Sub && !styleChange.HasChanged(StyleChange.SubGraph))
             return;
 
 
 
-        if (styleChange.HasChanged(StyleChangeType.Color) || styleChange.HasChanged(StyleChangeType.Visibility))
+        if (styleChange.HasChanged(StyleChange.Color) || styleChange.HasChanged(StyleChange.Visibility))
             StyleColor();
 
-        if (styleChange.HasChanged(StyleChangeType.Size))
+        if (styleChange.HasChanged(StyleChange.Size))
             StyleSize(styleChange, graphMode);
 
-        if (styleChange.HasChanged(StyleChangeType.Position))
+        if (styleChange.HasChanged(StyleChange.Position))
         {
             if (!inSimulation)
                 StylePosition(styleChange, graphMode);
@@ -105,7 +105,7 @@ public class EdgeStyler : MonoBehaviour
 
     private void StyleSize(StyleChange styleChange, GraphMode graphMode)
     {
-        if(graphMode == GraphMode.Desk && styleChange.HasChanged(StyleChangeType.DeskMode))
+        if(graphMode == GraphMode.Desk && styleChange.HasChanged(StyleChange.DeskMode))
         {
             if (GraphType == GraphType.Main)
             {
@@ -118,7 +118,7 @@ public class EdgeStyler : MonoBehaviour
         }
 
 
-        if (graphMode == GraphMode.Immersion && styleChange.HasChanged(StyleChangeType.ImmersionMode))
+        if (graphMode == GraphMode.Immersion && styleChange.HasChanged(StyleChange.ImmersionMode))
         {
             if (GraphType == GraphType.Main)
             {
@@ -133,7 +133,7 @@ public class EdgeStyler : MonoBehaviour
 
     private void StylePosition(StyleChange styleChange, GraphMode graphMode)
     {  
-        if(graphMode == GraphMode.Desk && styleChange.HasChanged(StyleChangeType.DeskMode))
+        if(graphMode == GraphMode.Desk && styleChange.HasChanged(StyleChange.DeskMode))
         {
             if (GraphType == GraphType.Main)
             {
@@ -146,7 +146,7 @@ public class EdgeStyler : MonoBehaviour
 
         }
 
-        if (graphMode == GraphMode.Immersion && styleChange.HasChanged(StyleChangeType.ImmersionMode))
+        if (graphMode == GraphMode.Immersion && styleChange.HasChanged(StyleChange.ImmersionMode))
         {
             if (GraphType == GraphType.Main)
             {

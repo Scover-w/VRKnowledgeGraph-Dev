@@ -394,7 +394,7 @@ public class Graph
 
         await semaphore.WaitAsync();
 
-        _graphStyling.StyleGraph(new StyleChange().Add(StyleChangeType.All), _graphManager.GraphMode);
+        _graphStyling.StyleGraph(StyleChange.All, _graphManager.GraphMode);
 
 
         void CalculateMetric(Action metricCalculation)
