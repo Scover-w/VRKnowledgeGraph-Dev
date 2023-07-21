@@ -22,7 +22,7 @@ public class GraphConfigurationContainerSO : ScriptableObject
     public Color NodeColorC = Color.white;
 
     [Space(10)]
-    public Color NodeColorNoOntology = Color.white;
+    public Color NodeColorNoValueMetric = Color.white;
 
     [Header("Viewer Ontology Color")]
     [SerializeField]
@@ -86,7 +86,7 @@ public class GraphConfigurationContainerSO : ScriptableObject
         NodeColorB = _graphConfiguration.NodeColorMapping.ColorB;
         NodeColorC = _graphConfiguration.NodeColorMapping.ColorC;
 
-        NodeColorNoOntology = _graphConfiguration.NodeColorNoOntology;
+        NodeColorNoValueMetric = _graphConfiguration.NodeColorNoValueMetric;
 }
 
 
@@ -113,7 +113,7 @@ public class GraphConfigurationContainerSO : ScriptableObject
         _graphConfiguration.NodeColorMapping.ColorB = NodeColorB;
         _graphConfiguration.NodeColorMapping.ColorC = NodeColorC;
 
-        _graphConfiguration.NodeColorNoOntology = NodeColorNoOntology;
+        _graphConfiguration.NodeColorNoValueMetric = NodeColorNoValueMetric;
 
 
         OntologyViewerColors = new List<Color>();

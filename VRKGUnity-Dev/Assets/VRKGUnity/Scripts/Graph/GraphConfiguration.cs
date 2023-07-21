@@ -83,15 +83,15 @@ public class GraphConfiguration
     }
 
     [JsonIgnore]
-    public Color NodeColorNoOntology
+    public Color NodeColorNoValueMetric
     {
         get
         {
-            return _nodeColorNoOntology.ToUnityColor();
+            return _nodeColorNoValueMetric.ToUnityColor();
         }
         set
         {
-            _nodeColorNoOntology = value.ToSystemColor();
+            _nodeColorNoValueMetric = value.ToSystemColor();
         }
     }
 
@@ -130,7 +130,7 @@ public class GraphConfiguration
 
     
     [JsonProperty("NodeColorNoOntology_")]
-    private System.Drawing.Color _nodeColorNoOntology = System.Drawing.Color.FromArgb(178, 178, 178);
+    private System.Drawing.Color _nodeColorNoValueMetric = System.Drawing.Color.FromArgb(178, 178, 178);
 
     [JsonProperty("EdgeColor_")]
     [SerializeField]

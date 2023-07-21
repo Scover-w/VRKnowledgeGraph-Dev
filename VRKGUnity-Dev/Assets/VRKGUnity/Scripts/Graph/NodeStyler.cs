@@ -137,7 +137,7 @@ public class NodeStyler : MonoBehaviour
         }
 
         if(value == -1f)
-            _propertyBlock.SetColor("_Color", GraphConfiguration.NodeColorNoOntology);
+            _propertyBlock.SetColor("_Color", GraphConfiguration.NodeColorNoValueMetric);
         else
             _propertyBlock.SetColor("_Color", GraphConfiguration.NodeColorMapping.Lerp(value));
 
@@ -148,7 +148,7 @@ public class NodeStyler : MonoBehaviour
     {
         if(Node.OntoNodeGroup == null)
         {
-            _propertyBlock.SetColor("_Color", GraphConfiguration.NodeColorNoOntology);
+            _propertyBlock.SetColor("_Color", GraphConfiguration.NodeColorNoValueMetric);
             _renderer.SetPropertyBlock(_propertyBlock);
             return;
         }

@@ -162,7 +162,7 @@ public class StylingManager : MonoBehaviour
         SaturationOntologyColor = _graphConfig.SaturationOntologyColor;
         ValueOntologyColor = _graphConfig.ValueOntologyColor;
 
-        NodeColorNoOntology = _graphConfig.NodeColorNoOntology;
+        NodeColorNoOntology = _graphConfig.NodeColorNoValueMetric;
 
 
         SelectedMetricTypeColor = _graphConfig.SelectedMetricTypeColor;
@@ -472,9 +472,9 @@ public class StylingManager : MonoBehaviour
                 .Add(StyleChangeType.Color);
         }
 
-        if (_graphConfig.NodeColorNoOntology != NodeColorNoOntology)
+        if (_graphConfig.NodeColorNoValueMetric != NodeColorNoOntology)
         {
-            _graphConfig.NodeColorNoOntology = NodeColorNoOntology;
+            _graphConfig.NodeColorNoValueMetric = NodeColorNoOntology;
             styleChange = styleChange.Add(StyleChangeType.SubGraph)
                 .Add(StyleChangeType.MainGraph)
                 .Add(StyleChangeType.DeskMode)
