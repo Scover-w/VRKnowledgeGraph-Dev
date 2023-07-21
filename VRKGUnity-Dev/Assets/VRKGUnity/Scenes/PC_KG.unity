@@ -318,6 +318,136 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 60676795}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &180994383
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 180994384}
+  - component: {fileID: 180994386}
+  - component: {fileID: 180994387}
+  - component: {fileID: 180994385}
+  m_Layer: 0
+  m_Name: Styling
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &180994384
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 180994383}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1314565758}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &180994385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 180994383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b54e6a0b51e04f4db3f8ac4ba0ada9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stylingManager: {fileID: 180994386}
+  ImmersionGraphSize: 1
+  DeskGraphSize: 1
+  WatchGraphSize: 1
+  LensGraphSize: 1
+  NodeSizeImmersion: 1
+  NodeSizeDesk: 1
+  NodeSizeWatch: 1
+  NodeSizeLens: 1
+  NodeMinSizeImmersion: 0.8
+  NodeMaxSizeImmersion: 0.8
+  NodeMinSizeDesk: 0.8
+  NodeMaxSizeDesk: 0.8
+  NodeMinSizeLens: 0.8
+  NodeMaxSizeLens: 0.8
+  LabelNodeSizeImmersion: 1
+  LabelNodeSizeDesk: 1
+  LabelNodeSizeLens: 1
+  ShowLabelImmersion: 1
+  ShowLabelDesk: 1
+  ShowLabelLens: 1
+  NodeColor: {r: 1, g: 0, b: 0, a: 1}
+  NodeMappingAColor: {r: 0, g: 0, b: 0, a: 0}
+  NodeMappingBColor: {r: 0, g: 0, b: 0, a: 0}
+  NodeMappingCColor: {r: 0, g: 0, b: 0, a: 0}
+  AlphaNodeColorPropagated: 1
+  AlphaNodeColorUnPropagated: 1
+  BoundaryColorA: 0
+  BoundaryColorB: 0
+  BoundaryColorC: 0
+  NbOntologyColor: 0
+  MaxDeltaOntologyAlgo: 0
+  SaturationOntologyColor: 0
+  ValueOntologyColor: 0
+  NodeColorNoValueMetric: {r: 0, g: 0, b: 0, a: 0}
+  EdgeColor: {r: 0, g: 0, b: 0, a: 0}
+  PropagatedEdgeColor: {r: 0, g: 0, b: 0, a: 0}
+  AlphaEdgeColorPropagated: 1
+  AlphaEdgeColorUnPropagated: 1
+  EdgeThicknessImmersion: 1
+  EdgeThicknessDesk: 1
+  EdgeThicknessLens: 1
+  EdgeThicknessWatch: 1
+  CanSelectEdges: 0
+  DisplayEdges: 0
+  SelectedMetricTypeSize: 0
+  SelectedMetricTypeColor: 0
+  LabelNodgePropagation: 1
+  ResetPositionNodeOnUpdate: 1
+  SeedRandomPosition: 0
+  GraphModeTransitionTime: 1
+  DisplayInterSelectedNeighborEdges: 0
+  ShowWatch: 1
+--- !u!114 &180994386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 180994383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 798244e0b2624a84ea179ec6f6889bbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _graphManager: {fileID: 1187437327}
+  _graphStyling: {fileID: 180994387}
+  _subGraph: {fileID: 1187437334}
+  _labelNodgeManagerUI: {fileID: 1396796587}
+--- !u!114 &180994387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 180994383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b66c3fe33c438fd4bb2225fa38ce5114, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _easingType: 6
+  _graphManager: {fileID: 1187437327}
+  _nodgeSelectionManager: {fileID: 1219762323}
 --- !u!1 &222157651
 GameObject:
   m_ObjectHideFlags: 0
@@ -1907,7 +2037,6 @@ GameObject:
   - component: {fileID: 1187437327}
   - component: {fileID: 1187437335}
   - component: {fileID: 1187437334}
-  - component: {fileID: 1187437328}
   - component: {fileID: 1187437332}
   - component: {fileID: 1187437331}
   - component: {fileID: 1187437333}
@@ -1933,27 +2062,12 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphSimulation: {fileID: 1810606790}
   _graphUI: {fileID: 1396796583}
-  _graphStyling: {fileID: 1187437328}
+  _stylingManager: {fileID: 180994386}
   _mainGraph: {fileID: 1187437335}
   _subGraph: {fileID: 1187437334}
   _nodgeSelectionManager: {fileID: 1219762323}
   _nodgePool: {fileID: 1187437331}
   _dynamicFilterManager: {fileID: 1187437333}
---- !u!114 &1187437328
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1187437326}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b66c3fe33c438fd4bb2225fa38ce5114, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _easingType: 6
-  _graphManager: {fileID: 1187437327}
-  _nodgeSelectionManager: {fileID: 1219762323}
 --- !u!4 &1187437330
 Transform:
   m_ObjectHideFlags: 0
@@ -2012,7 +2126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _graphManager: {fileID: 1187437327}
   _nodeSelectionManager: {fileID: 1219762323}
-  _graphStyling: {fileID: 1187437328}
+  _stylingManager: {fileID: 180994386}
   _nodgePool: {fileID: 1187437331}
 --- !u!114 &1187437334
 MonoBehaviour:
@@ -2310,6 +2424,7 @@ Transform:
   - {fileID: 1187437330}
   - {fileID: 1219762320}
   - {fileID: 1810606791}
+  - {fileID: 180994384}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2324,7 +2439,6 @@ GameObject:
   - component: {fileID: 1396796584}
   - component: {fileID: 1396796583}
   - component: {fileID: 1396796586}
-  - component: {fileID: 1396796585}
   - component: {fileID: 1396796587}
   m_Layer: 0
   m_Name: UI
@@ -2363,74 +2477,6 @@ Transform:
   m_Father: {fileID: 1314565758}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1396796585
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1396796582}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b54e6a0b51e04f4db3f8ac4ba0ada9d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _graphManager: {fileID: 1187437327}
-  _graphStyling: {fileID: 1187437328}
-  _subGraph: {fileID: 1187437334}
-  _labelNodgeManagerUI: {fileID: 1396796587}
-  ImmersionGraphSize: 1
-  DeskGraphSize: 1
-  WatchGraphSize: 1
-  LensGraphSize: 1
-  NodeSizeImmersion: 1
-  NodeSizeDesk: 1
-  NodeSizeWatch: 1
-  NodeSizeLens: 1
-  NodeMinSizeImmersion: 0.8
-  NodeMaxSizeImmersion: 0.8
-  NodeMinSizeDesk: 0.8
-  NodeMaxSizeDesk: 0.8
-  NodeMinSizeLens: 0.8
-  NodeMaxSizeLens: 0.8
-  LabelNodeSizeImmersion: 1
-  LabelNodeSizeDesk: 1
-  LabelNodeSizeLens: 1
-  ShowLabelImmersion: 1
-  ShowLabelDesk: 1
-  ShowLabelLens: 1
-  NodeColor: {r: 1, g: 0, b: 0, a: 1}
-  NodeMappingAColor: {r: 0, g: 0, b: 0, a: 0}
-  NodeMappingBColor: {r: 0, g: 0, b: 0, a: 0}
-  NodeMappingCColor: {r: 0, g: 0, b: 0, a: 0}
-  AlphaNodeColorPropagated: 1
-  AlphaNodeColorUnPropagated: 1
-  BoundaryColorA: 0
-  BoundaryColorB: 0
-  BoundaryColorC: 0
-  NbOntologyColor: 0
-  MaxDeltaOntologyAlgo: 0
-  SaturationOntologyColor: 0
-  ValueOntologyColor: 0
-  NodeColorNoOntology: {r: 0, g: 0, b: 0, a: 0}
-  EdgeColor: {r: 0, g: 0, b: 0, a: 0}
-  PropagatedEdgeColor: {r: 0, g: 0, b: 0, a: 0}
-  AlphaEdgeColorPropagated: 1
-  AlphaEdgeColorUnPropagated: 1
-  EdgeThicknessImmersion: 1
-  EdgeThicknessDesk: 1
-  EdgeThicknessLens: 1
-  EdgeThicknessWatch: 1
-  CanSelectEdges: 0
-  DisplayEdges: 0
-  SelectedMetricTypeSize: 0
-  SelectedMetricTypeColor: 0
-  LabelNodgePropagation: 1
-  ResetPositionNodeOnUpdate: 1
-  SeedRandomPosition: 0
-  GraphModeTransitionTime: 1
-  DisplayInterSelectedNeighborEdges: 0
-  ShowWatch: 1
 --- !u!114 &1396796586
 MonoBehaviour:
   m_ObjectHideFlags: 0

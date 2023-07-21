@@ -33,7 +33,7 @@ public class GraphManager : MonoBehaviour
     GraphUI _graphUI;
 
     [SerializeField]
-    GraphStyling _graphStyling;
+    StylingManager _stylingManager;
 
     [SerializeField]
     MainGraph _mainGraph;
@@ -80,7 +80,7 @@ public class GraphManager : MonoBehaviour
         string queryString = _sparqlBuilder.Build();
         var nodges = await NodgesHelper.RetrieveGraph(queryString, _graphRepo);
 
-        _graph = new Graph(this, _graphStyling, nodges, _nodgePool, _graphRepo);
+        _graph = new Graph(this, _stylingManager, nodges, _nodgePool, _graphRepo);
 
         _graph.CalculateMetrics(graphRepoUris);
 

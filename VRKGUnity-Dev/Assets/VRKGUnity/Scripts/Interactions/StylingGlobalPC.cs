@@ -3,16 +3,7 @@ using UnityEngine;
 public class StylingGlobalPC : MonoBehaviour
 {
     [SerializeField]
-    GraphManager _graphManager;
-
-    [SerializeField]
-    GraphStyling _graphStyling;
-
-    [SerializeField]
-    SubGraph _subGraph;
-
-    [SerializeField]
-    LabelNodgeManagerUI _labelNodgeManagerUI;
+    StylingManager _stylingManager;
 
     [Space(10)]
     [Header("/!\\ Values will be reset in play mode. \nUseless to change them in Edit Mode.\nChange the values in the SO")]
@@ -217,26 +208,6 @@ public class StylingGlobalPC : MonoBehaviour
         DisplayInterSelectedNeighborEdges = _graphConfig.DisplayInterSelectedNeighborEdges;
 
         ShowWatch = _graphConfig.ShowWatch;
-    }
-
-
-    public void UpdateStyling(StyleChange styleChange, GraphMode graphMode)
-    {
-        if (_graphConfig == null)
-            return;
-
-        if (styleChange.HasChanged(StyleChange.Label))
-            _labelNodgeManagerUI.StyleLabels(styleChange);
-        
-
-        if (styleChange.HasChanged(StyleChange.SubGraph)
-            && styleChange.HasChanged(StyleChange.ImmersionMode)
-            && styleChange.HasChanged(StyleChange.Visibility))
-            _subGraph.SwitchWatchVisibility();
-
-        _graphStyling.StyleGraph(styleChange, graphMode);
-
-        _ = _graphConfig.Save();
     }
 
     private void OnValidate()
@@ -710,6 +681,6 @@ public class StylingGlobalPC : MonoBehaviour
 
 
 
-        UpdateStyling(styleChange, _graphManager.GraphMode);
+        _stylingManager.UpdateStyling(styleChange);
     }
 }

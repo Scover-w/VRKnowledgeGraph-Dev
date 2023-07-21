@@ -12,7 +12,7 @@ public class DynamicFilterManager : MonoBehaviour
     NodgeSelectionManager _nodeSelectionManager;
 
     [SerializeField]
-    GraphStyling _graphStyling;
+    StylingManager _stylingManager;
 
     [SerializeField]
     NodgePool _nodgePool;
@@ -139,7 +139,7 @@ public class DynamicFilterManager : MonoBehaviour
         _graphManager.Graph.CancelFilter(filterToCancel);
 
         StyleChange styleChange = StyleChange.All;
-        _graphStyling.StyleGraph(styleChange, _graphManager.GraphMode);
+        _stylingManager.UpdateStyling(styleChange);
     }
 
     public List<SPARQLQuery> ApplyFilters()

@@ -23,7 +23,7 @@ public class Graph
     readonly GraphConfiguration _graphConfiguration;
     readonly GraphDbRepository _repository;
     readonly GraphManager _graphManager;
-    readonly GraphStyling _graphStyling;
+    readonly StylingManager _stylingManager;
     readonly NodgePool _nodgePool;
 
     readonly Transform _mainGraphTf;
@@ -42,7 +42,7 @@ public class Graph
     int _metricsCalculated;
 
     #region NodgesUpdateOrCreation
-    public Graph(GraphManager graphManager, GraphStyling graphStyling, NodgesDicUID nodges, NodgePool nodgePool, GraphDbRepository repository)
+    public Graph(GraphManager graphManager, StylingManager stylingManager, NodgesDicUID nodges, NodgePool nodgePool, GraphDbRepository repository)
     {
         _nodesDicUID = nodges.NodesDicUID; 
         _edgesDicUID = nodges.EdgesDicUID;
@@ -51,7 +51,7 @@ public class Graph
 
 
         _graphConfiguration = _graphManager.GraphConfiguration;
-        _graphStyling = graphStyling;
+        _stylingManager = stylingManager;
         _graphDatasForASP = new();
 
         _subGraphTf = _graphManager.SubGraph.Tf;
@@ -394,7 +394,7 @@ public class Graph
 
         await semaphore.WaitAsync();
 
-        _graphStyling.StyleGraph(StyleChange.All, _graphManager.GraphMode);
+        _stylingManager.UpdateStyling(StyleChange.All);
 
 
         void CalculateMetric(Action metricCalculation)

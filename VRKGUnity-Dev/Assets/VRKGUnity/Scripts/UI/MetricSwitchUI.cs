@@ -16,7 +16,7 @@ public class MetricSwitchUI : MonoBehaviour
     TMP_Dropdown _dropdownColor;
 
     [SerializeField]
-    GraphStyling _graphStyling;
+    StylingManager _stylingManager;
 
     GraphConfiguration _graphConfig;
 
@@ -45,7 +45,7 @@ public class MetricSwitchUI : MonoBehaviour
                                                 .Add(StyleChange.Node)
                                                 .Add(StyleChange.Size);
 
-        _graphStyling.StyleGraph(styleChange, _graphManager.GraphMode);
+        _stylingManager.UpdateStyling(styleChange);
 
         await _graphConfig.Save();
     }
@@ -65,7 +65,7 @@ public class MetricSwitchUI : MonoBehaviour
                                                 .Add(StyleChange.Node)
                                                 .Add(StyleChange.Color);
 
-        _graphStyling.StyleGraph(styleChange, _graphManager.GraphMode);
+        _stylingManager.UpdateStyling(styleChange);
 
 
         await _graphConfig.Save();
