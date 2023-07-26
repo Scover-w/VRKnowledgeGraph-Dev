@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 7dd916d5b19cf4f4085405bbcb5169bc
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Satoshi Variable
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 41c3bf5975352dc448dc2484452acc23, type: 3}
+  - {fileID: 12800000, guid: 379566d24e6307541a2245f3e364df53, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

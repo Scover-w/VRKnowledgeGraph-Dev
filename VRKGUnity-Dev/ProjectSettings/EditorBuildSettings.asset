@@ -5,6 +5,9 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+  - enabled: 1
+    path: Assets/VRKGUnity/Scenes/Tests/CanvasSize.unity
+    guid: 6555ec4c712eaf34c9917b02e3b456c3
   - enabled: 0
     path: Assets/VRKGUnity/Scenes/Tests/VR_RelativeScaleSet.unity
     guid: c26d4ad23b3dddb47a5c067a95ef20fa
