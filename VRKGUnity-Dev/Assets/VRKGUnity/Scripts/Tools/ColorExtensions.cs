@@ -31,4 +31,19 @@ public static class ColorExtensions
                                 color.a);
         return lightenedColor;
     }
+
+    public static Color New(string hexColor)
+    {
+        if (hexColor.IndexOf('#') != -1)
+            hexColor = hexColor.Replace("#", "");
+
+        if (hexColor.Length != 6)
+            return Color.white;
+
+        byte r = byte.Parse(hexColor.Substring(0, 2), System.Globalization.NumberStyles.HexNumber);
+        byte g = byte.Parse(hexColor.Substring(2, 2), System.Globalization.NumberStyles.HexNumber);
+        byte b = byte.Parse(hexColor.Substring(4, 2), System.Globalization.NumberStyles.HexNumber);
+
+        return new Color32(r, g, b, 255);
+    }
 }

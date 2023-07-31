@@ -12,4 +12,9 @@ public class Settings
 #endif
 
     public static readonly GraphMode DEFAULT_GRAPH_MODE = GraphMode.Desk;
+
+
+    public static readonly float TOUCH_RADIUS = .05f;
+
+
 }
