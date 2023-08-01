@@ -1,24 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class TriggerTest : MonoBehaviour
+public class Trigger : MonoBehaviour
 {
     [SerializeField]
-    bool _isProximity;
+    UnityEvent _onTriggerEnter;
 
     [SerializeField]
-    PhysicalButtonUI _physicalBtnTest;
-
+    UnityEvent _onTriggerExit;
 
     private void OnTriggerEnter(Collider other)
     {
-        _physicalBtnTest.TriggerEnter(_isProximity, other);
+        _onTriggerEnter?.Invoke();
     }
 
     private void OnTriggerExit(Collider other)
     {
-        _physicalBtnTest.TriggerExit(_isProximity, other);
+        _onTriggerExit?.Invoke();
     }
-
 }

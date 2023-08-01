@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - ProximityUI
+  - ActiveUI
   layers:
   - Default
   - TransparentFX
@@ -14,7 +16,7 @@ TagManager:
   - Node
   - Edge
   - Teleport
-  - 
+  - TouchUI
   - 
   - 
   - 
