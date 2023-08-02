@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class PhysicalButtonUI : MonoBehaviour
+public class PhysicalButtonUI : MonoBehaviour, IPhysicalUI
 {
     [SerializeField]
     List<InteractiveColorImage> _interactiveImgs;
@@ -20,19 +20,7 @@ public class PhysicalButtonUI : MonoBehaviour
     bool _canClick = true;
 
 
-    private void TryClick()
-    {
-        if (!_canClick)
-            return;
-
-        _canClick = false;
-        SetFrontColor(InteractionState.Active);
-
-        if (_touchInter != null)
-            _touchInter.ActiveBtn(true, this);
-
-        _onClick?.Invoke();
-    }
+    
 
     public void TriggerEnter(bool isProximity, Collider touchCollider)
     {
@@ -40,7 +28,7 @@ public class PhysicalButtonUI : MonoBehaviour
         {
             _touchTf = touchCollider.transform.parent;
             _touchInter = _touchTf.GetComponent<TouchInteraction>();
-            SetFrontColor(InteractionState.InProximity);
+            UpdateColor(InteractionStateUI.InProximity);
         }
         else if(!isProximity && touchCollider.CompareTag(Tags.ActiveUI))
         {
@@ -49,36 +37,50 @@ public class PhysicalButtonUI : MonoBehaviour
         
     }
 
+    private void TryClick()
+    {
+        if (!_canClick)
+            return;
+
+        _canClick = false;
+        UpdateColor(InteractionStateUI.Active);
+
+        if (_touchInter != null)
+            _touchInter.ActiveBtn(true, this);
+
+        _onClick?.Invoke();
+    }
+
     public void TriggerExit(bool isProximity, Collider touchCollider)
     {
         if(isProximity && touchCollider.CompareTag(Tags.ProximityUI))
         {
             _canClick = true;
-            SetFrontColor(InteractionState.Normal);
+            UpdateColor(InteractionStateUI.Normal);
         }
         else if (!isProximity && touchCollider.CompareTag(Tags.ActiveUI))
         {
             if (_touchInter != null && !_canClick)
                 _touchInter.ActiveBtn(false, this);
 
-            SetFrontColor(InteractionState.Normal);
+            UpdateColor(InteractionStateUI.Normal);
         }
        
     }
 
-    private void SetFrontColor(InteractionState interactionState)
+    private void UpdateColor(InteractionStateUI interactionState)
     {
         foreach(var interactionColor in _interactiveImgs)
         {
             switch (interactionState)
             {
-                case InteractionState.Normal:
+                case InteractionStateUI.Normal:
                     interactionColor.Img.color = interactionColor.NormalColor;
                     break;
-                case InteractionState.InProximity:
+                case InteractionStateUI.InProximity:
                     interactionColor.Img.color = interactionColor.ProximityColor;
                     break;
-                case InteractionState.Active:
+                case InteractionStateUI.Active:
                     interactionColor.Img.color = interactionColor.ActivatedColor;
                     break;
             }
@@ -98,36 +100,37 @@ public class PhysicalButtonUI : MonoBehaviour
             interactiveImg.Name = (img == null) ? "None" : img.name;
         }
     }
+
+    [Serializable]
+    public class InteractiveColorImage
+    {
+        public Image Img { get { return _img; } }
+        public Color NormalColor { get { return _normalColor; } }
+        public Color ProximityColor { get { return _proximityColor; } }
+        public Color ActivatedColor { get { return _activatedColor; } }
+
+        [HideInInspector]
+        public string Name;
+
+        [SerializeField]
+        Image _img;
+
+        [SerializeField]
+        Color _normalColor;
+
+        [SerializeField]
+        Color _proximityColor;
+
+        [SerializeField]
+        Color _activatedColor;
+    }
 }
 
 
-public enum InteractionState
+public enum InteractionStateUI
 {
     Normal,
     InProximity,
     Active
 }
 
-[Serializable]
-public class InteractiveColorImage
-{
-    public Image Img { get { return _img; } }
-    public Color NormalColor { get { return _normalColor; } }
-    public Color ProximityColor { get { return _proximityColor; } }
-    public Color ActivatedColor { get { return _activatedColor; } }
-
-    [HideInInspector]
-    public string Name;
-
-    [SerializeField]
-    Image _img;
-
-    [SerializeField]
-    Color _normalColor;
-
-    [SerializeField]
-    Color _proximityColor;
-
-    [SerializeField]
-    Color _activatedColor;
-}

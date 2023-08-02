@@ -16,7 +16,7 @@ public class TouchInteraction : MonoBehaviour
     [SerializeField]
     MeshRenderer _renderer;
 
-    HashSet<PhysicalButtonUI> _activeButtons;
+    HashSet<MonoBehaviour> _activeButtons;
 
     Material _sharedMat;
 
@@ -42,7 +42,7 @@ public class TouchInteraction : MonoBehaviour
         UpdateColor();
     }
 
-    public void ActiveBtn(bool doActive, PhysicalButtonUI button)
+    public void ActiveBtn(bool doActive, MonoBehaviour button)
     {
         if (doActive && !_activeButtons.Contains(button))
         {
@@ -66,5 +66,10 @@ public class TouchInteraction : MonoBehaviour
             _sharedMat.color = _activeColor;
         else
             _sharedMat.color = _proximityColor;
+    }
+
+    private void OnDisable()
+    {
+        _sharedMat.color = _normalColor;
     }
 }
