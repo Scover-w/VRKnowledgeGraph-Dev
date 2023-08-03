@@ -48,7 +48,7 @@ public class PhysicalNumberUI : MonoBehaviour, IPhysicalUI
             return;
 
         var options = CreateKeyboardOptions();
-        bool succeedUsingKeyboard = KeyboardControllerUI.DisplayNumpad(options);
+        bool succeedUsingKeyboard = KeyboardControllerUI.Display(options);
 
         if (!succeedUsingKeyboard)
             return;
@@ -97,39 +97,35 @@ public class PhysicalNumberUI : MonoBehaviour, IPhysicalUI
         }
     }
 
-    public void OnUpdateInput(string input)
+    public void OnUpdateInput(object input)
     {
-        _label.text = input;
-        
-        if(float.TryParse(input, out float newValue))
-            _value = newValue;
-        else
-            _value = 0f;
-        
+        if (input is not string)
+            return;
+
+        _label.text = input.ToString();
     }
 
-    public void OnEnterInput(string input)
+    public void OnEnterInput(object input)
     {
-        _label.text = input;
-
-        if (float.TryParse(input, out float newValue))
-            _value = newValue;
-        else
+        if (input is not float)
             _value = 0f;
+        else
+            _value = (float)input;
+
+        _label.text = _value.ToString();
 
         _isActive = false;
         UpdateColor(InteractionStateUI.Normal);
     }
 
-    private KeyboardUIOptions CreateKeyboardOptions()
+    private KeyboardUIOptions<float> CreateKeyboardOptions()
     {
-        KeyboardUIOptions options = new(_keyboardPositionTf.position,
+
+        return new KeyboardUIOptions<float>(_keyboardPositionTf.position,
                                         _keyboardAlignment,
                                         OnUpdateInput,
                                         OnEnterInput,
-                                        _value.ToString());
-
-        return options;
+                                        _value);
     }
 
 }

@@ -62,7 +62,7 @@ public class PhysicalInputUI : MonoBehaviour, IPhysicalUI
             return;
 
         var options = CreateKeyboardOptions();
-        bool succeedUsingKeyboard = KeyboardControllerUI.DisplayKeyboard(options);
+        bool succeedUsingKeyboard = KeyboardControllerUI.Display(options);
 
         if (!succeedUsingKeyboard)
             return;
@@ -111,16 +111,16 @@ public class PhysicalInputUI : MonoBehaviour, IPhysicalUI
         }
     }
 
-    public void OnUpdateInput(string input)
+    public void OnUpdateInput(object input)
     {
-        _value = input;
+        _value = (string)input;
         DisplayValue();
 
     }
 
-    public void OnEnterInput(string input)
+    public void OnEnterInput(object input)
     {
-        _value = input;
+        _value = (string)input;
         DisplayValue();
 
         _isActive = false;
@@ -140,14 +140,12 @@ public class PhysicalInputUI : MonoBehaviour, IPhysicalUI
         _inputText.color = _normalTextColor;
     }
 
-    private KeyboardUIOptions CreateKeyboardOptions()
+    private KeyboardUIOptions<string> CreateKeyboardOptions()
     {
-        KeyboardUIOptions options = new(_keyboardPositionTf.position,
+        return new KeyboardUIOptions<string> (_keyboardPositionTf.position,
                                         _keyboardAlignment,
                                         OnUpdateInput,
                                         OnEnterInput,
-                                        _value.ToString());
-
-        return options;
+                                        _value);
     }
 }

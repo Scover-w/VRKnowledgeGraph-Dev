@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem.EnhancedTouch;
+using UnityEngine.Events;
 using UnityEngine.UI;
-using static PhysicalTabControllerUI;
 
 public class PhysicalSliderUI : MonoBehaviour, IPhysicalUI
 {
@@ -26,18 +25,38 @@ public class PhysicalSliderUI : MonoBehaviour, IPhysicalUI
     [SerializeField]
     TMP_Text _label;
 
-    public float MinValue = 0f;
-    public float MaxValue = 1f;
+    [SerializeField]
+    SliderType _sliderType;
+
+    [SerializeField]
+    bool _alwaysDisplayValue = false;
+
+    [SerializeField]
+    [Range(0f, 1f)]
+    float _value = .5f;
+
+    [SerializeField]
+    float _minValue = 0f;
+    [SerializeField]
+    float _maxValue = 1f;
+
+    [SerializeField,Space(10)]
+    UnityEvent<float> _onChangedValue;
+    
 
     Transform _touchTf;
     TouchInteraction _touchInter;
 
-    public float Value = .5f;
     private bool _isMovingKnob = false;
+    bool _isWidth;
+    float _lengthSlider;
 
     private void Start()
     {
-        _label.enabled = false;
+        _label.enabled = _alwaysDisplayValue;
+        _isWidth = _sliderType == SliderType.Horizontal;
+
+        _lengthSlider = _isWidth ? _sliderRectTf.rect.width : _sliderRectTf.rect.height;
     }
 
     public void TriggerEnter(bool isProximity, Collider touchCollider)
@@ -54,7 +73,7 @@ public class PhysicalSliderUI : MonoBehaviour, IPhysicalUI
 
             _isMovingKnob = true;
             _label.enabled = true;
-            _label.text = Mathf.Lerp(MinValue, MaxValue, Value).ToString();
+            _label.text = Mathf.Lerp(_minValue, _maxValue, _value).ToString();
 
             if (_touchInter != null)
                 _touchInter.ActiveBtn(true, this);
@@ -75,7 +94,10 @@ public class PhysicalSliderUI : MonoBehaviour, IPhysicalUI
                 _touchInter.ActiveBtn(false, this);
 
             _isMovingKnob = false;
-            _label.enabled = false;
+
+            if(!_alwaysDisplayValue)
+                _label.enabled = false;
+
             UpdateColor(InteractionStateUI.Normal);
 
             // TODO : Refresh value
@@ -124,38 +146,63 @@ public class PhysicalSliderUI : MonoBehaviour, IPhysicalUI
 
         Vector3 localVector = _sliderRectTf.InverseTransformPoint(worldProjectedPoint);
 
-        float widthSlider = _sliderRectTf.rect.width;
+        
+        float positionFromVirtualAnchor = (_lengthSlider * .5f) + (_isWidth ? localVector.x : localVector.y);
 
-        float xPositionFromLeft = (widthSlider * .5f) + localVector.x;
+        float value = positionFromVirtualAnchor / _lengthSlider;
 
-        float normalizedX = xPositionFromLeft / widthSlider;
+        if (value < 0f)
+            value = 0f;
+        else if (value > 1f)
+            value = 1f;
 
-        if (normalizedX < 0f)
-            normalizedX = 0f;
-        else if (normalizedX > 1f)
-            normalizedX = 1f;
-
-        Value = normalizedX;
-
-        UpdateValue();
+        _value = value;
     }
 
     private void UpdateValue()
     {
-        float widthRect = _sliderRectTf.rect.width;
-        float widthValue = widthRect * Value;
+        float positionFromVirtualAnchor = _lengthSlider * _value;
 
-        _knobRectTf.localPosition = new Vector3(widthValue - widthRect * .5f, 0f, 0f);
+        if(_isWidth)
+            _knobRectTf.localPosition = new Vector3(positionFromVirtualAnchor - _lengthSlider * .5f, 0f, 0f);
+        else
+            _knobRectTf.localPosition = new Vector3(0f, positionFromVirtualAnchor - _lengthSlider * .5f, 0f);
+
         Vector2 sizeDelta = _sliderFilledRectTf.sizeDelta;
-        sizeDelta.x = widthValue;
+
+        if (_isWidth)
+            sizeDelta.x = positionFromVirtualAnchor;
+        else
+            sizeDelta.y = positionFromVirtualAnchor;
+
         _sliderFilledRectTf.sizeDelta = sizeDelta;
 
-        _label.text = Mathf.Lerp(MinValue, MaxValue, Value).ToString("0.##");
+        float uNormalizedValue = Mathf.Lerp(_minValue, _maxValue, _value);
+
+        _label.text = uNormalizedValue.ToString("0.##");
+
+        _onChangedValue?.Invoke(uNormalizedValue);
+    }
+
+    public void SetNewValue(float normalizedValue)
+    {
+        _value = normalizedValue;
+        UpdateValue();
     }
 
     private void OnValidate()
     {
+
+        _isWidth = _sliderType == SliderType.Horizontal;
+        _lengthSlider = _isWidth ? _sliderRectTf.rect.width : _sliderRectTf.rect.height;
+
         UpdateValue();
         
+    }
+
+    public enum SliderType
+    {
+        Horizontal,
+        Vertical
     }
 }

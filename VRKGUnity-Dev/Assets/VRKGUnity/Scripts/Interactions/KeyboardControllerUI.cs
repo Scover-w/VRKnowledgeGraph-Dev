@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -22,20 +23,26 @@ public class KeyboardControllerUI : MonoBehaviour
     [SerializeField]
     NumpadUI _numpadUI;
 
-    public delegate void UpdateInput(string input);
-    public delegate void EnterInput(string input);
+    [SerializeField]
+    ColorPickerUI _colorPickerUI;
+
+    public delegate void UpdateInput(object input);
+    public delegate void EnterInput(object input);
 
     UpdateInput OnUpdateInput;
     EnterInput OnEnterInput;
 
     GameObject _keyboardGo;
     GameObject _numpadGo;
+    GameObject _colorpickerGo;
 
     Transform _camTf;
 
+    KeyboardType _usedKeyboard;
 
     bool _isUsed = false;
-    string _oldInputValue;
+
+    object _oldInputValue;
 
 
     private void Start()
@@ -50,6 +57,7 @@ public class KeyboardControllerUI : MonoBehaviour
 
         _keyboardGo = _keyboardUI.gameObject;
         _numpadGo = _numpadUI.gameObject;
+        _colorpickerGo = _colorPickerUI.gameObject;
 
         _camTf = _referenceHolderSo.HMDCamSA.Value != null ? _referenceHolderSo.HMDCamSA.Value.transform : null;
 
@@ -57,62 +65,59 @@ public class KeyboardControllerUI : MonoBehaviour
     }
 
 
-    public static bool DisplayKeyboard(KeyboardUIOptions options)
+    public static bool Display<T>(KeyboardUIOptions<T> options)
     {
         if (_instance == null)
             return false;
 
-        return _instance.DisplayKeyboardUnstatic(options);
+        return _instance.DisplayUnstatic(options);
     }
 
-    public static bool DisplayNumpad(KeyboardUIOptions options)
-    {
-        if (_instance == null)
-            return false;
-
-        return _instance.DisplayNumpadUnstatic(options);
-    }
-
-    public bool DisplayKeyboardUnstatic(KeyboardUIOptions options)
+    public bool DisplayUnstatic<T>(KeyboardUIOptions<T> options)
     {
         if (_isUsed)
             return false;
 
-        _isUsed = true;
-        SetOptions(options);
-        Align(options.Alignment, true);
-        UpdateTf(options.Position);
-
-        _keyboardGo.SetActive(true);
-
-        return true;
-    }
-
-    public bool DisplayNumpadUnstatic(KeyboardUIOptions options)
-    {
-        if (_isUsed)
+        if (!UpdateUsedKeyboard(options))
             return false;
 
         _isUsed = true;
         SetOptions(options);
-        Align(options.Alignment, false);
+        Align(options.Alignment);
         UpdateTf(options.Position);
 
-        _numpadGo.SetActive(true);
+        DisplaySelected();
 
         return true;
     }
 
-    private void SetOptions(KeyboardUIOptions options)
+    private bool UpdateUsedKeyboard<T>(KeyboardUIOptions<T> options)
+    {
+        var typeValue = typeof(T);
+
+        if (typeValue == typeof(string))
+            _usedKeyboard = KeyboardType.Keyboard;
+        else if (typeValue == typeof(float))
+            _usedKeyboard = KeyboardType.Numpad;
+        else if (typeValue == typeof(Color))
+            _usedKeyboard = KeyboardType.ColorPicker;
+        else
+            return false;
+
+        return true;
+    }
+
+    private void SetOptions<T>(KeyboardUIOptions<T> options)
     {
         OnUpdateInput = options.UpdateInput; 
         OnEnterInput = options.EnterInput;
+
         _oldInputValue = options.CurrentInputValue;
     }
 
-    private void Align(KeyboardAlignment alignement, bool isKeyboard)
+    private void Align(KeyboardAlignment alignement)
     {
-        Transform tf = isKeyboard? _keyboardGo.transform : _numpadGo.transform;
+        Transform tf = GetSelectedTransform();
 
         if (alignement == KeyboardAlignment.Center)
         {
@@ -126,6 +131,37 @@ public class KeyboardControllerUI : MonoBehaviour
         tf.localPosition = new Vector3(width * rectTf.localScale.x * .5f * ((alignement == KeyboardAlignment.Left) ? -1f : 1f), 0, 0);
     }
 
+    private Transform GetSelectedTransform()
+    {
+        switch (_usedKeyboard)
+        {
+            case KeyboardType.Keyboard:
+                return _keyboardGo.transform;
+            case KeyboardType.Numpad:
+                return _numpadGo.transform;
+            case KeyboardType.ColorPicker:
+                return _colorpickerGo.transform;
+            default:
+                return _keyboardGo.transform;
+        }
+    }
+
+    private void DisplaySelected()
+    {
+        switch (_usedKeyboard)
+        {
+            case KeyboardType.Keyboard:
+                _keyboardGo.SetActive(true);
+                break;
+            case KeyboardType.Numpad:
+                _numpadGo.SetActive(true);
+                break;
+            case KeyboardType.ColorPicker:
+                _colorpickerGo.SetActive(true);
+                break;
+        }
+    }
+
     private void UpdateTf(Vector3 position)
     {
         _keyboardTf.position = position;
@@ -136,14 +172,17 @@ public class KeyboardControllerUI : MonoBehaviour
         _keyboardTf.LookAt(_camTf.transform);
     }
 
-    public void UpdateInputValue(string inputValue)
+    public void UpdateInputValue(object inputValue)
     {
         OnUpdateInput?.Invoke(inputValue);
     }
 
-    public void EnterInputValue(string inputValue)
+    public void EnterInputValue(object inputValue)
     {
-        OnEnterInput?.Invoke(inputValue);
+        if(inputValue is bool) // Numpad couldn't parse the float
+            OnEnterInput?.Invoke(_oldInputValue);
+        else
+            OnEnterInput?.Invoke(inputValue);
 
         _isUsed = false;
         HideKeyboards();
@@ -161,6 +200,7 @@ public class KeyboardControllerUI : MonoBehaviour
     {
         _keyboardGo.SetActive(false);
         _numpadGo.SetActive(false);
+        _colorpickerGo.SetActive(false);
     }
 
     public enum KeyboardAlignment
@@ -169,9 +209,16 @@ public class KeyboardControllerUI : MonoBehaviour
         Center,
         Right
     }
+
+    private enum KeyboardType
+    {
+        Keyboard,
+        Numpad,
+        ColorPicker
+    }
 }
 
-public class KeyboardUIOptions
+public class KeyboardUIOptions<T>
 {
     public Vector3 Position { get; private set; }
     public KeyboardAlignment Alignment { get; private set; }
@@ -179,9 +226,9 @@ public class KeyboardUIOptions
     public UpdateInput UpdateInput { get; private set; }
     public EnterInput EnterInput { get; private set; }
 
-    public string CurrentInputValue { get; private set; }
+    public T CurrentInputValue { get; private set; }
 
-    public KeyboardUIOptions(Vector3 position, KeyboardAlignment alignment, UpdateInput updateInput, EnterInput enterInput, string currentInputValue)
+    public KeyboardUIOptions(Vector3 position, KeyboardAlignment alignment, UpdateInput updateInput, EnterInput enterInput, T currentInputValue)
     {
         Position = position;
         Alignment = alignment;

@@ -39,7 +39,14 @@ public class NumpadUI : MonoBehaviour
 
     public void OnEnter()
     {
-        _controllerUI.EnterInputValue(_inputValue);
+        if(float.TryParse(_inputValue, out float result))
+        {
+            _controllerUI.EnterInputValue(result);
+        }
+        else
+        {
+            _controllerUI.EnterInputValue(false);
+        }
     }
 
     public void OnClose()
