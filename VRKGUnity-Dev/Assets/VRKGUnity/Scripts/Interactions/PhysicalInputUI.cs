@@ -1,14 +1,10 @@
-using AngleSharp.Text;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using static PhysicalButtonUI;
-using UnityEngine.Events;
-using static PhysicalTabControllerUI;
 using UnityEngine.UI;
 
-public class PhysicalKeyUI : MonoBehaviour, IPhysicalUI
+public class PhysicalInputUI : MonoBehaviour, IPhysicalUI
 {
     [SerializeField]
     ColorStateUI _color;
@@ -17,43 +13,33 @@ public class PhysicalKeyUI : MonoBehaviour, IPhysicalUI
     Image _img;
 
     [SerializeField]
-    KeyboardUI _keyboardUI;
+    TMP_Text _inputText;
 
     [SerializeField]
-    TMP_Text _label;
+    Color _noValueTextColor;
 
     [SerializeField]
-    char _value;
-
-    [SerializeField,Space(10)]
-    UnityEvent _onClick;
+    Color _normalTextColor;
 
     [SerializeField]
-    UnityEvent<char> _onKey;
+    Transform _keyboardPositionTf;
+
+    [SerializeField]
+    KeyboardControllerUI.KeyboardAlignment _keyboardAlignment;
+
+    [SerializeField]
+    string _noValueInfoText = "";
 
     Transform _touchTf;
     TouchInteraction _touchInter;
 
-    bool _canClick = true;
+    string _value = "";
 
-    public void SetValue(char value)
+    bool _isActive = false;
+
+    private void OnEnable()
     {
-        _value = value;
-
-        if(_label != null)
-            _label.text = value.ToString();
-    }
-
-    public void ToLower()
-    {
-        if(_value.IsLetter())
-            _value = char.ToLower(_value);
-    }
-
-    public void ToUpper()
-    {
-        if (_value.IsLetter())
-            _value = char.ToUpper(_value);
+        DisplayValue();
     }
 
     public void TriggerEnter(bool isProximity, Collider touchCollider)
@@ -66,44 +52,51 @@ public class PhysicalKeyUI : MonoBehaviour, IPhysicalUI
         }
         else if (!isProximity && touchCollider.CompareTag(Tags.InteractionUI))
         {
-            TryClick();
+            TryActivate();
         }
     }
 
-    private void TryClick()
+    private void TryActivate()
     {
-        if (!_canClick)
+        if (_isActive)
             return;
 
-        _canClick = false;
+        var options = CreateKeyboardOptions();
+        bool succeedUsingKeyboard = KeyboardControllerUI.DisplayKeyboard(options);
+
+        if (!succeedUsingKeyboard)
+            return;
+
+        _isActive = true;
         UpdateColor(InteractionStateUI.Active);
 
         if (_touchInter != null)
             _touchInter.ActiveBtn(true, this);
-
-        _onClick?.Invoke();
-        _onKey?.Invoke(_value);
     }
 
     public void TriggerExit(bool isProximity, Collider touchCollider)
     {
         if (isProximity && touchCollider.CompareTag(Tags.ProximityUI))
         {
-            _canClick = true;
             UpdateColor(InteractionStateUI.Normal);
         }
         else if (!isProximity && touchCollider.CompareTag(Tags.InteractionUI))
         {
-            if (_touchInter != null && !_canClick)
+            if (_touchInter != null && _isActive)
                 _touchInter.ActiveBtn(false, this);
 
             UpdateColor(InteractionStateUI.Normal);
         }
-
     }
 
     private void UpdateColor(InteractionStateUI interactionState)
     {
+        if (_isActive)
+        {
+            _img.color = _color.ActivatedColor;
+            return;
+        }
+
         switch (interactionState)
         {
             case InteractionStateUI.Normal:
@@ -116,5 +109,45 @@ public class PhysicalKeyUI : MonoBehaviour, IPhysicalUI
                 _img.color = _color.ActivatedColor;
                 break;
         }
+    }
+
+    public void OnUpdateInput(string input)
+    {
+        _value = input;
+        DisplayValue();
+
+    }
+
+    public void OnEnterInput(string input)
+    {
+        _value = input;
+        DisplayValue();
+
+        _isActive = false;
+        UpdateColor(InteractionStateUI.Normal);
+    }
+
+    private void DisplayValue()
+    {
+        if (_value == null || _value.Length == 0 || _value == _noValueInfoText)
+        {
+            _inputText.text = _noValueInfoText;
+            _inputText.color = _noValueTextColor;
+            return;
+        }
+
+        _inputText.text = _value;
+        _inputText.color = _normalTextColor;
+    }
+
+    private KeyboardUIOptions CreateKeyboardOptions()
+    {
+        KeyboardUIOptions options = new(_keyboardPositionTf.position,
+                                        _keyboardAlignment,
+                                        OnUpdateInput,
+                                        OnEnterInput,
+                                        _value.ToString());
+
+        return options;
     }
 }

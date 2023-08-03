@@ -273,10 +273,10 @@ public class AIDENToolsEditor : MonoBehaviour
         sphereCol.radius = maxXY * .5f;
 
 
-        Transform activeTf = new GameObject("Active").transform;
+        Transform activeTf = new GameObject("Interaction").transform;
         ResetTf(activeTf);
 
-        activeTf.tag = Tags.ActiveUI;
+        activeTf.tag = Tags.InteractionUI;
         var boxCol = activeTf.AddComponent<BoxCollider>();
         boxCol.isTrigger = true;
         var triggerB = activeTf.AddComponent<TriggerPhysicalUI>();

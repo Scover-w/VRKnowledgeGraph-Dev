@@ -19,7 +19,7 @@ public class PhysicalTabUI : MonoBehaviour, IPhysicalUI
     Transform _touchTf;
     TouchInteraction _touchInter;
 
-    List<ColorTab> _currentColorTabs;
+    List<ColorStateUI> _currentColorStates;
 
     InteractionStateUI _interactionState;
 
@@ -30,16 +30,16 @@ public class PhysicalTabUI : MonoBehaviour, IPhysicalUI
         _interactionState = InteractionStateUI.Normal;
     }
 
-    public void Select(List<ColorTab> colorTabs)
+    public void Select(List<ColorStateUI> colorStates)
     {
-        _currentColorTabs = colorTabs;
+        _currentColorStates = colorStates;
         _pageToDisplayGo.SetActive(true);
         UpdateColor();
     }
 
-    public void UnSelect(List<ColorTab> colorTabs)
+    public void UnSelect(List<ColorStateUI> colorStates)
     {
-        _currentColorTabs = colorTabs;
+        _currentColorStates = colorStates;
         _pageToDisplayGo.SetActive(false);
         UpdateColor();
     }
@@ -51,7 +51,7 @@ public class PhysicalTabUI : MonoBehaviour, IPhysicalUI
         for (int i = 0; i < nbImage; i++)
         {
             Image img = _imgs[i];
-            ColorTab colorTab = _currentColorTabs[i];
+            ColorStateUI colorTab = _currentColorStates[i];
 
             switch (_interactionState)
             {
@@ -78,7 +78,7 @@ public class PhysicalTabUI : MonoBehaviour, IPhysicalUI
             _interactionState = InteractionStateUI.InProximity;
             UpdateColor();
         }
-        else if (!isProximity && touchCollider.CompareTag(Tags.ActiveUI))
+        else if (!isProximity && touchCollider.CompareTag(Tags.InteractionUI))
         {
             TryClick();
         }
@@ -93,7 +93,7 @@ public class PhysicalTabUI : MonoBehaviour, IPhysicalUI
             _interactionState = InteractionStateUI.Normal;
             UpdateColor();
         }
-        else if (!isProximity && touchCollider.CompareTag(Tags.ActiveUI))
+        else if (!isProximity && touchCollider.CompareTag(Tags.InteractionUI))
         {
             if (_touchInter != null && !_canClick)
                 _touchInter.ActiveBtn(false, this);

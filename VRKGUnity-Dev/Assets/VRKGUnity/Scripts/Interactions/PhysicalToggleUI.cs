@@ -8,10 +8,10 @@ using static PhysicalTabControllerUI;
 public class PhysicalToggleUI : MonoBehaviour, IPhysicalUI
 {
     [SerializeField]
-    List<ColorTab> _enabledColorTabs;
+    List<ColorStateUI> _enabledColorStates;
 
     [SerializeField]
-    List<ColorTab> _disabledColorTabs;
+    List<ColorStateUI> _disabledColorStates;
 
     [SerializeField]
     List<Image> _imgs;
@@ -42,7 +42,7 @@ public class PhysicalToggleUI : MonoBehaviour, IPhysicalUI
             _touchInter = _touchTf.GetComponent<TouchInteraction>();
             UpdateColor(InteractionStateUI.InProximity);
         }
-        else if (!isProximity && touchCollider.CompareTag(Tags.ActiveUI))
+        else if (!isProximity && touchCollider.CompareTag(Tags.InteractionUI))
         {
             TryClick();
         }
@@ -72,7 +72,7 @@ public class PhysicalToggleUI : MonoBehaviour, IPhysicalUI
             _canSwitch = true;
             UpdateColor(InteractionStateUI.Normal);
         }
-        else if (!isProximity && touchCollider.CompareTag(Tags.ActiveUI))
+        else if (!isProximity && touchCollider.CompareTag(Tags.InteractionUI))
         {
             if (_touchInter != null && !_canSwitch)
                 _touchInter.ActiveBtn(false, this);
@@ -83,25 +83,25 @@ public class PhysicalToggleUI : MonoBehaviour, IPhysicalUI
 
     private void UpdateColor(InteractionStateUI interactionState)
     {
-        var colorTabs = _isEnable ? _enabledColorTabs : _disabledColorTabs;
+        var colorStates = _isEnable ? _enabledColorStates : _disabledColorStates;
 
         int nbImg = _imgs.Count;
 
         for(int i = 0; i < nbImg; i++) 
         { 
             Image img = _imgs[i];
-            ColorTab colorTab = colorTabs[i];
+            ColorStateUI colorstate = colorStates[i];
 
             switch (interactionState)
             {
                 case InteractionStateUI.Normal:
-                    img.color = colorTab.NormalColor;
+                    img.color = colorstate.NormalColor;
                     break;
                 case InteractionStateUI.InProximity:
-                    img.color = colorTab.ProximityColor;
+                    img.color = colorstate.ProximityColor;
                     break;
                 case InteractionStateUI.Active:
-                    img.color = colorTab.ActivatedColor;
+                    img.color = colorstate.ActivatedColor;
                     break;
             }
         }

@@ -9,7 +9,7 @@ using static PhysicalTabControllerUI;
 public class PhysicalSliderUI : MonoBehaviour, IPhysicalUI
 {
     [SerializeField]
-    List<ColorTab> _colors;
+    List<ColorStateUI> _colors;
 
     [SerializeField]
     List<Image> _imgs;
@@ -48,7 +48,7 @@ public class PhysicalSliderUI : MonoBehaviour, IPhysicalUI
             _touchInter = _touchTf.GetComponent<TouchInteraction>();
             UpdateColor(InteractionStateUI.InProximity);
         }
-        else if (!isProximity && touchCollider.CompareTag(Tags.ActiveUI))
+        else if (!isProximity && touchCollider.CompareTag(Tags.InteractionUI))
         {
             UpdateColor(InteractionStateUI.Active);
 
@@ -69,7 +69,7 @@ public class PhysicalSliderUI : MonoBehaviour, IPhysicalUI
         {
             UpdateColor(InteractionStateUI.Normal);
         }
-        else if (!isProximity && touchCollider.CompareTag(Tags.ActiveUI))
+        else if (!isProximity && touchCollider.CompareTag(Tags.InteractionUI))
         {
             if (_touchInter != null)
                 _touchInter.ActiveBtn(false, this);
@@ -89,18 +89,18 @@ public class PhysicalSliderUI : MonoBehaviour, IPhysicalUI
         for (int i = 0; i < nbImage; i++)
         {
             Image img = _imgs[i];
-            ColorTab colorTab = _colors[i];
+            ColorStateUI colorState = _colors[i];
 
             switch (interactionState)
             {
                 case InteractionStateUI.Normal:
-                    img.color = colorTab.NormalColor;
+                    img.color = colorState.NormalColor;
                     break;
                 case InteractionStateUI.InProximity:
-                    img.color = colorTab.ProximityColor;
+                    img.color = colorState.ProximityColor;
                     break;
                 case InteractionStateUI.Active:
-                    img.color = colorTab.ActivatedColor;
+                    img.color = colorState.ActivatedColor;
                     break;
             }
         }

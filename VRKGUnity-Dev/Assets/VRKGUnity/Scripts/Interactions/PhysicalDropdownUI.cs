@@ -22,7 +22,7 @@ public class PhysicalDropdownUI : MonoBehaviour, IPhysicalUI
     GameObject _checkMarkGo;
     Transform _touchTf;
     TouchInteraction _touchInter;
-    ColorTab _colorTab;
+    ColorStateUI _colorState;
 
     bool _isSelected = false;
 
@@ -36,7 +36,7 @@ public class PhysicalDropdownUI : MonoBehaviour, IPhysicalUI
             _touchInter = _touchTf.GetComponent<TouchInteraction>();
             UpdateColor(InteractionStateUI.InProximity);
         }
-        else if (!isProximity && touchCollider.CompareTag(Tags.ActiveUI))
+        else if (!isProximity && touchCollider.CompareTag(Tags.InteractionUI))
         {
             TryClick();
         }
@@ -58,7 +58,7 @@ public class PhysicalDropdownUI : MonoBehaviour, IPhysicalUI
         {
             UpdateColor(InteractionStateUI.Normal);
         }
-        else if (!isProximity && touchCollider.CompareTag(Tags.ActiveUI))
+        else if (!isProximity && touchCollider.CompareTag(Tags.InteractionUI))
         {
             if (_touchInter != null)
                 _touchInter.ActiveBtn(false, this);
@@ -72,23 +72,23 @@ public class PhysicalDropdownUI : MonoBehaviour, IPhysicalUI
         switch (interactionState)
         {
             case InteractionStateUI.Normal:
-                _label.color = _colorTab.NormalColor;
-                _checkMarkImg.color = _colorTab.NormalColor;
+                _label.color = _colorState.NormalColor;
+                _checkMarkImg.color = _colorState.NormalColor;
                 break;
             case InteractionStateUI.InProximity:
-                _label.color = _colorTab.ProximityColor;
-                _checkMarkImg.color = _colorTab.ProximityColor;
+                _label.color = _colorState.ProximityColor;
+                _checkMarkImg.color = _colorState.ProximityColor;
                 break;
             case InteractionStateUI.Active:
-                _label.color = _colorTab.ActivatedColor;
-                _checkMarkImg.color = _colorTab.ActivatedColor;
+                _label.color = _colorState.ActivatedColor;
+                _checkMarkImg.color = _colorState.ActivatedColor;
                 break;
         }
     }
 
-    public void ResfreshValue(string value, ColorTab colorTab)
+    public void ResfreshValue(string value, ColorStateUI colorState)
     {
-        _colorTab = colorTab;
+        _colorState = colorState;
         UpdateColor(InteractionStateUI.Normal);
 
         _isSelected = (_value == value);

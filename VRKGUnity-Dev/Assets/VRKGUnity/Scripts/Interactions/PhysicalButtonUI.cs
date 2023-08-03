@@ -9,7 +9,10 @@ using UnityEngine.UI;
 public class PhysicalButtonUI : MonoBehaviour, IPhysicalUI
 {
     [SerializeField]
-    List<InteractiveColorImage> _interactiveImgs;
+    List<ColorStateUI> _colorStates;
+
+    [SerializeField]
+    List<Image> _imgs;
 
     [SerializeField, Space(10)]
     UnityEvent _onClick;
@@ -19,9 +22,6 @@ public class PhysicalButtonUI : MonoBehaviour, IPhysicalUI
 
     bool _canClick = true;
 
-
-    
-
     public void TriggerEnter(bool isProximity, Collider touchCollider)
     {
         if(isProximity && touchCollider.CompareTag(Tags.ProximityUI))
@@ -30,7 +30,7 @@ public class PhysicalButtonUI : MonoBehaviour, IPhysicalUI
             _touchInter = _touchTf.GetComponent<TouchInteraction>();
             UpdateColor(InteractionStateUI.InProximity);
         }
-        else if(!isProximity && touchCollider.CompareTag(Tags.ActiveUI))
+        else if(!isProximity && touchCollider.CompareTag(Tags.InteractionUI))
         {
             TryClick();
         }
@@ -58,7 +58,7 @@ public class PhysicalButtonUI : MonoBehaviour, IPhysicalUI
             _canClick = true;
             UpdateColor(InteractionStateUI.Normal);
         }
-        else if (!isProximity && touchCollider.CompareTag(Tags.ActiveUI))
+        else if (!isProximity && touchCollider.CompareTag(Tags.InteractionUI))
         {
             if (_touchInter != null && !_canClick)
                 _touchInter.ActiveBtn(false, this);
@@ -70,59 +70,26 @@ public class PhysicalButtonUI : MonoBehaviour, IPhysicalUI
 
     private void UpdateColor(InteractionStateUI interactionState)
     {
-        foreach(var interactionColor in _interactiveImgs)
+        int nbImg = _imgs.Count;
+
+        for (int i = 0; i < nbImg; i++)
         {
+            Image img = _imgs[i];
+            ColorStateUI colorState = _colorStates[i];
+
             switch (interactionState)
             {
                 case InteractionStateUI.Normal:
-                    interactionColor.Img.color = interactionColor.NormalColor;
+                    img.color = colorState.NormalColor;
                     break;
                 case InteractionStateUI.InProximity:
-                    interactionColor.Img.color = interactionColor.ProximityColor;
+                    img.color = colorState.ProximityColor;
                     break;
                 case InteractionStateUI.Active:
-                    interactionColor.Img.color = interactionColor.ActivatedColor;
+                    img.color = colorState.ActivatedColor;
                     break;
             }
-            
         }
-    }
-
-    private void OnValidate()
-    {
-        if (_interactiveImgs == null)
-            return;
-
-        for(int i = 0; i < _interactiveImgs.Count; i++) 
-        { 
-            var interactiveImg = _interactiveImgs[i];
-            var img = interactiveImg.Img;
-            interactiveImg.Name = (img == null) ? "None" : img.name;
-        }
-    }
-
-    [Serializable]
-    public class InteractiveColorImage
-    {
-        public Image Img { get { return _img; } }
-        public Color NormalColor { get { return _normalColor; } }
-        public Color ProximityColor { get { return _proximityColor; } }
-        public Color ActivatedColor { get { return _activatedColor; } }
-
-        [HideInInspector]
-        public string Name;
-
-        [SerializeField]
-        Image _img;
-
-        [SerializeField]
-        Color _normalColor;
-
-        [SerializeField]
-        Color _proximityColor;
-
-        [SerializeField]
-        Color _activatedColor;
     }
 }
 

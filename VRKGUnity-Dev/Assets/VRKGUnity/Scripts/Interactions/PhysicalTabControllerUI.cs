@@ -1,15 +1,14 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PhysicalTabControllerUI : MonoBehaviour
+public partial class PhysicalTabControllerUI : MonoBehaviour
 {
     [SerializeField]
-    List<ColorTab> _unselectedColorTabs;
+    List<ColorStateUI> _unselectedColorStates;
 
     [SerializeField]
-    List<ColorTab> _selectedColorTabs;
+    List<ColorStateUI> _selectedColorStates;
 
     [SerializeField]
     List<PhysicalTabUI> _tabsBtn;
@@ -23,11 +22,11 @@ public class PhysicalTabControllerUI : MonoBehaviour
         {
             if(tabBtn == _selectedTab)
             {
-                tabBtn.Select(_selectedColorTabs);
+                tabBtn.Select(_selectedColorStates);
             }
             else
             {
-                tabBtn.UnSelect(_unselectedColorTabs);
+                tabBtn.UnSelect(_unselectedColorStates);
             }
         }
     }
@@ -37,26 +36,8 @@ public class PhysicalTabControllerUI : MonoBehaviour
         if (newSelected == _selectedTab)
             return;
 
-        _selectedTab.UnSelect(_unselectedColorTabs);
+        _selectedTab.UnSelect(_unselectedColorStates);
         _selectedTab = newSelected;
-        _selectedTab.Select(_selectedColorTabs);  
-    }
-
-    [Serializable]
-    public class ColorTab
-    {
-        public Color NormalColor { get { return _normalColor; } }
-        public Color ProximityColor { get { return _proximityColor; } }
-        public Color ActivatedColor { get { return _activatedColor; } }
-
-
-        [SerializeField]
-        Color _normalColor;
-
-        [SerializeField]
-        Color _proximityColor;
-
-        [SerializeField]
-        Color _activatedColor;
+        _selectedTab.Select(_selectedColorStates);  
     }
 }

@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static PhysicalTabControllerUI;
 
 public class PhysicalNumberUI : MonoBehaviour, IPhysicalUI
 {
     [SerializeField]
-    ColorTab _color;
+    ColorStateUI _color;
 
     [SerializeField]
     Image _img;
@@ -18,6 +17,9 @@ public class PhysicalNumberUI : MonoBehaviour, IPhysicalUI
 
     [SerializeField]
     Transform _keyboardPositionTf;
+
+    [SerializeField]
+    KeyboardControllerUI.KeyboardAlignment _keyboardAlignment;
 
     Transform _touchTf;
     TouchInteraction _touchInter;
@@ -34,7 +36,7 @@ public class PhysicalNumberUI : MonoBehaviour, IPhysicalUI
             _touchInter = _touchTf.GetComponent<TouchInteraction>();
             UpdateColor(InteractionStateUI.InProximity);
         }
-        else if (!isProximity && touchCollider.CompareTag(Tags.ActiveUI))
+        else if (!isProximity && touchCollider.CompareTag(Tags.InteractionUI))
         {
             TryActivate();
         }
@@ -64,7 +66,7 @@ public class PhysicalNumberUI : MonoBehaviour, IPhysicalUI
         {
             UpdateColor(InteractionStateUI.Normal);
         }
-        else if (!isProximity && touchCollider.CompareTag(Tags.ActiveUI))
+        else if (!isProximity && touchCollider.CompareTag(Tags.InteractionUI))
         {
             if (_touchInter != null && _isActive)
                 _touchInter.ActiveBtn(false, this);
@@ -122,7 +124,7 @@ public class PhysicalNumberUI : MonoBehaviour, IPhysicalUI
     private KeyboardUIOptions CreateKeyboardOptions()
     {
         KeyboardUIOptions options = new(_keyboardPositionTf.position,
-                                        KeyboardControllerUI.KeyboardAlignment.Left,
+                                        _keyboardAlignment,
                                         OnUpdateInput,
                                         OnEnterInput,
                                         _value.ToString());

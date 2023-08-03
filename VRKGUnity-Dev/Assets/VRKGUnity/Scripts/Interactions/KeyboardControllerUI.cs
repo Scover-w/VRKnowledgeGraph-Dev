@@ -51,9 +51,9 @@ public class KeyboardControllerUI : MonoBehaviour
         _keyboardGo = _keyboardUI.gameObject;
         _numpadGo = _numpadUI.gameObject;
 
-        _camTf = _referenceHolderSo.HMDCamSA.Value.transform;
+        _camTf = _referenceHolderSo.HMDCamSA.Value != null ? _referenceHolderSo.HMDCamSA.Value.transform : null;
 
-        HideKeyboard();
+        HideKeyboards();
     }
 
 
@@ -146,7 +146,7 @@ public class KeyboardControllerUI : MonoBehaviour
         OnEnterInput?.Invoke(inputValue);
 
         _isUsed = false;
-        HideKeyboard();
+        HideKeyboards();
     }
 
     public void Close()
@@ -154,10 +154,10 @@ public class KeyboardControllerUI : MonoBehaviour
         OnEnterInput?.Invoke(_oldInputValue);
 
         _isUsed = false;
-        HideKeyboard();
+        HideKeyboards();
     }
 
-    private void HideKeyboard()
+    private void HideKeyboards()
     {
         _keyboardGo.SetActive(false);
         _numpadGo.SetActive(false);

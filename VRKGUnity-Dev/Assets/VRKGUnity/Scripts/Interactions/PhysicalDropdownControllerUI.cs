@@ -8,10 +8,10 @@ using static PhysicalTabControllerUI;
 public class PhysicalDropdownControllerUI : MonoBehaviour, IPhysicalUI
 {
     [SerializeField]
-    List<ColorTab> _colorDropdown;
+    List<ColorStateUI> _colorDropdown;
 
     [SerializeField]
-    ColorTab _colorItem;
+    ColorStateUI _colorItem;
 
     [SerializeField]
     List<Image> _imgs;
@@ -50,7 +50,7 @@ public class PhysicalDropdownControllerUI : MonoBehaviour, IPhysicalUI
             _touchInter = _touchTf.GetComponent<TouchInteraction>();
             UpdateColor(InteractionStateUI.InProximity);
         }
-        else if (!isProximity && touchCollider.CompareTag(Tags.ActiveUI))
+        else if (!isProximity && touchCollider.CompareTag(Tags.InteractionUI))
         {
             TryClick();
         }
@@ -81,7 +81,7 @@ public class PhysicalDropdownControllerUI : MonoBehaviour, IPhysicalUI
             _canClick = true;
             UpdateColor(InteractionStateUI.Normal);
         }
-        else if (!isProximity && touchCollider.CompareTag(Tags.ActiveUI))
+        else if (!isProximity && touchCollider.CompareTag(Tags.InteractionUI))
         {
             if (_touchInter != null && !_canClick)
                 _touchInter.ActiveBtn(false, this);
@@ -112,18 +112,18 @@ public class PhysicalDropdownControllerUI : MonoBehaviour, IPhysicalUI
         for (int i = 0; i < nbImg; i++)
         {
             Image img = _imgs[i];
-            ColorTab colorTab = _colorDropdown[i];
+            ColorStateUI colorState = _colorDropdown[i];
 
             switch (interactionState)
             {
                 case InteractionStateUI.Normal:
-                    img.color = colorTab.NormalColor;
+                    img.color = colorState.NormalColor;
                     break;
                 case InteractionStateUI.InProximity:
-                    img.color = colorTab.ProximityColor;
+                    img.color = colorState.ProximityColor;
                     break;
                 case InteractionStateUI.Active:
-                    img.color = colorTab.ActivatedColor;
+                    img.color = colorState.ActivatedColor;
                     break;
             }
         }
