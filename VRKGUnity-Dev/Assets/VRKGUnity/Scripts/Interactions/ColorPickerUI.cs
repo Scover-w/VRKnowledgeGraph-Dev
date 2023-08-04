@@ -39,10 +39,10 @@ public class ColorPickerUI : MonoBehaviour
         _newColor = oldColor;
 
         _oldColorImg.color = _oldColor;
-        _newColorImg.color = _newColor;
+        _newColorImg.color = oldColor;
 
         Color.RGBToHSV(oldColor, out _h, out _s, out _v);
-        _wheelUI.Display(_h, _s, _v);
+        _wheelUI.UpdateColor(_h, _s, _v);
     }
 
     public void SetNewColorFromWheel(float h, float s, float v)
@@ -76,6 +76,9 @@ public class ColorPickerUI : MonoBehaviour
     public void OnNewVSlider(float v)
     {
         _v = v;
+
+        _wheelUI.UpdateV(_v);
+
         SetNewColorFromSlider();
     }
 
@@ -85,6 +88,7 @@ public class ColorPickerUI : MonoBehaviour
 
         _newColorImg.color = _newColor;
         _controllerUI.UpdateInputValue(_newColor);
+        _wheelUI.UpdateColor(_h, _s, _v);
     }
 
     public void Confirm()

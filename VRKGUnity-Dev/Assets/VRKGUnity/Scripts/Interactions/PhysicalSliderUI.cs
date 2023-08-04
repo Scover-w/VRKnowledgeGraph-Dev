@@ -159,7 +159,7 @@ public class PhysicalSliderUI : MonoBehaviour, IPhysicalUI
         _value = value;
     }
 
-    private void UpdateValue()
+    private void UpdateValue(bool doInvokeEvent = true)
     {
         float positionFromVirtualAnchor = _lengthSlider * _value;
 
@@ -181,13 +181,14 @@ public class PhysicalSliderUI : MonoBehaviour, IPhysicalUI
 
         _label.text = uNormalizedValue.ToString("0.##");
 
-        _onChangedValue?.Invoke(uNormalizedValue);
+        if(doInvokeEvent)
+            _onChangedValue?.Invoke(uNormalizedValue);
     }
 
     public void SetNewValue(float normalizedValue)
     {
         _value = normalizedValue;
-        UpdateValue();
+        UpdateValue(false);
     }
 
     private void OnValidate()

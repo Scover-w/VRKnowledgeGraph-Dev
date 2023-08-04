@@ -87,6 +87,7 @@ public class KeyboardControllerUI : MonoBehaviour
         UpdateTf(options.Position);
 
         DisplaySelected();
+        TrySetStartValue(options);
 
         return true;
     }
@@ -160,6 +161,16 @@ public class KeyboardControllerUI : MonoBehaviour
                 _colorpickerGo.SetActive(true);
                 break;
         }
+    }
+
+    private void TrySetStartValue<T>(KeyboardUIOptions<T> options)
+    {
+        switch(_usedKeyboard)
+        {
+            case KeyboardType.ColorPicker when options.CurrentInputValue is Color color:
+                _colorPickerUI.StartColor(color);
+                break;
+        }            
     }
 
     private void UpdateTf(Vector3 position)

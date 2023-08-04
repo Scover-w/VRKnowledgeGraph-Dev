@@ -8,4 +8,14 @@ public class DebugButton : MonoBehaviour
     {
         Debug.Log("Click");
     }
+
+    public void OnEnter()
+    {
+        Debug.Log("OnEnter");
+    }
+
+    public void OnExit()
+    {
+        Debug.Log("OnExit");
+    }
 }

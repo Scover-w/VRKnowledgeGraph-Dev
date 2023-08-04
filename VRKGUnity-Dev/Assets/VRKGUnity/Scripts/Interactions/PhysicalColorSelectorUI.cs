@@ -116,8 +116,8 @@ public class PhysicalColorSelectorUI : MonoBehaviour, IPhysicalUI
     {
         if (input is not Color)
             _colorValue = Color.white;
-        else 
-            _colorImg.color = _colorValue;
+        else
+            _colorValue = (Color)input;
 
         _colorImg.color = _colorValue;
 

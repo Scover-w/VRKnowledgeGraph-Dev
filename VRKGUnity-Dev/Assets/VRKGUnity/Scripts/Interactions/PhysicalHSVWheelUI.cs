@@ -40,19 +40,26 @@ public class PhysicalHSVWheelUI : MonoBehaviour, IPhysicalUI
         _rightV2 = Vector2.right;
     }
 
-    public void Display(float h, float s, float v)
+    public void UpdateColor(float h, float s, float v)
     {
         _h = h;
         _s = s;
         _v = v;
 
+        Color white = Color.white * _v;
+        white.a = 1f;
+        _hsvWheelImg.color = white;
+
         PlaceCursor(h, s);
     }
 
-    public void NewVColor(float v)
+    public void UpdateV(float v)
     {
         _v = v;
-        _hsvWheelImg.color = Color.white * v;
+
+        Color white = Color.white * _v;
+        white.a = 1f;
+        _hsvWheelImg.color = white;
     }
 
     public void TriggerEnter(bool isProximity, Collider touchCollider)
@@ -128,32 +135,52 @@ public class PhysicalHSVWheelUI : MonoBehaviour, IPhysicalUI
 
         Vector3 localVector3 = _wheelRecTf.InverseTransformPoint(worldProjectedPoint);
 
+        float magnitude = localVector3.magnitude;
+
+        if (magnitude > 256f)
+        {
+            localVector3 *= (256f / magnitude);
+        }
+
         _cursorRectTf.localPosition = localVector3;
-        _localVector2 = new Vector2(localVector3.x / 512f, localVector3.y / 512f);
+        _localVector2 = new Vector2(localVector3.x / 256f, localVector3.y / 256f);
 
     }
 
     private void ConvertToHSV()
     {
-        float angle = Vector2.SignedAngle(_rightV2, _localVector2.normalized);
+        float angle = Vector2.SignedAngle(Vector3.left, _localVector2.normalized);
 
         if(angle < 0)
             angle = 180f + (180f - Mathf.Abs(angle));
 
+        Debug.Log(angle);
+
         float distance = _localVector2.magnitude;
 
-        if(distance > 1f)
-            distance = 1f;
-
-        _colorPickerUI.SetNewColorFromWheel(angle, distance, _v);
+        _colorPickerUI.SetNewColorFromWheel(angle / 360f, distance, _v);
     }
-
 
     private void PlaceCursor(float h, float s)
     {
-        Vector2 directionCursor = _rightV2 * s;
+        float angle = h * Mathf.PI * 2f;
 
-        directionCursor = directionCursor * h * 512f;
+        Vector2 directionCursor = Vector2.left * s;
+
+        directionCursor = Rotate(directionCursor, angle);
+
+        directionCursor = directionCursor * 256f;
         _cursorRectTf.localPosition = directionCursor;
     }
+
+
+
+    public Vector2 Rotate(Vector2 v, float delta)
+    {
+        return new Vector2(
+            v.x * Mathf.Cos(delta) - v.y * Mathf.Sin(delta),
+            v.x * Mathf.Sin(delta) + v.y * Mathf.Cos(delta)
+        );
+    }
+
 }

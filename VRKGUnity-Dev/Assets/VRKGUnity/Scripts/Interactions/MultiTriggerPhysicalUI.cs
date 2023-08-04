@@ -2,9 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
-public class TriggerPhysicalUI : MonoBehaviour
+public class MultiTriggerPhysicalUI : MonoBehaviour
 {
     [SerializeField]
     bool _isProximity = false;
@@ -14,6 +12,8 @@ public class TriggerPhysicalUI : MonoBehaviour
 
     IPhysicalUI _physicalUI;
 
+    int _nbIn = 0;
+
     private void Start()
     {
         _physicalUI = _physicalUIScript.GetComponent<IPhysicalUI>();
@@ -22,7 +22,8 @@ public class TriggerPhysicalUI : MonoBehaviour
             Debug.LogError("_physicalUIScript don't implement the IPhysicalUI interface.");
     }
 
-    private void OnTriggerEnter(Collider touchCollider)
+
+    public void OnChildTriggerEnter(Collider touchCollider)
     {
         if (_isProximity && !touchCollider.CompareTag(Tags.ProximityUI))
             return;
@@ -30,10 +31,16 @@ public class TriggerPhysicalUI : MonoBehaviour
         if (!_isProximity && !touchCollider.CompareTag(Tags.InteractionUI))
             return;
 
+        _nbIn++;
+
+        if (_nbIn > 1)
+            return;
+
+        Debug.Log("OnTrigger TriggerEnter");
         _physicalUI.TriggerEnter(_isProximity, touchCollider);
     }
 
-    private void OnTriggerExit(Collider touchCollider)
+    public void OnChildTriggerExit(Collider touchCollider)
     {
         if (_isProximity && !touchCollider.CompareTag(Tags.ProximityUI))
             return;
@@ -41,6 +48,12 @@ public class TriggerPhysicalUI : MonoBehaviour
         if (!_isProximity && !touchCollider.CompareTag(Tags.InteractionUI))
             return;
 
+        _nbIn--;
+
+        if (_nbIn > 0)
+            return;
+
+        Debug.Log("OnTrigger TriggerExit");
         _physicalUI.TriggerExit(_isProximity, touchCollider);
     }
 
