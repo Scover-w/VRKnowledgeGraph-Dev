@@ -4,11 +4,12 @@ using UnityEngine;
 namespace AIDEN.TactileUI
 {
     [Serializable]
-    public class ColorStateUI
+    public class InteractiveColorUI
     {
         public Color NormalColor { get { return _normalColor; } }
         public Color ProximityColor { get { return _proximityColor; } }
         public Color ActivatedColor { get { return _activatedColor; } }
+        public Color DisabledColor { get { return _disabledColor; } }
 
 
         [SerializeField]
@@ -19,5 +20,8 @@ namespace AIDEN.TactileUI
 
         [SerializeField]
         Color _activatedColor;
+
+        [SerializeField]
+        Color _disabledColor;
     }
 }

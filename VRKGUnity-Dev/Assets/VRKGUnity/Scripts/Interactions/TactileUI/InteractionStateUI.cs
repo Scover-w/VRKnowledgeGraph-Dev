@@ -5,7 +5,8 @@ namespace AIDEN.TactileUI
     {
         Normal,
         InProximity,
-        Active
+        Active,
+        Disabled
     }
 }
 

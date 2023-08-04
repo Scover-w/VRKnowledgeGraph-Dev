@@ -35,7 +35,7 @@ namespace AIDEN.TactileUI
         GameObject _checkMarkGo;
         Transform _touchTf;
         TouchInteractor _touchInter;
-        ColorStateUI _colorState;
+        InteractiveColorUI _colorState;
 
         bool _isSelected = false;
 
@@ -99,7 +99,7 @@ namespace AIDEN.TactileUI
             }
         }
 
-        public void ResfreshValue(string value, ColorStateUI colorState)
+        public void ResfreshValue(string value, InteractiveColorUI colorState)
         {
             _colorState = colorState;
             UpdateColor(InteractionStateUI.Normal);

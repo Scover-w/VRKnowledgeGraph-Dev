@@ -56,9 +56,9 @@ namespace AIDEN.TactileUI
             _newColor = Color.HSVToRGB(h, s, v);
 
             _newColorImg.color = _newColor;
-            _sliderH.SetNewValue(h);
-            _sliderS.SetNewValue(s);
-            _sliderV.SetNewValue(v);
+            _sliderH.Value = h;
+            _sliderS.Value = s;
+            _sliderV.Value = v;
 
             _controllerUI.UpdateInputValue(_newColor);
         }

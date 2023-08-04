@@ -9,6 +9,21 @@ namespace AIDEN.TactileUI
 {
     public class DropdownUI : MonoBehaviour, ITouchUI, IValueUI<string>
     {
+        public bool Interactable
+        {
+            get
+            {
+                return _interactable;
+            }
+            set
+            {
+                _interactable = value;
+
+                TrySetNormalInteractionState();
+                UpdateInteractionColor();
+            }
+        }
+
         public string Value
         {
             get
@@ -22,13 +37,16 @@ namespace AIDEN.TactileUI
         }
 
         [SerializeField]
-        List<ColorStateUI> _colorDropdown;
+        bool _interactable = true;
 
         [SerializeField]
-        ColorStateUI _colorItem;
+        List<InteractiveColorUI> _interactiveColors;
 
         [SerializeField]
-        List<Image> _imgs;
+        InteractiveColorUI _interactiveColorItems;
+
+        [SerializeField]
+        List<Image> _interactiveImgs;
 
         [SerializeField]
         GameObject _optionsContainerGo;
@@ -51,6 +69,9 @@ namespace AIDEN.TactileUI
         Transform _touchTf;
         TouchInteractor _touchInter;
 
+
+        InteractionStateUI _interactionStateUI;
+
         bool _isOpen = false;
         bool _canClick = true;
 
@@ -59,7 +80,9 @@ namespace AIDEN.TactileUI
         {
             _isOpen = false;
             _optionsContainerGo.SetActive(_isOpen);
-            UpdateColor(InteractionStateUI.Normal);
+
+            TrySetNormalInteractionState();
+            UpdateInteractionColor();
         }
 
         private void OnDisable()
@@ -74,7 +97,8 @@ namespace AIDEN.TactileUI
             {
                 _touchTf = touchTf;
                 _touchInter = _touchTf.GetComponent<TouchInteractor>();
-                UpdateColor(InteractionStateUI.InProximity);
+                _interactionStateUI = InteractionStateUI.InProximity;
+                UpdateInteractionColor();
             }
             else if (!isProximity)
             {
@@ -96,7 +120,8 @@ namespace AIDEN.TactileUI
             if (_isOpen)
                 RefreshValues();
 
-            UpdateColor(InteractionStateUI.Active);
+            _interactionStateUI = InteractionStateUI.Active;
+            UpdateInteractionColor();
 
             if (_touchInter != null)
                 _touchInter.ActiveBtn(true, this);
@@ -107,14 +132,16 @@ namespace AIDEN.TactileUI
             if (isProximity)
             {
                 _canClick = true;
-                UpdateColor(InteractionStateUI.Normal);
+                _interactionStateUI = InteractionStateUI.Normal;
+                UpdateInteractionColor();
             }
             else if (!isProximity)
             {
                 if (_touchInter != null && !_canClick)
                     _touchInter.ActiveBtn(false, this);
 
-                UpdateColor(InteractionStateUI.Normal);
+                _interactionStateUI = InteractionStateUI.Normal;
+                UpdateInteractionColor();
             }
         }
 
@@ -133,16 +160,16 @@ namespace AIDEN.TactileUI
             _onValueChanged?.Invoke(_value);
         }
 
-        private void UpdateColor(InteractionStateUI interactionState)
+        private void UpdateInteractionColor()
         {
-            int nbImg = _imgs.Count;
+            int nbImg = _interactiveImgs.Count;
 
             for (int i = 0; i < nbImg; i++)
             {
-                Image img = _imgs[i];
-                ColorStateUI colorState = _colorDropdown[i];
+                Image img = _interactiveImgs[i];
+                InteractiveColorUI colorState = _interactiveColors[i];
 
-                switch (interactionState)
+                switch (_interactionStateUI)
                 {
                     case InteractionStateUI.Normal:
                         img.color = colorState.NormalColor;
@@ -153,6 +180,9 @@ namespace AIDEN.TactileUI
                     case InteractionStateUI.Active:
                         img.color = colorState.ActivatedColor;
                         break;
+                    case InteractionStateUI.Disabled:
+                        img.color = colorState.DisabledColor;
+                        break;
                 }
             }
         }
@@ -161,7 +191,7 @@ namespace AIDEN.TactileUI
         {
             foreach (var dropdown in _dropdowns)
             {
-                dropdown.ResfreshValue(_value, _colorItem);
+                dropdown.ResfreshValue(_value, _interactiveColorItems);
             }
         }
 
@@ -174,6 +204,14 @@ namespace AIDEN.TactileUI
             { 
                 collider.enabled = enable;
             }
+        }
+
+        private void TrySetNormalInteractionState()
+        {
+            if (_interactable)
+                _interactionStateUI = InteractionStateUI.Normal;
+            else
+                _interactionStateUI = InteractionStateUI.Disabled;
         }
     }
 }

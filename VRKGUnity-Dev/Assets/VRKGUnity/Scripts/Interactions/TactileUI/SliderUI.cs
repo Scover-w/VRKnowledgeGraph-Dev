@@ -4,11 +4,27 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using Wave.Essence.Hand.NearInteraction;
 
 namespace AIDEN.TactileUI
 {
     public class SliderUI : MonoBehaviour, ITouchUI, IValueUI<float>
     {
+        public bool Interactable
+        {
+            get
+            {
+                return _interactable;
+            }
+            set
+            {
+                _interactable = value;
+
+                TrySetNormalInteractionState();
+                UpdateInteractionColor();
+            }
+        }
+
         public float Value
         {
             get
@@ -17,16 +33,31 @@ namespace AIDEN.TactileUI
             }
             set
             {
-                _value = value;
+                _value = Mathf.Clamp(value, _minValue, _maxValue);
+
+                if(_wholeNumber)
+                    _value = Mathf.Round(_value);
+
+                UpdateVisuals();
             }
         }
 
+        private float UnNormalizedValue
+        {
+            get
+            {
+                return Mathf.Lerp(_minValue, _maxValue, _value);
+            }
+        }
 
         [SerializeField]
-        List<ColorStateUI> _colors;
+        bool _interactable = true;
 
         [SerializeField]
-        List<Image> _imgs;
+        List<InteractiveColorUI> _interactiveColors;
+
+        [SerializeField]
+        List<Image> _interactiveImgs;
 
         [SerializeField]
         RectTransform _sliderRectTf;
@@ -61,6 +92,7 @@ namespace AIDEN.TactileUI
         [SerializeField, Space(10)]
         UnityEvent<float> _onValueChanged;
 
+        InteractionStateUI _interactionStateUI;
 
         Transform _touchTf;
         TouchInteractor _touchInter;
@@ -70,12 +102,14 @@ namespace AIDEN.TactileUI
         float _lengthSlider;
 
 
-        private void Start()
+        private void OnEnable()
         {
             _label.enabled = _alwaysDisplayValue;
             _isWidth = _sliderType == SliderType.Horizontal;
-
             _lengthSlider = _isWidth ? _sliderRectTf.rect.width : _sliderRectTf.rect.height;
+
+            TrySetNormalInteractionState();
+            UpdateInteractionColor();
         }
 
         public void TriggerEnter(bool isProximity, Transform touchTf)
@@ -84,15 +118,16 @@ namespace AIDEN.TactileUI
             {
                 _touchTf = touchTf;
                 _touchInter = _touchTf.GetComponent<TouchInteractor>();
-                UpdateColor(InteractionStateUI.InProximity);
+                _interactionStateUI = InteractionStateUI.InProximity;
+                UpdateInteractionColor();
             }
             else if (!isProximity)
             {
-                UpdateColor(InteractionStateUI.Active);
+                _interactionStateUI = InteractionStateUI.Active;
+                UpdateInteractionColor();
 
                 _isMovingKnob = true;
                 _label.enabled = true;
-                _label.text = Mathf.Lerp(_minValue, _maxValue, _value).ToString();
 
                 if (_touchInter != null)
                     _touchInter.ActiveBtn(true, this);
@@ -105,7 +140,8 @@ namespace AIDEN.TactileUI
         {
             if (isProximity)
             {
-                UpdateColor(InteractionStateUI.Normal);
+                _interactionStateUI = InteractionStateUI.Normal;
+                UpdateInteractionColor();
             }
             else if (!isProximity)
             {
@@ -117,22 +153,21 @@ namespace AIDEN.TactileUI
                 if (!_alwaysDisplayValue)
                     _label.enabled = false;
 
-                UpdateColor(InteractionStateUI.Normal);
-
-                // TODO : Refresh value
+                _interactionStateUI = InteractionStateUI.Normal;
+                UpdateInteractionColor();
             }
         }
 
-        private void UpdateColor(InteractionStateUI interactionState)
+        private void UpdateInteractionColor()
         {
-            int nbImage = _imgs.Count;
+            int nbImage = _interactiveImgs.Count;
 
             for (int i = 0; i < nbImage; i++)
             {
-                Image img = _imgs[i];
-                ColorStateUI colorState = _colors[i];
+                Image img = _interactiveImgs[i];
+                InteractiveColorUI colorState = _interactiveColors[i];
 
-                switch (interactionState)
+                switch (_interactionStateUI)
                 {
                     case InteractionStateUI.Normal:
                         img.color = colorState.NormalColor;
@@ -143,6 +178,9 @@ namespace AIDEN.TactileUI
                     case InteractionStateUI.Active:
                         img.color = colorState.ActivatedColor;
                         break;
+                    case InteractionStateUI.Disabled:
+                        img.color = colorState.DisabledColor;
+                        break;
                 }
             }
         }
@@ -152,7 +190,9 @@ namespace AIDEN.TactileUI
             while (_isMovingKnob)
             {
                 RetrieveValue();
-                UpdateValue();
+                UpdateVisuals();
+
+                _onValueChanged?.Invoke(Mathf.Lerp(_minValue, _maxValue, _value));
                 yield return null;
             }
         }
@@ -176,9 +216,12 @@ namespace AIDEN.TactileUI
                 value = 1f;
 
             _value = value;
+
+            if(_wholeNumber)
+                _value = Mathf.Round(_value);
         }
 
-        private void UpdateValue(bool doInvokeEvent = true)
+        private void UpdateVisuals()
         {
             float positionFromVirtualAnchor = _lengthSlider * _value;
 
@@ -196,29 +239,27 @@ namespace AIDEN.TactileUI
 
             _sliderFilledRectTf.sizeDelta = sizeDelta;
 
-            float uNormalizedValue = Mathf.Lerp(_minValue, _maxValue, _value);
-
-            _label.text = uNormalizedValue.ToString("0.##");
-
-            if (doInvokeEvent)
-                _onValueChanged?.Invoke(uNormalizedValue);
+            _label.text = UnNormalizedValue.ToString("0.##");
         }
 
-        public void SetNewValue(float normalizedValue)
+        private void TrySetNormalInteractionState()
         {
-            _value = normalizedValue;
-            UpdateValue(false);
+            if (_interactable)
+                _interactionStateUI = InteractionStateUI.Normal;
+            else
+                _interactionStateUI = InteractionStateUI.Disabled;
         }
 
+#if UNITY_EDITOR
         private void OnValidate()
         {
-
             _isWidth = _sliderType == SliderType.Horizontal;
             _lengthSlider = _isWidth ? _sliderRectTf.rect.width : _sliderRectTf.rect.height;
 
-            UpdateValue();
+            UpdateVisuals();
 
         }
+#endif
 
         public enum SliderType
         {

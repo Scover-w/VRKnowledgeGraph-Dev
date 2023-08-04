@@ -8,6 +8,21 @@ namespace AIDEN.TactileUI
 {
     public class ColorSelectorUI : MonoBehaviour, ITouchUI, IValueUI<Color>
     {
+        public bool Interactable
+        {
+            get
+            {
+                return _interactable;
+            }
+            set
+            {
+                _interactable = value;
+
+                TrySetNormalInteractionState();
+                UpdateInteractionColor();
+            }
+        }
+
         public Color Value
         {
             get
@@ -20,11 +35,15 @@ namespace AIDEN.TactileUI
             }
         }
 
-        [SerializeField]
-        ColorStateUI _color;
 
         [SerializeField]
-        Image _img;
+        bool _interactable = true;
+
+        [SerializeField]
+        InteractiveColorUI _interactiveColor;
+
+        [SerializeField]
+        Image _interactiveImg;
 
         [SerializeField]
         Image _colorImg;
@@ -41,12 +60,16 @@ namespace AIDEN.TactileUI
         Transform _touchTf;
         TouchInteractor _touchInter;
 
+        InteractionStateUI _interactionStateUI;
 
         Color _value;
         bool _isActive = false;
 
         private void OnEnable()
         {
+            TrySetNormalInteractionState();
+            UpdateInteractionColor();
+
             _colorImg.color = _value;
         }
 
@@ -56,7 +79,8 @@ namespace AIDEN.TactileUI
             {
                 _touchTf = touchTf;
                 _touchInter = _touchTf.GetComponent<TouchInteractor>();
-                UpdateColor(InteractionStateUI.InProximity);
+                _interactionStateUI = InteractionStateUI.InProximity;
+                UpdateInteractionColor();
             }
             else if (!isProximity)
             {
@@ -76,7 +100,8 @@ namespace AIDEN.TactileUI
                 return;
 
             _isActive = true;
-            UpdateColor(InteractionStateUI.Active);
+            _interactionStateUI = InteractionStateUI.Active;
+            UpdateInteractionColor();
 
             if (_touchInter != null)
                 _touchInter.ActiveBtn(true, this);
@@ -86,35 +111,40 @@ namespace AIDEN.TactileUI
         {
             if (isProximity)
             {
-                UpdateColor(InteractionStateUI.Normal);
+                _interactionStateUI = InteractionStateUI.Normal;
+                UpdateInteractionColor();
             }
             else if (!isProximity)
             {
                 if (_touchInter != null && _isActive)
                     _touchInter.ActiveBtn(false, this);
 
-                UpdateColor(InteractionStateUI.Normal);
+                _interactionStateUI = InteractionStateUI.Normal;
+                UpdateInteractionColor();
             }
         }
 
-        private void UpdateColor(InteractionStateUI interactionState)
+        private void UpdateInteractionColor()
         {
             if (_isActive)
             {
-                _img.color = _color.ActivatedColor;
+                _interactiveImg.color = _interactiveColor.ActivatedColor;
                 return;
             }
 
-            switch (interactionState)
+            switch (_interactionStateUI)
             {
                 case InteractionStateUI.Normal:
-                    _img.color = _color.NormalColor;
+                    _interactiveImg.color = _interactiveColor.NormalColor;
                     break;
                 case InteractionStateUI.InProximity:
-                    _img.color = _color.ProximityColor;
+                    _interactiveImg.color = _interactiveColor.ProximityColor;
                     break;
                 case InteractionStateUI.Active:
-                    _img.color = _color.ActivatedColor;
+                    _interactiveImg.color = _interactiveColor.ActivatedColor;
+                    break;
+                case InteractionStateUI.Disabled:
+                    _interactiveImg.color= _interactiveColor.DisabledColor;
                     break;
             }
         }
@@ -138,7 +168,7 @@ namespace AIDEN.TactileUI
             _colorImg.color = _value;
 
             _isActive = false;
-            UpdateColor(InteractionStateUI.Normal);
+            UpdateInteractionColor(InteractionStateUI.Normal);
 
             _onValueChanged?.Invoke(_value);
         }
@@ -151,6 +181,14 @@ namespace AIDEN.TactileUI
                                             OnUpdateInput,
                                             OnEnterInput,
                                             _value);
+        }
+
+        private void TrySetNormalInteractionState()
+        {
+            if (_interactable)
+                _interactionStateUI = InteractionStateUI.Normal;
+            else
+                _interactionStateUI = InteractionStateUI.Disabled;
         }
     }
 }

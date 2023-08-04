@@ -14,12 +14,12 @@ namespace AIDEN.TactileUI
         GameObject _pageToDisplayGo;
 
         [SerializeField]
-        List<Image> _imgs;
+        List<Image> _interactiveImgs;
 
         Transform _touchTf;
         TouchInteractor _touchInter;
 
-        List<ColorStateUI> _currentColorStates;
+        List<InteractiveColorUI> _currentColorStates;
 
         InteractionStateUI _interactionState;
 
@@ -30,28 +30,28 @@ namespace AIDEN.TactileUI
             _interactionState = InteractionStateUI.Normal;
         }
 
-        public void Select(List<ColorStateUI> colorStates)
+        public void Select(List<InteractiveColorUI> colorStates)
         {
             _currentColorStates = colorStates;
             _pageToDisplayGo.SetActive(true);
-            UpdateColor();
+            UpdateInteractionColor();
         }
 
-        public void UnSelect(List<ColorStateUI> colorStates)
+        public void UnSelect(List<InteractiveColorUI> colorStates)
         {
             _currentColorStates = colorStates;
             _pageToDisplayGo.SetActive(false);
-            UpdateColor();
+            UpdateInteractionColor();
         }
 
-        private void UpdateColor()
+        private void UpdateInteractionColor()
         {
-            int nbImage = _imgs.Count;
+            int nbImage = _interactiveImgs.Count;
 
             for (int i = 0; i < nbImage; i++)
             {
-                Image img = _imgs[i];
-                ColorStateUI colorTab = _currentColorStates[i];
+                Image img = _interactiveImgs[i];
+                InteractiveColorUI colorTab = _currentColorStates[i];
 
                 switch (_interactionState)
                 {
@@ -76,7 +76,7 @@ namespace AIDEN.TactileUI
                 _touchTf = touchTf;
                 _touchInter = _touchTf.GetComponent<TouchInteractor>();
                 _interactionState = InteractionStateUI.InProximity;
-                UpdateColor();
+                UpdateInteractionColor();
             }
             else if (!isProximity)
             {
@@ -91,7 +91,7 @@ namespace AIDEN.TactileUI
             {
                 _canClick = true;
                 _interactionState = InteractionStateUI.Normal;
-                UpdateColor();
+                UpdateInteractionColor();
             }
             else if (!isProximity)
             {
@@ -99,7 +99,7 @@ namespace AIDEN.TactileUI
                     _touchInter.ActiveBtn(false, this);
 
                 _interactionState = InteractionStateUI.Normal;
-                UpdateColor();
+                UpdateInteractionColor();
             }
 
         }

@@ -1,6 +1,3 @@
-using AngleSharp.Text;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -10,6 +7,21 @@ namespace AIDEN.TactileUI
 {
     public class KeyUI : MonoBehaviour, ITouchUI, IValueUI<char>
     {
+        public bool Interactable
+        {
+            get
+            {
+                return _interactable;
+            }
+            set
+            {
+                _interactable = value;
+
+                TrySetNormalInteractionState();
+                UpdateInteractionColor();
+            }
+        }
+
         public char Value
         {
             get
@@ -19,14 +31,20 @@ namespace AIDEN.TactileUI
             set
             {
                 _value = value;
+
+                if (_label != null)
+                    _label.text = value.ToString();
             }
         }
 
         [SerializeField]
-        ColorStateUI _color;
+        bool _interactable = true;
 
         [SerializeField]
-        Image _img;
+        InteractiveColorUI _interactiveColor;
+
+        [SerializeField]
+        Image _interactiveImg;
 
         [SerializeField]
         KeyboardUI _keyboardUI;
@@ -46,26 +64,26 @@ namespace AIDEN.TactileUI
         Transform _touchTf;
         TouchInteractor _touchInter;
 
+        InteractionStateUI _interactionStateUI;
+
         bool _canClick = true;
 
-        public void SetValue(char value)
+        private void OnEnable()
         {
-            _value = value;
+            TrySetNormalInteractionState();
 
-            if (_label != null)
-                _label.text = value.ToString();
+            ToLower();
+            UpdateInteractionColor();
         }
 
         public void ToLower()
         {
-            if (_value.IsLetter())
-                _value = char.ToLower(_value);
+            _label.fontStyle = FontStyles.LowerCase;
         }
 
         public void ToUpper()
         {
-            if (_value.IsLetter())
-                _value = char.ToUpper(_value);
+            _label.fontStyle = FontStyles.UpperCase;
         }
 
         public void TriggerEnter(bool isProximity, Transform touchTf)
@@ -74,7 +92,8 @@ namespace AIDEN.TactileUI
             {
                 _touchTf = touchTf;
                 _touchInter = _touchTf.GetComponent<TouchInteractor>();
-                UpdateColor(InteractionStateUI.InProximity);
+                _interactionStateUI = InteractionStateUI.InProximity;
+                UpdateInteractionColor();
             }
             else if (!isProximity)
             {
@@ -88,7 +107,8 @@ namespace AIDEN.TactileUI
                 return;
 
             _canClick = false;
-            UpdateColor(InteractionStateUI.Active);
+            _interactionStateUI = InteractionStateUI.Active;
+            UpdateInteractionColor();
 
             if (_touchInter != null)
                 _touchInter.ActiveBtn(true, this);
@@ -102,32 +122,45 @@ namespace AIDEN.TactileUI
             if (isProximity)
             {
                 _canClick = true;
-                UpdateColor(InteractionStateUI.Normal);
+                _interactionStateUI = InteractionStateUI.Normal;
+                UpdateInteractionColor();
             }
             else if (!isProximity)
             {
                 if (_touchInter != null && !_canClick)
                     _touchInter.ActiveBtn(false, this);
 
-                UpdateColor(InteractionStateUI.Normal);
+                _interactionStateUI = InteractionStateUI.Normal;
+                UpdateInteractionColor();
             }
 
         }
 
-        private void UpdateColor(InteractionStateUI interactionState)
+        private void UpdateInteractionColor()
         {
-            switch (interactionState)
+            switch (_interactionStateUI)
             {
                 case InteractionStateUI.Normal:
-                    _img.color = _color.NormalColor;
+                    _interactiveImg.color = _interactiveColor.NormalColor;
                     break;
                 case InteractionStateUI.InProximity:
-                    _img.color = _color.ProximityColor;
+                    _interactiveImg.color = _interactiveColor.ProximityColor;
                     break;
                 case InteractionStateUI.Active:
-                    _img.color = _color.ActivatedColor;
+                    _interactiveImg.color = _interactiveColor.ActivatedColor;
+                    break;
+                case InteractionStateUI.Disabled:
+                    _interactiveImg.color = _interactiveColor.DisabledColor;
                     break;
             }
+        }
+
+        private void TrySetNormalInteractionState()
+        {
+            if (_interactable)
+                _interactionStateUI = InteractionStateUI.Normal;
+            else
+                _interactionStateUI = InteractionStateUI.Disabled;
         }
     }
 }

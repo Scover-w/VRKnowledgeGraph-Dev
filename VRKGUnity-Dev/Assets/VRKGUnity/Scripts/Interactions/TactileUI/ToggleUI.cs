@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using UnityEngine.XR.Interaction.Toolkit;
+using Wave.Essence.Hand.NearInteraction;
 
 namespace AIDEN.TactileUI
 {
@@ -16,19 +18,37 @@ namespace AIDEN.TactileUI
             }
             set
             { 
-                _isEnable = value; 
+                _isEnable = value;
+                UpdateKnobPosition();
             }
         }
 
+        public bool Interactable
+        {
+            get
+            {
+                return _interactable;
+            }
+            set
+            {
+                _interactable = value;
+
+                TrySetNormalInteractionState();
+                UpdateInteractionColor();
+            }
+        }
 
         [SerializeField]
-        List<ColorStateUI> _enabledColorStates;
+        bool _interactable = true;
 
         [SerializeField]
-        List<ColorStateUI> _disabledColorStates;
+        List<InteractiveColorUI> _activeInteractiveColors;
 
         [SerializeField]
-        List<Image> _imgs;
+        List<InteractiveColorUI> _unactiveInteractiveColors;
+
+        [SerializeField]
+        List<Image> _interactiveImgs;
 
         [SerializeField]
         RectTransform _knobRect;
@@ -39,15 +59,17 @@ namespace AIDEN.TactileUI
         Transform _touchTf;
         TouchInteractor _touchInter;
 
+        InteractionStateUI _interactionStateUI;
+
         bool _isEnable = false;
         bool _canSwitch = true;
 
         float _xDeltaState = 16.9f;
 
-        private void Start()
+        private void OnEnable()
         {
-            UpdateKnobPosition();
-            UpdateColor(InteractionStateUI.Normal);
+            TrySetNormalInteractionState();
+            UpdateVisuals();
         }
 
         public void TriggerEnter(bool isProximity, Transform touchTf)
@@ -56,7 +78,8 @@ namespace AIDEN.TactileUI
             {
                 _touchTf = touchTf;
                 _touchInter = _touchTf.GetComponent<TouchInteractor>();
-                UpdateColor(InteractionStateUI.InProximity);
+                _interactionStateUI = InteractionStateUI.InProximity;
+                UpdateInteractionColor();
             }
             else if (!isProximity)
             {
@@ -71,8 +94,9 @@ namespace AIDEN.TactileUI
 
             _canSwitch = false;
             _isEnable = !_isEnable;
-            UpdateKnobPosition();
-            UpdateColor(InteractionStateUI.Active);
+            _interactionStateUI = InteractionStateUI.Active;
+
+            UpdateVisuals();
 
             if (_touchInter != null)
                 _touchInter.ActiveBtn(true, this);
@@ -85,29 +109,37 @@ namespace AIDEN.TactileUI
             if (isProximity)
             {
                 _canSwitch = true;
-                UpdateColor(InteractionStateUI.Normal);
+                _interactionStateUI = InteractionStateUI.Normal;
+                UpdateInteractionColor();
             }
             else if (!isProximity)
             {
                 if (_touchInter != null && !_canSwitch)
                     _touchInter.ActiveBtn(false, this);
 
-                UpdateColor(InteractionStateUI.Normal);
+                _interactionStateUI = InteractionStateUI.Normal;
+                UpdateInteractionColor();
             }
         }
 
-        private void UpdateColor(InteractionStateUI interactionState)
+        private void UpdateVisuals()
         {
-            var colorStates = _isEnable ? _enabledColorStates : _disabledColorStates;
+            UpdateInteractionColor();
+            UpdateKnobPosition();
+        }
 
-            int nbImg = _imgs.Count;
+        private void UpdateInteractionColor()
+        {
+            var colorStates = _isEnable ? _activeInteractiveColors : _unactiveInteractiveColors;
+
+            int nbImg = _interactiveImgs.Count;
 
             for (int i = 0; i < nbImg; i++)
             {
-                Image img = _imgs[i];
-                ColorStateUI colorstate = colorStates[i];
+                Image img = _interactiveImgs[i];
+                InteractiveColorUI colorstate = colorStates[i];
 
-                switch (interactionState)
+                switch (_interactionStateUI)
                 {
                     case InteractionStateUI.Normal:
                         img.color = colorstate.NormalColor;
@@ -118,6 +150,9 @@ namespace AIDEN.TactileUI
                     case InteractionStateUI.Active:
                         img.color = colorstate.ActivatedColor;
                         break;
+                    case InteractionStateUI.Disabled:
+                        img.color = colorstate.DisabledColor;
+                        break;
                 }
             }
         }
@@ -127,6 +162,14 @@ namespace AIDEN.TactileUI
             Vector3 position = _knobRect.localPosition;
             position.x = _xDeltaState * (_isEnable ? 1 : -1);
             _knobRect.localPosition = position;
+        }
+
+        private void TrySetNormalInteractionState()
+        {
+            if (_interactable)
+                _interactionStateUI = InteractionStateUI.Normal;
+            else
+                _interactionStateUI = InteractionStateUI.Disabled;
         }
     }
 }

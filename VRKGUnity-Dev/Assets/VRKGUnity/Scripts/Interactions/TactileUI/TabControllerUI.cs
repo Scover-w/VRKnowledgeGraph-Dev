@@ -7,10 +7,10 @@ namespace AIDEN.TactileUI
     public partial class TabControllerUI : MonoBehaviour
     {
         [SerializeField]
-        List<ColorStateUI> _unselectedColorStates;
+        List<InteractiveColorUI> _unselectedColorStates;
 
         [SerializeField]
-        List<ColorStateUI> _selectedColorStates;
+        List<InteractiveColorUI> _selectedColorStates;
 
         [SerializeField]
         List<TabUI> _tabsBtn;

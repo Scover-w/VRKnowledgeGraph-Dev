@@ -3,11 +3,30 @@ using System.Collections.Generic;
 using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 using UnityEngine;
 using UnityEngine.UI;
+using Wave.Essence.Hand.NearInteraction;
 
 namespace AIDEN.TactileUI
 {
     public class HSVWheelUI : MonoBehaviour, ITouchUI
     {
+        public bool Interactable
+        {
+            get
+            {
+                return _interactable;
+            }
+            set
+            {
+                _interactable = value;
+
+                TrySetNormalInteractionState();
+                UpdateInteractionColor();
+            }
+        }
+
+        [SerializeField]
+        bool _interactable = true;
+
         [SerializeField]
         ColorPickerUI _colorPickerUI;
 
@@ -15,10 +34,10 @@ namespace AIDEN.TactileUI
         Image _hsvWheelImg;
 
         [SerializeField]
-        ColorStateUI _colorStateUI;
+        InteractiveColorUI _interactiveColor;
 
         [SerializeField]
-        Image _borderImg;
+        Image _interactiveImg;
 
         [SerializeField]
         RectTransform _cursorRectTf;
@@ -26,9 +45,10 @@ namespace AIDEN.TactileUI
         Transform _touchTf;
         TouchInteractor _touchInter;
 
+        InteractionStateUI _interactionStateUI;
+
         RectTransform _wheelRecTf;
         Vector2 _localVector2;
-        Vector2 _rightV2;
 
         float _h;
         float _s;
@@ -39,7 +59,13 @@ namespace AIDEN.TactileUI
         private void Start()
         {
             _wheelRecTf = _hsvWheelImg.GetComponent<RectTransform>();
-            _rightV2 = Vector2.right;
+        }
+
+        private void OnEnable()
+        {
+            _isMovingCursor = false;
+            TrySetNormalInteractionState();
+            UpdateInteractionColor();
         }
 
         public void UpdateColor(float h, float s, float v)
@@ -70,11 +96,13 @@ namespace AIDEN.TactileUI
             {
                 _touchTf = touchTf;
                 _touchInter = _touchTf.GetComponent<TouchInteractor>();
-                UpdateColor(InteractionStateUI.InProximity);
+                _interactionStateUI = InteractionStateUI.InProximity;
+                UpdateInteractionColor();
             }
             else if (!isProximity)
             {
-                UpdateColor(InteractionStateUI.Active);
+                _interactionStateUI = InteractionStateUI.Active;
+                UpdateInteractionColor();
 
                 _isMovingCursor = true;
 
@@ -89,7 +117,8 @@ namespace AIDEN.TactileUI
         {
             if (isProximity)
             {
-                UpdateColor(InteractionStateUI.Normal);
+                _interactionStateUI = InteractionStateUI.Normal;
+                UpdateInteractionColor();
             }
             else if (!isProximity)
             {
@@ -97,24 +126,26 @@ namespace AIDEN.TactileUI
                     _touchInter.ActiveBtn(false, this);
 
                 _isMovingCursor = false;
-                UpdateColor(InteractionStateUI.Normal);
-
-                // TODO : Refresh value
+                _interactionStateUI = InteractionStateUI.Normal;
+                UpdateInteractionColor();
             }
         }
 
-        private void UpdateColor(InteractionStateUI interactionState)
+        private void UpdateInteractionColor()
         {
-            switch (interactionState)
+            switch (_interactionStateUI)
             {
                 case InteractionStateUI.Normal:
-                    _borderImg.color = _colorStateUI.NormalColor;
+                    _interactiveImg.color = _interactiveColor.NormalColor;
                     break;
                 case InteractionStateUI.InProximity:
-                    _borderImg.color = _colorStateUI.ProximityColor;
+                    _interactiveImg.color = _interactiveColor.ProximityColor;
                     break;
                 case InteractionStateUI.Active:
-                    _borderImg.color = _colorStateUI.ActivatedColor;
+                    _interactiveImg.color = _interactiveColor.ActivatedColor;
+                    break;
+                case InteractionStateUI.Disabled:
+                    _interactiveImg.color = _interactiveColor.DisabledColor;
                     break;
             }
         }
@@ -175,14 +206,20 @@ namespace AIDEN.TactileUI
             _cursorRectTf.localPosition = directionCursor;
         }
 
-
-
         public Vector2 Rotate(Vector2 v, float delta)
         {
             return new Vector2(
                 v.x * Mathf.Cos(delta) - v.y * Mathf.Sin(delta),
                 v.x * Mathf.Sin(delta) + v.y * Mathf.Cos(delta)
             );
+        }
+
+        private void TrySetNormalInteractionState()
+        {
+            if (_interactable)
+                _interactionStateUI = InteractionStateUI.Normal;
+            else
+                _interactionStateUI = InteractionStateUI.Disabled;
         }
 
     }
