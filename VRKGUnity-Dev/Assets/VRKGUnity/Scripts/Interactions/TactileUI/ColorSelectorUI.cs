@@ -168,7 +168,8 @@ namespace AIDEN.TactileUI
             _colorImg.color = _value;
 
             _isActive = false;
-            UpdateInteractionColor(InteractionStateUI.Normal);
+            _interactionStateUI = InteractionStateUI.Normal;
+            UpdateInteractionColor();
 
             _onValueChanged?.Invoke(_value);
         }

@@ -103,7 +103,7 @@ namespace AIDEN.TactileUI
                 if (!isNormalCase && character.IsLetter())
                     character = char.ToUpper(character);
 
-                key.SetValue(character);
+                key.Value = character;
             }
 
             if (_isSpecialChar)
