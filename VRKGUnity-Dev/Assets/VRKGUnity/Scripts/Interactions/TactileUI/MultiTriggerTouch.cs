@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace AIDEN.TactileUI
 {
-    public class MultiTriggerUI : MonoBehaviour
+    public class MultiTriggerTouch : MonoBehaviour
     {
         [SerializeField]
         bool _isProximity = false;
@@ -39,7 +39,7 @@ namespace AIDEN.TactileUI
                 return;
 
             Debug.Log("OnTrigger TriggerEnter");
-            _iTactileUI.TriggerEnter(_isProximity, touchCollider);
+            _iTactileUI.TriggerEnter(_isProximity, touchCollider.transform.parent);
         }
 
         public void OnChildTriggerExit(Collider touchCollider)
@@ -56,7 +56,7 @@ namespace AIDEN.TactileUI
                 return;
 
             Debug.Log("OnTrigger TriggerExit");
-            _iTactileUI.TriggerExit(_isProximity, touchCollider);
+            _iTactileUI.TriggerExit(_isProximity, touchCollider.transform.parent);
         }
 
         private void OnValidate()

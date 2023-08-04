@@ -31,7 +31,7 @@ namespace AIDEN.TactileUI
             if (!_isProximity && !touchCollider.CompareTag(Tags.InteractionUI))
                 return;
 
-            _iTactileUI.TriggerEnter(_isProximity, touchCollider);
+            _iTactileUI.TriggerEnter(_isProximity, touchCollider.transform.parent);
         }
 
         private void OnTriggerExit(Collider touchCollider)
@@ -42,7 +42,7 @@ namespace AIDEN.TactileUI
             if (!_isProximity && !touchCollider.CompareTag(Tags.InteractionUI))
                 return;
 
-            _iTactileUI.TriggerExit(_isProximity, touchCollider);
+            _iTactileUI.TriggerExit(_isProximity, touchCollider.transform.parent);
         }
 
         private void OnValidate()

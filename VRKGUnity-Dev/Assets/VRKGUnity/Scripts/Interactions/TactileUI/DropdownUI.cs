@@ -52,15 +52,15 @@ namespace AIDEN.TactileUI
                 EnableCollidersToHide(true);
         }
 
-        public void TriggerEnter(bool isProximity, Collider touchCollider)
+        public void TriggerEnter(bool isProximity, Transform touchTf)
         {
-            if (isProximity && touchCollider.CompareTag(Tags.ProximityUI))
+            if (isProximity)
             {
-                _touchTf = touchCollider.transform.parent;
+                _touchTf = touchTf;
                 _touchInter = _touchTf.GetComponent<TouchInteractor>();
                 UpdateColor(InteractionStateUI.InProximity);
             }
-            else if (!isProximity && touchCollider.CompareTag(Tags.InteractionUI))
+            else if (!isProximity)
             {
                 TryClick();
             }
@@ -86,14 +86,14 @@ namespace AIDEN.TactileUI
                 _touchInter.ActiveBtn(true, this);
         }
 
-        public void TriggerExit(bool isProximity, Collider touchCollider)
+        public void TriggerExit(bool isProximity, Transform touchTf)
         {
-            if (isProximity && touchCollider.CompareTag(Tags.ProximityUI))
+            if (isProximity)
             {
                 _canClick = true;
                 UpdateColor(InteractionStateUI.Normal);
             }
-            else if (!isProximity && touchCollider.CompareTag(Tags.InteractionUI))
+            else if (!isProximity)
             {
                 if (_touchInter != null && !_canClick)
                     _touchInter.ActiveBtn(false, this);

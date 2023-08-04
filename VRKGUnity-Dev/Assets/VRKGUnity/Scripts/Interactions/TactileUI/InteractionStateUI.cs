@@ -1,7 +1,11 @@
-﻿public enum InteractionStateUI
+﻿
+namespace AIDEN.TactileUI
 {
-    Normal,
-    InProximity,
-    Active
+    public enum InteractionStateUI
+    {
+        Normal,
+        InProximity,
+        Active
+    }
 }
 
