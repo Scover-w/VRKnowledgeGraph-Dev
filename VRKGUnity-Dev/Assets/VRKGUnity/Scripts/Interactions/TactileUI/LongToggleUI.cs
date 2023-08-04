@@ -28,11 +28,11 @@ namespace AIDEN.TactileUI
         {
             get
             {
-                return _isEnable;
+                return _value;
             }
             set
             {
-                _isEnable = value;
+                _value = value;
                 UpdateVisual();
             }
         }
@@ -56,10 +56,13 @@ namespace AIDEN.TactileUI
         TMP_Text _text;
 
         [SerializeField]
-        string _disabledValue;
+        string _disabledValueLabel;
 
         [SerializeField]
-        string _enabledValue;
+        string _enabledValueLabel;
+
+        [SerializeField]
+        bool _value = false;
 
         [SerializeField, Space(10)]
         UnityEvent<bool> _onValueChanged;
@@ -73,11 +76,20 @@ namespace AIDEN.TactileUI
         float _xDeltaKnob;
         float _xDeltaText;
 
-        bool _isEnable = false;
         bool _canSwitch = true;
 
 
         private void OnEnable()
+        {
+            SetDefaultValues();
+
+            TrySetNormalInteractionState();
+
+            UpdateVisual();
+            UpdateInteractionColor();
+        }
+
+        private void SetDefaultValues()
         {
             float knobWidth = _knobRect.rect.width;
             float toggleWidth = _toggleRect.rect.width;
@@ -89,11 +101,6 @@ namespace AIDEN.TactileUI
             _xDeltaText -= (toggleWidth * .5f);
 
             _rectText = _text.GetComponent<RectTransform>();
-
-            TrySetNormalInteractionState();
-
-            UpdateVisual();
-            UpdateInteractionColor();
         }
 
         public void TriggerEnter(bool isProximity, Transform touchTf)
@@ -117,7 +124,7 @@ namespace AIDEN.TactileUI
                 return;
 
             _canSwitch = false;
-            _isEnable = !_isEnable;
+            _value = !_value;
             _interactionStateUI = InteractionStateUI.Active;
 
             UpdateVisuals();
@@ -125,7 +132,7 @@ namespace AIDEN.TactileUI
             if (_touchInter != null)
                 _touchInter.ActiveBtn(true, this);
 
-            _onValueChanged?.Invoke(_isEnable);
+            _onValueChanged?.Invoke(_value);
         }
 
         public void TriggerExit(bool isProximity, Transform touchTf)
@@ -183,12 +190,12 @@ namespace AIDEN.TactileUI
         private void UpdateVisual()
         {
             Vector3 posKnob = _knobRect.localPosition;
-            posKnob.x = _xDeltaKnob * (_isEnable ? 1 : -1);
+            posKnob.x = _xDeltaKnob * (_value ? 1 : -1);
             _knobRect.localPosition = posKnob;
 
-            _text.text = _isEnable ? _enabledValue : _disabledValue;
+            _text.text = _value ? _enabledValueLabel : _disabledValueLabel;
             Vector3 posLabel = _rectText.localPosition;
-            posLabel.x = _xDeltaText * (_isEnable ? 1 : -1);
+            posLabel.x = _xDeltaText * (_value ? 1 : -1);
             _rectText.localPosition = posLabel;
         }
 
@@ -202,6 +209,7 @@ namespace AIDEN.TactileUI
 
         private void OnValidate()
         {
+            SetDefaultValues();
             UpdateVisual();
 
             TrySetNormalInteractionState();

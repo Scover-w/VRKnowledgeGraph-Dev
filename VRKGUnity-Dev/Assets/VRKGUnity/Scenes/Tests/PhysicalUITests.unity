@@ -833,7 +833,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1013,17 +1013,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _interactiveColor:
-    _normalColor: {r: 0, g: 0, b: 0, a: 0}
-    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
-  _interactiveImg: {fileID: 0}
+    _normalColor: {r: 0.05882353, g: 0.3019608, b: 0.57254905, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  _interactiveImg: {fileID: 34697179}
   _inputText: {fileID: 795291769}
   _noValueTextColor: {r: 0.23921569, g: 0.23921569, b: 0.23921569, a: 1}
   _normalTextColor: {r: 0.9843137, g: 0.9843137, b: 0.9843137, a: 1}
   _keyboardPositionTf: {fileID: 2044156785}
   _keyboardAlignment: 0
   _noValueInfoText: Write here...
+  _value: 
   _onValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -2930,7 +2931,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -94.6, y: 0}
+  m_AnchoredPosition: {x: -95.55, y: 0}
   m_SizeDelta: {x: 76, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &154492264
@@ -3424,83 +3425,6 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 172124065}
-  m_CullTransparentMesh: 1
---- !u!1 &174084864
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 174084865}
-  - component: {fileID: 174084867}
-  - component: {fileID: 174084866}
-  m_Layer: 5
-  m_Name: Front
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &174084865
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 174084864}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.00014901161}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 613720858}
-  m_Father: {fileID: 2052947831}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -0.000076293945}
-  m_SizeDelta: {x: 192.5, y: 56}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &174084866
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 174084864}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.05882353, g: 0.3019608, b: 0.57254905, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c68bb8ffb50b96143b969d8093a0eb96, type: 3}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &174084867
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 174084864}
   m_CullTransparentMesh: 1
 --- !u!1 &182972069
 GameObject:
@@ -6330,7 +6254,7 @@ MonoBehaviour:
   _minValue: 0
   _maxValue: 5
   _wholeNumber: 0
-  _value: 0.494
+  _value: 0.64
   _onValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -11491,11 +11415,11 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 613720857}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.000059604645}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 174084865}
+  m_Father: {fileID: 2052947831}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -11775,7 +11699,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: None
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0a019fe438f77764f9a70428f8bc6b3e, type: 2}
   m_sharedMaterial: {fileID: 1660395511246298767, guid: 0a019fe438f77764f9a70428f8bc6b3e, type: 2}
@@ -13725,8 +13649,9 @@ MonoBehaviour:
   _toggleRect: {fileID: 722329070}
   _knobRect: {fileID: 154492263}
   _text: {fileID: 852271828}
-  _disabledValue: Mode Desk
-  _enabledValue: Mode Immersion
+  _disabledValueLabel: Mode Immersion
+  _enabledValueLabel: Mode Desk
+  _value: 0
   _onValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -14638,7 +14563,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Input Text
+  m_text: Write here...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0a019fe438f77764f9a70428f8bc6b3e, type: 2}
   m_sharedMaterial: {fileID: 1660395511246298767, guid: 0a019fe438f77764f9a70428f8bc6b3e, type: 2}
@@ -14647,8 +14572,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4282203453
+  m_fontColor: {r: 0.23921569, g: 0.23921569, b: 0.23921569, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -16573,7 +16498,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 33, y: 0}
+  m_AnchoredPosition: {x: 40, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &852271828
@@ -21888,14 +21813,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _interactiveColor:
-    _normalColor: {r: 0, g: 0, b: 0, a: 0}
-    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
-  _interactiveImg: {fileID: 0}
+    _normalColor: {r: 0.05882353, g: 0.3019608, b: 0.57254905, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  _interactiveImg: {fileID: 1142710231}
   _colorImg: {fileID: 29038780}
   _keyboardPositionTf: {fileID: 2044156785}
   _keyboardAlignment: 0
+  _value: {r: 1, g: 0, b: 0, a: 1}
   _onValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -23308,7 +23234,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 2,47
+  m_text: 3,2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0a019fe438f77764f9a70428f8bc6b3e, type: 2}
   m_sharedMaterial: {fileID: 1660395511246298767, guid: 0a019fe438f77764f9a70428f8bc6b3e, type: 2}
@@ -27921,6 +27847,7 @@ MonoBehaviour:
   _label: {fileID: 1976260416}
   _keyboardPositionTf: {fileID: 2044156785}
   _keyboardAlignment: 0
+  _value: 0
   _onValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -32088,7 +32015,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 0.000015258789, y: 0.00024414062}
-  m_SizeDelta: {x: 59.9222, y: 0}
+  m_SizeDelta: {x: 77.632, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1733403761
 MonoBehaviour:
@@ -33873,7 +33800,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 59.9222, y: 0}
+  m_AnchoredPosition: {x: 77.632, y: 0}
   m_SizeDelta: {x: 32, y: 32}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1814122426
@@ -37427,7 +37354,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 9
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0a019fe438f77764f9a70428f8bc6b3e, type: 2}
   m_sharedMaterial: {fileID: 1660395511246298767, guid: 0a019fe438f77764f9a70428f8bc6b3e, type: 2}
@@ -39505,6 +39432,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2052947831}
   - component: {fileID: 2052947835}
+  - component: {fileID: 2052947836}
   - component: {fileID: 2052947834}
   - component: {fileID: 2052947833}
   m_Layer: 5
@@ -39526,7 +39454,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 174084865}
+  - {fileID: 613720858}
   - {fileID: 337972972}
   - {fileID: 231714907}
   m_Father: {fileID: 1203673909}
@@ -39534,7 +39462,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 353.5, y: 439.3}
+  m_AnchoredPosition: {x: 239, y: 439.3}
   m_SizeDelta: {x: 192.5, y: 56}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2052947833
@@ -39587,6 +39515,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2052947830}
   m_CullTransparentMesh: 1
+--- !u!114 &2052947836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2052947830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31dbcf8c318348e4b9638b143ac6d304, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interactable: 1
+  _interactiveColors:
+  - _normalColor: {r: 0.05882353, g: 0.3019608, b: 0.57254905, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  _interactiveImgs:
+  - {fileID: 2052947834}
+  _onClick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2056721445
 GameObject:
   m_ObjectHideFlags: 0

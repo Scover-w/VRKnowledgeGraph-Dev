@@ -55,6 +55,9 @@ namespace AIDEN.TactileUI
         [SerializeField]
         KeyboardAlignment _keyboardAlignment;
 
+        [SerializeField]
+        Color _value;
+
         [SerializeField, Space(10)]
         UnityEvent<Color> _onValueChanged;
 
@@ -63,7 +66,6 @@ namespace AIDEN.TactileUI
 
         InteractionStateUI _interactionStateUI;
 
-        Color _value;
         bool _isActive = false;
 
         private void OnEnable()

@@ -64,6 +64,10 @@ namespace AIDEN.TactileUI
         [SerializeField]
         string _noValueInfoText = "";
 
+        [SerializeField]
+        string _value = "";
+
+
         [SerializeField, Space(10)]
         UnityEvent<string> _onValueChanged;
 
@@ -72,7 +76,6 @@ namespace AIDEN.TactileUI
 
         InteractionStateUI _interactionStateUI;
 
-        string _value = "";
 
         bool _isActive = false;
 
