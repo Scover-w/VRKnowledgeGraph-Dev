@@ -2385,9 +2385,6 @@ MonoBehaviour:
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1653623911}
   _value: 122
-  _onClick:
-    m_PersistentCalls:
-      m_Calls: []
   _onKey:
     m_PersistentCalls:
       m_Calls:
@@ -2667,9 +2664,6 @@ MonoBehaviour:
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1067796108}
   _value: 100
-  _onClick:
-    m_PersistentCalls:
-      m_Calls: []
   _onKey:
     m_PersistentCalls:
       m_Calls:
@@ -2787,9 +2781,6 @@ MonoBehaviour:
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 512998438}
   _value: 113
-  _onClick:
-    m_PersistentCalls:
-      m_Calls: []
   _onKey:
     m_PersistentCalls:
       m_Calls:
@@ -3222,9 +3213,6 @@ MonoBehaviour:
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 23736937}
   _value: 44
-  _onClick:
-    m_PersistentCalls:
-      m_Calls: []
   _onKey:
     m_PersistentCalls:
       m_Calls:
@@ -3253,7 +3241,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4043,9 +4031,6 @@ MonoBehaviour:
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1116953574}
   _value: 46
-  _onClick:
-    m_PersistentCalls:
-      m_Calls: []
   _onKey:
     m_PersistentCalls:
       m_Calls:
@@ -4074,7 +4059,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4495,9 +4480,6 @@ MonoBehaviour:
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1648036505}
   _value: 63
-  _onClick:
-    m_PersistentCalls:
-      m_Calls: []
   _onKey:
     m_PersistentCalls:
       m_Calls:
@@ -6198,9 +6180,6 @@ MonoBehaviour:
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1838836214}
   _value: 39
-  _onClick:
-    m_PersistentCalls:
-      m_Calls: []
   _onKey:
     m_PersistentCalls:
       m_Calls:
@@ -6745,9 +6724,6 @@ MonoBehaviour:
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 500709601}
   _value: 105
-  _onClick:
-    m_PersistentCalls:
-      m_Calls: []
   _onKey:
     m_PersistentCalls:
       m_Calls:
@@ -7073,9 +7049,6 @@ MonoBehaviour:
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1919279723}
   _value: 57
-  _onClick:
-    m_PersistentCalls:
-      m_Calls: []
   _onKey:
     m_PersistentCalls:
       m_Calls:
@@ -7104,7 +7077,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -8290,7 +8263,7 @@ MonoBehaviour:
   - _normalColor: {r: 0.05882353, g: 0.3019608, b: 0.57254905, a: 1}
     _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
     _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0.078431375}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
   _interactiveImgs:
   - {fileID: 473952891}
   _onClick:
@@ -10534,9 +10507,6 @@ MonoBehaviour:
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 366612706}
   _value: 104
-  _onClick:
-    m_PersistentCalls:
-      m_Calls: []
   _onKey:
     m_PersistentCalls:
       m_Calls:
@@ -11694,9 +11664,6 @@ MonoBehaviour:
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1241959883}
   _value: 56
-  _onClick:
-    m_PersistentCalls:
-      m_Calls: []
   _onKey:
     m_PersistentCalls:
       m_Calls:
@@ -11725,7 +11692,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -12025,9 +11992,6 @@ MonoBehaviour:
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 909559073}
   _value: 107
-  _onClick:
-    m_PersistentCalls:
-      m_Calls: []
   _onKey:
     m_PersistentCalls:
       m_Calls:
@@ -14815,9 +14779,6 @@ MonoBehaviour:
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 988244265}
   _value: 115
-  _onClick:
-    m_PersistentCalls:
-      m_Calls: []
   _onKey:
     m_PersistentCalls:
       m_Calls:
@@ -14935,9 +14896,6 @@ MonoBehaviour:
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 439479399}
   _value: 44
-  _onClick:
-    m_PersistentCalls:
-      m_Calls: []
   _onKey:
     m_PersistentCalls:
       m_Calls:
@@ -14966,7 +14924,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -15055,9 +15013,6 @@ MonoBehaviour:
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1978125722}
   _value: 112
-  _onClick:
-    m_PersistentCalls:
-      m_Calls: []
   _onKey:
     m_PersistentCalls:
       m_Calls:
@@ -15311,9 +15266,6 @@ MonoBehaviour:
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 927172044}
   _value: 119
-  _onClick:
-    m_PersistentCalls:
-      m_Calls: []
   _onKey:
     m_PersistentCalls:
       m_Calls:
@@ -16221,9 +16173,6 @@ MonoBehaviour:
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 253116364}
   _value: 103
-  _onClick:
-    m_PersistentCalls:
-      m_Calls: []
   _onKey:
     m_PersistentCalls:
       m_Calls:
@@ -17860,9 +17809,6 @@ MonoBehaviour:
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 889650754}
   _value: 102
-  _onClick:
-    m_PersistentCalls:
-      m_Calls: []
   _onKey:
     m_PersistentCalls:
       m_Calls:
@@ -18432,9 +18378,6 @@ MonoBehaviour:
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 90642485}
   _value: 50
-  _onClick:
-    m_PersistentCalls:
-      m_Calls: []
   _onKey:
     m_PersistentCalls:
       m_Calls:
@@ -18463,7 +18406,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -19626,9 +19569,6 @@ MonoBehaviour:
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 866968681}
   _value: 49
-  _onClick:
-    m_PersistentCalls:
-      m_Calls: []
   _onKey:
     m_PersistentCalls:
       m_Calls:
@@ -19657,7 +19597,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -20004,9 +19944,6 @@ MonoBehaviour:
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 587011507}
   _value: 46
-  _onClick:
-    m_PersistentCalls:
-      m_Calls: []
   _onKey:
     m_PersistentCalls:
       m_Calls:
@@ -20035,7 +19972,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -20397,9 +20334,6 @@ MonoBehaviour:
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 227660656}
   _value: 52
-  _onClick:
-    m_PersistentCalls:
-      m_Calls: []
   _onKey:
     m_PersistentCalls:
       m_Calls:
@@ -20428,7 +20362,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -22427,9 +22361,6 @@ MonoBehaviour:
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1429121058}
   _value: 120
-  _onClick:
-    m_PersistentCalls:
-      m_Calls: []
   _onKey:
     m_PersistentCalls:
       m_Calls:
@@ -25409,9 +25340,6 @@ MonoBehaviour:
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 997095890}
   _value: 51
-  _onClick:
-    m_PersistentCalls:
-      m_Calls: []
   _onKey:
     m_PersistentCalls:
       m_Calls:
@@ -25440,7 +25368,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -26564,9 +26492,6 @@ MonoBehaviour:
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1809623880}
   _value: 110
-  _onClick:
-    m_PersistentCalls:
-      m_Calls: []
   _onKey:
     m_PersistentCalls:
       m_Calls:
@@ -26744,9 +26669,6 @@ MonoBehaviour:
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1205805743}
   _value: 98
-  _onClick:
-    m_PersistentCalls:
-      m_Calls: []
   _onKey:
     m_PersistentCalls:
       m_Calls:
@@ -26970,9 +26892,6 @@ MonoBehaviour:
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 600989068}
   _value: 111
-  _onClick:
-    m_PersistentCalls:
-      m_Calls: []
   _onKey:
     m_PersistentCalls:
       m_Calls:
@@ -27482,9 +27401,6 @@ MonoBehaviour:
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1988133948}
   _value: 97
-  _onClick:
-    m_PersistentCalls:
-      m_Calls: []
   _onKey:
     m_PersistentCalls:
       m_Calls:
@@ -28845,9 +28761,6 @@ MonoBehaviour:
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 689564458}
   _value: 121
-  _onClick:
-    m_PersistentCalls:
-      m_Calls: []
   _onKey:
     m_PersistentCalls:
       m_Calls:
@@ -33031,9 +32944,6 @@ MonoBehaviour:
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 758203348}
   _value: 54
-  _onClick:
-    m_PersistentCalls:
-      m_Calls: []
   _onKey:
     m_PersistentCalls:
       m_Calls:
@@ -33062,7 +32972,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -33299,9 +33209,6 @@ MonoBehaviour:
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1191142427}
   _value: 106
-  _onClick:
-    m_PersistentCalls:
-      m_Calls: []
   _onKey:
     m_PersistentCalls:
       m_Calls:
@@ -34131,9 +34038,6 @@ MonoBehaviour:
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1570793381}
   _value: 117
-  _onClick:
-    m_PersistentCalls:
-      m_Calls: []
   _onKey:
     m_PersistentCalls:
       m_Calls:
@@ -34960,9 +34864,6 @@ MonoBehaviour:
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 80680845}
   _value: 53
-  _onClick:
-    m_PersistentCalls:
-      m_Calls: []
   _onKey:
     m_PersistentCalls:
       m_Calls:
@@ -34991,7 +34892,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -35080,9 +34981,6 @@ MonoBehaviour:
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1121012839}
   _value: 101
-  _onClick:
-    m_PersistentCalls:
-      m_Calls: []
   _onKey:
     m_PersistentCalls:
       m_Calls:
@@ -35733,7 +35631,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -35780,9 +35678,6 @@ MonoBehaviour:
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1407201251}
   _value: 32
-  _onClick:
-    m_PersistentCalls:
-      m_Calls: []
   _onKey:
     m_PersistentCalls:
       m_Calls:
@@ -35862,9 +35757,6 @@ MonoBehaviour:
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 521552236}
   _value: 118
-  _onClick:
-    m_PersistentCalls:
-      m_Calls: []
   _onKey:
     m_PersistentCalls:
       m_Calls:
@@ -37315,9 +37207,6 @@ MonoBehaviour:
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 746672708}
   _value: 114
-  _onClick:
-    m_PersistentCalls:
-      m_Calls: []
   _onKey:
     m_PersistentCalls:
       m_Calls:
@@ -37814,9 +37703,6 @@ MonoBehaviour:
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 659186608}
   _value: 55
-  _onClick:
-    m_PersistentCalls:
-      m_Calls: []
   _onKey:
     m_PersistentCalls:
       m_Calls:
@@ -37845,7 +37731,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -38189,9 +38075,6 @@ MonoBehaviour:
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 188249164}
   _value: 48
-  _onClick:
-    m_PersistentCalls:
-      m_Calls: []
   _onKey:
     m_PersistentCalls:
       m_Calls:
@@ -38220,7 +38103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -38444,9 +38327,6 @@ MonoBehaviour:
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1611788259}
   _value: 108
-  _onClick:
-    m_PersistentCalls:
-      m_Calls: []
   _onKey:
     m_PersistentCalls:
       m_Calls:
@@ -39055,9 +38935,6 @@ MonoBehaviour:
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1799472841}
   _value: 99
-  _onClick:
-    m_PersistentCalls:
-      m_Calls: []
   _onKey:
     m_PersistentCalls:
       m_Calls:
@@ -41001,9 +40878,6 @@ MonoBehaviour:
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 421643866}
   _value: 116
-  _onClick:
-    m_PersistentCalls:
-      m_Calls: []
   _onKey:
     m_PersistentCalls:
       m_Calls:
@@ -41121,9 +40995,6 @@ MonoBehaviour:
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1845938109}
   _value: 109
-  _onClick:
-    m_PersistentCalls:
-      m_Calls: []
   _onKey:
     m_PersistentCalls:
       m_Calls:

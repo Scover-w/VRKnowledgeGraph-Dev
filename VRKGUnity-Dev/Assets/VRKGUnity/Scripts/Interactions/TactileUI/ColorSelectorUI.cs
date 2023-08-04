@@ -32,6 +32,7 @@ namespace AIDEN.TactileUI
             set
             {
                 _value = value;
+                _colorImg.color = _value;
             }
         }
 
@@ -190,6 +191,14 @@ namespace AIDEN.TactileUI
                 _interactionStateUI = InteractionStateUI.Normal;
             else
                 _interactionStateUI = InteractionStateUI.Disabled;
+        }
+
+        private void OnValidate()
+        {
+            _colorImg.color = _value;
+
+            TrySetNormalInteractionState();
+            UpdateInteractionColor();
         }
     }
 }

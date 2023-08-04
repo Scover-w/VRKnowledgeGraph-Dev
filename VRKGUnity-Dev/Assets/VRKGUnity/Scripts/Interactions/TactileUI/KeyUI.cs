@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -155,6 +156,13 @@ namespace AIDEN.TactileUI
                 _interactionStateUI = InteractionStateUI.Normal;
             else
                 _interactionStateUI = InteractionStateUI.Disabled;
+        }
+
+        private void OnValidate()
+        {
+            _label.text = _value.ToString();
+            TrySetNormalInteractionState();
+            UpdateInteractionColor();
         }
     }
 }

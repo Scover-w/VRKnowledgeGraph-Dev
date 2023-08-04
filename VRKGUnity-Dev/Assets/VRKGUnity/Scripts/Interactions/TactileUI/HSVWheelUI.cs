@@ -222,5 +222,10 @@ namespace AIDEN.TactileUI
                 _interactionStateUI = InteractionStateUI.Disabled;
         }
 
+        private void OnValidate()
+        {
+            TrySetNormalInteractionState();
+            UpdateInteractionColor();
+        }
     }
 }

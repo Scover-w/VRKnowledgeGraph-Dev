@@ -22,6 +22,6 @@ namespace AIDEN.TactileUI
         Color _activatedColor;
 
         [SerializeField]
-        Color _disabledColor;
+        Color _disabledColor = new Color(1f, 1f, 1f, .1f);
     }
 }

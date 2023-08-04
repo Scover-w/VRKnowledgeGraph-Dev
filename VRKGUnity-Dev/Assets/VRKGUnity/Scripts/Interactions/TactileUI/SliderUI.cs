@@ -256,8 +256,8 @@ namespace AIDEN.TactileUI
             _isWidth = _sliderType == SliderType.Horizontal;
             _lengthSlider = _isWidth ? _sliderRectTf.rect.width : _sliderRectTf.rect.height;
 
+            TrySetNormalInteractionState();
             UpdateVisuals();
-
         }
 #endif
 
@@ -266,5 +266,7 @@ namespace AIDEN.TactileUI
             Horizontal,
             Vertical
         }
+
+
     }
 }

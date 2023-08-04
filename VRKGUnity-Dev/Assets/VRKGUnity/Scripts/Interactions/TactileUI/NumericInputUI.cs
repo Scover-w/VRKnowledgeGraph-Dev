@@ -55,6 +55,9 @@ namespace AIDEN.TactileUI
         [SerializeField]
         KeyboardAlignment _keyboardAlignment;
 
+        [SerializeField]
+        float _value;
+
         [SerializeField, Space(10)]
         UnityEvent<float> _onValueChanged;
 
@@ -63,7 +66,6 @@ namespace AIDEN.TactileUI
 
         InteractionStateUI _interactionStateUI;
 
-        float _value;
         bool _isActive = false;
 
         private void OnEnable()
@@ -190,6 +192,14 @@ namespace AIDEN.TactileUI
                 _interactionStateUI = InteractionStateUI.Normal;
             else
                 _interactionStateUI = InteractionStateUI.Disabled;
+        }
+
+        private void OnValidate()
+        {
+            _label.text = _value.ToString();
+
+            TrySetNormalInteractionState();
+            UpdateInteractionColor();
         }
 
     }

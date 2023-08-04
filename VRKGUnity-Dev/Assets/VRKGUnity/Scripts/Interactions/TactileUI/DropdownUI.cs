@@ -32,7 +32,9 @@ namespace AIDEN.TactileUI
             }
             set
             {
+                // TODO : Check if in value list
                 _value = value;
+                _label.text = _value;
             }
         }
 
@@ -212,6 +214,14 @@ namespace AIDEN.TactileUI
                 _interactionStateUI = InteractionStateUI.Normal;
             else
                 _interactionStateUI = InteractionStateUI.Disabled;
+        }
+
+        private void OnValidate()
+        {
+            _label.text = _value;
+
+            TrySetNormalInteractionState();
+            UpdateInteractionColor();
         }
     }
 }

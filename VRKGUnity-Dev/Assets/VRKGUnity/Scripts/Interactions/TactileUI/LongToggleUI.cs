@@ -33,7 +33,7 @@ namespace AIDEN.TactileUI
             set
             {
                 _isEnable = value;
-                UpdateKnobPosition();
+                UpdateVisual();
             }
         }
 
@@ -92,7 +92,7 @@ namespace AIDEN.TactileUI
 
             TrySetNormalInteractionState();
 
-            UpdateKnobPosition();
+            UpdateVisual();
             UpdateInteractionColor();
         }
 
@@ -150,7 +150,7 @@ namespace AIDEN.TactileUI
         private void UpdateVisuals()
         {
             UpdateInteractionColor();
-            UpdateKnobPosition();
+            UpdateVisual();
         }
 
         private void UpdateInteractionColor()
@@ -180,16 +180,16 @@ namespace AIDEN.TactileUI
             }
         }
 
-        private void UpdateKnobPosition()
+        private void UpdateVisual()
         {
-            Vector3 posA = _knobRect.localPosition;
-            posA.x = _xDeltaKnob * (_isEnable ? 1 : -1);
-            _knobRect.localPosition = posA;
+            Vector3 posKnob = _knobRect.localPosition;
+            posKnob.x = _xDeltaKnob * (_isEnable ? 1 : -1);
+            _knobRect.localPosition = posKnob;
 
             _text.text = _isEnable ? _enabledValue : _disabledValue;
-            Vector3 posB = _rectText.localPosition;
-            posB.x = _xDeltaText * (_isEnable ? 1 : -1);
-            _rectText.localPosition = posB;
+            Vector3 posLabel = _rectText.localPosition;
+            posLabel.x = _xDeltaText * (_isEnable ? 1 : -1);
+            _rectText.localPosition = posLabel;
         }
 
         private void TrySetNormalInteractionState()
@@ -198,6 +198,14 @@ namespace AIDEN.TactileUI
                 _interactionStateUI = InteractionStateUI.Normal;
             else
                 _interactionStateUI = InteractionStateUI.Disabled;
+        }
+
+        private void OnValidate()
+        {
+            UpdateVisual();
+
+            TrySetNormalInteractionState();
+            UpdateInteractionColor();
         }
     }
 }

@@ -171,5 +171,12 @@ namespace AIDEN.TactileUI
             else
                 _interactionStateUI = InteractionStateUI.Disabled;
         }
+
+        private void OnValidate()
+        {
+            UpdateKnobPosition();
+            TrySetNormalInteractionState();
+            UpdateInteractionColor();
+        }
     }
 }
