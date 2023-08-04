@@ -31,9 +31,7 @@ namespace AIDEN.TactileUI
             set
             {
                 _value = value;
-
-                if (_label != null)
-                    _label.text = value.ToString();
+                _label.text = value.ToString();
             }
         }
 
@@ -54,9 +52,6 @@ namespace AIDEN.TactileUI
 
         [SerializeField]
         char _value;
-
-        [SerializeField, Space(10)]
-        UnityEvent _onClick;
 
         [SerializeField]
         UnityEvent<char> _onKey;
@@ -113,7 +108,6 @@ namespace AIDEN.TactileUI
             if (_touchInter != null)
                 _touchInter.ActiveBtn(true, this);
 
-            _onClick?.Invoke();
             _onKey?.Invoke(_value);
         }
 

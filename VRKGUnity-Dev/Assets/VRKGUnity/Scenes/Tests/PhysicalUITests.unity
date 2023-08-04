@@ -540,7 +540,7 @@ GameObject:
   - component: {fileID: 16184750}
   - component: {fileID: 16184749}
   m_Layer: 0
-  m_Name: KeyboardController
+  m_Name: ComplexInput
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -618,7 +618,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1897084801}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &16522371
 MonoBehaviour:
@@ -1011,11 +1011,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 794db3a20850fc9479f150d422a95921, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.05882353, g: 0.3019608, b: 0.57254905, a: 1}
-    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 34697179}
+  _interactable: 1
+  _interactiveColor:
+    _normalColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImg: {fileID: 0}
   _inputText: {fileID: 795291769}
   _noValueTextColor: {r: 0.23921569, g: 0.23921569, b: 0.23921569, a: 1}
   _normalTextColor: {r: 0.9843137, g: 0.9843137, b: 0.9843137, a: 1}
@@ -2373,11 +2375,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 111334957}
+  _interactable: 1
+  _interactiveColor:
+    _normalColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImg: {fileID: 0}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1653623911}
   _value: 122
@@ -2653,11 +2657,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 134991544}
+  _interactable: 1
+  _interactiveColor:
+    _normalColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImg: {fileID: 0}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1067796108}
   _value: 100
@@ -2771,11 +2777,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 135458318}
+  _interactable: 1
+  _interactiveColor:
+    _normalColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImg: {fileID: 0}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 512998438}
   _value: 113
@@ -3204,11 +3212,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 165001816}
+  _interactable: 1
+  _interactiveColor:
+    _normalColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImg: {fileID: 165001816}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 23736937}
   _value: 44
@@ -4023,11 +4033,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 191507756}
+  _interactable: 1
+  _interactiveColor:
+    _normalColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImg: {fileID: 191507756}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1116953574}
   _value: 46
@@ -4400,16 +4412,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8d540ecf0d08eb4e9f2695c8d2e25c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _colorDropdown:
-  - _normalColor: {r: 0.05882353, g: 0.3019608, b: 0.57254905, a: 1}
-    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _colorItem:
-    _normalColor: {r: 0.9843137, g: 0.9843137, b: 0.9843137, a: 1}
-    _proximityColor: {r: 0.61960787, g: 0.61960787, b: 0.61960787, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _imgs:
-  - {fileID: 219318618}
+  _interactable: 1
+  _interactiveColors: []
+  _interactiveColorItems:
+    _normalColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImgs: []
   _optionsContainerGo: {fileID: 820072456}
   _dropdowns:
   - {fileID: 1627352290}
@@ -4475,11 +4485,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 221006213}
+  _interactable: 1
+  _interactiveColor:
+    _normalColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImg: {fileID: 0}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1648036505}
   _value: 63
@@ -4625,12 +4637,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 670359ff45dbba34ba879396c3ccb2eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _colors:
-  - _normalColor: {r: 0.05882353, g: 0.3019608, b: 0.57254905, a: 1}
-    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _imgs:
-  - {fileID: 1603374690}
+  _interactable: 1
+  _interactiveColors: []
+  _interactiveImgs: []
   _sliderRectTf: {fileID: 221303649}
   _sliderFilledRectTf: {fileID: 625257178}
   _knobRectTf: {fileID: 1603374689}
@@ -6179,11 +6188,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 313819251}
+  _interactable: 1
+  _interactiveColor:
+    _normalColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImg: {fileID: 0}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1838836214}
   _value: 39
@@ -6328,12 +6339,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 670359ff45dbba34ba879396c3ccb2eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _colors:
-  - _normalColor: {r: 0.05882353, g: 0.3019608, b: 0.57254905, a: 1}
-    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _imgs:
-  - {fileID: 1814122426}
+  _interactable: 1
+  _interactiveColors: []
+  _interactiveImgs: []
   _sliderRectTf: {fileID: 323728296}
   _sliderFilledRectTf: {fileID: 1733403760}
   _knobRectTf: {fileID: 1814122425}
@@ -6557,8 +6565,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31dbcf8c318348e4b9638b143ac6d304, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _colorStates: []
-  _imgs: []
+  _interactable: 1
+  _interactiveColors: []
+  _interactiveImgs: []
   _onClick:
     m_PersistentCalls:
       m_Calls:
@@ -6726,11 +6735,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 362255539}
+  _interactable: 1
+  _interactiveColor:
+    _normalColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImg: {fileID: 0}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 500709601}
   _value: 105
@@ -7052,11 +7063,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 385892298}
+  _interactable: 1
+  _interactiveColor:
+    _normalColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImg: {fileID: 385892298}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1919279723}
   _value: 57
@@ -7909,7 +7922,7 @@ GameObject:
   m_Component:
   - component: {fileID: 440663852}
   - component: {fileID: 440663855}
-  - component: {fileID: 440663853}
+  - component: {fileID: 440663856}
   - component: {fileID: 440663854}
   m_Layer: 0
   m_Name: SelectAll
@@ -7941,44 +7954,6 @@ RectTransform:
   m_AnchoredPosition: {x: 420, y: -158}
   m_SizeDelta: {x: 96, y: 96}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &440663853
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 440663851}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 440663854}
-  _keyboardUI: {fileID: 2032103529}
-  _label: {fileID: 0}
-  _value: 0
-  _onClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 108188535}
-        m_TargetAssemblyTypeName: NumpadUI, Scripts
-        m_MethodName: OnSelectAll
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _onKey:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &440663854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8017,6 +7992,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 440663851}
   m_CullTransparentMesh: 1
+--- !u!114 &440663856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 440663851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31dbcf8c318348e4b9638b143ac6d304, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interactable: 1
+  _interactiveColors:
+  - _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImgs:
+  - {fileID: 440663854}
+  _onClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 108188535}
+        m_TargetAssemblyTypeName: AIDEN.TactileUI.NumpadUI, Scripts
+        m_MethodName: OnSelectAll
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &442484551
 GameObject:
   m_ObjectHideFlags: 0
@@ -8193,7 +8203,7 @@ GameObject:
   m_Component:
   - component: {fileID: 473952889}
   - component: {fileID: 473952892}
-  - component: {fileID: 473952890}
+  - component: {fileID: 473952893}
   - component: {fileID: 473952891}
   m_Layer: 0
   m_Name: Enter
@@ -8225,44 +8235,6 @@ RectTransform:
   m_AnchoredPosition: {x: 1109, y: -494}
   m_SizeDelta: {x: 226, y: 96}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &473952890
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 473952888}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.05882353, g: 0.3019608, b: 0.57254905, a: 1}
-    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 473952891}
-  _keyboardUI: {fileID: 2032103529}
-  _label: {fileID: 0}
-  _value: 0
-  _onClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2032103529}
-        m_TargetAssemblyTypeName: KeyboardUI, Scripts
-        m_MethodName: OnEnter
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _onKey:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &473952891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8301,6 +8273,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 473952888}
   m_CullTransparentMesh: 1
+--- !u!114 &473952893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 473952888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31dbcf8c318348e4b9638b143ac6d304, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interactable: 1
+  _interactiveColors:
+  - _normalColor: {r: 0.05882353, g: 0.3019608, b: 0.57254905, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0.078431375}
+  _interactiveImgs:
+  - {fileID: 473952891}
+  _onClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2032103529}
+        m_TargetAssemblyTypeName: AIDEN.TactileUI.KeyboardUI, Scripts
+        m_MethodName: OnEnter
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &476953926
 GameObject:
   m_ObjectHideFlags: 0
@@ -10517,11 +10524,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 556733363}
+  _interactable: 1
+  _interactiveColor:
+    _normalColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImg: {fileID: 0}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 366612706}
   _value: 104
@@ -11675,11 +11684,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 617863376}
+  _interactable: 1
+  _interactiveColor:
+    _normalColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImg: {fileID: 617863376}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1241959883}
   _value: 56
@@ -12004,11 +12015,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 625797641}
+  _interactable: 1
+  _interactiveColor:
+    _normalColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImg: {fileID: 0}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 909559073}
   _value: 107
@@ -12313,8 +12326,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31dbcf8c318348e4b9638b143ac6d304, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _colorStates: []
-  _imgs: []
+  _interactable: 1
+  _interactiveColors: []
+  _interactiveImgs: []
   _onClick:
     m_PersistentCalls:
       m_Calls:
@@ -13741,16 +13755,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f29230f3ff9130f4393ece93bd81af71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _colorStates:
-  - _normalColor: {r: 0.05882353, g: 0.3019608, b: 0.57254905, a: 1}
-    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  - _normalColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
-    _proximityColor: {r: 0.9843137, g: 0.9843137, b: 0.9843137, a: 1}
-    _activatedColor: {r: 0.92941177, g: 0.8235294, b: 0.56078434, a: 1}
-  _imgs:
-  - {fileID: 154492264}
-  - {fileID: 1407303463}
+  _interactable: 1
+  _interactiveImgs: []
+  _interactiveColors: []
   _toggleRect: {fileID: 722329070}
   _knobRect: {fileID: 154492263}
   _text: {fileID: 852271828}
@@ -14105,12 +14112,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31dbcf8c318348e4b9638b143ac6d304, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _colorStates:
-  - _normalColor: {r: 0.05882353, g: 0.3019608, b: 0.57254905, a: 1}
-    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _imgs:
-  - {fileID: 757573874}
+  _interactable: 1
+  _interactiveColors: []
+  _interactiveImgs: []
   _onClick:
     m_PersistentCalls:
       m_Calls:
@@ -14385,12 +14389,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 670359ff45dbba34ba879396c3ccb2eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _colors:
-  - _normalColor: {r: 0.05882353, g: 0.3019608, b: 0.57254905, a: 1}
-    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _imgs:
-  - {fileID: 1320650681}
+  _interactable: 1
+  _interactiveColors: []
+  _interactiveImgs: []
   _sliderRectTf: {fileID: 770256470}
   _sliderFilledRectTf: {fileID: 879352012}
   _knobRectTf: {fileID: 1320650680}
@@ -14804,11 +14805,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 796208922}
+  _interactable: 1
+  _interactiveColor:
+    _normalColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImg: {fileID: 0}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 988244265}
   _value: 115
@@ -14922,11 +14925,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 800710068}
+  _interactable: 1
+  _interactiveColor:
+    _normalColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImg: {fileID: 800710068}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 439479399}
   _value: 44
@@ -15040,11 +15045,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 803997546}
+  _interactable: 1
+  _interactiveColor:
+    _normalColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImg: {fileID: 0}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1978125722}
   _value: 112
@@ -15294,11 +15301,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 813441209}
+  _interactable: 1
+  _interactiveColor:
+    _normalColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImg: {fileID: 0}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 927172044}
   _value: 119
@@ -16202,11 +16211,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 847022291}
+  _interactable: 1
+  _interactiveColor:
+    _normalColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImg: {fileID: 0}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 253116364}
   _value: 103
@@ -16287,7 +16298,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &849721942
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17839,11 +17850,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 898615803}
+  _interactable: 1
+  _interactiveColor:
+    _normalColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImg: {fileID: 0}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 889650754}
   _value: 102
@@ -18409,11 +18422,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 928799234}
+  _interactable: 1
+  _interactiveColor:
+    _normalColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImg: {fileID: 928799234}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 90642485}
   _value: 50
@@ -18557,12 +18572,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 670359ff45dbba34ba879396c3ccb2eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _colors:
-  - _normalColor: {r: 0.05882353, g: 0.3019608, b: 0.57254905, a: 1}
-    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _imgs:
-  - {fileID: 402661288}
+  _interactable: 1
+  _interactiveColors: []
+  _interactiveImgs: []
   _sliderRectTf: {fileID: 934938000}
   _sliderFilledRectTf: {fileID: 2059482735}
   _knobRectTf: {fileID: 402661287}
@@ -19604,11 +19616,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 1020641201}
+  _interactable: 1
+  _interactiveColor:
+    _normalColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImg: {fileID: 1020641201}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 866968681}
   _value: 49
@@ -19826,7 +19840,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1030310288}
   - component: {fileID: 1030310291}
-  - component: {fileID: 1030310289}
+  - component: {fileID: 1030310292}
   - component: {fileID: 1030310290}
   m_Layer: 0
   m_Name: SelectAll
@@ -19858,44 +19872,6 @@ RectTransform:
   m_AnchoredPosition: {x: 70, y: -270}
   m_SizeDelta: {x: 68, y: 96}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1030310289
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1030310287}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 1030310290}
-  _keyboardUI: {fileID: 2032103529}
-  _label: {fileID: 0}
-  _value: 0
-  _onClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2032103529}
-        m_TargetAssemblyTypeName: KeyboardUI, Scripts
-        m_MethodName: OnSelectAll
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _onKey:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &1030310290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19934,6 +19910,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1030310287}
   m_CullTransparentMesh: 1
+--- !u!114 &1030310292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1030310287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31dbcf8c318348e4b9638b143ac6d304, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interactable: 1
+  _interactiveColors: []
+  _interactiveImgs: []
+  _onClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2032103529}
+        m_TargetAssemblyTypeName: AIDEN.TactileUI.KeyboardUI, Scripts
+        m_MethodName: OnSelectAll
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1031758786
 GameObject:
   m_ObjectHideFlags: 0
@@ -19988,11 +19994,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 1031758789}
+  _interactable: 1
+  _interactiveColor:
+    _normalColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImg: {fileID: 1031758789}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 587011507}
   _value: 46
@@ -20379,11 +20387,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 1060338348}
+  _interactable: 1
+  _interactiveColor:
+    _normalColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImg: {fileID: 1060338348}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 227660656}
   _value: 52
@@ -20921,13 +20931,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91c2b4c66537b604ea6e0a81dfac2631, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _interactable: 1
   _colorPickerUI: {fileID: 849721944}
   _hsvWheelImg: {fileID: 1089767628}
-  _colorStateUI:
-    _normalColor: {r: 0.9843137, g: 0.9843137, b: 0.9843137, a: 1}
-    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _borderImg: {fileID: 387804417}
+  _interactiveColor:
+    _normalColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImg: {fileID: 0}
   _cursorRectTf: {fileID: 299137306}
 --- !u!1 &1093904440
 GameObject:
@@ -21428,12 +21440,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 670359ff45dbba34ba879396c3ccb2eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _colors:
-  - _normalColor: {r: 0.05882353, g: 0.3019608, b: 0.57254905, a: 1}
-    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _imgs:
-  - {fileID: 1577168426}
+  _interactable: 1
+  _interactiveColors: []
+  _interactiveImgs: []
   _sliderRectTf: {fileID: 1123544962}
   _sliderFilledRectTf: {fileID: 1578358100}
   _knobRectTf: {fileID: 1577168425}
@@ -21668,7 +21677,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1140513668}
   - component: {fileID: 1140513671}
-  - component: {fileID: 1140513669}
+  - component: {fileID: 1140513672}
   - component: {fileID: 1140513670}
   m_Layer: 0
   m_Name: Delete
@@ -21700,44 +21709,6 @@ RectTransform:
   m_AnchoredPosition: {x: 1133, y: -382}
   m_SizeDelta: {x: 178, y: 96}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1140513669
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1140513667}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 1140513670}
-  _keyboardUI: {fileID: 2032103529}
-  _label: {fileID: 0}
-  _value: 0
-  _onClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2032103529}
-        m_TargetAssemblyTypeName: KeyboardUI, Scripts
-        m_MethodName: OnDeleteEnd
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _onKey:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &1140513670
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21776,6 +21747,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1140513667}
   m_CullTransparentMesh: 1
+--- !u!114 &1140513672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1140513667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31dbcf8c318348e4b9638b143ac6d304, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interactable: 1
+  _interactiveColors: []
+  _interactiveImgs: []
+  _onClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2032103529}
+        m_TargetAssemblyTypeName: AIDEN.TactileUI.KeyboardUI, Scripts
+        m_MethodName: OnDeleteEnd
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1141255459
 GameObject:
   m_ObjectHideFlags: 0
@@ -21951,11 +21952,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6db609d8ecf3aac4388423de0af39368, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.05882353, g: 0.3019608, b: 0.57254905, a: 1}
-    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 1142710231}
+  _interactable: 1
+  _interactiveColor:
+    _normalColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImg: {fileID: 0}
   _colorImg: {fileID: 29038780}
   _keyboardPositionTf: {fileID: 2044156785}
   _keyboardAlignment: 0
@@ -22076,7 +22079,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1897084801}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1154637658
 MonoBehaviour:
@@ -22414,11 +22417,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 1167657202}
+  _interactable: 1
+  _interactiveColor:
+    _normalColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImg: {fileID: 0}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1429121058}
   _value: 120
@@ -25394,11 +25399,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 1268138332}
+  _interactable: 1
+  _interactiveColor:
+    _normalColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImg: {fileID: 1268138332}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 997095890}
   _value: 51
@@ -26392,12 +26399,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31dbcf8c318348e4b9638b143ac6d304, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _colorStates:
-  - _normalColor: {r: 0.05882353, g: 0.3019608, b: 0.57254905, a: 1}
-    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _imgs:
-  - {fileID: 1349981437}
+  _interactable: 1
+  _interactiveColors: []
+  _interactiveImgs: []
   _onClick:
     m_PersistentCalls:
       m_Calls:
@@ -26550,11 +26554,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 1357265119}
+  _interactable: 1
+  _interactiveColor:
+    _normalColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImg: {fileID: 0}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1809623880}
   _value: 110
@@ -26728,11 +26734,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 1362615542}
+  _interactable: 1
+  _interactiveColor:
+    _normalColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImg: {fileID: 0}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1205805743}
   _value: 98
@@ -26952,11 +26960,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 1389037793}
+  _interactable: 1
+  _interactiveColor:
+    _normalColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImg: {fileID: 0}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 600989068}
   _value: 111
@@ -27159,6 +27169,141 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1401828644}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1407201249
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1407201250}
+  - component: {fileID: 1407201252}
+  - component: {fileID: 1407201251}
+  m_Layer: 0
+  m_Name: Label
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1407201250
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1407201249}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1897084801}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 90.3, y: 85.8}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1407201251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1407201249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: ' '
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 0a019fe438f77764f9a70428f8bc6b3e, type: 2}
+  m_sharedMaterial: {fileID: 1660395511246298767, guid: 0a019fe438f77764f9a70428f8bc6b3e, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 50
+  m_fontSizeBase: 50
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1407201252
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1407201249}
+  m_CullTransparentMesh: 1
 --- !u!1 &1407303461
 GameObject:
   m_ObjectHideFlags: 0
@@ -27327,11 +27472,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 1412452020}
+  _interactable: 1
+  _interactiveColor:
+    _normalColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImg: {fileID: 0}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1988133948}
   _value: 97
@@ -27848,11 +27995,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 674149c811bd6bc4786c586daa9d39b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.05882353, g: 0.3019608, b: 0.57254905, a: 1}
-    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 1454832270}
+  _interactable: 1
+  _interactiveColor:
+    _normalColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImg: {fileID: 0}
   _label: {fileID: 1976260416}
   _keyboardPositionTf: {fileID: 2044156785}
   _keyboardAlignment: 0
@@ -28252,8 +28401,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31dbcf8c318348e4b9638b143ac6d304, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _colorStates: []
-  _imgs: []
+  _interactable: 1
+  _interactiveColors: []
+  _interactiveImgs: []
   _onClick:
     m_PersistentCalls:
       m_Calls:
@@ -28685,11 +28835,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 1501701400}
+  _interactable: 1
+  _interactiveColor:
+    _normalColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImg: {fileID: 0}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 689564458}
   _value: 121
@@ -30079,7 +30231,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1588522233}
   - component: {fileID: 1588522236}
-  - component: {fileID: 1588522234}
+  - component: {fileID: 1588522237}
   - component: {fileID: 1588522235}
   m_Layer: 0
   m_Name: Capslock
@@ -30111,44 +30263,6 @@ RectTransform:
   m_AnchoredPosition: {x: 84, y: -382}
   m_SizeDelta: {x: 96, y: 96}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1588522234
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1588522232}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 1588522235}
-  _keyboardUI: {fileID: 2032103529}
-  _label: {fileID: 0}
-  _value: 0
-  _onClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2032103529}
-        m_TargetAssemblyTypeName: KeyboardUI, Scripts
-        m_MethodName: OnSwitchCapslock
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _onKey:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &1588522235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30187,6 +30301,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1588522232}
   m_CullTransparentMesh: 1
+--- !u!114 &1588522237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1588522232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31dbcf8c318348e4b9638b143ac6d304, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interactable: 1
+  _interactiveColors: []
+  _interactiveImgs: []
+  _onClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2032103529}
+        m_TargetAssemblyTypeName: AIDEN.TactileUI.KeyboardUI, Scripts
+        m_MethodName: OnSwitchCapslock
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1598762404
 GameObject:
   m_ObjectHideFlags: 0
@@ -32877,11 +33021,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 1790895829}
+  _interactable: 1
+  _interactiveColor:
+    _normalColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImg: {fileID: 1790895829}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 758203348}
   _value: 54
@@ -33143,11 +33289,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 1797917747}
+  _interactable: 1
+  _interactiveColor:
+    _normalColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImg: {fileID: 0}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1191142427}
   _value: 106
@@ -33352,7 +33500,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1800597022}
   - component: {fileID: 1800597025}
-  - component: {fileID: 1800597023}
+  - component: {fileID: 1800597026}
   - component: {fileID: 1800597024}
   m_Layer: 0
   m_Name: Delete
@@ -33384,44 +33532,6 @@ RectTransform:
   m_AnchoredPosition: {x: 420, y: -382}
   m_SizeDelta: {x: 96, y: 96}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1800597023
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1800597021}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 1800597024}
-  _keyboardUI: {fileID: 2032103529}
-  _label: {fileID: 0}
-  _value: 0
-  _onClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 108188535}
-        m_TargetAssemblyTypeName: NumpadUI, Scripts
-        m_MethodName: OnDeleteEnd
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _onKey:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &1800597024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33460,6 +33570,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1800597021}
   m_CullTransparentMesh: 1
+--- !u!114 &1800597026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1800597021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31dbcf8c318348e4b9638b143ac6d304, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interactable: 1
+  _interactiveColors: []
+  _interactiveImgs: []
+  _onClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 108188535}
+        m_TargetAssemblyTypeName: AIDEN.TactileUI.NumpadUI, Scripts
+        m_MethodName: OnDeleteEnd
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1807446096
 GameObject:
   m_ObjectHideFlags: 0
@@ -33981,11 +34121,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 1822430120}
+  _interactable: 1
+  _interactiveColor:
+    _normalColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImg: {fileID: 0}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1570793381}
   _value: 117
@@ -34808,11 +34950,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 1845144422}
+  _interactable: 1
+  _interactiveColor:
+    _normalColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImg: {fileID: 1845144422}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 80680845}
   _value: 53
@@ -34926,11 +35070,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 1845862550}
+  _interactable: 1
+  _interactiveColor:
+    _normalColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImg: {fileID: 0}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1121012839}
   _value: 101
@@ -35542,7 +35688,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1897084801}
   - component: {fileID: 1897084804}
-  - component: {fileID: 1897084802}
+  - component: {fileID: 1897084805}
   - component: {fileID: 1897084803}
   m_Layer: 0
   m_Name: Space
@@ -35563,6 +35709,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1407201250}
   - {fileID: 16522370}
   - {fileID: 1154637657}
   m_Father: {fileID: 376294536}
@@ -35573,44 +35720,6 @@ RectTransform:
   m_AnchoredPosition: {x: 580, y: -494}
   m_SizeDelta: {x: 576, y: 96}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1897084802
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1897084800}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 1897084803}
-  _keyboardUI: {fileID: 2032103529}
-  _label: {fileID: 0}
-  _value: 32
-  _onClick:
-    m_PersistentCalls:
-      m_Calls: []
-  _onKey:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2032103529}
-        m_TargetAssemblyTypeName: KeyboardUI, Scripts
-        m_MethodName: AddChar
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1897084803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35649,6 +35758,46 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1897084800}
   m_CullTransparentMesh: 1
+--- !u!114 &1897084805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1897084800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interactable: 1
+  _interactiveColor:
+    _normalColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImg: {fileID: 1897084803}
+  _keyboardUI: {fileID: 2032103529}
+  _label: {fileID: 1407201251}
+  _value: 32
+  _onClick:
+    m_PersistentCalls:
+      m_Calls: []
+  _onKey:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2032103529}
+        m_TargetAssemblyTypeName: AIDEN.TactileUI.KeyboardUI, Scripts
+        m_MethodName: AddChar
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1900662371
 GameObject:
   m_ObjectHideFlags: 0
@@ -35703,11 +35852,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 1900662374}
+  _interactable: 1
+  _interactiveColor:
+    _normalColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImg: {fileID: 0}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 521552236}
   _value: 118
@@ -36513,7 +36664,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1923595185}
   - component: {fileID: 1923595188}
-  - component: {fileID: 1923595186}
+  - component: {fileID: 1923595189}
   - component: {fileID: 1923595187}
   m_Layer: 0
   m_Name: Enter
@@ -36545,44 +36696,6 @@ RectTransform:
   m_AnchoredPosition: {x: 364, y: -494}
   m_SizeDelta: {x: 208, y: 96}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1923595186
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1923595184}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.05882353, g: 0.3019608, b: 0.57254905, a: 1}
-    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 1923595187}
-  _keyboardUI: {fileID: 2032103529}
-  _label: {fileID: 0}
-  _value: 0
-  _onClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 108188535}
-        m_TargetAssemblyTypeName: NumpadUI, Scripts
-        m_MethodName: OnEnter
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _onKey:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &1923595187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36621,6 +36734,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1923595184}
   m_CullTransparentMesh: 1
+--- !u!114 &1923595189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1923595184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31dbcf8c318348e4b9638b143ac6d304, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interactable: 1
+  _interactiveColors: []
+  _interactiveImgs: []
+  _onClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 108188535}
+        m_TargetAssemblyTypeName: AIDEN.TactileUI.NumpadUI, Scripts
+        m_MethodName: OnEnter
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1927325080
 GameObject:
   m_ObjectHideFlags: 0
@@ -37162,11 +37305,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 1966324060}
+  _interactable: 1
+  _interactiveColor:
+    _normalColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImg: {fileID: 0}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 746672708}
   _value: 114
@@ -37334,9 +37479,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _controllerUI: {fileID: 1854812244}
   _pageToDisplayGo: {fileID: 531108455}
-  _imgs:
-  - {fileID: 1973538776}
-  - {fileID: 172124067}
+  _interactiveImgs: []
 --- !u!1 &1976260414
 GameObject:
   m_ObjectHideFlags: 0
@@ -37661,11 +37804,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 1980738837}
+  _interactable: 1
+  _interactiveColor:
+    _normalColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImg: {fileID: 1980738837}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 659186608}
   _value: 55
@@ -38034,11 +38179,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 1986112773}
+  _interactable: 1
+  _interactiveColor:
+    _normalColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImg: {fileID: 1986112773}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 188249164}
   _value: 48
@@ -38287,11 +38434,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 1992940652}
+  _interactable: 1
+  _interactiveColor:
+    _normalColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImg: {fileID: 0}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1611788259}
   _value: 108
@@ -38443,11 +38592,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3507f70b7604fdf478ba174fcad44f07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enabledColorStates: []
-  _disabledColorStates: []
-  _imgs:
-  - {fileID: 1995118135}
-  - {fileID: 192376538}
+  _interactable: 1
+  _activeInteractiveColors: []
+  _unactiveInteractiveColors: []
+  _interactiveImgs: []
   _knobRect: {fileID: 192376537}
   _onValueChanged:
     m_PersistentCalls:
@@ -38897,11 +39045,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 2018936959}
+  _interactable: 1
+  _interactiveColor:
+    _normalColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImg: {fileID: 0}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1799472841}
   _value: 99
@@ -38982,7 +39132,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2032103529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40786,9 +40936,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _controllerUI: {fileID: 1854812244}
   _pageToDisplayGo: {fileID: 183561927}
-  _imgs:
-  - {fileID: 2098346973}
-  - {fileID: 805137193}
+  _interactiveImgs: []
 --- !u!1 &2098537415
 GameObject:
   m_ObjectHideFlags: 0
@@ -40843,11 +40991,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 2098537418}
+  _interactable: 1
+  _interactiveColor:
+    _normalColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImg: {fileID: 0}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 421643866}
   _value: 116
@@ -40961,11 +41111,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 2114759902}
+  _interactable: 1
+  _interactiveColor:
+    _normalColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+  _interactiveImg: {fileID: 0}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1845938109}
   _value: 109
@@ -41035,7 +41187,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2128013102}
   - component: {fileID: 2128013105}
-  - component: {fileID: 2128013103}
+  - component: {fileID: 2128013106}
   - component: {fileID: 2128013104}
   m_Layer: 0
   m_Name: SwitchMode
@@ -41067,44 +41219,6 @@ RectTransform:
   m_AnchoredPosition: {x: 100, y: -494}
   m_SizeDelta: {x: 128, y: 96}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2128013103
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2128013101}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4243f81783b63a343a7b14aed35123cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _color:
-    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  _img: {fileID: 2128013104}
-  _keyboardUI: {fileID: 2032103529}
-  _label: {fileID: 0}
-  _value: 0
-  _onClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2032103529}
-        m_TargetAssemblyTypeName: KeyboardUI, Scripts
-        m_MethodName: OnSwitchKeyboardType
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _onKey:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &2128013104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41143,6 +41257,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2128013101}
   m_CullTransparentMesh: 1
+--- !u!114 &2128013106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2128013101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31dbcf8c318348e4b9638b143ac6d304, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interactable: 1
+  _interactiveColors: []
+  _interactiveImgs: []
+  _onClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2032103529}
+        m_TargetAssemblyTypeName: AIDEN.TactileUI.KeyboardUI, Scripts
+        m_MethodName: OnSwitchKeyboardType
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2130629812
 GameObject:
   m_ObjectHideFlags: 0
