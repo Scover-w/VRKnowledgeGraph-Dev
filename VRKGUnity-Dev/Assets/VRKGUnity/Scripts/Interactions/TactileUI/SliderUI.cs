@@ -7,8 +7,21 @@ using UnityEngine.UI;
 
 namespace AIDEN.TactileUI
 {
-    public class SliderUI : MonoBehaviour, ITactileUI
+    public class SliderUI : MonoBehaviour, ITouchUI, IValueUI<float>
     {
+        public float Value
+        {
+            get
+            {
+                return _value;
+            }
+            set
+            {
+                _value = value;
+            }
+        }
+
+
         [SerializeField]
         List<ColorStateUI> _colors;
 
@@ -34,16 +47,19 @@ namespace AIDEN.TactileUI
         bool _alwaysDisplayValue = false;
 
         [SerializeField]
-        [Range(0f, 1f)]
-        float _value = .5f;
-
-        [SerializeField]
         float _minValue = 0f;
+
         [SerializeField]
         float _maxValue = 1f;
 
+        [SerializeField]
+        bool _wholeNumber = false;
+
+        [SerializeField]
+        float _value;
+
         [SerializeField, Space(10)]
-        UnityEvent<float> _onChangedValue;
+        UnityEvent<float> _onValueChanged;
 
 
         Transform _touchTf;
@@ -52,6 +68,7 @@ namespace AIDEN.TactileUI
         private bool _isMovingKnob = false;
         bool _isWidth;
         float _lengthSlider;
+
 
         private void Start()
         {
@@ -184,7 +201,7 @@ namespace AIDEN.TactileUI
             _label.text = uNormalizedValue.ToString("0.##");
 
             if (doInvokeEvent)
-                _onChangedValue?.Invoke(uNormalizedValue);
+                _onValueChanged?.Invoke(uNormalizedValue);
         }
 
         public void SetNewValue(float normalizedValue)

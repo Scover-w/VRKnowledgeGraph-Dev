@@ -1,12 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace AIDEN.TactileUI
 {
-    public class ColorSelectorUI : MonoBehaviour, ITactileUI
+    public class ColorSelectorUI : MonoBehaviour, ITouchUI, IValueUI<Color>
     {
+        public Color Value
+        {
+            get
+            {
+                return _value;
+            }
+            set
+            {
+                _value = value;
+            }
+        }
+
         [SerializeField]
         ColorStateUI _color;
 
@@ -22,18 +35,19 @@ namespace AIDEN.TactileUI
         [SerializeField]
         KeyboardAlignment _keyboardAlignment;
 
-        [SerializeField]
-        Color _colorValue;
+        [SerializeField, Space(10)]
+        UnityEvent<Color> _onValueChanged;
 
         Transform _touchTf;
         TouchInteractor _touchInter;
 
 
+        Color _value;
         bool _isActive = false;
 
-        private void Start()
+        private void OnEnable()
         {
-            _colorImg.color = _colorValue;
+            _colorImg.color = _value;
         }
 
         public void TriggerEnter(bool isProximity, Transform touchTf)
@@ -110,21 +124,23 @@ namespace AIDEN.TactileUI
             if (input is not Color)
                 return;
 
-            _colorValue = (Color)input;
-            _colorImg.color = _colorValue;
+            _value = (Color)input;
+            _colorImg.color = _value;
         }
 
         public void OnEnterInput(object input)
         {
             if (input is not Color)
-                _colorValue = Color.white;
+                _value = Color.white;
             else
-                _colorValue = (Color)input;
+                _value = (Color)input;
 
-            _colorImg.color = _colorValue;
+            _colorImg.color = _value;
 
             _isActive = false;
             UpdateColor(InteractionStateUI.Normal);
+
+            _onValueChanged?.Invoke(_value);
         }
 
         private KeyboardUIOptions<Color> CreateKeyboardOptions()
@@ -134,7 +150,7 @@ namespace AIDEN.TactileUI
                                             _keyboardAlignment,
                                             OnUpdateInput,
                                             OnEnterInput,
-                                            _colorValue);
+                                            _value);
         }
     }
 }

@@ -12,15 +12,15 @@ namespace AIDEN.TactileUI
         [SerializeField]
         MonoBehaviour _physicalUIScript;
 
-        ITactileUI _iTactileUI;
+        ITouchUI _iTouchUI;
 
         int _nbIn = 0;
 
         private void Start()
         {
-            _iTactileUI = _physicalUIScript.GetComponent<ITactileUI>();
+            _iTouchUI = _physicalUIScript.GetComponent<ITouchUI>();
 
-            if (_iTactileUI == null)
+            if (_iTouchUI == null)
                 Debug.LogError("_physicalUIScript don't implement the ITactileUI interface.");
         }
 
@@ -39,7 +39,7 @@ namespace AIDEN.TactileUI
                 return;
 
             Debug.Log("OnTrigger TriggerEnter");
-            _iTactileUI.TriggerEnter(_isProximity, touchCollider.transform.parent);
+            _iTouchUI.TriggerEnter(_isProximity, touchCollider.transform.parent);
         }
 
         public void OnChildTriggerExit(Collider touchCollider)
@@ -56,7 +56,7 @@ namespace AIDEN.TactileUI
                 return;
 
             Debug.Log("OnTrigger TriggerExit");
-            _iTactileUI.TriggerExit(_isProximity, touchCollider.transform.parent);
+            _iTouchUI.TriggerExit(_isProximity, touchCollider.transform.parent);
         }
 
         private void OnValidate()
@@ -64,7 +64,7 @@ namespace AIDEN.TactileUI
             if (_physicalUIScript == null)
                 return;
 
-            if (_physicalUIScript.GetComponent<ITactileUI>() != null)
+            if (_physicalUIScript.GetComponent<ITouchUI>() != null)
                 return;
 
             _physicalUIScript = null;

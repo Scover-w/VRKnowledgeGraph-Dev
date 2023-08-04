@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace AIDEN.TactileUI
 {
-    public class TabUI : MonoBehaviour, ITactileUI
+    public class TabUI : MonoBehaviour, ITouchUI
     {
         [SerializeField]
         TabControllerUI _controllerUI;

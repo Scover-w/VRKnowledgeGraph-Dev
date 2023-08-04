@@ -1,12 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace AIDEN.TactileUI
 {
-    public class ToggleUI : MonoBehaviour, ITactileUI
+    public class ToggleUI : MonoBehaviour, ITouchUI, IValueUI<bool>
     {
+        public bool Value
+        {
+            get
+            {
+                return _isEnable;
+            }
+            set
+            { 
+                _isEnable = value; 
+            }
+        }
+
+
         [SerializeField]
         List<ColorStateUI> _enabledColorStates;
 
@@ -18,6 +32,9 @@ namespace AIDEN.TactileUI
 
         [SerializeField]
         RectTransform _knobRect;
+
+        [SerializeField, Space(10)]
+        UnityEvent<bool> _onValueChanged;
 
         Transform _touchTf;
         TouchInteractor _touchInter;
@@ -60,8 +77,7 @@ namespace AIDEN.TactileUI
             if (_touchInter != null)
                 _touchInter.ActiveBtn(true, this);
 
-            // TODO : Link the the true datas
-            Debug.Log("Click");
+            _onValueChanged?.Invoke(_isEnable);
         }
 
         public void TriggerExit(bool isProximity, Transform touchTf)

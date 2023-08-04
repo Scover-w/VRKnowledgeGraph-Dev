@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace AIDEN.TactileUI
 {
-    public class ButtonUI : MonoBehaviour, ITactileUI
+    public class ButtonUI : MonoBehaviour, ITouchUI
     {
         [SerializeField]
         List<ColorStateUI> _colorStates;

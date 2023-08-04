@@ -238,7 +238,7 @@ public class StylingGlobalPC : MonoBehaviour
         {
             _graphConfig.NodeSizeImmersion = NodeSizeImmersion;
 
-            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.NodeSizeImmersion));
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigurationKey.NodeSizeImmersion);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
@@ -246,7 +246,7 @@ public class StylingGlobalPC : MonoBehaviour
         {
             _graphConfig.NodeSizeDesk = NodeSizeDesk;
 
-            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.NodeSizeDesk));
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigurationKey.NodeSizeDesk);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
@@ -255,7 +255,7 @@ public class StylingGlobalPC : MonoBehaviour
         {
             _graphConfig.NodeSizeLens = NodeSizeLens;
 
-            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.NodeSizeLens));
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigurationKey.NodeSizeLens);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
@@ -264,7 +264,7 @@ public class StylingGlobalPC : MonoBehaviour
         {
             _graphConfig.NodeSizeWatch = NodeSizeWatch;
 
-            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.NodeSizeWatch));
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigurationKey.NodeSizeWatch);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
@@ -274,7 +274,7 @@ public class StylingGlobalPC : MonoBehaviour
         {
             _graphConfig.NodeMinSizeImmersion = NodeMinSizeImmersion;
 
-            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.NodeMinSizeImmersion));
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigurationKey.NodeMinSizeImmersion);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
@@ -282,7 +282,7 @@ public class StylingGlobalPC : MonoBehaviour
         {
             _graphConfig.NodeMaxSizeImmersion = NodeMaxSizeImmersion;
 
-            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.NodeMaxSizeImmersion));
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigurationKey.NodeMaxSizeImmersion);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
@@ -291,7 +291,7 @@ public class StylingGlobalPC : MonoBehaviour
         {
             _graphConfig.NodeMinSizeDesk = NodeMinSizeDesk;
 
-            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.NodeMinSizeDesk));
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigurationKey.NodeMinSizeDesk);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
@@ -299,7 +299,7 @@ public class StylingGlobalPC : MonoBehaviour
         {
             _graphConfig.NodeMaxSizeDesk = NodeMaxSizeDesk;
 
-            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.NodeMaxSizeDesk));
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigurationKey.NodeMaxSizeDesk);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
@@ -308,7 +308,7 @@ public class StylingGlobalPC : MonoBehaviour
         {
             _graphConfig.NodeMinSizeLens = NodeMinSizeLens;
 
-            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.NodeMinSizeLens));
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigurationKey.NodeMinSizeLens);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
@@ -316,7 +316,7 @@ public class StylingGlobalPC : MonoBehaviour
         {
             _graphConfig.NodeMaxSizeLens = NodeMaxSizeLens;
 
-            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.NodeMaxSizeLens));
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigurationKey.NodeMaxSizeLens);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
@@ -328,7 +328,7 @@ public class StylingGlobalPC : MonoBehaviour
         {
             _graphConfig.NodeColor = NodeColor;
 
-            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.NodeColor));
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigurationKey.NodeColor);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
@@ -338,7 +338,7 @@ public class StylingGlobalPC : MonoBehaviour
         {
             colorLerpMapper.ColorA = NodeMappingAColor;
 
-            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.NodeColorMapping));
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigurationKey.NodeColorMapping);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
@@ -346,7 +346,7 @@ public class StylingGlobalPC : MonoBehaviour
         {
             colorLerpMapper.ColorB = NodeMappingBColor;
 
-            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.NodeColorMapping));
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigurationKey.NodeColorMapping);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
@@ -354,7 +354,7 @@ public class StylingGlobalPC : MonoBehaviour
         {
             colorLerpMapper.ColorC = NodeMappingCColor;
 
-            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.NodeColorMapping));
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigurationKey.NodeColorMapping);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
@@ -362,7 +362,7 @@ public class StylingGlobalPC : MonoBehaviour
         {
             _graphConfig.AlphaNodeColorPropagated = AlphaNodeColorPropagated;
 
-            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.AlphaNodeColorPropagated));
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigurationKey.AlphaNodeColorPropagated);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
@@ -370,7 +370,7 @@ public class StylingGlobalPC : MonoBehaviour
         {
             _graphConfig.AlphaNodeColorUnPropagated = AlphaNodeColorUnPropagated;
 
-            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.AlphaNodeColorUnPropagated));
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigurationKey.AlphaNodeColorUnPropagated);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
@@ -380,7 +380,7 @@ public class StylingGlobalPC : MonoBehaviour
         {
             colorLerpMapper.BoundaryColorA = BoundaryColorA;
 
-            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.NodeColorMapping));
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigurationKey.NodeColorMapping);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
@@ -388,7 +388,7 @@ public class StylingGlobalPC : MonoBehaviour
         {
             colorLerpMapper.BoundaryColorB = BoundaryColorB;
 
-            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.NodeColorMapping));
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigurationKey.NodeColorMapping);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
@@ -396,7 +396,7 @@ public class StylingGlobalPC : MonoBehaviour
         {
             colorLerpMapper.BoundaryColorC = BoundaryColorC;
 
-            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.NodeColorMapping));
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigurationKey.NodeColorMapping);
             styleChange = styleChange.Add(addedStyleChange);
         }
         #endregion
@@ -407,7 +407,7 @@ public class StylingGlobalPC : MonoBehaviour
         {
             _graphConfig.NbOntologyColor = NbOntologyColor;
 
-            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.NbOntologyColor));
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigurationKey.NbOntologyColor);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
@@ -420,7 +420,7 @@ public class StylingGlobalPC : MonoBehaviour
         {
             _graphConfig.SaturationOntologyColor = SaturationOntologyColor;
 
-            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.SaturationOntologyColor));
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigurationKey.SaturationOntologyColor);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
@@ -428,7 +428,7 @@ public class StylingGlobalPC : MonoBehaviour
         {
             _graphConfig.ValueOntologyColor = ValueOntologyColor;
 
-            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.ValueOntologyColor));
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigurationKey.ValueOntologyColor);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
@@ -436,7 +436,7 @@ public class StylingGlobalPC : MonoBehaviour
         {
             _graphConfig.NodeColorNoValueMetric = NodeColorNoValueMetric;
 
-            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.NodeColorNoValueMetric));
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigurationKey.NodeColorNoValueMetric);
             styleChange = styleChange.Add(addedStyleChange);
         }
         #endregion
@@ -447,7 +447,7 @@ public class StylingGlobalPC : MonoBehaviour
         {
             _graphConfig.SelectedMetricTypeColor = SelectedMetricTypeColor;
 
-            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.SelectedMetricTypeColor));
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigurationKey.SelectedMetricTypeColor);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
@@ -455,7 +455,7 @@ public class StylingGlobalPC : MonoBehaviour
         {
             _graphConfig.SelectedMetricTypeSize = SelectedMetricTypeSize;
 
-            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.SelectedMetricTypeSize));
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigurationKey.SelectedMetricTypeSize);
             styleChange = styleChange.Add(addedStyleChange);
         }
         #endregion
@@ -466,7 +466,7 @@ public class StylingGlobalPC : MonoBehaviour
         {
             _graphConfig.ImmersionGraphSize = ImmersionGraphSize;
 
-            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.ImmersionGraphSize));
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigurationKey.ImmersionGraphSize);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
@@ -474,7 +474,7 @@ public class StylingGlobalPC : MonoBehaviour
         {
             _graphConfig.WatchGraphSize = WatchGraphSize;
 
-            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.WatchGraphSize));
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigurationKey.WatchGraphSize);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
@@ -482,7 +482,7 @@ public class StylingGlobalPC : MonoBehaviour
         {
             _graphConfig.DeskGraphSize = DeskGraphSize;
 
-            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.DeskGraphSize));
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigurationKey.DeskGraphSize);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
@@ -490,7 +490,7 @@ public class StylingGlobalPC : MonoBehaviour
         {
             _graphConfig.LensGraphSize = LensGraphSize;
 
-            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.LensGraphSize));
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigurationKey.LensGraphSize);
             styleChange = styleChange.Add(addedStyleChange);
         }
         #endregion
@@ -501,7 +501,7 @@ public class StylingGlobalPC : MonoBehaviour
         {
             _graphConfig.EdgeColor = EdgeColor;
 
-            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.EdgeColor));
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigurationKey.EdgeColor);
             styleChange = styleChange.Add(addedStyleChange);
         }
         
@@ -509,7 +509,7 @@ public class StylingGlobalPC : MonoBehaviour
         {
             _graphConfig.PropagatedEdgeColor = PropagatedEdgeColor;
 
-            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.PropagatedEdgeColor));
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigurationKey.PropagatedEdgeColor);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
@@ -518,7 +518,7 @@ public class StylingGlobalPC : MonoBehaviour
         {
             _graphConfig.AlphaEdgeColorPropagated = AlphaEdgeColorPropagated;
 
-            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.AlphaEdgeColorPropagated));
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigurationKey.AlphaEdgeColorPropagated);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
@@ -527,7 +527,7 @@ public class StylingGlobalPC : MonoBehaviour
         {
             _graphConfig.AlphaEdgeColorUnPropagated = AlphaEdgeColorUnPropagated;
 
-            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.AlphaEdgeColorUnPropagated));
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigurationKey.AlphaEdgeColorUnPropagated);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
@@ -536,7 +536,7 @@ public class StylingGlobalPC : MonoBehaviour
         {
             _graphConfig.EdgeThicknessImmersion = EdgeThicknessImmersion;
 
-            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.EdgeThicknessImmersion));
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigurationKey.EdgeThicknessImmersion);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
@@ -544,7 +544,7 @@ public class StylingGlobalPC : MonoBehaviour
         {
             _graphConfig.EdgeThicknessDesk = EdgeThicknessDesk;
 
-            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.EdgeThicknessDesk));
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigurationKey.EdgeThicknessDesk);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
@@ -552,7 +552,7 @@ public class StylingGlobalPC : MonoBehaviour
         {
             _graphConfig.EdgeThicknessLens = EdgeThicknessLens;
 
-            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.EdgeThicknessLens));
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigurationKey.EdgeThicknessLens);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
@@ -560,7 +560,7 @@ public class StylingGlobalPC : MonoBehaviour
         {
             _graphConfig.EdgeThicknessWatch = EdgeThicknessWatch;
 
-            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.EdgeThicknessWatch));
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigurationKey.EdgeThicknessWatch);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
@@ -568,7 +568,7 @@ public class StylingGlobalPC : MonoBehaviour
         {
             _graphConfig.CanSelectEdges = CanSelectEdges;
 
-            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.CanSelectEdges));
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigurationKey.CanSelectEdges);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
@@ -576,7 +576,7 @@ public class StylingGlobalPC : MonoBehaviour
         {
             _graphConfig.DisplayEdges = DisplayEdges;
 
-            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.DisplayEdges));
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigurationKey.DisplayEdges);
             styleChange = styleChange.Add(addedStyleChange);
         }
         #endregion
@@ -588,7 +588,7 @@ public class StylingGlobalPC : MonoBehaviour
         {
             _graphConfig.LabelNodeSizeImmersion = LabelNodeSizeImmersion;
 
-            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.LabelNodeSizeImmersion));
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigurationKey.LabelNodeSizeImmersion);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
@@ -596,7 +596,7 @@ public class StylingGlobalPC : MonoBehaviour
         {
             _graphConfig.LabelNodeSizeDesk = LabelNodeSizeDesk;
 
-            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.LabelNodeSizeDesk));
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigurationKey.LabelNodeSizeDesk);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
@@ -604,7 +604,7 @@ public class StylingGlobalPC : MonoBehaviour
         {
             _graphConfig.LabelNodeSizeLens = LabelNodeSizeLens;
 
-            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.LabelNodeSizeLens));
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigurationKey.LabelNodeSizeLens);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
@@ -612,7 +612,7 @@ public class StylingGlobalPC : MonoBehaviour
         {
             _graphConfig.ShowLabelImmersion = ShowLabelImmersion;
 
-            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.ShowLabelImmersion));
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigurationKey.ShowLabelImmersion);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
@@ -620,7 +620,7 @@ public class StylingGlobalPC : MonoBehaviour
         {
             _graphConfig.ShowLabelDesk = ShowLabelDesk;
 
-            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.ShowLabelDesk));
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigurationKey.ShowLabelDesk);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
@@ -628,7 +628,7 @@ public class StylingGlobalPC : MonoBehaviour
         {
             _graphConfig.ShowLabelLens = ShowLabelLens;
 
-            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.ShowLabelLens));
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigurationKey.ShowLabelLens);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
@@ -640,7 +640,7 @@ public class StylingGlobalPC : MonoBehaviour
         {
             _graphConfig.LabelNodgePropagation = LabelNodgePropagation;
 
-            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.LabelNodgePropagation));
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigurationKey.LabelNodgePropagation);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
@@ -665,7 +665,7 @@ public class StylingGlobalPC : MonoBehaviour
             _graphConfig.DisplayInterSelectedNeighborEdges = DisplayInterSelectedNeighborEdges;
 
 
-            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.DisplayInterSelectedNeighborEdges));
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigurationKey.DisplayInterSelectedNeighborEdges);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
@@ -673,12 +673,11 @@ public class StylingGlobalPC : MonoBehaviour
         {
             _graphConfig.ShowWatch = ShowWatch;
 
-            addedStyleChange = StyleChangeBuilder.Build(nameof(GraphConfiguration.Instance.ShowWatch));
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigurationKey.ShowWatch);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
         #endregion
-
 
 
         _stylingManager.UpdateStyling(styleChange);

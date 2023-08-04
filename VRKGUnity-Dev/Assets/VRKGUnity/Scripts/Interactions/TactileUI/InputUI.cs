@@ -2,12 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace AIDEN.TactileUI
 {
-    public class InputUI : MonoBehaviour, ITactileUI
+    public class InputUI : MonoBehaviour, ITouchUI, IValueUI<string>
     {
+        public string Value
+        {
+            get
+            {
+                return _value;
+            }
+            set
+            {
+                _value = value;
+            }
+        }
+
         [SerializeField]
         ColorStateUI _color;
 
@@ -31,6 +44,9 @@ namespace AIDEN.TactileUI
 
         [SerializeField]
         string _noValueInfoText = "";
+
+        [SerializeField, Space(10)]
+        UnityEvent<string> _onValueChanged;
 
         Transform _touchTf;
         TouchInteractor _touchInter;
@@ -127,6 +143,8 @@ namespace AIDEN.TactileUI
 
             _isActive = false;
             UpdateColor(InteractionStateUI.Normal);
+
+            _onValueChanged?.Invoke(_value);
         }
 
         private void DisplayValue()

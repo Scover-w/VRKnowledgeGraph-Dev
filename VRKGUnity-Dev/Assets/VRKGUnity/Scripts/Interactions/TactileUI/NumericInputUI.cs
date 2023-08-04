@@ -2,12 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace AIDEN.TactileUI
 {
-    public class NumericInputUI : MonoBehaviour, ITactileUI
+    public class NumericInputUI : MonoBehaviour, ITouchUI, IValueUI<float>
     {
+        public float Value
+        {
+            get
+            {
+                return _value;
+            }
+            set
+            {
+                _value = value;
+            }
+        }
+
         [SerializeField]
         ColorStateUI _color;
 
@@ -23,12 +36,15 @@ namespace AIDEN.TactileUI
         [SerializeField]
         KeyboardAlignment _keyboardAlignment;
 
+        [SerializeField, Space(10)]
+        UnityEvent<float> _onValueChanged;
+
         Transform _touchTf;
         TouchInteractor _touchInter;
 
         float _value;
-
         bool _isActive = false;
+
 
         public void TriggerEnter(bool isProximity, Transform touchTf)
         {
@@ -118,6 +134,8 @@ namespace AIDEN.TactileUI
 
             _isActive = false;
             UpdateColor(InteractionStateUI.Normal);
+
+            _onValueChanged?.Invoke(_value);
         }
 
         private KeyboardUIOptions<float> CreateKeyboardOptions()

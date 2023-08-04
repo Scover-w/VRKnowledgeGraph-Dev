@@ -1,6 +1,7 @@
 using AIDEN.TactileUI;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -90,7 +91,7 @@ namespace AIDEN.TactileUI
 
                 foreach (MonoBehaviour script in monos)
                 {
-                    if (script is ITactileUI iTactileUI)
+                    if (script is ITouchUI)
                     {
                         return script;
                     }

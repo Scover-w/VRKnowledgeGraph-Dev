@@ -5,12 +5,12 @@ using UnityEngine;
 public class StyleChangeBuilder
 {
 
-    static Dictionary<string, StyleChange> _styleChanges = CreateDic();
+    static Dictionary<GraphConfigurationKey, StyleChange> _styleChanges = CreateDic();
 
-    public static StyleChange Build(string test)
+    public static StyleChange Get(GraphConfigurationKey key)
     {
      
-        if(_styleChanges.TryGetValue(test, out StyleChange styleChange))
+        if(_styleChanges.TryGetValue(key, out StyleChange styleChange))
         {
             return styleChange;
         }
@@ -20,9 +20,9 @@ public class StyleChangeBuilder
 
 
 
-    private static Dictionary<string, StyleChange> CreateDic()
+    private static Dictionary<GraphConfigurationKey, StyleChange> CreateDic()
     {
-        Dictionary<string, StyleChange> styleChanges = new();
+        Dictionary<GraphConfigurationKey, StyleChange> styleChanges = new();
 
         #region NodeSize
 
@@ -33,7 +33,7 @@ public class StyleChangeBuilder
                                 .Add(StyleChange.Label)
                                 .Add(StyleChange.Size);
 
-        styleChanges.Add(nameof(GraphConfiguration.Instance.NodeSizeImmersion), styleChange);
+        styleChanges.Add(GraphConfigurationKey.NodeSizeImmersion, styleChange);
 
 
 
@@ -43,7 +43,7 @@ public class StyleChangeBuilder
                     .Add(StyleChange.Label)
                     .Add(StyleChange.Size);
 
-        styleChanges.Add(nameof(GraphConfiguration.Instance.NodeSizeDesk), styleChange);
+        styleChanges.Add(GraphConfigurationKey.NodeSizeDesk, styleChange);
 
 
 
@@ -53,7 +53,7 @@ public class StyleChangeBuilder
                     .Add(StyleChange.Label)
                     .Add(StyleChange.Size);
 
-        styleChanges.Add(nameof(GraphConfiguration.Instance.NodeSizeLens), styleChange);
+        styleChanges.Add(GraphConfigurationKey.NodeSizeLens, styleChange);
 
 
         styleChange = StyleChange.SubGraph
@@ -61,7 +61,7 @@ public class StyleChangeBuilder
                     .Add(StyleChange.Node)
                     .Add(StyleChange.Size);
 
-        styleChanges.Add(nameof(GraphConfiguration.Instance.NodeSizeWatch), styleChange);
+        styleChanges.Add(GraphConfigurationKey.NodeSizeWatch, styleChange);
 
         styleChange = StyleChange.MainGraph
                     .Add(StyleChange.ImmersionMode)
@@ -69,7 +69,7 @@ public class StyleChangeBuilder
                     .Add(StyleChange.Label)
                     .Add(StyleChange.Size);
 
-        styleChanges.Add(nameof(GraphConfiguration.Instance.NodeMinSizeImmersion), styleChange);
+        styleChanges.Add(GraphConfigurationKey.NodeMinSizeImmersion, styleChange);
 
         styleChange = StyleChange.MainGraph
                         .Add(StyleChange.ImmersionMode)
@@ -77,14 +77,14 @@ public class StyleChangeBuilder
                         .Add(StyleChange.Label)
                         .Add(StyleChange.Size);
 
-        styleChanges.Add(nameof(GraphConfiguration.Instance.NodeMaxSizeImmersion), styleChange);
+        styleChanges.Add(GraphConfigurationKey.NodeMaxSizeImmersion, styleChange);
 
         styleChange = StyleChange.MainGraph
                 .Add(StyleChange.DeskMode)
                 .Add(StyleChange.Node)
                 .Add(StyleChange.Label)
                 .Add(StyleChange.Size);
-        styleChanges.Add(nameof(GraphConfiguration.Instance.NodeMinSizeDesk), styleChange);
+        styleChanges.Add(GraphConfigurationKey.NodeMinSizeDesk, styleChange);
 
         styleChange = StyleChange.MainGraph
                 .Add(StyleChange.DeskMode)
@@ -92,7 +92,7 @@ public class StyleChangeBuilder
                 .Add(StyleChange.Label)
                 .Add(StyleChange.Size);
 
-        styleChanges.Add(nameof(GraphConfiguration.Instance.NodeMaxSizeDesk), styleChange);
+        styleChanges.Add(GraphConfigurationKey.NodeMaxSizeDesk, styleChange);
 
         styleChange = StyleChange.SubGraph
                 .Add(StyleChange.DeskMode)
@@ -100,14 +100,14 @@ public class StyleChangeBuilder
                 .Add(StyleChange.Label)
                 .Add(StyleChange.Size);
 
-        styleChanges.Add(nameof(GraphConfiguration.Instance.NodeMinSizeLens), styleChange);
+        styleChanges.Add(GraphConfigurationKey.NodeMinSizeLens, styleChange);
 
         styleChange = StyleChange.SubGraph
                 .Add(StyleChange.DeskMode)
                 .Add(StyleChange.Node)
                 .Add(StyleChange.Label)
                 .Add(StyleChange.Size);
-        styleChanges.Add(nameof(GraphConfiguration.Instance.NodeMaxSizeLens), styleChange);
+        styleChanges.Add(GraphConfigurationKey.NodeMaxSizeLens, styleChange);
 
         #endregion
 
@@ -117,27 +117,33 @@ public class StyleChangeBuilder
                 .Add(StyleChange.BothMode)
                 .Add(StyleChange.Node)
                 .Add(StyleChange.Color);
-        styleChanges.Add(nameof(GraphConfiguration.Instance.NodeColor), styleChange);
+        styleChanges.Add(GraphConfigurationKey.NodeColor, styleChange);
 
 
         styleChange = StyleChange.BothGraph
                 .Add(StyleChange.BothMode)
                 .Add(StyleChange.Node)
                 .Add(StyleChange.Color);
-        styleChanges.Add(nameof(GraphConfiguration.Instance.NodeColorMapping), styleChange);
+        styleChanges.Add(GraphConfigurationKey.NodeColorMapping, styleChange);
+        styleChanges.Add(GraphConfigurationKey.NodeColorMappingColorA, styleChange);
+        styleChanges.Add(GraphConfigurationKey.NodeColorMappingColorB, styleChange);
+        styleChanges.Add(GraphConfigurationKey.NodeColorMappingColorC, styleChange);
+        styleChanges.Add(GraphConfigurationKey.NodeColorMappingBoundaryColorA, styleChange);
+        styleChanges.Add(GraphConfigurationKey.NodeColorMappingBoundaryColorB, styleChange);
+        styleChanges.Add(GraphConfigurationKey.NodeColorMappingBoundaryColorC, styleChange);
 
 
         styleChange = StyleChange.BothGraph
                 .Add(StyleChange.BothMode)
                 .Add(StyleChange.Node)
                 .Add(StyleChange.Color);
-        styleChanges.Add(nameof(GraphConfiguration.Instance.AlphaNodeColorPropagated), styleChange);
+        styleChanges.Add(GraphConfigurationKey.AlphaNodeColorPropagated, styleChange);
 
         styleChange = StyleChange.BothGraph
                 .Add(StyleChange.BothMode)
                 .Add(StyleChange.Node)
                 .Add(StyleChange.Color);
-        styleChanges.Add(nameof(GraphConfiguration.Instance.AlphaNodeColorUnPropagated), styleChange);
+        styleChanges.Add(GraphConfigurationKey.AlphaNodeColorUnPropagated, styleChange);
 
         #endregion
 
@@ -147,32 +153,32 @@ public class StyleChangeBuilder
                 .Add(StyleChange.BothMode)
                 .Add(StyleChange.Node)
                 .Add(StyleChange.Color);
-        styleChanges.Add(nameof(GraphConfiguration.Instance.NbOntologyColor), styleChange);
+        styleChanges.Add(GraphConfigurationKey.NbOntologyColor, styleChange);
 
 
 
-        // styleChanges.Add(nameof(GraphConfiguration.Instance.MaxDeltaOntologyAlgo), styleChange);
-
-        styleChange = StyleChange.BothGraph
-                .Add(StyleChange.BothMode)
-                .Add(StyleChange.Node)
-                .Add(StyleChange.Color);
-
-        styleChanges.Add(nameof(GraphConfiguration.Instance.SaturationOntologyColor), styleChange);
+        // styleChanges.Add(GraphConfigurationKey.MaxDeltaOntologyAlgo, styleChange);
 
         styleChange = StyleChange.BothGraph
                 .Add(StyleChange.BothMode)
                 .Add(StyleChange.Node)
                 .Add(StyleChange.Color);
 
-        styleChanges.Add(nameof(GraphConfiguration.Instance.ValueOntologyColor), styleChange);
+        styleChanges.Add(GraphConfigurationKey.SaturationOntologyColor, styleChange);
 
         styleChange = StyleChange.BothGraph
                 .Add(StyleChange.BothMode)
                 .Add(StyleChange.Node)
                 .Add(StyleChange.Color);
 
-        styleChanges.Add(nameof(GraphConfiguration.Instance.NodeColorNoValueMetric), styleChange);
+        styleChanges.Add(GraphConfigurationKey.ValueOntologyColor, styleChange);
+
+        styleChange = StyleChange.BothGraph
+                .Add(StyleChange.BothMode)
+                .Add(StyleChange.Node)
+                .Add(StyleChange.Color);
+
+        styleChanges.Add(GraphConfigurationKey.NodeColorNoValueMetric, styleChange);
         #endregion
 
 
@@ -182,14 +188,14 @@ public class StyleChangeBuilder
                 .Add(StyleChange.Node)
                 .Add(StyleChange.Color);
 
-        styleChanges.Add(nameof(GraphConfiguration.Instance.SelectedMetricTypeColor), styleChange);
+        styleChanges.Add(GraphConfigurationKey.SelectedMetricTypeColor, styleChange);
 
         styleChange = StyleChange.BothGraph
                 .Add(StyleChange.BothMode)
                 .Add(StyleChange.Node)
                 .Add(StyleChange.Size);
 
-        styleChanges.Add(nameof(GraphConfiguration.Instance.SelectedMetricTypeSize), styleChange);
+        styleChanges.Add(GraphConfigurationKey.SelectedMetricTypeSize, styleChange);
         #endregion
 
 
@@ -199,28 +205,28 @@ public class StyleChangeBuilder
                 .Add(StyleChange.Nodge)
                 .Add(StyleChange.Position);
 
-        styleChanges.Add(nameof(GraphConfiguration.Instance.ImmersionGraphSize), styleChange);
+        styleChanges.Add(GraphConfigurationKey.ImmersionGraphSize, styleChange);
 
         styleChange = StyleChange.SubGraph
                 .Add(StyleChange.ImmersionMode)
                 .Add(StyleChange.Nodge)
                 .Add(StyleChange.Position);
 
-        styleChanges.Add(nameof(GraphConfiguration.Instance.WatchGraphSize), styleChange);
+        styleChanges.Add(GraphConfigurationKey.WatchGraphSize, styleChange);
 
         styleChange = StyleChange.MainGraph
                 .Add(StyleChange.DeskMode)
                 .Add(StyleChange.Nodge)
                 .Add(StyleChange.Position);
 
-        styleChanges.Add(nameof(GraphConfiguration.Instance.DeskGraphSize), styleChange);
+        styleChanges.Add(GraphConfigurationKey.DeskGraphSize, styleChange);
 
         styleChange = StyleChange.SubGraph
                 .Add(StyleChange.DeskMode)
                 .Add(StyleChange.Nodge)
                 .Add(StyleChange.Position);
 
-        styleChanges.Add(nameof(GraphConfiguration.Instance.LensGraphSize), styleChange);
+        styleChanges.Add(GraphConfigurationKey.LensGraphSize, styleChange);
         #endregion
 
 
@@ -230,22 +236,14 @@ public class StyleChangeBuilder
                 .Add(StyleChange.Edge)
                 .Add(StyleChange.Color);
 
-        styleChanges.Add(nameof(GraphConfiguration.Instance.EdgeColor), styleChange);
+        styleChanges.Add(GraphConfigurationKey.EdgeColor, styleChange);
 
         styleChange = StyleChange.BothGraph
                 .Add(StyleChange.BothMode)
                 .Add(StyleChange.Edge)
                 .Add(StyleChange.Color);
 
-        styleChanges.Add(nameof(GraphConfiguration.Instance.PropagatedEdgeColor), styleChange);
-
-
-        styleChange = StyleChange.BothGraph
-                .Add(StyleChange.BothMode)
-                .Add(StyleChange.Edge)
-                .Add(StyleChange.Color);
-
-        styleChanges.Add(nameof(GraphConfiguration.Instance.AlphaEdgeColorPropagated), styleChange);
+        styleChanges.Add(GraphConfigurationKey.PropagatedEdgeColor, styleChange);
 
 
         styleChange = StyleChange.BothGraph
@@ -253,35 +251,43 @@ public class StyleChangeBuilder
                 .Add(StyleChange.Edge)
                 .Add(StyleChange.Color);
 
-        styleChanges.Add(nameof(GraphConfiguration.Instance.AlphaEdgeColorUnPropagated), styleChange);
+        styleChanges.Add(GraphConfigurationKey.AlphaEdgeColorPropagated, styleChange);
+
+
+        styleChange = StyleChange.BothGraph
+                .Add(StyleChange.BothMode)
+                .Add(StyleChange.Edge)
+                .Add(StyleChange.Color);
+
+        styleChanges.Add(GraphConfigurationKey.AlphaEdgeColorUnPropagated, styleChange);
 
         styleChange = StyleChange.MainGraph
                 .Add(StyleChange.ImmersionMode)
                 .Add(StyleChange.Edge)
                 .Add(StyleChange.Size);
 
-        styleChanges.Add(nameof(GraphConfiguration.Instance.EdgeThicknessImmersion), styleChange);
+        styleChanges.Add(GraphConfigurationKey.EdgeThicknessImmersion, styleChange);
 
         styleChange = StyleChange.MainGraph
                 .Add(StyleChange.DeskMode)
                 .Add(StyleChange.Edge)
                 .Add(StyleChange.Size);
 
-        styleChanges.Add(nameof(GraphConfiguration.Instance.EdgeThicknessDesk), styleChange);
+        styleChanges.Add(GraphConfigurationKey.EdgeThicknessDesk, styleChange);
 
         styleChange = StyleChange.SubGraph
                 .Add(StyleChange.DeskMode)
                 .Add(StyleChange.Edge)
                 .Add(StyleChange.Size);
 
-        styleChanges.Add(nameof(GraphConfiguration.Instance.EdgeThicknessLens), styleChange);
+        styleChanges.Add(GraphConfigurationKey.EdgeThicknessLens, styleChange);
 
         styleChange = StyleChange.SubGraph
                 .Add(StyleChange.ImmersionMode)
                 .Add(StyleChange.Edge)
                 .Add(StyleChange.Size);
 
-        styleChanges.Add(nameof(GraphConfiguration.Instance.EdgeThicknessWatch), styleChange);
+        styleChanges.Add(GraphConfigurationKey.EdgeThicknessWatch, styleChange);
 
         styleChange = StyleChange.BothGraph
                 .Add(StyleChange.BothMode)
@@ -289,14 +295,14 @@ public class StyleChangeBuilder
                 .Add(StyleChange.Color)
                 .Add(StyleChange.Collider);
 
-        styleChanges.Add(nameof(GraphConfiguration.Instance.CanSelectEdges), styleChange);
+        styleChanges.Add(GraphConfigurationKey.CanSelectEdges, styleChange);
 
         styleChange = StyleChange.BothGraph
                 .Add(StyleChange.BothMode)
                 .Add(StyleChange.Edge)
                 .Add(StyleChange.Visibility);
 
-        styleChanges.Add(nameof(GraphConfiguration.Instance.DisplayEdges), styleChange);
+        styleChanges.Add(GraphConfigurationKey.DisplayEdges, styleChange);
         #endregion
 
 
@@ -307,57 +313,61 @@ public class StyleChangeBuilder
                 .Add(StyleChange.Label)
                 .Add(StyleChange.Size);
 
-        styleChanges.Add(nameof(GraphConfiguration.Instance.LabelNodeSizeImmersion), styleChange);
+        styleChanges.Add(GraphConfigurationKey.LabelNodeSizeImmersion, styleChange);
 
         styleChange = StyleChange.MainGraph
                 .Add(StyleChange.DeskMode)
                 .Add(StyleChange.Label)
                 .Add(StyleChange.Size);
 
-        styleChanges.Add(nameof(GraphConfiguration.Instance.LabelNodeSizeDesk), styleChange);
+        styleChanges.Add(GraphConfigurationKey.LabelNodeSizeDesk, styleChange);
 
         styleChange = StyleChange.SubGraph
                 .Add(StyleChange.DeskMode)
                 .Add(StyleChange.Label)
                 .Add(StyleChange.Size);
 
-        styleChanges.Add(nameof(GraphConfiguration.Instance.LabelNodeSizeLens), styleChange);
+        styleChanges.Add(GraphConfigurationKey.LabelNodeSizeLens, styleChange);
 
         styleChange = StyleChange.MainGraph
                 .Add(StyleChange.ImmersionMode)
                 .Add(StyleChange.Label)
                 .Add(StyleChange.Visibility);
 
-        styleChanges.Add(nameof(GraphConfiguration.Instance.ShowLabelImmersion), styleChange);
+        styleChanges.Add(GraphConfigurationKey.ShowLabelImmersion, styleChange);
 
         styleChange = StyleChange.MainGraph
                 .Add(StyleChange.DeskMode)
                 .Add(StyleChange.Label)
                 .Add(StyleChange.Visibility);
 
-        styleChanges.Add(nameof(GraphConfiguration.Instance.ShowLabelDesk), styleChange);
+        styleChanges.Add(GraphConfigurationKey.ShowLabelDesk, styleChange);
 
         styleChange = StyleChange.SubGraph
                 .Add(StyleChange.DeskMode)
                 .Add(StyleChange.Label)
                 .Add(StyleChange.Visibility);
 
-        styleChanges.Add(nameof(GraphConfiguration.Instance.ShowLabelLens), styleChange);
+        styleChanges.Add(GraphConfigurationKey.ShowLabelLens, styleChange);
 
         #endregion
 
 
+        #region Simulation
+        // TODO : todo if usefull ?
+        #endregion
+
         #region Miscelaneous
         styleChange = StyleChange.Propagation;
 
-        styleChanges.Add(nameof(GraphConfiguration.Instance.LabelNodgePropagation), styleChange);
+        styleChanges.Add(GraphConfigurationKey.LabelNodgePropagation, styleChange);
 
 
-        // styleChanges.Add(nameof(GraphConfiguration.Instance.ResetPositionNodeOnUpdate), styleChange);
+        // styleChanges.Add(GraphConfigurationKey.ResetPositionNodeOnUpdate, styleChange);
 
-        // styleChanges.Add(nameof(GraphConfiguration.Instance.SeedRandomPosition), styleChange);
+        // styleChanges.Add(GraphConfigurationKey.SeedRandomPosition, styleChange);
 
-        // styleChanges.Add(nameof(GraphConfiguration.Instance.GraphModeTransitionTime), styleChange);
+        // styleChanges.Add(GraphConfigurationKey.GraphModeTransitionTime, styleChange);
 
 
         styleChange = StyleChange.Selection
@@ -365,14 +375,14 @@ public class StyleChangeBuilder
                       .Add(StyleChange.SubGraph)
                       .Add(StyleChange.Selection);
 
-        styleChanges.Add(nameof(GraphConfiguration.Instance.DisplayInterSelectedNeighborEdges), styleChange);
+        styleChanges.Add(GraphConfigurationKey.DisplayInterSelectedNeighborEdges, styleChange);
 
 
         styleChange = StyleChange.SubGraph
                 .Add(StyleChange.ImmersionMode)
                 .Add(StyleChange.Visibility);
 
-        styleChanges.Add(nameof(GraphConfiguration.Instance.ShowWatch), styleChange);
+        styleChanges.Add(GraphConfigurationKey.ShowWatch, styleChange);
 
         #endregion
 

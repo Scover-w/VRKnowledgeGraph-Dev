@@ -4,10 +4,15 @@
 
 namespace AIDEN.TactileUI
 {
-    public interface ITactileUI
+    public interface ITouchUI
     {
         public void TriggerEnter(bool isProximity, Transform touchTf);
         public void TriggerExit(bool isProximity, Transform touchTf);
+    }
+
+    public interface IValueUI<T>
+    {
+        public T Value { get; set; }
     }
 
 }

@@ -6,8 +6,20 @@ using UnityEngine.UI;
 
 namespace AIDEN.TactileUI
 {
-    public class DropdownItemUI : MonoBehaviour, ITactileUI
+    public class DropdownItemUI : MonoBehaviour, ITouchUI, IValueUI<string>
     {
+        public string Value
+        {
+            get
+            {
+                return _value;
+            }
+            set
+            {
+                _value = value;
+            }
+        }
+
         [SerializeField]
         DropdownUI _controller;
 

@@ -2,12 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace AIDEN.TactileUI
 {
-    public class DropdownUI : MonoBehaviour, ITactileUI
+    public class DropdownUI : MonoBehaviour, ITouchUI, IValueUI<string>
     {
+        public string Value
+        {
+            get
+            {
+                return _value;
+            }
+            set
+            {
+                _value = value;
+            }
+        }
+
         [SerializeField]
         List<ColorStateUI> _colorDropdown;
 
@@ -30,7 +43,10 @@ namespace AIDEN.TactileUI
         List<Collider> _colliderToHide;
 
         [SerializeField]
-        string _selectedValue;
+        string _value;
+
+        [SerializeField, Space(10)]
+        UnityEvent<string> _onValueChanged;
 
         Transform _touchTf;
         TouchInteractor _touchInter;
@@ -105,7 +121,7 @@ namespace AIDEN.TactileUI
         public void CloseFromDropdown(string value)
         {
             _label.text = value;
-            _selectedValue = value;
+            _value = value;
 
             RefreshValues();
 
@@ -114,8 +130,7 @@ namespace AIDEN.TactileUI
             EnableCollidersToHide(true);
 
 
-            // TODO : Link the the true datas
-            Debug.Log("Select " + value);
+            _onValueChanged?.Invoke(_value);
         }
 
         private void UpdateColor(InteractionStateUI interactionState)
@@ -146,7 +161,7 @@ namespace AIDEN.TactileUI
         {
             foreach (var dropdown in _dropdowns)
             {
-                dropdown.ResfreshValue(_selectedValue, _colorItem);
+                dropdown.ResfreshValue(_value, _colorItem);
             }
         }
 

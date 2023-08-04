@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace AIDEN.TactileUI
 {
-    public class HSVWheelUI : MonoBehaviour, ITactileUI
+    public class HSVWheelUI : MonoBehaviour, ITouchUI
     {
         [SerializeField]
         ColorPickerUI _colorPickerUI;

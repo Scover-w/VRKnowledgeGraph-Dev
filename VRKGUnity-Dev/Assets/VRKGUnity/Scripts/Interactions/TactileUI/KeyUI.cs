@@ -8,8 +8,20 @@ using UnityEngine.UI;
 
 namespace AIDEN.TactileUI
 {
-    public class KeyUI : MonoBehaviour, ITactileUI
+    public class KeyUI : MonoBehaviour, ITouchUI, IValueUI<char>
     {
+        public char Value
+        {
+            get
+            {
+                return _value;
+            }
+            set
+            {
+                _value = value;
+            }
+        }
+
         [SerializeField]
         ColorStateUI _color;
 
