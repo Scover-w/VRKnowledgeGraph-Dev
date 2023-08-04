@@ -26,6 +26,9 @@ namespace AIDEN.TactileUI
         [SerializeField]
         TMP_Text _label;
 
+        [SerializeField, Tooltip("Colliders under the dropdown to hide to prevent interaction")]
+        List<Collider> _colliderToHide;
+
         [SerializeField]
         string _selectedValue;
 
@@ -41,6 +44,12 @@ namespace AIDEN.TactileUI
             _isOpen = false;
             _optionsContainerGo.SetActive(_isOpen);
             UpdateColor(InteractionStateUI.Normal);
+        }
+
+        private void OnDisable()
+        {
+            if(_isOpen)
+                EnableCollidersToHide(true);
         }
 
         public void TriggerEnter(bool isProximity, Collider touchCollider)
@@ -65,6 +74,8 @@ namespace AIDEN.TactileUI
             _canClick = false;
             _isOpen = !_isOpen;
             _optionsContainerGo.SetActive(_isOpen);
+
+            EnableCollidersToHide(false);
 
             if (_isOpen)
                 RefreshValues();
@@ -100,6 +111,7 @@ namespace AIDEN.TactileUI
 
             _isOpen = false;
             _optionsContainerGo.SetActive(false);
+            EnableCollidersToHide(true);
 
 
             // TODO : Link the the true datas
@@ -135,6 +147,17 @@ namespace AIDEN.TactileUI
             foreach (var dropdown in _dropdowns)
             {
                 dropdown.ResfreshValue(_selectedValue, _colorItem);
+            }
+        }
+
+        private void EnableCollidersToHide(bool enable) 
+        {
+            if (_colliderToHide == null)
+                return;
+
+            foreach (Collider collider in _colliderToHide) 
+            { 
+                collider.enabled = enable;
             }
         }
     }
