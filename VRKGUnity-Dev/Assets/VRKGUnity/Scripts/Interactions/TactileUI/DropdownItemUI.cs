@@ -37,8 +37,15 @@ namespace AIDEN.TactileUI
         TouchInteractor _touchInter;
         InteractiveColorUI _colorState;
 
+        InteractionStateUI _interactionStateUI;
+
         bool _isSelected = false;
 
+        private void OnEnable()
+        {
+            _interactionStateUI = InteractionStateUI.Normal;
+            UpdateInteractionColor();
+        }
 
         public void TriggerEnter(bool isProximity, Transform touchTf)
         {
@@ -47,7 +54,8 @@ namespace AIDEN.TactileUI
             {
                 _touchTf = touchTf;
                 _touchInter = _touchTf.GetComponent<TouchInteractor>();
-                UpdateColor(InteractionStateUI.InProximity);
+                _interactionStateUI = InteractionStateUI.InProximity;
+                UpdateInteractionColor();
             }
             else if (!isProximity)
             {
@@ -57,7 +65,8 @@ namespace AIDEN.TactileUI
 
         private void TryClick()
         {
-            UpdateColor(InteractionStateUI.Active);
+            _interactionStateUI = InteractionStateUI.Active;
+            UpdateInteractionColor();
 
             if (_touchInter != null)
                 _touchInter.ActiveBtn(true, this);
@@ -69,20 +78,22 @@ namespace AIDEN.TactileUI
         {
             if (isProximity)
             {
-                UpdateColor(InteractionStateUI.Normal);
+                _interactionStateUI = InteractionStateUI.Normal;
+                UpdateInteractionColor();
             }
             else if (!isProximity)
             {
                 if (_touchInter != null)
                     _touchInter.ActiveBtn(false, this);
 
-                UpdateColor(InteractionStateUI.Normal);
+                _interactionStateUI = InteractionStateUI.Normal;
+                UpdateInteractionColor();
             }
         }
 
-        private void UpdateColor(InteractionStateUI interactionState)
+        private void UpdateInteractionColor()
         {
-            switch (interactionState)
+            switch (_interactionStateUI)
             {
                 case InteractionStateUI.Normal:
                     _label.color = _colorState.NormalColor;
@@ -96,18 +107,24 @@ namespace AIDEN.TactileUI
                     _label.color = _colorState.ActivatedColor;
                     _checkMarkImg.color = _colorState.ActivatedColor;
                     break;
+                case InteractionStateUI.Disabled:
+                    _label.color = _colorState.DisabledColor;
+                    _checkMarkImg.color = _colorState.DisabledColor;
+                    break;
             }
         }
 
         public void ResfreshValue(string value, InteractiveColorUI colorState)
         {
             _colorState = colorState;
-            UpdateColor(InteractionStateUI.Normal);
+            _interactionStateUI = InteractionStateUI.Normal;
+            UpdateInteractionColor();
 
             _isSelected = (_value == value);
 
             if (_checkMarkGo == null)
                 _checkMarkGo = _checkMarkImg.gameObject;
+
             _checkMarkGo.SetActive(_isSelected);
         }
 

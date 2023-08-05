@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Wave.Essence.Hand.NearInteraction;
 
 namespace AIDEN.TactileUI
 {
@@ -17,6 +18,8 @@ namespace AIDEN.TactileUI
 
         [SerializeField]
         TabUI _selectedTab;
+
+
 
         private void OnEnable()
         {

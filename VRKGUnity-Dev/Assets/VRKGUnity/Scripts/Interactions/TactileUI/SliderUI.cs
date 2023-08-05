@@ -20,6 +20,7 @@ namespace AIDEN.TactileUI
             {
                 _interactable = value;
 
+                UpdateColliderActivation();
                 TrySetNormalInteractionState();
                 UpdateInteractionColor();
             }
@@ -72,6 +73,9 @@ namespace AIDEN.TactileUI
         TMP_Text _label;
 
         [SerializeField]
+        GameObject _interactionCollidersGo;
+
+        [SerializeField]
         SliderType _sliderType;
 
         [SerializeField]
@@ -108,6 +112,7 @@ namespace AIDEN.TactileUI
             _isWidth = _sliderType == SliderType.Horizontal;
             _lengthSlider = _isWidth ? _sliderRectTf.rect.width : _sliderRectTf.rect.height;
 
+            UpdateColliderActivation();
             TrySetNormalInteractionState();
             UpdateInteractionColor();
         }
@@ -250,16 +255,21 @@ namespace AIDEN.TactileUI
                 _interactionStateUI = InteractionStateUI.Disabled;
         }
 
-#if UNITY_EDITOR
+        private void UpdateColliderActivation()
+        {
+            _interactionCollidersGo.SetActive(_interactable);
+        }
+
+
         private void OnValidate()
         {
             _isWidth = _sliderType == SliderType.Horizontal;
             _lengthSlider = _isWidth ? _sliderRectTf.rect.width : _sliderRectTf.rect.height;
 
+            UpdateColliderActivation();
             TrySetNormalInteractionState();
             UpdateVisuals();
         }
-#endif
 
         public enum SliderType
         {

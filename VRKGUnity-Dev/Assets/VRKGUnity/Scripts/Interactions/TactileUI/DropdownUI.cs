@@ -19,6 +19,7 @@ namespace AIDEN.TactileUI
             {
                 _interactable = value;
 
+                UpdateColliderActivation();
                 TrySetNormalInteractionState();
                 UpdateInteractionColor();
             }
@@ -59,6 +60,9 @@ namespace AIDEN.TactileUI
         [SerializeField]
         TMP_Text _label;
 
+        [SerializeField]
+        GameObject _interactionCollidersGo;
+
         [SerializeField, Tooltip("Colliders under the dropdown to hide to prevent interaction")]
         List<Collider> _colliderToHide;
 
@@ -83,6 +87,7 @@ namespace AIDEN.TactileUI
             _isOpen = false;
             _optionsContainerGo.SetActive(_isOpen);
 
+            UpdateColliderActivation();
             TrySetNormalInteractionState();
             UpdateInteractionColor();
         }
@@ -208,6 +213,11 @@ namespace AIDEN.TactileUI
             }
         }
 
+        private void UpdateColliderActivation()
+        {
+            _interactionCollidersGo.SetActive(_interactable);
+        }
+
         private void TrySetNormalInteractionState()
         {
             if (_interactable)
@@ -220,6 +230,7 @@ namespace AIDEN.TactileUI
         {
             _label.text = _value;
 
+            UpdateColliderActivation();
             TrySetNormalInteractionState();
             UpdateInteractionColor();
         }

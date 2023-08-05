@@ -33,8 +33,12 @@ namespace AIDEN.TactileUI
             Transform selectedTf = selectedObject.transform;
             RectTransform selectedRect = selectedObject.GetComponent<RectTransform>();
 
+            Transform interactionCollidersTf = new GameObject("InteractionColliders").transform;
+            ResetTf(interactionCollidersTf, selectedTf);
+
+
             Transform proximityTf = new GameObject("Proximity").transform;
-            ResetTf(proximityTf);
+            ResetTf(proximityTf, interactionCollidersTf);
 
 
 
@@ -57,7 +61,7 @@ namespace AIDEN.TactileUI
 
 
             Transform activeTf = new GameObject("Interaction").transform;
-            ResetTf(activeTf);
+            ResetTf(activeTf, interactionCollidersTf);
 
             activeTf.tag = Tags.InteractionUI;
             var boxCol = activeTf.AddComponent<BoxCollider>();
@@ -75,9 +79,9 @@ namespace AIDEN.TactileUI
             Debug.Log("Basic Interaction UI GOs added !");
 
 
-            void ResetTf(Transform tf)
+            void ResetTf(Transform tf, Transform parent)
             {
-                tf.parent = selectedTf;
+                tf.parent = parent;
                 tf.localPosition = Vector3.zero;
                 tf.localRotation = Quaternion.identity;
                 tf.localScale = new Vector3(1f, 1f, 1f);

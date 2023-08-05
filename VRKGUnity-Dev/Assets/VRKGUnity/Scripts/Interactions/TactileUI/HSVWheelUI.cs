@@ -19,6 +19,7 @@ namespace AIDEN.TactileUI
             {
                 _interactable = value;
 
+                UpdateColliderActivation();
                 TrySetNormalInteractionState();
                 UpdateInteractionColor();
             }
@@ -42,6 +43,9 @@ namespace AIDEN.TactileUI
         [SerializeField]
         RectTransform _cursorRectTf;
 
+        [SerializeField]
+        GameObject _interactionCollidersGo;
+
         Transform _touchTf;
         TouchInteractor _touchInter;
 
@@ -64,6 +68,7 @@ namespace AIDEN.TactileUI
         private void OnEnable()
         {
             _isMovingCursor = false;
+            UpdateColliderActivation();
             TrySetNormalInteractionState();
             UpdateInteractionColor();
         }
@@ -214,6 +219,11 @@ namespace AIDEN.TactileUI
             );
         }
 
+        private void UpdateColliderActivation()
+        {
+            _interactionCollidersGo.SetActive(_interactable);
+        }
+
         private void TrySetNormalInteractionState()
         {
             if (_interactable)
@@ -224,6 +234,7 @@ namespace AIDEN.TactileUI
 
         private void OnValidate()
         {
+            UpdateColliderActivation();
             TrySetNormalInteractionState();
             UpdateInteractionColor();
         }

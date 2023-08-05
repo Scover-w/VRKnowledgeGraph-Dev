@@ -19,6 +19,7 @@ namespace AIDEN.TactileUI
             {
                 _interactable = value;
 
+                UpdateColliderActivation();
                 TrySetNormalInteractionState();
                 UpdateInteractionColor();
             }
@@ -59,6 +60,9 @@ namespace AIDEN.TactileUI
         Transform _keyboardPositionTf;
 
         [SerializeField]
+        GameObject _interactionCollidersGo;
+
+        [SerializeField]
         KeyboardAlignment _keyboardAlignment;
 
         [SerializeField]
@@ -81,6 +85,7 @@ namespace AIDEN.TactileUI
 
         private void OnEnable()
         {
+            UpdateColliderActivation();
             TrySetNormalInteractionState();
             UpdateInteractionColor();
             DisplayValue();
@@ -203,6 +208,11 @@ namespace AIDEN.TactileUI
                                             _value);
         }
 
+        private void UpdateColliderActivation()
+        {
+            _interactionCollidersGo.SetActive(_interactable);
+        }
+
         private void TrySetNormalInteractionState()
         {
             if (_interactable)
@@ -214,7 +224,7 @@ namespace AIDEN.TactileUI
         private void OnValidate()
         {
             DisplayValue();
-
+            UpdateColliderActivation();
             TrySetNormalInteractionState();
             UpdateInteractionColor();
         }

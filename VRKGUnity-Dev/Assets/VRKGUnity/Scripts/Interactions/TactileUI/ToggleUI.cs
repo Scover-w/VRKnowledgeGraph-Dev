@@ -33,6 +33,7 @@ namespace AIDEN.TactileUI
             {
                 _interactable = value;
 
+                UpdateColliderActivation();
                 TrySetNormalInteractionState();
                 UpdateInteractionColor();
             }
@@ -52,6 +53,9 @@ namespace AIDEN.TactileUI
 
         [SerializeField]
         RectTransform _knobRect;
+
+        [SerializeField]
+        GameObject _interactionCollidersGo;
 
         [SerializeField, Space(10)]
         UnityEvent<bool> _onValueChanged;
@@ -164,6 +168,11 @@ namespace AIDEN.TactileUI
             _knobRect.localPosition = position;
         }
 
+        private void UpdateColliderActivation()
+        {
+            _interactionCollidersGo.SetActive(_interactable);
+        }
+
         private void TrySetNormalInteractionState()
         {
             if (_interactable)
@@ -175,6 +184,7 @@ namespace AIDEN.TactileUI
         private void OnValidate()
         {
             UpdateKnobPosition();
+            UpdateColliderActivation();
             TrySetNormalInteractionState();
             UpdateInteractionColor();
         }

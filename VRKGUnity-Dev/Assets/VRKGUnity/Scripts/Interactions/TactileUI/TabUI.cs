@@ -2,11 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Wave.Essence.Hand.NearInteraction;
 
 namespace AIDEN.TactileUI
 {
     public class TabUI : MonoBehaviour, ITouchUI
     {
+        public bool Interactable
+        {
+            get
+            {
+                return _interactable;
+            }
+            set
+            {
+                _interactable = value;
+
+                UpdateColliderActivation();
+                TrySetNormalInteractionState();
+                UpdateInteractionColor();
+            }
+        }
+
+        [SerializeField]
+        bool _interactable = true;
+
         [SerializeField]
         TabControllerUI _controllerUI;
 
@@ -16,18 +36,23 @@ namespace AIDEN.TactileUI
         [SerializeField]
         List<Image> _interactiveImgs;
 
+        [SerializeField]
+        GameObject _interactionCollidersGo;
+
         Transform _touchTf;
         TouchInteractor _touchInter;
 
         List<InteractiveColorUI> _currentColorStates;
 
-        InteractionStateUI _interactionState;
+        InteractionStateUI _interactionStateUI;
 
         bool _canClick = true;
 
         private void OnEnable()
         {
-            _interactionState = InteractionStateUI.Normal;
+            UpdateColliderActivation();
+            TrySetNormalInteractionState();
+            UpdateInteractionColor();
         }
 
         public void Select(List<InteractiveColorUI> colorStates)
@@ -53,7 +78,7 @@ namespace AIDEN.TactileUI
                 Image img = _interactiveImgs[i];
                 InteractiveColorUI colorTab = _currentColorStates[i];
 
-                switch (_interactionState)
+                switch (_interactionStateUI)
                 {
                     case InteractionStateUI.Normal:
                         img.color = colorTab.NormalColor;
@@ -75,7 +100,7 @@ namespace AIDEN.TactileUI
             {
                 _touchTf = touchTf;
                 _touchInter = _touchTf.GetComponent<TouchInteractor>();
-                _interactionState = InteractionStateUI.InProximity;
+                _interactionStateUI = InteractionStateUI.InProximity;
                 UpdateInteractionColor();
             }
             else if (!isProximity)
@@ -90,7 +115,7 @@ namespace AIDEN.TactileUI
             if (isProximity)
             {
                 _canClick = true;
-                _interactionState = InteractionStateUI.Normal;
+                _interactionStateUI = InteractionStateUI.Normal;
                 UpdateInteractionColor();
             }
             else if (!isProximity)
@@ -98,7 +123,7 @@ namespace AIDEN.TactileUI
                 if (_touchInter != null && !_canClick)
                     _touchInter.ActiveBtn(false, this);
 
-                _interactionState = InteractionStateUI.Normal;
+                _interactionStateUI = InteractionStateUI.Normal;
                 UpdateInteractionColor();
             }
 
@@ -110,12 +135,32 @@ namespace AIDEN.TactileUI
                 return;
 
             _canClick = false;
-            _interactionState = InteractionStateUI.Active;
+            _interactionStateUI = InteractionStateUI.Active;
 
             if (_touchInter != null)
                 _touchInter.ActiveBtn(true, this);
 
             _controllerUI.Select(this);
+        }
+
+        private void UpdateColliderActivation()
+        {
+            _interactionCollidersGo.SetActive(_interactable);
+        }
+
+        private void TrySetNormalInteractionState()
+        {
+            if (_interactable)
+                _interactionStateUI = InteractionStateUI.Normal;
+            else
+                _interactionStateUI = InteractionStateUI.Disabled;
+        }
+
+        private void OnValidate()
+        {
+            UpdateColliderActivation();
+            TrySetNormalInteractionState();
+            UpdateInteractionColor();
         }
     }
 }

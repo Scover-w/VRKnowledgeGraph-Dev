@@ -18,6 +18,7 @@ namespace AIDEN.TactileUI
             {
                 _interactable = value;
 
+                UpdateColliderActivation();
                 TrySetNormalInteractionState();
                 UpdateInteractionColor();
             }
@@ -52,6 +53,9 @@ namespace AIDEN.TactileUI
         TMP_Text _label;
 
         [SerializeField]
+        GameObject _interactionCollidersGo;
+
+        [SerializeField]
         char _value;
 
         [SerializeField]
@@ -66,6 +70,7 @@ namespace AIDEN.TactileUI
 
         private void OnEnable()
         {
+            UpdateColliderActivation();
             TrySetNormalInteractionState();
 
             ToLower();
@@ -150,6 +155,11 @@ namespace AIDEN.TactileUI
             }
         }
 
+        private void UpdateColliderActivation()
+        {
+            _interactionCollidersGo.SetActive(_interactable);
+        }
+
         private void TrySetNormalInteractionState()
         {
             if (_interactable)
@@ -161,6 +171,8 @@ namespace AIDEN.TactileUI
         private void OnValidate()
         {
             _label.text = _value.ToString();
+
+            UpdateColliderActivation();
             TrySetNormalInteractionState();
             UpdateInteractionColor();
         }

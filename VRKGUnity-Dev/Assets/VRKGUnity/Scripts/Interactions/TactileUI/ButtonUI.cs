@@ -20,6 +20,7 @@ namespace AIDEN.TactileUI
             {
                 _interactable = value;
 
+                UpdateColliderActivation();
                 TrySetNormalInteractionState();
                 UpdateInteractionColor();
             }
@@ -33,6 +34,9 @@ namespace AIDEN.TactileUI
 
         [SerializeField]
         List<Image> _interactiveImgs;
+
+        [SerializeField]
+        GameObject _interactionCollidersGo;
 
         [SerializeField, Space(10)]
         UnityEvent _onClick;
@@ -48,6 +52,7 @@ namespace AIDEN.TactileUI
         {
             _canClick = true;
 
+            UpdateColliderActivation();
             TrySetNormalInteractionState();
             UpdateInteractionColor();
         }
@@ -129,6 +134,10 @@ namespace AIDEN.TactileUI
             }
         }
 
+        private void UpdateColliderActivation()
+        {
+            _interactionCollidersGo.SetActive(_interactable);
+        }
         private void TrySetNormalInteractionState()
         {
             if (_interactable)
@@ -140,6 +149,7 @@ namespace AIDEN.TactileUI
 
         private void OnValidate()
         {
+            UpdateColliderActivation();
             TrySetNormalInteractionState();
             UpdateInteractionColor();
         }
