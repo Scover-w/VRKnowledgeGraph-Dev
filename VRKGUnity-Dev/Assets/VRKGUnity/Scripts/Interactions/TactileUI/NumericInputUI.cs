@@ -33,8 +33,11 @@ namespace AIDEN.TactileUI
             }
             set
             {
+
                 _value = value;
-                _label.text = _value.ToString();
+                TryRoundValue();
+
+                _label.text = _value.ToString("0.##");
             }
         }
 
@@ -58,6 +61,9 @@ namespace AIDEN.TactileUI
 
         [SerializeField]
         KeyboardAlignment _keyboardAlignment;
+
+        [SerializeField]
+        NumericType _numericType;
 
         [SerializeField]
         float _value;
@@ -173,6 +179,9 @@ namespace AIDEN.TactileUI
             else
                 _value = (float)input;
 
+
+            TryRoundValue();
+
             _label.text = _value.ToString();
 
             _isActive = false;
@@ -205,13 +214,28 @@ namespace AIDEN.TactileUI
                 _interactionStateUI = InteractionStateUI.Disabled;
         }
 
+        private void TryRoundValue()
+        {
+            if (_numericType == NumericType.Int)
+                _value = Mathf.Round(_value);
+        }
+
         private void OnValidate()
         {
+            TryRoundValue();
+
             _label.text = _value.ToString();
 
             UpdateColliderActivation();
             TrySetNormalInteractionState();
             UpdateInteractionColor();
+        }
+
+
+        private enum NumericType
+        {
+            Float,
+            Int
         }
 
     }
