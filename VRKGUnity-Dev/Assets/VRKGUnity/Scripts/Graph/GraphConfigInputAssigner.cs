@@ -8,14 +8,19 @@ public class GraphConfigInputAssigner : MonoBehaviour
     [SerializeField]
     GraphConfigurationKey _graphConfigurationKey;
 
+    [SerializeField]
+    MonoBehaviour _tactileUIScript;
 
     private void OnEnable()
     {
         //_slider.value = 6f;
     }
 
-    private void OnDisable()
+    private void OnValidate()
     {
-        
+        if (_tactileUIScript == null)
+            return;
+
+
     }
 }
