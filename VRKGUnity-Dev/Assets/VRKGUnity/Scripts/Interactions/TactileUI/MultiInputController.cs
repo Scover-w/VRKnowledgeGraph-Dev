@@ -13,7 +13,7 @@ namespace AIDEN.TactileUI
         ReferenceHolderSO _referenceHolderSo;
 
         [SerializeField]
-        Transform _keyboardTf;
+        Transform _controllerTf;
 
         [SerializeField]
         KeyboardUI _keyboardUI;
@@ -33,7 +33,7 @@ namespace AIDEN.TactileUI
 
         Transform _camTf;
 
-        KeyboardType _usedKeyboard;
+        MultiInputType _usedInput;
 
         bool _isUsed = false;
 
@@ -92,11 +92,11 @@ namespace AIDEN.TactileUI
             var typeValue = typeof(T);
 
             if (typeValue == typeof(string))
-                _usedKeyboard = KeyboardType.Keyboard;
+                _usedInput = MultiInputType.Keyboard;
             else if (typeValue == typeof(float))
-                _usedKeyboard = KeyboardType.Numpad;
+                _usedInput = MultiInputType.Numpad;
             else if (typeValue == typeof(Color))
-                _usedKeyboard = KeyboardType.ColorPicker;
+                _usedInput = MultiInputType.ColorPicker;
             else
                 return false;
 
@@ -129,13 +129,13 @@ namespace AIDEN.TactileUI
 
         private Transform GetSelectedTransform()
         {
-            switch (_usedKeyboard)
+            switch (_usedInput)
             {
-                case KeyboardType.Keyboard:
+                case MultiInputType.Keyboard:
                     return _keyboardGo.transform;
-                case KeyboardType.Numpad:
+                case MultiInputType.Numpad:
                     return _numpadGo.transform;
-                case KeyboardType.ColorPicker:
+                case MultiInputType.ColorPicker:
                     return _colorpickerGo.transform;
                 default:
                     return _keyboardGo.transform;
@@ -144,15 +144,15 @@ namespace AIDEN.TactileUI
 
         private void DisplaySelected()
         {
-            switch (_usedKeyboard)
+            switch (_usedInput)
             {
-                case KeyboardType.Keyboard:
+                case MultiInputType.Keyboard:
                     _keyboardGo.SetActive(true);
                     break;
-                case KeyboardType.Numpad:
+                case MultiInputType.Numpad:
                     _numpadGo.SetActive(true);
                     break;
-                case KeyboardType.ColorPicker:
+                case MultiInputType.ColorPicker:
                     _colorpickerGo.SetActive(true);
                     break;
             }
@@ -160,9 +160,9 @@ namespace AIDEN.TactileUI
 
         private void TrySetStartValue<T>(KeyboardUIOptions<T> options)
         {
-            switch (_usedKeyboard)
+            switch (_usedInput)
             {
-                case KeyboardType.ColorPicker when options.CurrentInputValue is Color color:
+                case MultiInputType.ColorPicker when options.CurrentInputValue is Color color:
                     _colorPickerUI.StartColor(color);
                     break;
             }
@@ -170,12 +170,12 @@ namespace AIDEN.TactileUI
 
         private void UpdateTf(Vector3 position)
         {
-            _keyboardTf.position = position;
+            _controllerTf.position = position;
 
             if (_camTf == null)
                 return;
 
-            _keyboardTf.LookAt(_camTf.transform);
+            _controllerTf.LookAt(_camTf.transform);
         }
 
         public void UpdateInputValue(object inputValue)
@@ -209,7 +209,7 @@ namespace AIDEN.TactileUI
             _colorpickerGo.SetActive(false);
         }
 
-        private enum KeyboardType
+        private enum MultiInputType
         {
             Keyboard,
             Numpad,

@@ -538,37 +538,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 16184750}
-  - component: {fileID: 16184749}
+  - component: {fileID: 16184751}
   m_Layer: 0
-  m_Name: ComplexInput
+  m_Name: MultiInputController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &16184749
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 16184748}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 342f236463f34a146b5bfe587d611d07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
-  _keyboardTf: {fileID: 16184750}
-  _keyboardUI: {fileID: 2032103529}
-  _numpadUI: {fileID: 108188535}
-  _colorPickerUI: {fileID: 849721944}
-  _keyboardGo: {fileID: 0}
-  _numpadGo: {fileID: 0}
-  _colorpickerGo: {fileID: 0}
-  _camTf: {fileID: 0}
-  _usedKeyboard: 0
-  _isUsed: 0
 --- !u!4 &16184750
 Transform:
   m_ObjectHideFlags: 0
@@ -587,6 +564,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: -50.873, y: 0, z: 0}
+--- !u!114 &16184751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 16184748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0c6154e0cb07b2418663c83b7e7a1fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
+  _controllerTf: {fileID: 16184750}
+  _keyboardUI: {fileID: 2032103529}
+  _numpadUI: {fileID: 108188535}
+  _colorPickerUI: {fileID: 849721944}
 --- !u!1 &16522369
 GameObject:
   m_ObjectHideFlags: 0
@@ -2053,7 +2047,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73a55aec504632e4dbf1c58ff37091e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _controllerUI: {fileID: 16184749}
+  _controllerUI: {fileID: 16184751}
   _inputTxt: {fileID: 14790107}
 --- !u!114 &108188536
 MonoBehaviour:
@@ -2378,11 +2372,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _interactiveColor:
-    _normalColor: {r: 0, g: 0, b: 0, a: 0}
-    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
-  _interactiveImg: {fileID: 0}
+    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  _interactiveImg: {fileID: 111334957}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1653623911}
   _value: 122
@@ -2657,11 +2651,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _interactiveColor:
-    _normalColor: {r: 0, g: 0, b: 0, a: 0}
-    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
-  _interactiveImg: {fileID: 0}
+    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  _interactiveImg: {fileID: 134991544}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1067796108}
   _value: 100
@@ -2774,11 +2768,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _interactiveColor:
-    _normalColor: {r: 0, g: 0, b: 0, a: 0}
-    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
-  _interactiveImg: {fileID: 0}
+    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  _interactiveImg: {fileID: 135458318}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 512998438}
   _value: 113
@@ -3206,10 +3200,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _interactiveColor:
-    _normalColor: {r: 0, g: 0, b: 0, a: 0}
-    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
   _interactiveImg: {fileID: 165001816}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 23736937}
@@ -3242,7 +3236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3947,10 +3941,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _interactiveColor:
-    _normalColor: {r: 0, g: 0, b: 0, a: 0}
-    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
   _interactiveImg: {fileID: 191507756}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1116953574}
@@ -3983,7 +3977,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4396,11 +4390,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _interactiveColor:
-    _normalColor: {r: 0, g: 0, b: 0, a: 0}
-    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
-  _interactiveImg: {fileID: 0}
+    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  _interactiveImg: {fileID: 221006213}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1648036505}
   _value: 63
@@ -6096,11 +6090,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _interactiveColor:
-    _normalColor: {r: 0, g: 0, b: 0, a: 0}
-    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
-  _interactiveImg: {fileID: 0}
+    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  _interactiveImg: {fileID: 313819251}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1838836214}
   _value: 39
@@ -6640,11 +6634,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _interactiveColor:
-    _normalColor: {r: 0, g: 0, b: 0, a: 0}
-    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
-  _interactiveImg: {fileID: 0}
+    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  _interactiveImg: {fileID: 362255539}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 500709601}
   _value: 105
@@ -6965,10 +6959,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _interactiveColor:
-    _normalColor: {r: 0, g: 0, b: 0, a: 0}
-    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
   _interactiveImg: {fileID: 385892298}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1919279723}
@@ -7001,7 +6995,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -7213,7 +7207,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9843137, g: 0.9843137, b: 0.9843137, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -7904,10 +7898,11 @@ MonoBehaviour:
   _interactable: 1
   _interactiveColors:
   - _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
-    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
   _interactiveImgs:
+  - {fileID: 440663854}
   - {fileID: 440663854}
   _onClick:
     m_PersistentCalls:
@@ -10423,11 +10418,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _interactiveColor:
-    _normalColor: {r: 0, g: 0, b: 0, a: 0}
-    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
-  _interactiveImg: {fileID: 0}
+    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  _interactiveImg: {fileID: 556733363}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 366612706}
   _value: 104
@@ -11580,10 +11575,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _interactiveColor:
-    _normalColor: {r: 0, g: 0, b: 0, a: 0}
-    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
   _interactiveImg: {fileID: 617863376}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1241959883}
@@ -11616,7 +11611,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -11908,11 +11903,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _interactiveColor:
-    _normalColor: {r: 0, g: 0, b: 0, a: 0}
-    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
-  _interactiveImg: {fileID: 0}
+    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  _interactiveImg: {fileID: 625797641}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 909559073}
   _value: 107
@@ -14696,11 +14691,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _interactiveColor:
-    _normalColor: {r: 0, g: 0, b: 0, a: 0}
-    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
-  _interactiveImg: {fileID: 0}
+    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  _interactiveImg: {fileID: 796208922}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 988244265}
   _value: 115
@@ -14813,10 +14808,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _interactiveColor:
-    _normalColor: {r: 0, g: 0, b: 0, a: 0}
-    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
   _interactiveImg: {fileID: 800710068}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 439479399}
@@ -14849,7 +14844,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -14930,11 +14925,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _interactiveColor:
-    _normalColor: {r: 0, g: 0, b: 0, a: 0}
-    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
-  _interactiveImg: {fileID: 0}
+    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  _interactiveImg: {fileID: 803997546}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1978125722}
   _value: 112
@@ -15183,11 +15178,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _interactiveColor:
-    _normalColor: {r: 0, g: 0, b: 0, a: 0}
-    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
-  _interactiveImg: {fileID: 0}
+    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  _interactiveImg: {fileID: 813441209}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 927172044}
   _value: 119
@@ -16090,11 +16085,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _interactiveColor:
-    _normalColor: {r: 0, g: 0, b: 0, a: 0}
-    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
-  _interactiveImg: {fileID: 0}
+    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  _interactiveImg: {fileID: 847022291}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 253116364}
   _value: 103
@@ -16244,7 +16239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 505ca56f28a4fe74c97c6d8c5afa7797, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _controllerUI: {fileID: 16184749}
+  _controllerUI: {fileID: 16184751}
   _wheelUI: {fileID: 1089767630}
   _oldColorImg: {fileID: 1342021829}
   _newColorImg: {fileID: 1788723013}
@@ -17726,11 +17721,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _interactiveColor:
-    _normalColor: {r: 0, g: 0, b: 0, a: 0}
-    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
-  _interactiveImg: {fileID: 0}
+    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  _interactiveImg: {fileID: 898615803}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 889650754}
   _value: 102
@@ -18295,10 +18290,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _interactiveColor:
-    _normalColor: {r: 0, g: 0, b: 0, a: 0}
-    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
   _interactiveImg: {fileID: 928799234}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 90642485}
@@ -18331,7 +18326,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -19486,10 +19481,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _interactiveColor:
-    _normalColor: {r: 0, g: 0, b: 0, a: 0}
-    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
   _interactiveImg: {fileID: 1020641201}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 866968681}
@@ -19522,7 +19517,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -19788,8 +19783,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interactable: 1
-  _interactiveColors: []
-  _interactiveImgs: []
+  _interactiveColors:
+  - _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  _interactiveImgs:
+  - {fileID: 1030310290}
   _onClick:
     m_PersistentCalls:
       m_Calls:
@@ -19861,10 +19861,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _interactiveColor:
-    _normalColor: {r: 0, g: 0, b: 0, a: 0}
-    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
   _interactiveImg: {fileID: 1031758789}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 587011507}
@@ -19897,7 +19897,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -20251,10 +20251,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _interactiveColor:
-    _normalColor: {r: 0, g: 0, b: 0, a: 0}
-    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
   _interactiveImg: {fileID: 1060338348}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 227660656}
@@ -20287,7 +20287,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -20794,11 +20794,11 @@ MonoBehaviour:
   _colorPickerUI: {fileID: 849721944}
   _hsvWheelImg: {fileID: 1089767628}
   _interactiveColor:
-    _normalColor: {r: 0, g: 0, b: 0, a: 0}
-    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
-  _interactiveImg: {fileID: 0}
+    _normalColor: {r: 0.9843137, g: 0.9843137, b: 0.9843137, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
+  _interactiveImg: {fileID: 387804417}
   _cursorRectTf: {fileID: 299137306}
 --- !u!1 &1093904440
 GameObject:
@@ -21619,8 +21619,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interactable: 1
-  _interactiveColors: []
-  _interactiveImgs: []
+  _interactiveColors:
+  - _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  _interactiveImgs:
+  - {fileID: 1140513670}
   _onClick:
     m_PersistentCalls:
       m_Calls:
@@ -22279,11 +22284,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _interactiveColor:
-    _normalColor: {r: 0, g: 0, b: 0, a: 0}
-    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
-  _interactiveImg: {fileID: 0}
+    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  _interactiveImg: {fileID: 1167657202}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1429121058}
   _value: 120
@@ -25258,10 +25263,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _interactiveColor:
-    _normalColor: {r: 0, g: 0, b: 0, a: 0}
-    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
   _interactiveImg: {fileID: 1268138332}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 997095890}
@@ -25294,7 +25299,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -26410,11 +26415,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _interactiveColor:
-    _normalColor: {r: 0, g: 0, b: 0, a: 0}
-    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
-  _interactiveImg: {fileID: 0}
+    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  _interactiveImg: {fileID: 1357265119}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1809623880}
   _value: 110
@@ -26587,11 +26592,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _interactiveColor:
-    _normalColor: {r: 0, g: 0, b: 0, a: 0}
-    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
-  _interactiveImg: {fileID: 0}
+    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  _interactiveImg: {fileID: 1362615542}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1205805743}
   _value: 98
@@ -26810,11 +26815,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _interactiveColor:
-    _normalColor: {r: 0, g: 0, b: 0, a: 0}
-    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
-  _interactiveImg: {fileID: 0}
+    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  _interactiveImg: {fileID: 1389037793}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 600989068}
   _value: 111
@@ -27319,11 +27324,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _interactiveColor:
-    _normalColor: {r: 0, g: 0, b: 0, a: 0}
-    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
-  _interactiveImg: {fileID: 0}
+    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  _interactiveImg: {fileID: 1412452020}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1988133948}
   _value: 97
@@ -27839,11 +27844,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _interactiveColor:
-    _normalColor: {r: 0, g: 0, b: 0, a: 0}
-    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
-  _interactiveImg: {fileID: 0}
+    _normalColor: {r: 0.05882353, g: 0.3019608, b: 0.57254905, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  _interactiveImg: {fileID: 1454832270}
   _label: {fileID: 1976260416}
   _keyboardPositionTf: {fileID: 2044156785}
   _keyboardAlignment: 0
@@ -28680,11 +28685,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _interactiveColor:
-    _normalColor: {r: 0, g: 0, b: 0, a: 0}
-    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
-  _interactiveImg: {fileID: 0}
+    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  _interactiveImg: {fileID: 1501701400}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 689564458}
   _value: 121
@@ -30154,8 +30159,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interactable: 1
-  _interactiveColors: []
-  _interactiveImgs: []
+  _interactiveColors:
+  - _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  _interactiveImgs:
+  - {fileID: 1588522235}
   _onClick:
     m_PersistentCalls:
       m_Calls:
@@ -32863,10 +32873,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _interactiveColor:
-    _normalColor: {r: 0, g: 0, b: 0, a: 0}
-    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
   _interactiveImg: {fileID: 1790895829}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 758203348}
@@ -32899,7 +32909,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -33128,11 +33138,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _interactiveColor:
-    _normalColor: {r: 0, g: 0, b: 0, a: 0}
-    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
-  _interactiveImg: {fileID: 0}
+    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  _interactiveImg: {fileID: 1797917747}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1191142427}
   _value: 106
@@ -33417,8 +33427,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interactable: 1
-  _interactiveColors: []
-  _interactiveImgs: []
+  _interactiveColors:
+  - _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  _interactiveImgs:
+  - {fileID: 1800597024}
   _onClick:
     m_PersistentCalls:
       m_Calls:
@@ -33957,11 +33972,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _interactiveColor:
-    _normalColor: {r: 0, g: 0, b: 0, a: 0}
-    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
-  _interactiveImg: {fileID: 0}
+    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  _interactiveImg: {fileID: 1822430120}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1570793381}
   _value: 117
@@ -34783,10 +34798,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _interactiveColor:
-    _normalColor: {r: 0, g: 0, b: 0, a: 0}
-    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
   _interactiveImg: {fileID: 1845144422}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 80680845}
@@ -34819,7 +34834,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -34900,11 +34915,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _interactiveColor:
-    _normalColor: {r: 0, g: 0, b: 0, a: 0}
-    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
-  _interactiveImg: {fileID: 0}
+    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  _interactiveImg: {fileID: 1845862550}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1121012839}
   _value: 101
@@ -35558,7 +35573,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -35597,10 +35612,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _interactiveColor:
-    _normalColor: {r: 0, g: 0, b: 0, a: 0}
-    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
   _interactiveImg: {fileID: 1897084803}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1407201251}
@@ -35676,11 +35691,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _interactiveColor:
-    _normalColor: {r: 0, g: 0, b: 0, a: 0}
-    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
-  _interactiveImg: {fileID: 0}
+    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  _interactiveImg: {fileID: 1900662374}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 521552236}
   _value: 118
@@ -36528,7 +36543,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.05882353, g: 0.3019608, b: 0.57254905, a: 1}
+  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -36566,8 +36581,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interactable: 1
-  _interactiveColors: []
-  _interactiveImgs: []
+  _interactiveColors:
+  - _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  _interactiveImgs:
+  - {fileID: 1923595187}
   _onClick:
     m_PersistentCalls:
       m_Calls:
@@ -37126,11 +37146,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _interactiveColor:
-    _normalColor: {r: 0, g: 0, b: 0, a: 0}
-    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
-  _interactiveImg: {fileID: 0}
+    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  _interactiveImg: {fileID: 1966324060}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 746672708}
   _value: 114
@@ -37622,10 +37642,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _interactiveColor:
-    _normalColor: {r: 0, g: 0, b: 0, a: 0}
-    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
   _interactiveImg: {fileID: 1980738837}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 659186608}
@@ -37658,7 +37678,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -37994,10 +38014,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _interactiveColor:
-    _normalColor: {r: 0, g: 0, b: 0, a: 0}
-    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
+    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
   _interactiveImg: {fileID: 1986112773}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 188249164}
@@ -38030,7 +38050,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -38246,11 +38266,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _interactiveColor:
-    _normalColor: {r: 0, g: 0, b: 0, a: 0}
-    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
-  _interactiveImg: {fileID: 0}
+    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  _interactiveImg: {fileID: 1992940652}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1611788259}
   _value: 108
@@ -38854,11 +38874,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _interactiveColor:
-    _normalColor: {r: 0, g: 0, b: 0, a: 0}
-    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
-  _interactiveImg: {fileID: 0}
+    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  _interactiveImg: {fileID: 2018936959}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1799472841}
   _value: 99
@@ -38936,7 +38956,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2032103529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38949,7 +38969,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bac6a7bc7cc60d54f9d5302101d2435b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _controllerUI: {fileID: 16184749}
+  _controllerUI: {fileID: 16184751}
   _inputTxt: {fileID: 659020788}
   _modeKeyTxt: {fileID: 1517680934}
   _keys:
@@ -40821,11 +40841,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _interactiveColor:
-    _normalColor: {r: 0, g: 0, b: 0, a: 0}
-    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
-  _interactiveImg: {fileID: 0}
+    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  _interactiveImg: {fileID: 2098537418}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 421643866}
   _value: 116
@@ -40938,11 +40958,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _interactiveColor:
-    _normalColor: {r: 0, g: 0, b: 0, a: 0}
-    _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-    _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-    _disabledColor: {r: 0, g: 0, b: 0, a: 0}
-  _interactiveImg: {fileID: 0}
+    _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  _interactiveImg: {fileID: 2114759902}
   _keyboardUI: {fileID: 2032103529}
   _label: {fileID: 1845938109}
   _value: 109
@@ -41092,8 +41112,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interactable: 1
-  _interactiveColors: []
-  _interactiveImgs: []
+  _interactiveColors:
+  - _normalColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+    _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
+    _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+    _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  _interactiveImgs:
+  - {fileID: 2128013104}
   _onClick:
     m_PersistentCalls:
       m_Calls:
