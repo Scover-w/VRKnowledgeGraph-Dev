@@ -208,14 +208,14 @@ public class GraphConfiguration
     }
 
 
-    public bool SetValue(GraphConfigurationKey key, string value)
+    public bool SetValue(GraphConfigKey key, string value)
     {
         switch (key)
         {
-            case GraphConfigurationKey.SelectedMetricTypeSize:
+            case GraphConfigKey.SelectedMetricTypeSize:
                 SelectedMetricTypeSize = GraphConfigurationTools.StringToEnum(value);
                 return true;
-            case GraphConfigurationKey.SelectedMetricTypeColor:
+            case GraphConfigKey.SelectedMetricTypeColor:
                 SelectedMetricTypeColor = GraphConfigurationTools.StringToEnum(value);
                 return true;
         }
@@ -223,244 +223,244 @@ public class GraphConfiguration
         return false;
     }
 
-    public bool SetValue(GraphConfigurationKey key, float value)
+    public bool SetValue(GraphConfigKey key, float value)
     {
         switch (key)
         {
-            case GraphConfigurationKey.ImmersionGraphSize:
+            case GraphConfigKey.ImmersionGraphSize:
                 ImmersionGraphSize = value;
                 return true;
-            case GraphConfigurationKey.DeskGraphSize:
+            case GraphConfigKey.DeskGraphSize:
                 DeskGraphSize = value;
                 return true;
-            case GraphConfigurationKey.WatchGraphSize:
+            case GraphConfigKey.WatchGraphSize:
                 WatchGraphSize = value;
                 return true;
-            case GraphConfigurationKey.LensGraphSize:
+            case GraphConfigKey.LensGraphSize:
                 LensGraphSize = value;
                 return true;
-            case GraphConfigurationKey.NodeSizeImmersion:
+            case GraphConfigKey.NodeSizeImmersion:
                 NodeSizeImmersion = value;
                 return true;
-            case GraphConfigurationKey.NodeSizeDesk:
+            case GraphConfigKey.NodeSizeDesk:
                 NodeSizeDesk = value;
                 return true;
-            case GraphConfigurationKey.NodeSizeWatch:
+            case GraphConfigKey.NodeSizeWatch:
                 NodeSizeWatch = value;
                 return true;
-            case GraphConfigurationKey.NodeSizeLens:
+            case GraphConfigKey.NodeSizeLens:
                 NodeSizeLens = value;
                 return true;
-            case GraphConfigurationKey.NodeMinSizeImmersion:
+            case GraphConfigKey.NodeMinSizeImmersion:
                 NodeMinSizeImmersion = value;
                 return true;
-            case GraphConfigurationKey.NodeMaxSizeImmersion:
+            case GraphConfigKey.NodeMaxSizeImmersion:
                 NodeMaxSizeImmersion = value;
                 return true;
-            case GraphConfigurationKey.NodeMinSizeDesk:
+            case GraphConfigKey.NodeMinSizeDesk:
                 NodeMinSizeDesk = value;
                 return true;
-            case GraphConfigurationKey.NodeMaxSizeDesk:
+            case GraphConfigKey.NodeMaxSizeDesk:
                 NodeMaxSizeDesk = value;
                 return true;
-            case GraphConfigurationKey.NodeMinSizeLens:
+            case GraphConfigKey.NodeMinSizeLens:
                 NodeMinSizeLens = value;
                 return true;
-            case GraphConfigurationKey.NodeMaxSizeLens:
+            case GraphConfigKey.NodeMaxSizeLens:
                 NodeMaxSizeLens = value;
                 return true;
-            case GraphConfigurationKey.LabelNodeSizeImmersion:
+            case GraphConfigKey.LabelNodeSizeImmersion:
                 LabelNodeSizeImmersion = value;
                 return true;
-            case GraphConfigurationKey.LabelNodeSizeDesk:
+            case GraphConfigKey.LabelNodeSizeDesk:
                 LabelNodeSizeDesk = value;
                 return true;
-            case GraphConfigurationKey.LabelNodeSizeLens:
+            case GraphConfigKey.LabelNodeSizeLens:
                 LabelNodeSizeLens = value;
                 return true;
-            case GraphConfigurationKey.EdgeThicknessImmersion:
+            case GraphConfigKey.EdgeThicknessImmersion:
                 EdgeThicknessImmersion = value;
                 return true;
-            case GraphConfigurationKey.EdgeThicknessDesk:
+            case GraphConfigKey.EdgeThicknessDesk:
                 EdgeThicknessDesk = value;
                 return true;
-            case GraphConfigurationKey.EdgeThicknessLens:
+            case GraphConfigKey.EdgeThicknessLens:
                 EdgeThicknessLens = value;
                 return true;
-            case GraphConfigurationKey.EdgeThicknessWatch:
+            case GraphConfigKey.EdgeThicknessWatch:
                 EdgeThicknessWatch = value;
                 return true;
-            case GraphConfigurationKey.NodeColorMappingBoundaryColorA:
+            case GraphConfigKey.NodeColorMappingBoundaryColorA:
                 NodeColorMapping.BoundaryColorA = value;
                 return true;
-            case GraphConfigurationKey.NodeColorMappingBoundaryColorB:
+            case GraphConfigKey.NodeColorMappingBoundaryColorB:
                 NodeColorMapping.BoundaryColorB = value;
                 return true;
-            case GraphConfigurationKey.NodeColorMappingBoundaryColorC:
+            case GraphConfigKey.NodeColorMappingBoundaryColorC:
                 NodeColorMapping.BoundaryColorC = value;
                 return true;
-            case GraphConfigurationKey.AlphaNodeColorPropagated:
+            case GraphConfigKey.AlphaNodeColorPropagated:
                 AlphaNodeColorPropagated = value;
                 return true;
-            case GraphConfigurationKey.AlphaNodeColorUnPropagated:
+            case GraphConfigKey.AlphaNodeColorUnPropagated:
                 AlphaNodeColorUnPropagated = value;
                 return true;
-            case GraphConfigurationKey.AlphaEdgeColorPropagated:
+            case GraphConfigKey.AlphaEdgeColorPropagated:
                 AlphaEdgeColorPropagated = value;
                 return true;
-            case GraphConfigurationKey.AlphaEdgeColorUnPropagated:
+            case GraphConfigKey.AlphaEdgeColorUnPropagated:
                 AlphaEdgeColorUnPropagated = value;
                 return true;
-            case GraphConfigurationKey.NbOntologyColor:
+            case GraphConfigKey.NbOntologyColor:
                 NbOntologyColor = Mathf.RoundToInt(value);
                 return true;
-            case GraphConfigurationKey.MaxDeltaOntologyAlgo:
+            case GraphConfigKey.MaxDeltaOntologyAlgo:
                 MaxDeltaOntologyAlgo = Mathf.RoundToInt(value);
                 return true;
-            case GraphConfigurationKey.SaturationOntologyColor:
+            case GraphConfigKey.SaturationOntologyColor:
                 SaturationOntologyColor = value;
                 return true;
-            case GraphConfigurationKey.ValueOntologyColor:
+            case GraphConfigKey.ValueOntologyColor:
                 ValueOntologyColor = value;
                 return true;
-            case GraphConfigurationKey.LabelNodgePropagation:
+            case GraphConfigKey.LabelNodgePropagation:
                 LabelNodgePropagation = Mathf.RoundToInt(value);
                 return true;
-            case GraphConfigurationKey.SeedRandomPosition:
+            case GraphConfigKey.SeedRandomPosition:
                 SeedRandomPosition = Mathf.RoundToInt(value);
                 return true;
-            case GraphConfigurationKey.GraphModeTransitionTime:
+            case GraphConfigKey.GraphModeTransitionTime:
                 GraphModeTransitionTime = value;
                 return true;
-            case GraphConfigurationKey.DefaultTickDeltaTime:
+            case GraphConfigKey.DefaultTickDeltaTime:
                 SimuParameters.TickDeltaTime = value;
                 return true;
-            case GraphConfigurationKey.DefaultMaxSimulationTime:
+            case GraphConfigKey.DefaultMaxSimulationTime:
                 SimuParameters.MaxSimulationTime = value;
                 return true;
-            case GraphConfigurationKey.DefaultLerpSmooth:
+            case GraphConfigKey.DefaultLerpSmooth:
                 SimuParameters.LerpSmooth = value;
                 return true;
-            case GraphConfigurationKey.DefaultLightSpringForce:
+            case GraphConfigKey.DefaultLightSpringForce:
                 SimuParameters.LightSpringForce = value;
                 return true;
-            case GraphConfigurationKey.DefaultLightCoulombForce:
+            case GraphConfigKey.DefaultLightCoulombForce:
                 SimuParameters.LightCoulombForce = value;
                 return true;
-            case GraphConfigurationKey.DefaultLightDamping:
+            case GraphConfigKey.DefaultLightDamping:
                 SimuParameters.LightDamping = value;
                 return true;
-            case GraphConfigurationKey.DefaultLightSpringDistance:
+            case GraphConfigKey.DefaultLightSpringDistance:
                 SimuParameters.LightSpringDistance = value;
                 return true;
-            case GraphConfigurationKey.DefaultLightCoulombDistance:
+            case GraphConfigKey.DefaultLightCoulombDistance:
                 SimuParameters.LightCoulombDistance = value;
                 return true;
-            case GraphConfigurationKey.DefaultLightMaxVelocity:
+            case GraphConfigKey.DefaultLightMaxVelocity:
                 SimuParameters.LightMaxVelocity = value;
                 return true;
-            case GraphConfigurationKey.DefaultLightStopVelocity:
+            case GraphConfigKey.DefaultLightStopVelocity:
                 SimuParameters.LightStopVelocity = value;
                 return true;
-            case GraphConfigurationKey.DefaultDenseSpringForce:
+            case GraphConfigKey.DefaultDenseSpringForce:
                 SimuParameters.DenseSpringForce = value;
                 return true;
-            case GraphConfigurationKey.DefaultDenseCoulombForce:
+            case GraphConfigKey.DefaultDenseCoulombForce:
                 SimuParameters.DenseCoulombForce = value;
                 return true;
-            case GraphConfigurationKey.DefaultDenseDamping:
+            case GraphConfigKey.DefaultDenseDamping:
                 SimuParameters.DenseDamping = value;
                 return true;
-            case GraphConfigurationKey.DefaultDenseSpringDistance:
+            case GraphConfigKey.DefaultDenseSpringDistance:
                 SimuParameters.DenseSpringDistance = value;
                 return true;
-            case GraphConfigurationKey.DefaultDenseCoulombDistance:
+            case GraphConfigKey.DefaultDenseCoulombDistance:
                 SimuParameters.DenseCoulombDistance = value;
                 return true;
-            case GraphConfigurationKey.DefaultDenseMaxVelocity:
+            case GraphConfigKey.DefaultDenseMaxVelocity:
                 SimuParameters.DenseMaxVelocity = value;
                 return true;
-            case GraphConfigurationKey.DefaultDenseStopVelocity:
+            case GraphConfigKey.DefaultDenseStopVelocity:
                 SimuParameters.DenseStopVelocity = value;
                 return true;
-            case GraphConfigurationKey.LensTickDeltaTime:
+            case GraphConfigKey.LensTickDeltaTime:
                 LensSimuParameters.TickDeltaTime = value;
                 return true;
-            case GraphConfigurationKey.LensMaxSimulationTime:
+            case GraphConfigKey.LensMaxSimulationTime:
                 LensSimuParameters.MaxSimulationTime = value;
                 return true;
-            case GraphConfigurationKey.LensLerpSmooth:
+            case GraphConfigKey.LensLerpSmooth:
                 LensSimuParameters.LerpSmooth = value;
                 return true;
-            case GraphConfigurationKey.LensLightSpringForce:
+            case GraphConfigKey.LensLightSpringForce:
                 LensSimuParameters.LightSpringForce = value;
                 return true;
-            case GraphConfigurationKey.LensLightCoulombForce:
+            case GraphConfigKey.LensLightCoulombForce:
                 LensSimuParameters.LightCoulombForce = value;
                 return true;
-            case GraphConfigurationKey.LensLightDamping:
+            case GraphConfigKey.LensLightDamping:
                 LensSimuParameters.LightDamping = value;
                 return true;
-            case GraphConfigurationKey.LensLightSpringDistance:
+            case GraphConfigKey.LensLightSpringDistance:
                 LensSimuParameters.LightSpringDistance = value;
                 return true;
-            case GraphConfigurationKey.LensLightCoulombDistance:
+            case GraphConfigKey.LensLightCoulombDistance:
                 LensSimuParameters.LightCoulombDistance = value;
                 return true;
-            case GraphConfigurationKey.LensLightMaxVelocity:
+            case GraphConfigKey.LensLightMaxVelocity:
                 LensSimuParameters.LightMaxVelocity = value;
                 return true;
-            case GraphConfigurationKey.LensLightStopVelocity:
+            case GraphConfigKey.LensLightStopVelocity:
                 LensSimuParameters.LightStopVelocity = value;
                 return true;
-            case GraphConfigurationKey.LensDenseSpringForce:
+            case GraphConfigKey.LensDenseSpringForce:
                 LensSimuParameters.DenseSpringForce = value;
                 return true;
-            case GraphConfigurationKey.LensDenseCoulombForce:
+            case GraphConfigKey.LensDenseCoulombForce:
                 LensSimuParameters.DenseCoulombForce = value;
                 return true;
-            case GraphConfigurationKey.LensDenseDamping:
+            case GraphConfigKey.LensDenseDamping:
                 LensSimuParameters.DenseDamping = value;
                 return true;
-            case GraphConfigurationKey.LensDenseSpringDistance:
+            case GraphConfigKey.LensDenseSpringDistance:
                 LensSimuParameters.DenseSpringDistance = value;
                 return true;
-            case GraphConfigurationKey.LensDenseCoulombDistance:
+            case GraphConfigKey.LensDenseCoulombDistance:
                 LensSimuParameters.DenseCoulombDistance = value;
                 return true;
-            case GraphConfigurationKey.LensDenseMaxVelocity:
+            case GraphConfigKey.LensDenseMaxVelocity:
                 LensSimuParameters.DenseMaxVelocity = value;
                 return true;
-            case GraphConfigurationKey.LensDenseStopVelocity:
+            case GraphConfigKey.LensDenseStopVelocity:
                 LensSimuParameters.DenseStopVelocity = value;
                 return true;
         }
             return false;
     }
 
-    public bool SetValue(GraphConfigurationKey key, bool value)
+    public bool SetValue(GraphConfigKey key, bool value)
     {
         switch (key)
         {
-            case GraphConfigurationKey.ShowLabelImmersion:
+            case GraphConfigKey.ShowLabelImmersion:
                 ShowLabelImmersion = value;
                 return true;
-            case GraphConfigurationKey.ShowLabelDesk:
+            case GraphConfigKey.ShowLabelDesk:
                 ShowLabelDesk = value;
                 return true;
-            case GraphConfigurationKey.CanSelectEdges:
+            case GraphConfigKey.CanSelectEdges:
                 CanSelectEdges = value;
                 return true;
-            case GraphConfigurationKey.DisplayEdges:
+            case GraphConfigKey.DisplayEdges:
                 DisplayEdges = value;
                 return true;
-            case GraphConfigurationKey.ResetPositionNodeOnUpdate:
+            case GraphConfigKey.ResetPositionNodeOnUpdate:
                 ResetPositionNodeOnUpdate = value;
                 return true;
-            case GraphConfigurationKey.DisplayInterSelectedNeighborEdges:
+            case GraphConfigKey.DisplayInterSelectedNeighborEdges:
                 DisplayInterSelectedNeighborEdges = value;
                 return true;
-            case GraphConfigurationKey.ShowWatch:
+            case GraphConfigKey.ShowWatch:
                 ShowWatch = value;
                 return true;
         }
@@ -468,29 +468,29 @@ public class GraphConfiguration
         return false;
     }
 
-    public bool SetValue(GraphConfigurationKey key, Color value)
+    public bool SetValue(GraphConfigKey key, Color value)
     {
         switch (key)
         {
-            case GraphConfigurationKey.NodeColor:
+            case GraphConfigKey.NodeColor:
                 NodeColor = value;
                 return true;
-            case GraphConfigurationKey.NodeColorNoValueMetric:
+            case GraphConfigKey.NodeColorNoValueMetric:
                 NodeColorNoValueMetric = value;
                 return true;
-            case GraphConfigurationKey.EdgeColor:
+            case GraphConfigKey.EdgeColor:
                 EdgeColor = value;
                 return true;
-            case GraphConfigurationKey.PropagatedEdgeColor:
+            case GraphConfigKey.PropagatedEdgeColor:
                 PropagatedEdgeColor = value;
                 return true;
-            case GraphConfigurationKey.NodeColorMappingColorA:
+            case GraphConfigKey.NodeColorMappingColorA:
                 NodeColorMapping.ColorA = value;
                 return true;
-            case GraphConfigurationKey.NodeColorMappingColorB:
+            case GraphConfigKey.NodeColorMappingColorB:
                 NodeColorMapping.ColorB = value;
                 return true;
-            case GraphConfigurationKey.NodeColorMappingColorC:
+            case GraphConfigKey.NodeColorMappingColorC:
                 NodeColorMapping.ColorC = value;
                 return true;
         }

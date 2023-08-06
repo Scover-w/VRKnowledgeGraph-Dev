@@ -1,19 +1,16 @@
 using AIDEN.TactileUI;
-using Codice.CM.SEIDInfo;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using Wave.Essence.Events;
 
-public class GraphConfigInputAssigner : MonoBehaviour
+public class GraphConfigInputLink : MonoBehaviour
 {
     [SerializeField]
-    GraphConfigurationManager _graphManager;
+    GraphConfigManager _graphManager;
 
     [SerializeField]
-    GraphConfigurationKey _graphConfigurationKey;
+    GraphConfigKey _graphConfigKey;
 
     [SerializeField]
     MonoBehaviour _tactileUIScript;
@@ -25,6 +22,9 @@ public class GraphConfigInputAssigner : MonoBehaviour
     IValueUI<bool> _iValueBoolUI;
     IValueUI<Color> _iValueColorUI;
 
+    float _debounceTime;
+    float _debounceDelay = 0.25f;
+
     private void Start()
     {
         RetrieveInputType();
@@ -34,11 +34,14 @@ public class GraphConfigInputAssigner : MonoBehaviour
     private void OnEnable()
     {
         SetValueOnInput();
+        RegisterToGraphConfigManager();
+
+        _debounceTime = Time.unscaledTime;
     }
 
     private void OnDisable()
     {
-
+        UnRegisterToGraphConfigManager();
     }
 
 
@@ -91,44 +94,118 @@ public class GraphConfigInputAssigner : MonoBehaviour
         switch (_valueType)
         {
             case GraphConfigValueType.String:
-                var valueString = _graphManager.GetStringValue(_graphConfigurationKey);
+                var valueString = _graphManager.GetStringValue(_graphConfigKey);
                 _iValueStringUI.Value = valueString;
                 break;
             case GraphConfigValueType.Float:
-                var valueFloat = _graphManager.GetFloatValue(_graphConfigurationKey);
+                var valueFloat = _graphManager.GetFloatValue(_graphConfigKey);
                 _iValueFloatUI.Value = valueFloat;
                 break;
             case GraphConfigValueType.Bool:
-                var valueBool = _graphManager.GetBoolValue(_graphConfigurationKey);
+                var valueBool = _graphManager.GetBoolValue(_graphConfigKey);
                 _iValueBoolUI.Value = valueBool;
                 break;
             case GraphConfigValueType.Color:
-                var valueColor = _graphManager.GetColorValue(_graphConfigurationKey);
+                var valueColor = _graphManager.GetColorValue(_graphConfigKey);
                 _iValueColorUI.Value = valueColor;
                 break;
         }
 
     }
 
-
-    public void OnValueChanged(string newValueFromInput)
+    private void RegisterToGraphConfigManager()
     {
-        _graphManager.SetNewValue(_graphConfigurationKey, newValueFromInput);
+        switch (_valueType)
+        {
+            case GraphConfigValueType.String:
+                _graphManager.Register(_graphConfigKey, OnColorChangedFromManager);
+                break;
+            case GraphConfigValueType.Float:
+                _graphManager.Register(_graphConfigKey, OnFloatChangedFromManager);
+                break;
+            case GraphConfigValueType.Bool:
+                _graphManager.Register(_graphConfigKey, OnBoolChangedFromManager);
+                break;
+            case GraphConfigValueType.Color:
+                _graphManager.Register(_graphConfigKey, OnColorChangedFromManager);
+                break;
+        }
     }
 
-    public void OnValueChanged(float newValueFromInput)
+    private void UnRegisterToGraphConfigManager()
     {
-        _graphManager.SetNewValue(_graphConfigurationKey, newValueFromInput);
+        switch (_valueType)
+        {
+            case GraphConfigValueType.String:
+                _graphManager.UnRegister(_graphConfigKey, OnColorChangedFromManager);
+                break;
+            case GraphConfigValueType.Float:
+                _graphManager.UnRegister(_graphConfigKey, OnFloatChangedFromManager);
+                break;
+            case GraphConfigValueType.Bool:
+                _graphManager.UnRegister(_graphConfigKey, OnBoolChangedFromManager);
+                break;
+            case GraphConfigValueType.Color:
+                _graphManager.UnRegister(_graphConfigKey, OnColorChangedFromManager);
+                break;
+        }
     }
 
-    public void OnValueChanged(bool newValueFromInput)
+
+    public void OnStringChangedFromInput(string newValueFromInput)
     {
-        _graphManager.SetNewValue(_graphConfigurationKey, newValueFromInput);
+        _debounceTime = Time.unscaledTime + _debounceDelay;
+        _graphManager.SetNewValue(_graphConfigKey, newValueFromInput);
     }
 
-    public void OnValueChanged(Color newValueFromInput)
+    public void OnFloatChangedFromInput(float newValueFromInput)
     {
-        _graphManager.SetNewValue(_graphConfigurationKey, newValueFromInput);
+        _debounceTime = Time.unscaledTime + _debounceDelay;
+        _graphManager.SetNewValue(_graphConfigKey, newValueFromInput);
+    }
+
+    public void OnBoolChangedFromInput(bool newValueFromInput)
+    {
+        _debounceTime = Time.unscaledTime + _debounceDelay;
+        _graphManager.SetNewValue(_graphConfigKey, newValueFromInput);
+    }
+
+    public void OnColorChangedFromInput(Color newValueFromInput)
+    {
+        _debounceTime = Time.unscaledTime + _debounceDelay;
+        _graphManager.SetNewValue(_graphConfigKey, newValueFromInput);
+    }
+
+    public void OnStringChangedFromManager(string newValueFromManager)
+    {
+        if (Time.unscaledTime < _debounceTime)
+            return;
+
+        _iValueStringUI.Value = newValueFromManager;
+    }
+
+    public void OnFloatChangedFromManager(float newValueFromManager)
+    {
+        if (Time.unscaledTime < _debounceTime)
+            return;
+
+        _iValueFloatUI.Value = newValueFromManager;
+    }
+
+    public void OnBoolChangedFromManager(bool newValueFromManager)
+    {
+        if (Time.unscaledTime < _debounceTime)
+            return;
+
+        _iValueBoolUI.Value = newValueFromManager;
+    }
+
+    public void OnColorChangedFromManager(Color newValueFromManager)
+    {
+        if (Time.unscaledTime < _debounceTime)
+            return;
+
+        _iValueColorUI.Value = newValueFromManager;
     }
 
 
@@ -158,7 +235,7 @@ public class GraphConfigInputAssigner : MonoBehaviour
             return;
         }
 
-        bool isGoodType = _graphConfigurationKey.IsGoodType(genericType);
+        bool isGoodType = _graphConfigKey.IsGoodType(genericType);
 
         if (!isGoodType)
         {

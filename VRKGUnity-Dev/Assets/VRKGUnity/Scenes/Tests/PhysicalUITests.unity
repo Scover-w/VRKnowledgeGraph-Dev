@@ -29322,7 +29322,8 @@ MonoBehaviour:
   _keyboardPositionTf: {fileID: 2044156785}
   _interactionCollidersGo: {fileID: 195330500}
   _keyboardAlignment: 0
-  _value: 0
+  _numericType: 1
+  _value: 6
   _onValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -39486,7 +39487,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0
+  m_text: 6
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0a019fe438f77764f9a70428f8bc6b3e, type: 2}
   m_sharedMaterial: {fileID: 1660395511246298767, guid: 0a019fe438f77764f9a70428f8bc6b3e, type: 2}
