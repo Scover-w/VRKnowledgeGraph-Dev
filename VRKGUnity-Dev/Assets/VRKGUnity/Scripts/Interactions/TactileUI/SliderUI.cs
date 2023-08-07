@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
-using Wave.Essence.Hand.NearInteraction;
 
 namespace AIDEN.TactileUI
 {
@@ -61,7 +59,7 @@ namespace AIDEN.TactileUI
         RectTransform _sliderRectTf;
 
         [SerializeField]
-        RectTransform _sliderFilledRectTf;
+        RectTransform _fillRectTf;
 
         [SerializeField]
         RectTransform _knobRectTf;
@@ -99,19 +97,24 @@ namespace AIDEN.TactileUI
         TouchInteractor _touchInter;
 
         private bool _isMovingKnob = false;
-        bool _isWidth;
+        bool _isHorizontal;
         float _lengthSlider;
 
 
         private void OnEnable()
         {
             _label.enabled = _alwaysDisplayValue;
-            _isWidth = _sliderType == SliderType.Horizontal;
-            _lengthSlider = _isWidth ? _sliderRectTf.rect.width : _sliderRectTf.rect.height;
+            
 
             UpdateColliderActivation();
             TrySetNormalInteractionState();
             UpdateInteractionColor();
+        }
+
+        private void InitializeParameters()
+        {
+            _isHorizontal = _isHorizontal = (_sliderType == SliderType.LeftToRight || _sliderType == SliderType.RightToLeft);
+            _lengthSlider = _isHorizontal ? _sliderRectTf.rect.width : _sliderRectTf.rect.height;
         }
 
         public void TriggerEnter(bool isProximity, Transform touchTf)
@@ -186,7 +189,7 @@ namespace AIDEN.TactileUI
             Vector3 localVector = _sliderRectTf.InverseTransformPoint(worldProjectedPoint);
 
 
-            float positionFromVirtualAnchor = (_lengthSlider * .5f) + (_isWidth ? localVector.x : localVector.y);
+            float positionFromVirtualAnchor = (_lengthSlider * .5f) + (_isHorizontal ? localVector.x : localVector.y);
 
             float value = positionFromVirtualAnchor / _lengthSlider;
 
@@ -205,19 +208,29 @@ namespace AIDEN.TactileUI
         {
             float positionFromVirtualAnchor = _lengthSlider * _value;
 
-            if (_isWidth)
-                _knobRectTf.localPosition = new Vector3(positionFromVirtualAnchor - _lengthSlider * .5f, 0f, 0f);
+            if (_isHorizontal)
+            {
+                if(_sliderType == SliderType.LeftToRight)
+                    _knobRectTf.anchoredPosition = new Vector3(positionFromVirtualAnchor, 0f);
+                else
+                    _knobRectTf.anchoredPosition = new Vector3(-positionFromVirtualAnchor, 0f);
+            }
             else
-                _knobRectTf.localPosition = new Vector3(0f, positionFromVirtualAnchor - _lengthSlider * .5f, 0f);
+            {
+                if(_sliderType == SliderType.TopToBottom)
+                    _knobRectTf.anchoredPosition = new Vector3(0f, -positionFromVirtualAnchor);
+                else
+                    _knobRectTf.anchoredPosition = new Vector3(0f, positionFromVirtualAnchor);
+            }
 
-            Vector2 sizeDelta = _sliderFilledRectTf.sizeDelta;
+            Vector2 sizeDelta = _fillRectTf.sizeDelta;
 
-            if (_isWidth)
+            if (_isHorizontal)
                 sizeDelta.x = positionFromVirtualAnchor;
             else
                 sizeDelta.y = positionFromVirtualAnchor;
 
-            _sliderFilledRectTf.sizeDelta = sizeDelta;
+            _fillRectTf.sizeDelta = sizeDelta;
 
             _label.text = UnNormalizedValue.ToString("0.##");
         }
@@ -240,18 +253,71 @@ namespace AIDEN.TactileUI
         {
             _interactiveGraphics?.TrySetName();
 
-            _isWidth = _sliderType == SliderType.Horizontal;
-            _lengthSlider = _isWidth ? _sliderRectTf.rect.width : _sliderRectTf.rect.height;
+            OnValidateSetSliderLayout();
+
+            InitializeParameters();
 
             UpdateColliderActivation();
             TrySetNormalInteractionState();
             UpdateVisuals();
         }
 
+        private void OnValidateSetSliderLayout()
+        {
+            switch (_sliderType)
+            {
+                case SliderType.LeftToRight:
+                    SetNewAnchor(new Vector2(0, 0.5f));
+                    break;
+                case SliderType.RightToLeft:
+                    SetNewAnchor(new Vector2(1, 0.5f));
+                    break;
+                case SliderType.BottomToTop:
+                    SetNewAnchor(new Vector2(0.5f, 0));
+                    break;
+                case SliderType.TopToBottom:
+                    SetNewAnchor(new Vector2(0.5f, 1));
+                    break;
+            }
+
+            var size = _sliderRectTf.sizeDelta;
+
+            if(_sliderType == SliderType.LeftToRight || _sliderType == SliderType.RightToLeft)
+            {
+                if (size.x > size.y)
+                    return;
+            }
+            else
+            {
+                if (size.x < size.y)
+                    return;  
+            }
+
+            float tempHeight = size.y;
+            size.y = size.x;
+            size.x = tempHeight;
+            _sliderRectTf.sizeDelta = size;
+            _fillRectTf.sizeDelta = size;
+
+            _sliderRectTf.ForceUpdateRectTransforms();
+
+            void SetNewAnchor(Vector2 anchor)
+            {
+                _fillRectTf.anchorMin = anchor;
+                _fillRectTf.anchorMax = anchor;
+                _fillRectTf.pivot = anchor;
+
+                _knobRectTf.anchorMin = anchor;
+                _knobRectTf.anchorMax = anchor;
+            }
+        }
+
         public enum SliderType
         {
-            Horizontal,
-            Vertical
+            LeftToRight,
+            RightToLeft,
+            BottomToTop,
+            TopToBottom
         }
 
 
