@@ -199,6 +199,10 @@ namespace AIDEN.TactileUI
 
             float value = positionFromVirtualAnchor / _lengthSlider;
 
+
+            if (_sliderType == SliderType.RightToLeft || _sliderType == SliderType.TopToBottom)
+                value = 1f - value;
+
             if (value < 0f)
                 value = 0f;
             else if (value > 1f)
