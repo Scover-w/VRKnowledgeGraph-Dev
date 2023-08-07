@@ -111,6 +111,12 @@ namespace AIDEN.TactileUI
             UpdateInteractionColor();
         }
 
+        private void OnDisable()
+        {
+            if (_touchInter != null)
+                _touchInter.ActiveBtn(false, this);
+        }
+
         private void InitializeParameters()
         {
             _isHorizontal = _isHorizontal = (_sliderType == SliderType.LeftToRight || _sliderType == SliderType.RightToLeft);

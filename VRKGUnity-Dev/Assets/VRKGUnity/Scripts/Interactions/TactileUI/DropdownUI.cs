@@ -117,6 +117,9 @@ namespace AIDEN.TactileUI
         {
             if(_isOpen)
                 EnableCollidersToHide(true);
+
+            if (_touchInter != null)
+                _touchInter.ActiveBtn(false, this);
         }
 
         private void CreateItems()

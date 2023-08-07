@@ -70,6 +70,12 @@ namespace AIDEN.TactileUI
             UpdateInteractionColor();
         }
 
+        private void OnDisable()
+        {
+            if (_touchInter != null)
+                _touchInter.ActiveBtn(false, this);
+        }
+
         public void UpdateColor(float h, float s, float v)
         {
             _h = h;

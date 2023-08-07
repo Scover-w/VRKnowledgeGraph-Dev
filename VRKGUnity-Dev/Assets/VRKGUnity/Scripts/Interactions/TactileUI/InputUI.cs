@@ -88,6 +88,12 @@ namespace AIDEN.TactileUI
             DisplayValue();
         }
 
+        private void OnDisable()
+        {
+            if (_touchInter != null)
+                _touchInter.ActiveBtn(false, this);
+        }
+
         public void TriggerEnter(bool isProximity, Transform touchTf)
         {
             if (isProximity)
