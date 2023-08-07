@@ -24,18 +24,18 @@ namespace AIDEN.TactileUI
         DropdownUI _controller;
 
         [SerializeField]
-        Image _checkMarkImg;
+        List<InteractiveGraphicUI> _interactiveGraphics;
 
         [SerializeField]
         TMP_Text _label;
 
         [SerializeField]
+        GameObject _checkMarkGo;
+
         string _value;
 
-        GameObject _checkMarkGo;
         Transform _touchTf;
         TouchInteractor _touchInter;
-        InteractiveColorUI _colorState;
 
         InteractionStateUI _interactionStateUI;
 
@@ -93,43 +93,22 @@ namespace AIDEN.TactileUI
 
         private void UpdateInteractionColor()
         {
-            switch (_interactionStateUI)
-            {
-                case InteractionStateUI.Normal:
-                    _label.color = _colorState.NormalColor;
-                    _checkMarkImg.color = _colorState.NormalColor;
-                    break;
-                case InteractionStateUI.InProximity:
-                    _label.color = _colorState.ProximityColor;
-                    _checkMarkImg.color = _colorState.ProximityColor;
-                    break;
-                case InteractionStateUI.Active:
-                    _label.color = _colorState.ActivatedColor;
-                    _checkMarkImg.color = _colorState.ActivatedColor;
-                    break;
-                case InteractionStateUI.Disabled:
-                    _label.color = _colorState.DisabledColor;
-                    _checkMarkImg.color = _colorState.DisabledColor;
-                    break;
-            }
+            _interactiveGraphics.UpdateColor(_interactionStateUI);
         }
 
-        public void ResfreshValue(string value, InteractiveColorUI colorState)
+        public void ResfreshValue(string value)
         {
-            _colorState = colorState;
             _interactionStateUI = InteractionStateUI.Normal;
             UpdateInteractionColor();
 
             _isSelected = (_value == value);
-
-            if (_checkMarkGo == null)
-                _checkMarkGo = _checkMarkImg.gameObject;
-
             _checkMarkGo.SetActive(_isSelected);
         }
 
         private void OnValidate()
         {
+            _interactiveGraphics?.TrySetName();
+
             if (_label == null)
                 return;
 

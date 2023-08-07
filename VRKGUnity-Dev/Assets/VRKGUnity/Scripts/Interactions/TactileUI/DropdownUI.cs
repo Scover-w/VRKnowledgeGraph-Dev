@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -43,19 +44,16 @@ namespace AIDEN.TactileUI
         bool _interactable = true;
 
         [SerializeField]
-        List<InteractiveColorUI> _interactiveColors;
+        List<InteractiveGraphicUI> _interactiveGraphics;
 
         [SerializeField]
-        InteractiveColorUI _interactiveColorItems;
+        GameObject _itemsContainerGo;
 
         [SerializeField]
-        List<Image> _interactiveImgs;
+        DropdownItemUI _itemTemplate;
 
         [SerializeField]
-        GameObject _optionsContainerGo;
-
-        [SerializeField]
-        List<DropdownItemUI> _dropdowns;
+        List<DropDownItem> _dropdowns;
 
         [SerializeField]
         TMP_Text _label;
@@ -72,6 +70,8 @@ namespace AIDEN.TactileUI
         [SerializeField, Space(10)]
         UnityEvent<string> _onValueChanged;
 
+        List<DropdownItemUI> _items;
+
         Transform _touchTf;
         TouchInteractor _touchInter;
 
@@ -85,7 +85,7 @@ namespace AIDEN.TactileUI
         private void OnEnable()
         {
             _isOpen = false;
-            _optionsContainerGo.SetActive(_isOpen);
+            _itemsContainerGo.SetActive(_isOpen);
 
             UpdateColliderActivation();
             TrySetNormalInteractionState();
@@ -120,7 +120,7 @@ namespace AIDEN.TactileUI
 
             _canClick = false;
             _isOpen = !_isOpen;
-            _optionsContainerGo.SetActive(_isOpen);
+            _itemsContainerGo.SetActive(_isOpen);
 
             EnableCollidersToHide(false);
 
@@ -160,7 +160,7 @@ namespace AIDEN.TactileUI
             RefreshValues();
 
             _isOpen = false;
-            _optionsContainerGo.SetActive(false);
+            _itemsContainerGo.SetActive(false);
             EnableCollidersToHide(true);
 
 
@@ -169,36 +169,14 @@ namespace AIDEN.TactileUI
 
         private void UpdateInteractionColor()
         {
-            int nbImg = _interactiveImgs.Count;
-
-            for (int i = 0; i < nbImg; i++)
-            {
-                Image img = _interactiveImgs[i];
-                InteractiveColorUI colorState = _interactiveColors[i];
-
-                switch (_interactionStateUI)
-                {
-                    case InteractionStateUI.Normal:
-                        img.color = colorState.NormalColor;
-                        break;
-                    case InteractionStateUI.InProximity:
-                        img.color = colorState.ProximityColor;
-                        break;
-                    case InteractionStateUI.Active:
-                        img.color = colorState.ActivatedColor;
-                        break;
-                    case InteractionStateUI.Disabled:
-                        img.color = colorState.DisabledColor;
-                        break;
-                }
-            }
+            _interactiveGraphics.UpdateColor(_interactionStateUI);
         }
 
         private void RefreshValues()
         {
-            foreach (var dropdown in _dropdowns)
+            foreach (var dropdown in _items)
             {
-                dropdown.ResfreshValue(_value, _interactiveColorItems);
+                dropdown.ResfreshValue(_value);
             }
         }
 
@@ -230,9 +208,18 @@ namespace AIDEN.TactileUI
         {
             _label.text = _value;
 
+            _interactiveGraphics?.TrySetName();
+
             UpdateColliderActivation();
             TrySetNormalInteractionState();
             UpdateInteractionColor();
         }
+    }
+
+    [Serializable]
+    public class DropDownItem
+    {
+        public string LabelName;
+        public string Value;
     }
 }

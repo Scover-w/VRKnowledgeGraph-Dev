@@ -43,13 +43,13 @@ namespace AIDEN.TactileUI
         bool _interactable = true;
 
         [SerializeField]
-        List<InteractiveColorUI> _activeInteractiveColors;
+        List<Graphic> _interactiveGraphics;
 
         [SerializeField]
-        List<InteractiveColorUI> _unactiveInteractiveColors;
+        List<InteractiveGraphicUI> _activeInteractiveGraphics;
 
         [SerializeField]
-        List<Image> _interactiveImgs;
+        List<InteractiveGraphicUI> _unactiveInteractiveGraphics;
 
         [SerializeField]
         RectTransform _knobRect;
@@ -134,31 +134,8 @@ namespace AIDEN.TactileUI
 
         private void UpdateInteractionColor()
         {
-            var colorStates = _isEnable ? _activeInteractiveColors : _unactiveInteractiveColors;
-
-            int nbImg = _interactiveImgs.Count;
-
-            for (int i = 0; i < nbImg; i++)
-            {
-                Image img = _interactiveImgs[i];
-                InteractiveColorUI colorstate = colorStates[i];
-
-                switch (_interactionStateUI)
-                {
-                    case InteractionStateUI.Normal:
-                        img.color = colorstate.NormalColor;
-                        break;
-                    case InteractionStateUI.InProximity:
-                        img.color = colorstate.ProximityColor;
-                        break;
-                    case InteractionStateUI.Active:
-                        img.color = colorstate.ActivatedColor;
-                        break;
-                    case InteractionStateUI.Disabled:
-                        img.color = colorstate.DisabledColor;
-                        break;
-                }
-            }
+            var interactiveGraphics = _isEnable ? _activeInteractiveGraphics : _unactiveInteractiveGraphics;
+            interactiveGraphics.UpdateColor(_interactionStateUI);
         }
 
         private void UpdateKnobPosition()
@@ -183,6 +160,9 @@ namespace AIDEN.TactileUI
 
         private void OnValidate()
         {
+            _activeInteractiveGraphics?.TrySetName();
+            _unactiveInteractiveGraphics?.TrySetName();
+
             UpdateKnobPosition();
             UpdateColliderActivation();
             TrySetNormalInteractionState();

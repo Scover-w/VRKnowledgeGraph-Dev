@@ -20,7 +20,6 @@ namespace AIDEN.TactileUI
         TabUI _selectedTab;
 
 
-
         private void OnEnable()
         {
             foreach (TabUI tabBtn in _tabsBtn)

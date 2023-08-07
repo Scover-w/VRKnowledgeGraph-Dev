@@ -42,10 +42,7 @@ namespace AIDEN.TactileUI
         bool _interactable = true;
 
         [SerializeField]
-        InteractiveColorUI _interactiveColor;
-
-        [SerializeField]
-        Image _interactiveImg;
+        List<InteractiveGraphicUI> _interactiveGraphics;
 
         [SerializeField]
         TMP_Text _inputText;
@@ -146,25 +143,11 @@ namespace AIDEN.TactileUI
         {
             if (_isActive)
             {
-                _interactiveImg.color = _interactiveColor.ActivatedColor;
+                _interactiveGraphics.UpdateColor(InteractionStateUI.Active);
                 return;
             }
 
-            switch (_interactionStateUI)
-            {
-                case InteractionStateUI.Normal:
-                    _interactiveImg.color = _interactiveColor.NormalColor;
-                    break;
-                case InteractionStateUI.InProximity:
-                    _interactiveImg.color = _interactiveColor.ProximityColor;
-                    break;
-                case InteractionStateUI.Active:
-                    _interactiveImg.color = _interactiveColor.ActivatedColor;
-                    break;
-                case InteractionStateUI.Disabled:
-                    _interactiveImg.color = _interactiveColor.DisabledColor;
-                    break;
-            }
+            _interactiveGraphics.UpdateColor(_interactionStateUI);
         }
 
         public void OnUpdateInput(object input)
@@ -223,6 +206,8 @@ namespace AIDEN.TactileUI
 
         private void OnValidate()
         {
+            _interactiveGraphics?.TrySetName();
+
             DisplayValue();
             UpdateColliderActivation();
             TrySetNormalInteractionState();

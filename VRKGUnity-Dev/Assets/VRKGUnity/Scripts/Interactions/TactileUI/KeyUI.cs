@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 using UnityEngine;
@@ -41,10 +42,7 @@ namespace AIDEN.TactileUI
         bool _interactable = true;
 
         [SerializeField]
-        InteractiveColorUI _interactiveColor;
-
-        [SerializeField]
-        Image _interactiveImg;
+        List<InteractiveGraphicUI> _interactiveGraphics;
 
         [SerializeField]
         KeyboardUI _keyboardUI;
@@ -138,21 +136,7 @@ namespace AIDEN.TactileUI
 
         private void UpdateInteractionColor()
         {
-            switch (_interactionStateUI)
-            {
-                case InteractionStateUI.Normal:
-                    _interactiveImg.color = _interactiveColor.NormalColor;
-                    break;
-                case InteractionStateUI.InProximity:
-                    _interactiveImg.color = _interactiveColor.ProximityColor;
-                    break;
-                case InteractionStateUI.Active:
-                    _interactiveImg.color = _interactiveColor.ActivatedColor;
-                    break;
-                case InteractionStateUI.Disabled:
-                    _interactiveImg.color = _interactiveColor.DisabledColor;
-                    break;
-            }
+            _interactiveGraphics.UpdateColor(_interactionStateUI);
         }
 
         private void UpdateColliderActivation()
@@ -170,6 +154,7 @@ namespace AIDEN.TactileUI
 
         private void OnValidate()
         {
+            _interactiveGraphics?.TrySetName();
             _label.text = _value.ToString();
 
             UpdateColliderActivation();

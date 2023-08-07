@@ -30,10 +30,7 @@ namespace AIDEN.TactileUI
         bool _interactable = true;
 
         [SerializeField]
-        List<InteractiveColorUI> _interactiveColors;
-
-        [SerializeField]
-        List<Image> _interactiveImgs;
+        List<InteractiveGraphicUI> _interactiveGraphics;
 
         [SerializeField]
         GameObject _interactionCollidersGo;
@@ -109,29 +106,7 @@ namespace AIDEN.TactileUI
 
         private void UpdateInteractionColor()
         {
-            int nbImg = _interactiveImgs.Count;
-
-            for (int i = 0; i < nbImg; i++)
-            {
-                Image img = _interactiveImgs[i];
-                InteractiveColorUI colorState = _interactiveColors[i];
-
-                switch (_interactionStateUI)
-                {
-                    case InteractionStateUI.Normal:
-                        img.color = colorState.NormalColor;
-                        break;
-                    case InteractionStateUI.InProximity:
-                        img.color = colorState.ProximityColor;
-                        break;
-                    case InteractionStateUI.Active:
-                        img.color = colorState.ActivatedColor;
-                        break;
-                    case InteractionStateUI.Disabled:
-                        img.color = colorState.DisabledColor;
-                        break;
-                }
-            }
+            _interactiveGraphics.UpdateColor(_interactionStateUI);
         }
 
         private void UpdateColliderActivation()
@@ -149,6 +124,8 @@ namespace AIDEN.TactileUI
 
         private void OnValidate()
         {
+            _interactiveGraphics?.TrySetName();
+
             UpdateColliderActivation();
             TrySetNormalInteractionState();
             UpdateInteractionColor();

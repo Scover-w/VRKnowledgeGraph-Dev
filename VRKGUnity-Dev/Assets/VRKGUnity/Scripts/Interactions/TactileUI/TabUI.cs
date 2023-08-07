@@ -34,7 +34,9 @@ namespace AIDEN.TactileUI
         GameObject _pageToDisplayGo;
 
         [SerializeField]
-        List<Image> _interactiveImgs;
+        List<Graphic> _interactiveGraphics;
+
+        List<InteractiveColorUI> _interactiveColors;
 
         [SerializeField]
         GameObject _interactionCollidersGo;
@@ -42,7 +44,7 @@ namespace AIDEN.TactileUI
         Transform _touchTf;
         TouchInteractor _touchInter;
 
-        List<InteractiveColorUI> _currentColorStates;
+        
 
         InteractionStateUI _interactionStateUI;
 
@@ -57,37 +59,37 @@ namespace AIDEN.TactileUI
 
         public void Select(List<InteractiveColorUI> colorStates)
         {
-            _currentColorStates = colorStates;
+            _interactiveColors = colorStates;
             _pageToDisplayGo.SetActive(true);
             UpdateInteractionColor();
         }
 
         public void UnSelect(List<InteractiveColorUI> colorStates)
         {
-            _currentColorStates = colorStates;
+            _interactiveColors = colorStates;
             _pageToDisplayGo.SetActive(false);
             UpdateInteractionColor();
         }
 
         private void UpdateInteractionColor()
         {
-            int nbImage = _interactiveImgs.Count;
+            int nbGraphics = _interactiveGraphics.Count;
 
-            for (int i = 0; i < nbImage; i++)
+            for (int i = 0; i < nbGraphics; i++)
             {
-                Image img = _interactiveImgs[i];
-                InteractiveColorUI colorTab = _currentColorStates[i];
+                Graphic graphic = _interactiveGraphics[i];
+                InteractiveColorUI colorTab = _interactiveColors[i];
 
                 switch (_interactionStateUI)
                 {
                     case InteractionStateUI.Normal:
-                        img.color = colorTab.NormalColor;
+                        graphic.color = colorTab.NormalColor;
                         break;
                     case InteractionStateUI.InProximity:
-                        img.color = colorTab.ProximityColor;
+                        graphic.color = colorTab.ProximityColor;
                         break;
                     case InteractionStateUI.Active:
-                        img.color = colorTab.ActivatedColor;
+                        graphic.color = colorTab.ActivatedColor;
                         break;
                 }
             }

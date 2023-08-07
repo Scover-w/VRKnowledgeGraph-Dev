@@ -35,10 +35,7 @@ namespace AIDEN.TactileUI
         Image _hsvWheelImg;
 
         [SerializeField]
-        InteractiveColorUI _interactiveColor;
-
-        [SerializeField]
-        Image _interactiveImg;
+        List<InteractiveGraphicUI> _interactiveGraphics;
 
         [SerializeField]
         RectTransform _cursorRectTf;
@@ -138,21 +135,7 @@ namespace AIDEN.TactileUI
 
         private void UpdateInteractionColor()
         {
-            switch (_interactionStateUI)
-            {
-                case InteractionStateUI.Normal:
-                    _interactiveImg.color = _interactiveColor.NormalColor;
-                    break;
-                case InteractionStateUI.InProximity:
-                    _interactiveImg.color = _interactiveColor.ProximityColor;
-                    break;
-                case InteractionStateUI.Active:
-                    _interactiveImg.color = _interactiveColor.ActivatedColor;
-                    break;
-                case InteractionStateUI.Disabled:
-                    _interactiveImg.color = _interactiveColor.DisabledColor;
-                    break;
-            }
+            _interactiveGraphics.UpdateColor(_interactionStateUI);
         }
 
         IEnumerator MovingCursor()
@@ -234,6 +217,8 @@ namespace AIDEN.TactileUI
 
         private void OnValidate()
         {
+            _interactiveGraphics?.TrySetName();
+
             UpdateColliderActivation();
             TrySetNormalInteractionState();
             UpdateInteractionColor();
