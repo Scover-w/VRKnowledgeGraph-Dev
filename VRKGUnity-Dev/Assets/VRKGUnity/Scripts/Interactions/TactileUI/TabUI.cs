@@ -52,6 +52,11 @@ namespace AIDEN.TactileUI
 
         private void OnEnable()
         {
+            Invoke(nameof(DelayedOnEnable), .2f);   
+        }
+
+        private void DelayedOnEnable()
+        {
             UpdateColliderActivation();
             TrySetNormalInteractionState();
             UpdateInteractionColor();
