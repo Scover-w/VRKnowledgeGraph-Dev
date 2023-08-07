@@ -1,10 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
+using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
+using UnityEngine.Video;
+using static GluonGui.WorkspaceWindow.Views.Checkin.Operations.CheckinViewDeleteOperation;
+using static UnityEditor.Progress;
 
 namespace AIDEN.TactileUI
 {
@@ -30,13 +36,14 @@ namespace AIDEN.TactileUI
         {
             get
             {
-                return _value;
+                if (_selectedValue == null)
+                    return "";
+
+                return _selectedValue.Value;
             }
             set
             {
-                // TODO : Check if in value list
-                _value = value;
-                _label.text = _value;
+                SetNewValueFromOutside(value);
             }
         }
 
@@ -50,10 +57,10 @@ namespace AIDEN.TactileUI
         GameObject _itemsContainerGo;
 
         [SerializeField]
-        DropdownItemUI _itemTemplate;
+        GameObject _itemTemplateGo;
 
         [SerializeField]
-        List<DropDownItem> _dropdowns;
+        List<DropDownItemValue> _startItemValues;
 
         [SerializeField]
         TMP_Text _label;
@@ -65,22 +72,36 @@ namespace AIDEN.TactileUI
         List<Collider> _colliderToHide;
 
         [SerializeField]
-        string _value;
+        int _startSelectedValue = -1;
 
         [SerializeField, Space(10)]
         UnityEvent<string> _onValueChanged;
 
-        List<DropdownItemUI> _items;
+        Dictionary<DropDownItemValue, DropdownItemUI> _items;
 
         Transform _touchTf;
         TouchInteractor _touchInter;
 
+        DropdownItemUI _selectedItemUI;
+        DropDownItemValue _selectedValue;
+
+        RectTransform _itemContainerRectTf;
 
         InteractionStateUI _interactionStateUI;
 
         bool _isOpen = false;
         bool _canClick = true;
 
+        float _heightItem;
+
+
+        private void Awake()
+        {
+            _itemContainerRectTf = _itemsContainerGo.GetComponent<RectTransform>();
+            _heightItem = _itemTemplateGo.GetComponent<RectTransform>().rect.height;
+
+            CreateItems();
+        }
 
         private void OnEnable()
         {
@@ -96,6 +117,134 @@ namespace AIDEN.TactileUI
         {
             if(_isOpen)
                 EnableCollidersToHide(true);
+        }
+
+        private void CreateItems()
+        {
+            _items = new();
+
+            if (_startItemValues == null || _startItemValues.Count == 0)
+                return;
+
+            bool hasSelectedOneItem = false;
+
+            int nb = -1;
+
+            foreach (DropDownItemValue itemValue in _startItemValues)
+            {
+                DropdownItemUI itemUI = CreateItemUI(itemValue);
+
+                nb++;
+
+                if (nb != _startSelectedValue)
+                    continue;
+
+                hasSelectedOneItem = true;
+                SelectItem(itemValue, itemUI);
+            }
+
+            _itemTemplateGo.SetActive(false);
+            UpdateContentLayout();
+
+
+            if (hasSelectedOneItem)
+                return;
+
+            if (_items.Count == 0)
+                return;
+
+            var item = _items.First();
+            SelectItem(item.Key, item.Value);
+
+        }
+
+        private DropdownItemUI CreateItemUI(DropDownItemValue itemValue)
+        {
+            var itemGo = Instantiate(_itemTemplateGo, _itemsContainerGo.transform);
+            DropdownItemUI itemUI = itemGo.GetComponent<DropdownItemUI>();
+            _items.Add(itemValue, itemUI);
+            itemUI.SetDropDownValue(itemValue);
+            itemGo.SetActive(true);
+
+            return itemUI;
+        }
+
+        private void SelectItem(DropDownItemValue itemValue, DropdownItemUI itemUI = null)
+        {
+            if(itemUI == null && !_items.TryGetValue(itemValue, out itemUI))
+            {
+                Debug.LogError("Couldn't select item with the provided itemValue : " + itemValue.Value);
+                return;
+            }
+
+
+            UnselectSelected();
+
+            _selectedItemUI = itemUI;
+            _selectedValue = itemValue;
+
+            itemUI.IsSelected = true;
+            _label.text = itemValue.LabelName;
+        }
+
+        private void SetNewValueFromOutside(string newValue)
+        {
+            if(!TryGetValueFromOptions(newValue, out KeyValuePair<DropDownItemValue, DropdownItemUI> item))
+            {
+                Debug.LogWarning("No DropDownValueItem with this value : " + newValue);
+                return;
+            }
+
+            SelectItem(item.Key, item.Value);
+        }
+
+        private bool TryGetValueFromOptions(string value, out KeyValuePair<DropDownItemValue, DropdownItemUI> itemToGet)
+        {
+            foreach(var item in _items)
+            {
+                if(item.Key.Value == value)
+                {
+                    itemToGet = item;
+                    return true;
+                }
+            }
+
+            itemToGet = default;
+
+            return false;
+        }
+
+        public void AddOption(DropDownItemValue newDdValue)
+        {
+            CreateItemUI(newDdValue);
+            UpdateContentLayout();
+        }
+
+        public void RemoveOption(string value)
+        {
+            if (!TryGetValueFromOptions(value, out var item))
+            {
+                Debug.LogWarning("No DropDownValueItem with this value : " + value);
+                return;
+            }
+
+            Destroy(item.Value.gameObject);
+            _items.Remove(item.Key);
+        }
+
+        private void UpdateContentLayout()
+        {
+            int nbItem = _items.Count;
+
+            _itemContainerRectTf.sizeDelta = new Vector2(_itemContainerRectTf.sizeDelta.x, _heightItem * nbItem);
+        }
+
+        private void UnselectSelected()
+        {
+            if (_selectedItemUI == null)
+                return;
+
+            _selectedItemUI.IsSelected = false;
         }
 
         public void TriggerEnter(bool isProximity, Transform touchTf)
@@ -124,9 +273,6 @@ namespace AIDEN.TactileUI
 
             EnableCollidersToHide(false);
 
-            if (_isOpen)
-                RefreshValues();
-
             _interactionStateUI = InteractionStateUI.Active;
             UpdateInteractionColor();
 
@@ -152,19 +298,16 @@ namespace AIDEN.TactileUI
             }
         }
 
-        public void CloseFromDropdown(string value)
+        public void NewValueFromItem(DropDownItemValue itemValue)
         {
-            _label.text = value;
-            _value = value;
-
-            RefreshValues();
+            SelectItem(itemValue);
 
             _isOpen = false;
             _itemsContainerGo.SetActive(false);
             EnableCollidersToHide(true);
 
 
-            _onValueChanged?.Invoke(_value);
+            _onValueChanged?.Invoke(itemValue.Value);
         }
 
         private void UpdateInteractionColor()
@@ -172,13 +315,6 @@ namespace AIDEN.TactileUI
             _interactiveGraphics.UpdateColor(_interactionStateUI);
         }
 
-        private void RefreshValues()
-        {
-            foreach (var dropdown in _items)
-            {
-                dropdown.ResfreshValue(_value);
-            }
-        }
 
         private void EnableCollidersToHide(bool enable) 
         {
@@ -206,7 +342,7 @@ namespace AIDEN.TactileUI
 
         private void OnValidate()
         {
-            _label.text = _value;
+            OnValidateStartSelectedValue();
 
             _interactiveGraphics?.TrySetName();
 
@@ -214,10 +350,26 @@ namespace AIDEN.TactileUI
             TrySetNormalInteractionState();
             UpdateInteractionColor();
         }
+
+        private void OnValidateStartSelectedValue()
+        {
+            if (_startSelectedValue < 0)
+                _startSelectedValue = 0;
+
+            if (_startSelectedValue >= _startItemValues.Count)
+            {
+                _startSelectedValue = 0;
+            }
+
+            if (_startItemValues.Count != 0)
+            {
+                _label.text = _startItemValues[_startSelectedValue].LabelName;
+            }
+        }
     }
 
     [Serializable]
-    public class DropDownItem
+    public class DropDownItemValue
     {
         public string LabelName;
         public string Value;

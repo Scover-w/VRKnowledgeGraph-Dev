@@ -6,17 +6,19 @@ using UnityEngine.UI;
 
 namespace AIDEN.TactileUI
 {
-    public class DropdownItemUI : MonoBehaviour, ITouchUI, IValueUI<string>
+    public class DropdownItemUI : MonoBehaviour, ITouchUI
     {
-        public string Value
+
+        public bool IsSelected
         {
             get
             {
-                return _value;
+                return _isSelected;
             }
             set
             {
-                _value = value;
+                _isSelected = value;
+                UpdateSelectionEffect();
             }
         }
 
@@ -27,12 +29,15 @@ namespace AIDEN.TactileUI
         List<InteractiveGraphicUI> _interactiveGraphics;
 
         [SerializeField]
+        List<InteractiveGraphicUI> _selectedInteractiveGraphics;
+
+        [SerializeField]
         TMP_Text _label;
 
         [SerializeField]
         GameObject _checkMarkGo;
 
-        string _value;
+        DropDownItemValue _value;
 
         Transform _touchTf;
         TouchInteractor _touchInter;
@@ -44,6 +49,20 @@ namespace AIDEN.TactileUI
         private void OnEnable()
         {
             _interactionStateUI = InteractionStateUI.Normal;
+            UpdateInteractionColor();
+        }
+
+        public void SetDropDownValue(DropDownItemValue ddValue)
+        {
+            _value = ddValue;
+            _label.text = ddValue.LabelName;
+
+            UpdateSelectionEffect();
+        }
+
+        private void UpdateSelectionEffect()
+        {
+            _checkMarkGo.SetActive(_isSelected);
             UpdateInteractionColor();
         }
 
@@ -71,7 +90,7 @@ namespace AIDEN.TactileUI
             if (_touchInter != null)
                 _touchInter.ActiveBtn(true, this);
 
-            _controller.CloseFromDropdown(_value);
+            _controller.NewValueFromItem(_value);
         }
 
         public void TriggerExit(bool isProximity, Transform touchTf)
@@ -93,26 +112,15 @@ namespace AIDEN.TactileUI
 
         private void UpdateInteractionColor()
         {
-            _interactiveGraphics.UpdateColor(_interactionStateUI);
-        }
-
-        public void ResfreshValue(string value)
-        {
-            _interactionStateUI = InteractionStateUI.Normal;
-            UpdateInteractionColor();
-
-            _isSelected = (_value == value);
-            _checkMarkGo.SetActive(_isSelected);
+            if(_isSelected)
+                _interactiveGraphics.UpdateColor(_interactionStateUI);
+            else
+                _selectedInteractiveGraphics.UpdateColor(_interactionStateUI);
         }
 
         private void OnValidate()
         {
             _interactiveGraphics?.TrySetName();
-
-            if (_label == null)
-                return;
-
-            _label.text = _value;
         }
     }
 }
