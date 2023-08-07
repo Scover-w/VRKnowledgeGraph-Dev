@@ -216,6 +216,12 @@ namespace AIDEN.TactileUI
 
         public void AddOption(DropDownItemValue newDdValue)
         {
+            if (TryGetValueFromOptions(newDdValue.Value, out var item))
+            {
+                Debug.LogWarning("DropDownValueItem Value already in newDdValue.Value");
+                return;
+            }
+
             CreateItemUI(newDdValue);
             UpdateContentLayout();
         }
@@ -228,8 +234,22 @@ namespace AIDEN.TactileUI
                 return;
             }
 
-            Destroy(item.Value.gameObject);
-            _items.Remove(item.Key);
+            var itemValue = item.Key;
+            var itemUI = item.Value;
+
+            Destroy(itemUI.gameObject);
+            _items.Remove(itemValue);
+
+            if (_selectedValue != itemValue)
+                return;
+
+            if (_items.Count == 0)
+                return;
+
+            var newItem = _items.First();
+            SelectItem(newItem.Key, newItem.Value);
+
+            _onValueChanged?.Invoke(newItem.Key.Value);
         }
 
         private void UpdateContentLayout()
