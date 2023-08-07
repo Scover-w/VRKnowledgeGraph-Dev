@@ -45,9 +45,6 @@ namespace AIDEN.TactileUI
         List<InteractiveGraphicUI> _interactiveGraphics;
 
         [SerializeField]
-        KeyboardUI _keyboardUI;
-
-        [SerializeField]
         TMP_Text _label;
 
         [SerializeField]

@@ -173,7 +173,7 @@ namespace AIDEN.TactileUI
         {
             UpdateColliderActivation();
             TrySetNormalInteractionState();
-            UpdateInteractionColor();
+            //UpdateInteractionColor();
         }
     }
 }
