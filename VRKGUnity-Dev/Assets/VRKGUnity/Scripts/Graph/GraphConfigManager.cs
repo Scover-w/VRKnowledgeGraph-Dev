@@ -12,10 +12,11 @@ public class GraphConfigManager : MonoBehaviour
     Dictionary<GraphConfigKey, GraphConfigEvent> _events;
 
 
-    private void Start()
+    private async void Awake()
     {
-        _graphConfiguration = GraphConfiguration.Instance;
         _events = new();
+        await GraphConfiguration.Load();
+        _graphConfiguration = GraphConfiguration.Instance;
     }
 
     public void SetNewValue(GraphConfigKey key, string newValue)

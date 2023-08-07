@@ -181,6 +181,9 @@ public class GraphConfiguration
 
     public async static Task<GraphConfiguration> Load()
     {
+        if(Instance != null)
+            return Instance;
+
         SetPath();
 
         if (File.Exists(_graphConfigPath))

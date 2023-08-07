@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[DefaultExecutionOrder(1)]
 public class GraphConfigInputLink : MonoBehaviour
 {
     [SerializeField]
@@ -25,7 +26,7 @@ public class GraphConfigInputLink : MonoBehaviour
     float _debounceTime;
     float _debounceDelay = 0.25f;
 
-    private void Start()
+    private void Awake()
     {
         RetrieveInputType();
         RetrieveInterface();
@@ -33,10 +34,7 @@ public class GraphConfigInputLink : MonoBehaviour
 
     private void OnEnable()
     {
-        SetValueOnInput();
-        RegisterToGraphConfigManager();
-
-        _debounceTime = Time.unscaledTime;
+        Invoke(nameof(DelayedOnEnable), .5f);
     }
 
     private void OnDisable()
@@ -44,6 +42,13 @@ public class GraphConfigInputLink : MonoBehaviour
         UnRegisterToGraphConfigManager();
     }
 
+    private void DelayedOnEnable()
+    {
+        SetValueOnInput();
+        RegisterToGraphConfigManager();
+
+        _debounceTime = Time.unscaledTime;
+    }
 
     private void RetrieveInputType()
     {
