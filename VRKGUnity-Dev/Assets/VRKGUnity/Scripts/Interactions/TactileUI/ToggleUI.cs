@@ -43,9 +43,6 @@ namespace AIDEN.TactileUI
         bool _interactable = true;
 
         [SerializeField]
-        List<Graphic> _interactiveGraphics;
-
-        [SerializeField]
         List<InteractiveGraphicUI> _activeInteractiveGraphics;
 
         [SerializeField]
