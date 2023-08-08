@@ -44,5 +44,16 @@ namespace AIDEN.TactileUI
             _selectedTab = newSelected;
             _selectedTab.Select(_selectedColorStates);
         }
+
+        private void OnValidate()
+        {
+            foreach(TabUI tabBtn in _tabsBtn)
+            {
+                if (tabBtn == _selectedTab)
+                    tabBtn.Select(_selectedColorStates);
+                else
+                    tabBtn.UnSelect(_unselectedColorStates);
+            }
+        }
     }
 }

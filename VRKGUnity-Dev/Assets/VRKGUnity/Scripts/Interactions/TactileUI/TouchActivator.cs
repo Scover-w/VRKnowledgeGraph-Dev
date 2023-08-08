@@ -27,7 +27,7 @@ namespace AIDEN.TactileUI
         bool _isActive;
         float _currentDistance;
 
-        private void Start()
+        private void Awake()
         {
             _presenceUILayer = 1 << Layers.PresenceUI;
             _tf = transform;
