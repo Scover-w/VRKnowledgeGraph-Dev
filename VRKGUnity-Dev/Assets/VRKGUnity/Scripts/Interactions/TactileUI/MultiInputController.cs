@@ -9,6 +9,8 @@ namespace AIDEN.TactileUI
     {
         private static MultiInputController _instance;
 
+        public Transform CameraTf { set { _camTf = value; } }
+
         [SerializeField]
         ReferenceHolderSO _referenceHolderSo;
 
@@ -24,14 +26,15 @@ namespace AIDEN.TactileUI
         [SerializeField]
         ColorPickerUI _colorPickerUI;
 
+        [SerializeField]
+        Transform _camTf;
+
         UpdateInput OnUpdateInput;
         EnterInput OnEnterInput;
 
         GameObject _keyboardGo;
         GameObject _numpadGo;
         GameObject _colorpickerGo;
-
-        Transform _camTf;
 
         MultiInputType _usedInput;
 
@@ -53,8 +56,6 @@ namespace AIDEN.TactileUI
             _keyboardGo = _keyboardUI.gameObject;
             _numpadGo = _numpadUI.gameObject;
             _colorpickerGo = _colorPickerUI.gameObject;
-
-            _camTf = _referenceHolderSo.HMDCamSA.Value != null ? _referenceHolderSo.HMDCamSA.Value.transform : null;
 
             HideKeyboards();
         }

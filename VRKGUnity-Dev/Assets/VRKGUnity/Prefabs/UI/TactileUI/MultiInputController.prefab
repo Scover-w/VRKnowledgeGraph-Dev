@@ -347,6 +347,7 @@ MonoBehaviour:
   _keyboardUI: {fileID: 2333321402487528692}
   _numpadUI: {fileID: 2333321400396840938}
   _colorPickerUI: {fileID: 2333321401272833733}
+  _camTf: {fileID: 0}
 --- !u!1 &2333321400664154138
 GameObject:
   m_ObjectHideFlags: 0
