@@ -123,6 +123,8 @@ public class StringStepperUI : MonoBehaviour, ITouchUI, IValueUI<string>
 
         _canClick = false;
         _interactionStateUI = InteractionStateUI.Active;
+        _touchInter.ActivateHaptic();
+
         UpdateInteractionColor();
 
         if (_touchInter != null)

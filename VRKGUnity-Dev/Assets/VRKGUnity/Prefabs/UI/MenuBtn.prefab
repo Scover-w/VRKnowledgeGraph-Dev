@@ -227,7 +227,7 @@ GameObject:
   - component: {fileID: 1192126566972919706}
   m_Layer: 5
   m_Name: Interaction
-  m_TagString: Untagged
+  m_TagString: InteractionUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -278,7 +278,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isProximity: 0
-  _tactileUIScript: {fileID: 0}
+  _tactileUIScript: {fileID: 5214495843194519001}
 --- !u!1 &1192126567351890223
 GameObject:
   m_ObjectHideFlags: 0
@@ -292,7 +292,7 @@ GameObject:
   - component: {fileID: 1192126567351890219}
   m_Layer: 5
   m_Name: Proximity
-  m_TagString: Untagged
+  m_TagString: ProximityUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -325,7 +325,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1192126567351890223}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 48
@@ -343,7 +343,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isProximity: 1
-  _tactileUIScript: {fileID: 0}
+  _tactileUIScript: {fileID: 5214495843194519001}
 --- !u!1 &4486191669047621368
 GameObject:
   m_ObjectHideFlags: 0

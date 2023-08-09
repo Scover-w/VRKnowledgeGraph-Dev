@@ -287,6 +287,7 @@ namespace AIDEN.TactileUI
             _canClick = false;
             _isOpen = !_isOpen;
             _itemsContainerGo.SetActive(_isOpen);
+            _touchInter.ActivateHaptic();
 
             EnableCollidersToHide(false);
 

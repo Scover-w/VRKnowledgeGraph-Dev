@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 namespace AIDEN.TactileUI
 {
@@ -17,6 +18,9 @@ namespace AIDEN.TactileUI
 
         [SerializeField]
         MeshRenderer _renderer;
+
+        [SerializeField]
+        ActionBasedController _hapticAction;
 
         HashSet<MonoBehaviour> _activeButtons;
 
@@ -68,6 +72,16 @@ namespace AIDEN.TactileUI
                 _sharedMat.color = _activeColor;
             else
                 _sharedMat.color = _proximityColor;
+        }
+
+        public void ActivateHaptic()
+        {
+            _hapticAction.SendHapticImpulse(.1f, .25f);
+        }
+
+        public void ActivateHaptic(float amplitude, float duration)
+        {
+            _hapticAction.SendHapticImpulse(amplitude, duration);
         }
 
         private void OnDisable()

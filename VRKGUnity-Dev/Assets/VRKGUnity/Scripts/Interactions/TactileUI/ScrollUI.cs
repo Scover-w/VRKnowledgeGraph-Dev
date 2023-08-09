@@ -195,6 +195,7 @@ public class ScrollUI : MonoBehaviour, ITouchUI
         {
             CalculatePositionScroll();
             UpdateVisuals();
+            _touchInter.ActivateHaptic();
             yield return null;
         }
     }

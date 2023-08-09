@@ -134,6 +134,7 @@ namespace AIDEN.TactileUI
             _canSwitch = false;
             _value = !_value;
             _interactionStateUI = InteractionStateUI.Active;
+            _touchInter.ActivateHaptic();
 
             UpdateVisuals();
 

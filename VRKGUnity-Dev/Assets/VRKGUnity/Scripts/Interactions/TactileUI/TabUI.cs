@@ -109,6 +109,8 @@ namespace AIDEN.TactileUI
 
         public void TriggerEnter(bool isProximity, Transform touchTf)
         {
+            Debug.Log("TriggerEnter : isProximity -> " + isProximity + ", _touchInter " + (_touchInter == null) + " , name : " + gameObject.name);
+
             if (isProximity)
             {
                 _touchTf = touchTf;
@@ -125,6 +127,8 @@ namespace AIDEN.TactileUI
 
         public void TriggerExit(bool isProximity, Transform touchTf)
         {
+            Debug.Log("TriggerExit : isProximity -> " + isProximity + ", _touchInter " + (_touchInter == null) + " , name : " + gameObject.name);
+
             if (isProximity)
             {
                 _canClick = true;
@@ -147,11 +151,19 @@ namespace AIDEN.TactileUI
             if (!_canClick)
                 return;
 
+            Debug.Log("TryClick : _touchInter " + (_touchInter == null) + " , name : " + gameObject.name);
+
             _canClick = false;
             _interactionStateUI = InteractionStateUI.Active;
 
+            if(_touchInter != null)
+                _touchInter.ActivateHaptic();
+
             if (_touchInter != null)
                 _touchInter.ActiveBtn(true, this);
+
+            if( _touchInter == null)
+                Debug.LogWarning("_touchInter is null : " +  gameObject.name);
 
             _controllerUI.Select(this);
         }

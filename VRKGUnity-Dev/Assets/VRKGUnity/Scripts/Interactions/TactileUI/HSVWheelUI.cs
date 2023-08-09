@@ -148,6 +148,7 @@ namespace AIDEN.TactileUI
             {
                 RetrieveLocalVector();
                 ConvertToHSV();
+                _touchInter.ActivateHaptic();
                 yield return null;
             }
         }

@@ -83,6 +83,8 @@ namespace AIDEN.TactileUI
 
             _canClick = false;
             _interactionStateUI = InteractionStateUI.Active;
+            _touchInter.ActivateHaptic();
+
             UpdateInteractionColor();
 
             if (_touchInter != null)

@@ -57,7 +57,7 @@ namespace AIDEN.TactileUI
             _numpadGo = _numpadUI.gameObject;
             _colorpickerGo = _colorPickerUI.gameObject;
 
-            HideKeyboards();
+            HideInputs();
         }
 
 
@@ -74,7 +74,7 @@ namespace AIDEN.TactileUI
             if (_isUsed)
                 return false;
 
-            if (!UpdateUsedKeyboard(options))
+            if (!UpdateUsedInput(options))
                 return false;
 
             _isUsed = true;
@@ -88,7 +88,7 @@ namespace AIDEN.TactileUI
             return true;
         }
 
-        private bool UpdateUsedKeyboard<T>(KeyboardUIOptions<T> options)
+        private bool UpdateUsedInput<T>(KeyboardUIOptions<T> options)
         {
             var typeValue = typeof(T);
 
@@ -149,12 +149,15 @@ namespace AIDEN.TactileUI
             {
                 case MultiInputType.Keyboard:
                     _keyboardGo.SetActive(true);
+                    _keyboardGo.GetComponent<RectTransform>().localPosition = Vector3.zero;
                     break;
                 case MultiInputType.Numpad:
                     _numpadGo.SetActive(true);
+                    _numpadGo.GetComponent<RectTransform>().localPosition = Vector3.zero;
                     break;
                 case MultiInputType.ColorPicker:
                     _colorpickerGo.SetActive(true);
+                    _colorpickerGo.GetComponent<RectTransform>().localPosition = Vector3.zero;
                     break;
             }
         }
@@ -192,7 +195,7 @@ namespace AIDEN.TactileUI
                 OnEnterInput?.Invoke(inputValue);
 
             _isUsed = false;
-            HideKeyboards();
+            HideInputs();
         }
 
         public void Close()
@@ -200,10 +203,10 @@ namespace AIDEN.TactileUI
             OnEnterInput?.Invoke(_oldInputValue);
 
             _isUsed = false;
-            HideKeyboards();
+            HideInputs();
         }
 
-        private void HideKeyboards()
+        private void HideInputs()
         {
             _keyboardGo.SetActive(false);
             _numpadGo.SetActive(false);

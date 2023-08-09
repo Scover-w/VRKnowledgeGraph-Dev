@@ -91,6 +91,8 @@ namespace AIDEN.TactileUI
         private void TryClick()
         {
             _interactionStateUI = InteractionStateUI.Active;
+            _touchInter.ActivateHaptic();
+
             UpdateInteractionColor();
 
             if (_touchInter != null)

@@ -114,6 +114,7 @@ namespace AIDEN.TactileUI
             if (_isActive)
                 return;
 
+            _touchInter.ActivateHaptic();
             var options = CreateKeyboardOptions();
             bool succeedUsingKeyboard = MultiInputController.Display(options);
 

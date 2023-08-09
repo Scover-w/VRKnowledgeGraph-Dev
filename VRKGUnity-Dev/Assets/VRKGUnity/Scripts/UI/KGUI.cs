@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class KGUI : MonoBehaviour
 {
-    public KGUIController KGUIManager { set { _kgUiController = value; } }
+    public KGUIController KGUIController { set { _kgUiController = value; } }
 
     [SerializeField]
     GameObject _containerGo;
