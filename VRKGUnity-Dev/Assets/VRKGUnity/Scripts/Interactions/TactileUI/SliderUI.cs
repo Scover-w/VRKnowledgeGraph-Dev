@@ -96,15 +96,20 @@ namespace AIDEN.TactileUI
         Transform _touchTf;
         TouchInteractor _touchInter;
 
-        private bool _isMovingKnob = false;
+        bool _isMovingKnob;
         bool _isHorizontal;
         float _lengthSlider;
 
 
+        private void Awake()
+        {
+            InitializeParameters();
+        }
+
         private void OnEnable()
         {
             _label.enabled = _alwaysDisplayValue;
-            
+            _isMovingKnob = false;
 
             UpdateColliderActivation();
             TrySetNormalInteractionState();
@@ -178,7 +183,7 @@ namespace AIDEN.TactileUI
         {
             while (_isMovingKnob)
             {
-                RetrieveValue();
+                RetrieveValueFromTouchPosition();
                 UpdateVisuals();
 
                 _onValueChanged?.Invoke(Mathf.Lerp(_minValue, _maxValue, _value));
@@ -186,7 +191,7 @@ namespace AIDEN.TactileUI
             }
         }
 
-        private void RetrieveValue()
+        private void RetrieveValueFromTouchPosition()
         {
             Vector3 sliderWorldPosition = _sliderRectTf.position;
             Plane plane = new(_sliderRectTf.forward, sliderWorldPosition);
@@ -197,16 +202,10 @@ namespace AIDEN.TactileUI
 
             float positionFromVirtualAnchor = (_lengthSlider * .5f) + (_isHorizontal ? localVector.x : localVector.y);
 
-            float value = positionFromVirtualAnchor / _lengthSlider;
-
+            float value = Mathf.Clamp(positionFromVirtualAnchor / _lengthSlider, 0f, 1f);
 
             if (_sliderType == SliderType.RightToLeft || _sliderType == SliderType.TopToBottom)
                 value = 1f - value;
-
-            if (value < 0f)
-                value = 0f;
-            else if (value > 1f)
-                value = 1f;
 
             _value = value;
 
@@ -303,9 +302,7 @@ namespace AIDEN.TactileUI
                     return;  
             }
 
-            float tempHeight = size.y;
-            size.y = size.x;
-            size.x = tempHeight;
+            (size.x, size.y) = (size.y, size.x);
             _sliderRectTf.sizeDelta = size;
             _fillRectTf.sizeDelta = size;
 
