@@ -1,9 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 using UnityEngine;
 using UnityEngine.UI;
-using Wave.Essence.Hand.NearInteraction;
 
 namespace AIDEN.TactileUI
 {
@@ -221,6 +219,7 @@ namespace AIDEN.TactileUI
                 _interactionStateUI = InteractionStateUI.Disabled;
         }
 
+#if UNITY_EDITOR
         private void OnValidate()
         {
             _interactiveGraphics?.TrySetName();
@@ -229,5 +228,6 @@ namespace AIDEN.TactileUI
             TrySetNormalInteractionState();
             UpdateInteractionColor();
         }
+#endif
     }
 }

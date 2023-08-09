@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
-using static UnityEditor.Progress;
 
 public class StringStepperUI : MonoBehaviour, ITouchUI, IValueUI<string>
 {
@@ -280,6 +279,7 @@ public class StringStepperUI : MonoBehaviour, ITouchUI, IValueUI<string>
     }
 
 
+#if UNITY_EDITOR
     private void OnValidate()
     {
         _interactiveGraphics?.TrySetName();
@@ -309,7 +309,7 @@ public class StringStepperUI : MonoBehaviour, ITouchUI, IValueUI<string>
         TrySetNormalInteractionState();
         UpdateInteractionColor();
     }
-
+#endif
 
     [Serializable]
     public class StringStepperValue

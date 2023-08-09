@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
+
+#if UNITY_EDITOR
 public class PlaceInSubColliders : MonoBehaviour
 {
     [ContextMenu("Organize Selected Objects")]
@@ -45,3 +47,4 @@ public class PlaceInSubColliders : MonoBehaviour
         tf.gameObject.layer = Layers.UI;
     }
 }
+#endif

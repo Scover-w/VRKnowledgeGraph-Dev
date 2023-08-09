@@ -128,6 +128,7 @@ namespace AIDEN.TactileUI
         }
 
 
+#if UNITY_EDITOR
         private void OnValidate()
         {
             _interactiveGraphics?.TrySetName();
@@ -136,7 +137,7 @@ namespace AIDEN.TactileUI
             TrySetNormalInteractionState();
             UpdateInteractionColor();
         }
-
+#endif
     }
 
 }

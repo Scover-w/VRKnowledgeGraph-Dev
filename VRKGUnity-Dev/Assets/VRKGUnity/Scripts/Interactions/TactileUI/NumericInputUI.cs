@@ -201,6 +201,8 @@ namespace AIDEN.TactileUI
                 _value = Mathf.Round(_value);
         }
 
+
+#if UNITY_EDITOR
         private void OnValidate()
         {
             _interactiveGraphics?.TrySetName();
@@ -213,6 +215,7 @@ namespace AIDEN.TactileUI
             TrySetNormalInteractionState();
             UpdateInteractionColor();
         }
+#endif
 
 
         private enum NumericType

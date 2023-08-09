@@ -3,14 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
-using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
-using UnityEngine.Video;
-using static GluonGui.WorkspaceWindow.Views.Checkin.Operations.CheckinViewDeleteOperation;
-using static UnityEditor.Progress;
 
 namespace AIDEN.TactileUI
 {
@@ -363,6 +357,7 @@ namespace AIDEN.TactileUI
                 _interactionStateUI = InteractionStateUI.Disabled;
         }
 
+#if UNITY_EDITOR
         private void OnValidate()
         {
             OnValidateStartSelectedValue();
@@ -389,6 +384,7 @@ namespace AIDEN.TactileUI
                 _label.text = _startItemValues[_startSelectedValue].LabelName;
             }
         }
+#endif
     }
 
     [Serializable]

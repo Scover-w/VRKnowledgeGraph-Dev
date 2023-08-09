@@ -124,9 +124,11 @@ namespace AIDEN.TactileUI
                 _selectedInteractiveGraphics.UpdateColor(_interactionStateUI);
         }
 
+#if UNITY_EDITOR
         private void OnValidate()
         {
             _interactiveGraphics?.TrySetName();
         }
+#endif
     }
 }

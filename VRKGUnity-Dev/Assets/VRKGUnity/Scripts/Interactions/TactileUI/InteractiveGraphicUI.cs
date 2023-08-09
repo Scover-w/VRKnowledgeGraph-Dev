@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 namespace AIDEN.TactileUI
 {
     [Serializable]
     public class InteractiveGraphicUI
     {
-#if UNITY_EDITOR
+
         public Graphic Graphic { get { return _graphic; } }
 
+#if UNITY_EDITOR
         [HideInInspector]
         public string Name;
 #endif
@@ -55,6 +55,7 @@ namespace AIDEN.TactileUI
             }
         }
 
+#if UNITY_EDITOR
         public static void TrySetName(this List<InteractiveGraphicUI> interactiveGraphics)
         {
             foreach (InteractiveGraphicUI item in interactiveGraphics)
@@ -73,5 +74,6 @@ namespace AIDEN.TactileUI
 
             interactiveGraphic.Name = interactiveGraphic.Graphic.name;
         }
+#endif
     }
 }

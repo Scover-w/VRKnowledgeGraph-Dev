@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
+#if UNITY_EDITOR
 public class AddSameForPrefab : MonoBehaviour
 {
     [SerializeField]
@@ -42,3 +43,4 @@ public class AddSameForPrefab : MonoBehaviour
         destination.localScale = source.localScale;
     }
 }
+#endif

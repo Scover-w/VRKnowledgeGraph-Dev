@@ -161,6 +161,7 @@ namespace AIDEN.TactileUI
                 _interactionStateUI = InteractionStateUI.Disabled;
         }
 
+#if UNITY_EDITOR
         private void OnValidate()
         {
             _activeInteractiveGraphics?.TrySetName();
@@ -171,5 +172,6 @@ namespace AIDEN.TactileUI
             TrySetNormalInteractionState();
             UpdateInteractionColor();
         }
+#endif
     }
 }
