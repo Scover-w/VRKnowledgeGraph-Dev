@@ -80,11 +80,13 @@ namespace AIDEN.TactileUI
         public void ToLower()
         {
             _label.fontStyle = FontStyles.LowerCase;
+            _value = char.ToLower(_value);
         }
 
         public void ToUpper()
         {
             _label.fontStyle = FontStyles.UpperCase;
+            _value = char.ToUpper(_value);
         }
 
         public void TriggerEnter(bool isProximity, Transform touchTf)
