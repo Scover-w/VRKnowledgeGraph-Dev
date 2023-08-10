@@ -549,7 +549,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isProximity: 1
-  _tactileUIScript: {fileID: 0}
+  _tactileUIScript: {fileID: 5922004706370744854}
 --- !u!1 &5922004707599487327
 GameObject:
   m_ObjectHideFlags: 0

@@ -84,9 +84,13 @@ namespace AIDEN.TactileUI
             _hapticAction.SendHapticImpulse(amplitude, duration);
         }
 
+
+#if UNITY_EDITOR
         private void OnDisable()
         {
-            _sharedMat.color = _normalColor;
+            if(_sharedMat != null)
+                _sharedMat.color = _normalColor; 
         }
+#endif
     }
 }

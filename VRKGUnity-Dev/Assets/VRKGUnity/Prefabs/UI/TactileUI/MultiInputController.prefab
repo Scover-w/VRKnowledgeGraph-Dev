@@ -477,7 +477,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2333321400506145073}
-  m_LocalRotation: {x: -0.42951107, y: -0, z: -0, w: 0.9030616}
+  m_LocalRotation: {x: -0.42951056, y: 0, z: 0, w: 0.90306187}
   m_LocalPosition: {x: -0.4486, y: 1.4953, z: 2.9189}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1144,7 +1144,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2333321401272833739
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12745,8 +12745,47 @@ PrefabInstance:
       propertyPath: _colorPickerUI
       value: 
       objectReference: {fileID: 2333321401272833733}
+    - target: {fileID: 5922004706370744854, guid: f09d5920ca9ef814c815439c6124baf3, type: 3}
+      propertyPath: _interactiveGraphics.Array.data[0].Name
+      value: BorderWheel
+      objectReference: {fileID: 0}
+    - target: {fileID: 5922004706370744854, guid: f09d5920ca9ef814c815439c6124baf3, type: 3}
+      propertyPath: _interactiveGraphics.Array.data[0]._graphic
+      value: 
+      objectReference: {fileID: 2333321400642159004}
+    - target: {fileID: 5922004706952357732, guid: f09d5920ca9ef814c815439c6124baf3, type: 3}
+      propertyPath: m_TagString
+      value: InteractionUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 5922004707004774170, guid: f09d5920ca9ef814c815439c6124baf3, type: 3}
+      propertyPath: m_TagString
+      value: InteractionUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 5922004707074596452, guid: f09d5920ca9ef814c815439c6124baf3, type: 3}
+      propertyPath: m_TagString
+      value: InteractionUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 5922004707493142675, guid: f09d5920ca9ef814c815439c6124baf3, type: 3}
+      propertyPath: m_TagString
+      value: InteractionUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 5922004708437622884, guid: f09d5920ca9ef814c815439c6124baf3, type: 3}
+      propertyPath: m_TagString
+      value: InteractionUI
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f09d5920ca9ef814c815439c6124baf3, type: 3}
+--- !u!114 &2333321400642159004 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5922004707798325209, guid: f09d5920ca9ef814c815439c6124baf3, type: 3}
+  m_PrefabInstance: {fileID: 8236714919393056325}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2333321401580004435 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5922004706370744854, guid: f09d5920ca9ef814c815439c6124baf3, type: 3}

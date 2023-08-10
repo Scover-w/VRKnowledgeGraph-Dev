@@ -44,6 +44,7 @@ namespace AIDEN.TactileUI
             _newColorImg.color = oldColor;
 
             Color.RGBToHSV(oldColor, out _h, out _s, out _v);
+            UpdateSliderValue();
             _wheelUI.UpdateColor(_h, _s, _v);
         }
 
@@ -56,11 +57,16 @@ namespace AIDEN.TactileUI
             _newColor = Color.HSVToRGB(h, s, v);
 
             _newColorImg.color = _newColor;
-            _sliderH.Value = h;
-            _sliderS.Value = s;
-            _sliderV.Value = v;
+            UpdateSliderValue();
 
             _controllerUI.UpdateInputValue(_newColor);
+        }
+
+        private void UpdateSliderValue()
+        {
+            _sliderH.Value = _h;
+            _sliderS.Value = _s;
+            _sliderV.Value = _v;
         }
 
         public void OnNewHSlider(float h)
