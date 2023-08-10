@@ -110,6 +110,23 @@ namespace AIDEN.TactileUI
             UpdateContent();
         }
 
+        public void AddItems(List<ScrollItem> scrollItems)
+        {
+
+            foreach(ScrollItem scrollItem in scrollItems) 
+            {
+                if (_scrollItems.Contains(scrollItem))
+                {
+                    Debug.LogWarning("ScrollUI.AddItem already contain this scrollItem.");
+                    continue;
+                }
+
+                _scrollItems.Add(scrollItem);
+            }
+
+            UpdateContent();
+        }
+
         public void RemoveItem(ScrollItem scrollItem, bool destroyGo = true)
         {
             if (!_scrollItems.Contains(scrollItem))
@@ -122,6 +139,26 @@ namespace AIDEN.TactileUI
 
             if (destroyGo)
                 Destroy(scrollItem.Go);
+
+            UpdateContent();
+        }
+
+        public void RemoveItems(List<ScrollItem> scrollItems, bool destroyGo = true)
+        {
+
+            foreach(ScrollItem scrollItem in scrollItems) 
+            {
+                if (!_scrollItems.Contains(scrollItem))
+                {
+                    Debug.LogWarning("ScrollUI.RemoveItem doesn't contain this scrollItem.");
+                    continue;
+                }
+
+                _scrollItems.Remove(scrollItem);
+
+                if (destroyGo)
+                    Destroy(scrollItem.Go);
+            }
 
             UpdateContent();
         }
