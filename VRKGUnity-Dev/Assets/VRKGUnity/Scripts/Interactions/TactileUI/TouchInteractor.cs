@@ -76,7 +76,8 @@ namespace AIDEN.TactileUI
 
         public void ActivateHaptic()
         {
-            _hapticAction.SendHapticImpulse(.1f, .25f);
+            if(_hapticAction != null)
+                _hapticAction.SendHapticImpulse(.1f, .25f);
         }
 
         public void ActivateHaptic(float amplitude, float duration)

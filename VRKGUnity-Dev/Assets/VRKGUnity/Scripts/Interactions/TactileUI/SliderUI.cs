@@ -189,12 +189,8 @@ namespace AIDEN.TactileUI
                 RetrieveValueFromTouchPosition();
                 UpdateVisuals();
 
+                TryActivateHaptic();
 
-                if(_hapticTime > Time.time)
-                { 
-                    _touchInter.ActivateHaptic(.05f, .08f);
-                    _hapticTime = Time.time + .5f;
-                }
                 _onValueChanged?.Invoke(Mathf.Lerp(_minValue, _maxValue, _value));
                 yield return null;
             }
@@ -251,6 +247,15 @@ namespace AIDEN.TactileUI
             _fillRectTf.sizeDelta = sizeDelta;
 
             _label.text = UnNormalizedValue.ToString("0.##");
+        }
+
+        private void TryActivateHaptic()
+        {
+            if (_hapticTime < Time.time)
+                return;
+
+            _touchInter.ActivateHaptic(.05f, .08f);
+            _hapticTime = Time.time + .5f;
         }
 
         private void TrySetNormalInteractionState()

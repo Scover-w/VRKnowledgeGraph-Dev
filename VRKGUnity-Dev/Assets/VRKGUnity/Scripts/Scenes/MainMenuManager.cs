@@ -14,11 +14,10 @@ public class MainMenuManager : MonoBehaviour
     private void Start()
     {
         if(_autoPlay)
-            Invoke(nameof(Play), .2f);
+            Invoke(nameof(AutoLoadGraphScene), .2f);
     }
 
-
-    public void Play()
+    private void AutoLoadGraphScene()
     {
         if (_referenceHolderSO.SelectedGraphDbRepository == null)
             return;
@@ -32,5 +31,17 @@ public class MainMenuManager : MonoBehaviour
 
         var lifeCycleScene = _referenceHolderSO.LifeCycleSceneManagerSA.Value;
         lifeCycleScene.LoadScene(Scenes.DataSynchro);
+    }
+
+    public void LoadGraphScene()
+    {
+        var lifeCycleScene = _referenceHolderSO.LifeCycleSceneManagerSA.Value;
+        lifeCycleScene.LoadScene(Scenes.DataSynchro);
+    }
+
+    public void LoadTutorialScene()
+    {
+        var lifeCycleScene = _referenceHolderSO.LifeCycleSceneManagerSA.Value;
+        lifeCycleScene.LoadScene(Scenes.Tutorial);
     }
 }

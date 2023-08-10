@@ -54,6 +54,7 @@ namespace AIDEN.TactileUI
         float _v = 1f;
 
         bool _isMovingCursor = false;
+        float _hapticTime;
 
         private void Start()
         {
@@ -115,6 +116,8 @@ namespace AIDEN.TactileUI
                 if (_touchInter != null)
                     _touchInter.ActiveBtn(true, this);
 
+                _touchInter.ActivateHaptic(.05f, .08f);
+                _hapticTime = Time.time + .5f;
                 StartCoroutine(MovingCursor());
             }
         }
@@ -148,7 +151,9 @@ namespace AIDEN.TactileUI
             {
                 RetrieveLocalVector();
                 ConvertToHSV();
-                _touchInter.ActivateHaptic();
+
+                TryActivateHaptic();
+
                 yield return null;
             }
         }
@@ -185,6 +190,15 @@ namespace AIDEN.TactileUI
             float distance = _localVector2.magnitude;
 
             _colorPickerUI.SetNewColorFromWheel(angle / 360f, distance, _v);
+        }
+
+        private void TryActivateHaptic()
+        {
+            if (_hapticTime < Time.time)
+                return;
+
+            _touchInter.ActivateHaptic(.05f, .08f);
+            _hapticTime = Time.time + .5f;
         }
 
         private void PlaceCursor(float h, float s)
