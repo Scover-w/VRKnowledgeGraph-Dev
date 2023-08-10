@@ -17,14 +17,13 @@ public class AutoRotateUI : MonoBehaviour
     private void Start()
     {
         _easingFunction = Easing.GetEasing(EasingType);
-        _rectTf = GetComponent<RectTransform>();
     }
 
     private void Update()
     {
         float rot = _easingFunction(Time.time * SpeedRot % 1f);
 
-        _rectTf.rotation =  Quaternion.Euler(new Vector3(0f, 0f, rot * Rotation));
+        _rectTf.localRotation =  Quaternion.Euler(new Vector3(0f, 0f, rot * Rotation));
     }
 
     private void OnValidate()

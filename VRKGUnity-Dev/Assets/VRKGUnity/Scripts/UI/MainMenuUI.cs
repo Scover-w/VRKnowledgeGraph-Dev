@@ -8,6 +8,9 @@ using UnityEngine.UI;
 public class MainMenuUI : MonoBehaviour
 {
     [SerializeField]
+    ReferenceHolderSO _referenceHolderSO;
+
+    [SerializeField]
     MainMenuManager _mainMenuManager;
 
     [SerializeField]
@@ -36,11 +39,38 @@ public class MainMenuUI : MonoBehaviour
 
     private void Awake()
     {
-        _repoStatusTxt.text = "Not Loaded";
-        _launchGraphBtn.Interactable = false;
-        _iconRepoStatusImg.sprite = _unconnectedIcon;
+        SetConnectionStatus(false);
 
         DisplayMainMenu();
+    }
+
+    public void RepoSelected(GraphDbRepository selectedRepo)
+    {
+        if (selectedRepo == null)
+        {
+            SetConnectionStatus(false);
+            _referenceHolderSO.SelectedGraphDbRepository = null;
+            return;
+        }
+
+        _repoStatusTxt.text = selectedRepo.RepositoryId;
+        SetConnectionStatus(true);
+        _referenceHolderSO.SelectedGraphDbRepository = selectedRepo;
+    }
+
+
+    private void SetConnectionStatus(bool isLoaded)
+    {
+        if(isLoaded) 
+        {
+            _iconRepoStatusImg.sprite = _connectedIcon;
+            _launchGraphBtn.Interactable = true;
+            return;
+        }
+
+        _repoStatusTxt.text = "Not Loaded";
+        _iconRepoStatusImg.sprite = _unconnectedIcon;
+        _launchGraphBtn.Interactable = false;
     }
 
     public void DisplayMainMenu()

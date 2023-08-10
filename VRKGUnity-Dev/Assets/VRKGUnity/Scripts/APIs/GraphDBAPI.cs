@@ -184,6 +184,7 @@ public class GraphDBAPI
         string encodedQuery = WebUtility.UrlEncode("select * where { ?s ?p ?o .} LIMIT 1");
         HttpRequestMessage request = new(HttpMethod.Get, serverUrl + "repositories/" + repositoryId + "?query=" + encodedQuery);
         request.Headers.Add("Accept", "application/sparql-results+json");
+        client.Timeout = TimeSpan.FromSeconds(30);
 
         HttpResponseMessage response;
 

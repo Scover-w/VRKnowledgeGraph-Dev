@@ -46,20 +46,10 @@ public class GraphDbRepositories
             string json = await File.ReadAllTextAsync(_gdbRepositoriesPath);
             var repositories = JsonConvert.DeserializeObject<GraphDbRepositories>(json);
 
-
-            if(repositories.Repositories.Count == 0)
-            {;
-                repositories.Add(new("http://localhost:7200/", "cap44"));
-
-                await repositories.Save();
-            }
-
             return repositories;
         }
 
-
         var repositoriesB = new GraphDbRepositories();
-        repositoriesB.Add(new("http://localhost:7200/", "cap44"));
 
         await repositoriesB.Save();
         return repositoriesB;
@@ -67,8 +57,6 @@ public class GraphDbRepositories
 
     public async Task Save()
     {
-        SetPath();
-
         string json = JsonConvert.SerializeObject(this, Formatting.Indented);
         await File.WriteAllTextAsync(_gdbRepositoriesPath, json);
     }
@@ -81,6 +69,8 @@ public class GraphDbRepositories
             Directory.CreateDirectory(folderPath);
 
         _gdbRepositoriesPath = Path.Combine(folderPath, "GraphDbRespositories.json");
+
+        Debug.Log(_gdbRepositoriesPath);
     }
 
     public void Add(GraphDbRepository repository)

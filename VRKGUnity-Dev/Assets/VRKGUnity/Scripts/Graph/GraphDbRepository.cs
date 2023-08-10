@@ -7,10 +7,14 @@ using UnityEngine;
 [Serializable]
 public class GraphDbRepository
 {
+    [JsonIgnore]
     public GraphDbRepositoryNamespaces GraphDbRepositoryNamespaces { get; private set; }
+    [JsonIgnore]
     public GraphDbRepositoryDistantUris GraphDbRepositoryDistantUris { get; private set; }
+    [JsonIgnore]
     public GraphDbRepositoryMedias GraphDbRepositoryMedias { get; private set; }
 
+    [JsonIgnore]
     public GraphDBAPI GraphDBAPI { get; private set; }
 
     public string ServerURL { get; private set; }

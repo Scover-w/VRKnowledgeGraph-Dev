@@ -348,7 +348,21 @@ namespace AIDEN.TactileUI
 
         private void OnValidate()
         {
-            UpdateContent();
+            _contentRect.ForceUpdateRectTransforms();
+            _viewportRect.ForceUpdateRectTransforms();
+            LayoutRebuilder.ForceRebuildLayoutImmediate(_viewportRect);
+
+            SetParameters();
+            TrySetNormalInteractionState();
+            UpdateInteractionColor();
+            UpdateVisuals();
+
+            _contentRect.ForceUpdateRectTransforms();
+            _viewportRect.ForceUpdateRectTransforms();
+            LayoutRebuilder.ForceRebuildLayoutImmediate(_viewportRect);
+
+            UpdateColliderInteractionState();
+            UpdateItemColliders();
         }
     }
 
