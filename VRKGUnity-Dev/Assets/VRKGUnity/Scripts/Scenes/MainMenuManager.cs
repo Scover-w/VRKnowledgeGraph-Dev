@@ -19,8 +19,9 @@ public class MainMenuManager : MonoBehaviour
 
     private void AutoLoadGraphScene()
     {
-        if (_referenceHolderSO.SelectedGraphDbRepository == null)
-            return;
+        GraphDbRepository repo = new("http://localhost:7200/", "cap44");
+
+        _referenceHolderSO.SelectedGraphDbRepository = repo;
 
         var graphDbApi = _referenceHolderSO.SelectedGraphDbRepository.GraphDBAPI;
 
