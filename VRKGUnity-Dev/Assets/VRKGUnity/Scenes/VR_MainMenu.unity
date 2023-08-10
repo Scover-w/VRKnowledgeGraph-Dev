@@ -184,42 +184,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce157c498811ef646b8597ba7b9a15ce, type: 3}
---- !u!1 &136455576
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 136455577}
-  m_Layer: 21
-  m_Name: MultiInputSpawnPosition
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &136455577
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 136455576}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1571029987}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -803}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &139303942
 GameObject:
   m_ObjectHideFlags: 0
@@ -988,22 +952,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1544374533638075234, guid: 075766b32ad220749958529161bb54d3, type: 3}
-      propertyPath: _keyboardAlignment
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1544374533638075234, guid: 075766b32ad220749958529161bb54d3, type: 3}
-      propertyPath: _keyboardPositionTf
-      value: 
-      objectReference: {fileID: 136455577}
-    - target: {fileID: 1544374534358046037, guid: 075766b32ad220749958529161bb54d3, type: 3}
-      propertyPath: _keyboardAlignment
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1544374534358046037, guid: 075766b32ad220749958529161bb54d3, type: 3}
-      propertyPath: _keyboardPositionTf
-      value: 
-      objectReference: {fileID: 136455577}
     - target: {fileID: 2772565217719380952, guid: 075766b32ad220749958529161bb54d3, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -3019,11 +2967,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!224 &1571029987 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 5008887025107086956, guid: 075766b32ad220749958529161bb54d3, type: 3}
-  m_PrefabInstance: {fileID: 593779925}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1573580358
 GameObject:
   m_ObjectHideFlags: 0
