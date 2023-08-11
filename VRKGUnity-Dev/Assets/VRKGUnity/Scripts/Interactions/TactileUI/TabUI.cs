@@ -6,52 +6,20 @@ using Wave.Essence.Hand.NearInteraction;
 
 namespace AIDEN.TactileUI
 {
-    public class TabUI : MonoBehaviour, ITouchUI
+    public class TabUI : BaseTouch
     {
-        public bool Interactable
-        {
-            get
-            {
-                return _interactable;
-            }
-            set
-            {
-                _interactable = value;
-
-                UpdateColliderActivation();
-                TrySetNormalInteractionState();
-                UpdateInteractionColor();
-            }
-        }
-
-        [SerializeField]
-        bool _interactable = true;
-
         [SerializeField]
         TabControllerUI _controllerUI;
 
         [SerializeField]
         GameObject _pageToDisplayGo;
 
-        [SerializeField]
-        List<Graphic> _interactiveGraphics;
+        [SerializeField, Header("With TabUI, don't fill the _interactiveGraphics, TabUIController take care of it ")]
+        List<Graphic> _interactiveGraphicToFill;
 
         List<InteractiveColorUI> _interactiveColors;
 
-        [SerializeField]
-        GameObject _interactionCollidersGo;
-
-        Transform _touchTf;
-        TouchInteractor _touchInter;
-
-        bool _inProximity = false;
-        int _proximityFrameCount;
-
-        InteractionStateUI _interactionStateUI;
-
-        bool _canClick = true;
-
-        private void OnEnable()
+        protected override void OnEnable()
         {
             _inProximity = false;
 
@@ -60,16 +28,9 @@ namespace AIDEN.TactileUI
 
         private void DelayedOnEnable()
         {
-            UpdateColliderActivation();
-            TrySetNormalInteractionState();
-            UpdateInteractionColor();
+           base.OnEnable();
         }
 
-        private void OnDisable()
-        {
-            if (_touchInter != null)
-                _touchInter.ActiveBtn(false, this);
-        }
 
         public void Select(List<InteractiveColorUI> colorStates)
         {
@@ -85,13 +46,13 @@ namespace AIDEN.TactileUI
             UpdateInteractionColor();
         }
 
-        private void UpdateInteractionColor()
+        protected override void UpdateInteractionColor()
         {
-            int nbGraphics = _interactiveGraphics.Count;
+            int nbGraphics = _interactiveGraphicToFill.Count;
 
             for (int i = 0; i < nbGraphics; i++)
             {
-                Graphic graphic = _interactiveGraphics[i];
+                Graphic graphic = _interactiveGraphicToFill[i];
                 InteractiveColorUI colorTab = _interactiveColors[i];
 
                 switch (_interactionStateUI)
@@ -110,93 +71,17 @@ namespace AIDEN.TactileUI
         }
 
 
-        public void TriggerEnter(bool isProximity, Transform touchTf)
+        protected override void TryActivate()
         {
-            Debug.Log("TriggerEnter : isProximity -> " + isProximity + ", _touchInter " + (_touchInter == null) + " , name : " + gameObject.name);
-
-            if (isProximity)
-            {
-                _inProximity = true;
-                _proximityFrameCount = Time.frameCount;
-                _touchTf = touchTf;
-                _touchInter = _touchTf.GetComponent<TouchInteractor>();
-                _interactionStateUI = InteractionStateUI.InProximity;
-                UpdateInteractionColor();
-            }
-            else if (!isProximity)
-            {
-                TryClick();
-            }
-
-        }
-
-        public void TriggerExit(bool isProximity, Transform touchTf)
-        {
-            Debug.Log("TriggerExit : isProximity -> " + isProximity + ", _touchInter " + (_touchInter == null) + " , name : " + gameObject.name);
-
-            if (isProximity)
-            {
-                _inProximity = false;
-                _canClick = true;
-                _interactionStateUI = InteractionStateUI.Normal;
-                UpdateInteractionColor();
-            }
-            else if (!isProximity)
-            {
-                if (_touchInter != null && !_canClick)
-                    _touchInter.ActiveBtn(false, this);
-
-                _interactionStateUI = InteractionStateUI.Normal;
-                UpdateInteractionColor();
-            }
-
-        }
-
-        private void TryClick()
-        {
-            if (!_inProximity)
+            if (!base.CanActivate())
                 return;
 
-            if (Time.frameCount == _proximityFrameCount)
-                return;
-
-            if (!_canClick)
-                return;
-
-            Debug.Log("TryClick : _touchInter " + (_touchInter == null) + " , name : " + gameObject.name);
-
-            _canClick = false;
-            _interactionStateUI = InteractionStateUI.Active;
-
-            if(_touchInter != null)
-                _touchInter.ActivateHaptic();
+            base.Activate();
 
             if (_touchInter != null)
-                _touchInter.ActiveBtn(true, this);
-
-            if( _touchInter == null)
-                Debug.LogWarning("_touchInter is null : " +  gameObject.name);
+                _touchInter.ActivateHaptic();
 
             _controllerUI.Select(this);
-        }
-
-        private void UpdateColliderActivation()
-        {
-            _interactionCollidersGo.SetActive(_interactable);
-        }
-
-        private void TrySetNormalInteractionState()
-        {
-            if (_interactable)
-                _interactionStateUI = InteractionStateUI.Normal;
-            else
-                _interactionStateUI = InteractionStateUI.Disabled;
-        }
-
-        private void OnValidate()
-        {
-            UpdateColliderActivation();
-            TrySetNormalInteractionState();
         }
     }
 }

@@ -162,9 +162,9 @@ MonoBehaviour:
       _proximityColor: {r: 0.9843137, g: 0.9843137, b: 0.9843137, a: 1}
       _activatedColor: {r: 0.92941177, g: 0.8235294, b: 0.56078434, a: 1}
       _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  _interactionCollidersGo: {fileID: 7625951802853798143}
   _toggleRect: {fileID: 7625951802471262254}
   _knobRect: {fileID: 7625951801970534567}
-  _interactionCollidersGo: {fileID: 7625951802853798143}
   _text: {fileID: 7625951802886575892}
   _disabledValueLabel: Mode Immersion
   _enabledValueLabel: Mode Desk

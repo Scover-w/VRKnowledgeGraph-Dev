@@ -3,35 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Sprites.Packer;
 
 namespace AIDEN.TactileUI
 {
-    public class ScrollUI : MonoBehaviour, ITouchUI
+    public class ScrollUI : BaseTouch
     {
         public RectTransform ItemContainer { get { return _contentRect; } }
 
-        public bool Interactable
-        {
-            get
-            {
-                return _interactable;
-            }
-            set
-            {
-                _interactable = value;
-
-                UpdateColliderInteractionState();
-                TrySetNormalInteractionState();
-                UpdateInteractionColor();
-            }
-        }
-
-        [SerializeField]
-        bool _interactable = true;
-
-        [SerializeField]
-        List<InteractiveGraphicUI> _interactiveGraphics;
 
         [SerializeField]
         List<InteractiveGraphicUI> _uninteractiveGraphics;
@@ -48,22 +26,12 @@ namespace AIDEN.TactileUI
         [SerializeField]
         RectTransform _slidingAreaRect;
 
-        [SerializeField]
-        GameObject _interactionCollidersGo;
 
         [SerializeField, Space(5)]
         List<ScrollItem> _scrollItems;
 
-        Transform _touchTf;
-        TouchInteractor _touchInter;
-
-        InteractionStateUI _interactionStateUI;
-
         bool _needScroll;
         bool _isScrolling;
-
-        bool _inProximity = false;
-        int _proximityFrameCount;
 
         float _slidingAreaHeight;
         float _maxDeltaHandle;
@@ -86,21 +54,14 @@ namespace AIDEN.TactileUI
             }
         }
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
+            base.OnEnable();
             _isScrolling = false;
             _positionScroll = 0f;
-            _inProximity = false;
 
             UpdateContent();
         }
-
-        private void OnDisable()
-        {
-            if (_touchInter != null)
-                _touchInter.ActiveBtn(false, this);
-        }
-
  
         public void AddItem(ScrollItem scrollItem)
         {
@@ -188,7 +149,7 @@ namespace AIDEN.TactileUI
             _viewportRect.ForceUpdateRectTransforms();
             LayoutRebuilder.ForceRebuildLayoutImmediate(_viewportRect);
             yield return null;
-            UpdateColliderInteractionState();
+            UpdateColliderInteraction();
             UpdateItemColliders();
         }
 
@@ -241,66 +202,30 @@ namespace AIDEN.TactileUI
         }
 
 
-        public void TriggerEnter(bool isProximity, Transform touchTf)
+        protected override void TryActivate()
         {
-            if (isProximity)
-            {
-                _inProximity = true;
-                _proximityFrameCount = Time.frameCount;
-
-                _touchTf = touchTf;
-                _touchInter = _touchTf.GetComponent<TouchInteractor>();
-                _interactionStateUI = InteractionStateUI.InProximity;
-                UpdateInteractionColor();
-            }
-            else if (!isProximity)
-            {
-                TryStartScrolling();
-                
-            }
-        }
-
-        private void TryStartScrolling()
-        {
-            if (!_inProximity)
+            if (!CanActivate())
                 return;
 
-            if (Time.frameCount == _proximityFrameCount)
-                return;
 
-            _interactionStateUI = InteractionStateUI.Active;
-            UpdateInteractionColor();
+            base.Activate();
 
             _isScrolling = true;
-
-            if (_touchInter != null)
-                _touchInter.ActiveBtn(true, this);
 
             StartCoroutine(Scrolling());
         }
 
-        public void TriggerExit(bool isProximity, Transform touchTf)
+        public override void TriggerExit(bool isProximity, Transform touchTf)
         {
-            if (isProximity)
-            {
-                _inProximity = false;
-                _interactionStateUI = InteractionStateUI.Normal;
-                UpdateInteractionColor();
-            }
-            else if (!isProximity)
-            {
-                if (_touchInter != null)
-                    _touchInter.ActiveBtn(false, this);
+            base.TriggerExit(isProximity, touchTf);
 
+            if (!isProximity)
+            {
                 _isScrolling = false;
-
-
-                _interactionStateUI = InteractionStateUI.Normal;
-                UpdateInteractionColor();
             }
         }
 
-        private void UpdateInteractionColor()
+        protected override void UpdateInteractionColor()
         {
             if (_needScroll)
                 _interactiveGraphics.UpdateColor(_interactionStateUI);
@@ -308,15 +233,8 @@ namespace AIDEN.TactileUI
                 _uninteractiveGraphics.UpdateColor(_interactionStateUI);
         }
 
-        private void TrySetNormalInteractionState()
-        {
-            if (_interactable)
-                _interactionStateUI = InteractionStateUI.Normal;
-            else
-                _interactionStateUI = InteractionStateUI.Disabled;
-        }
 
-        private void UpdateColliderInteractionState()
+        protected override void UpdateColliderInteraction()
         {
             _interactionCollidersGo.SetActive(_needScroll && _interactable);
         }
@@ -366,8 +284,11 @@ namespace AIDEN.TactileUI
             }
         }
 
-        private void OnValidate()
+#if UNITY_EDITOR
+        protected override void OnValidate()
         {
+            _interactiveGraphics?.TrySetName();
+
             _contentRect.ForceUpdateRectTransforms();
             _viewportRect.ForceUpdateRectTransforms();
             LayoutRebuilder.ForceRebuildLayoutImmediate(_viewportRect);
@@ -381,9 +302,10 @@ namespace AIDEN.TactileUI
             _viewportRect.ForceUpdateRectTransforms();
             LayoutRebuilder.ForceRebuildLayoutImmediate(_viewportRect);
 
-            UpdateColliderInteractionState();
+            UpdateColliderInteraction();
             UpdateItemColliders();
         }
+#endif
     }
 
     [Serializable]

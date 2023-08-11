@@ -5,9 +5,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class StringStepperUI : MonoBehaviour, ITouchUI, IValueUI<string>
+public class StringStepperUI : BaseTouch, IValueUI<string>
 {
-    public bool Interactable
+    public override bool Interactable
     {
         get
         {
@@ -15,13 +15,10 @@ public class StringStepperUI : MonoBehaviour, ITouchUI, IValueUI<string>
         }
         set
         {
-            _interactable = value;
+            base.Interactable = value;
+
             _buttonA.Interactable = value;
             _buttonB.Interactable = value;
-
-            UpdateColliderActivation();
-            TrySetNormalInteractionState();
-            UpdateInteractionColor();
         }
     }
 
@@ -40,11 +37,6 @@ public class StringStepperUI : MonoBehaviour, ITouchUI, IValueUI<string>
         }
     }
 
-    [SerializeField]
-    bool _interactable = true;
-
-    [SerializeField]
-    List<InteractiveGraphicUI> _interactiveGraphics;
 
     [SerializeField]
     TMP_Text _label;
@@ -54,9 +46,6 @@ public class StringStepperUI : MonoBehaviour, ITouchUI, IValueUI<string>
 
     [SerializeField]
     ButtonUI _buttonB;
-
-    [SerializeField]
-    GameObject _interactionCollidersGo;
 
     [SerializeField, Space(5)]
     List<StringStepperValue> _optionsValues;
@@ -71,14 +60,6 @@ public class StringStepperUI : MonoBehaviour, ITouchUI, IValueUI<string>
     StringStepperValue _selectedStepperValue;
     int _selectedId = 0;
 
-    bool _inProximity = false;
-    int _proximityFrameCount;
-
-    Transform _touchTf;
-    TouchInteractor _touchInter;
-
-    InteractionStateUI _interactionStateUI;
-    bool _canClick = true;
 
 
     private void Awake()
@@ -86,88 +67,16 @@ public class StringStepperUI : MonoBehaviour, ITouchUI, IValueUI<string>
         SetNewSelection(_startSelected);
     }
 
-    private void OnEnable()
+
+    protected override void TryActivate()
     {
-        _canClick = true;
-        _inProximity = false;
-
-        UpdateColliderActivation();
-        TrySetNormalInteractionState();
-        UpdateInteractionColor();
-    }
-
-    private void OnDisable()
-    {
-        if (_touchInter != null)
-            _touchInter.ActiveBtn(false, this);
-    }
-
-
-    public void TriggerEnter(bool isProximity, Transform touchTf)
-    {
-        if (isProximity)
-        {
-            _inProximity = true;
-            _proximityFrameCount = Time.frameCount;
-
-            _touchTf = touchTf;
-            _touchInter = _touchTf.GetComponent<TouchInteractor>();
-            _interactionStateUI = InteractionStateUI.InProximity;
-            UpdateInteractionColor();
-        }
-        else if (!isProximity)
-        {
-            TryClick();
-        }
-
-    }
-
-    private void TryClick()
-    {
-        if (!_inProximity)
+        if (!base.CanActivate())
             return;
 
-        if (Time.frameCount == _proximityFrameCount)
-            return;
+        base.Activate();
 
-        if (!_canClick)
-            return;
-
-        _canClick = false;
-        _interactionStateUI = InteractionStateUI.Active;
         _touchInter.ActivateHaptic();
-
-        UpdateInteractionColor();
-
-        if (_touchInter != null)
-            _touchInter.ActiveBtn(true, this);
-
         IncrementSelection();
-    }
-
-    public void TriggerExit(bool isProximity, Transform touchTf)
-    {
-        if (isProximity)
-        {
-            _inProximity = false;
-            _canClick = true;
-            _interactionStateUI = InteractionStateUI.Normal;
-            UpdateInteractionColor();
-        }
-        else if (!isProximity)
-        {
-            if (_touchInter != null && !_canClick)
-                _touchInter.ActiveBtn(false, this);
-
-            _interactionStateUI = InteractionStateUI.Normal;
-            UpdateInteractionColor();
-        }
-
-    }
-
-    private void UpdateInteractionColor()
-    {
-        _interactiveGraphics.UpdateColor(_interactionStateUI);
     }
 
 
@@ -280,24 +189,11 @@ public class StringStepperUI : MonoBehaviour, ITouchUI, IValueUI<string>
     }
 
 
-    private void UpdateColliderActivation()
-    {
-        _interactionCollidersGo.SetActive(_interactable);
-    }
-
-    private void TrySetNormalInteractionState()
-    {
-        if (_interactable)
-            _interactionStateUI = InteractionStateUI.Normal;
-        else
-            _interactionStateUI = InteractionStateUI.Disabled;
-    }
-
 
 #if UNITY_EDITOR
-    private void OnValidate()
+    protected override void OnValidate()
     {
-        _interactiveGraphics?.TrySetName();
+        base.OnValidate();
 
         if (_optionsValues != null && _optionsValues.Count > 0)
         {
@@ -319,10 +215,6 @@ public class StringStepperUI : MonoBehaviour, ITouchUI, IValueUI<string>
         }
 
         Interactable = _interactable;
-
-        UpdateColliderActivation();
-        TrySetNormalInteractionState();
-        UpdateInteractionColor();
     }
 #endif
 

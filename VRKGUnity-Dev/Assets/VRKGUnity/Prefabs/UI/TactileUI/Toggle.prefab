@@ -160,7 +160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interactable: 1
-  _activeInteractiveGraphics:
+  _interactiveGraphics:
   - Name: Toggle
     _graphic: {fileID: 5339700965420444286}
     _interactiveColorUI:
@@ -175,6 +175,7 @@ MonoBehaviour:
       _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
       _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
       _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  _interactionCollidersGo: {fileID: 5339700964883804024}
   _unactiveInteractiveGraphics:
   - Name: Toggle
     _graphic: {fileID: 5339700965420444286}
@@ -191,7 +192,6 @@ MonoBehaviour:
       _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
       _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
   _knobRect: {fileID: 5339700965898343056}
-  _interactionCollidersGo: {fileID: 5339700964883804024}
   _onValueChanged:
     m_PersistentCalls:
       m_Calls: []

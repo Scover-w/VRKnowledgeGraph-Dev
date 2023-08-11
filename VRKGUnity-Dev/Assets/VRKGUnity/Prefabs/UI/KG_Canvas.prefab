@@ -13234,12 +13234,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interactable: 1
+  _interactiveGraphics:
+  - Name: 
+    _graphic: {fileID: 0}
+    _interactiveColorUI:
+      _normalColor: {r: 0, g: 0, b: 0, a: 0}
+      _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+      _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+      _disabledColor: {r: 1, g: 1, b: 1, a: 0.1}
+  - Name: 
+    _graphic: {fileID: 0}
+    _interactiveColorUI:
+      _normalColor: {r: 0, g: 0, b: 0, a: 0}
+      _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+      _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+      _disabledColor: {r: 1, g: 1, b: 1, a: 0.1}
+  _interactionCollidersGo: {fileID: 961090662313945258}
   _controllerUI: {fileID: 1054254564703665474}
   _pageToDisplayGo: {fileID: 961090663486111161}
-  _interactiveGraphics:
-  - {fileID: 961090664057362679}
-  - {fileID: 961090663671431164}
-  _interactionCollidersGo: {fileID: 961090662313945258}
+  _interactiveGraphicToFill: []
 --- !u!114 &961090664057362679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15091,12 +15104,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interactable: 1
+  _interactiveGraphics:
+  - Name: 
+    _graphic: {fileID: 0}
+    _interactiveColorUI:
+      _normalColor: {r: 0, g: 0, b: 0, a: 0}
+      _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+      _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+      _disabledColor: {r: 1, g: 1, b: 1, a: 0.1}
+  - Name: 
+    _graphic: {fileID: 0}
+    _interactiveColorUI:
+      _normalColor: {r: 0, g: 0, b: 0, a: 0}
+      _proximityColor: {r: 0, g: 0, b: 0, a: 0}
+      _activatedColor: {r: 0, g: 0, b: 0, a: 0}
+      _disabledColor: {r: 1, g: 1, b: 1, a: 0.1}
+  _interactionCollidersGo: {fileID: 961090664010414473}
   _controllerUI: {fileID: 1054254564703665474}
   _pageToDisplayGo: {fileID: 961090663038209855}
-  _interactiveGraphics:
-  - {fileID: 961090664303688542}
-  - {fileID: 961090663656864501}
-  _interactionCollidersGo: {fileID: 961090664010414473}
+  _interactiveGraphicToFill: []
 --- !u!114 &961090664303688542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17510,6 +17536,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 961090663017629027}
     m_Modifications:
     - target: {fileID: 5339700965420444272, guid: 6ccc0e686190f86478f8bc88caf7130e, type: 3}
+      propertyPath: _interactiveGraphics.Array.data[0].Name
+      value: DisplayLensToggle
+      objectReference: {fileID: 0}
+    - target: {fileID: 5339700965420444272, guid: 6ccc0e686190f86478f8bc88caf7130e, type: 3}
       propertyPath: _activeInteractiveGraphics.Array.data[0].Name
       value: DisplayLensToggle
       objectReference: {fileID: 0}
@@ -17619,6 +17649,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 961090663017629027}
     m_Modifications:
+    - target: {fileID: 5339700965420444272, guid: 6ccc0e686190f86478f8bc88caf7130e, type: 3}
+      propertyPath: _interactiveGraphics.Array.data[0].Name
+      value: DisplayImmersionToggle
+      objectReference: {fileID: 0}
     - target: {fileID: 5339700965420444272, guid: 6ccc0e686190f86478f8bc88caf7130e, type: 3}
       propertyPath: _activeInteractiveGraphics.Array.data[0].Name
       value: DisplayImmersionToggle
@@ -17957,6 +17991,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 961090663017629027}
     m_Modifications:
+    - target: {fileID: 5339700965420444272, guid: 6ccc0e686190f86478f8bc88caf7130e, type: 3}
+      propertyPath: _interactiveGraphics.Array.data[0].Name
+      value: DisplayDeskToggle
+      objectReference: {fileID: 0}
     - target: {fileID: 5339700965420444272, guid: 6ccc0e686190f86478f8bc88caf7130e, type: 3}
       propertyPath: _activeInteractiveGraphics.Array.data[0].Name
       value: DisplayDeskToggle
@@ -18517,6 +18555,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 961090664261295417}
     m_Modifications:
     - target: {fileID: 5339700965420444272, guid: 6ccc0e686190f86478f8bc88caf7130e, type: 3}
+      propertyPath: _interactiveGraphics.Array.data[0].Name
+      value: DisplayInterSelectedNeighborEdgesToggle
+      objectReference: {fileID: 0}
+    - target: {fileID: 5339700965420444272, guid: 6ccc0e686190f86478f8bc88caf7130e, type: 3}
       propertyPath: _activeInteractiveGraphics.Array.data[0].Name
       value: DisplayInterSelectedNeighborEdgesToggle
       objectReference: {fileID: 0}
@@ -18627,6 +18669,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 961090663622677658}
     m_Modifications:
     - target: {fileID: 5339700965420444272, guid: 6ccc0e686190f86478f8bc88caf7130e, type: 3}
+      propertyPath: _interactiveGraphics.Array.data[0].Name
+      value: DisplayWatchToggle
+      objectReference: {fileID: 0}
+    - target: {fileID: 5339700965420444272, guid: 6ccc0e686190f86478f8bc88caf7130e, type: 3}
       propertyPath: _activeInteractiveGraphics.Array.data[0].Name
       value: DisplayWatchToggle
       objectReference: {fileID: 0}
@@ -18736,6 +18782,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 961090664261295417}
     m_Modifications:
+    - target: {fileID: 5339700965420444272, guid: 6ccc0e686190f86478f8bc88caf7130e, type: 3}
+      propertyPath: _interactiveGraphics.Array.data[0].Name
+      value: DisplayToggle
+      objectReference: {fileID: 0}
     - target: {fileID: 5339700965420444272, guid: 6ccc0e686190f86478f8bc88caf7130e, type: 3}
       propertyPath: _activeInteractiveGraphics.Array.data[0].Name
       value: DisplayToggle
@@ -21593,6 +21643,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 961090664261295417}
     m_Modifications:
+    - target: {fileID: 5339700965420444272, guid: 6ccc0e686190f86478f8bc88caf7130e, type: 3}
+      propertyPath: _interactiveGraphics.Array.data[0].Name
+      value: SelectableToggle
+      objectReference: {fileID: 0}
     - target: {fileID: 5339700965420444272, guid: 6ccc0e686190f86478f8bc88caf7130e, type: 3}
       propertyPath: _activeInteractiveGraphics.Array.data[0].Name
       value: SelectableToggle

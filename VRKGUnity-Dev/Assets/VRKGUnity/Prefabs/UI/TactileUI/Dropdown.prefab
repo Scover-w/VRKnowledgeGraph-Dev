@@ -248,8 +248,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 515ba2f1847ada044acdcd1ef20fb1b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _controller: {fileID: 3945578887511572743}
+  _interactable: 1
   _interactiveGraphics: []
+  _interactionCollidersGo: {fileID: 3945578886310231472}
+  _controller: {fileID: 3945578887511572743}
   _selectedInteractiveGraphics: []
   _label: {fileID: 3945578887638986432}
   _checkMarkGo: {fileID: 3945578885889779159}
@@ -836,13 +838,13 @@ MonoBehaviour:
       _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
       _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
       _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  _interactionCollidersGo: {fileID: 3945578887177077917}
   _itemsContainerGo: {fileID: 3945578886759929939}
   _itemTemplateGo: {fileID: 3945578885953184955}
   _startItemValues:
   - LabelName: None
     Value: None
   _label: {fileID: 3945578887107953771}
-  _interactionCollidersGo: {fileID: 3945578887177077917}
   _colliderToHide: []
   _startSelectedValue: 0
   _onValueChanged:

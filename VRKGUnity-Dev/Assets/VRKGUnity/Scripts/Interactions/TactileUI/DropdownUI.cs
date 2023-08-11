@@ -8,24 +8,8 @@ using UnityEngine.Events;
 
 namespace AIDEN.TactileUI
 {
-    public class DropdownUI : MonoBehaviour, ITouchUI, IValueUI<string>
+    public class DropdownUI : BaseTouch, IValueUI<string>
     {
-        public bool Interactable
-        {
-            get
-            {
-                return _interactable;
-            }
-            set
-            {
-                _interactable = value;
-
-                UpdateColliderActivation();
-                TrySetNormalInteractionState();
-                UpdateInteractionColor();
-            }
-        }
-
         public string Value
         {
             get
@@ -42,12 +26,6 @@ namespace AIDEN.TactileUI
         }
 
         [SerializeField]
-        bool _interactable = true;
-
-        [SerializeField]
-        List<InteractiveGraphicUI> _interactiveGraphics;
-
-        [SerializeField]
         GameObject _itemsContainerGo;
 
         [SerializeField]
@@ -59,8 +37,6 @@ namespace AIDEN.TactileUI
         [SerializeField]
         TMP_Text _label;
 
-        [SerializeField]
-        GameObject _interactionCollidersGo;
 
         [SerializeField, Tooltip("Colliders under the dropdown to hide to prevent interaction")]
         List<Collider> _colliderToHide;
@@ -73,24 +49,16 @@ namespace AIDEN.TactileUI
 
         Dictionary<DropDownItemValue, DropdownItemUI> _items;
 
-        Transform _touchTf;
-        TouchInteractor _touchInter;
 
         DropdownItemUI _selectedItemUI;
         DropDownItemValue _selectedValue;
 
         RectTransform _itemContainerRectTf;
 
-        InteractionStateUI _interactionStateUI;
 
         bool _isOpen = false;
-        bool _canClick = true;
 
         float _heightItem;
-
-        bool _inProximity = false;
-
-        int _proximityFrameCount;
 
         private void Awake()
         {
@@ -100,25 +68,20 @@ namespace AIDEN.TactileUI
             CreateItems();
         }
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
+            base.OnEnable();   
+
             _isOpen = false;
-            _inProximity = false;
-
             _itemsContainerGo.SetActive(false);
-
-            UpdateColliderActivation();
-            TrySetNormalInteractionState();
-            UpdateInteractionColor();
         }
 
-        private void OnDisable()
+        protected override void OnDisable()
         {
+            base.OnDisable();
+
             if(_isOpen)
                 EnableCollidersToHide(true);
-
-            if (_touchInter != null)
-                _touchInter.ActiveBtn(false, this);
         }
 
         private void CreateItems()
@@ -269,65 +232,19 @@ namespace AIDEN.TactileUI
             _selectedItemUI.IsSelected = false;
         }
 
-        public void TriggerEnter(bool isProximity, Transform touchTf)
+
+        protected override void TryActivate()
         {
-            if (isProximity)
-            {
-                _inProximity = true;
-                _proximityFrameCount = Time.frameCount;
-                _touchTf = touchTf;
-                _touchInter = _touchTf.GetComponent<TouchInteractor>();
-                _interactionStateUI = InteractionStateUI.InProximity;
-                UpdateInteractionColor();
-            }
-            else if (!isProximity)
-            {
-                TryClick();
-            }
-        }
-
-        private void TryClick()
-        {
-            if (!_inProximity)
+            if (!base.CanActivate())
                 return;
 
-            if (Time.frameCount == _proximityFrameCount)
-                return;
+            base.Activate();
 
-            if (!_canClick)
-                return;
-
-            _canClick = false;
             _isOpen = !_isOpen;
             _itemsContainerGo.SetActive(_isOpen);
             _touchInter.ActivateHaptic();
 
             EnableCollidersToHide(false);
-
-            _interactionStateUI = InteractionStateUI.Active;
-            UpdateInteractionColor();
-
-            if (_touchInter != null)
-                _touchInter.ActiveBtn(true, this);
-        }
-
-        public void TriggerExit(bool isProximity, Transform touchTf)
-        {
-            if (isProximity)
-            {
-                _inProximity = false;
-                _canClick = true;
-                _interactionStateUI = InteractionStateUI.Normal;
-                UpdateInteractionColor();
-            }
-            else if (!isProximity)
-            {
-                if (_touchInter != null && !_canClick)
-                    _touchInter.ActiveBtn(false, this);
-
-                _interactionStateUI = InteractionStateUI.Normal;
-                UpdateInteractionColor();
-            }
         }
 
         public void NewValueFromItem(DropDownItemValue itemValue)
@@ -342,11 +259,6 @@ namespace AIDEN.TactileUI
             _onValueChanged?.Invoke(itemValue.Value);
         }
 
-        private void UpdateInteractionColor()
-        {
-            _interactiveGraphics.UpdateColor(_interactionStateUI);
-        }
-
 
         private void EnableCollidersToHide(bool enable) 
         {
@@ -359,29 +271,12 @@ namespace AIDEN.TactileUI
             }
         }
 
-        private void UpdateColliderActivation()
-        {
-            _interactionCollidersGo.SetActive(_interactable);
-        }
-
-        private void TrySetNormalInteractionState()
-        {
-            if (_interactable)
-                _interactionStateUI = InteractionStateUI.Normal;
-            else
-                _interactionStateUI = InteractionStateUI.Disabled;
-        }
 
 #if UNITY_EDITOR
-        private void OnValidate()
+        protected override void OnValidate()
         {
+            base.OnValidate();
             OnValidateStartSelectedValue();
-
-            _interactiveGraphics?.TrySetName();
-
-            UpdateColliderActivation();
-            TrySetNormalInteractionState();
-            UpdateInteractionColor();
         }
 
         private void OnValidateStartSelectedValue()

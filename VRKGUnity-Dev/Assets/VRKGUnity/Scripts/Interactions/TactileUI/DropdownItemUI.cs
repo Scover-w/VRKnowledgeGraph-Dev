@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Wave.Essence.Hand.NearInteraction;
 
 namespace AIDEN.TactileUI
 {
-    public class DropdownItemUI : MonoBehaviour, ITouchUI
+    public class DropdownItemUI : BaseTouch
     {
 
         public bool IsSelected
@@ -22,11 +23,9 @@ namespace AIDEN.TactileUI
             }
         }
 
-        [SerializeField]
-        DropdownUI _controller;
 
         [SerializeField]
-        List<InteractiveGraphicUI> _interactiveGraphics;
+        DropdownUI _controller;
 
         [SerializeField]
         List<InteractiveGraphicUI> _selectedInteractiveGraphics;
@@ -37,30 +36,10 @@ namespace AIDEN.TactileUI
         [SerializeField]
         GameObject _checkMarkGo;
 
+
         DropDownItemValue _value;
 
-        Transform _touchTf;
-        TouchInteractor _touchInter;
-
-        InteractionStateUI _interactionStateUI;
-
         bool _isSelected = false;
-
-        bool _inProximity = false;
-        int _proximityFrameCount;
-
-        private void OnEnable()
-        {
-            _inProximity = false;
-            _interactionStateUI = InteractionStateUI.Normal;
-            UpdateInteractionColor();
-        }
-
-        private void OnDisable()
-        {
-            if (_touchInter != null)
-                _touchInter.ActiveBtn(false, this);
-        }
 
         public void SetDropDownValue(DropDownItemValue ddValue)
         {
@@ -76,74 +55,22 @@ namespace AIDEN.TactileUI
             UpdateInteractionColor();
         }
 
-        public void TriggerEnter(bool isProximity, Transform touchTf)
+        protected override void TryActivate()
         {
-
-            if (isProximity)
-            {
-                _inProximity = true;
-                _proximityFrameCount = Time.frameCount;
-                _touchTf = touchTf;
-                _touchInter = _touchTf.GetComponent<TouchInteractor>();
-                _interactionStateUI = InteractionStateUI.InProximity;
-                UpdateInteractionColor();
-            }
-            else if (!isProximity)
-            {
-                TryClick();
-            }
-        }
-
-        private void TryClick()
-        {
-            if (!_inProximity)
+            if(!CanActivate()) 
                 return;
 
-            if (Time.frameCount == _proximityFrameCount)
-                return;
-
-            _interactionStateUI = InteractionStateUI.Active;
             _touchInter.ActivateHaptic();
-
-            UpdateInteractionColor();
-
-            if (_touchInter != null)
-                _touchInter.ActiveBtn(true, this);
-
             _controller.NewValueFromItem(_value);
         }
 
-        public void TriggerExit(bool isProximity, Transform touchTf)
-        {
-            if (isProximity)
-            {
-                _inProximity = false;
-                _interactionStateUI = InteractionStateUI.Normal;
-                UpdateInteractionColor();
-            }
-            else if (!isProximity)
-            {
-                if (_touchInter != null)
-                    _touchInter.ActiveBtn(false, this);
 
-                _interactionStateUI = InteractionStateUI.Normal;
-                UpdateInteractionColor();
-            }
-        }
-
-        private void UpdateInteractionColor()
+        protected override void UpdateInteractionColor()
         {
             if(_isSelected)
                 _interactiveGraphics.UpdateColor(_interactionStateUI);
             else
                 _selectedInteractiveGraphics.UpdateColor(_interactionStateUI);
         }
-
-#if UNITY_EDITOR
-        private void OnValidate()
-        {
-            _interactiveGraphics?.TrySetName();
-        }
-#endif
     }
 }

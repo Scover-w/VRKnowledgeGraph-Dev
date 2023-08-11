@@ -363,9 +363,9 @@ MonoBehaviour:
       _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
       _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
       _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  _interactionCollidersGo: {fileID: 5200074488329043962}
   _label: {fileID: 5200074489026816382}
   _keyboardPositionTf: {fileID: 0}
-  _interactionCollidersGo: {fileID: 5200074488329043962}
   _keyboardAlignment: 0
   _numericType: 1
   _value: 6

@@ -131,10 +131,10 @@ MonoBehaviour:
       _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
       _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
       _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  _interactionCollidersGo: {fileID: 6065236565315456541}
   _label: {fileID: 6065236564331351944}
   _buttonA: {fileID: 305407871304174776}
   _buttonB: {fileID: 305407870959552642}
-  _interactionCollidersGo: {fileID: 6065236565315456541}
   _optionsValues: []
   _startSelected: -1
   _onValueChanged:

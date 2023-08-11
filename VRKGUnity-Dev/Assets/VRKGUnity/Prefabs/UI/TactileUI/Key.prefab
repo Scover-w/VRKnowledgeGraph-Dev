@@ -272,8 +272,8 @@ MonoBehaviour:
       _proximityColor: {r: 0.9843137, g: 0.9843137, b: 0.9843137, a: 1}
       _activatedColor: {r: 0.9843137, g: 0.9843137, b: 0.9843137, a: 1}
       _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
-  _label: {fileID: 3805628231325973273}
   _interactionCollidersGo: {fileID: 3805628233002272049}
+  _label: {fileID: 3805628231325973273}
   _value: 97
   _onKey:
     m_PersistentCalls:

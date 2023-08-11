@@ -7,23 +7,8 @@ using UnityEngine.UI;
 
 namespace AIDEN.TactileUI
 {
-    public class NumericInputUI : MonoBehaviour, ITouchUI, IValueUI<float>
+    public class NumericInputUI : BaseTouch, IValueUI<float>
     {
-        public bool Interactable
-        {
-            get
-            {
-                return _interactable;
-            }
-            set
-            {
-                _interactable = value;
-
-                UpdateColliderActivation();
-                TrySetNormalInteractionState();
-                UpdateInteractionColor();
-            }
-        }
 
         public float Value
         {
@@ -42,19 +27,10 @@ namespace AIDEN.TactileUI
         }
 
         [SerializeField]
-        bool _interactable = true;
-
-        [SerializeField]
-        List<InteractiveGraphicUI> _interactiveGraphics;
-
-        [SerializeField]
         TMP_Text _label;
 
         [SerializeField]
         Transform _keyboardPositionTf;
-
-        [SerializeField]
-        GameObject _interactionCollidersGo;
 
         [SerializeField]
         KeyboardAlignment _keyboardAlignment;
@@ -68,54 +44,18 @@ namespace AIDEN.TactileUI
         [SerializeField, Space(10)]
         UnityEvent<float> _onValueChanged;
 
-        Transform _touchTf;
-        TouchInteractor _touchInter;
-
-        InteractionStateUI _interactionStateUI;
 
         bool _isActive = false;
 
-        bool _inProximity = false;
-        int _proximityFrameCount;
-
-        private void OnEnable()
+        protected override void OnEnable()
         {
+            base.OnEnable();
             _isActive = false;
-            _inProximity = false;
-
-            UpdateColliderActivation();
-            TrySetNormalInteractionState();
-            UpdateInteractionColor();
         }
 
-        private void OnDisable()
+        protected override void TryActivate()
         {
-            if (_touchInter != null)
-                _touchInter.ActiveBtn(false, this);
-        }
-        public void TriggerEnter(bool isProximity, Transform touchTf)
-        {
-            if (isProximity)
-            {
-                _inProximity = true;
-                _proximityFrameCount = Time.frameCount;
-                _touchTf = touchTf;
-                _touchInter = _touchTf.GetComponent<TouchInteractor>();
-                _interactionStateUI = InteractionStateUI.InProximity;
-                UpdateInteractionColor();
-            }
-            else if (!isProximity)
-            {
-                TryActivate();
-            }
-        }
-
-        private void TryActivate()
-        {
-            if (!_inProximity)
-                return;
-
-            if (Time.frameCount == _proximityFrameCount)
+            if(!base.CanActivate()) 
                 return;
 
             if (_isActive)
@@ -128,36 +68,10 @@ namespace AIDEN.TactileUI
             if (!succeedUsingKeyboard)
                 return;
 
+            base.Activate();
             _isActive = true;
-            _interactionStateUI = InteractionStateUI.Active;
-            UpdateInteractionColor();
-
-            if (_touchInter != null)
-                _touchInter.ActiveBtn(true, this);
         }
 
-        public void TriggerExit(bool isProximity, Transform touchTf)
-        {
-            if (isProximity)
-            {
-                _inProximity = false;
-                _interactionStateUI = InteractionStateUI.Normal;
-                UpdateInteractionColor();
-            }
-            else if (!isProximity)
-            {
-                if (_touchInter != null && _isActive)
-                    _touchInter.ActiveBtn(false, this);
-
-                _interactionStateUI = InteractionStateUI.Normal;
-                UpdateInteractionColor();
-            }
-        }
-
-        private void UpdateInteractionColor()
-        {
-            _interactiveGraphics.UpdateColor(_interactionStateUI);
-        }
 
         public void OnUpdateInput(object input)
         {
@@ -196,19 +110,6 @@ namespace AIDEN.TactileUI
                                             _value);
         }
 
-        private void UpdateColliderActivation()
-        {
-            _interactionCollidersGo.SetActive(_interactable);
-        }
-
-        private void TrySetNormalInteractionState()
-        {
-            if (_interactable)
-                _interactionStateUI = InteractionStateUI.Normal;
-            else
-                _interactionStateUI = InteractionStateUI.Disabled;
-        }
-
         private void TryRoundValue()
         {
             if (_numericType == NumericType.Int)
@@ -217,17 +118,12 @@ namespace AIDEN.TactileUI
 
 
 #if UNITY_EDITOR
-        private void OnValidate()
+        protected override void OnValidate()
         {
-            _interactiveGraphics?.TrySetName();
+            base.OnValidate();
 
             TryRoundValue();
-
             _label.text = _value.ToString();
-
-            UpdateColliderActivation();
-            TrySetNormalInteractionState();
-            UpdateInteractionColor();
         }
 #endif
 

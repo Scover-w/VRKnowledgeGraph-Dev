@@ -6,24 +6,8 @@ using UnityEngine.UI;
 
 namespace AIDEN.TactileUI
 {
-    public class KeyUI : MonoBehaviour, ITouchUI, IValueUI<char>
+    public class KeyUI : BaseTouch, IValueUI<char>
     {
-        public bool Interactable
-        {
-            get
-            {
-                return _interactable;
-            }
-            set
-            {
-                _interactable = value;
-
-                UpdateColliderActivation();
-                TrySetNormalInteractionState();
-                UpdateInteractionColor();
-            }
-        }
-
         public char Value
         {
             get
@@ -37,17 +21,9 @@ namespace AIDEN.TactileUI
             }
         }
 
-        [SerializeField]
-        bool _interactable = true;
-
-        [SerializeField]
-        List<InteractiveGraphicUI> _interactiveGraphics;
 
         [SerializeField]
         TMP_Text _label;
-
-        [SerializeField]
-        GameObject _interactionCollidersGo;
 
         [SerializeField]
         char _value;
@@ -55,32 +31,11 @@ namespace AIDEN.TactileUI
         [SerializeField]
         UnityEvent<char> _onKey;
 
-        Transform _touchTf;
-        TouchInteractor _touchInter;
-
-        InteractionStateUI _interactionStateUI;
-
-        bool _canClick = true;
-        bool _inProximity = false;
-
-        int _proximityFrameCount;
-
-        private void OnEnable()
+        protected override void OnEnable()
         {
-            _canClick = true;
-            _inProximity = false;
-
-            UpdateColliderActivation();
-            TrySetNormalInteractionState();
-
+            base.OnEnable();
+ 
             ToLower();
-            UpdateInteractionColor();
-        }
-
-        private void OnDisable()
-        {
-            if (_touchInter != null)
-                _touchInter.ActiveBtn(false, this);
         }
 
         public void ToLower()
@@ -95,95 +50,23 @@ namespace AIDEN.TactileUI
             _value = char.ToUpper(_value);
         }
 
-        public void TriggerEnter(bool isProximity, Transform touchTf)
+        protected override void TryActivate()
         {
-            if (isProximity)
-            {
-                _inProximity = true;
-                _proximityFrameCount = Time.frameCount;
-
-                _touchTf = touchTf;
-                _touchInter = _touchTf.GetComponent<TouchInteractor>();
-                _interactionStateUI = InteractionStateUI.InProximity;
-                UpdateInteractionColor();
-            }
-            else if (!isProximity)
-            {
-                TryClick();
-            }
-        }
-
-        private void TryClick()
-        {
-            if (!_inProximity)
+            if (!base.CanActivate())
                 return;
 
-            if (Time.frameCount == _proximityFrameCount)
-                return;
+            base.Activate();
 
-            if (!_canClick)
-                return;
-
-            _canClick = false;
-            _interactionStateUI = InteractionStateUI.Active;
             _touchInter.ActivateHaptic();
-
-            UpdateInteractionColor();
-
-            if (_touchInter != null)
-                _touchInter.ActiveBtn(true, this);
-
             _onKey?.Invoke(_value);
-        }
-
-        public void TriggerExit(bool isProximity, Transform touchTf)
-        {
-            if (isProximity)
-            {
-                _inProximity = false;
-                _canClick = true;
-                _interactionStateUI = InteractionStateUI.Normal;
-                UpdateInteractionColor();
-            }
-            else if (!isProximity)
-            {
-                if (_touchInter != null && !_canClick)
-                    _touchInter.ActiveBtn(false, this);
-
-                _interactionStateUI = InteractionStateUI.Normal;
-                UpdateInteractionColor();
-            }
-
-        }
-
-        private void UpdateInteractionColor()
-        {
-            _interactiveGraphics.UpdateColor(_interactionStateUI);
-        }
-
-        private void UpdateColliderActivation()
-        {
-            _interactionCollidersGo.SetActive(_interactable);
-        }
-
-        private void TrySetNormalInteractionState()
-        {
-            if (_interactable)
-                _interactionStateUI = InteractionStateUI.Normal;
-            else
-                _interactionStateUI = InteractionStateUI.Disabled;
         }
 
 
 #if UNITY_EDITOR
-        private void OnValidate()
+        protected override void OnValidate()
         {
-            _interactiveGraphics?.TrySetName();
+            base.OnValidate();
             _label.text = _value.ToString();
-
-            UpdateColliderActivation();
-            TrySetNormalInteractionState();
-            UpdateInteractionColor();
         }
 #endif
     }

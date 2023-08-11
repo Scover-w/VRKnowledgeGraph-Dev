@@ -1654,7 +1654,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1297247460}
   m_LocalRotation: {x: 0.27729428, y: -0, z: -0, w: 0.96078503}
-  m_LocalPosition: {x: -0.2654, y: 0.0918, z: 2.5752}
+  m_LocalPosition: {x: -0.0233, y: 0.0918, z: 2.5752}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -2257,11 +2257,11 @@ MonoBehaviour:
       _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
       _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
       _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  _interactionCollidersGo: {fileID: 1200480173}
   _sliderRectTf: {fileID: 1595226645}
   _fillRectTf: {fileID: 791213865}
   _knobRectTf: {fileID: 357142627}
   _label: {fileID: 1642145178}
-  _interactionCollidersGo: {fileID: 1200480173}
   _sliderType: 2
   _alwaysDisplayValue: 0
   _minValue: 0
@@ -4323,11 +4323,11 @@ MonoBehaviour:
       _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
       _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
       _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  _interactionCollidersGo: {fileID: 2325261423792507673}
   _sliderRectTf: {fileID: 2325261423064189521}
   _fillRectTf: {fileID: 2325261422863523209}
   _knobRectTf: {fileID: 2325261422680077888}
   _label: {fileID: 2325261422319930174}
-  _interactionCollidersGo: {fileID: 2325261423792507673}
   _sliderType: 0
   _alwaysDisplayValue: 0
   _minValue: 0
@@ -4937,7 +4937,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7073012403978603384, guid: 075766b32ad220749958529161bb54d3, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7073012404492729729, guid: 075766b32ad220749958529161bb54d3, type: 3}
       propertyPath: _scrollItems.Array.size

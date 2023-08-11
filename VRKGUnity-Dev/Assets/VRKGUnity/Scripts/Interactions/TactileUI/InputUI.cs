@@ -7,24 +7,8 @@ using UnityEngine.UI;
 
 namespace AIDEN.TactileUI
 {
-    public class InputUI : MonoBehaviour, ITouchUI, IValueUI<string>
+    public class InputUI : BaseTouch, IValueUI<string>
     {
-        public bool Interactable
-        {
-            get
-            {
-                return _interactable;
-            }
-            set
-            {
-                _interactable = value;
-
-                UpdateColliderActivation();
-                TrySetNormalInteractionState();
-                UpdateInteractionColor();
-            }
-        }
-
         public string Value
         {
             get
@@ -39,12 +23,6 @@ namespace AIDEN.TactileUI
         }
 
         [SerializeField]
-        bool _interactable = true;
-
-        [SerializeField]
-        List<InteractiveGraphicUI> _interactiveGraphics;
-
-        [SerializeField]
         TMP_Text _inputText;
 
         [SerializeField]
@@ -55,9 +33,6 @@ namespace AIDEN.TactileUI
 
         [SerializeField]
         Transform _keyboardPositionTf;
-
-        [SerializeField]
-        GameObject _interactionCollidersGo;
 
         [SerializeField]
         KeyboardAlignment _keyboardAlignment;
@@ -72,57 +47,20 @@ namespace AIDEN.TactileUI
         [SerializeField, Space(10)]
         UnityEvent<string> _onValueChanged;
 
-        Transform _touchTf;
-        TouchInteractor _touchInter;
-
-        InteractionStateUI _interactionStateUI;
-
 
         bool _isActive = false;
-        bool _inProximity = false;
 
-        int _proximityFrameCount;
-
-        private void OnEnable()
+        protected override void OnEnable()
         {
-            _isActive = false;
-            _inProximity = false;
+            base.OnEnable();
 
-            UpdateColliderActivation();
-            TrySetNormalInteractionState();
-            UpdateInteractionColor();
+            _isActive = false;
             DisplayValue();
         }
 
-        private void OnDisable()
+        protected override void TryActivate()
         {
-            if (_touchInter != null)
-                _touchInter.ActiveBtn(false, this);
-        }
-
-        public void TriggerEnter(bool isProximity, Transform touchTf)
-        {
-            if (isProximity)
-            {
-                _inProximity = true;
-                _proximityFrameCount = Time.frameCount;
-                _touchTf = touchTf;
-                _touchInter = _touchTf.GetComponent<TouchInteractor>();
-                _interactionStateUI = InteractionStateUI.InProximity;
-                UpdateInteractionColor();
-            }
-            else if (!isProximity)
-            {
-                TryActivate();
-            }
-        }
-
-        private void TryActivate()
-        {
-            if (!_inProximity)
-                return;
-
-            if (Time.frameCount == _proximityFrameCount)
+            if (!base.CanActivate())
                 return;
 
             if (_isActive)
@@ -135,32 +73,12 @@ namespace AIDEN.TactileUI
             if (!succeedUsingKeyboard)
                 return;
 
+            base.Activate();
+
             _isActive = true;
-            _interactionStateUI = InteractionStateUI.Active;
-            UpdateInteractionColor();
-
-            if (_touchInter != null)
-                _touchInter.ActiveBtn(true, this);
         }
 
-        public void TriggerExit(bool isProximity, Transform touchTf)
-        {
-            if (isProximity)
-            {
-                _interactionStateUI = InteractionStateUI.Normal;
-                UpdateInteractionColor();
-            }
-            else if (!isProximity)
-            {
-                if (_touchInter != null && _isActive)
-                    _touchInter.ActiveBtn(false, this);
-
-                _interactionStateUI = InteractionStateUI.Normal;
-                UpdateInteractionColor();
-            }
-        }
-
-        private void UpdateInteractionColor()
+        protected override void UpdateInteractionColor()
         {
             if (_isActive)
             {
@@ -212,29 +130,13 @@ namespace AIDEN.TactileUI
                                             _value);
         }
 
-        private void UpdateColliderActivation()
-        {
-            _interactionCollidersGo.SetActive(_interactable);
-        }
-
-        private void TrySetNormalInteractionState()
-        {
-            if (_interactable)
-                _interactionStateUI = InteractionStateUI.Normal;
-            else
-                _interactionStateUI = InteractionStateUI.Disabled;
-        }
 
 
 #if UNITY_EDITOR
-        private void OnValidate()
+        protected override void OnValidate()
         {
-            _interactiveGraphics?.TrySetName();
-
+            base.OnValidate();
             DisplayValue();
-            UpdateColliderActivation();
-            TrySetNormalInteractionState();
-            UpdateInteractionColor();
         }
 #endif
     }

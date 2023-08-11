@@ -266,11 +266,11 @@ MonoBehaviour:
       _proximityColor: {r: 0.5294118, g: 0.6509804, b: 0.78431374, a: 1}
       _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
       _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
+  _interactionCollidersGo: {fileID: 5831488903405219175}
   _inputText: {fileID: 5831488903596096600}
   _noValueTextColor: {r: 0.23921569, g: 0.23921569, b: 0.23921569, a: 1}
   _normalTextColor: {r: 0.9843137, g: 0.9843137, b: 0.9843137, a: 1}
   _keyboardPositionTf: {fileID: 0}
-  _interactionCollidersGo: {fileID: 5831488903405219175}
   _keyboardAlignment: 0
   _noValueInfoText: Write here...
   _value: 

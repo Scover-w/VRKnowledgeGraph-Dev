@@ -6,24 +6,8 @@ using UnityEngine.Events;
 
 namespace AIDEN.TactileUI
 {
-    public class SliderUI : MonoBehaviour, ITouchUI, IValueUI<float>
+    public class SliderUI : BaseTouch, IValueUI<float>
     {
-        public bool Interactable
-        {
-            get
-            {
-                return _interactable;
-            }
-            set
-            {
-                _interactable = value;
-
-                UpdateColliderActivation();
-                TrySetNormalInteractionState();
-                UpdateInteractionColor();
-            }
-        }
-
         public float Value
         {
             get
@@ -49,11 +33,6 @@ namespace AIDEN.TactileUI
             }
         }
 
-        [SerializeField]
-        bool _interactable = true;
-
-        [SerializeField]
-        List<InteractiveGraphicUI> _interactiveGraphics;
 
         [SerializeField]
         RectTransform _sliderRectTf;
@@ -66,9 +45,6 @@ namespace AIDEN.TactileUI
 
         [SerializeField]
         TMP_Text _label;
-
-        [SerializeField]
-        GameObject _interactionCollidersGo;
 
         [SerializeField]
         SliderType _sliderType;
@@ -91,14 +67,6 @@ namespace AIDEN.TactileUI
         [SerializeField, Space(10)]
         UnityEvent<float> _onValueChanged;
 
-        InteractionStateUI _interactionStateUI;
-
-        Transform _touchTf;
-        TouchInteractor _touchInter;
-
-        bool _inProximity = false;
-        int _proximityFrameCount;
-
         bool _isMovingKnob;
         bool _isHorizontal;
         float _lengthSlider;
@@ -109,22 +77,12 @@ namespace AIDEN.TactileUI
             InitializeParameters();
         }
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
-            _inProximity = false;
+            base.OnEnable();
 
             _label.enabled = _alwaysDisplayValue;
             _isMovingKnob = false;
-
-            UpdateColliderActivation();
-            TrySetNormalInteractionState();
-            UpdateInteractionColor();
-        }
-
-        private void OnDisable()
-        {
-            if (_touchInter != null)
-                _touchInter.ActiveBtn(false, this);
         }
 
         private void InitializeParameters()
@@ -133,72 +91,35 @@ namespace AIDEN.TactileUI
             _lengthSlider = _isHorizontal ? _sliderRectTf.rect.width : _sliderRectTf.rect.height;
         }
 
-        public void TriggerEnter(bool isProximity, Transform touchTf)
+ 
+        protected override void TryActivate()
         {
-            if (isProximity)
-            {
-                _inProximity = true;
-                _proximityFrameCount = Time.frameCount;
-
-                _touchTf = touchTf;
-                _touchInter = _touchTf.GetComponent<TouchInteractor>();
-                _interactionStateUI = InteractionStateUI.InProximity;
-                UpdateInteractionColor();
-            }
-            else if (!isProximity)
-            {
-                TryMoveSlider();
-            }
-        }
-
-        private void TryMoveSlider()
-        {
-            if (!_inProximity)
+            if (!base.CanActivate())
                 return;
 
-            if (Time.frameCount == _proximityFrameCount)
-                return;
+            base.Activate();
 
-            _interactionStateUI = InteractionStateUI.Active;
-            UpdateInteractionColor();
 
             _isMovingKnob = true;
             _label.enabled = true;
-
-            if (_touchInter != null)
-                _touchInter.ActiveBtn(true, this);
 
             _touchInter.ActivateHaptic(.05f, .08f);
             _hapticTime = Time.time + .5f;
             StartCoroutine(MovingSlider());
         }
 
-        public void TriggerExit(bool isProximity, Transform touchTf)
-        {
-            if (isProximity)
-            {
-                _inProximity = false;
-                _interactionStateUI = InteractionStateUI.Normal;
-                UpdateInteractionColor();
-            }
-            else if (!isProximity)
-            {
-                if (_touchInter != null)
-                    _touchInter.ActiveBtn(false, this);
 
+        public override void TriggerExit(bool isProximity, Transform touchTf)
+        {
+            base.TriggerEnter(isProximity, touchTf);
+
+            if(!isProximity)
+            {
                 _isMovingKnob = false;
 
                 if (!_alwaysDisplayValue)
                     _label.enabled = false;
-
-                _interactionStateUI = InteractionStateUI.Normal;
-                UpdateInteractionColor();
             }
-        }
-
-        private void UpdateInteractionColor()
-        {
-            _interactiveGraphics.UpdateColor(_interactionStateUI);
         }
 
         IEnumerator MovingSlider()
@@ -277,32 +198,13 @@ namespace AIDEN.TactileUI
             _hapticTime = Time.time + .5f;
         }
 
-        private void TrySetNormalInteractionState()
-        {
-            if (_interactable)
-                _interactionStateUI = InteractionStateUI.Normal;
-            else
-                _interactionStateUI = InteractionStateUI.Disabled;
-        }
-
-        private void UpdateColliderActivation()
-        {
-            _interactionCollidersGo.SetActive(_interactable);
-        }
-
 
 #if UNITY_EDITOR
-        private void OnValidate()
+        protected override void OnValidate()
         {
-            _interactiveGraphics?.TrySetName();
-
+            base.OnValidate();
             OnValidateSetSliderLayout();
-
             InitializeParameters();
-
-            UpdateColliderActivation();
-            TrySetNormalInteractionState();
-            UpdateVisuals();
         }
 
         private void OnValidateSetSliderLayout()
