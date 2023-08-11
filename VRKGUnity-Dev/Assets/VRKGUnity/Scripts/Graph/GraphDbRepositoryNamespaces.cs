@@ -379,6 +379,17 @@ public class GraphDbRepositoryNamespaces
     {
         _fullpathFile = Path.Combine(pathRepo, "GraphDbRepositoryNamespaces.json");
     }
+
+    /// <summary>
+    /// /!\ Be carefull with this function, it will permanently delete the file associated to this class
+    /// </summary>
+    public void DeleteFile()
+    {
+        if (!File.Exists(_fullpathFile))
+            return;
+
+        File.Delete(_fullpathFile);
+    }
     #endregion
 
 }

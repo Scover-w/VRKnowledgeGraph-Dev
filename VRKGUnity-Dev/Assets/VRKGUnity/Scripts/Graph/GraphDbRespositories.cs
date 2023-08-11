@@ -80,7 +80,7 @@ public class GraphDbRepositories
         _ = Save();
     }
 
-    public void Remove(GraphDbRepository repository) 
+    public async Task Remove(GraphDbRepository repository) 
     { 
         if(_lastSelectedId != -1)
         {
@@ -93,6 +93,7 @@ public class GraphDbRepositories
         }
 
         _repositories.Remove(repository);
+        await repository.DeleteFiles();
 
         _ = Save();
     }

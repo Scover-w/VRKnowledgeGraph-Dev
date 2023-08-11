@@ -214,7 +214,7 @@ public class GraphDbRepositoryDistantUris
 
 
     #region SAVE_LOAD
-    public static async Task<GraphDbRepositoryDistantUris> LoadAsync(string pathRepo)
+    public static async Task<GraphDbRepositoryDistantUris> Load(string pathRepo)
     {
         SetPath(pathRepo);
 
@@ -239,6 +239,17 @@ public class GraphDbRepositoryDistantUris
     private static void SetPath(string pathRepo)
     {
         _fullpathFile = Path.Combine(pathRepo, "GraphDbRepositoryDistantUris.json");
+    }
+
+    /// <summary>
+    /// /!\ Be carefull with this function, it will permanently delete the file associated to this class
+    /// </summary>
+    public void DeleteFile()
+    {
+        if (!File.Exists(_fullpathFile))
+            return;
+
+        File.Delete(_fullpathFile);
     }
     #endregion
 }

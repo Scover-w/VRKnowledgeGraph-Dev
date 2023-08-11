@@ -85,6 +85,17 @@ public class GraphDbRepositoryMedias
 
         Directory.CreateDirectory(_mediaPath);
     }
+
+    /// <summary>
+    /// /!\ Be carefull with this function, it will permanently delete all the medias and the file associated to this class
+    /// </summary>
+    public void DeleteMediasAndFile()
+    {
+        if (!Directory.Exists(_mediaPath))
+            return;
+
+        Directory.Delete(_mediaPath, true);
+    }
     #endregion
 }
 

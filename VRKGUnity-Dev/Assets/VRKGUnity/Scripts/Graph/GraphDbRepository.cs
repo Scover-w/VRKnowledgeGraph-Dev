@@ -44,8 +44,25 @@ public class GraphDbRepository
     {
         GraphDbRepositoryNamespaces = await GraphDbRepositoryNamespaces.Load(PathRepo);
 
-        GraphDbRepositoryDistantUris = await GraphDbRepositoryDistantUris.LoadAsync(PathRepo);
+        GraphDbRepositoryDistantUris = await GraphDbRepositoryDistantUris.Load(PathRepo);
 
         GraphDbRepositoryMedias = await GraphDbRepositoryMedias.Load(PathRepo);
+    }
+
+
+    public async Task DeleteFiles()
+    {
+        if(GraphDbRepositoryNamespaces != null)
+            GraphDbRepositoryNamespaces = await GraphDbRepositoryNamespaces.Load(PathRepo);
+
+        if (GraphDbRepositoryDistantUris != null)
+            GraphDbRepositoryDistantUris = await GraphDbRepositoryDistantUris.Load(PathRepo);
+
+        if (GraphDbRepositoryMedias != null)
+            GraphDbRepositoryMedias = await GraphDbRepositoryMedias.Load(PathRepo);
+
+        GraphDbRepositoryNamespaces.DeleteFile();
+        GraphDbRepositoryDistantUris.DeleteFile();
+        GraphDbRepositoryMedias.DeleteMediasAndFile();
     }
 }

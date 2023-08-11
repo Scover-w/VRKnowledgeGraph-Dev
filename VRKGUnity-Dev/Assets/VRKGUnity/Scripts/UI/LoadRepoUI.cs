@@ -194,7 +194,7 @@ public class LoadRepoUI : MonoBehaviour
         DisplayPage(LoadRepoPage.RepoList);
     }
 
-    public void ConfirmDeletionClick()
+    public async void ConfirmDeletionClick()
     {
         if(!_repositoriesDict.TryGetValue(_selectedRepository, out RepositoryItemUI itemUI))
         {
@@ -207,7 +207,7 @@ public class LoadRepoUI : MonoBehaviour
         }
 
 
-        _graphDbRepositories.Remove(_selectedRepository); 
+        await _graphDbRepositories.Remove(_selectedRepository); 
 
         _selectedRepository = null;
         SelectRepo(null);
