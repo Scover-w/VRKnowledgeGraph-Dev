@@ -71,6 +71,8 @@ public class StringStepperUI : MonoBehaviour, ITouchUI, IValueUI<string>
     StringStepperValue _selectedStepperValue;
     int _selectedId = 0;
 
+    bool _inProximity = false;
+    int _proximityFrameCount;
 
     Transform _touchTf;
     TouchInteractor _touchInter;
@@ -87,6 +89,7 @@ public class StringStepperUI : MonoBehaviour, ITouchUI, IValueUI<string>
     private void OnEnable()
     {
         _canClick = true;
+        _inProximity = false;
 
         UpdateColliderActivation();
         TrySetNormalInteractionState();
@@ -104,6 +107,9 @@ public class StringStepperUI : MonoBehaviour, ITouchUI, IValueUI<string>
     {
         if (isProximity)
         {
+            _inProximity = true;
+            _proximityFrameCount = Time.frameCount;
+
             _touchTf = touchTf;
             _touchInter = _touchTf.GetComponent<TouchInteractor>();
             _interactionStateUI = InteractionStateUI.InProximity;
@@ -118,6 +124,12 @@ public class StringStepperUI : MonoBehaviour, ITouchUI, IValueUI<string>
 
     private void TryClick()
     {
+        if (!_inProximity)
+            return;
+
+        if (Time.frameCount == _proximityFrameCount)
+            return;
+
         if (!_canClick)
             return;
 
@@ -137,6 +149,7 @@ public class StringStepperUI : MonoBehaviour, ITouchUI, IValueUI<string>
     {
         if (isProximity)
         {
+            _inProximity = false;
             _canClick = true;
             _interactionStateUI = InteractionStateUI.Normal;
             UpdateInteractionColor();

@@ -62,6 +62,8 @@ namespace AIDEN.TactileUI
         bool _needScroll;
         bool _isScrolling;
 
+        bool _inProximity = false;
+        int _proximityFrameCount;
 
         float _slidingAreaHeight;
         float _maxDeltaHandle;
@@ -88,6 +90,8 @@ namespace AIDEN.TactileUI
         {
             _isScrolling = false;
             _positionScroll = 0f;
+            _inProximity = false;
+
             UpdateContent();
         }
 
@@ -241,6 +245,9 @@ namespace AIDEN.TactileUI
         {
             if (isProximity)
             {
+                _inProximity = true;
+                _proximityFrameCount = Time.frameCount;
+
                 _touchTf = touchTf;
                 _touchInter = _touchTf.GetComponent<TouchInteractor>();
                 _interactionStateUI = InteractionStateUI.InProximity;
@@ -248,22 +255,35 @@ namespace AIDEN.TactileUI
             }
             else if (!isProximity)
             {
-                _interactionStateUI = InteractionStateUI.Active;
-                UpdateInteractionColor();
-
-                _isScrolling = true;
-
-                if (_touchInter != null)
-                    _touchInter.ActiveBtn(true, this);
-
-                StartCoroutine(Scrolling());
+                TryStartScrolling();
+                
             }
+        }
+
+        private void TryStartScrolling()
+        {
+            if (!_inProximity)
+                return;
+
+            if (Time.frameCount == _proximityFrameCount)
+                return;
+
+            _interactionStateUI = InteractionStateUI.Active;
+            UpdateInteractionColor();
+
+            _isScrolling = true;
+
+            if (_touchInter != null)
+                _touchInter.ActiveBtn(true, this);
+
+            StartCoroutine(Scrolling());
         }
 
         public void TriggerExit(bool isProximity, Transform touchTf)
         {
             if (isProximity)
             {
+                _inProximity = false;
                 _interactionStateUI = InteractionStateUI.Normal;
                 UpdateInteractionColor();
             }

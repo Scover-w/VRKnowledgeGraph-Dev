@@ -96,6 +96,9 @@ namespace AIDEN.TactileUI
         Transform _touchTf;
         TouchInteractor _touchInter;
 
+        bool _inProximity = false;
+        int _proximityFrameCount;
+
         bool _isMovingKnob;
         bool _isHorizontal;
         float _lengthSlider;
@@ -108,6 +111,8 @@ namespace AIDEN.TactileUI
 
         private void OnEnable()
         {
+            _inProximity = false;
+
             _label.enabled = _alwaysDisplayValue;
             _isMovingKnob = false;
 
@@ -132,6 +137,9 @@ namespace AIDEN.TactileUI
         {
             if (isProximity)
             {
+                _inProximity = true;
+                _proximityFrameCount = Time.frameCount;
+
                 _touchTf = touchTf;
                 _touchInter = _touchTf.GetComponent<TouchInteractor>();
                 _interactionStateUI = InteractionStateUI.InProximity;
@@ -139,26 +147,37 @@ namespace AIDEN.TactileUI
             }
             else if (!isProximity)
             {
-                _interactionStateUI = InteractionStateUI.Active;
-                UpdateInteractionColor();
-
-                _isMovingKnob = true;
-                _label.enabled = true;
-
-                if (_touchInter != null)
-                    _touchInter.ActiveBtn(true, this);
-
-
-                _touchInter.ActivateHaptic(.05f, .08f);
-                _hapticTime = Time.time + .5f;
-                StartCoroutine(MovingSlider());
+                TryMoveSlider();
             }
+        }
+
+        private void TryMoveSlider()
+        {
+            if (!_inProximity)
+                return;
+
+            if (Time.frameCount == _proximityFrameCount)
+                return;
+
+            _interactionStateUI = InteractionStateUI.Active;
+            UpdateInteractionColor();
+
+            _isMovingKnob = true;
+            _label.enabled = true;
+
+            if (_touchInter != null)
+                _touchInter.ActiveBtn(true, this);
+
+            _touchInter.ActivateHaptic(.05f, .08f);
+            _hapticTime = Time.time + .5f;
+            StartCoroutine(MovingSlider());
         }
 
         public void TriggerExit(bool isProximity, Transform touchTf)
         {
             if (isProximity)
             {
+                _inProximity = false;
                 _interactionStateUI = InteractionStateUI.Normal;
                 UpdateInteractionColor();
             }

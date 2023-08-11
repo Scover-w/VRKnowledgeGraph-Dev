@@ -44,7 +44,8 @@ namespace AIDEN.TactileUI
         Transform _touchTf;
         TouchInteractor _touchInter;
 
-        
+        bool _inProximity = false;
+        int _proximityFrameCount;
 
         InteractionStateUI _interactionStateUI;
 
@@ -52,6 +53,8 @@ namespace AIDEN.TactileUI
 
         private void OnEnable()
         {
+            _inProximity = false;
+
             Invoke(nameof(DelayedOnEnable), .2f);   
         }
 
@@ -113,6 +116,8 @@ namespace AIDEN.TactileUI
 
             if (isProximity)
             {
+                _inProximity = true;
+                _proximityFrameCount = Time.frameCount;
                 _touchTf = touchTf;
                 _touchInter = _touchTf.GetComponent<TouchInteractor>();
                 _interactionStateUI = InteractionStateUI.InProximity;
@@ -131,6 +136,7 @@ namespace AIDEN.TactileUI
 
             if (isProximity)
             {
+                _inProximity = false;
                 _canClick = true;
                 _interactionStateUI = InteractionStateUI.Normal;
                 UpdateInteractionColor();
@@ -148,6 +154,12 @@ namespace AIDEN.TactileUI
 
         private void TryClick()
         {
+            if (!_inProximity)
+                return;
+
+            if (Time.frameCount == _proximityFrameCount)
+                return;
+
             if (!_canClick)
                 return;
 

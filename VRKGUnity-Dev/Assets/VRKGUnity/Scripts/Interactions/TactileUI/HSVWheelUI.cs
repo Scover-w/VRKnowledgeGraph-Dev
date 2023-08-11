@@ -56,6 +56,10 @@ namespace AIDEN.TactileUI
         bool _isMovingCursor = false;
         float _hapticTime;
 
+        bool _inProximity = false;
+
+        int _proximityFrameCount;
+
         private void Start()
         {
             _wheelRecTf = _hsvWheelImg.GetComponent<RectTransform>();
@@ -64,6 +68,8 @@ namespace AIDEN.TactileUI
         private void OnEnable()
         {
             _isMovingCursor = false;
+            _inProximity = false;
+
             UpdateColliderActivation();
             TrySetNormalInteractionState();
             UpdateInteractionColor();
@@ -101,6 +107,8 @@ namespace AIDEN.TactileUI
         {
             if (isProximity)
             {
+                _inProximity = true;
+                _proximityFrameCount = Time.frameCount;
                 _touchTf = touchTf;
                 _touchInter = _touchTf.GetComponent<TouchInteractor>();
                 _interactionStateUI = InteractionStateUI.InProximity;
@@ -108,24 +116,36 @@ namespace AIDEN.TactileUI
             }
             else if (!isProximity)
             {
-                _interactionStateUI = InteractionStateUI.Active;
-                UpdateInteractionColor();
-
-                _isMovingCursor = true;
-
-                if (_touchInter != null)
-                    _touchInter.ActiveBtn(true, this);
-
-                _touchInter.ActivateHaptic(.05f, .08f);
-                _hapticTime = Time.time + .5f;
-                StartCoroutine(MovingCursor());
+                TryMoveCursor();
             }
+        }
+
+        private void TryMoveCursor()
+        {
+            if (!_inProximity)
+                return;
+
+            if (Time.frameCount == _proximityFrameCount)
+                return;
+
+            _interactionStateUI = InteractionStateUI.Active;
+            UpdateInteractionColor();
+
+            _isMovingCursor = true;
+
+            if (_touchInter != null)
+                _touchInter.ActiveBtn(true, this);
+
+            _touchInter.ActivateHaptic(.05f, .08f);
+            _hapticTime = Time.time + .5f;
+            StartCoroutine(MovingCursor());
         }
 
         public void TriggerExit(bool isProximity, Transform touchTf)
         {
             if (isProximity)
             {
+                _inProximity = false;
                 _interactionStateUI = InteractionStateUI.Normal;
                 UpdateInteractionColor();
             }

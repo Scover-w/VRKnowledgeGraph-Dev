@@ -44,10 +44,14 @@ namespace AIDEN.TactileUI
         InteractionStateUI _interactionStateUI;
 
         bool _canClick = true;
+        bool _inProximity = false;
+
+        int _proximityFrameCount; 
 
         private void OnEnable()
         {
             _canClick = true;
+            _inProximity = false;
 
             UpdateColliderActivation();
             TrySetNormalInteractionState();
@@ -64,6 +68,8 @@ namespace AIDEN.TactileUI
         {
             if (isProximity)
             {
+                _inProximity = true;
+                _proximityFrameCount = Time.frameCount;
                 _touchTf = touchTf;
                 _touchInter = _touchTf.GetComponent<TouchInteractor>();
                 _interactionStateUI = InteractionStateUI.InProximity;
@@ -78,6 +84,12 @@ namespace AIDEN.TactileUI
 
         private void TryClick()
         {
+            if (!_inProximity)
+                return;
+
+            if (Time.frameCount == _proximityFrameCount)
+                return;
+
             if (!_canClick)
                 return;
 
@@ -97,6 +109,7 @@ namespace AIDEN.TactileUI
         {
             if (isProximity)
             {
+                _inProximity = false;
                 _canClick = true;
                 _interactionStateUI = InteractionStateUI.Normal;
                 UpdateInteractionColor();
