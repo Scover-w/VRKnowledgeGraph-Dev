@@ -1,9 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using UnityEngine;
 
-public class GraphConfigManager : MonoBehaviour
+
+public partial class GraphConfigManager : MonoBehaviour
 {
+    [SerializeField]
+    ReferenceHolderSO _referenceHolderSO;
+
     [SerializeField]
     StylingManager _stylingManager;
 
@@ -15,6 +20,8 @@ public class GraphConfigManager : MonoBehaviour
     private async void Awake()
     {
         _events = new();
+        _referenceHolderSO.GraphConfigManager = this;
+
         await GraphConfiguration.Load();
         _graphConfiguration = GraphConfiguration.Instance;
     }
@@ -105,6 +112,12 @@ public class GraphConfigManager : MonoBehaviour
 
     public bool GetBoolValue(GraphConfigKey key)
     {
+        if(key == GraphConfigKey.SelectedMode)
+        {
+            return true;
+        }
+
+
         return key.GetBoolValue(_graphConfiguration);
     }
 
@@ -212,96 +225,6 @@ public class GraphConfigManager : MonoBehaviour
 
         _events.Remove(key);
     }
-
-
-    private class GraphConfigEvent
-    {
-        readonly GraphConfigValueType _type;
-        StringChanged _onStringChanged;
-        FloatChanged _onFloatChanged;
-        BoolChanged _onBoolChanged;
-        ColorChanged _onColorChanged;
-
-        public GraphConfigEvent(GraphConfigValueType type)
-        {
-            _type = type;
-        }
-
-        public void Register(StringChanged stringChanged)
-        {
-            _onStringChanged += stringChanged;
-        }
-
-        public void Register(FloatChanged floatChanged)
-        {
-            _onFloatChanged += floatChanged;
-        }
-
-        public void Register(BoolChanged boolChanged)
-        {
-            _onBoolChanged += boolChanged;
-        }
-
-        public void Register(ColorChanged colorChanged)
-        {
-            _onColorChanged += colorChanged;
-        }
-
-        public bool UnRegister(StringChanged stringChanged)
-        {
-            _onStringChanged -= stringChanged;
-            return _onStringChanged.GetInvocationList().Length > 0;
-        }
-
-        public bool UnRegister(FloatChanged floatChanged)
-        {
-            _onFloatChanged -= floatChanged;
-            return _onFloatChanged.GetInvocationList().Length > 0;
-        }
-
-        public bool UnRegister(BoolChanged boolChanged)
-        {
-            _onBoolChanged -= boolChanged;
-            return _onBoolChanged.GetInvocationList().Length > 0;
-        }
-
-        public bool UnRegister(ColorChanged colorChanged)
-        {
-            _onColorChanged -= colorChanged;
-            return _onColorChanged.GetInvocationList().Length > 0;
-        }
-
-        public void Invoke(string value)
-        {
-            _onStringChanged?.Invoke(value);
-        }
-
-        public void Invoke(float value)
-        {
-            _onFloatChanged?.Invoke(value);
-        }
-
-        public void Invoke(bool value)
-        {
-            _onBoolChanged?.Invoke(value);
-        }
-
-        public void Invoke(Color value)
-        {
-            _onColorChanged?.Invoke(value);
-        }
-
-    }
-
-}
-
-
-public enum GraphConfigValueType
-{
-    String,
-    Float,
-    Bool,
-    Color
 }
 
 public delegate void StringChanged(string value);

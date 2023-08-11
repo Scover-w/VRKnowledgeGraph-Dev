@@ -8,9 +8,11 @@ public class ReferenceHolderSO : ScriptableObject
     public SingleAssignment<LifeCycleSceneManager> LifeCycleSceneManagerSA { get; } = new SingleAssignment<LifeCycleSceneManager>();
 
     public SingleAssignment<Camera> HMDCamSA { get; } = new SingleAssignment<Camera>();
-    public GraphDbRepository SelectedGraphDbRepository { get { return _selectedGraphDbRepository; } set { _selectedGraphDbRepository = value; } }
+    public GraphDbRepository SelectedGraphDbRepository { get; set; }
 
-    private GraphDbRepository _selectedGraphDbRepository;
+    public GraphConfigManager GraphConfigManager { get; set; }
+
+    public User User { get; set; }
 
     public float MaxDistanceGraph { get; set; }
 

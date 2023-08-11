@@ -8,7 +8,8 @@ using UnityEngine;
 public class GraphConfigInputLink : MonoBehaviour
 {
     [SerializeField]
-    GraphConfigManager _graphManager;
+    ReferenceHolderSO _referenceHolderSo;
+
 
     [SerializeField]
     GraphConfigKey _graphConfigKey;
@@ -16,6 +17,7 @@ public class GraphConfigInputLink : MonoBehaviour
     [SerializeField]
     MonoBehaviour _tactileUIScript;
 
+    GraphConfigManager _graphConfigManager;
     GraphConfigValueType _valueType;
 
     IValueUI<string> _iValueStringUI;
@@ -30,6 +32,8 @@ public class GraphConfigInputLink : MonoBehaviour
     {
         RetrieveInputType();
         RetrieveInterface();
+
+        _graphConfigManager = _referenceHolderSo.GraphConfigManager;
     }
 
     private void OnEnable()
@@ -99,19 +103,19 @@ public class GraphConfigInputLink : MonoBehaviour
         switch (_valueType)
         {
             case GraphConfigValueType.String:
-                var valueString = _graphManager.GetStringValue(_graphConfigKey);
+                var valueString = _graphConfigManager.GetStringValue(_graphConfigKey);
                 _iValueStringUI.Value = valueString;
                 break;
             case GraphConfigValueType.Float:
-                var valueFloat = _graphManager.GetFloatValue(_graphConfigKey);
+                var valueFloat = _graphConfigManager.GetFloatValue(_graphConfigKey);
                 _iValueFloatUI.Value = valueFloat;
                 break;
             case GraphConfigValueType.Bool:
-                var valueBool = _graphManager.GetBoolValue(_graphConfigKey);
+                var valueBool = _graphConfigManager.GetBoolValue(_graphConfigKey);
                 _iValueBoolUI.Value = valueBool;
                 break;
             case GraphConfigValueType.Color:
-                var valueColor = _graphManager.GetColorValue(_graphConfigKey);
+                var valueColor = _graphConfigManager.GetColorValue(_graphConfigKey);
                 _iValueColorUI.Value = valueColor;
                 break;
         }
@@ -123,16 +127,16 @@ public class GraphConfigInputLink : MonoBehaviour
         switch (_valueType)
         {
             case GraphConfigValueType.String:
-                _graphManager.Register(_graphConfigKey, OnColorChangedFromManager);
+                _graphConfigManager.Register(_graphConfigKey, OnColorChangedFromManager);
                 break;
             case GraphConfigValueType.Float:
-                _graphManager.Register(_graphConfigKey, OnFloatChangedFromManager);
+                _graphConfigManager.Register(_graphConfigKey, OnFloatChangedFromManager);
                 break;
             case GraphConfigValueType.Bool:
-                _graphManager.Register(_graphConfigKey, OnBoolChangedFromManager);
+                _graphConfigManager.Register(_graphConfigKey, OnBoolChangedFromManager);
                 break;
             case GraphConfigValueType.Color:
-                _graphManager.Register(_graphConfigKey, OnColorChangedFromManager);
+                _graphConfigManager.Register(_graphConfigKey, OnColorChangedFromManager);
                 break;
         }
     }
@@ -142,16 +146,16 @@ public class GraphConfigInputLink : MonoBehaviour
         switch (_valueType)
         {
             case GraphConfigValueType.String:
-                _graphManager.UnRegister(_graphConfigKey, OnColorChangedFromManager);
+                _graphConfigManager.UnRegister(_graphConfigKey, OnColorChangedFromManager);
                 break;
             case GraphConfigValueType.Float:
-                _graphManager.UnRegister(_graphConfigKey, OnFloatChangedFromManager);
+                _graphConfigManager.UnRegister(_graphConfigKey, OnFloatChangedFromManager);
                 break;
             case GraphConfigValueType.Bool:
-                _graphManager.UnRegister(_graphConfigKey, OnBoolChangedFromManager);
+                _graphConfigManager.UnRegister(_graphConfigKey, OnBoolChangedFromManager);
                 break;
             case GraphConfigValueType.Color:
-                _graphManager.UnRegister(_graphConfigKey, OnColorChangedFromManager);
+                _graphConfigManager.UnRegister(_graphConfigKey, OnColorChangedFromManager);
                 break;
         }
     }
@@ -160,25 +164,25 @@ public class GraphConfigInputLink : MonoBehaviour
     public void OnStringChangedFromInput(string newValueFromInput)
     {
         _debounceTime = Time.unscaledTime + _debounceDelay;
-        _graphManager.SetNewValue(_graphConfigKey, newValueFromInput);
+        _graphConfigManager.SetNewValue(_graphConfigKey, newValueFromInput);
     }
 
     public void OnFloatChangedFromInput(float newValueFromInput)
     {
         _debounceTime = Time.unscaledTime + _debounceDelay;
-        _graphManager.SetNewValue(_graphConfigKey, newValueFromInput);
+        _graphConfigManager.SetNewValue(_graphConfigKey, newValueFromInput);
     }
 
     public void OnBoolChangedFromInput(bool newValueFromInput)
     {
         _debounceTime = Time.unscaledTime + _debounceDelay;
-        _graphManager.SetNewValue(_graphConfigKey, newValueFromInput);
+        _graphConfigManager.SetNewValue(_graphConfigKey, newValueFromInput);
     }
 
     public void OnColorChangedFromInput(Color newValueFromInput)
     {
         _debounceTime = Time.unscaledTime + _debounceDelay;
-        _graphManager.SetNewValue(_graphConfigKey, newValueFromInput);
+        _graphConfigManager.SetNewValue(_graphConfigKey, newValueFromInput);
     }
 
     public void OnStringChangedFromManager(string newValueFromManager)

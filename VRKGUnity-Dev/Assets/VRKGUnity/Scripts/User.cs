@@ -4,6 +4,9 @@ using UnityEngine;
 public class User : MonoBehaviour
 {
     [SerializeField]
+    ReferenceHolderSO _referenceHolderSO;
+
+    [SerializeField]
     GraphManager _graphManager;
 
     [SerializeField]
@@ -12,7 +15,50 @@ public class User : MonoBehaviour
     [SerializeField]
     DynamicFilterManager _dynFilterManager;
 
+
+    public delegate void ChangeActionBtnState(bool enable);
+
     GraphMode _graphMode = GraphMode.Desk;
+
+    Dictionary<GraphActionKey, ChangeActionBtnState> _events;
+
+    private void Awake()
+    {
+        _events = new();
+        _referenceHolderSO.User = this;
+    }
+
+
+    public void OnNewAction(GraphActionKey actionKey)
+    {
+
+    }
+
+    public void Register(GraphActionKey actionKey, ChangeActionBtnState changeActionBtnToAdd)
+    {
+        if (!_events.TryGetValue(actionKey, out ChangeActionBtnState changeActionBtnState))
+        {
+            _events.Add(actionKey, changeActionBtnState);
+        }
+
+        changeActionBtnState += changeActionBtnToAdd;
+    }
+
+    public void UnRegister(GraphActionKey actionKey, ChangeActionBtnState changeActionBtnToRemove)
+    {
+        if (!_events.TryGetValue(actionKey, out ChangeActionBtnState changeActionBtnState))
+        {
+            Debug.LogWarning("GraphAction didn't exist to unregister Delegate");
+            return;
+        }
+
+        changeActionBtnState -= changeActionBtnToRemove;
+
+        if (changeActionBtnState.GetInvocationList().Length > 0)
+            return;
+
+        _events.Remove(actionKey);
+    }
 
 
     [ContextMenu("Switch Graph Mode")]

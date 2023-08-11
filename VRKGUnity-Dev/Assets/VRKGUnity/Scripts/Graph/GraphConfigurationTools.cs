@@ -214,6 +214,8 @@ public static class GraphConfigurationTools
     {
         switch (key)
         {
+            case GraphConfigKey.SelectedMode:
+                return typeof(bool);
             case GraphConfigKey.SimuParameters:
                 return typeof(float);
             case GraphConfigKey.LensSimuParameters:
