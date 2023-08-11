@@ -1,6 +1,6 @@
 ﻿namespace AIDEN.TactileUI
 {
-    public enum KeyboardAlignment
+    public enum InputAlignment
     {
         Left,
         Center,

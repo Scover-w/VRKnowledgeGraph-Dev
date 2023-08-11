@@ -30,10 +30,10 @@ namespace AIDEN.TactileUI
         TMP_Text _label;
 
         [SerializeField]
-        Transform _keyboardPositionTf;
+        Transform _inputPositionTf;
 
         [SerializeField]
-        KeyboardAlignment _keyboardAlignment;
+        InputAlignment _inputAlignment;
 
         [SerializeField]
         NumericType _numericType;
@@ -103,8 +103,8 @@ namespace AIDEN.TactileUI
         private KeyboardUIOptions<float> CreateKeyboardOptions()
         {
 
-            return new KeyboardUIOptions<float>(_keyboardPositionTf.position,
-                                            _keyboardAlignment,
+            return new KeyboardUIOptions<float>(_inputPositionTf.position,
+                                            _inputAlignment,
                                             OnUpdateInput,
                                             OnEnterInput,
                                             _value);

@@ -112,11 +112,11 @@ namespace AIDEN.TactileUI
             _oldInputValue = options.CurrentInputValue;
         }
 
-        private void Align(KeyboardAlignment alignement)
+        private void Align(InputAlignment alignement)
         {
             Transform tf = GetSelectedTransform();
 
-            if (alignement == KeyboardAlignment.Center)
+            if (alignement == InputAlignment.Center)
             {
                 tf.localPosition = Vector3.zero;
                 return;
@@ -125,7 +125,7 @@ namespace AIDEN.TactileUI
             var rectTf = tf.GetComponent<RectTransform>();
             float width = rectTf.rect.width;
 
-            tf.localPosition = new Vector3(width * rectTf.localScale.x * .5f * ((alignement == KeyboardAlignment.Left) ? -1f : 1f), 0, 0);
+            tf.localPosition = new Vector3(width * rectTf.localScale.x * .5f * ((alignement == InputAlignment.Left) ? -1f : 1f), 0, 0);
         }
 
         private Transform GetSelectedTransform()

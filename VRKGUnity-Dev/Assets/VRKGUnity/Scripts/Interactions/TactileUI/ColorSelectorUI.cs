@@ -25,11 +25,11 @@ namespace AIDEN.TactileUI
         Image _colorImg;
 
         [SerializeField]
-        Transform _keyboardPositionTf;
+        Transform _inputPositionTf;
 
 
         [SerializeField]
-        KeyboardAlignment _keyboardAlignment;
+        InputAlignment _inputAlignment;
 
         [SerializeField]
         Color _value;
@@ -109,8 +109,8 @@ namespace AIDEN.TactileUI
         private KeyboardUIOptions<Color> CreateKeyboardOptions()
         {
 
-            return new KeyboardUIOptions<Color>(_keyboardPositionTf.position,
-                                            _keyboardAlignment,
+            return new KeyboardUIOptions<Color>(_inputPositionTf.position,
+                                            _inputAlignment,
                                             OnUpdateInput,
                                             OnEnterInput,
                                             _value);
