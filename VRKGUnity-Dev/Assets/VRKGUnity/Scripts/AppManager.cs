@@ -15,6 +15,7 @@ public class AppManager : MonoBehaviour
 
     async void Start()
     {
+        Settings.SetPersistentDataPath(Application.persistentDataPath);
         _referenceHolderSo.AppManagerSA.Value = this;
 
         await _graphConfigurationContainer.GetGraphConfiguration();

@@ -189,7 +189,7 @@ public class GraphConfiguration
         if (File.Exists(_graphConfigPath))
         {
             string json = await File.ReadAllTextAsync(_graphConfigPath);
-            var graphConfig = JsonConvert.DeserializeObject<GraphConfiguration>(json);
+            var graphConfig = await JsonConvertHelper.DeserializeObjectAsync<GraphConfiguration>(json);
             Instance = graphConfig;
             return graphConfig;
         }
@@ -206,7 +206,7 @@ public class GraphConfiguration
     {
         SetPath();
 
-        string json = JsonConvert.SerializeObject(this, Formatting.Indented);
+        string json = await JsonConvertHelper.SerializeObjectAsync(this, Formatting.Indented);
         await File.WriteAllTextAsync(_graphConfigPath, json);
     }
 
@@ -503,7 +503,7 @@ public class GraphConfiguration
 
     private static void SetPath()
     {
-        var folderPath = Path.Combine(Application.persistentDataPath, "Data");
+        var folderPath = Path.Combine(Settings.PersistentDataPath, "Data");
 
         if (!Directory.Exists(folderPath))
             Directory.CreateDirectory(folderPath);

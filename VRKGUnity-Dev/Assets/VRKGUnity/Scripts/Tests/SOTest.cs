@@ -42,7 +42,7 @@ public class SOTest
         if (File.Exists(_soTestPath))
         {
             string json = await File.ReadAllTextAsync(_soTestPath);
-            var graphConfig = JsonConvert.DeserializeObject<SOTest>(json);
+            var graphConfig = await JsonConvertHelper.DeserializeObjectAsync<SOTest>(json);
             return graphConfig;
         }
 
@@ -56,7 +56,7 @@ public class SOTest
     {
         SetPath();
 
-        string json = JsonConvert.SerializeObject(this, Formatting.Indented);
+        string json = await JsonConvertHelper.SerializeObjectAsync(this, Formatting.Indented);
         await File.WriteAllTextAsync(_soTestPath, json);
     }
 

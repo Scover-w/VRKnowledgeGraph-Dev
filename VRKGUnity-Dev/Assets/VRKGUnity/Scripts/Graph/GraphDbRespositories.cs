@@ -44,7 +44,7 @@ public class GraphDbRepositories
         if (File.Exists(_gdbRepositoriesPath))
         {
             string json = await File.ReadAllTextAsync(_gdbRepositoriesPath);
-            var repositories = JsonConvert.DeserializeObject<GraphDbRepositories>(json);
+            var repositories = await JsonConvertHelper.DeserializeObjectAsync<GraphDbRepositories>(json);
 
             return repositories;
         }
@@ -57,13 +57,13 @@ public class GraphDbRepositories
 
     public async Task Save()
     {
-        string json = JsonConvert.SerializeObject(this, Formatting.Indented);
+        string json = await JsonConvertHelper.SerializeObjectAsync(this, Formatting.Indented);
         await File.WriteAllTextAsync(_gdbRepositoriesPath, json);
     }
 
     private static void SetPath()
     {
-        var folderPath = Path.Combine(Application.persistentDataPath, "Data");
+        var folderPath = Path.Combine(Settings.PersistentDataPath, "Data");
 
         if (!Directory.Exists(folderPath))
             Directory.CreateDirectory(folderPath);

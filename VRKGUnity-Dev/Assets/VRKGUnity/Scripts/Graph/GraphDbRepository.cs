@@ -32,7 +32,7 @@ public class GraphDbRepository
         GraphDBAPI = new GraphDBAPI(this);
 
 
-        PathRepo = Path.Combine(Application.persistentDataPath, "Data", RepositoryId + "_" + Mathf.Abs(ServerURL.GetHashCode()));
+        PathRepo = Path.Combine(Settings.PersistentDataPath, "Data", RepositoryId + "_" + Mathf.Abs(ServerURL.GetHashCode()));
 
 
         if (!Directory.Exists(PathRepo))
@@ -52,6 +52,7 @@ public class GraphDbRepository
 
     public async Task DeleteFiles()
     {
+
         if(GraphDbRepositoryNamespaces != null)
             GraphDbRepositoryNamespaces = await GraphDbRepositoryNamespaces.Load(PathRepo);
 

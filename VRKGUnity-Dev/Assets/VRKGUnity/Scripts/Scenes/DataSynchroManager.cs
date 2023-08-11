@@ -111,7 +111,7 @@ public class DataSynchroManager : MonoBehaviour
 
         string queryString = new SPARQLAdditiveBuilder().Build();
         var json = await _graphDbAPI.SelectQuery(queryString, true);
-        _data = JsonConvert.DeserializeObject<JObject>(json);
+        _data = await JsonConvertHelper.DeserializeObjectAsync<JObject>(json);
 
         await repoUris.RetrieveNewNamespaces(_data, _graphDbAPI);
         await repoUris.CreateOntologyTrees(_graphDbAPI);

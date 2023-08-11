@@ -119,7 +119,7 @@ public static class NodgesHelper
         debugChrono.Start("RetreiveGraph");
         var api = repo.GraphDBAPI;
         var json = await api.SelectQuery(query, true);
-        var data = JsonConvert.DeserializeObject<JObject>(json);
+        var data = await JsonConvertHelper.DeserializeObjectAsync<JObject>(json);
 
 
         NodgesDicUID nodges = data.ExtractNodges(repo.GraphDbRepositoryNamespaces);

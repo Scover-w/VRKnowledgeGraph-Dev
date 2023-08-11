@@ -221,7 +221,7 @@ public class GraphDbRepositoryDistantUris
         if (File.Exists(_fullpathFile))
         {
             string json = await File.ReadAllTextAsync(_fullpathFile);
-            var graphDistantUri = JsonConvert.DeserializeObject<GraphDbRepositoryDistantUris>(json);
+            var graphDistantUri = await JsonConvertHelper.DeserializeObjectAsync<GraphDbRepositoryDistantUris>(json);
             return graphDistantUri;
         }
 
@@ -232,7 +232,7 @@ public class GraphDbRepositoryDistantUris
 
     public async Task Save()
     {
-        string json = JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented);
+        string json = await JsonConvertHelper.SerializeObjectAsync(this, Newtonsoft.Json.Formatting.Indented);
         await File.WriteAllTextAsync(_fullpathFile, json);
     }
 

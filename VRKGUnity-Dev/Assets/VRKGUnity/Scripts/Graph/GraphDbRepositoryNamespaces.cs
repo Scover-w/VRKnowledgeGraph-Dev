@@ -212,7 +212,7 @@ public class GraphDbRepositoryNamespaces
                            "FILTER( ( (?p = rdf:type && (?o = rdfs:Class || ?o = owl:Class)) || ?p = rdfs:subClassOf ) )  }}";
 
         var json = await graphDBAPI.SelectQuery(sparqlQuery);
-        var data = JsonConvert.DeserializeObject<JObject>(json);
+        var data = await JsonConvertHelper.DeserializeObjectAsync<JObject>(json);
         _ontoTreeDict = new();
 
         foreach (JToken binding in data["results"]["bindings"])
@@ -358,7 +358,7 @@ public class GraphDbRepositoryNamespaces
         if (File.Exists(_fullpathFile))
         {
             string json = await File.ReadAllTextAsync(_fullpathFile);
-            var repoNamespaces = JsonConvert.DeserializeObject<GraphDbRepositoryNamespaces>(json);
+            var repoNamespaces = await JsonConvertHelper.DeserializeObjectAsync<GraphDbRepositoryNamespaces>(json);
 
             return repoNamespaces;
         }
@@ -371,7 +371,7 @@ public class GraphDbRepositoryNamespaces
 
     public async Task Save()
     {
-        string json = JsonConvert.SerializeObject(this, Formatting.Indented);
+        string json = await JsonConvertHelper.SerializeObjectAsync(this, Formatting.Indented);
         await File.WriteAllTextAsync(_fullpathFile, json);
     }
 

@@ -57,7 +57,7 @@ public class GraphDbRepositoryMedias
         if (File.Exists(_fullpathFile))
         {
             string json = await File.ReadAllTextAsync(_fullpathFile);
-            var repoMedias = JsonConvert.DeserializeObject<GraphDbRepositoryMedias>(json);
+            var repoMedias = await JsonConvertHelper.DeserializeObjectAsync<GraphDbRepositoryMedias>(json);
 
             return repoMedias;
         }
@@ -70,7 +70,7 @@ public class GraphDbRepositoryMedias
 
     public async Task Save()
     {
-        string json = JsonConvert.SerializeObject(this, Formatting.Indented);
+        string json = await JsonConvertHelper.SerializeObjectAsync(this, Formatting.Indented);
         await File.WriteAllTextAsync(_fullpathFile, json);
     }
 

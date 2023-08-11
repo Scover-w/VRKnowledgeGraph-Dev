@@ -25,7 +25,7 @@ public class OntologyTest : MonoBehaviour
 
         //var json = await _api.SelectQuery("select * where { \r\n\t?s ?p ?o .\r\n}");
 
-        //var data = JsonConvert.DeserializeObject<JObject>(json);
+        //var data = await JsonConvertHelper.DeserializeObjectAsync<JObject>(json);
 
         //var nodges = new NodgesDicId();
 
@@ -116,7 +116,7 @@ public class OntologyTest : MonoBehaviour
         //    else if(isSOntology || isPOntology || isOOntology)
         //    {
         //        // Partial Ontology
-                
+
         //        // Full Ontology Triplet
         //        var sNamespce = sValue.ExtractUri().namespce;
         //        var pNamespce = pValue.ExtractUri().namespce;
