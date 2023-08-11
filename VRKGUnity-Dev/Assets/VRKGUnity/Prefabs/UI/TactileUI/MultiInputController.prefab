@@ -1144,7 +1144,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2333321401272833739
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12885,6 +12885,34 @@ PrefabInstance:
       propertyPath: _interactiveGraphics.Array.data[0]._graphic
       value: 
       objectReference: {fileID: 2333321400642159004}
+    - target: {fileID: 5922004706370744854, guid: f09d5920ca9ef814c815439c6124baf3, type: 3}
+      propertyPath: _onNewColor.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5922004706370744854, guid: f09d5920ca9ef814c815439c6124baf3, type: 3}
+      propertyPath: _onNewColor.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5922004706370744854, guid: f09d5920ca9ef814c815439c6124baf3, type: 3}
+      propertyPath: _onNewColor.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2333321401272833733}
+    - target: {fileID: 5922004706370744854, guid: f09d5920ca9ef814c815439c6124baf3, type: 3}
+      propertyPath: _onNewColor.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5922004706370744854, guid: f09d5920ca9ef814c815439c6124baf3, type: 3}
+      propertyPath: _onNewColor.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnNewColorFromWheel
+      objectReference: {fileID: 0}
+    - target: {fileID: 5922004706370744854, guid: f09d5920ca9ef814c815439c6124baf3, type: 3}
+      propertyPath: _onNewColor.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: AIDEN.TactileUI.ColorPickerUI, Scripts
+      objectReference: {fileID: 0}
+    - target: {fileID: 5922004706370744854, guid: f09d5920ca9ef814c815439c6124baf3, type: 3}
+      propertyPath: _onNewColor.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 5922004706952357732, guid: f09d5920ca9ef814c815439c6124baf3, type: 3}
       propertyPath: m_TagString
       value: InteractionUI

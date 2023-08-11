@@ -31,9 +31,7 @@ namespace AIDEN.TactileUI
         Color _oldColor;
         Color _newColor;
 
-        float _h;
-        float _s;
-        float _v;
+        HSVColor _hsvColor;
 
         public void StartColor(Color oldColor)
         {
@@ -43,18 +41,16 @@ namespace AIDEN.TactileUI
             _oldColorImg.color = _oldColor;
             _newColorImg.color = oldColor;
 
-            Color.RGBToHSV(oldColor, out _h, out _s, out _v);
+            _hsvColor = HSVColor.RGBToHSV(oldColor);
             UpdateSliderValue();
-            _wheelUI.UpdateColor(_h, _s, _v);
+            _wheelUI.UpdateColor(_hsvColor);
         }
 
-        public void SetNewColorFromWheel(float h, float s, float v)
+        public void OnNewColorFromWheel(HSVColor hsvColor)
         {
-            _h = h;
-            _s = s;
-            _v = v;
+            _hsvColor = hsvColor;
 
-            _newColor = Color.HSVToRGB(h, s, v);
+            _newColor = _hsvColor.ToRGB();
 
             _newColorImg.color = _newColor;
             UpdateSliderValue();
@@ -64,39 +60,37 @@ namespace AIDEN.TactileUI
 
         private void UpdateSliderValue()
         {
-            _sliderH.Value = _h;
-            _sliderS.Value = _s;
-            _sliderV.Value = _v;
+            _sliderH.Value = _hsvColor.h;
+            _sliderS.Value = _hsvColor.s;
+            _sliderV.Value = _hsvColor.v;
         }
 
         public void OnNewHSlider(float h)
         {
-            _h = h;
-            SetNewColorFromSlider();
+            _hsvColor.h = h;
+            UpdateColorAfterSlider();
         }
 
         public void OnNewSSlider(float s)
         {
-            _s = s;
-            SetNewColorFromSlider();
+            _hsvColor.s = s;
+            UpdateColorAfterSlider();
         }
 
         public void OnNewVSlider(float v)
         {
-            _v = v;
-
-            _wheelUI.UpdateV(_v);
-
-            SetNewColorFromSlider();
+            _hsvColor.v = v;
+            UpdateColorAfterSlider();
         }
 
-        private void SetNewColorFromSlider()
+        private void UpdateColorAfterSlider()
         {
-            _newColor = Color.HSVToRGB(_h, _s, _v);
+            _newColor = _hsvColor.ToRGB();
 
             _newColorImg.color = _newColor;
             _controllerUI.UpdateInputValue(_newColor);
-            _wheelUI.UpdateColor(_h, _s, _v);
+
+            _wheelUI.UpdateColor(_hsvColor);
         }
 
         public void Confirm()

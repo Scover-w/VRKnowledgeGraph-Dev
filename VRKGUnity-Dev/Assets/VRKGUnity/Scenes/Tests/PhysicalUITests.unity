@@ -2746,7 +2746,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 852, y: 0}
+  m_AnchoredPosition: {x: -1046, y: 0}
   m_SizeDelta: {x: 560.56, y: 553.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1910987446
@@ -2928,7 +2928,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2044156785}
   m_Layer: 5
-  m_Name: KeyboardSpawnPosition
+  m_Name: InputSpawnPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5319,6 +5319,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1203673909}
     m_Modifications:
+    - target: {fileID: 5398602631839129139, guid: a88627b86d55dd54698561606ad63234, type: 3}
+      propertyPath: _inputPositionTf
+      value: 
+      objectReference: {fileID: 2044156785}
     - target: {fileID: 5398602631839129139, guid: a88627b86d55dd54698561606ad63234, type: 3}
       propertyPath: _keyboardPositionTf
       value: 

@@ -1,15 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace AIDEN.TactileUI
 {
     public class HSVWheelUI : BaseTouch
     {
-
-        [SerializeField]
-        ColorPickerUI _colorPickerUI;
+        public HSVColor HSVColor { get { return _hsvColor; } }
 
         [SerializeField]
         Image _hsvWheelImg;
@@ -17,15 +17,22 @@ namespace AIDEN.TactileUI
         [SerializeField]
         RectTransform _cursorRectTf;
 
+        [SerializeField,Space(10)]
+        UnityEvent<HSVColor> _onNewColor;
+
         RectTransform _wheelRecTf;
         Vector2 _localVector2;
 
-        float _h;
-        float _s;
-        float _v = 1f;
+        HSVColor _hsvColor;
+
 
         bool _isMovingCursor = false;
         float _hapticTime;
+
+        private void Awake()
+        {
+            _hsvColor = new HSVColor(0f, 0f, 1f);
+        }
 
         private void Start()
         {
@@ -38,26 +45,15 @@ namespace AIDEN.TactileUI
             _isMovingCursor = false;
         }
 
-        public void UpdateColor(float h, float s, float v)
+        public void UpdateColor(HSVColor hsvColor)
         {
-            _h = h;
-            _s = s;
-            _v = v;
+            _hsvColor = hsvColor;
 
-            Color white = Color.white * _v;
+            Color white = Color.white * _hsvColor.v;
             white.a = 1f;
             _hsvWheelImg.color = white;
 
-            PlaceCursor(h, s);
-        }
-
-        public void UpdateV(float v)
-        {
-            _v = v;
-
-            Color white = Color.white * _v;
-            white.a = 1f;
-            _hsvWheelImg.color = white;
+            PlaceCursor(_hsvColor.h, _hsvColor.s);
         }
 
         protected override void TryActivate()
@@ -124,11 +120,11 @@ namespace AIDEN.TactileUI
             if (angle < 0)
                 angle = 180f + (180f - Mathf.Abs(angle));
 
-            Debug.Log(angle);
-
             float distance = _localVector2.magnitude;
 
-            _colorPickerUI.SetNewColorFromWheel(angle / 360f, distance, _v);
+            _hsvColor = new HSVColor(angle / 360f, distance, _hsvColor.v);
+
+            _onNewColor?.Invoke(_hsvColor);
         }
 
         private void TryActivateHaptic()
@@ -158,6 +154,34 @@ namespace AIDEN.TactileUI
                 v.x * Mathf.Cos(delta) - v.y * Mathf.Sin(delta),
                 v.x * Mathf.Sin(delta) + v.y * Mathf.Cos(delta)
             );
+        }
+    }
+
+    [Serializable]
+    public struct HSVColor
+    {
+        public float h;
+        public float s;
+        public float v;
+
+        public HSVColor(float h, float s, float v)
+        {
+            this.h = h;
+            this.s = s;
+            this.v = v;
+        }
+
+
+        public Color ToRGB()
+        {
+            return Color.HSVToRGB(h, s, v);
+        }
+
+        public static HSVColor RGBToHSV(Color color)
+        {
+            Color.RGBToHSV(color, out float h, out float s, out float v);
+
+            return new HSVColor(h, s, v);
         }
     }
 }

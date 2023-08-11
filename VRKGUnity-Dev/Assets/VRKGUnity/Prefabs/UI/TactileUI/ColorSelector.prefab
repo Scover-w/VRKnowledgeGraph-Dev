@@ -72,8 +72,8 @@ MonoBehaviour:
       _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
   _interactionCollidersGo: {fileID: 5398602632363796432}
   _colorImg: {fileID: 5398602633007454550}
-  _keyboardPositionTf: {fileID: 0}
-  _keyboardAlignment: 0
+  _inputPositionTf: {fileID: 0}
+  _inputAlignment: 0
   _value: {r: 1, g: 1, b: 1, a: 1}
   _onValueChanged:
     m_PersistentCalls:

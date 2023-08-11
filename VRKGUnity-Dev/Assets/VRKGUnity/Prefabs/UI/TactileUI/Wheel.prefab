@@ -72,9 +72,11 @@ MonoBehaviour:
       _activatedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
       _disabledColor: {r: 1, g: 1, b: 1, a: 0.039215688}
   _interactionCollidersGo: {fileID: 5922004706515564503}
-  _colorPickerUI: {fileID: 0}
   _hsvWheelImg: {fileID: 5922004706370744852}
   _cursorRectTf: {fileID: 5922004707694052290}
+  _onNewColor:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &5922004706370744852
 MonoBehaviour:
   m_ObjectHideFlags: 0
