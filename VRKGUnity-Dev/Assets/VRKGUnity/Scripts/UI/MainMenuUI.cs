@@ -37,6 +37,11 @@ public class MainMenuUI : MonoBehaviour
     [SerializeField]
     ButtonUI _launchGraphBtn;
 
+#if UNITY_EDITOR
+    [SerializeField]
+    Button _launchGraphPcBtn;
+#endif
+
     private void Awake()
     {
         SetConnectionStatus(false);
@@ -64,13 +69,15 @@ public class MainMenuUI : MonoBehaviour
         if(isLoaded) 
         {
             _iconRepoStatusImg.sprite = _connectedIcon;
-            _launchGraphBtn.Interactable = true;
+
+            SetLaunchGraphBtnState(true);
+            
             return;
         }
 
         _repoStatusTxt.text = "Not Loaded";
         _iconRepoStatusImg.sprite = _unconnectedIcon;
-        _launchGraphBtn.Interactable = false;
+        SetLaunchGraphBtnState(false);
     }
 
     public void DisplayMainMenu()
@@ -102,6 +109,17 @@ public class MainMenuUI : MonoBehaviour
     public void LaunchGraphClick()
     {
         _mainMenuManager.LoadGraphScene();
+    }
+
+    private void SetLaunchGraphBtnState(bool isInteractable)
+    {
+        if (_launchGraphBtn != null)
+            _launchGraphBtn.Interactable = isInteractable;
+
+#if UNITY_EDITOR
+        if (_launchGraphPcBtn != null)
+            _launchGraphPcBtn.interactable = isInteractable;
+#endif
     }
 }
 

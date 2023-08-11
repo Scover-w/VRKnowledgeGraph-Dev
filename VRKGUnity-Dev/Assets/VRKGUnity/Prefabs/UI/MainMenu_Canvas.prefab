@@ -392,6 +392,7 @@ MonoBehaviour:
   _unconnectedIcon: {fileID: 21300000, guid: a544ea15956fab2438cdb441af5be327, type: 3}
   _connectedIcon: {fileID: 21300000, guid: 0f06b0ce90e7237498710a10e097489b, type: 3}
   _launchGraphBtn: {fileID: 5247262330363147075}
+  _launchGraphPcBtn: {fileID: 0}
 --- !u!1 &5008887025146779071
 GameObject:
   m_ObjectHideFlags: 0
@@ -1862,7 +1863,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mainMenuUI: {fileID: 7885924229007599003}
   _scrollUI: {fileID: 7073012404492729729}
+  _scrollRectPC: {fileID: 0}
   _scrollItemPf: {fileID: 2914497462794846491, guid: d2b263394f23a43488bfb847d7eb77aa, type: 3}
+  _scrollItemPCPf: {fileID: 0}
   _repoListGo: {fileID: 5008887026556475577}
   _newRepoGo: {fileID: 5008887026798536605}
   _confirmationAskGo: {fileID: 5008887025655957540}
@@ -1870,6 +1873,8 @@ MonoBehaviour:
   _loadingDialogGo: {fileID: 6655439492333311843}
   _repoIdInput: {fileID: 1544374534358046037}
   _serverUrlinput: {fileID: 1544374533638075234}
+  _repoIdPCInput: {fileID: 0}
+  _serverUrlPCInput: {fileID: 0}
   _infoTitleTxt: {fileID: 5008887026935787333}
   _infoTxt: {fileID: 5008887025007077975}
 --- !u!1 &5008887026475152745

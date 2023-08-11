@@ -62,8 +62,13 @@ public class GraphDbRepository
         if (GraphDbRepositoryMedias != null)
             GraphDbRepositoryMedias = await GraphDbRepositoryMedias.Load(PathRepo);
 
-        GraphDbRepositoryNamespaces.DeleteFile();
-        GraphDbRepositoryDistantUris.DeleteFile();
-        GraphDbRepositoryMedias.DeleteMediasAndFile();
+        if (GraphDbRepositoryNamespaces != null)
+            GraphDbRepositoryNamespaces.DeleteFile();
+
+        if (GraphDbRepositoryDistantUris != null)
+            GraphDbRepositoryDistantUris.DeleteFile();
+
+        if (GraphDbRepositoryMedias != null)
+            GraphDbRepositoryMedias.DeleteMediasAndFile();
     }
 }

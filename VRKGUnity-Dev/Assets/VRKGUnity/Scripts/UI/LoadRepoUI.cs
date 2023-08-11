@@ -2,8 +2,11 @@ using AIDEN.TactileUI;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class LoadRepoUI : MonoBehaviour
 {
@@ -13,8 +16,18 @@ public class LoadRepoUI : MonoBehaviour
     [SerializeField]
     ScrollUI _scrollUI;
 
+#if UNITY_EDITOR
+    [SerializeField]
+    RectTransform _scrollRectPC;
+#endif
+
     [SerializeField]
     GameObject _scrollItemPf;
+
+#if UNITY_EDITOR
+    [SerializeField]
+    GameObject _scrollItemPCPf;
+#endif
 
     [SerializeField]
     GameObject _repoListGo;
@@ -36,6 +49,16 @@ public class LoadRepoUI : MonoBehaviour
 
     [SerializeField]
     InputUI _serverUrlinput;
+
+#if UNITY_EDITOR
+    [SerializeField]
+    TMP_InputField _repoIdPCInput;
+
+    [SerializeField]
+    TMP_InputField _serverUrlPCInput;
+
+    Dictionary<GraphDbRepository, RepositoryItemPCUI> _repositoriesDictPC;
+#endif
 
     [SerializeField]
     TMP_Text _infoTitleTxt;
@@ -71,6 +94,10 @@ public class LoadRepoUI : MonoBehaviour
 
         _repositoriesDict = new();
 
+#if UNITY_EDITOR
+        _repositoriesDictPC = new();
+#endif
+
         if (repositories.Count == 0)
             return;
 
@@ -78,6 +105,22 @@ public class LoadRepoUI : MonoBehaviour
         {
             AddRepository(repo);
         }
+    }
+
+    private void AddRepository(GraphDbRepository repo)
+    {
+        if (_scrollUI != null)
+        {
+            RepositoryItemUI itemUI = CreateItem(repo);
+            _repositoriesDict.Add(repo, itemUI);
+        }
+#if UNITY_EDITOR
+        else if(_scrollRectPC != null)
+        {
+            RepositoryItemPCUI itemUI = CreateItemPC(repo);
+            _repositoriesDictPC.Add(repo, itemUI);
+        }
+#endif
     }
 
     private RepositoryItemUI CreateItem(GraphDbRepository repository)
@@ -96,6 +139,18 @@ public class LoadRepoUI : MonoBehaviour
         return repoItemUI;
     }
 
+#if UNITY_EDITOR
+    private RepositoryItemPCUI CreateItemPC(GraphDbRepository repository)
+    {
+        var go = Instantiate(_scrollItemPCPf, _scrollRectPC);
+
+        var repoItemUI = go.GetComponent<RepositoryItemPCUI>();
+        repoItemUI.Load(repository, this);
+
+        return repoItemUI;
+    }
+#endif
+
 
     public void SelecRepoFromItem(GraphDbRepository repositoryClicked)
     {
@@ -106,15 +161,13 @@ public class LoadRepoUI : MonoBehaviour
     {
         DisplayPage(LoadRepoPage.NewModifyRepo);
 
-        _repoIdInput.Value = "cap44";
-        _serverUrlinput.Value = "http://localhost:7200/";
+        SetInputValue("cap44", "http://localhost:7200/");
     }
 
 
     private void TryCreateGraphDb()
     {
-        string repoId = _repoIdInput.Value;
-        string repoServerUrl = _serverUrlinput.Value;
+        (string repoId, string repoServerUrl) = GetInputValue();
 
         if(repoId.Length == 0)
         {
@@ -170,8 +223,33 @@ public class LoadRepoUI : MonoBehaviour
 
     private void SelectRepo(GraphDbRepository graphDbRepository)
     {
+        if(_scrollUI != null)
+            SelectRepoVR(graphDbRepository);
+#if UNITY_EDITOR
+        else if(_scrollRectPC != null)
+            SelectRepoPC(graphDbRepository);
+#endif
+    }
+
+    private void SelectRepoVR(GraphDbRepository graphDbRepository)
+    {
         _selectedRepository = graphDbRepository;
         foreach (var kvp in _repositoriesDict)
+        {
+            bool isSelected = kvp.Key == _selectedRepository;
+            kvp.Value.Select(isSelected);
+
+            if (!isSelected)
+                continue;
+
+            _mainMenuUI.RepoSelected(_selectedRepository);
+        }
+    }
+
+    private void SelectRepoPC(GraphDbRepository graphDbRepository)
+    {
+        _selectedRepository = graphDbRepository;
+        foreach (var kvp in _repositoriesDictPC)
         {
             bool isSelected = kvp.Key == _selectedRepository;
             kvp.Value.Select(isSelected);
@@ -196,7 +274,18 @@ public class LoadRepoUI : MonoBehaviour
 
     public async void ConfirmDeletionClick()
     {
-        if(!_repositoriesDict.TryGetValue(_selectedRepository, out RepositoryItemUI itemUI))
+
+        if (_scrollUI != null)
+            await ConfirmDeletion();
+#if UNITY_EDITOR
+        else if (_scrollRectPC != null)
+            await ConfirmDeletionPC();
+#endif
+    }
+
+    private async Task ConfirmDeletion()
+    {
+        if (!_repositoriesDict.TryGetValue(_selectedRepository, out RepositoryItemUI itemUI))
         {
             Debug.LogWarning("Unexpected to not find the associated itemUI.");
         }
@@ -207,7 +296,7 @@ public class LoadRepoUI : MonoBehaviour
         }
 
 
-        await _graphDbRepositories.Remove(_selectedRepository); 
+        await _graphDbRepositories.Remove(_selectedRepository);
 
         _selectedRepository = null;
         SelectRepo(null);
@@ -217,9 +306,34 @@ public class LoadRepoUI : MonoBehaviour
         DisplayPage(LoadRepoPage.RepoList);
     }
 
+#if UNITY_EDITOR
+    private async Task ConfirmDeletionPC()
+    {
+        if (!_repositoriesDictPC.TryGetValue(_selectedRepository, out RepositoryItemPCUI itemUI))
+        {
+            Debug.LogWarning("Unexpected to not find the associated itemUI.");
+        }
+        else
+        {
+            _repositoriesDictPC.Remove(_selectedRepository);
+            Destroy(itemUI.gameObject);
+        }
+
+
+        await _graphDbRepositories.Remove(_selectedRepository);
+
+        _selectedRepository = null;
+        SelectRepo(null);
+
+        _mainMenuUI.RepoSelected(null);
+
+        DisplayPage(LoadRepoPage.RepoList);
+    }
+#endif
+
     public void CancelCreationClick()
     {
-        DisplayPage(LoadRepoPage.NewModifyRepo);
+        DisplayPage(LoadRepoPage.RepoList);
     }
 
     public void CancelDeletionClick()
@@ -252,10 +366,45 @@ public class LoadRepoUI : MonoBehaviour
         _loadingDialogGo.SetActive(page == LoadRepoPage.LoadingDialog);
     }
 
-    private void AddRepository(GraphDbRepository repo)
+    
+
+    private void SetInputValue(string repoId, string serverUrl)
     {
-        RepositoryItemUI itemUI = CreateItem(repo);
-        _repositoriesDict.Add(repo, itemUI);
+        if(_repoIdInput != null)
+            _repoIdInput.Value = repoId;
+
+        if(_serverUrlinput != null)
+            _serverUrlinput.Value = serverUrl;
+
+#if UNITY_EDITOR
+        if(_repoIdPCInput != null)
+            _repoIdPCInput.text = repoId;
+
+        if(_serverUrlPCInput != null)
+            _serverUrlPCInput.text = serverUrl;
+#endif
+    }
+
+    private (string repoId, string serverUrl) GetInputValue()
+    {
+        string repoId = "";
+        string serverUrl = "";
+
+        if (_repoIdInput != null)
+            repoId = _repoIdInput.Value;
+
+        if (_serverUrlinput != null)
+            serverUrl = _serverUrlinput.Value;
+
+#if UNITY_EDITOR
+        if (_repoIdPCInput != null)
+            repoId = _repoIdPCInput.text;
+
+        if (_serverUrlPCInput != null)
+            serverUrl = _serverUrlPCInput.text;
+#endif
+
+        return (repoId, serverUrl);
     }
     #endregion
 
