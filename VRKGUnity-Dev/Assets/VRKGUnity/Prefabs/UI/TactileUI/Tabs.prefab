@@ -632,7 +632,6 @@ GameObject:
   - component: {fileID: 285710490167368721}
   - component: {fileID: 285710490167368720}
   - component: {fileID: 285710490167368722}
-  - component: {fileID: 285710490167368723}
   m_Layer: 5
   m_Name: TabB
   m_TagString: Untagged
@@ -684,25 +683,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interactable: 1
-  _interactiveGraphics:
-  - Name: 
-    _graphic: {fileID: 0}
-    _interactiveColorUI:
-      _normalColor: {r: 0, g: 0, b: 0, a: 0}
-      _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-      _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-      _disabledColor: {r: 1, g: 1, b: 1, a: 0.1}
-  - Name: 
-    _graphic: {fileID: 0}
-    _interactiveColorUI:
-      _normalColor: {r: 0, g: 0, b: 0, a: 0}
-      _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-      _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-      _disabledColor: {r: 1, g: 1, b: 1, a: 0.1}
+  _interactiveGraphics: []
   _interactionCollidersGo: {fileID: 285710489813613597}
   _controllerUI: {fileID: 285710489858299803}
   _pageToDisplayGo: {fileID: 285710489393400072}
-  _interactiveGraphicToFill: []
+  _interactiveGraphicToFill:
+  - {fileID: 285710490167368722}
+  - {fileID: 285710488806362342}
 --- !u!114 &285710490167368722
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -733,18 +720,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &285710490167368723
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 285710490167368725}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98de445fbb7329942b100b49fb77792b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &285710490270657517
 GameObject:
   m_ObjectHideFlags: 0
@@ -892,7 +867,6 @@ GameObject:
   - component: {fileID: 285710490312943638}
   - component: {fileID: 285710490312943637}
   - component: {fileID: 285710490312943639}
-  - component: {fileID: 285710490312943640}
   m_Layer: 5
   m_Name: TabA
   m_TagString: Untagged
@@ -944,25 +918,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interactable: 1
-  _interactiveGraphics:
-  - Name: 
-    _graphic: {fileID: 0}
-    _interactiveColorUI:
-      _normalColor: {r: 0, g: 0, b: 0, a: 0}
-      _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-      _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-      _disabledColor: {r: 1, g: 1, b: 1, a: 0.1}
-  - Name: 
-    _graphic: {fileID: 0}
-    _interactiveColorUI:
-      _normalColor: {r: 0, g: 0, b: 0, a: 0}
-      _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-      _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-      _disabledColor: {r: 1, g: 1, b: 1, a: 0.1}
+  _interactiveGraphics: []
   _interactionCollidersGo: {fileID: 285710490869061626}
   _controllerUI: {fileID: 285710489858299803}
   _pageToDisplayGo: {fileID: 285710489608877480}
-  _interactiveGraphicToFill: []
+  _interactiveGraphicToFill:
+  - {fileID: 285710490312943639}
+  - {fileID: 285710489384058988}
 --- !u!114 &285710490312943639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -993,18 +955,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &285710490312943640
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 285710490312943642}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98de445fbb7329942b100b49fb77792b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &285710490417622511
 GameObject:
   m_ObjectHideFlags: 0
