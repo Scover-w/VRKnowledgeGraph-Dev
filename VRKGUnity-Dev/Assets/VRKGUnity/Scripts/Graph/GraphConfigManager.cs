@@ -112,12 +112,6 @@ public partial class GraphConfigManager : MonoBehaviour
 
     public bool GetBoolValue(GraphConfigKey key)
     {
-        if(key == GraphConfigKey.SelectedMode)
-        {
-            return true;
-        }
-
-
         return key.GetBoolValue(_graphConfiguration);
     }
 

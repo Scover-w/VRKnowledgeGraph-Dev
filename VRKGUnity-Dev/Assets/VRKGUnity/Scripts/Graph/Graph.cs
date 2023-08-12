@@ -349,7 +349,7 @@ public class Graph
         return filter;
     }
 
-    public void CancelFilter(DynamicFilter filter)
+    public void UndoFilter(DynamicFilter filter)
     {
         var nodesToUnhide = filter.HiddenNodes;
 
@@ -371,6 +371,11 @@ public class Graph
                 _edgesDicUID.Add(edge.UID, edge);
             }
         }
+    }
+
+    public void RedoFilter(DynamicFilter filter)
+    {
+        // TODO : Redo Filter
     }
 
     #endregion

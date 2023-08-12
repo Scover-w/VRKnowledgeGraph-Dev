@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class DynamicFilterManager : MonoBehaviour
 {
+    public int NbFilter { get { return _filters.Count; } }
+    public int NbRedoFilter { get { return _redoFilters.Count; } }
+
     [SerializeField]
     GraphManager _graphManager;
 
@@ -18,10 +21,12 @@ public class DynamicFilterManager : MonoBehaviour
     NodgePool _nodgePool;
 
     List<DynamicFilter> _filters;
+    List<DynamicFilter> _redoFilters;
 
     private void Start()
     {
         _filters = new();
+        _redoFilters = new();
     }
 
     [ContextMenu("Hide Selected Node")]
@@ -71,6 +76,7 @@ public class DynamicFilterManager : MonoBehaviour
 
         DynamicFilter filter = graph.HideAllExcept(nodesToKeep);
         _filters.Add(filter);
+        _redoFilters = new();
 
         HashSetNodges nodges = new(filter.HiddenNodes, filter.HiddenEdges);
         _nodeSelectionManager.NodgesHidden(nodges);
@@ -96,6 +102,7 @@ public class DynamicFilterManager : MonoBehaviour
 
         DynamicFilter filter = graph.Hide(nodesToHide);
         _filters.Add(filter);
+        _redoFilters = new();
 
         HashSetNodges nodges = new(filter.HiddenNodes, filter.HiddenEdges);
         _nodeSelectionManager.NodgesHidden(nodges);
@@ -121,13 +128,14 @@ public class DynamicFilterManager : MonoBehaviour
 
         DynamicFilter filter = graph.HideAllExcept(nodesToKeep);
         _filters.Add(filter);
+        _redoFilters = new();
 
         HashSetNodges nodges = new(filter.HiddenNodes, filter.HiddenEdges);
         _nodeSelectionManager.NodgesHidden(nodges);
     }
 
-    [ContextMenu("Cancel Last Filter")]
-    public void CancelLastFilter()
+    [ContextMenu("Undo Last Filter")]
+    public void UndoLastFilter()
     {
         if (_filters.Count == 0)
             return;
@@ -136,7 +144,26 @@ public class DynamicFilterManager : MonoBehaviour
         var filterToCancel = _filters[filterIdToCancel];
         _filters.RemoveAt(filterIdToCancel);
 
-        _graphManager.Graph.CancelFilter(filterToCancel);
+        _redoFilters.Add(filterToCancel);
+
+        _graphManager.Graph.UndoFilter(filterToCancel);
+
+        StyleChange styleChange = StyleChange.All; // TODO : Put real styleChange
+        _stylingManager.UpdateStyling(styleChange);
+    }
+
+    [ContextMenu("Redo Last Filter")]
+    public void RedoLastFilter()
+    {
+        if (_redoFilters.Count == 0)
+            return;
+
+        var filterIdToCancel = _redoFilters.Count - 1;
+        var filterToCancel = _redoFilters[filterIdToCancel];
+        _redoFilters.RemoveAt(filterIdToCancel);
+
+        _filters.Add(filterToCancel);
+        _graphManager.Graph.RedoFilter(filterToCancel);
 
         StyleChange styleChange = StyleChange.All;
         _stylingManager.UpdateStyling(styleChange);
@@ -153,6 +180,7 @@ public class DynamicFilterManager : MonoBehaviour
         }
 
         _filters = new();
+        _redoFilters = new();
 
         return sparqlQueries;
     }

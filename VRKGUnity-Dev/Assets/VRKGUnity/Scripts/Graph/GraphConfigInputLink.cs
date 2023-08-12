@@ -32,8 +32,6 @@ public class GraphConfigInputLink : MonoBehaviour
     {
         RetrieveInputType();
         RetrieveInterface();
-
-        _graphConfigManager = _referenceHolderSo.GraphConfigManager;
     }
 
     private void OnEnable()
@@ -48,6 +46,9 @@ public class GraphConfigInputLink : MonoBehaviour
 
     private void DelayedOnEnable()
     {
+        if(_graphConfigManager == null)
+            _graphConfigManager = _referenceHolderSo.GraphConfigManager;
+
         SetValueOnInput();
         RegisterToGraphConfigManager();
 

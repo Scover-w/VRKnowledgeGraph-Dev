@@ -12,5 +12,7 @@ public enum GraphActionKey
     UndoFilter,
     RedoFilter,
 
-    Simulate
+    Simulate,
+    SwitchMode,
+    SelectionMode
 }

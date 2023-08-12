@@ -49,7 +49,7 @@ public class TempActionUI : MonoBehaviour
     [ContextMenu("Cancel Last Filter")]
     public void CancelLastFilter()
     {
-        _user.CancelLastFilter();
+        _user.UndoLastFilter();
     }
 
     [ContextMenu("Resimulate Graph")]
