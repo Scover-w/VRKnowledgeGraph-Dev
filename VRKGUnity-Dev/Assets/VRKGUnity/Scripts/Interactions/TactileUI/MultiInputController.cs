@@ -8,8 +8,6 @@ namespace AIDEN.TactileUI
 
         public Transform CameraTf { set { _camTf = value; } }
 
-        [SerializeField]
-        ReferenceHolderSO _referenceHolderSo;
 
         [SerializeField]
         Transform _controllerTf;
