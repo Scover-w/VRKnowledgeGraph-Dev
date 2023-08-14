@@ -28,19 +28,12 @@ public class GraphConfigurationContainerSO : ScriptableObject
     [SerializeField]
     private List<Color> OntologyViewerColors;
 
-    //async void Awake()
-    //{
-    //    _graphConfiguration = await GraphConfiguration.Load();
-    //}
 
     async void OnEnable()
     {
+        Settings.SetPersistentDataPath(Application.persistentDataPath);
         _graphConfiguration = await GraphConfiguration.Load();
     }
-
-
-
- 
 
     public async void Save()
     {

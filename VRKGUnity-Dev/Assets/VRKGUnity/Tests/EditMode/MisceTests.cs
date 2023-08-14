@@ -120,4 +120,10 @@ public class MisceTests : MonoBehaviour
     {
         Debug.Log(nameof(GraphConfiguration.Instance.SimuParameters));
     }
+
+    [Test]
+    public void GetPersistentLink()
+    {
+        Debug.Log(Application.persistentDataPath);
+    }
 }

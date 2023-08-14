@@ -28,11 +28,6 @@ public class KGUIController : MonoBehaviour
         _displayUIAction = _displayUIActionRef.action;
     }
 
-    private void Start()
-    {
-        CreateNewUI();
-    }
-
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -63,14 +58,17 @@ public class KGUIController : MonoBehaviour
     private void Register()
     {
         _displayUIAction.performed += SwitchDisplayUI;
+
+        if (_currentUIGo == null)
+            CreateNewUI();
     }
 
     private void Unregister()
     {
+        _displayUIAction.performed -= SwitchDisplayUI;
+
         if (_isUIDisplayed)
             SwitchDisplayUI(new InputAction.CallbackContext());
-
-        _displayUIAction.performed -= SwitchDisplayUI;
     }
 
     public void UIHasBeenDetached()

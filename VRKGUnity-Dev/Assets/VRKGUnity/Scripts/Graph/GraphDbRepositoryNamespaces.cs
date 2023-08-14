@@ -35,8 +35,12 @@ public class GraphDbRepositoryNamespaces
         _namespacesAndPrefixs = new();
     }
 
-    public async Task RetrieveNewNamespaces(JObject data,GraphDBAPI graphDBAPI)
+    public async Task RetrieveNewNamespaces(JObject data, GraphDBAPI graphDBAPI)
     {
+
+        Debug.Log("Data : " + data);
+        Debug.Log("graphDBAPI : " + graphDBAPI);
+
         HashSet<string> namespaces = new();
         // Detect all uris
         foreach (JToken binding in data["results"]["bindings"])

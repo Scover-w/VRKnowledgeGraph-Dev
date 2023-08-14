@@ -507,6 +507,9 @@ public class GraphConfiguration
         if (Settings.PersistentDataPath == null)
             Settings.SetPersistentDataPath(Application.persistentDataPath);
 #endif
+
+        Debug.Log("GraphConfig SetPAth PersistentDataPath : " + Settings.PersistentDataPath);
+
         var folderPath = Path.Combine(Settings.PersistentDataPath, "Data");
 
         if (!Directory.Exists(folderPath))

@@ -1,9 +1,11 @@
 using AIDEN.TactileUI;
-using System.Collections;
-using System.Collections.Generic;
+using System.IO;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class MainMenuUI : MonoBehaviour
 {
@@ -109,6 +111,18 @@ public class MainMenuUI : MonoBehaviour
     public void LaunchGraphClick()
     {
         _mainMenuManager.LoadGraphScene();
+    }
+
+    public void DeleteAllClick()
+    {
+        var folderPath = Path.Combine(Application.persistentDataPath, "Data");
+
+        Directory.Delete(folderPath, true);
+        Application.Quit();
+
+#if UNITY_EDITOR
+        EditorApplication.isPlaying = true;
+#endif
     }
 
     private void SetLaunchGraphBtnState(bool isInteractable)
