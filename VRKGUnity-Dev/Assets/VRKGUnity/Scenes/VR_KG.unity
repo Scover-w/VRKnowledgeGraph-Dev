@@ -2175,6 +2175,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1101384171}
+  - component: {fileID: 1101384175}
   - component: {fileID: 1101384174}
   - component: {fileID: 1101384170}
   - component: {fileID: 1101384173}
@@ -2262,9 +2263,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _referenceHolderSO: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphManager: {fileID: 1847420204}
-  _inputPropagatorManager: {fileID: 0}
+  _inputPropagatorManager: {fileID: 1101384175}
   _selectionManager: {fileID: 1101384170}
   _dynFilterManager: {fileID: 1847420205}
+--- !u!114 &1101384175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1101384169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f24625a6eeaa2784eb40d4f6e1beb21d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _referenceHolderSO: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
+  _graphManager: {fileID: 1847420204}
+  _dynFilterManager: {fileID: 1847420205}
+  _stylingManager: {fileID: 1645149935}
+  _selectionManager: {fileID: 1101384170}
+  _user: {fileID: 1101384174}
 --- !u!1 &1240529972
 GameObject:
   m_ObjectHideFlags: 0

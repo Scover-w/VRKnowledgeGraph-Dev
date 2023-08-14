@@ -500,7 +500,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0c6154e0cb07b2418663c83b7e7a1fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _controllerTf: {fileID: 2333321400506145075}
   _keyboardUI: {fileID: 2333321402487528692}
   _numpadUI: {fileID: 2333321400396840938}

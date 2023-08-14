@@ -373,12 +373,9 @@ MonoBehaviour:
   NodeSizeDesk: 1
   NodeSizeWatch: 1
   NodeSizeLens: 1
-  NodeMinSizeImmersion: 0.8
-  NodeMaxSizeImmersion: 0.8
-  NodeMinSizeDesk: 0.8
-  NodeMaxSizeDesk: 0.8
-  NodeMinSizeLens: 0.8
-  NodeMaxSizeLens: 0.8
+  NodeMinMaxSizeImmersion: 0.8
+  NodeMinMaxSizeDesk: 0.8
+  NodeMinMaxSizeLens: 0.8
   LabelNodeSizeImmersion: 1
   LabelNodeSizeDesk: 1
   LabelNodeSizeLens: 1
@@ -2226,6 +2223,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1219762320}
+  - component: {fileID: 1219762325}
   - component: {fileID: 1219762324}
   - component: {fileID: 1219762323}
   - component: {fileID: 1219762322}
@@ -2313,8 +2311,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _referenceHolderSO: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphManager: {fileID: 1187437327}
+  _inputPropagatorManager: {fileID: 1219762325}
   _selectionManager: {fileID: 1219762323}
   _dynFilterManager: {fileID: 1187437333}
+--- !u!114 &1219762325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1219762319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f24625a6eeaa2784eb40d4f6e1beb21d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _referenceHolderSO: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
+  _graphManager: {fileID: 1187437327}
+  _dynFilterManager: {fileID: 1187437333}
+  _stylingManager: {fileID: 180994386}
+  _selectionManager: {fileID: 1219762323}
+  _user: {fileID: 1219762324}
 --- !u!1 &1314565755
 GameObject:
   m_ObjectHideFlags: 0
