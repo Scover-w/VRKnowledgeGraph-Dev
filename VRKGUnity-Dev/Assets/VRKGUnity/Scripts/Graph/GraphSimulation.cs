@@ -130,34 +130,21 @@ public class GraphSimulation : MonoBehaviour
 
     private bool CalculateNodeSimuData(NodgesSimuData nodgesSimuData)
     {
-        float coulombDistance;
-        float springDistance;
-        float stopVelocity;
-
         var nodesSimuData = nodgesSimuData.NodeSimuDatas;
         var edgesSimuData = nodgesSimuData.EdgeSimuDatas;
 
 
         var config = _graphConfiguration.SimuParameters;
 
-        if (nodesSimuData.Count > 500)
-        {
-            coulombDistance = config.DenseSpringDistance;
-            springDistance = config.DenseSpringDistance;
-            stopVelocity = config.DenseStopVelocity;
-        }
-        else
-        {
-            coulombDistance = config.LightCoulombDistance;
-            springDistance = config.LightSpringDistance;
-            stopVelocity = config.LightStopVelocity;
-        }
+        float coulombDistance = config.CoulombDistance;
+        float springDistance = config.SpringDistance;
+        float stopVelocity = config.StopVelocity;
 
-        float coulombForce = config.LightCoulombForce;
-        float springForce = config.LightSpringForce;
-        float damping = config.LightDamping;
-        float maxVelocity = config.LightMaxVelocity;
-        float invMaxVelocity = 1f / config.LightMaxVelocity;
+        float coulombForce = config.CoulombForce;
+        float springForce = config.SpringForce;
+        float damping = config.Damping;
+        float maxVelocity = config.MaxVelocity;
+        float invMaxVelocity = 1f / config.MaxVelocity;
 
         float velocitySum = 0f;
         float tickDeltaTime = config.TickDeltaTime;

@@ -139,34 +139,21 @@ public class LensSimulation : MonoBehaviour
 
     private bool CalculateNodeSimuData(NodgesSimuData2D simuData2D)
     {
-        float coulombDistance;
-        float springDistance;
-        float stopVelocity;
-
         var nodesSimuData = simuData2D.NodeSimuDatas;
         var edgesSimuData = simuData2D.EdgeSimuDatas;
 
 
         var config = _graphConfiguration.LensSimuParameters;
 
-        if (nodesSimuData.Count > 500)
-        {
-            coulombDistance = config.DenseSpringDistance;
-            springDistance = config.DenseSpringDistance;
-            stopVelocity = config.DenseStopVelocity;
-        }
-        else
-        {
-            coulombDistance = config.LightCoulombDistance;
-            springDistance = config.LightSpringDistance;
-            stopVelocity = config.LightStopVelocity;
-        }
+        float coulombDistance = config.CoulombDistance;
+        float springDistance = config.SpringDistance;
+        float stopVelocity = config.StopVelocity;
 
-        float coulombForce = config.LightCoulombForce;
-        float springForce = config.LightSpringForce;
-        float damping = config.LightDamping;
-        float maxVelocity = config.LightMaxVelocity;
-        float invMaxVelocity = 1f / config.LightMaxVelocity;
+        float coulombForce = config.CoulombForce;
+        float springForce = config.SpringForce;
+        float damping = config.Damping;
+        float maxVelocity = config.MaxVelocity;
+        float invMaxVelocity = 1f / config.MaxVelocity;
 
         float velocitySum = 0f;
         float tickDeltaTime = config.TickDeltaTime;

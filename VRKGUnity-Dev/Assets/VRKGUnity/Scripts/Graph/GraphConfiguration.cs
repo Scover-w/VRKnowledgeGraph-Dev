@@ -362,47 +362,26 @@ public class GraphConfiguration
             case GraphConfigKey.DefaultLerpSmooth:
                 SimuParameters.LerpSmooth = value;
                 return true;
-            case GraphConfigKey.DefaultLightSpringForce:
-                SimuParameters.LightSpringForce = value;
+            case GraphConfigKey.DefaultSpringForce:
+                SimuParameters.SpringForce = value;
                 return true;
-            case GraphConfigKey.DefaultLightCoulombForce:
-                SimuParameters.LightCoulombForce = value;
+            case GraphConfigKey.DefaultCoulombForce:
+                SimuParameters.CoulombForce = value;
                 return true;
-            case GraphConfigKey.DefaultLightDamping:
-                SimuParameters.LightDamping = value;
+            case GraphConfigKey.DefaultDamping:
+                SimuParameters.Damping = value;
                 return true;
-            case GraphConfigKey.DefaultLightSpringDistance:
-                SimuParameters.LightSpringDistance = value;
+            case GraphConfigKey.DefaultSpringDistance:
+                SimuParameters.SpringDistance = value;
                 return true;
-            case GraphConfigKey.DefaultLightCoulombDistance:
-                SimuParameters.LightCoulombDistance = value;
+            case GraphConfigKey.DefaultCoulombDistance:
+                SimuParameters.CoulombDistance = value;
                 return true;
-            case GraphConfigKey.DefaultLightMaxVelocity:
-                SimuParameters.LightMaxVelocity = value;
+            case GraphConfigKey.DefaultMaxVelocity:
+                SimuParameters.MaxVelocity = value;
                 return true;
-            case GraphConfigKey.DefaultLightStopVelocity:
-                SimuParameters.LightStopVelocity = value;
-                return true;
-            case GraphConfigKey.DefaultDenseSpringForce:
-                SimuParameters.DenseSpringForce = value;
-                return true;
-            case GraphConfigKey.DefaultDenseCoulombForce:
-                SimuParameters.DenseCoulombForce = value;
-                return true;
-            case GraphConfigKey.DefaultDenseDamping:
-                SimuParameters.DenseDamping = value;
-                return true;
-            case GraphConfigKey.DefaultDenseSpringDistance:
-                SimuParameters.DenseSpringDistance = value;
-                return true;
-            case GraphConfigKey.DefaultDenseCoulombDistance:
-                SimuParameters.DenseCoulombDistance = value;
-                return true;
-            case GraphConfigKey.DefaultDenseMaxVelocity:
-                SimuParameters.DenseMaxVelocity = value;
-                return true;
-            case GraphConfigKey.DefaultDenseStopVelocity:
-                SimuParameters.DenseStopVelocity = value;
+            case GraphConfigKey.DefaultStopVelocity:
+                SimuParameters.StopVelocity = value;
                 return true;
             case GraphConfigKey.LensTickDeltaTime:
                 LensSimuParameters.TickDeltaTime = value;
@@ -413,47 +392,26 @@ public class GraphConfiguration
             case GraphConfigKey.LensLerpSmooth:
                 LensSimuParameters.LerpSmooth = value;
                 return true;
-            case GraphConfigKey.LensLightSpringForce:
-                LensSimuParameters.LightSpringForce = value;
+            case GraphConfigKey.LensSpringForce:
+                LensSimuParameters.SpringForce = value;
                 return true;
-            case GraphConfigKey.LensLightCoulombForce:
-                LensSimuParameters.LightCoulombForce = value;
+            case GraphConfigKey.LensCoulombForce:
+                LensSimuParameters.CoulombForce = value;
                 return true;
-            case GraphConfigKey.LensLightDamping:
-                LensSimuParameters.LightDamping = value;
+            case GraphConfigKey.LensDamping:
+                LensSimuParameters.Damping = value;
                 return true;
-            case GraphConfigKey.LensLightSpringDistance:
-                LensSimuParameters.LightSpringDistance = value;
+            case GraphConfigKey.LensSpringDistance:
+                LensSimuParameters.SpringDistance = value;
                 return true;
-            case GraphConfigKey.LensLightCoulombDistance:
-                LensSimuParameters.LightCoulombDistance = value;
+            case GraphConfigKey.LensCoulombDistance:
+                LensSimuParameters.CoulombDistance = value;
                 return true;
-            case GraphConfigKey.LensLightMaxVelocity:
-                LensSimuParameters.LightMaxVelocity = value;
+            case GraphConfigKey.LensMaxVelocity:
+                LensSimuParameters.MaxVelocity = value;
                 return true;
-            case GraphConfigKey.LensLightStopVelocity:
-                LensSimuParameters.LightStopVelocity = value;
-                return true;
-            case GraphConfigKey.LensDenseSpringForce:
-                LensSimuParameters.DenseSpringForce = value;
-                return true;
-            case GraphConfigKey.LensDenseCoulombForce:
-                LensSimuParameters.DenseCoulombForce = value;
-                return true;
-            case GraphConfigKey.LensDenseDamping:
-                LensSimuParameters.DenseDamping = value;
-                return true;
-            case GraphConfigKey.LensDenseSpringDistance:
-                LensSimuParameters.DenseSpringDistance = value;
-                return true;
-            case GraphConfigKey.LensDenseCoulombDistance:
-                LensSimuParameters.DenseCoulombDistance = value;
-                return true;
-            case GraphConfigKey.LensDenseMaxVelocity:
-                LensSimuParameters.DenseMaxVelocity = value;
-                return true;
-            case GraphConfigKey.LensDenseStopVelocity:
-                LensSimuParameters.DenseStopVelocity = value;
+            case GraphConfigKey.LensStopVelocity:
+                LensSimuParameters.StopVelocity = value;
                 return true;
         }
             return false;
