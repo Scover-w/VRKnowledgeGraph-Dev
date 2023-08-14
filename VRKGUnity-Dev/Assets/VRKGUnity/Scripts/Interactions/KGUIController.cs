@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class KGUIController : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class KGUIController : MonoBehaviour
 
     Transform _tf;
     bool _isUIDisplayed = false;
+    bool _isRegistered = false;
 
     private void Awake()
     {
@@ -35,11 +37,41 @@ public class KGUIController : MonoBehaviour
 
     private void OnEnable()
     {
-        _displayUIAction.performed += SwitchDisplayUI;
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnDisable()
     {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+
+        if (_isRegistered)
+            Unregister();
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name != Scenes.KG && _isRegistered)
+        {
+            Unregister();
+            return;
+        }
+
+        if (scene.name != Scenes.KG)
+            return;
+
+        Register();
+    }
+
+    private void Register()
+    {
+        _displayUIAction.performed += SwitchDisplayUI;
+    }
+
+    private void Unregister()
+    {
+        if (_isUIDisplayed)
+            SwitchDisplayUI(new InputAction.CallbackContext());
+
         _displayUIAction.performed -= SwitchDisplayUI;
     }
 
