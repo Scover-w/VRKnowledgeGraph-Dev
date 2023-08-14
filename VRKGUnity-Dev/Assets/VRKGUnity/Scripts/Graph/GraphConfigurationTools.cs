@@ -23,599 +23,355 @@ public static class GraphConfigurationTools
 
     public static GraphConfigValueType GetConfigValueType(this GraphConfigKey key)
     {
-        switch (key)
+        return key switch
         {
-            case GraphConfigKey.SimuParameters:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.LensSimuParameters:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.ImmersionGraphSize:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.DeskGraphSize:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.WatchGraphSize:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.LensGraphSize:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.NodeSizeImmersion:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.NodeSizeDesk:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.NodeSizeWatch:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.NodeSizeLens:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.NodeMinSizeImmersion:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.NodeMaxSizeImmersion:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.NodeMinSizeDesk:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.NodeMaxSizeDesk:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.NodeMinSizeLens:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.NodeMaxSizeLens:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.LabelNodeSizeImmersion:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.LabelNodeSizeDesk:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.LabelNodeSizeLens:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.ShowLabelImmersion:
-                return GraphConfigValueType.Bool;
-            case GraphConfigKey.ShowLabelDesk:
-                return GraphConfigValueType.Bool;
-            case GraphConfigKey.ShowLabelLens:
-                return GraphConfigValueType.Bool;
-            case GraphConfigKey.EdgeThicknessImmersion:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.EdgeThicknessDesk:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.EdgeThicknessLens:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.EdgeThicknessWatch:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.CanSelectEdges:
-                return GraphConfigValueType.Bool;
-            case GraphConfigKey.DisplayEdges:
-                return GraphConfigValueType.Bool;
-            case GraphConfigKey.NodeColor:
-                return GraphConfigValueType.Color;
-            case GraphConfigKey.NodeColorNoValueMetric:
-                return GraphConfigValueType.Color;
-            case GraphConfigKey.EdgeColor:
-                return GraphConfigValueType.Color;
-            case GraphConfigKey.PropagatedEdgeColor:
-                return GraphConfigValueType.Color;
-            case GraphConfigKey.NodeColorMappingColorA:
-                return GraphConfigValueType.Color;
-            case GraphConfigKey.NodeColorMappingColorB:
-                return GraphConfigValueType.Color;
-            case GraphConfigKey.NodeColorMappingColorC:
-                return GraphConfigValueType.Color;
-            case GraphConfigKey.NodeColorMappingBoundaryColorA:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.NodeColorMappingBoundaryColorB:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.NodeColorMappingBoundaryColorC:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.AlphaNodeColorPropagated:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.AlphaNodeColorUnPropagated:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.AlphaEdgeColorPropagated:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.AlphaEdgeColorUnPropagated:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.NbOntologyColor:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.MaxDeltaOntologyAlgo:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.SaturationOntologyColor:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.ValueOntologyColor:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.LabelNodgePropagation:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.ResetPositionNodeOnUpdate:
-                return GraphConfigValueType.Bool;
-            case GraphConfigKey.SeedRandomPosition:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.GraphModeTransitionTime:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.DisplayInterSelectedNeighborEdges:
-                return GraphConfigValueType.Bool;
-            case GraphConfigKey.ShowWatch:
-                return GraphConfigValueType.Bool;
-            case GraphConfigKey.SelectedMetricTypeSize:
-                return GraphConfigValueType.String;
-            case GraphConfigKey.SelectedMetricTypeColor:
-                return GraphConfigValueType.String;
-            case GraphConfigKey.DefaultSimulationParameters:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.DefaultTickDeltaTime:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.DefaultMaxSimulationTime:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.DefaultLerpSmooth:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.DefaultLightSpringForce:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.DefaultLightCoulombForce:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.DefaultLightDamping:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.DefaultLightSpringDistance:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.DefaultLightCoulombDistance:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.DefaultLightMaxVelocity:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.DefaultLightStopVelocity:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.DefaultDenseSpringForce:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.DefaultDenseCoulombForce:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.DefaultDenseDamping:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.DefaultDenseSpringDistance:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.DefaultDenseCoulombDistance:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.DefaultDenseMaxVelocity:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.DefaultDenseStopVelocity:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.LensSimulationParameters:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.LensTickDeltaTime:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.LensMaxSimulationTime:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.LensLerpSmooth:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.LensLightSpringForce:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.LensLightCoulombForce:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.LensLightDamping:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.LensLightSpringDistance:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.LensLightCoulombDistance:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.LensLightMaxVelocity:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.LensLightStopVelocity:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.LensDenseSpringForce:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.LensDenseCoulombForce:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.LensDenseDamping:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.LensDenseSpringDistance:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.LensDenseCoulombDistance:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.LensDenseMaxVelocity:
-                return GraphConfigValueType.Float;
-            case GraphConfigKey.LensDenseStopVelocity:
-                return GraphConfigValueType.Float;
-            default:
-                return GraphConfigValueType.Float;
-        }
+            GraphConfigKey.SimuParameters => GraphConfigValueType.Float,
+            GraphConfigKey.LensSimuParameters => GraphConfigValueType.Float,
+            GraphConfigKey.ImmersionGraphSize => GraphConfigValueType.Float,
+            GraphConfigKey.DeskGraphSize => GraphConfigValueType.Float,
+            GraphConfigKey.WatchGraphSize => GraphConfigValueType.Float,
+            GraphConfigKey.LensGraphSize => GraphConfigValueType.Float,
+            GraphConfigKey.NodeSizeImmersion => GraphConfigValueType.Float,
+            GraphConfigKey.NodeSizeDesk => GraphConfigValueType.Float,
+            GraphConfigKey.NodeSizeWatch => GraphConfigValueType.Float,
+            GraphConfigKey.NodeSizeLens => GraphConfigValueType.Float,
+            GraphConfigKey.NodeMinSizeImmersion => GraphConfigValueType.Float,
+            GraphConfigKey.NodeMaxSizeImmersion => GraphConfigValueType.Float,
+            GraphConfigKey.NodeMinSizeDesk => GraphConfigValueType.Float,
+            GraphConfigKey.NodeMaxSizeDesk => GraphConfigValueType.Float,
+            GraphConfigKey.NodeMinSizeLens => GraphConfigValueType.Float,
+            GraphConfigKey.NodeMaxSizeLens => GraphConfigValueType.Float,
+            GraphConfigKey.LabelNodeSizeImmersion => GraphConfigValueType.Float,
+            GraphConfigKey.LabelNodeSizeDesk => GraphConfigValueType.Float,
+            GraphConfigKey.LabelNodeSizeLens => GraphConfigValueType.Float,
+            GraphConfigKey.ShowLabelImmersion => GraphConfigValueType.Bool,
+            GraphConfigKey.ShowLabelDesk => GraphConfigValueType.Bool,
+            GraphConfigKey.ShowLabelLens => GraphConfigValueType.Bool,
+            GraphConfigKey.EdgeThicknessImmersion => GraphConfigValueType.Float,
+            GraphConfigKey.EdgeThicknessDesk => GraphConfigValueType.Float,
+            GraphConfigKey.EdgeThicknessLens => GraphConfigValueType.Float,
+            GraphConfigKey.EdgeThicknessWatch => GraphConfigValueType.Float,
+            GraphConfigKey.CanSelectEdges => GraphConfigValueType.Bool,
+            GraphConfigKey.DisplayEdges => GraphConfigValueType.Bool,
+            GraphConfigKey.NodeColor => GraphConfigValueType.Color,
+            GraphConfigKey.NodeColorNoValueMetric => GraphConfigValueType.Color,
+            GraphConfigKey.EdgeColor => GraphConfigValueType.Color,
+            GraphConfigKey.PropagatedEdgeColor => GraphConfigValueType.Color,
+            GraphConfigKey.NodeColorMappingColorA => GraphConfigValueType.Color,
+            GraphConfigKey.NodeColorMappingColorB => GraphConfigValueType.Color,
+            GraphConfigKey.NodeColorMappingColorC => GraphConfigValueType.Color,
+            GraphConfigKey.NodeColorMappingBoundaryColorA => GraphConfigValueType.Float,
+            GraphConfigKey.NodeColorMappingBoundaryColorB => GraphConfigValueType.Float,
+            GraphConfigKey.NodeColorMappingBoundaryColorC => GraphConfigValueType.Float,
+            GraphConfigKey.AlphaNodeColorPropagated => GraphConfigValueType.Float,
+            GraphConfigKey.AlphaNodeColorUnPropagated => GraphConfigValueType.Float,
+            GraphConfigKey.AlphaEdgeColorPropagated => GraphConfigValueType.Float,
+            GraphConfigKey.AlphaEdgeColorUnPropagated => GraphConfigValueType.Float,
+            GraphConfigKey.NbOntologyColor => GraphConfigValueType.Float,
+            GraphConfigKey.MaxDeltaOntologyAlgo => GraphConfigValueType.Float,
+            GraphConfigKey.SaturationOntologyColor => GraphConfigValueType.Float,
+            GraphConfigKey.ValueOntologyColor => GraphConfigValueType.Float,
+            GraphConfigKey.LabelNodgePropagation => GraphConfigValueType.Float,
+            GraphConfigKey.ResetPositionNodeOnUpdate => GraphConfigValueType.Bool,
+            GraphConfigKey.SeedRandomPosition => GraphConfigValueType.Float,
+            GraphConfigKey.GraphModeTransitionTime => GraphConfigValueType.Float,
+            GraphConfigKey.DisplayInterSelectedNeighborEdges => GraphConfigValueType.Bool,
+            GraphConfigKey.ShowWatch => GraphConfigValueType.Bool,
+            GraphConfigKey.SelectedMetricTypeSize => GraphConfigValueType.String,
+            GraphConfigKey.SelectedMetricTypeColor => GraphConfigValueType.String,
+            GraphConfigKey.DefaultSimulationParameters => GraphConfigValueType.Float,
+            GraphConfigKey.DefaultTickDeltaTime => GraphConfigValueType.Float,
+            GraphConfigKey.DefaultMaxSimulationTime => GraphConfigValueType.Float,
+            GraphConfigKey.DefaultLerpSmooth => GraphConfigValueType.Float,
+            GraphConfigKey.DefaultLightSpringForce => GraphConfigValueType.Float,
+            GraphConfigKey.DefaultLightCoulombForce => GraphConfigValueType.Float,
+            GraphConfigKey.DefaultLightDamping => GraphConfigValueType.Float,
+            GraphConfigKey.DefaultLightSpringDistance => GraphConfigValueType.Float,
+            GraphConfigKey.DefaultLightCoulombDistance => GraphConfigValueType.Float,
+            GraphConfigKey.DefaultLightMaxVelocity => GraphConfigValueType.Float,
+            GraphConfigKey.DefaultLightStopVelocity => GraphConfigValueType.Float,
+            GraphConfigKey.DefaultDenseSpringForce => GraphConfigValueType.Float,
+            GraphConfigKey.DefaultDenseCoulombForce => GraphConfigValueType.Float,
+            GraphConfigKey.DefaultDenseDamping => GraphConfigValueType.Float,
+            GraphConfigKey.DefaultDenseSpringDistance => GraphConfigValueType.Float,
+            GraphConfigKey.DefaultDenseCoulombDistance => GraphConfigValueType.Float,
+            GraphConfigKey.DefaultDenseMaxVelocity => GraphConfigValueType.Float,
+            GraphConfigKey.DefaultDenseStopVelocity => GraphConfigValueType.Float,
+            GraphConfigKey.LensSimulationParameters => GraphConfigValueType.Float,
+            GraphConfigKey.LensTickDeltaTime => GraphConfigValueType.Float,
+            GraphConfigKey.LensMaxSimulationTime => GraphConfigValueType.Float,
+            GraphConfigKey.LensLerpSmooth => GraphConfigValueType.Float,
+            GraphConfigKey.LensLightSpringForce => GraphConfigValueType.Float,
+            GraphConfigKey.LensLightCoulombForce => GraphConfigValueType.Float,
+            GraphConfigKey.LensLightDamping => GraphConfigValueType.Float,
+            GraphConfigKey.LensLightSpringDistance => GraphConfigValueType.Float,
+            GraphConfigKey.LensLightCoulombDistance => GraphConfigValueType.Float,
+            GraphConfigKey.LensLightMaxVelocity => GraphConfigValueType.Float,
+            GraphConfigKey.LensLightStopVelocity => GraphConfigValueType.Float,
+            GraphConfigKey.LensDenseSpringForce => GraphConfigValueType.Float,
+            GraphConfigKey.LensDenseCoulombForce => GraphConfigValueType.Float,
+            GraphConfigKey.LensDenseDamping => GraphConfigValueType.Float,
+            GraphConfigKey.LensDenseSpringDistance => GraphConfigValueType.Float,
+            GraphConfigKey.LensDenseCoulombDistance => GraphConfigValueType.Float,
+            GraphConfigKey.LensDenseMaxVelocity => GraphConfigValueType.Float,
+            GraphConfigKey.LensDenseStopVelocity => GraphConfigValueType.Float,
+            _ => GraphConfigValueType.Float,
+        };
     }
 
     private static Type GetRealType(this GraphConfigKey key)
     {
-        switch (key)
+        return key switch
         {
-            case GraphConfigKey.SimuParameters:
-                return typeof(float);
-            case GraphConfigKey.LensSimuParameters:
-                return typeof(float);
-            case GraphConfigKey.ImmersionGraphSize:
-                return typeof(float);
-            case GraphConfigKey.DeskGraphSize:
-                return typeof(float);
-            case GraphConfigKey.WatchGraphSize:
-                return typeof(float);
-            case GraphConfigKey.LensGraphSize:
-                return typeof(float);
-            case GraphConfigKey.NodeSizeImmersion:
-                return typeof(float);
-            case GraphConfigKey.NodeSizeDesk:
-                return typeof(float);
-            case GraphConfigKey.NodeSizeWatch:
-                return typeof(float);
-            case GraphConfigKey.NodeSizeLens:
-                return typeof(float);
-            case GraphConfigKey.NodeMinSizeImmersion:
-                return typeof(float);
-            case GraphConfigKey.NodeMaxSizeImmersion:
-                return typeof(float);
-            case GraphConfigKey.NodeMinSizeDesk:
-                return typeof(float);
-            case GraphConfigKey.NodeMaxSizeDesk:
-                return typeof(float);
-            case GraphConfigKey.NodeMinSizeLens:
-                return typeof(float);
-            case GraphConfigKey.NodeMaxSizeLens:
-                return typeof(float);
-            case GraphConfigKey.LabelNodeSizeImmersion:
-                return typeof(float);
-            case GraphConfigKey.LabelNodeSizeDesk:
-                return typeof(float);
-            case GraphConfigKey.LabelNodeSizeLens:
-                return typeof(float);
-            case GraphConfigKey.ShowLabelImmersion:
-                return typeof(bool);
-            case GraphConfigKey.ShowLabelDesk:
-                return typeof(bool);
-            case GraphConfigKey.ShowLabelLens:
-                return typeof(bool);
-            case GraphConfigKey.EdgeThicknessImmersion:
-                return typeof(float);
-            case GraphConfigKey.EdgeThicknessDesk:
-                return typeof(float);
-            case GraphConfigKey.EdgeThicknessLens:
-                return typeof(float);
-            case GraphConfigKey.EdgeThicknessWatch:
-                return typeof(float);
-            case GraphConfigKey.CanSelectEdges:
-                return typeof(bool);
-            case GraphConfigKey.DisplayEdges:
-                return typeof(bool);
-            case GraphConfigKey.NodeColor:
-                return typeof(Color);
-            case GraphConfigKey.NodeColorNoValueMetric:
-                return typeof(Color);
-            case GraphConfigKey.EdgeColor:
-                return typeof(Color);
-            case GraphConfigKey.PropagatedEdgeColor:
-                return typeof(Color);
-            case GraphConfigKey.NodeColorMappingColorA:
-                return typeof(Color);
-            case GraphConfigKey.NodeColorMappingColorB:
-                return typeof(Color);
-            case GraphConfigKey.NodeColorMappingColorC:
-                return typeof(Color);
-            case GraphConfigKey.NodeColorMappingBoundaryColorA:
-                return typeof(float);
-            case GraphConfigKey.NodeColorMappingBoundaryColorB:
-                return typeof(float);
-            case GraphConfigKey.NodeColorMappingBoundaryColorC:
-                return typeof(float);
-            case GraphConfigKey.AlphaNodeColorPropagated:
-                return typeof(float);
-            case GraphConfigKey.AlphaNodeColorUnPropagated:
-                return typeof(float);
-            case GraphConfigKey.AlphaEdgeColorPropagated:
-                return typeof(float);
-            case GraphConfigKey.AlphaEdgeColorUnPropagated:
-                return typeof(float);
-            case GraphConfigKey.NbOntologyColor:
-                return typeof(int);
-            case GraphConfigKey.MaxDeltaOntologyAlgo:
-                return typeof(int);
-            case GraphConfigKey.SaturationOntologyColor:
-                return typeof(float);
-            case GraphConfigKey.ValueOntologyColor:
-                return typeof(float);
-            case GraphConfigKey.LabelNodgePropagation:
-                return typeof(int);
-            case GraphConfigKey.ResetPositionNodeOnUpdate:
-                return typeof(bool);
-            case GraphConfigKey.SeedRandomPosition:
-                return typeof(int);
-            case GraphConfigKey.GraphModeTransitionTime:
-                return typeof(float);
-            case GraphConfigKey.DisplayInterSelectedNeighborEdges:
-                return typeof(bool);
-            case GraphConfigKey.ShowWatch:
-                return typeof(bool);
-            case GraphConfigKey.SelectedMetricTypeSize:
-                return typeof(GraphMetricType);
-            case GraphConfigKey.SelectedMetricTypeColor:
-                return typeof(GraphMetricType);
-            case GraphConfigKey.DefaultSimulationParameters:
-                return typeof(float);
-            case GraphConfigKey.DefaultTickDeltaTime:
-                return typeof(float);
-            case GraphConfigKey.DefaultMaxSimulationTime:
-                return typeof(float);
-            case GraphConfigKey.DefaultLerpSmooth:
-                return typeof(float);
-            case GraphConfigKey.DefaultLightSpringForce:
-                return typeof(float);
-            case GraphConfigKey.DefaultLightCoulombForce:
-                return typeof(float);
-            case GraphConfigKey.DefaultLightDamping:
-                return typeof(float);
-            case GraphConfigKey.DefaultLightSpringDistance:
-                return typeof(float);
-            case GraphConfigKey.DefaultLightCoulombDistance:
-                return typeof(float);
-            case GraphConfigKey.DefaultLightMaxVelocity:
-                return typeof(float);
-            case GraphConfigKey.DefaultLightStopVelocity:
-                return typeof(float);
-            case GraphConfigKey.DefaultDenseSpringForce:
-                return typeof(float);
-            case GraphConfigKey.DefaultDenseCoulombForce:
-                return typeof(float);
-            case GraphConfigKey.DefaultDenseDamping:
-                return typeof(float);
-            case GraphConfigKey.DefaultDenseSpringDistance:
-                return typeof(float);
-            case GraphConfigKey.DefaultDenseCoulombDistance:
-                return typeof(float);
-            case GraphConfigKey.DefaultDenseMaxVelocity:
-                return typeof(float);
-            case GraphConfigKey.DefaultDenseStopVelocity:
-                return typeof(float);
-            case GraphConfigKey.LensSimulationParameters:
-                return typeof(float);
-            case GraphConfigKey.LensTickDeltaTime:
-                return typeof(float);
-            case GraphConfigKey.LensMaxSimulationTime:
-                return typeof(float);
-            case GraphConfigKey.LensLerpSmooth:
-                return typeof(float);
-            case GraphConfigKey.LensLightSpringForce:
-                return typeof(float);
-            case GraphConfigKey.LensLightCoulombForce:
-                return typeof(float);
-            case GraphConfigKey.LensLightDamping:
-                return typeof(float);
-            case GraphConfigKey.LensLightSpringDistance:
-                return typeof(float);
-            case GraphConfigKey.LensLightCoulombDistance:
-                return typeof(float);
-            case GraphConfigKey.LensLightMaxVelocity:
-                return typeof(float);
-            case GraphConfigKey.LensLightStopVelocity:
-                return typeof(float);
-            case GraphConfigKey.LensDenseSpringForce:
-                return typeof(float);
-            case GraphConfigKey.LensDenseCoulombForce:
-                return typeof(float);
-            case GraphConfigKey.LensDenseDamping:
-                return typeof(float);
-            case GraphConfigKey.LensDenseSpringDistance:
-                return typeof(float);
-            case GraphConfigKey.LensDenseCoulombDistance:
-                return typeof(float);
-            case GraphConfigKey.LensDenseMaxVelocity:
-                return typeof(float);
-            case GraphConfigKey.LensDenseStopVelocity:
-                return typeof(float);
-            default:
-                return typeof(float);
-        }
+            GraphConfigKey.GraphMode => typeof(bool),
+            GraphConfigKey.SelectionMode => typeof(string),
+            GraphConfigKey.SimuParameters => typeof(float),
+            GraphConfigKey.LensSimuParameters => typeof(float),
+            GraphConfigKey.ImmersionGraphSize => typeof(float),
+            GraphConfigKey.DeskGraphSize => typeof(float),
+            GraphConfigKey.WatchGraphSize => typeof(float),
+            GraphConfigKey.LensGraphSize => typeof(float),
+            GraphConfigKey.NodeSizeImmersion => typeof(float),
+            GraphConfigKey.NodeSizeDesk => typeof(float),
+            GraphConfigKey.NodeSizeWatch => typeof(float),
+            GraphConfigKey.NodeSizeLens => typeof(float),
+            GraphConfigKey.NodeMinSizeImmersion => typeof(float),
+            GraphConfigKey.NodeMaxSizeImmersion => typeof(float),
+            GraphConfigKey.NodeMinSizeDesk => typeof(float),
+            GraphConfigKey.NodeMaxSizeDesk => typeof(float),
+            GraphConfigKey.NodeMinSizeLens => typeof(float),
+            GraphConfigKey.NodeMaxSizeLens => typeof(float),
+            GraphConfigKey.LabelNodeSizeImmersion => typeof(float),
+            GraphConfigKey.LabelNodeSizeDesk => typeof(float),
+            GraphConfigKey.LabelNodeSizeLens => typeof(float),
+            GraphConfigKey.ShowLabelImmersion => typeof(bool),
+            GraphConfigKey.ShowLabelDesk => typeof(bool),
+            GraphConfigKey.ShowLabelLens => typeof(bool),
+            GraphConfigKey.EdgeThicknessImmersion => typeof(float),
+            GraphConfigKey.EdgeThicknessDesk => typeof(float),
+            GraphConfigKey.EdgeThicknessLens => typeof(float),
+            GraphConfigKey.EdgeThicknessWatch => typeof(float),
+            GraphConfigKey.CanSelectEdges => typeof(bool),
+            GraphConfigKey.DisplayEdges => typeof(bool),
+            GraphConfigKey.NodeColor => typeof(Color),
+            GraphConfigKey.NodeColorNoValueMetric => typeof(Color),
+            GraphConfigKey.EdgeColor => typeof(Color),
+            GraphConfigKey.PropagatedEdgeColor => typeof(Color),
+            GraphConfigKey.NodeColorMappingColorA => typeof(Color),
+            GraphConfigKey.NodeColorMappingColorB => typeof(Color),
+            GraphConfigKey.NodeColorMappingColorC => typeof(Color),
+            GraphConfigKey.NodeColorMappingBoundaryColorA => typeof(float),
+            GraphConfigKey.NodeColorMappingBoundaryColorB => typeof(float),
+            GraphConfigKey.NodeColorMappingBoundaryColorC => typeof(float),
+            GraphConfigKey.AlphaNodeColorPropagated => typeof(float),
+            GraphConfigKey.AlphaNodeColorUnPropagated => typeof(float),
+            GraphConfigKey.AlphaEdgeColorPropagated => typeof(float),
+            GraphConfigKey.AlphaEdgeColorUnPropagated => typeof(float),
+            GraphConfigKey.NbOntologyColor => typeof(int),
+            GraphConfigKey.MaxDeltaOntologyAlgo => typeof(int),
+            GraphConfigKey.SaturationOntologyColor => typeof(float),
+            GraphConfigKey.ValueOntologyColor => typeof(float),
+            GraphConfigKey.LabelNodgePropagation => typeof(int),
+            GraphConfigKey.ResetPositionNodeOnUpdate => typeof(bool),
+            GraphConfigKey.SeedRandomPosition => typeof(int),
+            GraphConfigKey.GraphModeTransitionTime => typeof(float),
+            GraphConfigKey.DisplayInterSelectedNeighborEdges => typeof(bool),
+            GraphConfigKey.ShowWatch => typeof(bool),
+            GraphConfigKey.SelectedMetricTypeSize => typeof(GraphMetricType),
+            GraphConfigKey.SelectedMetricTypeColor => typeof(GraphMetricType),
+            GraphConfigKey.DefaultSimulationParameters => typeof(float),
+            GraphConfigKey.DefaultTickDeltaTime => typeof(float),
+            GraphConfigKey.DefaultMaxSimulationTime => typeof(float),
+            GraphConfigKey.DefaultLerpSmooth => typeof(float),
+            GraphConfigKey.DefaultLightSpringForce => typeof(float),
+            GraphConfigKey.DefaultLightCoulombForce => typeof(float),
+            GraphConfigKey.DefaultLightDamping => typeof(float),
+            GraphConfigKey.DefaultLightSpringDistance => typeof(float),
+            GraphConfigKey.DefaultLightCoulombDistance => typeof(float),
+            GraphConfigKey.DefaultLightMaxVelocity => typeof(float),
+            GraphConfigKey.DefaultLightStopVelocity => typeof(float),
+            GraphConfigKey.DefaultDenseSpringForce => typeof(float),
+            GraphConfigKey.DefaultDenseCoulombForce => typeof(float),
+            GraphConfigKey.DefaultDenseDamping => typeof(float),
+            GraphConfigKey.DefaultDenseSpringDistance => typeof(float),
+            GraphConfigKey.DefaultDenseCoulombDistance => typeof(float),
+            GraphConfigKey.DefaultDenseMaxVelocity => typeof(float),
+            GraphConfigKey.DefaultDenseStopVelocity => typeof(float),
+            GraphConfigKey.LensSimulationParameters => typeof(float),
+            GraphConfigKey.LensTickDeltaTime => typeof(float),
+            GraphConfigKey.LensMaxSimulationTime => typeof(float),
+            GraphConfigKey.LensLerpSmooth => typeof(float),
+            GraphConfigKey.LensLightSpringForce => typeof(float),
+            GraphConfigKey.LensLightCoulombForce => typeof(float),
+            GraphConfigKey.LensLightDamping => typeof(float),
+            GraphConfigKey.LensLightSpringDistance => typeof(float),
+            GraphConfigKey.LensLightCoulombDistance => typeof(float),
+            GraphConfigKey.LensLightMaxVelocity => typeof(float),
+            GraphConfigKey.LensLightStopVelocity => typeof(float),
+            GraphConfigKey.LensDenseSpringForce => typeof(float),
+            GraphConfigKey.LensDenseCoulombForce => typeof(float),
+            GraphConfigKey.LensDenseDamping => typeof(float),
+            GraphConfigKey.LensDenseSpringDistance => typeof(float),
+            GraphConfigKey.LensDenseCoulombDistance => typeof(float),
+            GraphConfigKey.LensDenseMaxVelocity => typeof(float),
+            GraphConfigKey.LensDenseStopVelocity => typeof(float),
+            _ => typeof(float),
+        };
     }
 
-
-    public static string GetStringValue(this GraphConfigKey key, GraphConfiguration graphConfig)
+    public static T GetValue<T>(this GraphConfigKey key, GraphConfiguration graphConfig)
     {
-        switch (key)
+
+        if (typeof(T) == typeof(string))
         {
-            case GraphConfigKey.SelectedMetricTypeSize:
-                return graphConfig.SelectedMetricTypeSize.ToString();
-            case GraphConfigKey.SelectedMetricTypeColor:
-                return graphConfig.SelectedMetricTypeColor.ToString();
+            return (T)(object)GetStringValue(key, graphConfig);
+        }
+        else if (typeof(T) == typeof(float))
+        {
+            return (T)(object)GetFloatValue(key, graphConfig);
+        }
+        else if (typeof(T) == typeof(bool))
+        {
+            return (T)(object)GetBoolValue(key, graphConfig);
+        }
+        else if (typeof(T) == typeof(Color))
+        {
+            return (T)(object)GetColorValue(key, graphConfig);
         }
 
-        return "";
+        Debug.LogError("No T as " + typeof(T) + " is handled");
+
+        return default(T);
     }
 
-    public static float GetFloatValue(this GraphConfigKey key, GraphConfiguration graphConfig)
+    private static string GetStringValue(this GraphConfigKey key, GraphConfiguration graphConfig)
     {
-        switch (key)
+        return key switch
         {
-            case GraphConfigKey.ImmersionGraphSize:
-                return graphConfig.ImmersionGraphSize;
-            case GraphConfigKey.DeskGraphSize:
-                return graphConfig.DeskGraphSize;
-            case GraphConfigKey.WatchGraphSize:
-                return graphConfig.WatchGraphSize;
-            case GraphConfigKey.LensGraphSize:
-                return graphConfig.LensGraphSize;
-            case GraphConfigKey.NodeSizeImmersion:
-                return graphConfig.NodeSizeImmersion;
-            case GraphConfigKey.NodeSizeDesk:
-                return graphConfig.NodeSizeDesk;
-            case GraphConfigKey.NodeSizeWatch:
-                return graphConfig.NodeSizeWatch;
-            case GraphConfigKey.NodeSizeLens:
-                return graphConfig.NodeSizeLens;
-            case GraphConfigKey.NodeMinSizeImmersion:
-                return graphConfig.NodeMinSizeImmersion;
-            case GraphConfigKey.NodeMaxSizeImmersion:
-                return graphConfig.NodeMaxSizeImmersion;
-            case GraphConfigKey.NodeMinSizeDesk:
-                return graphConfig.NodeMinSizeDesk;
-            case GraphConfigKey.NodeMaxSizeDesk:
-                return graphConfig.NodeMaxSizeDesk;
-            case GraphConfigKey.NodeMinSizeLens:
-                return graphConfig.NodeMinSizeLens;
-            case GraphConfigKey.NodeMaxSizeLens:
-                return graphConfig.NodeMaxSizeLens;
-            case GraphConfigKey.LabelNodeSizeImmersion:
-                return graphConfig.LabelNodeSizeImmersion;
-            case GraphConfigKey.LabelNodeSizeDesk:
-                return graphConfig.LabelNodeSizeDesk;
-            case GraphConfigKey.LabelNodeSizeLens:
-                return graphConfig.LabelNodeSizeLens;
-            case GraphConfigKey.EdgeThicknessImmersion:
-                return graphConfig.EdgeThicknessImmersion;
-            case GraphConfigKey.EdgeThicknessDesk:
-                return graphConfig.EdgeThicknessDesk;
-            case GraphConfigKey.EdgeThicknessLens:
-                return graphConfig.EdgeThicknessLens;
-            case GraphConfigKey.EdgeThicknessWatch:
-                return graphConfig.EdgeThicknessWatch;
-            case GraphConfigKey.NodeColorMappingBoundaryColorA:
-                return graphConfig.NodeColorMapping.BoundaryColorA;
-            case GraphConfigKey.NodeColorMappingBoundaryColorB:
-                return graphConfig.NodeColorMapping.BoundaryColorB;
-            case GraphConfigKey.NodeColorMappingBoundaryColorC:
-                return graphConfig.NodeColorMapping.BoundaryColorC;
-            case GraphConfigKey.AlphaNodeColorPropagated:
-                return graphConfig.AlphaNodeColorPropagated;
-            case GraphConfigKey.AlphaNodeColorUnPropagated:
-                return graphConfig.AlphaNodeColorUnPropagated;
-            case GraphConfigKey.AlphaEdgeColorPropagated:
-                return graphConfig.AlphaEdgeColorPropagated;
-            case GraphConfigKey.AlphaEdgeColorUnPropagated:
-                return graphConfig.AlphaEdgeColorUnPropagated;
-            case GraphConfigKey.NbOntologyColor:
-                return graphConfig.NbOntologyColor;
-            case GraphConfigKey.MaxDeltaOntologyAlgo:
-                return graphConfig.MaxDeltaOntologyAlgo;
-            case GraphConfigKey.SaturationOntologyColor:
-                return graphConfig.SaturationOntologyColor;
-            case GraphConfigKey.ValueOntologyColor:
-                return graphConfig.ValueOntologyColor;
-            case GraphConfigKey.LabelNodgePropagation:
-                return graphConfig.LabelNodgePropagation;
-            case GraphConfigKey.SeedRandomPosition:
-                return graphConfig.SeedRandomPosition;
-            case GraphConfigKey.GraphModeTransitionTime:
-                return graphConfig.GraphModeTransitionTime;
-            case GraphConfigKey.DefaultTickDeltaTime:
-                return graphConfig.SimuParameters.TickDeltaTime;
-            case GraphConfigKey.DefaultMaxSimulationTime:
-                return graphConfig.SimuParameters.MaxSimulationTime;
-            case GraphConfigKey.DefaultLerpSmooth:
-                return graphConfig.SimuParameters.LerpSmooth;
-            case GraphConfigKey.DefaultLightSpringForce:
-                return graphConfig.SimuParameters.LightSpringForce;
-            case GraphConfigKey.DefaultLightCoulombForce:
-                return graphConfig.SimuParameters.LightCoulombForce;
-            case GraphConfigKey.DefaultLightDamping:
-                return graphConfig.SimuParameters.LightDamping;
-            case GraphConfigKey.DefaultLightSpringDistance:
-                return graphConfig.SimuParameters.LightSpringDistance;
-            case GraphConfigKey.DefaultLightCoulombDistance:
-                return graphConfig.SimuParameters.LightCoulombDistance;
-            case GraphConfigKey.DefaultLightMaxVelocity:
-                return graphConfig.SimuParameters.LightMaxVelocity;
-            case GraphConfigKey.DefaultLightStopVelocity:
-                return graphConfig.SimuParameters.LightStopVelocity;
-            case GraphConfigKey.DefaultDenseSpringForce:
-                return graphConfig.SimuParameters.DenseSpringForce;
-            case GraphConfigKey.DefaultDenseCoulombForce:
-                return graphConfig.SimuParameters.DenseCoulombForce;
-            case GraphConfigKey.DefaultDenseDamping:
-                return graphConfig.SimuParameters.DenseDamping;
-            case GraphConfigKey.DefaultDenseSpringDistance:
-                return graphConfig.SimuParameters.DenseSpringDistance;
-            case GraphConfigKey.DefaultDenseCoulombDistance:
-                return graphConfig.SimuParameters.DenseCoulombDistance;
-            case GraphConfigKey.DefaultDenseMaxVelocity:
-                return graphConfig.SimuParameters.DenseMaxVelocity;
-            case GraphConfigKey.DefaultDenseStopVelocity:
-                return graphConfig.SimuParameters.DenseStopVelocity;
-            case GraphConfigKey.LensTickDeltaTime:
-                return graphConfig.LensSimuParameters.TickDeltaTime;
-            case GraphConfigKey.LensMaxSimulationTime:
-                return graphConfig.LensSimuParameters.MaxSimulationTime;
-            case GraphConfigKey.LensLerpSmooth:
-                return graphConfig.LensSimuParameters.LerpSmooth;
-            case GraphConfigKey.LensLightSpringForce:
-                return graphConfig.LensSimuParameters.LightSpringForce;
-            case GraphConfigKey.LensLightCoulombForce:
-                return graphConfig.LensSimuParameters.LightCoulombForce;
-            case GraphConfigKey.LensLightDamping:
-                return graphConfig.LensSimuParameters.LightDamping;
-            case GraphConfigKey.LensLightSpringDistance:
-                return graphConfig.LensSimuParameters.LightSpringDistance;
-            case GraphConfigKey.LensLightCoulombDistance:
-                return graphConfig.LensSimuParameters.LightCoulombDistance;
-            case GraphConfigKey.LensLightMaxVelocity:
-                return graphConfig.LensSimuParameters.LightMaxVelocity;
-            case GraphConfigKey.LensLightStopVelocity:
-                return graphConfig.LensSimuParameters.LightStopVelocity;
-            case GraphConfigKey.LensDenseSpringForce:
-                return graphConfig.LensSimuParameters.DenseSpringForce;
-            case GraphConfigKey.LensDenseCoulombForce:
-                return graphConfig.LensSimuParameters.DenseCoulombForce;
-            case GraphConfigKey.LensDenseDamping:
-                return graphConfig.LensSimuParameters.DenseDamping;
-            case GraphConfigKey.LensDenseSpringDistance:
-                return graphConfig.LensSimuParameters.DenseSpringDistance;
-            case GraphConfigKey.LensDenseCoulombDistance:
-                return graphConfig.LensSimuParameters.DenseCoulombDistance;
-            case GraphConfigKey.LensDenseMaxVelocity:
-                return graphConfig.LensSimuParameters.DenseMaxVelocity;
-            case GraphConfigKey.LensDenseStopVelocity:
-                return graphConfig.LensSimuParameters.DenseStopVelocity;
-        }
-        
-        return 0f;
+            GraphConfigKey.SelectionMode => graphConfig.SelectionMode.ToString(),
+            GraphConfigKey.SelectedMetricTypeSize => graphConfig.SelectedMetricTypeSize.ToString(),
+            GraphConfigKey.SelectedMetricTypeColor => graphConfig.SelectedMetricTypeColor.ToString(),
+            _ => "",
+        };
     }
 
-    public static bool GetBoolValue(this GraphConfigKey key, GraphConfiguration graphConfig)
+    private static float GetFloatValue(this GraphConfigKey key, GraphConfiguration graphConfig)
     {
-        switch (key)
+        return key switch
         {
-            case GraphConfigKey.ShowLabelImmersion:
-                return graphConfig.ShowLabelImmersion;
-            case GraphConfigKey.ShowLabelDesk:
-                return graphConfig.ShowLabelDesk;
-            case GraphConfigKey.CanSelectEdges:
-                return graphConfig.CanSelectEdges;
-            case GraphConfigKey.DisplayEdges:
-                return graphConfig.DisplayEdges;
-            case GraphConfigKey.ResetPositionNodeOnUpdate:
-                return graphConfig.ResetPositionNodeOnUpdate;
-            case GraphConfigKey.DisplayInterSelectedNeighborEdges:
-                return graphConfig.DisplayInterSelectedNeighborEdges;
-            case GraphConfigKey.ShowWatch:
-                return graphConfig.ShowWatch;
-        }
-
-        return false;
+            GraphConfigKey.ImmersionGraphSize => graphConfig.ImmersionGraphSize,
+            GraphConfigKey.DeskGraphSize => graphConfig.DeskGraphSize,
+            GraphConfigKey.WatchGraphSize => graphConfig.WatchGraphSize,
+            GraphConfigKey.LensGraphSize => graphConfig.LensGraphSize,
+            GraphConfigKey.NodeSizeImmersion => graphConfig.NodeSizeImmersion,
+            GraphConfigKey.NodeSizeDesk => graphConfig.NodeSizeDesk,
+            GraphConfigKey.NodeSizeWatch => graphConfig.NodeSizeWatch,
+            GraphConfigKey.NodeSizeLens => graphConfig.NodeSizeLens,
+            GraphConfigKey.NodeMinSizeImmersion => graphConfig.NodeMinSizeImmersion,
+            GraphConfigKey.NodeMaxSizeImmersion => graphConfig.NodeMaxSizeImmersion,
+            GraphConfigKey.NodeMinSizeDesk => graphConfig.NodeMinSizeDesk,
+            GraphConfigKey.NodeMaxSizeDesk => graphConfig.NodeMaxSizeDesk,
+            GraphConfigKey.NodeMinSizeLens => graphConfig.NodeMinSizeLens,
+            GraphConfigKey.NodeMaxSizeLens => graphConfig.NodeMaxSizeLens,
+            GraphConfigKey.LabelNodeSizeImmersion => graphConfig.LabelNodeSizeImmersion,
+            GraphConfigKey.LabelNodeSizeDesk => graphConfig.LabelNodeSizeDesk,
+            GraphConfigKey.LabelNodeSizeLens => graphConfig.LabelNodeSizeLens,
+            GraphConfigKey.EdgeThicknessImmersion => graphConfig.EdgeThicknessImmersion,
+            GraphConfigKey.EdgeThicknessDesk => graphConfig.EdgeThicknessDesk,
+            GraphConfigKey.EdgeThicknessLens => graphConfig.EdgeThicknessLens,
+            GraphConfigKey.EdgeThicknessWatch => graphConfig.EdgeThicknessWatch,
+            GraphConfigKey.NodeColorMappingBoundaryColorA => graphConfig.NodeColorMapping.BoundaryColorA,
+            GraphConfigKey.NodeColorMappingBoundaryColorB => graphConfig.NodeColorMapping.BoundaryColorB,
+            GraphConfigKey.NodeColorMappingBoundaryColorC => graphConfig.NodeColorMapping.BoundaryColorC,
+            GraphConfigKey.AlphaNodeColorPropagated => graphConfig.AlphaNodeColorPropagated,
+            GraphConfigKey.AlphaNodeColorUnPropagated => graphConfig.AlphaNodeColorUnPropagated,
+            GraphConfigKey.AlphaEdgeColorPropagated => graphConfig.AlphaEdgeColorPropagated,
+            GraphConfigKey.AlphaEdgeColorUnPropagated => graphConfig.AlphaEdgeColorUnPropagated,
+            GraphConfigKey.NbOntologyColor => graphConfig.NbOntologyColor,
+            GraphConfigKey.MaxDeltaOntologyAlgo => graphConfig.MaxDeltaOntologyAlgo,
+            GraphConfigKey.SaturationOntologyColor => graphConfig.SaturationOntologyColor,
+            GraphConfigKey.ValueOntologyColor => graphConfig.ValueOntologyColor,
+            GraphConfigKey.LabelNodgePropagation => graphConfig.LabelNodgePropagation,
+            GraphConfigKey.SeedRandomPosition => graphConfig.SeedRandomPosition,
+            GraphConfigKey.GraphModeTransitionTime => graphConfig.GraphModeTransitionTime,
+            GraphConfigKey.DefaultTickDeltaTime => graphConfig.SimuParameters.TickDeltaTime,
+            GraphConfigKey.DefaultMaxSimulationTime => graphConfig.SimuParameters.MaxSimulationTime,
+            GraphConfigKey.DefaultLerpSmooth => graphConfig.SimuParameters.LerpSmooth,
+            GraphConfigKey.DefaultLightSpringForce => graphConfig.SimuParameters.LightSpringForce,
+            GraphConfigKey.DefaultLightCoulombForce => graphConfig.SimuParameters.LightCoulombForce,
+            GraphConfigKey.DefaultLightDamping => graphConfig.SimuParameters.LightDamping,
+            GraphConfigKey.DefaultLightSpringDistance => graphConfig.SimuParameters.LightSpringDistance,
+            GraphConfigKey.DefaultLightCoulombDistance => graphConfig.SimuParameters.LightCoulombDistance,
+            GraphConfigKey.DefaultLightMaxVelocity => graphConfig.SimuParameters.LightMaxVelocity,
+            GraphConfigKey.DefaultLightStopVelocity => graphConfig.SimuParameters.LightStopVelocity,
+            GraphConfigKey.DefaultDenseSpringForce => graphConfig.SimuParameters.DenseSpringForce,
+            GraphConfigKey.DefaultDenseCoulombForce => graphConfig.SimuParameters.DenseCoulombForce,
+            GraphConfigKey.DefaultDenseDamping => graphConfig.SimuParameters.DenseDamping,
+            GraphConfigKey.DefaultDenseSpringDistance => graphConfig.SimuParameters.DenseSpringDistance,
+            GraphConfigKey.DefaultDenseCoulombDistance => graphConfig.SimuParameters.DenseCoulombDistance,
+            GraphConfigKey.DefaultDenseMaxVelocity => graphConfig.SimuParameters.DenseMaxVelocity,
+            GraphConfigKey.DefaultDenseStopVelocity => graphConfig.SimuParameters.DenseStopVelocity,
+            GraphConfigKey.LensTickDeltaTime => graphConfig.LensSimuParameters.TickDeltaTime,
+            GraphConfigKey.LensMaxSimulationTime => graphConfig.LensSimuParameters.MaxSimulationTime,
+            GraphConfigKey.LensLerpSmooth => graphConfig.LensSimuParameters.LerpSmooth,
+            GraphConfigKey.LensLightSpringForce => graphConfig.LensSimuParameters.LightSpringForce,
+            GraphConfigKey.LensLightCoulombForce => graphConfig.LensSimuParameters.LightCoulombForce,
+            GraphConfigKey.LensLightDamping => graphConfig.LensSimuParameters.LightDamping,
+            GraphConfigKey.LensLightSpringDistance => graphConfig.LensSimuParameters.LightSpringDistance,
+            GraphConfigKey.LensLightCoulombDistance => graphConfig.LensSimuParameters.LightCoulombDistance,
+            GraphConfigKey.LensLightMaxVelocity => graphConfig.LensSimuParameters.LightMaxVelocity,
+            GraphConfigKey.LensLightStopVelocity => graphConfig.LensSimuParameters.LightStopVelocity,
+            GraphConfigKey.LensDenseSpringForce => graphConfig.LensSimuParameters.DenseSpringForce,
+            GraphConfigKey.LensDenseCoulombForce => graphConfig.LensSimuParameters.DenseCoulombForce,
+            GraphConfigKey.LensDenseDamping => graphConfig.LensSimuParameters.DenseDamping,
+            GraphConfigKey.LensDenseSpringDistance => graphConfig.LensSimuParameters.DenseSpringDistance,
+            GraphConfigKey.LensDenseCoulombDistance => graphConfig.LensSimuParameters.DenseCoulombDistance,
+            GraphConfigKey.LensDenseMaxVelocity => graphConfig.LensSimuParameters.DenseMaxVelocity,
+            GraphConfigKey.LensDenseStopVelocity => graphConfig.LensSimuParameters.DenseStopVelocity,
+            _ => 0f,
+        };
     }
 
-    public static Color GetColorValue(this GraphConfigKey key, GraphConfiguration graphConfig)
+    private static bool GetBoolValue(this GraphConfigKey key, GraphConfiguration graphConfig)
     {
-        switch (key)
+        return key switch
         {
-            case GraphConfigKey.NodeColor:
-                return graphConfig.NodeColor;
-            case GraphConfigKey.NodeColorNoValueMetric:
-                return graphConfig.NodeColorNoValueMetric;
-            case GraphConfigKey.EdgeColor:
-                return graphConfig.EdgeColor;
-            case GraphConfigKey.PropagatedEdgeColor:
-                return graphConfig.PropagatedEdgeColor;
-            case GraphConfigKey.NodeColorMappingColorA:
-                return graphConfig.NodeColorMapping.ColorA;
-            case GraphConfigKey.NodeColorMappingColorB:
-                return graphConfig.NodeColorMapping.ColorB;
-            case GraphConfigKey.NodeColorMappingColorC:
-                return graphConfig.NodeColorMapping.ColorC;
-        }
-
-
-        return Color.white;
+            GraphConfigKey.GraphMode => (graphConfig.GraphMode == GraphMode.Immersion),
+            GraphConfigKey.ShowLabelImmersion => graphConfig.ShowLabelImmersion,
+            GraphConfigKey.ShowLabelDesk => graphConfig.ShowLabelDesk,
+            GraphConfigKey.CanSelectEdges => graphConfig.CanSelectEdges,
+            GraphConfigKey.DisplayEdges => graphConfig.DisplayEdges,
+            GraphConfigKey.ResetPositionNodeOnUpdate => graphConfig.ResetPositionNodeOnUpdate,
+            GraphConfigKey.DisplayInterSelectedNeighborEdges => graphConfig.DisplayInterSelectedNeighborEdges,
+            GraphConfigKey.ShowWatch => graphConfig.ShowWatch,
+            _ => false,
+        };
     }
 
-    public static GraphMetricType StringToEnum(string metricType)
+    private static Color GetColorValue(this GraphConfigKey key, GraphConfiguration graphConfig)
     {
-        if (Enum.TryParse(metricType, out GraphMetricType result))
- 
+        return key switch
+        {
+            GraphConfigKey.NodeColor => graphConfig.NodeColor,
+            GraphConfigKey.NodeColorNoValueMetric => graphConfig.NodeColorNoValueMetric,
+            GraphConfigKey.EdgeColor => graphConfig.EdgeColor,
+            GraphConfigKey.PropagatedEdgeColor => graphConfig.PropagatedEdgeColor,
+            GraphConfigKey.NodeColorMappingColorA => graphConfig.NodeColorMapping.ColorA,
+            GraphConfigKey.NodeColorMappingColorB => graphConfig.NodeColorMapping.ColorB,
+            GraphConfigKey.NodeColorMappingColorC => graphConfig.NodeColorMapping.ColorC,
+            _ => Color.white,
+        };
+    }
+
+    public static T StringToEnum<T>(string enumString) where T : struct, Enum
+    {
+        if (Enum.TryParse(enumString, true, out T result))
+
             return result;
 
-        Debug.LogWarning("StringToEnum GraphMetricType couldn't parse the string");
+        Debug.LogWarning($"StringToEnum<{typeof(T).Name}> couldn't parse the string: {enumString}");
 
-        return GraphMetricType.None;
+        return  default;
     }
 
 }

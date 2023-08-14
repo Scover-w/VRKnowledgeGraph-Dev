@@ -1,81 +1,78 @@
-﻿using UnityEngine;
+﻿using AngleSharp.Html;
+using System;
+using Unity.VisualScripting.YamlDotNet.Core.Tokens;
+using UnityEngine;
 
 
 public class GraphConfigEvent
 {
-    readonly GraphConfigValueType _type;
-    StringChanged _onStringChanged;
-    FloatChanged _onFloatChanged;
-    BoolChanged _onBoolChanged;
-    ColorChanged _onColorChanged;
+    ValueChanged<string> _onStringChanged;
+    ValueChanged<float> _onFloatChanged;
+    ValueChanged<bool> _onBoolChanged;
+    ValueChanged<Color> _onColorChanged;
 
-    public GraphConfigEvent(GraphConfigValueType type)
+    public void Register<T>(ValueChanged<T> valueChanged)
     {
-        _type = type;
+        if (typeof(T) == typeof(string))
+            _onStringChanged += valueChanged as ValueChanged<string>;
+
+        else if (typeof(T) == typeof(float))
+            _onFloatChanged += valueChanged as ValueChanged<float>;
+
+        else if (typeof(T) == typeof(bool))
+            _onBoolChanged += valueChanged as ValueChanged<bool>;
+
+        else if (typeof(T) == typeof(Color))
+            _onColorChanged += valueChanged as ValueChanged<Color>;
     }
 
-    public void Register(StringChanged stringChanged)
+    public bool UnRegister<T>(ValueChanged<T> valueChanged)
     {
-        _onStringChanged += stringChanged;
+        if (typeof(T) == typeof(string))
+        {
+            _onStringChanged -= valueChanged as ValueChanged<string>;
+            return _onStringChanged.GetInvocationList().Length > 0;
+        }
+        else if (typeof(T) == typeof(float))
+        {
+            _onFloatChanged -= valueChanged as ValueChanged<float>;
+            return _onFloatChanged.GetInvocationList().Length > 0;
+        }
+        else if (typeof(T) == typeof(bool))
+        {
+            _onBoolChanged -= valueChanged as ValueChanged<bool>;
+            return _onBoolChanged.GetInvocationList().Length > 0;
+        }
+
+        else if (typeof(T) == typeof(Color))
+        {
+            _onColorChanged -= valueChanged as ValueChanged<Color>;
+            return _onColorChanged.GetInvocationList().Length > 0;
+        }
+
+        return true;
     }
 
-    public void Register(FloatChanged floatChanged)
+    public void Invoke<T>(T value)
     {
-        _onFloatChanged += floatChanged;
-    }
-
-    public void Register(BoolChanged boolChanged)
-    {
-        _onBoolChanged += boolChanged;
-    }
-
-    public void Register(ColorChanged colorChanged)
-    {
-        _onColorChanged += colorChanged;
-    }
-
-    public bool UnRegister(StringChanged stringChanged)
-    {
-        _onStringChanged -= stringChanged;
-        return _onStringChanged.GetInvocationList().Length > 0;
-    }
-
-    public bool UnRegister(FloatChanged floatChanged)
-    {
-        _onFloatChanged -= floatChanged;
-        return _onFloatChanged.GetInvocationList().Length > 0;
-    }
-
-    public bool UnRegister(BoolChanged boolChanged)
-    {
-        _onBoolChanged -= boolChanged;
-        return _onBoolChanged.GetInvocationList().Length > 0;
-    }
-
-    public bool UnRegister(ColorChanged colorChanged)
-    {
-        _onColorChanged -= colorChanged;
-        return _onColorChanged.GetInvocationList().Length > 0;
-    }
-
-    public void Invoke(string value)
-    {
-        _onStringChanged?.Invoke(value);
-    }
-
-    public void Invoke(float value)
-    {
-        _onFloatChanged?.Invoke(value);
-    }
-
-    public void Invoke(bool value)
-    {
-        _onBoolChanged?.Invoke(value);
-    }
-
-    public void Invoke(Color value)
-    {
-        _onColorChanged?.Invoke(value);
+        switch (value)
+        {
+            case string s:
+                _onStringChanged?.Invoke(s);
+                break;
+            case float f:
+                _onFloatChanged?.Invoke(f);
+                break;
+            case bool b:
+                _onBoolChanged?.Invoke(b);
+                break;
+            case Color c:
+                _onColorChanged?.Invoke(c);
+                break;
+            default:
+                Debug.LogError("No event with " + typeof(T) + " is handled");
+                break;
+        }
     }
 
 }

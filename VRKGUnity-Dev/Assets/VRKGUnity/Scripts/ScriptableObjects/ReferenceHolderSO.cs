@@ -10,9 +10,7 @@ public class ReferenceHolderSO : ScriptableObject
     public SingleAssignment<Camera> HMDCamSA { get; } = new SingleAssignment<Camera>();
     public GraphDbRepository SelectedGraphDbRepository { get; set; }
 
-    public GraphConfigManager GraphConfigManager { get; set; }
-
-    public User User { get; set; }
+    public InputPropagatorManager InputPropagatorManager { get; set; }
 
     public float MaxDistanceGraph { get; set; }
 

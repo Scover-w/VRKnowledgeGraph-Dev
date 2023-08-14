@@ -10,119 +10,15 @@ public class User : MonoBehaviour
     GraphManager _graphManager;
 
     [SerializeField]
+    InputPropagatorManager _inputPropagatorManager;
+
+    [SerializeField]
     NodgeSelectionManager _selectionManager;
 
     [SerializeField]
     DynamicFilterManager _dynFilterManager;
 
-
-    public delegate void ChangeActionBtnState(bool isInteractable);
-
     GraphMode _graphMode = GraphMode.Desk;
-
-    Dictionary<GraphActionKey, ChangeActionBtnState> _events;
-
-    private void Awake()
-    {
-        _events = new();
-        _referenceHolderSO.User = this;
-    }
-
-    public bool GetInteractableState(GraphActionKey actionKey)
-    {
-        switch (actionKey)
-        {
-            case GraphActionKey.FilterSelected:
-                return true;
-            case GraphActionKey.FilterUnselected:
-                return true;
-            case GraphActionKey.FilterPropagated:
-                return true;
-            case GraphActionKey.FilterUnpropagated:
-                return true;
-            case GraphActionKey.UndoFilter:
-                return _dynFilterManager.NbFilter != 0;
-            case GraphActionKey.RedoFilter:
-                return _dynFilterManager.NbRedoFilter != 0;
-            case GraphActionKey.Simulate:
-                return true;
-            case GraphActionKey.SwitchMode:
-                return true;
-            case GraphActionKey.SelectionMode:
-                return true;
-        }
-
-        return true;
-    }
-
-    public void InitiateNewAction(GraphActionKey actionKey)
-    {
-        switch (actionKey)
-        {
-            case GraphActionKey.FilterSelected:
-                HideSelectedNode();
-                break;
-            case GraphActionKey.FilterUnselected:
-                HideUnSelectedNode();
-                break;
-            case GraphActionKey.FilterPropagated:
-                HidePropagatedNode();
-                break;
-            case GraphActionKey.FilterUnpropagated:
-                HideUnPropagatedNode();
-                break;
-            case GraphActionKey.UndoFilter:
-                UndoLastFilter();
-                break;
-            case GraphActionKey.RedoFilter:
-                RedoLastFilter();
-                break;
-            case GraphActionKey.Simulate:
-                ResimulateGraph();
-                break;
-            case GraphActionKey.SwitchMode:
-                SwitchGraphMode();
-                break;
-            case GraphActionKey.SelectionMode:
-                SwitchSelectionMode();
-                break;
-        }
-    }
-
-    public void Register(GraphActionKey actionKey, ChangeActionBtnState changeActionBtnToAdd)
-    {
-        if (!_events.TryGetValue(actionKey, out ChangeActionBtnState changeActionBtnState))
-        {
-            _events.Add(actionKey, changeActionBtnState);
-        }
-
-        changeActionBtnState += changeActionBtnToAdd;
-    }
-
-    public void UnRegister(GraphActionKey actionKey, ChangeActionBtnState changeActionBtnToRemove)
-    {
-        if (!_events.TryGetValue(actionKey, out ChangeActionBtnState changeActionBtnState))
-        {
-            Debug.LogWarning("GraphAction didn't exist to unregister Delegate");
-            return;
-        }
-
-        changeActionBtnState -= changeActionBtnToRemove;
-
-        if (changeActionBtnState.GetInvocationList().Length > 0)
-            return;
-
-        _events.Remove(actionKey);
-    }
-
-    private void TryInvoke(GraphActionKey actionKey, bool isInteractable)
-    {
-        if (!_events.TryGetValue(actionKey, out ChangeActionBtnState actionBtnState))
-            return;
-
-        actionBtnState.Invoke(isInteractable);
-    }
-
 
     [ContextMenu("Switch Graph Mode")]
     public void SwitchGraphMode()
@@ -146,12 +42,6 @@ public class User : MonoBehaviour
             _graphMode = GraphMode.Desk;
             _graphManager.TrySwitchModeToDesk();
         }
-    }
-
-    [ContextMenu("Switch Selection Mode")]
-    public void SwitchSelectionMode()
-    {
-        _selectionManager.SwitchSelectionMode();
     }
 
     [ContextMenu("Hide Selected Node")]
@@ -211,7 +101,7 @@ public class User : MonoBehaviour
 
     private void UpdateHistoryBtn()
     {
-        TryInvoke(GraphActionKey.UndoFilter, _dynFilterManager.NbFilter != 0);
-        TryInvoke(GraphActionKey.RedoFilter, _dynFilterManager.NbRedoFilter != 0);
+        _inputPropagatorManager.TryInvoke(GraphActionKey.UndoFilter, _dynFilterManager.NbFilter != 0);
+        _inputPropagatorManager.TryInvoke(GraphActionKey.RedoFilter, _dynFilterManager.NbRedoFilter != 0);
     }
 }

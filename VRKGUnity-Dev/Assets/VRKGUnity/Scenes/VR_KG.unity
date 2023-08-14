@@ -5600,7 +5600,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16af88586a468994282d3aa9d5750344, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _referenceHolderSO: {fileID: 0}
+  _referenceHolderSO: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphManager: {fileID: 1847420204}
   _selectionManager: {fileID: 1101384170}
   _dynFilterManager: {fileID: 1847420205}

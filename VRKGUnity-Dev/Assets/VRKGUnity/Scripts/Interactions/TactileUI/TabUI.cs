@@ -46,7 +46,7 @@ namespace AIDEN.TactileUI
 
         protected override void UpdateInteractionColor()
         {
-            if (_interactiveColors == null)
+            if (_interactiveColors == null || _interactiveGraphicToFill.Count != _interactiveColors.Count)
                 return;
 
             int nbGraphics = _interactiveGraphicToFill.Count;

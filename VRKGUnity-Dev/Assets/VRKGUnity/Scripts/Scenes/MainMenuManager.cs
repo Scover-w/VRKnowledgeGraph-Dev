@@ -23,11 +23,8 @@ public class MainMenuManager : MonoBehaviour
 
         _referenceHolderSO.SelectedGraphDbRepository = repo;
 
-        var graphDbApi = _referenceHolderSO.SelectedGraphDbRepository.GraphDBAPI;
-
-
 #if UNITY_ANDROID && !UNITY_EDITOR
-        graphDbApi.OverrideForTest("http://130.66.203.189:7200/");
+        OverrideUrlForTest();
 #endif
 
         var lifeCycleScene = _referenceHolderSO.LifeCycleSceneManagerSA.Value;
@@ -36,9 +33,22 @@ public class MainMenuManager : MonoBehaviour
 
     public void LoadGraphScene()
     {
+#if UNITY_ANDROID && !UNITY_EDITOR
+        OverrideUrlForTest();
+#endif
+
+
         var lifeCycleScene = _referenceHolderSO.LifeCycleSceneManagerSA.Value;
         lifeCycleScene.LoadScene(Scenes.DataSynchro);
     }
+
+#if UNITY_ANDROID && !UNITY_EDITOR
+    private void OverrideUrlForTest()
+    {
+        var graphDbApi = _referenceHolderSO.SelectedGraphDbRepository.GraphDBAPI;
+        graphDbApi.OverrideForTest("http://192.168.1.37:7200/");
+    }
+#endif
 
     public void LoadTutorialScene()
     {

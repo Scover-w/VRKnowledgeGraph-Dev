@@ -16,7 +16,7 @@ public class GraphBtnLink : MonoBehaviour
     [SerializeField]
     MonoBehaviour _tactileUIScript;
 
-    User _user;
+    InputPropagatorManager _inputPropagatorManager;
 
     ITouchUI _iTouchUI;
 
@@ -33,21 +33,21 @@ public class GraphBtnLink : MonoBehaviour
 
     private void OnDisable()
     {
-        _user.UnRegister(_graphActionKey, OnFeedbackActionStateFromUser);
+        _inputPropagatorManager.UnRegister(_graphActionKey, OnFeedbackActionStateFromUser);
     }
 
     private void DelayedOnEnable()
     {
-        if(_user == null)
-            _user = _referenceHolderSo.User;
+        if (_inputPropagatorManager == null)
+            _inputPropagatorManager = _referenceHolderSo.InputPropagatorManager;
 
-        _iTouchUI.Interactable = _user.GetInteractableState(_graphActionKey);
-        _user.Register(_graphActionKey, OnFeedbackActionStateFromUser);
+        _iTouchUI.Interactable = _inputPropagatorManager.GetInteractableState(_graphActionKey);
+        _inputPropagatorManager.Register(_graphActionKey, OnFeedbackActionStateFromUser);
     }
 
     public void OnClick()
     {
-        _user.InitiateNewAction(_graphActionKey);
+        _inputPropagatorManager.InitiateNewAction(_graphActionKey);
     }
 
     public void OnFeedbackActionStateFromUser(bool interactable)

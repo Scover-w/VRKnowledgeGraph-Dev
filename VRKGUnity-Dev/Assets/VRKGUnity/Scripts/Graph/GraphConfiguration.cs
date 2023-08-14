@@ -12,6 +12,8 @@ public class GraphConfiguration
     public SimulationParameters SimuParameters = new(false);
     public SimulationParameters LensSimuParameters = new(true);
 
+    public GraphMode GraphMode = GraphMode.Desk;
+    public SelectionMode SelectionMode = SelectionMode.Single;
 
     [Space(15)]
     [Header("/Styling/")]
@@ -191,6 +193,7 @@ public class GraphConfiguration
             string json = await File.ReadAllTextAsync(_graphConfigPath);
             var graphConfig = await JsonConvertHelper.DeserializeObjectAsync<GraphConfiguration>(json);
             Instance = graphConfig;
+            Instance.SetDefaultStartValue();
             return graphConfig;
         }
         
@@ -202,6 +205,11 @@ public class GraphConfiguration
         return graphConfigB;
     }
 
+    private void SetDefaultStartValue()
+    {
+        GraphMode = GraphMode.Desk;
+    }
+
     public async Task Save()
     {
         SetPath();
@@ -211,22 +219,44 @@ public class GraphConfiguration
     }
 
 
-    public bool SetValue(GraphConfigKey key, string value)
+    public bool TrySetValue<T>(GraphConfigKey key, T value)
+    {
+        switch (value)
+        {
+            case string s:
+                return TrySetValue(key, s);
+            case float f:
+                return TrySetValue(key, f);
+            case bool b:
+                return TrySetValue(key, b);
+            case Color c:
+                return TrySetValue(key, c);
+        }
+
+        Debug.LogError("No value with " + typeof(T) + " is handled");
+
+        return false;
+    }
+
+    private bool TrySetValue(GraphConfigKey key, string value)
     {
         switch (key)
         {
+            case GraphConfigKey.SelectionMode:
+                SelectionMode = GraphConfigurationTools.StringToEnum<SelectionMode>(value);
+                return true;
             case GraphConfigKey.SelectedMetricTypeSize:
-                SelectedMetricTypeSize = GraphConfigurationTools.StringToEnum(value);
+                SelectedMetricTypeSize = GraphConfigurationTools.StringToEnum<GraphMetricType>(value);
                 return true;
             case GraphConfigKey.SelectedMetricTypeColor:
-                SelectedMetricTypeColor = GraphConfigurationTools.StringToEnum(value);
+                SelectedMetricTypeColor = GraphConfigurationTools.StringToEnum<GraphMetricType>(value);
                 return true;
         }
 
         return false;
     }
 
-    public bool SetValue(GraphConfigKey key, float value)
+    private bool TrySetValue(GraphConfigKey key, float value)
     {
         switch (key)
         {
@@ -441,10 +471,13 @@ public class GraphConfiguration
             return false;
     }
 
-    public bool SetValue(GraphConfigKey key, bool value)
+    private bool TrySetValue(GraphConfigKey key, bool value)
     {
         switch (key)
         {
+            case GraphConfigKey.GraphMode:
+                GraphMode = (value) ? GraphMode.Immersion : GraphMode.Desk;
+                return true;
             case GraphConfigKey.ShowLabelImmersion:
                 ShowLabelImmersion = value;
                 return true;
@@ -471,7 +504,7 @@ public class GraphConfiguration
         return false;
     }
 
-    public bool SetValue(GraphConfigKey key, Color value)
+    private bool TrySetValue(GraphConfigKey key, Color value)
     {
         switch (key)
         {

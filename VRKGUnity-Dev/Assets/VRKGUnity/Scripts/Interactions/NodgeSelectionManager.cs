@@ -111,7 +111,7 @@ public class NodgeSelectionManager : MonoBehaviour
     }
 
     [ContextMenu("Switch Mode")]
-    public void SwitchSelectionMode()
+    public SelectionMode SwitchSelectionMode()
     {
         if(_selectionMode == SelectionMode.Single)
         {
@@ -123,6 +123,8 @@ public class NodgeSelectionManager : MonoBehaviour
             _selectionMode = SelectionMode.Single;
             SwitchToSingle();
         }
+
+        return _selectionMode;
     }
 
     private void SwitchToSingle()

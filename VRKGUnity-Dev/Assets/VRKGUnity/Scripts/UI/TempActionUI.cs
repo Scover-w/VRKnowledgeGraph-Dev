@@ -7,9 +7,6 @@ public class TempActionUI : MonoBehaviour
     [SerializeField]
     User _user;
 
-    
-
-
     [ContextMenu("Switch Graph Mode")]
     public void SwitchGraphMode()
     {
@@ -19,7 +16,7 @@ public class TempActionUI : MonoBehaviour
     [ContextMenu("Switch Selection Mode")]
     public void SwitchSelectionMode()
     {
-        _user.SwitchSelectionMode();
+        //_user.SwitchSelectionMode();
     }
 
     [ContextMenu("Hide Selected Node")]

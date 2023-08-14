@@ -623,7 +623,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _referenceHolderSO: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
-  _autoPlay: 0
+  _autoPlay: 1
 --- !u!4 &1335931427
 Transform:
   m_ObjectHideFlags: 0

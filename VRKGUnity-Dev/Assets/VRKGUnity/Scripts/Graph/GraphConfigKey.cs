@@ -4,6 +4,9 @@ using UnityEngine;
 
 public enum GraphConfigKey
 {
+    GraphMode,
+    SelectionMode,
+
     SimuParameters,
     LensSimuParameters,
 
