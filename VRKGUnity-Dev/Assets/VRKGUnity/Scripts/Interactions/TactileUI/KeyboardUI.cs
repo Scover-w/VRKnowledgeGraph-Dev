@@ -1,8 +1,4 @@
-using AngleSharp.Text;
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -100,7 +96,7 @@ namespace AIDEN.TactileUI
                 KeyUI key = _keys[i];
                 char character = chars[i];
 
-                if (!isNormalCase && character.IsLetter())
+                if (!isNormalCase && char.IsLetter(character))
                     character = char.ToUpper(character);
 
                 key.Value = character;

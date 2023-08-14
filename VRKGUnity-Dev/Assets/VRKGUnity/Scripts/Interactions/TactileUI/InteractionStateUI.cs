@@ -1,5 +1,4 @@
-﻿
-namespace AIDEN.TactileUI
+﻿namespace AIDEN.TactileUI
 {
     public enum InteractionStateUI
     {

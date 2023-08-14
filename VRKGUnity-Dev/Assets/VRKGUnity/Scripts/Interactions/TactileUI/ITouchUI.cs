@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
 
-
-
 namespace AIDEN.TactileUI
 {
     public interface ITouchUI

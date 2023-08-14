@@ -1,8 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Wave.Essence.Hand.NearInteraction;
 
 namespace AIDEN.TactileUI
 {

@@ -1,10 +1,7 @@
 using AIDEN.TactileUI;
-using Codice.Client.Common.GameUI;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Wave.Essence.Hand.NearInteraction;
 
 public class BaseTouch : MonoBehaviour, ITouchUI
 {
