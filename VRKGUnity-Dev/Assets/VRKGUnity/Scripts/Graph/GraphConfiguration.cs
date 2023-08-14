@@ -503,6 +503,10 @@ public class GraphConfiguration
 
     private static void SetPath()
     {
+#if UNITY_EDITOR
+        if (Settings.PersistentDataPath == null)
+            Settings.SetPersistentDataPath(Application.persistentDataPath);
+#endif
         var folderPath = Path.Combine(Settings.PersistentDataPath, "Data");
 
         if (!Directory.Exists(folderPath))

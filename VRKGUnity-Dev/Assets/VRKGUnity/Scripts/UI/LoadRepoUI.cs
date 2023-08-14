@@ -246,6 +246,7 @@ public class LoadRepoUI : MonoBehaviour
         }
     }
 
+#if UNITY_EDITOR
     private void SelectRepoPC(GraphDbRepository graphDbRepository)
     {
         _selectedRepository = graphDbRepository;
@@ -260,6 +261,7 @@ public class LoadRepoUI : MonoBehaviour
             _mainMenuUI.RepoSelected(_selectedRepository);
         }
     }
+#endif
 
     #region Click
     public void ConfirmCreateRepoClick()
