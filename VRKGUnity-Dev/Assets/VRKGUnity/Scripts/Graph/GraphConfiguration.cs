@@ -36,16 +36,13 @@ public class GraphConfiguration
     public float NodeSizeLens = .2f;
 
     [Space(5)]
-    public float NodeMinSizeImmersion = 1f;
-    public float NodeMaxSizeImmersion = .6f;
+    public float NodeMinMaxSizeImmersion = .8f;
 
     [Space(5)]
-    public float NodeMinSizeDesk = .03f;
-    public float NodeMaxSizeDesk = .01f;
+    public float NodeMinMaxSizeDesk = .8f;
 
     [Space(5)]
-    public float NodeMinSizeLens = .2f;
-    public float NodeMaxSizeLens = .1f;
+    public float NodeMinMaxSizeLens = .8f;
 
     [Space(10)]
     [Header("Label")]
@@ -284,23 +281,14 @@ public class GraphConfiguration
             case GraphConfigKey.NodeSizeLens:
                 NodeSizeLens = value;
                 return true;
-            case GraphConfigKey.NodeMinSizeImmersion:
-                NodeMinSizeImmersion = value;
+            case GraphConfigKey.NodeMinMaxSizeImmersion:
+                NodeMinMaxSizeImmersion = value;
                 return true;
-            case GraphConfigKey.NodeMaxSizeImmersion:
-                NodeMaxSizeImmersion = value;
+            case GraphConfigKey.NodeMinMaxSizeDesk:
+                NodeMinMaxSizeDesk = value;
                 return true;
-            case GraphConfigKey.NodeMinSizeDesk:
-                NodeMinSizeDesk = value;
-                return true;
-            case GraphConfigKey.NodeMaxSizeDesk:
-                NodeMaxSizeDesk = value;
-                return true;
-            case GraphConfigKey.NodeMinSizeLens:
-                NodeMinSizeLens = value;
-                return true;
-            case GraphConfigKey.NodeMaxSizeLens:
-                NodeMaxSizeLens = value;
+            case GraphConfigKey.NodeMinMaxSizeLens:
+                NodeMinMaxSizeLens = value;
                 return true;
             case GraphConfigKey.LabelNodeSizeImmersion:
                 LabelNodeSizeImmersion = value;

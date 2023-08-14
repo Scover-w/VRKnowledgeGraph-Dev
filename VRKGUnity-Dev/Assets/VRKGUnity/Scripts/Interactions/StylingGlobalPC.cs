@@ -24,16 +24,9 @@ public class StylingGlobalPC : MonoBehaviour
     public float NodeSizeLens = 1f;
 
     [Space(5)]
-    public float NodeMinSizeImmersion = .8f;
-    public float NodeMaxSizeImmersion = .8f;
-
-    [Space(5)]
-    public float NodeMinSizeDesk = .8f;
-    public float NodeMaxSizeDesk = .8f;
-
-    [Space(5)]
-    public float NodeMinSizeLens = .8f;
-    public float NodeMaxSizeLens = .8f;
+    public float NodeMinMaxSizeImmersion = .8f;
+    public float NodeMinMaxSizeDesk = .8f;
+    public float NodeMinMaxSizeLens = .8f;
 
 
     [Header("Label Size")]
@@ -128,14 +121,9 @@ public class StylingGlobalPC : MonoBehaviour
         NodeSizeWatch = _graphConfig.NodeSizeWatch;
         NodeSizeLens = _graphConfig.NodeSizeLens;
 
-        NodeMinSizeImmersion = _graphConfig.NodeMinSizeImmersion;
-        NodeMaxSizeImmersion = _graphConfig.NodeMaxSizeImmersion;
-
-        NodeMinSizeDesk = _graphConfig.NodeMinSizeDesk;
-        NodeMaxSizeDesk = _graphConfig.NodeMaxSizeDesk;
-
-        NodeMinSizeLens = _graphConfig.NodeMinSizeLens;
-        NodeMaxSizeLens = _graphConfig.NodeMaxSizeLens;
+        NodeMinMaxSizeImmersion = _graphConfig.NodeMinMaxSizeImmersion;
+        NodeMinMaxSizeDesk = _graphConfig.NodeMinMaxSizeDesk;
+        NodeMinMaxSizeLens = _graphConfig.NodeMinMaxSizeLens;
 
         LabelNodeSizeImmersion = _graphConfig.LabelNodeSizeImmersion;
         LabelNodeSizeDesk = _graphConfig.LabelNodeSizeDesk;
@@ -224,16 +212,6 @@ public class StylingGlobalPC : MonoBehaviour
 
         #region NodeSize
 
-        if (NodeMinSizeImmersion > NodeMaxSizeImmersion)
-            NodeMinSizeImmersion = NodeMaxSizeImmersion;
-
-        if (NodeMinSizeDesk > NodeMaxSizeDesk)
-            NodeMinSizeDesk = NodeMaxSizeDesk;
-
-        if (NodeMinSizeLens > NodeMaxSizeLens)
-            NodeMinSizeLens = NodeMaxSizeLens;
-
-
         if (_graphConfig.NodeSizeImmersion != NodeSizeImmersion)
         {
             _graphConfig.NodeSizeImmersion = NodeSizeImmersion;
@@ -270,53 +248,28 @@ public class StylingGlobalPC : MonoBehaviour
 
 
 
-        if (_graphConfig.NodeMinSizeImmersion != NodeMinSizeImmersion)
+        if (_graphConfig.NodeMinMaxSizeImmersion != NodeMinMaxSizeImmersion)
         {
-            _graphConfig.NodeMinSizeImmersion = NodeMinSizeImmersion;
+            _graphConfig.NodeMinMaxSizeImmersion = NodeMinMaxSizeImmersion;
 
-            addedStyleChange = StyleChangeBuilder.Get(GraphConfigKey.NodeMinSizeImmersion);
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigKey.NodeMinMaxSizeImmersion);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
-        if (_graphConfig.NodeMaxSizeImmersion != NodeMaxSizeImmersion)
+        if (_graphConfig.NodeMinMaxSizeDesk != NodeMinMaxSizeDesk)
         {
-            _graphConfig.NodeMaxSizeImmersion = NodeMaxSizeImmersion;
+            _graphConfig.NodeMinMaxSizeDesk = NodeMinMaxSizeDesk;
 
-            addedStyleChange = StyleChangeBuilder.Get(GraphConfigKey.NodeMaxSizeImmersion);
-            styleChange = styleChange.Add(addedStyleChange);
-        }
-
-
-        if (_graphConfig.NodeMinSizeDesk != NodeMinSizeDesk)
-        {
-            _graphConfig.NodeMinSizeDesk = NodeMinSizeDesk;
-
-            addedStyleChange = StyleChangeBuilder.Get(GraphConfigKey.NodeMinSizeDesk);
-            styleChange = styleChange.Add(addedStyleChange);
-        }
-
-        if (_graphConfig.NodeMaxSizeDesk != NodeMaxSizeDesk)
-        {
-            _graphConfig.NodeMaxSizeDesk = NodeMaxSizeDesk;
-
-            addedStyleChange = StyleChangeBuilder.Get(GraphConfigKey.NodeMaxSizeDesk);
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigKey.NodeMinMaxSizeDesk);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
 
-        if (_graphConfig.NodeMinSizeLens != NodeMinSizeLens)
+        if (_graphConfig.NodeMinMaxSizeLens != NodeMinMaxSizeLens)
         {
-            _graphConfig.NodeMinSizeLens = NodeMinSizeLens;
+            _graphConfig.NodeMinMaxSizeLens = NodeMinMaxSizeLens;
 
-            addedStyleChange = StyleChangeBuilder.Get(GraphConfigKey.NodeMinSizeLens);
-            styleChange = styleChange.Add(addedStyleChange);
-        }
-
-        if (_graphConfig.NodeMaxSizeLens != NodeMaxSizeLens)
-        {
-            _graphConfig.NodeMaxSizeLens = NodeMaxSizeLens;
-
-            addedStyleChange = StyleChangeBuilder.Get(GraphConfigKey.NodeMaxSizeLens);
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigKey.NodeMinMaxSizeLens);
             styleChange = styleChange.Add(addedStyleChange);
         }
 

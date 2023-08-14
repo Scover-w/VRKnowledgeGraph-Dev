@@ -759,7 +759,7 @@ public class LabelNodgeManagerUI : MonoBehaviour
         if(_graphMode == GraphMode.Immersion) // Don't handle watch mode because don't display them in it
         {
             if (isChangingSize)
-                return _graphConfig.NodeMaxSizeImmersion;
+                return _graphConfig.NodeMinMaxSizeImmersion * _graphConfig.NodeSizeImmersion;
             else
                 return _graphConfig.NodeSizeImmersion;
         }
@@ -768,14 +768,14 @@ public class LabelNodgeManagerUI : MonoBehaviour
         if (graphType == GraphType.Main) // Desk Mode
         {
             if (isChangingSize)
-                return _graphConfig.NodeMaxSizeDesk;
+                return _graphConfig.NodeMinMaxSizeDesk * _graphConfig.NodeSizeDesk;
             else
                 return _graphConfig.NodeSizeDesk;
         }
         else // Lens Mode
         {
             if (isChangingSize)
-                return _graphConfig.NodeMaxSizeLens;
+                return _graphConfig.NodeMinMaxSizeLens * _graphConfig.NodeSizeLens;
             else
                 return _graphConfig.NodeSizeLens;
         }

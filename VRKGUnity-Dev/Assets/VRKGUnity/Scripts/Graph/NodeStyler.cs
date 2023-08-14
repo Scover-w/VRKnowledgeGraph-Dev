@@ -218,9 +218,9 @@ public class NodeStyler : MonoBehaviour
         if(graphMode == GraphMode.Desk && styleChange.HasChanged(StyleChange.DeskMode))
         {
             if (GraphType == GraphType.Main)
-                SetScale(GraphConfiguration.NodeMinSizeDesk, GraphConfiguration.NodeMaxSizeDesk, tScale);
+                SetScale(GraphConfiguration.NodeSizeDesk, GraphConfiguration.NodeMinMaxSizeDesk, tScale);
             else if(GraphType == GraphType.Sub)
-                SetScale(GraphConfiguration.NodeMinSizeLens, GraphConfiguration.NodeMaxSizeLens, tScale);
+                SetScale(GraphConfiguration.NodeSizeLens, GraphConfiguration.NodeMinMaxSizeLens, tScale);
 
             return;
         }
@@ -228,7 +228,7 @@ public class NodeStyler : MonoBehaviour
         if (graphMode == GraphMode.Immersion && styleChange.HasChanged(StyleChange.ImmersionMode))
         {
             if (GraphType == GraphType.Main)
-                SetScale(GraphConfiguration.NodeMinSizeImmersion, GraphConfiguration.NodeMaxSizeImmersion, tScale);
+                SetScale(GraphConfiguration.NodeSizeImmersion, GraphConfiguration.NodeMinMaxSizeImmersion, tScale);
             else if (GraphType == GraphType.Sub)
                 SetScale(GraphConfiguration.NodeSizeWatch);
 
@@ -320,20 +320,22 @@ public class NodeStyler : MonoBehaviour
         }
 
 
-        float minScale = isNextDesk ? Mathf.Lerp(GraphConfiguration.NodeMinSizeImmersion, GraphConfiguration.NodeMinSizeDesk, t) :
-                                    Mathf.Lerp(GraphConfiguration.NodeMinSizeDesk, GraphConfiguration.NodeMinSizeImmersion, t);
+        float nodeSize = isNextDesk ? Mathf.Lerp(GraphConfiguration.NodeSizeImmersion, GraphConfiguration.NodeSizeDesk, t) :
+                                    Mathf.Lerp(GraphConfiguration.NodeSizeDesk, GraphConfiguration.NodeSizeImmersion, t);
 
-        float maxScale = isNextDesk ? Mathf.Lerp(GraphConfiguration.NodeMaxSizeImmersion, GraphConfiguration.NodeMaxSizeDesk, t) :
-                                    Mathf.Lerp(GraphConfiguration.NodeMaxSizeDesk, GraphConfiguration.NodeMaxSizeImmersion, t);
+        float minMaxScale = isNextDesk ? Mathf.Lerp(GraphConfiguration.NodeMinMaxSizeImmersion, GraphConfiguration.NodeMinMaxSizeDesk, t) :
+                                    Mathf.Lerp(GraphConfiguration.NodeMinMaxSizeDesk, GraphConfiguration.NodeMinMaxSizeImmersion, t);
 
-        SetScale(minScale, maxScale, tScale);
+        SetScale(nodeSize, minMaxScale, tScale);
     }
     #endregion
 
 
-    private void SetScale(float nodeMinSize,float nodeMaxSize, float tScale)
+    private void SetScale(float nodeSize,float nodeMinMax, float tScale)
     {
-        float scale = Mathf.Lerp(nodeMinSize, nodeMaxSize, tScale);
+        float max = nodeSize * nodeMinMax;
+        float min = 2 * nodeSize - max;
+        float scale = Mathf.Lerp(min, max, tScale);
         _tf.localScale = new Vector3(scale, scale, scale);
     }
 

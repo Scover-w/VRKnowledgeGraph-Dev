@@ -69,30 +69,16 @@ public class StyleChangeBuilder
                     .Add(StyleChange.Label)
                     .Add(StyleChange.Size);
 
-        styleChanges.Add(GraphConfigKey.NodeMinSizeImmersion, styleChange);
+        styleChanges.Add(GraphConfigKey.NodeMinMaxSizeImmersion, styleChange);
 
-        styleChange = StyleChange.MainGraph
-                        .Add(StyleChange.ImmersionMode)
-                        .Add(StyleChange.Node)
-                        .Add(StyleChange.Label)
-                        .Add(StyleChange.Size);
-
-        styleChanges.Add(GraphConfigKey.NodeMaxSizeImmersion, styleChange);
 
         styleChange = StyleChange.MainGraph
                 .Add(StyleChange.DeskMode)
                 .Add(StyleChange.Node)
                 .Add(StyleChange.Label)
                 .Add(StyleChange.Size);
-        styleChanges.Add(GraphConfigKey.NodeMinSizeDesk, styleChange);
+        styleChanges.Add(GraphConfigKey.NodeMinMaxSizeDesk, styleChange);
 
-        styleChange = StyleChange.MainGraph
-                .Add(StyleChange.DeskMode)
-                .Add(StyleChange.Node)
-                .Add(StyleChange.Label)
-                .Add(StyleChange.Size);
-
-        styleChanges.Add(GraphConfigKey.NodeMaxSizeDesk, styleChange);
 
         styleChange = StyleChange.SubGraph
                 .Add(StyleChange.DeskMode)
@@ -100,14 +86,7 @@ public class StyleChangeBuilder
                 .Add(StyleChange.Label)
                 .Add(StyleChange.Size);
 
-        styleChanges.Add(GraphConfigKey.NodeMinSizeLens, styleChange);
-
-        styleChange = StyleChange.SubGraph
-                .Add(StyleChange.DeskMode)
-                .Add(StyleChange.Node)
-                .Add(StyleChange.Label)
-                .Add(StyleChange.Size);
-        styleChanges.Add(GraphConfigKey.NodeMaxSizeLens, styleChange);
+        styleChanges.Add(GraphConfigKey.NodeMinMaxSizeLens, styleChange);
 
         #endregion
 

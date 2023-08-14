@@ -22,14 +22,9 @@ public enum GraphConfigKey
     NodeSizeWatch,
     NodeSizeLens,
 
-    NodeMinSizeImmersion,
-    NodeMaxSizeImmersion,
-
-    NodeMinSizeDesk,
-    NodeMaxSizeDesk,
-
-    NodeMinSizeLens,
-    NodeMaxSizeLens,
+    NodeMinMaxSizeImmersion,
+    NodeMinMaxSizeDesk,
+    NodeMinMaxSizeLens,
 
     LabelNodeSizeImmersion,
     LabelNodeSizeDesk,
