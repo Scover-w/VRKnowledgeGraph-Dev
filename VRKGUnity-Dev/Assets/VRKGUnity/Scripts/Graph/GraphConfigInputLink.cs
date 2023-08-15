@@ -235,7 +235,7 @@ public class GraphConfigInputLink : MonoBehaviour
         if (!isGoodType)
         {
             _tactileUIScript = null;
-            Debug.LogError("The script does not implement the good IValueUI generic type, wanted : " + genericType);
+            Debug.LogError("The script does not implement the good IValueUI generic type, wanted : " + genericType + " on " + gameObject.name);
             return;
         }
     }

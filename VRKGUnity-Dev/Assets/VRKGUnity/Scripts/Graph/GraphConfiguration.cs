@@ -67,7 +67,6 @@ public class GraphConfiguration
     public bool CanSelectEdges = false;
     public bool DisplayEdges = true;
 
-
     [JsonIgnore]
     public Color NodeColor
     {
@@ -158,6 +157,15 @@ public class GraphConfiguration
     [Range(0f, 1f)]
     public float ValueOntologyColor = .767f;
 
+    [Header("Sound")]
+    [Range(0f, 1f)]
+    public float GlobalVolume = 1f;
+    [Range(0f, 1f)]
+    public float SoundEffectVolume = 1f;
+    [Range(0f, 1f)]
+    public float MusicVolume = 1f;
+    [Range(0f, 1f)]
+    public float AidenVolume = 1f;
 
     [Space(30)]
     [Header("/Miscelaneous/")]
@@ -343,6 +351,18 @@ public class GraphConfiguration
                 return true;
             case GraphConfigKey.ValueOntologyColor:
                 ValueOntologyColor = value;
+                return true;
+            case GraphConfigKey.GlobalVolume:
+                GlobalVolume = value;
+                return true;
+            case GraphConfigKey.SoundEffectVolume:
+                SoundEffectVolume = value;
+                return true;
+            case GraphConfigKey.MusicVolume:
+                MusicVolume = value;
+                return true;
+            case GraphConfigKey.AidenVolume:
+                AidenVolume = value;
                 return true;
             case GraphConfigKey.LabelNodgePropagation:
                 LabelNodgePropagation = Mathf.RoundToInt(value);

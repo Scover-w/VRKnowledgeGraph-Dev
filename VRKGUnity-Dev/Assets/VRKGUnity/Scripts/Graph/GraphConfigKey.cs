@@ -72,6 +72,11 @@ public enum GraphConfigKey
     SaturationOntologyColor,
     ValueOntologyColor,
 
+    GlobalVolume,
+    SoundEffectVolume,
+    MusicVolume,
+    AidenVolume,
+
     LabelNodgePropagation,
     ResetPositionNodeOnUpdate,
     SeedRandomPosition,
