@@ -15,8 +15,8 @@ namespace AIDEN.TactileUI
             }
             set
             {
+                _value = Mathf.Clamp(value, _minValue, _maxValue);
 
-                _value = value;
                 TryRoundValue();
 
                 _label.text = _value.ToString("0.##");
@@ -32,8 +32,14 @@ namespace AIDEN.TactileUI
         [SerializeField]
         InputAlignment _inputAlignment;
 
-        [SerializeField]
+        [SerializeField, Space(5)]
         NumericType _numericType;
+
+        [SerializeField]
+        float _minValue = 0f;
+
+        [SerializeField]
+        float _maxValue = 1f;
 
         [SerializeField]
         float _value;
@@ -120,16 +126,22 @@ namespace AIDEN.TactileUI
             base.OnValidate();
 
             TryRoundValue();
-            _label.text = _value.ToString();
+            
+
+            if (_numericType == NumericType.Int)
+            {
+                _minValue = Mathf.Round(_minValue);
+                _maxValue = Mathf.Round(_maxValue);
+            }
+
+            Value = _value;
         }
 #endif
+    }
 
-
-        private enum NumericType
-        {
-            Float,
-            Int
-        }
-
+    public enum NumericType
+    {
+        Float,
+        Int
     }
 }

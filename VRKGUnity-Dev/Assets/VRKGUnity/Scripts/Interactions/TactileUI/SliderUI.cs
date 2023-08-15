@@ -11,24 +11,17 @@ namespace AIDEN.TactileUI
         {
             get
             {
-                return _value;
+                float v = Mathf.Lerp(_minValue, _maxValue, _value);
+
+                if(_numericType == NumericType.Int)
+                    v = Mathf.Round(v);
+
+                return v;
             }
             set
             {
-                _value = Mathf.Clamp(value, _minValue, _maxValue);
-
-                if(_wholeNumber)
-                    _value = Mathf.Round(_value);
-
+                _value = Mathf.InverseLerp(_minValue, _maxValue, value);
                 UpdateVisuals();
-            }
-        }
-
-        private float UnNormalizedValue
-        {
-            get
-            {
-                return Mathf.Lerp(_minValue, _maxValue, _value);
             }
         }
 
@@ -58,13 +51,15 @@ namespace AIDEN.TactileUI
         float _maxValue = 1f;
 
         [SerializeField]
-        bool _wholeNumber = false;
+        NumericType _numericType;
 
         [SerializeField]
-        float _value;
+        float _startValue;
 
         [SerializeField, Space(10)]
         UnityEvent<float> _onValueChanged;
+
+        float _value;
 
         bool _isMovingKnob;
         bool _isHorizontal;
@@ -130,7 +125,7 @@ namespace AIDEN.TactileUI
 
                 TryActivateHaptic();
 
-                _onValueChanged?.Invoke(Mathf.Lerp(_minValue, _maxValue, _value));
+                _onValueChanged?.Invoke(Mathf.Lerp(_minValue, _maxValue, Value));
                 yield return null;
             }
         }
@@ -152,9 +147,6 @@ namespace AIDEN.TactileUI
                 value = 1f - value;
 
             _value = value;
-
-            if(_wholeNumber)
-                _value = Mathf.Round(_value);
         }
 
         private void UpdateVisuals()
@@ -185,7 +177,7 @@ namespace AIDEN.TactileUI
 
             _fillRectTf.sizeDelta = sizeDelta;
 
-            _label.text = UnNormalizedValue.ToString("0.##");
+            _label.text = Value.ToString("0.##");
         }
 
         private void TryActivateHaptic()
@@ -204,6 +196,18 @@ namespace AIDEN.TactileUI
             base.OnValidate();
             OnValidateSetSliderLayout();
             InitializeParameters();
+
+            
+
+            if (_numericType == NumericType.Int)
+            {
+                _minValue = Mathf.Round(_minValue);
+                _maxValue = Mathf.Round(_maxValue);
+            }
+
+            Value = _startValue;
+            _startValue = Value;
+
         }
 
         private void OnValidateSetSliderLayout()
