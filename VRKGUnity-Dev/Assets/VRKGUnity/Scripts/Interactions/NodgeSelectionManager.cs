@@ -88,17 +88,21 @@ public class NodgeSelectionManager : MonoBehaviour
     GraphConfiguration _graphConfiguration;
 
 
-    private void Start()
+    private void Awake()
     {
-        if(_instance != null)
+        if (_instance != null)
         {
             Debug.LogError("NodgeSelectionManager: Start -> Multiple instance in the scene(s)");
-            Destroy(this); 
+            Destroy(this);
             return;
         }
 
         _instance = this;
+        _referenceHolderSo.NodgeSelectionManager = this;
+    }
 
+    private void Start()
+    {
         _multipleSelectedNodes = new();
 
         _propagatedEdges = new();

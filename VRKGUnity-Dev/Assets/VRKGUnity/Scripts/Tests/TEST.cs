@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class KGUI : MonoBehaviour
+public class TEST : MonoBehaviour
 {
     public KGUIController KGUIController { set { _kgUiController = value; } }
 

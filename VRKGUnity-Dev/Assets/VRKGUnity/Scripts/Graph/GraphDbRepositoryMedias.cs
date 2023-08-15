@@ -9,7 +9,7 @@ using UnityEngine;
 public class GraphDbRepositoryMedias
 {
     [JsonProperty("Medias_")]
-    Dictionary<string, MediaState> _medias;
+    Dictionary<string, MediaData> _medias;
 
     [JsonIgnore]
     private static string _fullpathFile;
@@ -24,28 +24,28 @@ public class GraphDbRepositoryMedias
         _medias = new();
     }
 
-    public async Task AddMedia(string mediaUrl, MediaState state)
+    public async Task AddMedia(string mediaUrl, MediaData mediaData)
     {
         if (_medias.ContainsKey(mediaUrl))
             return;
 
-        _medias.Add(mediaUrl, state);
+        _medias.Add(mediaUrl, mediaData);
 
         await Save();
     }
 
-    public MediaState TryGetMediaState(string mediaUrl)
+    public bool TryGetMediaData(string mediaUrl, out MediaData mediaData)
     {
-        if (_medias.TryGetValue(mediaUrl, out var mediaState))
-            return mediaState;
+        if (_medias.TryGetValue(mediaUrl, out mediaData))
+            return true;
 
-        return MediaState.None;
+        return false;
     }
 
     public string GetPath(string mediaUrl)
     {
-        string fileName = Path.GetFileName(mediaUrl);
-        return Path.Combine(_mediaPath, fileName);
+        string fileName = Path.GetFileNameWithoutExtension(mediaUrl);
+        return Path.Combine(_mediaPath, fileName, ".bin");
     }
 
     #region SAVE_LOAD
@@ -99,9 +99,33 @@ public class GraphDbRepositoryMedias
     #endregion
 }
 
+[Serializable]
 public enum MediaState
 {
     None, 
     Loadable,
     Unloadable
+}
+
+[Serializable]
+public struct MediaData
+{
+    public MediaState State;
+    public Vector2 Size;
+    public TextureFormat Format; 
+
+
+    public MediaData(MediaState state)
+    {
+        State = state;
+        Size = Vector2.zero;
+        Format = TextureFormat.Alpha8;
+    }
+
+    public MediaData(MediaState state, Vector2 size, TextureFormat format)
+    {
+        State = state;
+        Size = size;
+        Format = format;
+    }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -11,6 +12,8 @@ public class ReferenceHolderSO : ScriptableObject
     public GraphDbRepository SelectedGraphDbRepository { get; set; }
 
     public InputPropagatorManager InputPropagatorManager { get; set; }
+
+    public NodgeSelectionManager NodgeSelectionManager { get ; set;}
 
     public float MaxDistanceGraph { get; set; }
 
