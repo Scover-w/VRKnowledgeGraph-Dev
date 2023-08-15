@@ -73,6 +73,8 @@ public class Easing
                 return EaseOutBounce;
             case EasingType.EaseInOutBounce:
                 return EaseInOutBounce;
+            case EasingType.Linear:
+                return Linear;
             default:
                 throw new ArgumentException("Invalid easing type.");
         }
@@ -300,6 +302,10 @@ public class Easing
             : (1f + EaseOutBounce(2f * t - 1f)) / 2f;
     }
 
+    public static float Linear(float t)
+    {
+        return t;
+    }
 
 }
 
@@ -334,5 +340,6 @@ public enum EasingType
     EaseInOutElastic,
     EaseInBounce,
     EaseOutBounce,
-    EaseInOutBounce
+    EaseInOutBounce,
+    Linear
 }
