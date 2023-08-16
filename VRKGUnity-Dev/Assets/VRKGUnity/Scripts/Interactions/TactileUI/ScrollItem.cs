@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace AIDEN.TactileUI
 {
@@ -9,9 +10,8 @@ namespace AIDEN.TactileUI
     {
         public GameObject Go { get { return _rect.gameObject; } }
 
-        [SerializeField]
+
         RectTransform _rect;
-        [SerializeField]
         List<Collider> _colliders;
 
         Vector3[] _worldCorners;
@@ -36,6 +36,29 @@ namespace AIDEN.TactileUI
             _worldCorners = new Vector3[4];
             _middleCorners = new Vector3[2];
             _areColliderEnabled = true;
+        }
+
+
+        public void RebuildLayout() 
+        {
+            LayoutRebuilder.ForceRebuildLayoutImmediate(_rect);
+            UpdateCollidersSize();
+        }
+
+        private void UpdateCollidersSize()
+        {
+            Vector2 size = _rect.sizeDelta;
+
+            foreach (var collider in _colliders)
+            {
+                if (collider is not BoxCollider)
+                    continue;
+
+                BoxCollider box = collider as BoxCollider;
+                var boxSize = box.size;
+                boxSize.y = size.y;
+                box.size = boxSize;
+            }
         }
 
         public void UpdateColliderState(RectTransform parentMaskRect)

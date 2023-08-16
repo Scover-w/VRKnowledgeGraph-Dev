@@ -38,7 +38,7 @@ public class PropertyItemUI : MonoBehaviour
     {
         _nodeInfoUI = nodeInfoUI;
         _uri = uriAndValue.Key;
-        _value = uriAndValue.Key;
+        _value = uriAndValue.Value;
 
         _uriTxt.text = _uri;
         _valueTxt.text = _value;

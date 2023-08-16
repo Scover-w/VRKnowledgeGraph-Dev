@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace AIDEN.TactileUI
 {
-    public class ScrollUI : BaseTouch
+    public class ScrollUI : BaseTouch, ILayoutGroup
     {
         public RectTransform ItemContainer { get { return _contentRect; } }
 
@@ -28,6 +28,8 @@ namespace AIDEN.TactileUI
 
         [SerializeField, Space(5)]
         List<ScrollItem> _scrollItems;
+
+        RectTransform _scrollUIRect;
 
         bool _needScroll;
         bool _isScrolling;
@@ -55,6 +57,7 @@ namespace AIDEN.TactileUI
             }
 
             _rebounceDelay = 0f;
+            _scrollUIRect = GetComponent<RectTransform>();
         }
 
         protected override void OnEnable()
@@ -76,6 +79,7 @@ namespace AIDEN.TactileUI
             }
 
             _scrollItems.Add(scrollItem);
+            scrollItem.RebuildLayout();
             UpdateContent();
         }
 
@@ -91,6 +95,7 @@ namespace AIDEN.TactileUI
                 }
 
                 _scrollItems.Add(scrollItem);
+                scrollItem.RebuildLayout();
             }
 
             UpdateContent();
@@ -135,30 +140,16 @@ namespace AIDEN.TactileUI
 
         public void UpdateContent()
         {
-            StartCoroutine(UpdatingContent());
+            // If only one ForceRebuild, colliders aren't disabled if the
+            // item is outside the viewport
+            LayoutRebuilder.ForceRebuildLayoutImmediate(_contentRect);
+            LayoutRebuilder.ForceRebuildLayoutImmediate(_contentRect);
+
+            // Allow to SetLayoutVertical be called
+            LayoutRebuilder.MarkLayoutForRebuild(_scrollUIRect);
         }
 
-        IEnumerator UpdatingContent()
-        {
-            _contentRect.ForceUpdateRectTransforms();
-            _viewportRect.ForceUpdateRectTransforms();
-            LayoutRebuilder.ForceRebuildLayoutImmediate(_viewportRect);
-            yield return null;
-            SetParameters();
-            TrySetNormalInteractionState();
-            UpdateInteractionColor();
-            UpdateVisuals();
-            yield return null;
-            _contentRect.ForceUpdateRectTransforms();
-            _viewportRect.ForceUpdateRectTransforms();
-            LayoutRebuilder.ForceRebuildLayoutImmediate(_viewportRect);
-            yield return null;
-            UpdateColliderInteraction();
-            UpdateItemColliders();
-        }
-
-
-        private void SetParameters()
+        private void UpdateParameters()
         {
             Vector2 sizeArea = _slidingAreaRect.sizeDelta;
 
@@ -296,27 +287,28 @@ namespace AIDEN.TactileUI
             }
         }
 
+
+        public void SetLayoutHorizontal() { }
+
+
+        public void SetLayoutVertical()
+        {
+            Debug.Log("SetLayoutVertical");
+            LayoutRebuilder.ForceRebuildLayoutImmediate(_viewportRect);
+            UpdateParameters();
+            TrySetNormalInteractionState();
+            UpdateInteractionColor();
+            UpdateVisuals();
+            UpdateColliderInteraction();
+            UpdateItemColliders();
+        }
+
 #if UNITY_EDITOR
         protected override void OnValidate()
         {
             _interactiveGraphics?.TrySetName();
-
-            _contentRect.ForceUpdateRectTransforms();
-            _viewportRect.ForceUpdateRectTransforms();
-            LayoutRebuilder.ForceRebuildLayoutImmediate(_viewportRect);
-
-            SetParameters();
-            TrySetNormalInteractionState();
-            UpdateInteractionColor();
-            UpdateVisuals();
-
-            _contentRect.ForceUpdateRectTransforms();
-            _viewportRect.ForceUpdateRectTransforms();
-            LayoutRebuilder.ForceRebuildLayoutImmediate(_viewportRect);
-
-            UpdateColliderInteraction();
-            UpdateItemColliders();
-        }
+            UpdateContent();
+        }  
 #endif
     }
 }

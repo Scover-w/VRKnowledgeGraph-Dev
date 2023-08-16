@@ -64,7 +64,7 @@ public class StringStepperUI : BaseTouch, IValueUI<string>
 
     private void Awake()
     {
-        SetNewSelection(_startSelected);
+        SetStartNewSelection(_startSelected);
     }
 
 
@@ -152,6 +152,25 @@ public class StringStepperUI : BaseTouch, IValueUI<string>
 
         var newSelectionId = _optionsValues.IndexOf(stepperValue);
         SetNewSelection(newSelectionId);
+    }
+
+
+
+    private void SetStartNewSelection(int selectionId)
+    {
+        if (selectionId == -1)
+        {
+            _selectedId = -1;
+            _selectedStepperValue = null;
+            _label.text = "";
+            return;
+        }
+
+
+        _selectedId = selectionId;
+        _selectedStepperValue = _optionsValues[_selectedId];
+
+        _label.text = _selectedStepperValue.LabelName;
     }
 
     private void SetNewSelection(int selectionId)

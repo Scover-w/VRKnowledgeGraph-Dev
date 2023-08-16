@@ -42,6 +42,23 @@ public class NodgeSelectionManager : MonoBehaviour
         } 
     }
 
+    public Node LastSelectedNode
+    {
+        get
+        {
+            if (_selectionMode == SelectionMode.Single)
+            {
+                return _singleSelectedNode;
+            }
+
+
+            if (_multipleSelectedNodes.Count == 0)
+                return null;
+
+            return _multipleSelectedNodes.Last();
+        }
+    }
+
     public ReadOnlyHashSet<Node> PropagatedNodes { get { return new ReadOnlyHashSet<Node>(_propagatedNodes); } }
     public ReadOnlyHashSet<Edge> PropagatedEdges { get { return new ReadOnlyHashSet<Edge>(_propagatedEdges); } }
 

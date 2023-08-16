@@ -1,10 +1,8 @@
 using Newtonsoft.Json;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using UnityEngine;
 
 public class GraphDbRepositoryMedias
 {
@@ -97,35 +95,4 @@ public class GraphDbRepositoryMedias
         Directory.Delete(_mediaPath, true);
     }
     #endregion
-}
-
-[Serializable]
-public enum MediaState
-{
-    None, 
-    Loadable,
-    Unloadable
-}
-
-[Serializable]
-public struct MediaData
-{
-    public MediaState State;
-    public Vector2 Size;
-    public TextureFormat Format; 
-
-
-    public MediaData(MediaState state)
-    {
-        State = state;
-        Size = Vector2.zero;
-        Format = TextureFormat.Alpha8;
-    }
-
-    public MediaData(MediaState state, Vector2 size, TextureFormat format)
-    {
-        State = state;
-        Size = size;
-        Format = format;
-    }
 }

@@ -105,6 +105,12 @@ public class NodeInfoUI : MonoBehaviour
     {
         _selectionManager.OnNodeSelected += DisplayInfoNode;
         ResetParameters();
+
+        var lastSelectedNode = _selectionManager.LastSelectedNode;
+        if (lastSelectedNode == null)
+            return;
+
+        DisplayInfoNode(lastSelectedNode);
     }
 
     private void OnDisable()
@@ -120,6 +126,8 @@ public class NodeInfoUI : MonoBehaviour
         _displayedTexture = null;
         _displayedProperty = null;
         _selectedTextureId = -1;
+        _titleNodeTxt.text = "";
+        _classNodeTxt.text = "";
         _infoNavGo.SetActive(false);
         _propertyGo.SetActive(false);
         _mediaGo.SetActive(true);
@@ -135,12 +143,19 @@ public class NodeInfoUI : MonoBehaviour
     private void ClearPropertiesFromScroll()
     {
         if (_propertyItems == null)
+        {
+            _propertyItems = new();
             return;
+        }
+
+        List<ScrollItem> _scollItems = new();
 
         foreach(PropertyItemUI propertyItem in _propertyItems)
         {
-            _propertiesScrollUI.RemoveItem(propertyItem.ScrollItem);
+            _scollItems.Add(propertyItem.ScrollItem);
         }
+
+        _propertiesScrollUI.RemoveItems(_scollItems);
 
         _propertyItems = new();
     }
@@ -246,10 +261,15 @@ public class NodeInfoUI : MonoBehaviour
     {
         var properties = _nodeDisplayed.Properties;
 
+        List<ScrollItem> scrollItems = new();
+
+
         foreach(var property in properties)
         {
-            CreatePropertyItem(property);
+            scrollItems.Add(CreatePropertyItem(property));
         }
+
+        _propertiesScrollUI.AddItems(scrollItems);
     }
 
 
@@ -281,32 +301,21 @@ public class NodeInfoUI : MonoBehaviour
         _displayedProperty = null;
     }
 
-    private void CreatePropertyItem(KeyValuePair<string, string> property)
+    private ScrollItem CreatePropertyItem(KeyValuePair<string, string> property)
     {
-        try
-        {
-            var go = Instantiate(_propertyItemPf, _propertiesScrollUI.ItemContainer);
+        var go = Instantiate(_propertyItemPf, _propertiesScrollUI.ItemContainer);
 
-            var propertyItemUI = go.GetComponent<PropertyItemUI>();
-            propertyItemUI.Load(this, property);
+        var propertyItemUI = go.GetComponent<PropertyItemUI>();
+        propertyItemUI.Load(this, property);
 
-            var colliders = propertyItemUI.Colliders;
+        var colliders = propertyItemUI.Colliders;
+        var scollItem = new ScrollItem(go.GetComponent<RectTransform>(), colliders);
 
-            var scollItem = new ScrollItem(go.GetComponent<RectTransform>(), colliders);
-            propertyItemUI.ScrollItem = scollItem;
-            _propertiesScrollUI.AddItem(scollItem);
+        propertyItemUI.ScrollItem = scollItem;
+        _propertyItems.Add(propertyItemUI);
 
-            _propertyItems.Add(propertyItemUI);
-        }
-        catch(Exception ex) 
-        {
-            Debug.Log(ex);
-            Debug.Log(ex.Message);
-            Debug.Log(ex.StackTrace);
-            Debug.Log(ex.InnerException);
-            Debug.Log(ex.TargetSite);
-        }
-        
+        return scollItem;
+
     }
 
     #region LoadMedia
@@ -487,32 +496,31 @@ public class NodeInfoUI : MonoBehaviour
     {
         _medias.Add(texture);
 
-        if (_medias.Count > 1)
-            return;
+        if (_medias.Count == 1)
+        {
+            // First Media to be added
+            _infoNavGo.SetActive(true);
+            _selectedTextureId = 0;
+            DisplaySelectedIdMedia();
+        }
 
-        // First Media to be added
-        _infoNavGo.SetActive(true);
-        _selectedTextureId = 0;
-        DisplaySelectedIdMedia();
         UpdateNavBtns();
     }
 
     private void UpdateNavBtns()
     {
-        bool isPreviousBtnInteractable = false;
-        bool isNextBtnInteractable = false;
+        bool isBtnInteractable = false;
 
         if (_medias != null)
         {
-            isPreviousBtnInteractable = (_selectedTextureId > 0);
-            isNextBtnInteractable = (_selectedTextureId < _medias.Count - 1);
+            isBtnInteractable = _medias.Count > 1;
         }
 
         foreach(ButtonUI btn in _previousBtns)
-            btn.Interactable = isPreviousBtnInteractable;
+            btn.Interactable = isBtnInteractable;
 
         foreach (ButtonUI btn in _nextBtns)
-            btn.Interactable = isNextBtnInteractable;
+            btn.Interactable = isBtnInteractable;
     }
 
     private void UpdateLockImg()

@@ -90,6 +90,12 @@ public class GraphConfigInputLink : MonoBehaviour
 
     private void RetrieveInterface()
     {
+        if(_tactileUIScript == null)
+        {
+            Debug.LogWarning("_tactileUIScript is null on " + gameObject.name);
+            return;
+        }
+
         switch (_valueType)
         {
             case GraphConfigValueType.String:
@@ -134,6 +140,12 @@ public class GraphConfigInputLink : MonoBehaviour
 
     private void RegisterToGraphConfigManager()
     {
+        if(_inputPropagatorManager == null)
+        {
+            Debug.Log("_inputPropagatorManager is null on " + gameObject.name);
+            return;
+        }
+
         switch (_valueType)
         {
             case GraphConfigValueType.String:
@@ -153,6 +165,12 @@ public class GraphConfigInputLink : MonoBehaviour
 
     private void UnRegisterToGraphConfigManager()
     {
+        if (_inputPropagatorManager == null)
+        {
+            Debug.Log("_inputPropagatorManager is null on " + gameObject.name);
+            return;
+        }
+
         switch (_valueType)
         {
             case GraphConfigValueType.String:

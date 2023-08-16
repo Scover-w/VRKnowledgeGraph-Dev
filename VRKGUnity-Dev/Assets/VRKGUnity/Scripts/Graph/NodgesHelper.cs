@@ -216,6 +216,8 @@ public static class NodgesHelper
         if (node.Properties.ContainsKey(edgeUri))
             return;
 
+
+        Debug.Log("AddToNodeAsProperty : " + edgeUri + "  /  " + propValue);
         node.Properties.Add(edgeUri, propValue);
     }
 
