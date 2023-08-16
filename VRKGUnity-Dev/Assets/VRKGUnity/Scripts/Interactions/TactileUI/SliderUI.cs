@@ -64,6 +64,7 @@ namespace AIDEN.TactileUI
         bool _isMovingKnob;
         bool _isHorizontal;
         float _lengthSlider;
+        float _hapticDelay = .25f;
         float _hapticTime;
 
         private void Awake()
@@ -98,9 +99,6 @@ namespace AIDEN.TactileUI
 
             _isMovingKnob = true;
             _label.enabled = true;
-
-            _touchInter.ActivateHaptic(.05f, .08f);
-            _hapticTime = Time.time + .5f;
             StartCoroutine(MovingSlider());
         }
 
@@ -184,11 +182,11 @@ namespace AIDEN.TactileUI
 
         private void TryActivateHaptic()
         {
-            if (_hapticTime < Time.time)
+            if (Time.time < _hapticTime)
                 return;
 
-            _touchInter.ActivateHaptic(.05f, .08f);
-            _hapticTime = Time.time + .5f;
+            _hapticTime = Time.time + _hapticDelay;
+            _touchInter.ActivateHaptic(.001f, .001f);
         }
 
 

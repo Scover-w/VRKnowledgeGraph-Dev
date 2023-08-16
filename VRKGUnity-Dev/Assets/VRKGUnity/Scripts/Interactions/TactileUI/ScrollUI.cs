@@ -39,6 +39,8 @@ namespace AIDEN.TactileUI
         float _halfHandleHeight;
 
         float _positionScroll;
+        float _hapticDelay = .25f;
+        float _hapticTime;
 
         private void Awake()
         {
@@ -60,6 +62,7 @@ namespace AIDEN.TactileUI
             base.OnEnable();
             _isScrolling = false;
             _positionScroll = 0f;
+            _hapticTime = Time.time;
 
             UpdateContent();
         }
@@ -206,11 +209,9 @@ namespace AIDEN.TactileUI
             if (!CanActivate())
                 return;
 
-
             base.Activate();
 
             _isScrolling = true;
-
             StartCoroutine(Scrolling());
         }
 
@@ -245,7 +246,8 @@ namespace AIDEN.TactileUI
                 CalculatePositionScroll();
                 UpdateVisuals();
                 UpdateItemColliders();
-                _touchInter.ActivateHaptic();
+                TryActivateHaptic();
+                
                 yield return null;
             }
         }
@@ -261,7 +263,9 @@ namespace AIDEN.TactileUI
 
             float positionFromVirtualAnchor = Mathf.Clamp((_slidingAreaHeight * .5f) - localVector.y, 0f, _slidingAreaHeight); // 0f to x
             positionFromVirtualAnchor = Mathf.Clamp(positionFromVirtualAnchor, _halfHandleHeight, _maxDeltaHandle);
-            _positionScroll = (positionFromVirtualAnchor - _halfHandleHeight) / (_slidingAreaHeight - _handleHeight);
+            float newPositionScroll = (positionFromVirtualAnchor - _halfHandleHeight) / (_slidingAreaHeight - _handleHeight);
+
+            _positionScroll = Mathf.Lerp(_positionScroll, newPositionScroll, 10f * Time.deltaTime);
         }
 
         private void UpdateVisuals()
@@ -272,6 +276,15 @@ namespace AIDEN.TactileUI
 
             // Content Position
             _contentRect.anchoredPosition = new Vector2(0f, Mathf.Lerp(0f, _contentOverflowHeight, _positionScroll));
+        }
+
+        private void TryActivateHaptic()
+        {
+            if (Time.time < _hapticTime)
+                return;
+
+            _hapticTime = Time.time + _hapticDelay;
+            _touchInter.ActivateHaptic(.001f, .001f);
         }
 
         [ContextMenu("UpdateItemColliders")]
