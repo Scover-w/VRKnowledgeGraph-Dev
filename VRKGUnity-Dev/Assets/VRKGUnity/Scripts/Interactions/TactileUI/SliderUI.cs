@@ -83,6 +83,8 @@ namespace AIDEN.TactileUI
         {
             _isHorizontal = _isHorizontal = (_sliderType == SliderType.LeftToRight || _sliderType == SliderType.RightToLeft);
             _lengthSlider = _isHorizontal ? _sliderRectTf.rect.width : _sliderRectTf.rect.height;
+
+            _rebounceDelay = 0f;
         }
 
  

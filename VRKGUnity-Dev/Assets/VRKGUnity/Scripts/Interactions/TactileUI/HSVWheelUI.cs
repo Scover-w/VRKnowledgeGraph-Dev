@@ -31,6 +31,7 @@ namespace AIDEN.TactileUI
         private void Awake()
         {
             _hsvColor = new HSVColor(0f, 0f, 1f);
+            _rebounceDelay = 0f;
         }
 
         private void Start()

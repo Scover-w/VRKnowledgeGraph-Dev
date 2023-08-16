@@ -39,7 +39,7 @@ public class BaseTouch : MonoBehaviour, ITouchUI
     protected bool _inProximity = false;
     protected int _proximityFrameCount;
 
-    float _rebounceDelay = .5f;
+    protected float _rebounceDelay = .5f;
     float _rebounceTime = 0f;
 
     protected virtual void OnEnable()

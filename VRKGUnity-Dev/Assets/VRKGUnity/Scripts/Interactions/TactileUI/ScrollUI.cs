@@ -51,6 +51,8 @@ namespace AIDEN.TactileUI
                     item.Start();
                 }
             }
+
+            _rebounceDelay = 0f;
         }
 
         protected override void OnEnable()
