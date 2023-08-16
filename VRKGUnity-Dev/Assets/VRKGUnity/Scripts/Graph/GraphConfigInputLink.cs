@@ -48,6 +48,9 @@ public class GraphConfigInputLink : MonoBehaviour
         if(_inputPropagatorManager == null)
             _inputPropagatorManager = _referenceHolderSo.InputPropagatorManager;
 
+        if (_inputPropagatorManager == null)
+            Debug.Log("_inputPropagatorManager is null");
+
         SetValueOnInput();
         RegisterToGraphConfigManager();
 
@@ -56,26 +59,33 @@ public class GraphConfigInputLink : MonoBehaviour
 
     private void RetrieveInputType()
     {
-        var interfaces = _tactileUIScript.GetType().GetInterfaces();
-        Type genericType = null;
-
-        foreach (Type interfaceType in interfaces)
+        try
         {
-            if (!(interfaceType.IsGenericType && interfaceType.GetGenericTypeDefinition() == typeof(IValueUI<>)))
-                continue;
+            var interfaces = _tactileUIScript.GetType().GetInterfaces();
+            Type genericType = null;
 
-            genericType = interfaceType.GetGenericArguments()[0];
-            break;
+            foreach (Type interfaceType in interfaces)
+            {
+                if (!(interfaceType.IsGenericType && interfaceType.GetGenericTypeDefinition() == typeof(IValueUI<>)))
+                    continue;
+
+                genericType = interfaceType.GetGenericArguments()[0];
+                break;
+            }
+
+            if (genericType == typeof(string))
+                _valueType = GraphConfigValueType.String;
+            else if (genericType == typeof(float))
+                _valueType = GraphConfigValueType.Float;
+            else if (genericType == typeof(bool))
+                _valueType = GraphConfigValueType.Bool;
+            else if (genericType == typeof(Color))
+                _valueType = GraphConfigValueType.Color;
         }
-
-        if(genericType == typeof(string))
-            _valueType = GraphConfigValueType.String;
-        else if(genericType == typeof(float))
-            _valueType = GraphConfigValueType.Float;
-        else if (genericType == typeof(bool))
-            _valueType = GraphConfigValueType.Bool;
-        else if (genericType == typeof(Color))
-            _valueType = GraphConfigValueType.Color;
+        catch(Exception e)
+        {
+            Debug.Log(e);
+        }
     }
 
     private void RetrieveInterface()

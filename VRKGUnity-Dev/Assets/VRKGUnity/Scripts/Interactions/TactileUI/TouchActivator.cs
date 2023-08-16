@@ -33,6 +33,8 @@ namespace AIDEN.TactileUI
 
             _isActive = false;
             _touchInteractorGo.SetActive(false);
+            _currentDistance = _touchDistance;
+            _touchInteractorTf.localPosition = Vector3.forward * _touchDistance;
         }
 
 

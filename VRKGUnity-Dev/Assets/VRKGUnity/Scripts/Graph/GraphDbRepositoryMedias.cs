@@ -44,8 +44,8 @@ public class GraphDbRepositoryMedias
 
     public string GetPath(string mediaUrl)
     {
-        string fileName = Path.GetFileNameWithoutExtension(mediaUrl);
-        return Path.Combine(_mediaPath, fileName, ".bin");
+        string fileName = Path.GetFileName(mediaUrl);
+        return Path.Combine(_mediaPath, fileName);
     }
 
     #region SAVE_LOAD
