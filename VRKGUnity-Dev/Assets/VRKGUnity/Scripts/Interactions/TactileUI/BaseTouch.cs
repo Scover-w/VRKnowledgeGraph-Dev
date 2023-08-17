@@ -88,7 +88,7 @@ public class BaseTouch : MonoBehaviour, ITouchUI
             if (_touchInter != null)
                 _touchInter.ActiveBtn(false, this);
 
-            _interactionStateUI = InteractionStateUI.Normal;
+            _interactionStateUI = (_inProximity? InteractionStateUI.InProximity : InteractionStateUI.Normal);
             UpdateInteractionColor();
         }
 

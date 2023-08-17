@@ -144,6 +144,7 @@ namespace AIDEN.TactileUI
             // item is outside the viewport
             LayoutRebuilder.ForceRebuildLayoutImmediate(_contentRect);
             LayoutRebuilder.ForceRebuildLayoutImmediate(_contentRect);
+            LayoutRebuilder.ForceRebuildLayoutImmediate(_viewportRect);
 
             // Allow to SetLayoutVertical be called
             LayoutRebuilder.MarkLayoutForRebuild(_scrollUIRect);

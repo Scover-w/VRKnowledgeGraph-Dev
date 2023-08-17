@@ -275,6 +275,9 @@ public static class NodgesHelper
             if (nodeProperties.ContainsKey(distantUriLabel.Item1)) // Already contain edge property
                 continue;
 
+            if (distantUriLabel.Item1 == "-1")
+                continue;
+
             nodeProperties.Add(distantUriLabel.Item1, distantUriLabel.Item2);
         }
     }

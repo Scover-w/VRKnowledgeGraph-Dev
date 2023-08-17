@@ -11,12 +11,13 @@ public class PropertyItemUI : MonoBehaviour
 
     public ScrollItem ScrollItem { get; set; }
 
-    public string Uri { get { return _uri; } }
     public string Value { get { return _value; } }
 
+    [SerializeField]
+    GameObject _uriTxtPf;
 
     [SerializeField]
-    TMP_Text _uriTxt;
+    RectTransform _uriContainerRect;
 
     [SerializeField]
     TMP_Text _valueTxt;
@@ -30,20 +31,32 @@ public class PropertyItemUI : MonoBehaviour
     NodeInfoUI _nodeInfoUI;
 
     bool _isSelected = false;
-    string _uri;
+
     string _value;
 
 
-    public void Load(NodeInfoUI nodeInfoUI, KeyValuePair<string,string> uriAndValue)
+    public void Load(NodeInfoUI nodeInfoUI, string uri, string value)
     {
         _nodeInfoUI = nodeInfoUI;
-        _uri = uriAndValue.Key;
-        _value = uriAndValue.Value;
+        _value = value;
 
-        _uriTxt.text = _uri;
         _valueTxt.text = _value;
 
+        AddUriText(uri);
+
         _selectedImg.enabled = false;
+    }
+
+    public void AddUri(string txt)
+    {
+        AddUriText(txt);
+    }
+
+    private void AddUriText(string txt)
+    {
+        var go = Instantiate(_uriTxtPf, _uriContainerRect);
+        TMP_Text tmp = go.GetComponent<TMP_Text>();
+        tmp.text = txt;
     }
 
     public void OnClick()

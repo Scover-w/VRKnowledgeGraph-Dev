@@ -185,7 +185,6 @@ public class NodeInfoUI : MonoBehaviour
             _selectedTextureId = _medias.Count - 1;
 
         DisplaySelectedIdMedia();
-        UpdateNavBtns();
     }
 
     public void OnNextMediaClick() 
@@ -199,7 +198,6 @@ public class NodeInfoUI : MonoBehaviour
             _selectedTextureId = 0;
 
         DisplaySelectedIdMedia();
-        UpdateNavBtns();
     }
 
     public void OnZoomInClick()
@@ -261,12 +259,25 @@ public class NodeInfoUI : MonoBehaviour
     {
         var properties = _nodeDisplayed.Properties;
 
+
+        Dictionary<string, PropertyItemUI> valuesDict = new();
         List<ScrollItem> scrollItems = new();
 
 
         foreach(var property in properties)
         {
-            scrollItems.Add(CreatePropertyItem(property));
+            string uri = property.Key;
+            string value = property.Value;
+
+            if(valuesDict.TryGetValue(value, out PropertyItemUI itemUI))
+            {
+                itemUI.AddUri(uri);
+                continue;
+            }
+
+            PropertyItemUI propItemUI = CreatePropertyItem(uri, value);
+            scrollItems.Add(propItemUI.ScrollItem);
+            valuesDict.Add(value, propItemUI);
         }
 
         _propertiesScrollUI.AddItems(scrollItems);
@@ -301,12 +312,12 @@ public class NodeInfoUI : MonoBehaviour
         _displayedProperty = null;
     }
 
-    private ScrollItem CreatePropertyItem(KeyValuePair<string, string> property)
+    private PropertyItemUI CreatePropertyItem(string uri, string value)
     {
         var go = Instantiate(_propertyItemPf, _propertiesScrollUI.ItemContainer);
 
         var propertyItemUI = go.GetComponent<PropertyItemUI>();
-        propertyItemUI.Load(this, property);
+        propertyItemUI.Load(this, uri, value);
 
         var colliders = propertyItemUI.Colliders;
         var scollItem = new ScrollItem(go.GetComponent<RectTransform>(), colliders);
@@ -314,8 +325,7 @@ public class NodeInfoUI : MonoBehaviour
         propertyItemUI.ScrollItem = scollItem;
         _propertyItems.Add(propertyItemUI);
 
-        return scollItem;
-
+        return propertyItemUI;
     }
 
     #region LoadMedia
