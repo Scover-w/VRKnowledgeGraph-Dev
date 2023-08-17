@@ -499,9 +499,8 @@ public class NodeInfoUI : MonoBehaviour
 
         var ratioText = _displayedTexture.width / _displayedTexture.height;
 
-        float scale = 1f;
-
-        if(ratioText < 1f)
+        float scale;
+        if (ratioText < 1f)
         {
             // Height Max
             scale = maxSize.y / _displayedTexture.height;

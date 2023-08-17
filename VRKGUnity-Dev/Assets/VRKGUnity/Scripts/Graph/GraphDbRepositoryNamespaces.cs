@@ -16,7 +16,7 @@ public class GraphDbRepositoryNamespaces
 
 
     [JsonProperty("UrisWithPrefixs_")]
-    Dictionary<string, string> _namespacesAndPrefixs;
+    readonly Dictionary<string, string> _namespacesAndPrefixs;
 
     Dictionary<string, OntologyTree> _ontoTreeDict;
 

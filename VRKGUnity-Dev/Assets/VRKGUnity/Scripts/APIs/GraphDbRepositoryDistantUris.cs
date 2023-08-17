@@ -15,7 +15,7 @@ public class GraphDbRepositoryDistantUris
     public IReadOnlyDictionary<string, (string, string)> DistantUriLabels => _distantUriLabels;
 
     [JsonProperty("DistantUriLabels_")]
-    Dictionary<string, (string,string)> _distantUriLabels; // <uri,(propName, valueProp)> -> <http://viaf.org/viaf/143903205, (skos:prefLabel, Bibliothèque nationale (Francia))>
+    readonly Dictionary<string, (string,string)> _distantUriLabels; // <uri,(propName, valueProp)> -> <http://viaf.org/viaf/143903205, (skos:prefLabel, Bibliothèque nationale (Francia))>
 
 
     private static string _fullpathFile;

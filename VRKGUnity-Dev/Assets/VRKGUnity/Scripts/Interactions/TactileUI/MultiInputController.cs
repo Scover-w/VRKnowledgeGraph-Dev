@@ -69,7 +69,7 @@ namespace AIDEN.TactileUI
             if (_isUsed)
                 return false;
 
-            if (!UpdateUsedInput(options))
+            if (!UpdateUsedInput<T>())
                 return false;
 
             _isUsed = true;
@@ -83,7 +83,7 @@ namespace AIDEN.TactileUI
             return true;
         }
 
-        private bool UpdateUsedInput<T>(KeyboardUIOptions<T> options)
+        private bool UpdateUsedInput<T>()
         {
             var typeValue = typeof(T);
 
@@ -125,17 +125,13 @@ namespace AIDEN.TactileUI
 
         private Transform GetSelectedTransform()
         {
-            switch (_usedInput)
+            return _usedInput switch
             {
-                case MultiInputType.Keyboard:
-                    return _keyboardGo.transform;
-                case MultiInputType.Numpad:
-                    return _numpadGo.transform;
-                case MultiInputType.ColorPicker:
-                    return _colorpickerGo.transform;
-                default:
-                    return _keyboardGo.transform;
-            }
+                MultiInputType.Keyboard => _keyboardGo.transform,
+                MultiInputType.Numpad => _numpadGo.transform,
+                MultiInputType.ColorPicker => _colorpickerGo.transform,
+                _ => _keyboardGo.transform,
+            };
         }
 
         private void DisplaySelected()
