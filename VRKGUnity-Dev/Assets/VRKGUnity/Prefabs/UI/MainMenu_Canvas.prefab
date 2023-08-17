@@ -2036,7 +2036,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5008887026456784811
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2075,7 +2075,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainMenuUI: {fileID: 7885924229007599003}
-  _scrollUI: {fileID: 7073012404492729729}
+  _scrollUI: {fileID: 671977781966215220}
   _scrollRectPC: {fileID: 0}
   _scrollItemPf: {fileID: 2914497462794846491, guid: d2b263394f23a43488bfb847d7eb77aa, type: 3}
   _scrollItemPCPf: {fileID: 0}
@@ -2145,7 +2145,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5008887026483446278
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2264,7 +2264,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5008887026556475582
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6707,7 +6707,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1195924683344469577, guid: ef53cb5f7348e084f9304065bc245d77, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -401.8
+      value: -35
       objectReference: {fileID: 0}
     - target: {fileID: 1195924683344469577, guid: ef53cb5f7348e084f9304065bc245d77, type: 3}
       propertyPath: m_ConstrainProportionsScale
@@ -6743,19 +6743,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1195924683763371019, guid: ef53cb5f7348e084f9304065bc245d77, type: 3}
       propertyPath: m_Color.a
-      value: 0.019607844
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1195924683763371019, guid: ef53cb5f7348e084f9304065bc245d77, type: 3}
       propertyPath: m_Color.b
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1195924683763371019, guid: ef53cb5f7348e084f9304065bc245d77, type: 3}
       propertyPath: m_Color.g
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1195924683763371019, guid: ef53cb5f7348e084f9304065bc245d77, type: 3}
       propertyPath: m_Color.r
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1195924684026709481, guid: ef53cb5f7348e084f9304065bc245d77, type: 3}
       propertyPath: m_Size.y
@@ -6763,15 +6763,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef53cb5f7348e084f9304065bc245d77, type: 3}
---- !u!114 &7073012404492729729 stripped
+--- !u!114 &671977781966215220 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1195924683163388651, guid: ef53cb5f7348e084f9304065bc245d77, type: 3}
+  m_CorrespondingSourceObject: {fileID: 8927256360402693982, guid: ef53cb5f7348e084f9304065bc245d77, type: 3}
   m_PrefabInstance: {fileID: 8264286078709217130}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a0e46e82ebc0f34d9ab7db5cf606a1f, type: 3}
+  m_Script: {fileID: 11500000, guid: 2a7a71ac1c996d54eb243a074ffc4d50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!224 &7073012404492729730 stripped

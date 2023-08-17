@@ -1,20 +1,24 @@
 using AIDEN.TactileUI;
+using AngleSharp.Dom;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ScollAddTest : MonoBehaviour
+public class ScrollViewAddTest : MonoBehaviour
 {
     [SerializeField]
-    ScrollUI _scrollUI;
+    ScrollViewUI _scrollUI;
 
     [SerializeField]
     GameObject _itemPf;
 
-    List<ItemTests> _itemsTests;
+    List<ScrollItemUI> _itemsTests;
+
+    public int NbItemToAdd = 100;
 
     private void Awake()
     {
@@ -34,23 +38,23 @@ public class ScollAddTest : MonoBehaviour
     public void AddItem()
     {
         CreateItem();
-        _scrollUI.AddItem(_itemsTests.Last().ScrollItem);
+        _scrollUI.AddItem(_itemsTests.Last());
     }
 
     [ContextMenu("AddItems")]
     public void AddItems()
     {
-        for(int i = 0; i < 100; i++)
+        for (int i = 0; i < NbItemToAdd; i++)
         {
             CreateItem();
         }
 
-        List<ScrollItem> items = new List<ScrollItem>();
+        List<ScrollItemUI> items = new List<ScrollItemUI>();
 
         foreach (var item in _itemsTests)
-            items.Add(item.ScrollItem);
+            items.Add(item);
 
-        
+
         _scrollUI.AddItems(items);
     }
 
@@ -58,15 +62,18 @@ public class ScollAddTest : MonoBehaviour
     {
         var go = Instantiate(_itemPf, _scrollUI.ItemContainer);
 
-        var itemTestUI = go.GetComponent<ItemTests>();
-        itemTestUI.Load(GenerateRandomString(Random.Range(0, 200)));
+        var itemTestUI = go.GetComponent<ScrollItemUI>();
+        var tmp = go.transform.GetChild(0).GetComponent<TMP_Text>();
+        tmp.text = GenerateRandomString(Random.Range(0, 200));
 
-        var colliders = itemTestUI.Colliders;
-
-        var scollItem = new ScrollItem(go.GetComponent<RectTransform>(), colliders);
-        itemTestUI.ScrollItem = scollItem;
-      
         _itemsTests.Add(itemTestUI);
+    }
+
+    [ContextMenu("RemoveAll")]
+    public void RemoveAll()
+    {
+        _scrollUI.RemoveItems(_itemsTests);
+        _itemsTests = new();
 
     }
 
@@ -82,8 +89,4 @@ public class ScollAddTest : MonoBehaviour
 
         return result.ToString();
     }
-
-
-
-
 }

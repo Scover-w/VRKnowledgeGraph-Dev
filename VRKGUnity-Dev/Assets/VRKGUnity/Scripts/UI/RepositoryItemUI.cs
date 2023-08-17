@@ -8,24 +8,16 @@ using UnityEngine.UI;
 
 public class RepositoryItemUI : MonoBehaviour
 {
-    public List<Collider> Colliders => _interactionColliders;
+    public ScrollItemUI ScrollItemUI {  get { return _scrollItemUI; } }
 
-    public ScrollItem ScrollItem { get; set; }
+    [SerializeField]
+    ScrollItemUI _scrollItemUI;
 
     [SerializeField]
     TMP_Text _repoNameTxt;
 
     [SerializeField]
     TMP_Text _serverUrlTxt;
-
-    [SerializeField]
-    Image _selectedImg;
-
-    [SerializeField]
-    List<Collider> _interactionColliders;
-
-    [SerializeField]
-    ButtonUI _modifyBtn;
 
     GraphDbRepository _repo;
     LoadRepoUI _loadRepoUI;
@@ -37,22 +29,11 @@ public class RepositoryItemUI : MonoBehaviour
         _repoNameTxt.text = repo.RepositoryId;
         _serverUrlTxt.text = repo.ServerURL;
         _loadRepoUI = loadRepoUI;
-        _modifyBtn.Interactable = false;
     }
 
-    public void Select(bool select)
-    {
-        _selectedImg.enabled = select;
-        _modifyBtn.Interactable = select;
-    }
 
     public void SelectClick()
     {
-        _loadRepoUI.SelecRepoFromItem(_repo);
-    }
-
-    public void TryDeleteClick()
-    {
-        _loadRepoUI.TryDeleteRepo();
+        _loadRepoUI.SelectRepoFromItem(_repo);
     }
 }

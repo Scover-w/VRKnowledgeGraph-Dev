@@ -57,7 +57,7 @@ public class BaseTouch : MonoBehaviour, ITouchUI
             _touchInter.ActiveBtn(false, this);
     }
 
-    public void TriggerEnter(bool isProximity, Transform touchTf)
+    public virtual void TriggerEnter(bool isProximity, Transform touchTf)
     {
         if (isProximity)
         {
@@ -68,7 +68,7 @@ public class BaseTouch : MonoBehaviour, ITouchUI
             _interactionStateUI = InteractionStateUI.InProximity;
             UpdateInteractionColor();
         }
-        else if (!isProximity)
+        else
         {
             TryActivate();
         }

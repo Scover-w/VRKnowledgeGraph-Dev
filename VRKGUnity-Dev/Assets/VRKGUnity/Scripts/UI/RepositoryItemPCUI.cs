@@ -41,7 +41,7 @@ public class RepositoryItemPCUI : MonoBehaviour
     public void SelectClick()
     {
         Debug.Log("SelectClick");
-        _loadRepoUI.SelecRepoFromItem(_repo);
+        _loadRepoUI.SelectRepoFromItem(_repo);
     }
 
     public void TryDeleteClick()

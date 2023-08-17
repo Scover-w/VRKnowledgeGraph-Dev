@@ -1,9 +1,8 @@
 using AIDEN.TactileUI;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
+using System.Text;
 using System.Xml.Linq;
 using TMPro;
 using UnityEngine;
@@ -23,10 +22,10 @@ public class NodeInfoUI : MonoBehaviour
     GameObject _mediaZoomGo;
 
     [SerializeField]
-    ScrollUI _propertiesScrollUI;
+    ScrollViewUI _propertiesScrollUI;
 
     [SerializeField]
-    ScrollUI _propertyScrollUI;
+    ScrollViewUI _propertyScrollUI;
 
     [SerializeField]
     Image _lockImg;
@@ -151,11 +150,11 @@ public class NodeInfoUI : MonoBehaviour
             return;
         }
 
-        List<ScrollItem> _scollItems = new();
+        List<ScrollItemUI> _scollItems = new();
 
         foreach(PropertyItemUI propertyItem in _propertyItems)
         {
-            _scollItems.Add(propertyItem.ScrollItem);
+            _scollItems.Add(propertyItem.ScrollItemUI);
         }
 
         _propertiesScrollUI.RemoveItems(_scollItems);
@@ -276,7 +275,7 @@ public class NodeInfoUI : MonoBehaviour
 
 
         Dictionary<string, PropertyItemUI> valuesDict = new();
-        List<ScrollItem> scrollItems = new();
+        List<ScrollItemUI> scrollItems = new();
 
 
         foreach(var property in properties)
@@ -292,7 +291,7 @@ public class NodeInfoUI : MonoBehaviour
             }
 
             PropertyItemUI propItemUI = CreatePropertyItem(uriPrefixed, value);
-            scrollItems.Add(propItemUI.ScrollItem);
+            scrollItems.Add(propItemUI.ScrollItemUI);
             valuesDict.Add(value, propItemUI);
         }
 
@@ -302,10 +301,29 @@ public class NodeInfoUI : MonoBehaviour
 
     public void DisplayProperty(PropertyItemUI propertyItem)
     {
+        if(_displayedProperty == propertyItem)
+        {
+            HideProperty();
+            return;
+        }
+
         _displayedProperty = propertyItem;
         _propertyGo.SetActive(true);
         _mediaGo.SetActive(false);
-        _valueTxt.text = propertyItem.Value;
+
+
+        var namespaces = propertyItem.Namespaces;
+        StringBuilder sb = new(namespaces.Count > 1? "Uris :" : "Uri :");
+
+        foreach(var namespce in namespaces)
+        {
+            sb.AppendLine(namespce);
+        }
+
+        sb.AppendLine("\nValue :");
+        sb.AppendLine(propertyItem.Value);
+
+        _valueTxt.text = sb.ToString();
         _propertyScrollUI.UpdateContent();
     }
 
@@ -317,7 +335,6 @@ public class NodeInfoUI : MonoBehaviour
         if (_displayedProperty == null)
             return;
 
-        _displayedProperty.Unselect();
         _displayedProperty = null;
     }
 
@@ -333,10 +350,6 @@ public class NodeInfoUI : MonoBehaviour
         var propertyItemUI = go.GetComponent<PropertyItemUI>();
         propertyItemUI.Load(this, namespce, value);
 
-        var colliders = propertyItemUI.Colliders;
-        var scollItem = new ScrollItem(go.GetComponent<RectTransform>(), colliders);
-
-        propertyItemUI.ScrollItem = scollItem;
         _propertyItems.Add(propertyItemUI);
 
         return propertyItemUI;

@@ -1,17 +1,21 @@
 using AIDEN.TactileUI;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PropertyItemUI : MonoBehaviour
 {
-    public List<Collider> Colliders => _interactionColliders;
+    public ScrollItemUI ScrollItemUI {  get { return _scrollItemUI; } }
 
-    public ScrollItem ScrollItem { get; set; }
-
+    public List<string> Namespaces { get { return _namespaces; } }
     public string Value { get { return _value; } }
+    
+    [SerializeField]
+    ScrollItemUI _scrollItemUI;
 
     [SerializeField]
     GameObject _uriTxtPf;
@@ -22,11 +26,7 @@ public class PropertyItemUI : MonoBehaviour
     [SerializeField]
     TMP_Text _valueTxt;
 
-    [SerializeField]
-    Image _selectedImg;
-
-    [SerializeField]
-    List<Collider> _interactionColliders;
+    List<string> _namespaces;
 
     NodeInfoUI _nodeInfoUI;
 
@@ -37,18 +37,19 @@ public class PropertyItemUI : MonoBehaviour
 
     public void Load(NodeInfoUI nodeInfoUI, string namespce, string value)
     {
+        _namespaces = new();
         _nodeInfoUI = nodeInfoUI;
         _value = value;
+        _namespaces.Add(namespce);
 
         _valueTxt.text = _value;
 
         AddNamespaceText(namespce);
-
-        _selectedImg.enabled = false;
     }
 
     public void AddNamespace(string txt)
     {
+        _namespaces.Add(txt);
         AddNamespaceText(txt);
     }
 
@@ -61,23 +62,6 @@ public class PropertyItemUI : MonoBehaviour
 
     public void OnClick()
     {
-        _isSelected = !_isSelected;
-
-        _selectedImg.enabled = _isSelected;
-
-        if (_isSelected) 
-            _nodeInfoUI.DisplayProperty(this);
-        else
-            _nodeInfoUI.HideProperty();
+        _nodeInfoUI.DisplayProperty(this);
     }
-
-    public void Unselect()
-    {
-        if (!_isSelected)
-            return;
-
-        _isSelected = false;
-        _selectedImg.enabled = false;
-    }
-
 }

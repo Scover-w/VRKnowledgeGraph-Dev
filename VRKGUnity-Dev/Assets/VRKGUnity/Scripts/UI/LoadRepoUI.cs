@@ -1,12 +1,9 @@
 using AIDEN.TactileUI;
 using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 public class LoadRepoUI : MonoBehaviour
 {
@@ -14,7 +11,7 @@ public class LoadRepoUI : MonoBehaviour
     MainMenuUI _mainMenuUI;
 
     [SerializeField]
-    ScrollUI _scrollUI;
+    ScrollViewUI _scrollUI;
 
 #if UNITY_EDITOR
     [SerializeField]
@@ -130,11 +127,9 @@ public class LoadRepoUI : MonoBehaviour
         var repoItemUI = go.GetComponent<RepositoryItemUI>();
         repoItemUI.Load(repository, this);
 
-        var colliders = repoItemUI.Colliders;
 
-        var scollItem = new ScrollItem(go.GetComponent<RectTransform>(), colliders);
-        repoItemUI.ScrollItem = scollItem;
-        _scrollUI.AddItem(scollItem);
+
+        _scrollUI.AddItem(repoItemUI.ScrollItemUI);
 
         return repoItemUI;
     }
@@ -152,7 +147,7 @@ public class LoadRepoUI : MonoBehaviour
 #endif
 
 
-    public void SelecRepoFromItem(GraphDbRepository repositoryClicked)
+    public void SelectRepoFromItem(GraphDbRepository repositoryClicked)
     {
         SelectRepo(repositoryClicked);
     }
@@ -233,17 +228,15 @@ public class LoadRepoUI : MonoBehaviour
 
     private void SelectRepoVR(GraphDbRepository graphDbRepository)
     {
-        _selectedRepository = graphDbRepository;
-        foreach (var kvp in _repositoriesDict)
+        if(_selectedRepository == graphDbRepository)
         {
-            bool isSelected = kvp.Key == _selectedRepository;
-            kvp.Value.Select(isSelected);
-
-            if (!isSelected)
-                continue;
-
-            _mainMenuUI.RepoSelected(_selectedRepository);
+            TryDeleteRepo();
+            return;
         }
+
+        _selectedRepository = graphDbRepository;
+
+        _mainMenuUI.RepoSelected(_selectedRepository);
     }
 
 #if UNITY_EDITOR
@@ -294,7 +287,7 @@ public class LoadRepoUI : MonoBehaviour
         else
         {
             _repositoriesDict.Remove(_selectedRepository);
-            _scrollUI.RemoveItem(itemUI.ScrollItem);
+            _scrollUI.RemoveItem(itemUI.ScrollItemUI);
         }
 
 
