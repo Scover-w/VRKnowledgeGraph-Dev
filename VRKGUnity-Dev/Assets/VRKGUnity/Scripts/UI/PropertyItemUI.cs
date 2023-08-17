@@ -35,24 +35,24 @@ public class PropertyItemUI : MonoBehaviour
     string _value;
 
 
-    public void Load(NodeInfoUI nodeInfoUI, string uri, string value)
+    public void Load(NodeInfoUI nodeInfoUI, string namespce, string value)
     {
         _nodeInfoUI = nodeInfoUI;
         _value = value;
 
         _valueTxt.text = _value;
 
-        AddUriText(uri);
+        AddNamespaceText(namespce);
 
         _selectedImg.enabled = false;
     }
 
-    public void AddUri(string txt)
+    public void AddNamespace(string txt)
     {
-        AddUriText(txt);
+        AddNamespaceText(txt);
     }
 
-    private void AddUriText(string txt)
+    private void AddNamespaceText(string txt)
     {
         var go = Instantiate(_uriTxtPf, _uriContainerRect);
         TMP_Text tmp = go.GetComponent<TMP_Text>();

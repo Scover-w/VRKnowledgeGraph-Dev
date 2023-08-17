@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Xml.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -72,6 +73,7 @@ public class NodeInfoUI : MonoBehaviour
     List<PropertyItemUI> _propertyItems;
 
     GraphDbRepositoryMedias _repoMedias;
+    GraphDbRepositoryNamespaces _repoNamespaces;
     NodgeSelectionManager _selectionManager;
 
     RectTransform _infoMediaImgRect;
@@ -95,6 +97,7 @@ public class NodeInfoUI : MonoBehaviour
     private void Awake()
     {
         _repoMedias = _referenceHolderSo.SelectedGraphDbRepository.GraphDbRepositoryMedias;
+        _repoNamespaces = _referenceHolderSo.SelectedGraphDbRepository.GraphDbRepositoryNamespaces;
         _selectionManager = _referenceHolderSo.NodgeSelectionManager;
 
         _infoMediaImgRect = _infoMediaImg.GetComponent<RectTransform>();
@@ -256,7 +259,15 @@ public class NodeInfoUI : MonoBehaviour
 
         var ontoNode = _nodeDisplayed.OntoNode;
 
-        _classNodeTxt.text = (ontoNode == null) ? "" : ontoNode.Value;
+        string className = (ontoNode == null) ? "" : ontoNode.Value;
+
+        if (className.Length == 0)
+        {
+            _classNodeTxt.text = "";
+            return;
+        }
+
+        _classNodeTxt.text = _repoNamespaces.GetUriPrefixed(className);
     }
 
     private void CreatePropertyItems()
@@ -270,16 +281,17 @@ public class NodeInfoUI : MonoBehaviour
 
         foreach(var property in properties)
         {
-            string uri = property.Key;
+
+            string uriPrefixed = _repoNamespaces.GetUriPrefixed(property.Key);
             string value = property.Value;
 
             if(valuesDict.TryGetValue(value, out PropertyItemUI itemUI))
             {
-                itemUI.AddUri(uri);
+                itemUI.AddNamespace(uriPrefixed);
                 continue;
             }
 
-            PropertyItemUI propItemUI = CreatePropertyItem(uri, value);
+            PropertyItemUI propItemUI = CreatePropertyItem(uriPrefixed, value);
             scrollItems.Add(propItemUI.ScrollItem);
             valuesDict.Add(value, propItemUI);
         }
@@ -314,12 +326,12 @@ public class NodeInfoUI : MonoBehaviour
         HideProperty();
     }
 
-    private PropertyItemUI CreatePropertyItem(string uri, string value)
+    private PropertyItemUI CreatePropertyItem(string namespce, string value)
     {
         var go = Instantiate(_propertyItemPf, _propertiesScrollUI.ItemContainer);
 
         var propertyItemUI = go.GetComponent<PropertyItemUI>();
-        propertyItemUI.Load(this, uri, value);
+        propertyItemUI.Load(this, namespce, value);
 
         var colliders = propertyItemUI.Colliders;
         var scollItem = new ScrollItem(go.GetComponent<RectTransform>(), colliders);

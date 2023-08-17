@@ -196,7 +196,20 @@ public class GraphDbRepositoryNamespaces
         }
 
         Debug.LogWarning("No prefix founded : " + namespce);
-        return "";
+        return namespce;
+    }
+
+    public string GetUriPrefixed(string uri)
+    {
+        (string namespce, string localName) = uri.ExtractUri();
+
+        if (_namespacesAndPrefixs.TryGetValue(namespce, out string prefix))
+        {
+            return prefix + ":" + localName;
+        }
+
+        Debug.LogWarning("No prefix founded : " + namespce);
+        return uri;
     }
 
 
