@@ -139,32 +139,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interactable: 1
-  _interactiveGraphics:
-  - Name: 
-    _graphic: {fileID: 0}
-    _interactiveColorUI:
-      _normalColor: {r: 0, g: 0, b: 0, a: 0}
-      _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-      _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-      _disabledColor: {r: 1, g: 1, b: 1, a: 0.1}
-  - Name: 
-    _graphic: {fileID: 0}
-    _interactiveColorUI:
-      _normalColor: {r: 0, g: 0, b: 0, a: 0}
-      _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-      _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-      _disabledColor: {r: 1, g: 1, b: 1, a: 0.1}
-  - Name: 
-    _graphic: {fileID: 0}
-    _interactiveColorUI:
-      _normalColor: {r: 0, g: 0, b: 0, a: 0}
-      _proximityColor: {r: 0, g: 0, b: 0, a: 0}
-      _activatedColor: {r: 0, g: 0, b: 0, a: 0}
-      _disabledColor: {r: 1, g: 1, b: 1, a: 0.1}
+  _interactiveGraphics: []
   _interactionCollidersGo: {fileID: 1192126565689934370}
   _controllerUI: {fileID: 0}
   _pageToDisplayGo: {fileID: 0}
-  _interactiveGraphicToFill: []
+  _interactiveGraphicToFill:
+  - {fileID: 1192126565503779006}
+  - {fileID: 5268211846542277210}
+  - {fileID: 40983634741672121}
 --- !u!114 &1192126565503779006
 MonoBehaviour:
   m_ObjectHideFlags: 0

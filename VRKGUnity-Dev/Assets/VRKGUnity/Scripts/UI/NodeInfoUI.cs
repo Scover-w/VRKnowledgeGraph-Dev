@@ -246,6 +246,10 @@ public class NodeInfoUI : MonoBehaviour
     private void DisplayTexts()
     {
         var name = _nodeDisplayed.GetPrefName();
+
+        if (name == null || name.Length == 0)
+            name = _nodeDisplayed.PrefixValue;
+
         _titleNodeTxt.text = name;
 
         Debug.Log("Test truncated : " + _titleNodeTxt.isTextTruncated);
@@ -297,19 +301,17 @@ public class NodeInfoUI : MonoBehaviour
     {
         _propertyGo.SetActive(false);
         _mediaGo.SetActive(true);
-        _displayedProperty = null;
-    }
-
-    public void OnHidePropertyClick()
-    {
-        _propertyGo.SetActive(false);
-        _mediaGo.SetActive(true);
 
         if (_displayedProperty == null)
             return;
 
         _displayedProperty.Unselect();
         _displayedProperty = null;
+    }
+
+    public void OnHidePropertyClick()
+    {
+        HideProperty();
     }
 
     private PropertyItemUI CreatePropertyItem(string uri, string value)
