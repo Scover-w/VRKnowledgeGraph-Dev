@@ -58,6 +58,39 @@ public class ScrollViewAddTest : MonoBehaviour
         _scrollUI.AddItems(items);
     }
 
+    [ContextMenu("AddRemoveAdd")]
+    public void AddRemoveAdd()
+    {
+        for (int i = 0; i < 25; i++)
+        {
+            CreateItem();
+        }
+
+        List<ScrollItemUI> items = new List<ScrollItemUI>();
+
+        foreach (var item in _itemsTests)
+            items.Add(item);
+
+
+        _scrollUI.AddItems(items);
+
+        RemoveAll();
+
+
+        for (int i = 0; i < 15; i++)
+        {
+            CreateItem();
+        }
+
+        items = new List<ScrollItemUI>();
+
+        foreach (var item in _itemsTests)
+            items.Add(item);
+
+
+        _scrollUI.AddItems(items);
+    }
+
     private void CreateItem()
     {
         var go = Instantiate(_itemPf, _scrollUI.ItemContainer);

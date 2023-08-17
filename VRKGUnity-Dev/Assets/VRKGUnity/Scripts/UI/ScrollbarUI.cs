@@ -165,7 +165,7 @@ public class ScrollbarUI : BaseTouch
 
 
         float heightViewport = _viewportRect.rect.height;
-        float heightContent = _contentRect.rect.height;//GetContentHeight();
+        float heightContent = GetContentHeight();
 
 
         _slidingAreaHeight = _slidingAreaRect.rect.height;
