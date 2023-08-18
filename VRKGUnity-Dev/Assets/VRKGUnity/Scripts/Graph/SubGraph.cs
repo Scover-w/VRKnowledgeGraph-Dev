@@ -177,7 +177,7 @@ public class SubGraph : MonoBehaviour
         // TODO : SimulationStopped
         if (_subGraphMode == SubGraphMode.Lens)
         {
-
+            TryConstructLayoutLensGraph();
         }
         else // Watch
         {

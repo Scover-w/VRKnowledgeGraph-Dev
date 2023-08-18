@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -456,27 +457,11 @@ public class LabelNodgeManagerUI : MonoBehaviour
         var nodesToDisplay = _selectionManager.PropagatedNodes;
         var edgesToDisplay = _selectionManager.PropagatedEdges;
 
-        var updatedNodeDisplayedLabels = new Dictionary<Node, LabelNodgeUI>();
-        var updatedEdgeDisplayedLabels = new Dictionary<Edge, LabelNodgeUI>();
+        Nodges nodges = new Nodges();
+        nodges.Nodes = nodesToDisplay.ToList();
+        nodges.Edges = edgesToDisplay.ToList();
 
-        foreach (Node nodeToDisplay in nodesToDisplay)
-        {
-            var labelNode = CreateNodeLabel(nodeToDisplay, GraphType.Main);
-            updatedNodeDisplayedLabels.Add(nodeToDisplay, labelNode);
-        }
-
-        foreach (Edge edgeToDisplay in edgesToDisplay)
-        {
-            var labelNode = CreateEdgeLabel(edgeToDisplay, GraphType.Main);
-            updatedEdgeDisplayedLabels.Add(edgeToDisplay, labelNode);
-        }
-
-        StyleNewPropagatedLabels(updatedNodeDisplayedLabels, GraphType.Main);
-        StyleNewPropagatedLabels(updatedEdgeDisplayedLabels, GraphType.Main);
-
-        _displayedLabelMainNodesDict = updatedNodeDisplayedLabels;
-        _displayedLabelMainEdgesDict = updatedEdgeDisplayedLabels;
-
+        OnNodgesPropagated(nodges);
     }
 
     private void CreateSubLabels()
@@ -484,26 +469,11 @@ public class LabelNodgeManagerUI : MonoBehaviour
         var nodesToDisplay = _selectionManager.PropagatedNodes;
         var edgesToDisplay = _selectionManager.PropagatedEdges;
 
-        var updatedNodeDisplayedLabels = new Dictionary<Node, LabelNodgeUI>();
-        var updatedEdgeDisplayedLabels = new Dictionary<Edge, LabelNodgeUI>();
+        Nodges nodges = new Nodges();
+        nodges.Nodes = nodesToDisplay.ToList();
+        nodges.Edges = edgesToDisplay.ToList();
 
-        foreach (Node nodeToDisplay in nodesToDisplay)
-        {
-            var labelNode = CreateNodeLabel(nodeToDisplay, GraphType.Sub);
-            updatedNodeDisplayedLabels.Add(nodeToDisplay, labelNode);
-        }
-
-        foreach (Edge edgeToDisplay in edgesToDisplay)
-        {
-            var labelNode = CreateEdgeLabel(edgeToDisplay, GraphType.Sub);
-            updatedEdgeDisplayedLabels.Add(edgeToDisplay, labelNode);
-        }
-
-        StyleNewPropagatedLabels(updatedNodeDisplayedLabels, GraphType.Sub);
-        StyleNewPropagatedLabels(updatedEdgeDisplayedLabels, GraphType.Sub);
-
-        _displayedLabelSubNodesDict = updatedNodeDisplayedLabels;
-        _displayedLabelSubEdgesDict = updatedEdgeDisplayedLabels;
+        OnNodgesPropagated(nodges);
     }
     #endregion
 
