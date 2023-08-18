@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ProximityUI
   - InteractionUI
+  - DeskGraph
   layers:
   - Default
   - TransparentFX
@@ -18,12 +19,12 @@ TagManager:
   - Teleport
   - 
   - Controller
-  - 
+  - DeskGraph
   - LensGraph
   - 
   - 
   - 
-  - 
+  - None
   - 
   - 
   - 

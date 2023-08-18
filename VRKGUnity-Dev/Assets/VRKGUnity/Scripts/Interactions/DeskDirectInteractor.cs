@@ -2,7 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tags
+public class DeskDirectInteractor : MonoBehaviour
 {
-    public const string DeskGraph = "DeskGraph";
+    
+
+
+
+
 }
