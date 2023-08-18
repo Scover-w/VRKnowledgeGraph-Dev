@@ -111,6 +111,7 @@ public partial class InputPropagatorManager : MonoBehaviour
 
     public void UnRegister(GraphActionKey actionKey, ChangeActionBtnState changeActionBtnToRemove)
     {
+
         if (!_actionsEvents.TryGetValue(actionKey, out ChangeActionBtnState changeActionBtnState))
         {
             Debug.LogWarning("GraphAction didn't exist to unregister Delegate");
@@ -119,7 +120,7 @@ public partial class InputPropagatorManager : MonoBehaviour
 
         changeActionBtnState -= changeActionBtnToRemove;
 
-        if (changeActionBtnState.GetInvocationList().Length > 0)
+        if (changeActionBtnState != null)
             return;
 
         _actionsEvents.Remove(actionKey);

@@ -28,7 +28,7 @@ public class GraphBtnLink : MonoBehaviour
 
     private void OnEnable()
     {
-        Invoke(nameof(DelayedOnEnable), .5f);
+        Invoke(nameof(DelayedOnEnable), .25f);
     }
 
     private void OnDisable()

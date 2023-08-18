@@ -28,23 +28,23 @@ public class GraphConfigEvent
         if (typeof(T) == typeof(string))
         {
             _onStringChanged -= valueChanged as ValueChanged<string>;
-            return _onStringChanged.GetInvocationList().Length > 0;
+            return _onStringChanged != null;
         }
         else if (typeof(T) == typeof(float))
         {
             _onFloatChanged -= valueChanged as ValueChanged<float>;
-            return _onFloatChanged.GetInvocationList().Length > 0;
+            return _onFloatChanged != null;
         }
         else if (typeof(T) == typeof(bool))
         {
             _onBoolChanged -= valueChanged as ValueChanged<bool>;
-            return _onBoolChanged.GetInvocationList().Length > 0;
+            return _onBoolChanged != null;
         }
 
         else if (typeof(T) == typeof(Color))
         {
             _onColorChanged -= valueChanged as ValueChanged<Color>;
-            return _onColorChanged.GetInvocationList().Length > 0;
+            return _onColorChanged != null;
         }
 
         return true;
