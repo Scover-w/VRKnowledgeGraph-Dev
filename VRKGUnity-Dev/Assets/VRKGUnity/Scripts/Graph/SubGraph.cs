@@ -39,6 +39,7 @@ public class SubGraph : MonoBehaviour
     NodgeSelectionManager _selectionManager;
 
     Transform _playerHeadTf;
+    Transform _wristTf;
     GraphConfiguration _graphConfig;
 
     Dictionary<string, Node> _displayedNodes;
@@ -64,6 +65,9 @@ public class SubGraph : MonoBehaviour
         _displayedEdges = new();
 
         _playerHeadTf = _referenceHolderSO.HMDCamSA.Value.transform;
+        _wristTf = _referenceHolderSO.WristTf.Value;
+        _watchTf.parent = _wristTf;
+        _watchTf.ResetLocal();
 
         _easingFunction = Easing.GetEasing(_easingType);
 

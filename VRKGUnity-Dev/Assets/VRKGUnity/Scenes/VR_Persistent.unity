@@ -191,6 +191,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83e4e6cca11330d4088d729ab4fc9d9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &761380207
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 761380208}
+  m_Layer: 0
+  m_Name: WristTf
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &761380208
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 761380207}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.0064, y: -0.065, z: -0.2128}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1379427697}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &808875548
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -548,6 +579,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5055723754228682273, guid: 3c6ecdaedc0582e489f69d810209726c, type: 3}
   m_PrefabInstance: {fileID: 1379427694}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1379427697 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5055723754401115810, guid: 3c6ecdaedc0582e489f69d810209726c, type: 3}
+  m_PrefabInstance: {fileID: 1379427694}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1706023776
 GameObject:
   m_ObjectHideFlags: 0
@@ -675,6 +711,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _referenceHolderSO: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _cam: {fileID: 1379427695}
+  _wristTf: {fileID: 761380208}
 --- !u!114 &2120822189
 MonoBehaviour:
   m_ObjectHideFlags: 0
