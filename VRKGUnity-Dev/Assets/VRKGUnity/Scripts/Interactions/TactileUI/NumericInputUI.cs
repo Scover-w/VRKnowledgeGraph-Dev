@@ -19,7 +19,7 @@ namespace AIDEN.TactileUI
 
                 TryRoundValue();
 
-                _label.text = _value.ToString("0.##");
+                _label.text = _value.ToString("0.###");
             }
         }
 
@@ -81,7 +81,7 @@ namespace AIDEN.TactileUI
             if (input is not string)
                 return;
 
-            _label.text = input.ToString();
+            _label.text = ((float)input).ToString("0.###");
         }
 
         public void OnEnterInput(object input)
@@ -94,7 +94,7 @@ namespace AIDEN.TactileUI
 
             TryRoundValue();
 
-            _label.text = _value.ToString();
+            _label.text = _value.ToString("0.###");
 
             _isActive = false;
             _interactionStateUI = InteractionStateUI.Normal;

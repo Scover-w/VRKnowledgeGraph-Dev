@@ -50,29 +50,19 @@ public partial class InputPropagatorManager : MonoBehaviour
 
     public bool GetInteractableState(GraphActionKey actionKey)
     {
-        switch (actionKey)
+        return actionKey switch
         {
-            case GraphActionKey.FilterSelected:
-                return true;
-            case GraphActionKey.FilterUnselected:
-                return true;
-            case GraphActionKey.FilterPropagated:
-                return true;
-            case GraphActionKey.FilterUnpropagated:
-                return true;
-            case GraphActionKey.UndoFilter:
-                return _dynFilterManager.NbFilter != 0;
-            case GraphActionKey.RedoFilter:
-                return _dynFilterManager.NbRedoFilter != 0;
-            case GraphActionKey.Simulate:
-                return true;
-            case GraphActionKey.SwitchMode:
-                return true;
-            case GraphActionKey.SelectionMode:
-                return true;
-        }
-
-        return true;
+            GraphActionKey.FilterSelected => true,
+            GraphActionKey.FilterUnselected => true,
+            GraphActionKey.FilterPropagated => true,
+            GraphActionKey.FilterUnpropagated => true,
+            GraphActionKey.UndoFilter => _dynFilterManager.NbFilter != 0,
+            GraphActionKey.RedoFilter => _dynFilterManager.NbRedoFilter != 0,
+            GraphActionKey.Simulate => true,
+            GraphActionKey.SwitchMode => true,
+            GraphActionKey.SelectionMode => true,
+            _ => true,
+        };
     }
 
     public void Register<T>(GraphConfigKey key, ValueChanged<T> valueChanged)
