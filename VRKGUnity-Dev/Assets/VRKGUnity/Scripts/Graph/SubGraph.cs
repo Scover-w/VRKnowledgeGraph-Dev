@@ -159,7 +159,7 @@ public class SubGraph : MonoBehaviour
 
     private void BeforeSimulationStart()
     {
-
+        
     }
 
     private void SimulationStopped()
@@ -194,6 +194,7 @@ public class SubGraph : MonoBehaviour
         _subGraphMode = SubGraphMode.InTransition;
         _subGraphTf.gameObject.SetActive(false);
         _gpsPointTf.gameObject.SetActive(false);
+        _lensTf.gameObject.SetActive(false);
 
 
         var graph = _graphManager.Graph;
@@ -207,7 +208,8 @@ public class SubGraph : MonoBehaviour
 
     private void AfterSwitchModeToDesk()
     {
-        
+        _lensTf.gameObject.SetActive(true);
+
         var graph = _graphManager.Graph;
         var nodes = graph.NodesDicUID.Values;
         var edges = graph.EdgesDicUID.Values;

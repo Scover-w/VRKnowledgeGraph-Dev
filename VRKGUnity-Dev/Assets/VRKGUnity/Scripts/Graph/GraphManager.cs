@@ -69,7 +69,21 @@ public class GraphManager : MonoBehaviour
         _graphMode = GraphMode.Desk;
         _graphConfiguration = GraphConfiguration.Instance;
 
+        SubscribeLensRayActivators();
+
         Invoke(nameof(CreateStartGraphAsync), 1f);
+    }
+
+    private void SubscribeLensRayActivators()
+    {
+        LensRayActivator leftActivator = _referenceHolderSo.LeftLensRayActivator.Value;
+        LensRayActivator rightActivator = _referenceHolderSo.RightLensRayActivator.Value;
+
+        if (leftActivator != null)
+            OnGraphUpdate += leftActivator.OnGraphUpdated;
+
+        if (rightActivator != null)
+            OnGraphUpdate += rightActivator.OnGraphUpdated;
     }
 
     private async void CreateStartGraphAsync()
