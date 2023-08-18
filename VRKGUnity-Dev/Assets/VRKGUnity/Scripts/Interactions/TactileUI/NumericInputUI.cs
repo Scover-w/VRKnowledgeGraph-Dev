@@ -81,7 +81,7 @@ namespace AIDEN.TactileUI
             if (input is not string)
                 return;
 
-            _label.text = ((float)input).ToString("0.###");
+            _label.text = input.ToString();
         }
 
         public void OnEnterInput(object input)
