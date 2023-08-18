@@ -243,7 +243,7 @@ namespace AIDEN.TactileUI
             _itemsContainerGo.SetActive(_isOpen);
             _touchInter.ActivateHaptic();
 
-            EnableCollidersToHide(false);
+            EnableCollidersToHide(!_isOpen);
         }
 
         public void NewValueFromItem(DropDownItemValue itemValue)
