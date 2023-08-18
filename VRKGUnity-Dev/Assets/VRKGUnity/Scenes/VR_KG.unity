@@ -1425,6 +1425,7 @@ MonoBehaviour:
   _dynFilterManager: {fileID: 1847420205}
   _stylingManager: {fileID: 1645149935}
   _selectionManager: {fileID: 1101384170}
+  _graphSimulation: {fileID: 0}
   _user: {fileID: 1101384174}
 --- !u!1 &1240529972
 GameObject:

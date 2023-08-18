@@ -15,6 +15,9 @@ public class GraphConfigInputLink : MonoBehaviour
     [SerializeField]
     MonoBehaviour _tactileUIScript;
 
+    [SerializeField]
+    bool _updateInteractableState = false;
+
     InputPropagatorManager _inputPropagatorManager;
     GraphConfigValueType _valueType;
 
@@ -23,6 +26,8 @@ public class GraphConfigInputLink : MonoBehaviour
     IValueUI<bool> _iValueBoolUI;
     IValueUI<Color> _iValueColorUI;
 
+    ITouchUI _iTouchUI;
+
     float _debounceTime;
     float _debounceDelay = 0.25f;
 
@@ -30,12 +35,12 @@ public class GraphConfigInputLink : MonoBehaviour
     private void Awake()
     {
         RetrieveInputType();
-        RetrieveInterface();
+        RetrieveInterfaces();
     }
 
     private void OnEnable()
     {
-        Invoke(nameof(DelayedOnEnable), .5f);
+        Invoke(nameof(DelayedOnEnable), .25f);
     }
 
     private void OnDisable()
@@ -51,7 +56,11 @@ public class GraphConfigInputLink : MonoBehaviour
         if (_inputPropagatorManager == null)
             Debug.Log("_inputPropagatorManager is null");
 
-        SetValueOnInput();
+        RefreshValueOnInput();
+
+        if (_updateInteractableState)
+            RefreshInteractableStateOnInput();
+
         RegisterToGraphConfigManager();
 
         _debounceTime = Time.unscaledTime;
@@ -59,36 +68,29 @@ public class GraphConfigInputLink : MonoBehaviour
 
     private void RetrieveInputType()
     {
-        try
+        var interfaces = _tactileUIScript.GetType().GetInterfaces();
+        Type genericType = null;
+
+        foreach (Type interfaceType in interfaces)
         {
-            var interfaces = _tactileUIScript.GetType().GetInterfaces();
-            Type genericType = null;
+            if (!(interfaceType.IsGenericType && interfaceType.GetGenericTypeDefinition() == typeof(IValueUI<>)))
+                continue;
 
-            foreach (Type interfaceType in interfaces)
-            {
-                if (!(interfaceType.IsGenericType && interfaceType.GetGenericTypeDefinition() == typeof(IValueUI<>)))
-                    continue;
-
-                genericType = interfaceType.GetGenericArguments()[0];
-                break;
-            }
-
-            if (genericType == typeof(string))
-                _valueType = GraphConfigValueType.String;
-            else if (genericType == typeof(float))
-                _valueType = GraphConfigValueType.Float;
-            else if (genericType == typeof(bool))
-                _valueType = GraphConfigValueType.Bool;
-            else if (genericType == typeof(Color))
-                _valueType = GraphConfigValueType.Color;
+            genericType = interfaceType.GetGenericArguments()[0];
+            break;
         }
-        catch(Exception e)
-        {
-            Debug.Log(e);
-        }
+
+        if (genericType == typeof(string))
+            _valueType = GraphConfigValueType.String;
+        else if (genericType == typeof(float))
+            _valueType = GraphConfigValueType.Float;
+        else if (genericType == typeof(bool))
+            _valueType = GraphConfigValueType.Bool;
+        else if (genericType == typeof(Color))
+            _valueType = GraphConfigValueType.Color;
     }
 
-    private void RetrieveInterface()
+    private void RetrieveInterfaces()
     {
         if(_tactileUIScript == null)
         {
@@ -111,9 +113,11 @@ public class GraphConfigInputLink : MonoBehaviour
                 _iValueColorUI = _tactileUIScript.GetComponent<IValueUI<Color>>();
                 break;
         }
+
+        _iTouchUI = _tactileUIScript.GetComponent<ITouchUI>();
     }
 
-    private void SetValueOnInput()
+    private void RefreshValueOnInput()
     {
 
         switch (_valueType)
@@ -138,6 +142,12 @@ public class GraphConfigInputLink : MonoBehaviour
 
     }
 
+    private void RefreshInteractableStateOnInput()
+    {
+        bool isInteractable = _inputPropagatorManager.GetInteractableState(_graphConfigKey);
+        _iTouchUI.Interactable = isInteractable;
+    }
+
     private void RegisterToGraphConfigManager()
     {
         if(_inputPropagatorManager == null)
@@ -149,16 +159,16 @@ public class GraphConfigInputLink : MonoBehaviour
         switch (_valueType)
         {
             case GraphConfigValueType.String:
-                _inputPropagatorManager.Register<string>(_graphConfigKey, OnChangedFromManager);
+                _inputPropagatorManager.Register<string>(_graphConfigKey, OnChangedFromManager, _updateInteractableState? OnInteractableStateChanged : null);
                 break;
             case GraphConfigValueType.Float:
-                _inputPropagatorManager.Register<float>(_graphConfigKey, OnChangedFromManager);
+                _inputPropagatorManager.Register<float>(_graphConfigKey, OnChangedFromManager, _updateInteractableState ? OnInteractableStateChanged : null);
                 break;
             case GraphConfigValueType.Bool:
-                _inputPropagatorManager.Register<bool>(_graphConfigKey, OnChangedFromManager);
+                _inputPropagatorManager.Register<bool>(_graphConfigKey, OnChangedFromManager, _updateInteractableState ? OnInteractableStateChanged : null);
                 break;
             case GraphConfigValueType.Color:
-                _inputPropagatorManager.Register<Color>(_graphConfigKey, OnChangedFromManager);
+                _inputPropagatorManager.Register<Color>(_graphConfigKey, OnChangedFromManager, _updateInteractableState ? OnInteractableStateChanged : null);
                 break;
         }
     }
@@ -174,21 +184,26 @@ public class GraphConfigInputLink : MonoBehaviour
         switch (_valueType)
         {
             case GraphConfigValueType.String:
-                _inputPropagatorManager.UnRegister<string>(_graphConfigKey, OnChangedFromManager);
+                _inputPropagatorManager.UnRegister<string>(_graphConfigKey, OnChangedFromManager, _updateInteractableState ? OnInteractableStateChanged : null);
                 break;
             case GraphConfigValueType.Float:
-                _inputPropagatorManager.UnRegister<float>(_graphConfigKey, OnChangedFromManager);
+                _inputPropagatorManager.UnRegister<float>(_graphConfigKey, OnChangedFromManager, _updateInteractableState ? OnInteractableStateChanged : null);
                 break;
             case GraphConfigValueType.Bool:
-                _inputPropagatorManager.UnRegister<bool>(_graphConfigKey, OnChangedFromManager);
+                _inputPropagatorManager.UnRegister<bool>(_graphConfigKey, OnChangedFromManager, _updateInteractableState ? OnInteractableStateChanged : null);
                 break;
             case GraphConfigValueType.Color:
-                _inputPropagatorManager.UnRegister<Color>(_graphConfigKey, OnChangedFromManager);
+                _inputPropagatorManager.UnRegister<Color>(_graphConfigKey, OnChangedFromManager, _updateInteractableState ? OnInteractableStateChanged : null);
                 break;
         }
     }
     #endregion
 
+
+    public void OnInteractableStateChanged(bool isInteractable)
+    {
+        _iTouchUI.Interactable = isInteractable;
+    }
 
     #region OnChangeFrom
 
@@ -237,6 +252,16 @@ public class GraphConfigInputLink : MonoBehaviour
         if (_tactileUIScript == null)
             return;
 
+
+        _iTouchUI = _tactileUIScript.GetComponent<ITouchUI>();
+        if(_iTouchUI == null)
+        {
+            _tactileUIScript = null;
+            Debug.LogError("The script does not implement ITouchUI on " + gameObject.name);
+            return;
+        }
+
+
         bool implementsIValueUI = false;
         Type genericType = null;
         var interfaces = _tactileUIScript.GetType().GetInterfaces();
@@ -254,7 +279,7 @@ public class GraphConfigInputLink : MonoBehaviour
         if (!implementsIValueUI)
         {
             _tactileUIScript = null;
-            Debug.LogError("The script does not implement IValueUI !");
+            Debug.LogError("The script does not implement IValueUI on " + gameObject.name);
             return;
         }
 

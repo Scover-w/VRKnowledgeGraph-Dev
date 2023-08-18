@@ -5856,7 +5856,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &961090662948835063
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7508,9 +7508,9 @@ RectTransform:
   m_Father: {fileID: 961090663463410807}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 62, y: -480}
   m_SizeDelta: {x: 124, y: 960}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &961090663238695483
@@ -7607,9 +7607,9 @@ RectTransform:
   m_Father: {fileID: 961090663463410807}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 492, y: -480}
   m_SizeDelta: {x: 736, y: 960}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &961090663238718195
@@ -25163,6 +25163,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 4
   _tactileUIScript: {fileID: 5194560362519379968}
+  _updateInteractableState: 0
 --- !u!224 &5194560362519379997 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5200074489622037683, guid: 92dee8de17777194ab9801f881d5d754, type: 3}
@@ -25333,6 +25334,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 23
   _tactileUIScript: {fileID: 4789368887074397146}
+  _updateInteractableState: 0
 --- !u!224 &4789368887074397127 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5200074489622037683, guid: 92dee8de17777194ab9801f881d5d754, type: 3}
@@ -25705,6 +25707,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 38
   _tactileUIScript: {fileID: 1907784264155923919}
+  _updateInteractableState: 0
 --- !u!224 &1907784264155923917 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1670753495076029717, guid: dc6cae632a01d18489cb70628a2c3ee0, type: 3}
@@ -26415,6 +26418,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 68
   _tactileUIScript: {fileID: 5006906503718313146}
+  _updateInteractableState: 0
 --- !u!224 &5006906503718313127 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5200074489622037683, guid: 92dee8de17777194ab9801f881d5d754, type: 3}
@@ -26979,6 +26983,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 59
   _tactileUIScript: {fileID: 5006906503383006408}
+  _updateInteractableState: 0
 --- !u!224 &5006906503383006421 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5200074489622037683, guid: 92dee8de17777194ab9801f881d5d754, type: 3}
@@ -27169,6 +27174,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 50
   _tactileUIScript: {fileID: 5006906503357978249}
+  _updateInteractableState: 0
 --- !u!1001 &961090662575581651
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27342,6 +27348,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 20
   _tactileUIScript: {fileID: 5137506980863214499}
+  _updateInteractableState: 0
 --- !u!1001 &961090662580061601
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27510,6 +27517,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 18
   _tactileUIScript: {fileID: 5137506980951601105}
+  _updateInteractableState: 0
 --- !u!224 &5137506980951601118 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5339700965420444287, guid: 6ccc0e686190f86478f8bc88caf7130e, type: 3}
@@ -27680,6 +27688,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 48
   _tactileUIScript: {fileID: 1907784264211921326}
+  _updateInteractableState: 0
 --- !u!224 &1907784264211921324 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1670753495076029717, guid: dc6cae632a01d18489cb70628a2c3ee0, type: 3}
@@ -27858,6 +27867,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 30
   _tactileUIScript: {fileID: 5169510735895905946}
+  _updateInteractableState: 0
 --- !u!114 &5169510735895905946 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5398602631839129139, guid: a88627b86d55dd54698561606ad63234, type: 3}
@@ -28037,6 +28047,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 19
   _tactileUIScript: {fileID: 5137506981067595588}
+  _updateInteractableState: 0
 --- !u!224 &5137506981067595595 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5339700965420444287, guid: 6ccc0e686190f86478f8bc88caf7130e, type: 3}
@@ -28223,6 +28234,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 62
   _tactileUIScript: {fileID: 5006906503151263329}
+  _updateInteractableState: 0
 --- !u!1001 &961090662895764088
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28380,6 +28392,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 13
   _tactileUIScript: {fileID: 5006906503046022870}
+  _updateInteractableState: 0
 --- !u!224 &5006906503046022859 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5200074489622037683, guid: 92dee8de17777194ab9801f881d5d754, type: 3}
@@ -28564,6 +28577,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 54
   _tactileUIScript: {fileID: 5137506980762378900}
+  _updateInteractableState: 0
 --- !u!224 &5137506980762378907 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5339700965420444287, guid: 6ccc0e686190f86478f8bc88caf7130e, type: 3}
@@ -28726,6 +28740,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 55
   _tactileUIScript: {fileID: 5137506980806157612}
+  _updateInteractableState: 0
 --- !u!224 &5137506980806157603 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5339700965420444287, guid: 6ccc0e686190f86478f8bc88caf7130e, type: 3}
@@ -28904,6 +28919,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 26
   _tactileUIScript: {fileID: 5137506980792657722}
+  _updateInteractableState: 0
 --- !u!114 &5137506980792657722 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5339700965420444272, guid: 6ccc0e686190f86478f8bc88caf7130e, type: 3}
@@ -29096,6 +29112,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 42
   _tactileUIScript: {fileID: 5006906502875160527}
+  _updateInteractableState: 0
 --- !u!1001 &961090663068460272
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29468,6 +29485,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 39
   _tactileUIScript: {fileID: 1907784263686649650}
+  _updateInteractableState: 0
 --- !u!1001 &961090663160036086
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29636,6 +29654,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 28
   _tactileUIScript: {fileID: 5169510736587367621}
+  _updateInteractableState: 0
 --- !u!224 &5169510736587367626 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5398602631839129148, guid: a88627b86d55dd54698561606ad63234, type: 3}
@@ -29814,6 +29833,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 1
   _tactileUIScript: {fileID: 6447595939427721411}
+  _updateInteractableState: 0
 --- !u!224 &6447595939427721409 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6065236564331351947, guid: fdef239f58349d1448d11d4aa7d357eb, type: 3}
@@ -30000,6 +30020,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 65
   _tactileUIScript: {fileID: 5006906502994612467}
+  _updateInteractableState: 0
 --- !u!114 &5006906502994612467 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5200074489622037678, guid: 92dee8de17777194ab9801f881d5d754, type: 3}
@@ -30192,6 +30213,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 9
   _tactileUIScript: {fileID: 5006906502994369413}
+  _updateInteractableState: 0
 --- !u!1001 &961090663231438330
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30206,6 +30228,18 @@ PrefabInstance:
     - target: {fileID: 959585028123238655, guid: 8d37013a7289eb245b42f91e9fff8418, type: 3}
       propertyPath: m_text
       value: Simulate
+      objectReference: {fileID: 0}
+    - target: {fileID: 959585028123238655, guid: 8d37013a7289eb245b42f91e9fff8418, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.9843137
+      objectReference: {fileID: 0}
+    - target: {fileID: 959585028123238655, guid: 8d37013a7289eb245b42f91e9fff8418, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.9843137
+      objectReference: {fileID: 0}
+    - target: {fileID: 959585028123238655, guid: 8d37013a7289eb245b42f91e9fff8418, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.9843137
       objectReference: {fileID: 0}
     - target: {fileID: 959585028773805202, guid: 8d37013a7289eb245b42f91e9fff8418, type: 3}
       propertyPath: m_Name
@@ -30296,9 +30330,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 959585028773805208, guid: 8d37013a7289eb245b42f91e9fff8418, type: 3}
+      propertyPath: _interactiveGraphics.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 959585028773805208, guid: 8d37013a7289eb245b42f91e9fff8418, type: 3}
       propertyPath: _interactiveGraphics.Array.data[0].Name
       value: SimulateBtn
       objectReference: {fileID: 0}
+    - target: {fileID: 959585028773805208, guid: 8d37013a7289eb245b42f91e9fff8418, type: 3}
+      propertyPath: _interactiveGraphics.Array.data[1].Name
+      value: Label
+      objectReference: {fileID: 0}
+    - target: {fileID: 959585028773805208, guid: 8d37013a7289eb245b42f91e9fff8418, type: 3}
+      propertyPath: _interactiveGraphics.Array.data[1]._graphic
+      value: 
+      objectReference: {fileID: 2071076310555909}
     - target: {fileID: 959585028773805208, guid: 8d37013a7289eb245b42f91e9fff8418, type: 3}
       propertyPath: _onClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -30320,6 +30366,70 @@ PrefabInstance:
       value: OnClick
       objectReference: {fileID: 0}
     - target: {fileID: 959585028773805208, guid: 8d37013a7289eb245b42f91e9fff8418, type: 3}
+      propertyPath: _interactiveGraphics.Array.data[1]._interactiveColorUI._normalColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 959585028773805208, guid: 8d37013a7289eb245b42f91e9fff8418, type: 3}
+      propertyPath: _interactiveGraphics.Array.data[1]._interactiveColorUI._normalColor.b
+      value: 0.9843137
+      objectReference: {fileID: 0}
+    - target: {fileID: 959585028773805208, guid: 8d37013a7289eb245b42f91e9fff8418, type: 3}
+      propertyPath: _interactiveGraphics.Array.data[1]._interactiveColorUI._normalColor.g
+      value: 0.9843137
+      objectReference: {fileID: 0}
+    - target: {fileID: 959585028773805208, guid: 8d37013a7289eb245b42f91e9fff8418, type: 3}
+      propertyPath: _interactiveGraphics.Array.data[1]._interactiveColorUI._normalColor.r
+      value: 0.9843137
+      objectReference: {fileID: 0}
+    - target: {fileID: 959585028773805208, guid: 8d37013a7289eb245b42f91e9fff8418, type: 3}
+      propertyPath: _interactiveGraphics.Array.data[1]._interactiveColorUI._disabledColor.a
+      value: 0.23529412
+      objectReference: {fileID: 0}
+    - target: {fileID: 959585028773805208, guid: 8d37013a7289eb245b42f91e9fff8418, type: 3}
+      propertyPath: _interactiveGraphics.Array.data[1]._interactiveColorUI._disabledColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 959585028773805208, guid: 8d37013a7289eb245b42f91e9fff8418, type: 3}
+      propertyPath: _interactiveGraphics.Array.data[1]._interactiveColorUI._disabledColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 959585028773805208, guid: 8d37013a7289eb245b42f91e9fff8418, type: 3}
+      propertyPath: _interactiveGraphics.Array.data[1]._interactiveColorUI._disabledColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 959585028773805208, guid: 8d37013a7289eb245b42f91e9fff8418, type: 3}
+      propertyPath: _interactiveGraphics.Array.data[1]._interactiveColorUI._activatedColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 959585028773805208, guid: 8d37013a7289eb245b42f91e9fff8418, type: 3}
+      propertyPath: _interactiveGraphics.Array.data[1]._interactiveColorUI._activatedColor.b
+      value: 0.9843137
+      objectReference: {fileID: 0}
+    - target: {fileID: 959585028773805208, guid: 8d37013a7289eb245b42f91e9fff8418, type: 3}
+      propertyPath: _interactiveGraphics.Array.data[1]._interactiveColorUI._activatedColor.g
+      value: 0.9843137
+      objectReference: {fileID: 0}
+    - target: {fileID: 959585028773805208, guid: 8d37013a7289eb245b42f91e9fff8418, type: 3}
+      propertyPath: _interactiveGraphics.Array.data[1]._interactiveColorUI._activatedColor.r
+      value: 0.9843137
+      objectReference: {fileID: 0}
+    - target: {fileID: 959585028773805208, guid: 8d37013a7289eb245b42f91e9fff8418, type: 3}
+      propertyPath: _interactiveGraphics.Array.data[1]._interactiveColorUI._proximityColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 959585028773805208, guid: 8d37013a7289eb245b42f91e9fff8418, type: 3}
+      propertyPath: _interactiveGraphics.Array.data[1]._interactiveColorUI._proximityColor.b
+      value: 0.9843137
+      objectReference: {fileID: 0}
+    - target: {fileID: 959585028773805208, guid: 8d37013a7289eb245b42f91e9fff8418, type: 3}
+      propertyPath: _interactiveGraphics.Array.data[1]._interactiveColorUI._proximityColor.g
+      value: 0.9843137
+      objectReference: {fileID: 0}
+    - target: {fileID: 959585028773805208, guid: 8d37013a7289eb245b42f91e9fff8418, type: 3}
+      propertyPath: _interactiveGraphics.Array.data[1]._interactiveColorUI._proximityColor.r
+      value: 0.9843137
+      objectReference: {fileID: 0}
+    - target: {fileID: 959585028773805208, guid: 8d37013a7289eb245b42f91e9fff8418, type: 3}
       propertyPath: _onClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: GraphBtnLink, Scripts
       objectReference: {fileID: 0}
@@ -30329,6 +30439,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d37013a7289eb245b42f91e9fff8418, type: 3}
+--- !u!114 &2071076310555909 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 959585028123238655, guid: 8d37013a7289eb245b42f91e9fff8418, type: 3}
+  m_PrefabInstance: {fileID: 961090663231438330}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2071077673156962 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 959585028773805208, guid: 8d37013a7289eb245b42f91e9fff8418, type: 3}
@@ -30535,6 +30656,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 60
   _tactileUIScript: {fileID: 5006906502934992061}
+  _updateInteractableState: 0
 --- !u!114 &5006906502934992061 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5200074489622037678, guid: 92dee8de17777194ab9801f881d5d754, type: 3}
@@ -30732,6 +30854,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 32
   _tactileUIScript: {fileID: 5169510737225609099}
+  _updateInteractableState: 0
 --- !u!114 &5169510737225609099 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5398602631839129139, guid: a88627b86d55dd54698561606ad63234, type: 3}
@@ -30919,6 +31042,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 63
   _tactileUIScript: {fileID: 5006906502744708098}
+  _updateInteractableState: 0
 --- !u!224 &5006906502744708127 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5200074489622037683, guid: 92dee8de17777194ab9801f881d5d754, type: 3}
@@ -31229,6 +31353,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 56
   _tactileUIScript: {fileID: 4294175416745929218}
+  _updateInteractableState: 0
 --- !u!1001 &961090663474989593
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31402,6 +31527,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 46
   _tactileUIScript: {fileID: 1907784265217658638}
+  _updateInteractableState: 0
 --- !u!224 &1907784265217658636 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1670753495076029717, guid: dc6cae632a01d18489cb70628a2c3ee0, type: 3}
@@ -31594,6 +31720,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 5
   _tactileUIScript: {fileID: 5006906502268914026}
+  _updateInteractableState: 0
 --- !u!224 &5006906502268914039 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5200074489622037683, guid: 92dee8de17777194ab9801f881d5d754, type: 3}
@@ -31767,6 +31894,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 27
   _tactileUIScript: {fileID: 5169510737168370612}
+  _updateInteractableState: 0
 --- !u!224 &5169510737168370619 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5398602631839129148, guid: a88627b86d55dd54698561606ad63234, type: 3}
@@ -31876,6 +32004,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7625951802471262257, guid: e720b559aa7f1294aa0bce82105db905, type: 3}
+      propertyPath: _interactable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7625951802471262257, guid: e720b559aa7f1294aa0bce82105db905, type: 3}
       propertyPath: _enabledValueLabel
       value: 'Mode Immersion '
       objectReference: {fileID: 0}
@@ -31883,6 +32015,18 @@ PrefabInstance:
       propertyPath: _disabledValueLabel
       value: Mode Desk
       objectReference: {fileID: 0}
+    - target: {fileID: 7625951802471262257, guid: e720b559aa7f1294aa0bce82105db905, type: 3}
+      propertyPath: _interactiveGraphics.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7625951802471262257, guid: e720b559aa7f1294aa0bce82105db905, type: 3}
+      propertyPath: _interactiveGraphics.Array.data[3].Name
+      value: Label
+      objectReference: {fileID: 0}
+    - target: {fileID: 7625951802471262257, guid: e720b559aa7f1294aa0bce82105db905, type: 3}
+      propertyPath: _interactiveGraphics.Array.data[3]._graphic
+      value: 
+      objectReference: {fileID: 7242536003620825669}
     - target: {fileID: 7625951802471262257, guid: e720b559aa7f1294aa0bce82105db905, type: 3}
       propertyPath: _onValueChanged.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -31904,12 +32048,80 @@ PrefabInstance:
       value: OnBoolChangedFromInput
       objectReference: {fileID: 0}
     - target: {fileID: 7625951802471262257, guid: e720b559aa7f1294aa0bce82105db905, type: 3}
+      propertyPath: _interactiveGraphics.Array.data[3]._interactiveColorUI._normalColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7625951802471262257, guid: e720b559aa7f1294aa0bce82105db905, type: 3}
+      propertyPath: _interactiveGraphics.Array.data[3]._interactiveColorUI._normalColor.b
+      value: 0.9843137
+      objectReference: {fileID: 0}
+    - target: {fileID: 7625951802471262257, guid: e720b559aa7f1294aa0bce82105db905, type: 3}
+      propertyPath: _interactiveGraphics.Array.data[3]._interactiveColorUI._normalColor.g
+      value: 0.9843137
+      objectReference: {fileID: 0}
+    - target: {fileID: 7625951802471262257, guid: e720b559aa7f1294aa0bce82105db905, type: 3}
+      propertyPath: _interactiveGraphics.Array.data[3]._interactiveColorUI._normalColor.r
+      value: 0.9843137
+      objectReference: {fileID: 0}
+    - target: {fileID: 7625951802471262257, guid: e720b559aa7f1294aa0bce82105db905, type: 3}
+      propertyPath: _interactiveGraphics.Array.data[3]._interactiveColorUI._disabledColor.a
+      value: 0.23529412
+      objectReference: {fileID: 0}
+    - target: {fileID: 7625951802471262257, guid: e720b559aa7f1294aa0bce82105db905, type: 3}
+      propertyPath: _interactiveGraphics.Array.data[3]._interactiveColorUI._disabledColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7625951802471262257, guid: e720b559aa7f1294aa0bce82105db905, type: 3}
+      propertyPath: _interactiveGraphics.Array.data[3]._interactiveColorUI._disabledColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7625951802471262257, guid: e720b559aa7f1294aa0bce82105db905, type: 3}
+      propertyPath: _interactiveGraphics.Array.data[3]._interactiveColorUI._disabledColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7625951802471262257, guid: e720b559aa7f1294aa0bce82105db905, type: 3}
+      propertyPath: _interactiveGraphics.Array.data[3]._interactiveColorUI._activatedColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7625951802471262257, guid: e720b559aa7f1294aa0bce82105db905, type: 3}
+      propertyPath: _interactiveGraphics.Array.data[3]._interactiveColorUI._activatedColor.b
+      value: 0.9843137
+      objectReference: {fileID: 0}
+    - target: {fileID: 7625951802471262257, guid: e720b559aa7f1294aa0bce82105db905, type: 3}
+      propertyPath: _interactiveGraphics.Array.data[3]._interactiveColorUI._activatedColor.g
+      value: 0.9843137
+      objectReference: {fileID: 0}
+    - target: {fileID: 7625951802471262257, guid: e720b559aa7f1294aa0bce82105db905, type: 3}
+      propertyPath: _interactiveGraphics.Array.data[3]._interactiveColorUI._activatedColor.r
+      value: 0.9843137
+      objectReference: {fileID: 0}
+    - target: {fileID: 7625951802471262257, guid: e720b559aa7f1294aa0bce82105db905, type: 3}
+      propertyPath: _interactiveGraphics.Array.data[3]._interactiveColorUI._proximityColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7625951802471262257, guid: e720b559aa7f1294aa0bce82105db905, type: 3}
+      propertyPath: _interactiveGraphics.Array.data[3]._interactiveColorUI._proximityColor.b
+      value: 0.9843137
+      objectReference: {fileID: 0}
+    - target: {fileID: 7625951802471262257, guid: e720b559aa7f1294aa0bce82105db905, type: 3}
+      propertyPath: _interactiveGraphics.Array.data[3]._interactiveColorUI._proximityColor.g
+      value: 0.9843137
+      objectReference: {fileID: 0}
+    - target: {fileID: 7625951802471262257, guid: e720b559aa7f1294aa0bce82105db905, type: 3}
+      propertyPath: _interactiveGraphics.Array.data[3]._interactiveColorUI._proximityColor.r
+      value: 0.9843137
+      objectReference: {fileID: 0}
+    - target: {fileID: 7625951802471262257, guid: e720b559aa7f1294aa0bce82105db905, type: 3}
       propertyPath: _onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: GraphConfigInputLink, Scripts
       objectReference: {fileID: 0}
     - target: {fileID: 7625951802471262257, guid: e720b559aa7f1294aa0bce82105db905, type: 3}
       propertyPath: _onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7625951802853798143, guid: e720b559aa7f1294aa0bce82105db905, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7625951802886575891, guid: e720b559aa7f1294aa0bce82105db905, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -31918,6 +32130,18 @@ PrefabInstance:
     - target: {fileID: 7625951802886575892, guid: e720b559aa7f1294aa0bce82105db905, type: 3}
       propertyPath: m_text
       value: Mode Desk
+      objectReference: {fileID: 0}
+    - target: {fileID: 7625951802886575892, guid: e720b559aa7f1294aa0bce82105db905, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.9843137
+      objectReference: {fileID: 0}
+    - target: {fileID: 7625951802886575892, guid: e720b559aa7f1294aa0bce82105db905, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.9843137
+      objectReference: {fileID: 0}
+    - target: {fileID: 7625951802886575892, guid: e720b559aa7f1294aa0bce82105db905, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.9843137
       objectReference: {fileID: 0}
     - target: {fileID: 7625951803334726346, guid: e720b559aa7f1294aa0bce82105db905, type: 3}
       propertyPath: m_Size.x
@@ -31929,6 +32153,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e720b559aa7f1294aa0bce82105db905, type: 3}
+--- !u!114 &7242536003620825669 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7625951802886575892, guid: e720b559aa7f1294aa0bce82105db905, type: 3}
+  m_PrefabInstance: {fileID: 961090663678885201}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7242536003759150432 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7625951802471262257, guid: e720b559aa7f1294aa0bce82105db905, type: 3}
@@ -31960,6 +32195,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 0
   _tactileUIScript: {fileID: 7242536003759150432}
+  _updateInteractableState: 1
 --- !u!224 &7242536003759150463 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7625951802471262254, guid: e720b559aa7f1294aa0bce82105db905, type: 3}
@@ -32138,6 +32374,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 29
   _tactileUIScript: {fileID: 5169510737115198614}
+  _updateInteractableState: 0
 --- !u!1001 &961090663764854111
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -32308,6 +32545,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 66
   _tactileUIScript: {fileID: 5006906502445269489}
+  _updateInteractableState: 0
 --- !u!114 &5006906502445269489 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5200074489622037678, guid: 92dee8de17777194ab9801f881d5d754, type: 3}
@@ -32491,6 +32729,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 44
   _tactileUIScript: {fileID: 5006906502422883850}
+  _updateInteractableState: 0
 --- !u!224 &5006906502422883863 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5200074489622037683, guid: 92dee8de17777194ab9801f881d5d754, type: 3}
@@ -32677,6 +32916,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 22
   _tactileUIScript: {fileID: 5006906502390793731}
+  _updateInteractableState: 0
 --- !u!1001 &961090663838304067
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -32854,6 +33094,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 45
   _tactileUIScript: {fileID: 5006906502355141613}
+  _updateInteractableState: 0
 --- !u!1001 &961090663885030510
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33019,6 +33260,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 47
   _tactileUIScript: {fileID: 1907784264555954553}
+  _updateInteractableState: 0
 --- !u!114 &1907784264555954553 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1670753495076029719, guid: dc6cae632a01d18489cb70628a2c3ee0, type: 3}
@@ -33203,6 +33445,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 25
   _tactileUIScript: {fileID: 5137506981754384337}
+  _updateInteractableState: 0
 --- !u!224 &5137506981754384350 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5339700965420444287, guid: 6ccc0e686190f86478f8bc88caf7130e, type: 3}
@@ -33400,6 +33643,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 33
   _tactileUIScript: {fileID: 5169510737916293876}
+  _updateInteractableState: 0
 --- !u!224 &5169510737916293883 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5398602631839129148, guid: a88627b86d55dd54698561606ad63234, type: 3}
@@ -33709,6 +33953,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 53
   _tactileUIScript: {fileID: 5006906502209541401}
+  _updateInteractableState: 0
 --- !u!114 &5006906502209541401 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5200074489622037678, guid: 92dee8de17777194ab9801f881d5d754, type: 3}
@@ -33885,6 +34130,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 16
   _tactileUIScript: {fileID: 5006906502101328946}
+  _updateInteractableState: 0
 --- !u!224 &5006906502101328943 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5200074489622037683, guid: 92dee8de17777194ab9801f881d5d754, type: 3}
@@ -34066,6 +34312,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 67
   _tactileUIScript: {fileID: 5006906501788421524}
+  _updateInteractableState: 0
 --- !u!224 &5006906501788421513 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5200074489622037683, guid: 92dee8de17777194ab9801f881d5d754, type: 3}
@@ -34364,6 +34611,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 57
   _tactileUIScript: {fileID: 4294175415769907642}
+  _updateInteractableState: 0
 --- !u!114 &4294175415769907642 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3945578887511572743, guid: 6b779d3a41373844591e8a57ebb67b6d, type: 3}
@@ -34899,6 +35147,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 64
   _tactileUIScript: {fileID: 5006906501917552708}
+  _updateInteractableState: 0
 --- !u!224 &5006906501917552729 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5200074489622037683, guid: 92dee8de17777194ab9801f881d5d754, type: 3}
@@ -35299,6 +35548,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 34
   _tactileUIScript: {fileID: 5169510737473945140}
+  _updateInteractableState: 0
 --- !u!224 &5169510737473945147 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5398602631839129148, guid: a88627b86d55dd54698561606ad63234, type: 3}
@@ -35485,6 +35735,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 61
   _tactileUIScript: {fileID: 5006906501877216907}
+  _updateInteractableState: 0
 --- !u!1001 &1050571254637052981
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35655,6 +35906,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 15
   _tactileUIScript: {fileID: 5097512717768376475}
+  _updateInteractableState: 0
 --- !u!114 &5097512717768376475 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5200074489622037678, guid: 92dee8de17777194ab9801f881d5d754, type: 3}
@@ -35836,6 +36088,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 24
   _tactileUIScript: {fileID: 6597411499804164703}
+  _updateInteractableState: 0
 --- !u!114 &6597411499804164703 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5200074489622037678, guid: 92dee8de17777194ab9801f881d5d754, type: 3}
@@ -36012,6 +36265,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 79
   _tactileUIScript: {fileID: 6850062705778397022}
+  _updateInteractableState: 0
 --- !u!224 &6850062705778396995 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5200074489622037683, guid: 92dee8de17777194ab9801f881d5d754, type: 3}
@@ -36204,6 +36458,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 73
   _tactileUIScript: {fileID: 6887075958850663020}
+  _updateInteractableState: 0
 --- !u!224 &6887075958850663025 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5200074489622037683, guid: 92dee8de17777194ab9801f881d5d754, type: 3}
@@ -36385,6 +36640,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 77
   _tactileUIScript: {fileID: 6088783473224514466}
+  _updateInteractableState: 0
 --- !u!224 &6088783473224514495 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5200074489622037683, guid: 92dee8de17777194ab9801f881d5d754, type: 3}
@@ -36555,6 +36811,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 76
   _tactileUIScript: {fileID: 6114403979807670872}
+  _updateInteractableState: 0
 --- !u!224 &6114403979807670853 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5200074489622037683, guid: 92dee8de17777194ab9801f881d5d754, type: 3}
@@ -36957,6 +37214,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 12
   _tactileUIScript: {fileID: 7915859711690413324}
+  _updateInteractableState: 0
 --- !u!224 &7915859711690413329 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5200074489622037683, guid: 92dee8de17777194ab9801f881d5d754, type: 3}
@@ -37138,6 +37396,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 8
   _tactileUIScript: {fileID: 7969840313939993608}
+  _updateInteractableState: 0
 --- !u!224 &7969840313939993621 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5200074489622037683, guid: 92dee8de17777194ab9801f881d5d754, type: 3}
@@ -37328,6 +37587,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 40
   _tactileUIScript: {fileID: 2330319123404803362}
+  _updateInteractableState: 0
 --- !u!1001 &4025308446660454462
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37864,6 +38124,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 70
   _tactileUIScript: {fileID: 8175955729701348126}
+  _updateInteractableState: 0
 --- !u!224 &8175955729701348099 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5200074489622037683, guid: 92dee8de17777194ab9801f881d5d754, type: 3}
@@ -38737,6 +38998,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 71
   _tactileUIScript: {fileID: 957822717768312738}
+  _updateInteractableState: 0
 --- !u!224 &957822717768312767 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5200074489622037683, guid: 92dee8de17777194ab9801f881d5d754, type: 3}
@@ -38911,6 +39173,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 41
   _tactileUIScript: {fileID: 5894900006568386747}
+  _updateInteractableState: 0
 --- !u!224 &5894900006568386745 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1670753495076029717, guid: dc6cae632a01d18489cb70628a2c3ee0, type: 3}
@@ -39425,6 +39688,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 72
   _tactileUIScript: {fileID: 78764309638639892}
+  _updateInteractableState: 0
 --- !u!224 &78764309638639881 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5200074489622037683, guid: 92dee8de17777194ab9801f881d5d754, type: 3}
@@ -39617,6 +39881,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 14
   _tactileUIScript: {fileID: 129021360658802894}
+  _updateInteractableState: 0
 --- !u!224 &129021360658802899 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5200074489622037683, guid: 92dee8de17777194ab9801f881d5d754, type: 3}
@@ -39798,6 +40063,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 17
   _tactileUIScript: {fileID: 126400686649639624}
+  _updateInteractableState: 0
 --- !u!224 &126400686649639637 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5200074489622037683, guid: 92dee8de17777194ab9801f881d5d754, type: 3}
@@ -39984,6 +40250,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 21
   _tactileUIScript: {fileID: 154894716317513351}
+  _updateInteractableState: 0
 --- !u!1001 &6171606291148116009
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -40520,6 +40787,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 75
   _tactileUIScript: {fileID: 1728754106211954586}
+  _updateInteractableState: 0
 --- !u!224 &1728754106211954567 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5200074489622037683, guid: 92dee8de17777194ab9801f881d5d754, type: 3}
@@ -40717,6 +40985,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 10
   _tactileUIScript: {fileID: 3132875683472729389}
+  _updateInteractableState: 0
 --- !u!1001 &7539802468019888367
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -40898,6 +41167,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 6
   _tactileUIScript: {fileID: 2344302104107967553}
+  _updateInteractableState: 0
 --- !u!1001 &7794482712823019509
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41246,6 +41516,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 49
   _tactileUIScript: {fileID: 8843612516472855802}
+  _updateInteractableState: 0
 --- !u!224 &8843612516472855800 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1670753495076029717, guid: dc6cae632a01d18489cb70628a2c3ee0, type: 3}
@@ -41427,6 +41698,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 74
   _tactileUIScript: {fileID: 4118554775577812860}
+  _updateInteractableState: 0
 --- !u!224 &4118554775577812833 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5200074489622037683, guid: 92dee8de17777194ab9801f881d5d754, type: 3}
@@ -41608,6 +41880,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 11
   _tactileUIScript: {fileID: 4268530225962564030}
+  _updateInteractableState: 0
 --- !u!224 &4268530225962564003 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5200074489622037683, guid: 92dee8de17777194ab9801f881d5d754, type: 3}
@@ -41805,6 +42078,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 7
   _tactileUIScript: {fileID: 4547982290184973671}
+  _updateInteractableState: 0
 --- !u!1001 &8817723461055113927
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -42674,6 +42948,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 78
   _tactileUIScript: {fileID: 4000182265080997918}
+  _updateInteractableState: 0
 --- !u!224 &4000182265080997891 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5200074489622037683, guid: 92dee8de17777194ab9801f881d5d754, type: 3}

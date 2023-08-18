@@ -43,12 +43,6 @@ public class MainGraph : MonoBehaviour
     }
 
 
-    private void Update()
-    {
-        
-    }
-
-
     #region OnGraphUpdated
     public void OnGraphUpdated(GraphUpdateType updateType)
     {

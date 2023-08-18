@@ -32,20 +32,35 @@ public partial class InputPropagatorManager : MonoBehaviour
     Dictionary<GraphActionKey, ChangeActionBtnState> _actionsEvents;
 
 
-    private async void Awake()
+    private void Awake()
     {
         _actionsEvents = new();
         _parametersEvents = new();
         _referenceHolderSO.InputPropagatorManager = this;
+    }
+
+    private async void Start()
+    {
+        _graphManager.OnGraphUpdate += OnGraphUpdated;
 
         await GraphConfiguration.Load();
         _graphConfiguration = GraphConfiguration.Instance;
     }
 
+
     #region OnEnableUI
     public T GetValue<T>(GraphConfigKey key)
     {
         return key.GetValue<T>(_graphConfiguration);
+    }
+
+    public bool GetInteractableState(GraphConfigKey configKey)
+    {
+        if (configKey == GraphConfigKey.GraphMode)
+            return _graphManager.CanSwitchMode();
+
+
+        return true;
     }
 
     public bool GetInteractableState(GraphActionKey actionKey)
@@ -58,14 +73,13 @@ public partial class InputPropagatorManager : MonoBehaviour
             GraphActionKey.FilterUnpropagated => true,
             GraphActionKey.UndoFilter => _dynFilterManager.NbFilter != 0,
             GraphActionKey.RedoFilter => _dynFilterManager.NbRedoFilter != 0,
-            GraphActionKey.Simulate => true,
-            GraphActionKey.SwitchMode => true,
+            GraphActionKey.Simulate => !_graphManager.IsRunningSimulation,
             GraphActionKey.SelectionMode => true,
             _ => true,
         };
     }
 
-    public void Register<T>(GraphConfigKey key, ValueChanged<T> valueChanged)
+    public void Register<T>(GraphConfigKey key, ValueChanged<T> valueChanged, InteractableStateChanged interactableStateChanged = null)
     {
         if (!_parametersEvents.TryGetValue(key, out GraphConfigEvent graphConfigEvent))
         {
@@ -73,9 +87,9 @@ public partial class InputPropagatorManager : MonoBehaviour
             _parametersEvents.Add(key, graphConfigEvent);
         }
 
-        graphConfigEvent.Register(valueChanged);
+        graphConfigEvent.Register(valueChanged, interactableStateChanged);
     }
-    public void UnRegister<T>(GraphConfigKey key, ValueChanged<T> valueChanged)
+    public void UnRegister<T>(GraphConfigKey key, ValueChanged<T> valueChanged, InteractableStateChanged interactableStateChanged = null)
     {
         if (!_parametersEvents.TryGetValue(key, out GraphConfigEvent graphConfigEvent))
         {
@@ -83,7 +97,7 @@ public partial class InputPropagatorManager : MonoBehaviour
             return;
         }
 
-        if (graphConfigEvent.UnRegister(valueChanged))
+        if (graphConfigEvent.UnRegister(valueChanged, interactableStateChanged))
             return;
 
         _parametersEvents.Remove(key);
@@ -91,12 +105,15 @@ public partial class InputPropagatorManager : MonoBehaviour
 
     public void Register(GraphActionKey actionKey, ChangeActionBtnState changeActionBtnToAdd)
     {
+        Debug.Log("Register : " + actionKey);
+
         if (!_actionsEvents.TryGetValue(actionKey, out ChangeActionBtnState changeActionBtnState))
         {
             _actionsEvents.Add(actionKey, changeActionBtnState);
         }
 
         changeActionBtnState += changeActionBtnToAdd;
+        _actionsEvents[actionKey] = changeActionBtnState;
     }
 
     public void UnRegister(GraphActionKey actionKey, ChangeActionBtnState changeActionBtnToRemove)
@@ -111,7 +128,10 @@ public partial class InputPropagatorManager : MonoBehaviour
         changeActionBtnState -= changeActionBtnToRemove;
 
         if (changeActionBtnState != null)
+        {
+            _actionsEvents[actionKey] = changeActionBtnState;
             return;
+        }
 
         _actionsEvents.Remove(actionKey);
     }
@@ -122,11 +142,32 @@ public partial class InputPropagatorManager : MonoBehaviour
     #region ChangeFromUI
     public void SetNewValue<T>(GraphConfigKey key, T newValue)
     {
+        if (TryProcessSpecialConfigKey(key, newValue))
+            return;
+
         if (!_graphConfiguration.TrySetValue(key, newValue))
             return;
 
         UpdateStyling(key);
-        TryInvoke(key, newValue);
+        InvokeValueChanged(key, newValue);
+    }
+
+    private bool TryProcessSpecialConfigKey<T>(GraphConfigKey key, T newValue)
+    {
+        if(key == GraphConfigKey.GraphMode)
+        {
+            if (!_user.SwitchGraphMode())
+                return true;
+
+            if (!_graphConfiguration.TrySetValue(key, newValue))
+                return true;
+
+            InvokeValueChanged(key, newValue);
+            TryInvokeInteractableStateChanged(key, _graphManager.CanSwitchMode());
+            return true;
+        }
+
+        return false;
     }
 
     public void InitiateNewAction(GraphActionKey actionKey)
@@ -157,12 +198,20 @@ public partial class InputPropagatorManager : MonoBehaviour
         }
     }
 
-    public void TryInvoke<T>(GraphConfigKey key, T newValue)
+    public void InvokeValueChanged<T>(GraphConfigKey key, T newValue)
     {
         if (!_parametersEvents.TryGetValue(key, out GraphConfigEvent graphConfigEvent))
             return;
 
-        graphConfigEvent.Invoke(newValue);
+        graphConfigEvent.InvokeValueChanged(newValue);
+    }
+
+    public void TryInvokeInteractableStateChanged(GraphConfigKey key, bool isInteractable)
+    {
+        if (!_parametersEvents.TryGetValue(key, out GraphConfigEvent graphConfigEvent))
+            return;
+
+        graphConfigEvent.InvokeInteractableStateChanged(isInteractable);
     }
 
     public void TryInvoke(GraphActionKey actionKey, bool isInteractable)
@@ -170,7 +219,7 @@ public partial class InputPropagatorManager : MonoBehaviour
         if (!_actionsEvents.TryGetValue(actionKey, out ChangeActionBtnState actionBtnState))
             return;
 
-        actionBtnState.Invoke(isInteractable);
+        actionBtnState?.Invoke(isInteractable);
     }
     #endregion
 
@@ -181,8 +230,38 @@ public partial class InputPropagatorManager : MonoBehaviour
     }
 
 
-
-    
+    public void OnGraphUpdated(GraphUpdateType updateType)
+    {
+       
+        switch (updateType)
+        {
+            case GraphUpdateType.RetrievingFromDb:
+                TryInvokeInteractableStateChanged(GraphConfigKey.GraphMode, false);
+                TryInvoke(GraphActionKey.Simulate, false);
+                break;
+            case GraphUpdateType.BeforeSimulationStart:
+                TryInvokeInteractableStateChanged(GraphConfigKey.GraphMode, false);
+                TryInvoke(GraphActionKey.Simulate, false);
+                break;
+            case GraphUpdateType.AfterSimulationHasStopped:
+                TryInvokeInteractableStateChanged(GraphConfigKey.GraphMode, true);
+                TryInvoke(GraphActionKey.Simulate, true);
+                break;
+            case GraphUpdateType.BeforeSwitchMode:
+                TryInvokeInteractableStateChanged(GraphConfigKey.GraphMode, false);
+                TryInvoke(GraphActionKey.Simulate, false);
+                break;
+            case GraphUpdateType.AfterSwitchModeToDesk:
+                TryInvokeInteractableStateChanged(GraphConfigKey.GraphMode, true);
+                TryInvoke(GraphActionKey.Simulate, true);
+                break;
+            case GraphUpdateType.AfterSwitchModeToImmersion:
+                TryInvokeInteractableStateChanged(GraphConfigKey.GraphMode, true);
+                TryInvoke(GraphActionKey.Simulate, true);
+                break;
+        } 
+    }
 }
 
 public delegate void ValueChanged<T>(T value);
+public delegate void InteractableStateChanged(bool isInteractable);

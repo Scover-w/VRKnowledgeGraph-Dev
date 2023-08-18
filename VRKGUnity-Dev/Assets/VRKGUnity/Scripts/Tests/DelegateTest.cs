@@ -9,6 +9,93 @@ public class DelegateTest : MonoBehaviour
     TestDelegate testDelegate;
 
 
+    Dictionary<string, TestDelegate> testDelegates;
+
+    [ContextMenu("ResetDict")]
+    private void ResetDict()
+    {
+        testDelegates = new();
+    }
+
+    [ContextMenu("TryAddToDict")]
+    private void TryAddToDict()
+    {
+        if (!testDelegates.TryGetValue("test", out TestDelegate testDelegate))
+        {
+            testDelegates.Add("test", testDelegate);
+        }
+
+        testDelegate += Test;
+        testDelegates["test"] = testDelegate;
+
+        if (!testDelegates.TryGetValue("test", out TestDelegate testDelegateB))
+        {
+            Debug.Log("Weird");
+            return;
+        }
+
+        Debug.Log(testDelegateB);
+    }
+
+    [ContextMenu("TryAddToDictB")]
+    private void TryAddToDictB()
+    {
+        if(!testDelegates.TryGetValue("test", out TestDelegate testDelegate))
+        {
+            testDelegates.Add("test", testDelegate);
+        }
+
+        testDelegate += TestB;
+        testDelegates["test"] = testDelegate;
+    }
+
+
+
+    [ContextMenu("TryRemoveToDict")]
+    private void TryRemoveToDict()
+    {
+        if (!testDelegates.TryGetValue("test", out TestDelegate testDelegate))
+        {
+            Debug.Log("No test in dict");
+            return;
+        }
+
+        testDelegate -= Test;
+        testDelegates["test"] = testDelegate;
+        Debug.Log("testDelegate " + testDelegate);
+    }
+
+    [ContextMenu("TryRemoveToDictB")]
+    private void TryRemoveToDictB()
+    {
+        if (!testDelegates.TryGetValue("test", out TestDelegate testDelegate))
+        {
+            Debug.Log("No test in dict");
+            return;
+        }
+
+        testDelegate -= TestB;
+        testDelegates["test"] = testDelegate;
+
+        Debug.Log("testDelegate " + testDelegate);
+    }
+
+
+    [ContextMenu("CallDict")]
+    private void CallDict()
+    {
+        if (!testDelegates.TryGetValue("test", out TestDelegate testDelegate))
+        {
+            Debug.Log("No test in dict");
+            return;
+        }
+
+        testDelegate?.Invoke();
+    }
+
+
+
+
     [ContextMenu("ResetDelegate")]
     private void ResetDelegate()
     {
@@ -42,6 +129,11 @@ public class DelegateTest : MonoBehaviour
     public void Test()
     {
         Debug.Log("Test");
+    }
+
+    public void TestB()
+    {
+        Debug.Log("TestB");
     }
 
 }

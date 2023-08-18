@@ -18,30 +18,13 @@ public class User : MonoBehaviour
     [SerializeField]
     DynamicFilterManager _dynFilterManager;
 
-    GraphMode _graphMode = GraphMode.Desk;
-
     [ContextMenu("Switch Graph Mode")]
-    public void SwitchGraphMode()
+    public bool SwitchGraphMode()
     {
-        if (_graphManager.IsRunningSimulation)
-        {
-            Debug.Log("Can't switch Mode when running simulation");
-            // TODO : Notification can't switch mode in simulation
-            return;
-        }
+        if(_graphManager.GraphMode == GraphMode.Desk)
+            return _graphManager.TrySwitchModeToImmersion();
 
-        if(_graphMode == GraphMode.Desk)
-        {
-            Debug.Log("Switch to Immersion Mode");
-            _graphMode = GraphMode.Immersion;
-            _graphManager.TrySwitchModeToImmersion();
-        }
-        else
-        {
-            Debug.Log("Switch to Desk Mode");
-            _graphMode = GraphMode.Desk;
-            _graphManager.TrySwitchModeToDesk();
-        }
+        return _graphManager.TrySwitchModeToDesk();
     }
 
     [ContextMenu("Hide Selected Node")]

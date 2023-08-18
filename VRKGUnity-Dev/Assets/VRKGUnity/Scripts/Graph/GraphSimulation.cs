@@ -98,9 +98,10 @@ public class GraphSimulation : MonoBehaviour
         var hasReachStopVelocity = false;
 
         float timer = 0f;
-        _isRunningSimulation = true;
-        
 
+        _isRunningSimulation = true;
+
+        
         while (_isRunningSimulation && !hasReachStopVelocity && !_wantStopSimulation)
         {
             DebugChrono.Instance.Start("tickGRaph");
@@ -239,6 +240,7 @@ public class GraphSimulation : MonoBehaviour
 
         return Mathf.Sqrt(maxSqrDistance);
     }
+
 
     private void OnDisable()
     {

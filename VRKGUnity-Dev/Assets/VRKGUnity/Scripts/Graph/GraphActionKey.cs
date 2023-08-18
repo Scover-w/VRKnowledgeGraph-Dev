@@ -13,6 +13,5 @@ public enum GraphActionKey
     RedoFilter,
 
     Simulate,
-    SwitchMode,
     SelectionMode
 }

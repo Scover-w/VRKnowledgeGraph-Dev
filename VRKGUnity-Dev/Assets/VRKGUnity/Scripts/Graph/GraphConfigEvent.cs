@@ -8,8 +8,14 @@ public class GraphConfigEvent
     ValueChanged<bool> _onBoolChanged;
     ValueChanged<Color> _onColorChanged;
 
-    public void Register<T>(ValueChanged<T> valueChanged)
+    InteractableStateChanged _onInteractableStateChanged;
+
+    public void Register<T>(ValueChanged<T> valueChanged, InteractableStateChanged interactableStateChanged = null)
     {
+        if (interactableStateChanged != null)
+            _onInteractableStateChanged += interactableStateChanged;
+
+
         if (typeof(T) == typeof(string))
             _onStringChanged += valueChanged as ValueChanged<string>;
 
@@ -20,11 +26,15 @@ public class GraphConfigEvent
             _onBoolChanged += valueChanged as ValueChanged<bool>;
 
         else if (typeof(T) == typeof(Color))
-            _onColorChanged += valueChanged as ValueChanged<Color>;
+            _onColorChanged += valueChanged as ValueChanged<Color>;   
     }
 
-    public bool UnRegister<T>(ValueChanged<T> valueChanged)
+    public bool UnRegister<T>(ValueChanged<T> valueChanged, InteractableStateChanged interactableStateChanged = null)
     {
+        if (interactableStateChanged != null)
+            _onInteractableStateChanged += interactableStateChanged;
+
+
         if (typeof(T) == typeof(string))
         {
             _onStringChanged -= valueChanged as ValueChanged<string>;
@@ -50,7 +60,7 @@ public class GraphConfigEvent
         return true;
     }
 
-    public void Invoke<T>(T value)
+    public void InvokeValueChanged<T>(T value)
     {
         switch (value)
         {
@@ -70,6 +80,11 @@ public class GraphConfigEvent
                 Debug.LogError("No event with " + typeof(T) + " is handled");
                 break;
         }
+    }
+
+    public void InvokeInteractableStateChanged(bool isInteractable)
+    {
+        _onInteractableStateChanged?.Invoke(isInteractable);
     }
 
 }

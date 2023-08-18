@@ -58,7 +58,8 @@ public class GraphManager : MonoBehaviour
 
     GraphMode _graphMode;
     GraphMode _nextGraphMode;
-    bool _switchingMode = false;
+    bool _isSwitchingMode = false;
+    bool _isRetrievingFromDb = false;
 
     void Start()
     {
@@ -78,7 +79,12 @@ public class GraphManager : MonoBehaviour
 
         _sparqlBuilder = new();
         string queryString = _sparqlBuilder.Build();
+
+        _isRetrievingFromDb = true;
+        OnGraphUpdate?.Invoke(GraphUpdateType.RetrievingFromDb);
         var nodges = await NodgesHelper.RetrieveGraph(queryString, _graphRepo);
+        _isRetrievingFromDb = false;
+
 
         _graph = new Graph(this, _stylingManager, nodges, _nodgePool, _graphRepo);
 
@@ -101,7 +107,10 @@ public class GraphManager : MonoBehaviour
 
         string query = _sparqlBuilder.Build();
 
+        _isRetrievingFromDb = true;
+        OnGraphUpdate?.Invoke(GraphUpdateType.RetrievingFromDb);
         var nodges = await NodgesHelper.RetrieveGraph(query, _graphRepo);
+        _isRetrievingFromDb = false;
 
         DebugChrono.Instance.Start("UpdateGraph");
         _graph.UpdateNodges(nodges);
@@ -113,6 +122,10 @@ public class GraphManager : MonoBehaviour
         _graphSimulation.Run(_graph);
     }
 
+    public bool CanSwitchMode()
+    {
+        return !IsRunningSimulation && !_isSwitchingMode && !_isRetrievingFromDb;
+    }
 
     public void ResetAll()
     {
@@ -130,39 +143,55 @@ public class GraphManager : MonoBehaviour
         OnGraphUpdate?.Invoke(GraphUpdateType.AfterSimulationHasStopped);
     }
 
-    public void TrySwitchModeToDesk()
+    public bool TrySwitchModeToDesk()
     {
-        if (IsRunningSimulation || _switchingMode)
+        if (IsRunningSimulation || _isSwitchingMode)
         {
             Debug.Log("Couldn't switch Mode");
-            return;
+            return false;
         }
 
-        _switchingMode = true;
+        if (_graphMode == GraphMode.Desk)
+        {
+            Debug.Log("Already in Desk Mode");
+            return false;
+        }
+
+        _isSwitchingMode = true;
         _nextGraphMode = GraphMode.Desk;
         OnGraphUpdate?.Invoke(GraphUpdateType.BeforeSwitchMode);
 
         Invoke(nameof(AfterSwitchMode), _graphConfiguration.GraphModeTransitionTime);
+
+        return true;
     }
 
-    public void TrySwitchModeToImmersion()
+    public bool TrySwitchModeToImmersion()
     {
-        if (IsRunningSimulation || _switchingMode)
+        if (IsRunningSimulation || _isSwitchingMode)
         {
             Debug.Log("Couldn't switch Mode");
-            return;
+            return false;
         }
 
-        _switchingMode = true;
+        if (_graphMode == GraphMode.Immersion)
+        {
+            Debug.Log("Already in Immersion Mode");
+            return false;
+        }
+
+        _isSwitchingMode = true;
         _nextGraphMode = GraphMode.Immersion;
         OnGraphUpdate?.Invoke(GraphUpdateType.BeforeSwitchMode);
 
         Invoke(nameof(AfterSwitchMode), _graphConfiguration.GraphModeTransitionTime);
+
+        return true;
     }
 
     private void AfterSwitchMode()
     {
-        _switchingMode = false;
+        _isSwitchingMode = false;
 
         if (_nextGraphMode == GraphMode.Desk)
         {
@@ -193,6 +222,8 @@ public enum GraphMode
 
 public enum GraphUpdateType
 {
+    RetrievingFromDb,
+
     BeforeSimulationStart,
     AfterSimulationHasStopped,
 
@@ -201,3 +232,5 @@ public enum GraphUpdateType
     AfterSwitchModeToDesk,
     AfterSwitchModeToImmersion
 }
+
+public delegate void ValueChanged(bool newValue);
