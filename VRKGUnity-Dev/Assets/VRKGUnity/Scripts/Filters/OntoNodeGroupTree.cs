@@ -111,7 +111,7 @@ public class OntoNodeGroupTree
                 return;
             }
 
-            if (ontoGroups.TryGetValue(upperOntoNode.UID, out OntoNodeGroup upperOntoGroup))
+            if (ontoGroups.TryGetValue(upperOntoNode.UID, out OntoNodeGroup upperOntoGroup)) // If upper group already exist, merge to it
             {
                 ontoGroupToDelete.SendNodesTo(upperOntoGroup);
                 ontoGroups.Remove(ontoGroupToDelete.UID);
@@ -121,6 +121,7 @@ public class OntoNodeGroupTree
                 return;
             }
 
+            // If upper group don't exist, create one and merge to it
             var newOntoGroup = new OntoNodeGroup(upperOntoNode);
             ontoGroupToDelete.SendNodesTo(newOntoGroup);
 
@@ -142,7 +143,7 @@ public class OntoNodeGroupTree
 
             int maxDepth = 0;
 
-            foreach (OntoNodeGroup ontoGroup in ontoGroups.Values)
+            foreach (OntoNodeGroup ontoGroup in ontoGroups.Values) // Retrieve all leaf groups
             {
                 if (ontoGroup.Height != 0)
                     continue;
@@ -166,7 +167,7 @@ public class OntoNodeGroupTree
                 var depth = ontoGroup.Depth;
                 var delta = Mathf.Abs(depth - maxDepth);
 
-                if (delta > maxDeltaHeight)
+                if (delta > maxDeltaHeight) // If group too far from the deepest leafNode, remove it, allows to 
                     continue;
 
                 int nbNode = ontoGroup.NodeCount;
