@@ -38,6 +38,7 @@ public class SubGraph : MonoBehaviour
     [SerializeField]
     NodgeSelectionManager _selectionManager;
 
+
     Transform _playerHeadTf;
     Transform _wristTf;
     GraphConfiguration _graphConfig;
@@ -157,6 +158,8 @@ public class SubGraph : MonoBehaviour
         }            
     }
 
+    
+
     private void BeforeSimulationStart()
     {
         
@@ -195,7 +198,7 @@ public class SubGraph : MonoBehaviour
         _subGraphTf.gameObject.SetActive(false);
         _gpsPointTf.gameObject.SetActive(false);
         _lensTf.gameObject.SetActive(false);
-
+       
 
         var graph = _graphManager.Graph;
         var edges = graph.EdgesDicUID.Values;

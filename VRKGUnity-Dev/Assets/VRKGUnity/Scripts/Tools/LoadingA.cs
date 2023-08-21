@@ -17,6 +17,12 @@ public class LoadingA : MonoBehaviour
     [SerializeField]
     List<Transform> _pointTfs;
 
+    [SerializeField]
+    float _durationMove = 2f;
+
+    [SerializeField]
+    float _durationWait = 1f;
+
     EasingDel _easingFunc;
 
     Dictionary<Vector3, LinePath> _linePathsSource;
@@ -24,7 +30,7 @@ public class LoadingA : MonoBehaviour
     List<SphereRoad> _sphereRoads;
 
 
-    void Start()
+    private void Awake()
     {
         _easingFunc = Easing.GetEasing(_easingType);
 
@@ -33,7 +39,7 @@ public class LoadingA : MonoBehaviour
         _sphereRoads = new();
 
 
-        for (int i = 0; i < _pointTfs.Count; ) 
+        for (int i = 0; i < _pointTfs.Count;)
         {
             Transform tf = _pointTfs[i];
             Transform tf2 = tf;
@@ -41,7 +47,7 @@ public class LoadingA : MonoBehaviour
             if (i + 1 < _pointTfs.Count)
                 tf2 = _pointTfs[i + 1];
 
-            Vector3 pos = tf.position;
+            Vector3 pos = tf.localPosition;
 
             var sphereRoad = new SphereRoad(tf);
             sphereRoad.SourcePos = pos;
@@ -54,7 +60,7 @@ public class LoadingA : MonoBehaviour
                 tf2 = _pointTfs[i - 4];
             }
 
-            Vector3 pos2 = tf2.position;
+            Vector3 pos2 = tf2.localPosition;
 
             var line = CreateLine();
 
@@ -62,18 +68,27 @@ public class LoadingA : MonoBehaviour
             linePath.SphereSourceTf = tf;
             linePath.SphereTargetTf = tf2;
             _linePathsSource.Add(pos, linePath);
-            _linePathsTarget.Add(pos2 , linePath);
+            _linePathsTarget.Add(pos2, linePath);
         }
 
         SetNewTargetToSphereRoad();
+    }
 
+    private void OnEnable()
+    {
         StartCoroutine(SwapingPositions());
+    }
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
     }
 
     private LineRenderer CreateLine()
     {
         var lineGo = Instantiate(_linePf);
         lineGo.transform.parent = _parentTf;
+        lineGo.transform.ResetLocal();
 
         return lineGo.GetComponent<LineRenderer>();
     }
@@ -84,7 +99,7 @@ public class LoadingA : MonoBehaviour
         {
 
             float t = 0f;
-            float speed = 1f / 3f;
+            float speed = 1f / _durationMove;
             bool hasSwitched = false;
 
             while(t < 1f)
@@ -107,7 +122,7 @@ public class LoadingA : MonoBehaviour
             SphereRoadReachedTarget();
             SetNewTargetToSphereRoad();
 
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(_durationMove);
 
         }
     }
@@ -210,8 +225,8 @@ class LinePath
 
     public void Update()
     {
-        _line.SetPosition(0, SphereSourceTf.position);
-        _line.SetPosition(1, SphereTargetTf.position);
+        _line.SetPosition(0, SphereSourceTf.localPosition);
+        _line.SetPosition(1, SphereTargetTf.localPosition);
     }
 
     public void SetColor(Color color)
@@ -240,7 +255,7 @@ class SphereRoad
 
     public void Update(float t)
     {
-        _sphereTf.position = Vector3.Lerp(SourcePos, TargetPos, t);
+        _sphereTf.localPosition = Vector3.Lerp(SourcePos, TargetPos, t);
     }
 
 }

@@ -23,6 +23,9 @@ public class MainGraph : MonoBehaviour
     [SerializeField]
     Transform _deskTf;
 
+    [SerializeField]
+    GameObject _loadingGo;
+
     Transform _playerTf;
 
     EasingDel _easingFunction;
@@ -48,12 +51,16 @@ public class MainGraph : MonoBehaviour
     {
         switch (updateType)
         {
+            case GraphUpdateType.RetrievingFromDb:
+                RetrieveFromDb();
+                break;
+
             case GraphUpdateType.BeforeSimulationStart:
 
                 break;
 
             case GraphUpdateType.AfterSimulationHasStopped:
-
+                AfterSimulationHasStopped();
                 break;
 
             case GraphUpdateType.BeforeSwitchMode:
@@ -70,10 +77,23 @@ public class MainGraph : MonoBehaviour
         }
     }
 
+    private void RetrieveFromDb()
+    {
+        if (_mainGraphMode == MainGraphMode.Immersion)
+            return;
 
+        _loadingGo.SetActive(true);
+    }
+
+    private void AfterSimulationHasStopped()
+    {
+        _loadingGo.SetActive(false);
+    }
 
     private void BeforeSwitchMode()
     {
+        _loadingGo.SetActive(false);
+
         _nextGraphMode = (_mainGraphMode == MainGraphMode.Desk? MainGraphMode.Immersion: MainGraphMode.Desk);
         _mainGraphMode = MainGraphMode.InTransition;
 
