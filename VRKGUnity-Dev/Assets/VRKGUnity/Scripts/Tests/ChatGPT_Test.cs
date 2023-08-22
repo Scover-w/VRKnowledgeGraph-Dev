@@ -4,7 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor.PackageManager;
+using System.Text;
 
 public class ChatGPT_Test : MonoBehaviour
 {
@@ -35,13 +35,19 @@ public class ChatGPT_Test : MonoBehaviour
             chatCompletionsOptions);
         using StreamingChatCompletions streamingChatCompletions = response.Value;
 
+
+        StringBuilder sb = new StringBuilder();
+
         await foreach (StreamingChatChoice choice in streamingChatCompletions.GetChoicesStreaming())
         {
             await foreach (ChatMessage message in choice.GetMessageStreaming())
             {
-                Debug.Log(message.Content);
+                string content = message.Content;
+                Debug.Log(content);
+                sb.Append(content);
             }
             
+            Debug.Log(sb.ToString());
         }
     }
 }
