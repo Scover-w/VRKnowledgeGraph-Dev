@@ -1,12 +1,9 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -86,30 +83,48 @@ public class WhisperAPI
     {
         using var client = new HttpClient();
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _apiKey);
+        client.Timeout = TimeSpan.FromSeconds(20f);
+
 
         var formData = new MultipartFormDataContent();
-        formData.Add(new StreamContent(stream), "file", "audio.wav");
+        stream.Position = 0;
+        formData.Add(new StreamContent(stream), "file", "audio.ogg");
         formData.Add(new StringContent("whisper-1"), "model");
+        formData.Add(new StringContent("text"), "response_format");
+
+        if (LanguageFormat.Length > 0)
+            formData.Add(new StringContent(LanguageFormat), "language");
+
+        var requestUrl = new Uri(_apiBaseUrl + "/audio/transcriptions");
 
 
-        var requestUrl = new Uri(_apiBaseUrl + "/audio/translations");
-
-        var response = await client.PostAsync(requestUrl, formData);
-
-        var responseContent = await response.Content.ReadAsStringAsync();
-
-        File.WriteAllText(Application.dataPath + "/Prometheus/AIHistory/Whisper/whisper-" + DateTime.Now.ToString().Replace(" ", "-").Replace("\\", "-").Replace("/", "-").Replace(":", "_") + ".json", JToken.Parse(responseContent).ToString(Formatting.Indented));
-
-
-        if (!response.IsSuccessStatusCode)
+        try
         {
-            throw new Exception($"Failed to transcribe audio: {response.StatusCode} {response.ReasonPhrase}");
+            var response = await client.PostAsync(requestUrl, formData);
+
+            var text = await response.Content.ReadAsStringAsync();
+
+
+            if (!response.IsSuccessStatusCode)
+            {
+                Debug.LogError($"Failed to transcribe audio: {response.StatusCode} {response.ReasonPhrase}");
+                return "";
+            }
+
+            return text;
         }
+        catch (TaskCanceledException tastCalceledException)
+        {
+            Debug.Log("Failed Whisper Transcription ");
+            Debug.Log(tastCalceledException);
 
-        var result = JsonConvert.DeserializeObject<Transcription>(responseContent);
-        Debug.Log(result.Text);
-
-        return result.Text;
+            return "";
+        }
+        catch (Exception e)
+        {
+            Debug.Log("Failed Whisper Transcription");
+            return "";
+        }
     }
 
     private class Transcription
