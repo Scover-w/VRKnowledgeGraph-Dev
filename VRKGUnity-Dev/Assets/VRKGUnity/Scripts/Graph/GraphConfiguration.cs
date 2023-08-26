@@ -248,13 +248,26 @@ public class GraphConfiguration
         switch (key)
         {
             case GraphConfigKey.SelectionMode:
-                SelectionMode = GraphConfigurationTools.StringToEnum<SelectionMode>(value);
+                if (!value.TryParseToEnum(out SelectionMode selectionMode))
+                    return false;
+
+                SelectionMode = selectionMode;
                 return true;
+
             case GraphConfigKey.SelectedMetricTypeSize:
-                SelectedMetricTypeSize = GraphConfigurationTools.StringToEnum<GraphMetricType>(value);
+
+                if (!value.TryParseToEnum(out GraphMetricType graphMetricType))
+                    return false;
+
+                SelectedMetricTypeSize = graphMetricType;
                 return true;
+
             case GraphConfigKey.SelectedMetricTypeColor:
-                SelectedMetricTypeColor = GraphConfigurationTools.StringToEnum<GraphMetricType>(value);
+
+                if (!value.TryParseToEnum(out GraphMetricType graphMetricTypeB))
+                    return false;
+
+                SelectedMetricTypeColor = graphMetricTypeB;
                 return true;
         }
 

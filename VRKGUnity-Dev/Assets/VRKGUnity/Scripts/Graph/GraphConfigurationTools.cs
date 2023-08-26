@@ -323,16 +323,4 @@ public static class GraphConfigurationTools
             _ => Color.white,
         };
     }
-
-    public static T StringToEnum<T>(string enumString) where T : struct, Enum
-    {
-        if (Enum.TryParse(enumString, true, out T result))
-
-            return result;
-
-        Debug.LogWarning($"StringToEnum<{typeof(T).Name}> couldn't parse the string: {enumString}");
-
-        return  default;
-    }
-
 }
