@@ -23,7 +23,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/VRKGUnity/Scenes/Tests/CanvasSize.unity
     guid: 6555ec4c712eaf34c9917b02e3b456c3
-  - enabled: 1
+  - enabled: 0
     path: Assets/VRKGUnity/Scenes/Tests/MicTests.unity
     guid: a14c84dc977e9ab439a05ed37decabb6
   - enabled: 0

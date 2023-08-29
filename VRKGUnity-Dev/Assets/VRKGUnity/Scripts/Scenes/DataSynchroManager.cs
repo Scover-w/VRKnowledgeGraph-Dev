@@ -113,8 +113,7 @@ public class DataSynchroManager : MonoBehaviour
         var json = await _graphDbAPI.SelectQuery(queryString, true);
 
         _data = await JsonConvertHelper.DeserializeObjectAsync<JObject>(json);
-
-
+        Debug.Log(_data);
         await repoUris.RetrieveNewNamespaces(_data, _graphDbAPI);
         await repoUris.CreateOntologyTrees(_graphDbAPI);
 

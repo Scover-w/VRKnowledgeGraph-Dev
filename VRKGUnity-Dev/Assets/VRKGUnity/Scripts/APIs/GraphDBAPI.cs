@@ -45,7 +45,7 @@ public class GraphDBAPI
     public async Task<string> SelectQuery(string sparqlQuery, bool doInfer = false)
     {
         using HttpClient client = new();
-
+        Debug.Log(_serverUrl + " " + _repositoryId);
         string encodedQuery = WebUtility.UrlEncode(sparqlQuery);
         HttpRequestMessage request = new(HttpMethod.Get, _serverUrl + "repositories/" + _repositoryId + "?query=" + encodedQuery + "&infer=" + doInfer.ToString().ToLower());
         request.Headers.Add("Accept", "application/sparql-results+json");
