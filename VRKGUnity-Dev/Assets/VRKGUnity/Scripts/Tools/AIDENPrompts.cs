@@ -11,4 +11,5 @@ public enum AIDENPrompts
     Metrique,
     Temps,
     Physique,
+    Action,
 }

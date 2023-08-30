@@ -234,6 +234,14 @@ public enum GraphMode
     Immersion
 }
 
+public enum GraphName
+{
+    Desk,
+    Lense,
+    Immersion,
+    GPS
+}
+
 public enum GraphUpdateType
 {
     RetrievingFromDb,

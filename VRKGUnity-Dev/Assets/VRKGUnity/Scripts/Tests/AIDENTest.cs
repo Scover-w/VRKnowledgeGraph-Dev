@@ -14,6 +14,23 @@ public class AIDENTest : MonoBehaviour
 
     public string UserSentence;
 
+    public Color Color;
+
+    [ContextMenu("Darken")]
+    public void Darken()
+    {
+        Color -= Color * 0.3f;
+        Color.a = 1f;
+    }
+
+    [ContextMenu("Lighten")]
+    public void Lighten()
+    {
+        Color += Color * 0.3f;
+        Color.a = 1f;
+    }
+
+
     [ContextMenu("Ask")]
     public void Ask()
     {

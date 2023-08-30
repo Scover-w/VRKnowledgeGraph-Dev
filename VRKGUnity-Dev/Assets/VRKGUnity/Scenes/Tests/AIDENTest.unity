@@ -312,6 +312,7 @@ GameObject:
   - component: {fileID: 1649789631}
   - component: {fileID: 1649789630}
   - component: {fileID: 1649789632}
+  - component: {fileID: 1649789633}
   m_Layer: 0
   m_Name: SCRIPT
   m_TagString: Untagged
@@ -361,5 +362,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _aiden: {fileID: 1649789630}
-  UserSentence: Augmente la taille du noeud et augmente de 5% la force de coulomb.
-    Passe en betwenness centrality aussi
+  UserSentence: Cache le gra0phe gps, switche en bureau et met les noeuds en rouge.
+    Met la transparence des aretes a 0.5
+  Color: {r: 1.07653, g: 0, b: 0, a: 1}
+--- !u!114 &1649789633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1649789629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3682212357a858943aa100638747510b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
