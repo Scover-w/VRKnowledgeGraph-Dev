@@ -74,7 +74,6 @@ public partial class InputPropagatorManager : MonoBehaviour
             GraphActionKey.UndoFilter => _dynFilterManager.NbFilter != 0,
             GraphActionKey.RedoFilter => _dynFilterManager.NbRedoFilter != 0,
             GraphActionKey.Simulate => !_graphManager.IsRunningSimulation,
-            GraphActionKey.SelectionMode => true,
             _ => true,
         };
     }
@@ -223,9 +222,201 @@ public partial class InputPropagatorManager : MonoBehaviour
     }
     #endregion
 
+
+    #region ChangeFromAIDEN
+    public void SetNewValues(AIDENIntents aidenIntents)
+    {
+        var intents = aidenIntents.Intents;
+
+        StyleChange styleChanges = StyleChange.None;
+
+
+        foreach(AIDENIntent intent in intents)
+        {
+            if(intent.IsGraphConfig)
+            {
+                styleChanges = styleChanges.Add(TrySetConfigValue(intent));
+            }
+            else
+            {
+                InitiateNewAction(intent.GraphActionKey);
+            }
+        }
+
+
+        _stylingManager.UpdateStyling(styleChanges);
+
+
+        StyleChange TrySetConfigValue(AIDENIntent intent)
+        {
+            var key = intent.GraphConfigKey;
+
+            switch (intent.ValueType)
+            {
+                case AIDENValueType.String:
+                    var valueString = intent.ValueString;
+                    if (!TrySetValue(key, valueString))
+                        return StyleChange.None;
+
+                        InvokeValueChanged(key, valueString);
+                    break;
+
+                case AIDENValueType.Float:
+                    var valueFloat = intent.ValueFloat;
+                    if (!TrySetValue(key, valueFloat))
+                        return StyleChange.None;
+
+                    InvokeValueChanged(key, valueFloat);
+                    break;
+
+                case AIDENValueType.Boolean:
+                    var valueBoolean = intent.ValueBoolean;
+                    if (!TrySetValue(key, valueBoolean))
+                        return StyleChange.None;
+
+                    InvokeValueChanged(key, valueBoolean);
+                    break;
+
+                case AIDENValueType.Color:
+                    var valueColor = intent.ValueColor;
+                    if (!TrySetValue(key, valueColor))
+                        return StyleChange.None;
+
+                    InvokeValueChanged(key, valueColor);
+                    break;
+
+                default:
+                    return StyleChange.None;
+            }
+
+            return StyleChangeBuilder.Get(key);
+        }
+
+        bool TrySetValue<T>(GraphConfigKey key, T newValue)
+        {
+            if (TryProcessSpecialConfigKey(key, newValue))
+                return false;
+
+            if (!_graphConfiguration.TrySetValue(key, newValue))
+                return false;
+
+            return true;
+        }
+
+    }
+
+    public void SetOldValues(AIDENIntents aidenIntents)
+    {
+        var intents = aidenIntents.Intents;
+
+        StyleChange styleChanges = StyleChange.None;
+
+
+        foreach (AIDENIntent intent in intents)
+        {
+            if (intent.IsGraphConfig)
+            {
+                styleChanges = styleChanges.Add(TrySetConfigValue(intent));
+            }
+            else
+            {
+                CancelAction(intent.GraphActionKey);
+            }
+        }
+
+
+        _stylingManager.UpdateStyling(styleChanges);
+
+
+        StyleChange TrySetConfigValue(AIDENIntent intent)
+        {
+            var key = intent.GraphConfigKey;
+
+            switch (intent.ValueType)
+            {
+                case AIDENValueType.String:
+                    var valueString = intent.OldValueString;
+                    if (!TrySetValue(key, valueString))
+                        return StyleChange.None;
+
+                    InvokeValueChanged(key, valueString);
+                    break;
+
+                case AIDENValueType.Float:
+                    var valueFloat = intent.OldValueFloat;
+                    if (!TrySetValue(key, valueFloat))
+                        return StyleChange.None;
+
+                    InvokeValueChanged(key, valueFloat);
+                    break;
+
+                case AIDENValueType.Boolean:
+                    var valueBoolean = intent.OldValueBoolean;
+                    if (!TrySetValue(key, valueBoolean))
+                        return StyleChange.None;
+
+                    InvokeValueChanged(key, valueBoolean);
+                    break;
+
+                case AIDENValueType.Color:
+                    var valueColor = intent.OldValueColor;
+                    if (!TrySetValue(key, valueColor))
+                        return StyleChange.None;
+
+                    InvokeValueChanged(key, valueColor);
+                    break;
+
+                default:
+                    return StyleChange.None;
+            }
+
+            return StyleChangeBuilder.Get(key);
+        }
+
+        bool TrySetValue<T>(GraphConfigKey key, T newValue)
+        {
+            if (TryProcessSpecialConfigKey(key, newValue))
+                return false;
+
+            if (!_graphConfiguration.TrySetValue(key, newValue))
+                return false;
+
+            return true;
+        }
+
+        void CancelAction(GraphActionKey actionKey)
+        {
+            switch (actionKey)
+            {
+                case GraphActionKey.UndoFilter:
+                    InitiateNewAction(GraphActionKey.RedoFilter);
+                    break;
+                case GraphActionKey.RedoFilter:
+                    InitiateNewAction(GraphActionKey.UndoFilter);
+                    break;
+                case GraphActionKey.FilterSelected:
+                    InitiateNewAction(GraphActionKey.UndoFilter);
+                    break;
+                case GraphActionKey.FilterUnselected:
+                    InitiateNewAction(GraphActionKey.UndoFilter);
+                    break;
+                case GraphActionKey.FilterPropagated:
+                    InitiateNewAction(GraphActionKey.UndoFilter);
+                    break;
+                case GraphActionKey.FilterUnpropagated:
+                    InitiateNewAction(GraphActionKey.UndoFilter);
+                    break;
+            }
+        }
+
+    }
+
+
+    #endregion
+
     private void UpdateStyling(GraphConfigKey key)
     {
-        var styleChange = StyleChangeBuilder.Get(key);
+        StyleChange styleChange = StyleChangeBuilder.Get(key);
         _stylingManager.UpdateStyling(styleChange);
     }
 

@@ -334,6 +334,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _aidenUI: {fileID: 0}
   _prompts: {fileID: 4900000, guid: 16b474412cbcee949b170aef50f5a7b0, type: 3}
+  _propagatorManager: {fileID: 0}
+  _graphConfigurationContainerSO: {fileID: 11400000, guid: 7086a0d0e5c5fa74c91774d1597bf4fc, type: 2}
 --- !u!4 &1649789631
 Transform:
   m_ObjectHideFlags: 0
@@ -362,9 +364,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _aiden: {fileID: 1649789630}
-  UserSentence: Cache le gra0phe gps, switche en bureau et met les noeuds en rouge.
-    Met la transparence des aretes a 0.5. Relance la simulation
-  Color: {r: 1.07653, g: 0, b: 0, a: 1}
+  UserSentence: Augmente le graphe bureau de 25
 --- !u!114 &1649789633
 MonoBehaviour:
   m_ObjectHideFlags: 0

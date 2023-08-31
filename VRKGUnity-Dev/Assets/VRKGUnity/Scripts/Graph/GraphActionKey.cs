@@ -4,14 +4,15 @@ using UnityEngine;
 
 public enum GraphActionKey
 {
+    SelectionMode,
+
+    UndoFilter,
+    RedoFilter,
+
     FilterSelected,
     FilterUnselected,
     FilterPropagated,
     FilterUnpropagated,
 
-    UndoFilter,
-    RedoFilter,
-
-    Simulate,
-    SelectionMode
+    Simulate
 }

@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class AIDENTest : MonoBehaviour
 {
@@ -14,39 +15,49 @@ public class AIDENTest : MonoBehaviour
 
     public string UserSentence;
 
-    public Color Color;
-
-    [ContextMenu("Darken")]
-    public void Darken()
-    {
-        Color -= Color * 0.3f;
-        Color.a = 1f;
-    }
-
-    [ContextMenu("Lighten")]
-    public void Lighten()
-    {
-        Color += Color * 0.3f;
-        Color.a = 1f;
-    }
 
 
     [ContextMenu("Ask")]
     public void Ask()
     {
-        _aiden.DetectIntentsGroup(UserSentence);
+        _aiden.DetectIntentsGroup(0, UserSentence);
     }
 
-    [ContextMenu("Test")]
+    [ContextMenu("Test order")]
     public void Test()
     {
-        string json = "{ \"TAILLE\": \"augmente la taille du noeud\" }";
-        JObject jToken = JObject.Parse(json);
+        List<AIDENIntent> Intents = new();
 
 
-        JObject jsonObj = JObject.Parse(json);
+        for (int i = 0; i < 100; i++)
+        {
 
-       
+            bool isAction = Random.Range(0f, 1f) > .9f;
+
+            if (isAction)
+                Intents.Add(new AIDENIntent((GraphActionKey)Random.Range(0, 6)));
+            else
+                Intents.Add(new AIDENIntent((GraphConfigKey)Random.Range(0, 79), 2f, 2f));
+
+        }
+
+        foreach (AIDENIntent intent in Intents)
+        {
+            Debug.Log(intent.IsGraphConfig ? (int)intent.GraphConfigKey : (int)intent.GraphActionKey * 1000);
+        }
+
+
+        Debug.Log("-----\n\n---------");
+
+        Intents = Intents
+        .OrderBy(intent => !intent.IsGraphConfig)
+        .ThenBy(intent => intent.IsGraphConfig ? (int)intent.GraphConfigKey : (int)intent.GraphActionKey)
+        .ToList();
+
+        foreach(AIDENIntent intent in Intents) 
+        {
+            Debug.Log(intent.IsGraphConfig ? intent.GraphConfigKey : intent.GraphActionKey);
+        }
     }
 
     [ContextMenu("TestTest")]
