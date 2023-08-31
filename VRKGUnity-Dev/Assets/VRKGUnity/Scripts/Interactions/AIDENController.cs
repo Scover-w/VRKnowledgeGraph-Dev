@@ -6,6 +6,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -62,16 +63,6 @@ public class AIDENController : MonoBehaviour
         _graphConfiguration = await _graphConfigurationContainerSO.GetGraphConfiguration();
     }
 
-    public void Ask(AudioClip clip)
-    {
-        _stopPayloadId = _payloadCounterId;
-
-        _payloadCounterId++;
-        RawPayload payload = new(_payloadCounterId, clip);
-
-        ThreadPool.QueueUserWorkItem(TranscribeAudio, payload);
-    }
-
     public void CancelActions()
     {
         if (_aidenIntents == null || _aidenIntents.Intents.Count == 0)
@@ -86,6 +77,18 @@ public class AIDENController : MonoBehaviour
     {
         _stopPayloadId = _payloadCounterId;
     }
+
+
+    public void Ask(AudioClip clip)
+    {
+        _stopPayloadId = _payloadCounterId;
+
+        _payloadCounterId++;
+        RawPayload payload = new(_payloadCounterId, clip);
+
+        ThreadPool.QueueUserWorkItem(TranscribeAudio, payload);
+    }
+
 
 
     private async void TranscribeAudio(object rawPayloadObj)
@@ -103,8 +106,150 @@ public class AIDENController : MonoBehaviour
             return;
         }
 
-        DetectIntentsGroup(rawPayload.Id, userIntentTxt);
+        // Cheap way to detect if need to call the splitIntentTexts function that add another api call
+        string separator = TryGetSeparator(userIntentTxt);
+
+        if (separator == null)
+        {
+            DetectIntentsGroup(rawPayload.Id, userIntentTxt);
+            return;
+        }
+
+        // Check if common 
+
+
+
+        SplitIntentsText(rawPayload.Id, userIntentTxt);
+            
     }
+
+
+    public string TryGetSeparator(string userIntentTxt)
+    {
+        if(userIntentTxt.Contains(","))
+        {
+            if (IsCommaASeparator(userIntentTxt)) // Mean that multiple intents are in the text
+                return ",";
+        }
+
+        if(userIntentTxt.Contains(" et "))
+        {
+            if(IsAndASeparator(userIntentTxt)) // Mean that multiple intents are in the text
+                return "et";
+        }
+
+        if (userIntentTxt.Contains(" puis ")) // Mean that multiple intents are in the text
+        { 
+            return "puis";
+        }
+
+        return null;
+    }
+
+    private bool IsCommaASeparator(string userIntentTxt)
+    {
+        string[] splits = userIntentTxt.Split(",");
+
+        int nbSplit = splits.Length;
+
+        if (nbSplit == 1)
+            return false;
+
+        for(int i = 1; i < nbSplit; i++)
+        {
+            string split = splits[i];
+
+            if (!char.IsDigit(split[0]))
+                return true;
+        }
+
+        return false;
+    }
+
+    private bool IsAndASeparator(string userIntentTxt)
+    {
+        HashSet<string> nextWords = new() // new word that are used when it's the same intent in the sentence (it's a sub intent)
+        {
+            "le",
+            "la",
+            "les",
+            "l'",
+            "du",
+            "des"
+        };
+
+        string[] splits = userIntentTxt.Split("et");
+
+        int nbSplit = splits.Length;
+
+        if (nbSplit == 1)
+            return false;
+
+        for (int i = 1; i < nbSplit; i++)
+        {
+            string split = splits[i].Replace(" ","");
+
+            if (!StartWithNextWord(split)) // probably a verb, so a new intent
+                return true;
+        }
+
+        return false;
+
+        bool StartWithNextWord(string words)
+        {
+            foreach(string nextWord in nextWords) 
+            {
+                if (words.StartsWith(nextWord))
+                    return true;
+            }
+
+            return false;
+        }
+
+    }
+
+    public async void SplitIntentsText(int payloadId, string userIntentTxt)
+    {
+        ChatCompletionsOptions chat = GetChat(AIDENPrompts.SeparePhrase, userIntentTxt);
+
+        Response<ChatCompletions> response = await _gptClient.GetChatCompletionsAsync(
+            deploymentOrModelName: _gptModelName,
+        chat);
+
+        if (payloadId <= _stopPayloadId)
+        {
+            Debug.Log("Stopped Payload " + payloadId + " at SplitIntentsText.");
+            return;
+        }
+
+        var aidenAnswer = response.Value.Choices[0].Message.Content;
+        HandleSplitIntentText(payloadId, aidenAnswer);
+    }
+
+    public async void HandleSplitIntentText(int payloadId, string aidenAnswer)
+    {
+        JObject jObject = JObject.Parse(aidenAnswer);
+
+        var intents = jObject.GetValue("intentions");
+
+        if (intents == null)
+        {
+            Debug.Log("Couldn't Deserialize Intentions Split in HandleSplitIntentText.");
+            // TODO : FeedbackUI
+            return;
+        }
+
+        List<string> sentencesIntents = new();
+
+        JArray intentArray = (JArray)intents;
+        foreach (var intent in intentArray)
+        {
+            sentencesIntents.Add(intent.ToString());
+        }
+
+
+    }
+
 
     public async void DetectIntentsGroup(int payloadId, string userIntentTxt)
     {
@@ -135,7 +280,7 @@ public class AIDENController : MonoBehaviour
         }
         catch
         {
-            Debug.Log("Couldn't Deserialize AIDENIntentGroupAnswers.");
+            Debug.Log("Couldn't Deserialize AIDENIntentGroupAnswers in HandleIntentsGroupDetection.");
             // TODO : FeedbackUI
             return;
         }
@@ -881,6 +1026,13 @@ public class AIDENController : MonoBehaviour
 
         Color currentColor = GetCurentColor(colorKey);
 
+
+        if(newColor == currentColor)
+        {
+            Debug.Log("HandleColorIntent newColor is the same color as the old one : " + newColor);
+            return;
+        }
+
         aidenIntents.Add(new AIDENIntent(colorKey, newColor, currentColor));
 
 
@@ -1543,7 +1695,6 @@ public class AIDENController : MonoBehaviour
     {
         string asistantPrompt = _promptsDict[aidenPrompts];
 
-        Debug.Log("GetChat : " + aidenPrompts.ToString() + " : " + asistantPrompt + " / " + transcribedText);
         var chat = new ChatCompletionsOptions()
         {
             Messages =
@@ -1554,6 +1705,7 @@ public class AIDENController : MonoBehaviour
         };
 
         chat.Temperature = 0;
+        chat.MaxTokens = 256;
 
         return chat;
     }

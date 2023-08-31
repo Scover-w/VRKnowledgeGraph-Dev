@@ -14,6 +14,7 @@ public class AIDENTest : MonoBehaviour
 
 
     public string UserSentence;
+    public string SplitSentence;
 
 
 
@@ -21,6 +22,12 @@ public class AIDENTest : MonoBehaviour
     public void Ask()
     {
         _aiden.DetectIntentsGroup(0, UserSentence);
+    }
+
+    [ContextMenu("AskButSplitBefore")]
+    public void AskButSplitBefore()
+    {
+        _aiden.SplitIntentsText(0, UserSentence);
     }
 
     [ContextMenu("Test order")]
@@ -54,7 +61,7 @@ public class AIDENTest : MonoBehaviour
         .ThenBy(intent => intent.IsGraphConfig ? (int)intent.GraphConfigKey : (int)intent.GraphActionKey)
         .ToList();
 
-        foreach(AIDENIntent intent in Intents) 
+        foreach (AIDENIntent intent in Intents)
         {
             Debug.Log(intent.IsGraphConfig ? intent.GraphConfigKey : intent.GraphActionKey);
         }
@@ -69,8 +76,8 @@ public class AIDENTest : MonoBehaviour
 
         (string key, string value) = GetKeyValue(jToken);
 
-        Debug.Log(key + " " + value);   
- 
+        Debug.Log(key + " " + value);
+
     }
 
     private (string key, string value) GetKeyValue(JObject jObject)
@@ -79,7 +86,7 @@ public class AIDENTest : MonoBehaviour
         {
             var props = jObject.Properties();
 
-            foreach(var prop in props) 
+            foreach (var prop in props)
             {
                 Debug.Log(prop);
                 Debug.Log(prop.Name);
@@ -94,6 +101,41 @@ public class AIDENTest : MonoBehaviour
         {
             return ("", "");
         }
+    }
+
+
+
+    [ContextMenu("TokenTest")]
+    private void TokenTest()
+    {
+        string test = "{\r\n  \"intentions\": [\r\n    \"Passe en mode chemin court pour la taille\",\r\n    \"Réduit la taille du graphe de 25%\",\r\n    \"Réduit la taille des arêtes de 25%\",\r\n    \"Colore les nœuds en bleu\"\r\n  ]\r\n}";
+
+        JObject jObject = JObject.Parse(test);
+        var props = jObject.Properties();
+
+        var intents = jObject.GetValue("intentions");
+
+        JArray intentArray = (JArray)intents;
+        foreach (var intent in intentArray)
+        {
+            string singleIntent = intent.ToString();
+            // Do something with singleIntent
+        }
+
+    }
+
+    [ContextMenu("Test Split")]
+    private void TestSplit()
+    {
+        string[] splits = SplitSentence.Split(",");
+
+        Debug.Log(splits.Length);
+
+        foreach(string split in splits)
+        {
+            Debug.Log(split);
+        }
+
     }
 
 }

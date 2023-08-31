@@ -364,7 +364,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _aiden: {fileID: 1649789630}
-  UserSentence: Augmente le graphe bureau de 25
+  UserSentence: Passe en mode chemin court pour la taille, reduit la taille du graphe
+    et des aretes de 25%, sinon colore les noeuds en bleu
+  SplitSentence: 
 --- !u!114 &1649789633
 MonoBehaviour:
   m_ObjectHideFlags: 0
