@@ -363,7 +363,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _aiden: {fileID: 1649789630}
   UserSentence: Cache le gra0phe gps, switche en bureau et met les noeuds en rouge.
-    Met la transparence des aretes a 0.5
+    Met la transparence des aretes a 0.5. Relance la simulation
   Color: {r: 1.07653, g: 0, b: 0, a: 1}
 --- !u!114 &1649789633
 MonoBehaviour:

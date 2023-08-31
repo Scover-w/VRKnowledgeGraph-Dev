@@ -52,7 +52,7 @@ public class AIDENTest : MonoBehaviour
     [ContextMenu("TestTest")]
     public void TestTest()
     {
-        string bobo = "{\r\n    \"mode\": \"SELECTION\",\r\n    \"type\": \"MULTIPLE\"\r\n}";
+        string bobo = "{\"intentions\": [{\"TAILLE\": \"Augmente le graphe bureau de 25%\"}]}";
 
         JObject jToken = JObject.Parse(bobo);
 

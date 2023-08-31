@@ -21,6 +21,9 @@ public class AIDENController : MonoBehaviour
     [SerializeField]
     TextAsset _prompts;
 
+    [SerializeField]
+    InputPropagatorManager _propagatorManager;
+
     GraphConfiguration _graphConfiguration;
 
     WhisperAPI _audioToTextAPI;
@@ -31,6 +34,9 @@ public class AIDENController : MonoBehaviour
     CancellationToken _cancelationToken;
 
     string _gptModelName;
+    int _stopPayloadId = -1;
+    int _payloadCounterId = 0;
+
 
 
     [ContextMenu("Start")]
@@ -53,20 +59,44 @@ public class AIDENController : MonoBehaviour
 
     public void Ask(AudioClip clip)
     {
-        ThreadPool.QueueUserWorkItem(TranscribeAudio, clip);
+        _stopPayloadId = _payloadCounterId;
+
+        _payloadCounterId++;
+        RawPayload payload = new(_payloadCounterId, clip);
+
+        ThreadPool.QueueUserWorkItem(TranscribeAudio, payload);
+    }
+
+    public void CancelActions()
+    {
+
+    }
+
+    public void Stop()
+    {
+        _stopPayloadId = _payloadCounterId;
     }
 
 
-    private async void TranscribeAudio(object audioState)
+    private async void TranscribeAudio(object rawPayloadObj)
     {
-        var clip = (AudioClip)audioState;
+        RawPayload rawPayload = (RawPayload)rawPayloadObj;
+
+        var clip = (AudioClip)rawPayload.Payload ;
         var audioStream = clip.EncodeToOggVorbisStream(true);
 
         var userIntentTxt = await new WhisperAPI().TranscribeAudio(audioStream);
-        DetectIntentsGroup(userIntentTxt);
+
+        if (rawPayload.Id <= _stopPayloadId)
+        {
+            Debug.Log("Stopped Payload " + rawPayload.Id + " at TranscribeAudio.");
+            return;
+        }
+
+        DetectIntentsGroup(rawPayload.Id, userIntentTxt);
     }
 
-    public async void DetectIntentsGroup(string userIntentTxt)
+    public async void DetectIntentsGroup(int payloadId, string userIntentTxt)
     {
         ChatCompletionsOptions chat = GetChat(AIDENPrompts.Groupe, userIntentTxt);
 
@@ -74,14 +104,31 @@ public class AIDENController : MonoBehaviour
             deploymentOrModelName: _gptModelName,
         chat);
 
+        if (payloadId <= _stopPayloadId)
+        {
+            Debug.Log("Stopped Payload " + payloadId + " at DetectIntentsGroup.");
+            return;
+        }
+
         var aidenAnswer = response.Value.Choices[0].Message.Content;
-        HandleIntentsGroupDetection(aidenAnswer);
+        HandleIntentsGroupDetection(payloadId, aidenAnswer);
     }
 
-    private void HandleIntentsGroupDetection(string answer)
+    private void HandleIntentsGroupDetection(int payloadId, string answer)
     {
         Debug.Log(answer);
-        AIDENIntentGroupAnswers aidenAnswer = JsonConvert.DeserializeObject<AIDENIntentGroupAnswers>(answer);
+
+        AIDENIntentGroupAnswers aidenAnswer = new();
+        try
+        {
+            aidenAnswer = JsonConvert.DeserializeObject<AIDENIntentGroupAnswers>(answer);
+        }
+        catch
+        {
+            Debug.Log("Couldn't Deserialize AIDENIntentGroupAnswers.");
+            // TODO : FeedbackUI
+            return;
+        }
 
         var intentions = aidenAnswer.Intentions;
         List<AIDENPromptPayload> payloads = new();
@@ -107,12 +154,12 @@ public class AIDENController : MonoBehaviour
         }
 
 
-        _ = DetectIntentsAsync(payloads);
+        _ = DetectIntentsAsync(payloadId, payloads);
     }
 
 
 
-    private async Task DetectIntentsAsync(List<AIDENPromptPayload> payloads)
+    private async Task DetectIntentsAsync(int payloadId, List<AIDENPromptPayload> payloads)
     {
         List<Task<Response<ChatCompletions>>> tasks = new List<Task<Response<ChatCompletions>>>();
 
@@ -122,6 +169,14 @@ public class AIDENController : MonoBehaviour
         }
 
         await Task.WhenAll(tasks);
+
+
+        if(payloadId <= _stopPayloadId)
+        {
+            Debug.Log("Stopped Payload " + payloadId + " at DetectIntentsAsync.");
+            return;
+        }
+
 
         int i = 0;
 
@@ -223,29 +278,68 @@ public class AIDENController : MonoBehaviour
 
         if(mode == "graphe")
         {
+            GraphMode currentGraphMode = _graphConfiguration.GraphMode;
+
+            // TODO : Check if can switch mode
 
             if (type == "bureau" || type == "loupe")
             {
-                aidenIntents.Add(new AIDENIntent(GraphConfigKey.GraphMode, GraphMode.Desk.ToString()));
+                if(currentGraphMode == GraphMode.Desk)
+                {
+                    Debug.Log("HandleModeIntent GraphMode has already the same value : " + currentGraphMode);
+                    return;
+                }
+
+
+                aidenIntents.Add(new AIDENIntent(GraphConfigKey.GraphMode, GraphMode.Desk.ToString(), currentGraphMode.ToString()));
+                return;
             }
             else if (type == "immersion" || type == "gps")
             {
-                aidenIntents.Add(new AIDENIntent(GraphConfigKey.GraphMode, GraphMode.Immersion.ToString()));
+                if (currentGraphMode == GraphMode.Immersion)
+                {
+                    Debug.Log("HandleModeIntent GraphMode has already the same value : " + currentGraphMode);
+                    return;
+                }
+
+
+                aidenIntents.Add(new AIDENIntent(GraphConfigKey.GraphMode, GraphMode.Immersion.ToString(), currentGraphMode.ToString()));
+                return;
             }
+
+            LogWarning();
             return;
         }
 
 
         if(mode == "selection")
         {
+            SelectionMode currentSelectionMode = _graphConfiguration.SelectionMode;
+
             if (type == "simple")
             {
-                aidenIntents.Add(new AIDENIntent(GraphConfigKey.SelectionMode, SelectionMode.Single.ToString()));
+                if(currentSelectionMode == SelectionMode.Single)
+                {
+                    Debug.Log("HandleModeIntent SelectionMode has already the value " + currentSelectionMode);
+                    return;
+                }
+
+                aidenIntents.Add(new AIDENIntent(GraphConfigKey.SelectionMode, SelectionMode.Single.ToString(), currentSelectionMode.ToString()));
+                return;
             }
             else if (type == "multiple")
             {
-                aidenIntents.Add(new AIDENIntent(GraphConfigKey.SelectionMode, SelectionMode.Multiple.ToString()));
+                if (currentSelectionMode == SelectionMode.Multiple)
+                {
+                    Debug.Log("HandleModeIntent SelectionMode has already the value " + currentSelectionMode);
+                    return;
+                }
+
+                aidenIntents.Add(new AIDENIntent(GraphConfigKey.SelectionMode, SelectionMode.Multiple.ToString(), currentSelectionMode.ToString()));
+                return;
             }
+
+            LogWarning();
             return;
         }
 
@@ -268,27 +362,35 @@ public class AIDENController : MonoBehaviour
                 return;
             }
 
-            GraphMetricType metricType = GraphMetricType.None;
+            GraphMetricType newMetricType = GraphMetricType.None;
 
             if (type == "normal")
-                metricType = GraphMetricType.None;
+                newMetricType = GraphMetricType.None;
             else if(type == "degre")
-                metricType = GraphMetricType.Degree;
+                newMetricType = GraphMetricType.Degree;
             else if (type == "regroupement_local")
-                metricType = GraphMetricType.LocalClusteringCoefficient;
+                newMetricType = GraphMetricType.LocalClusteringCoefficient;
             else if (type == "chemin_court")
-                metricType = GraphMetricType.AverageShortestPath;
+                newMetricType = GraphMetricType.AverageShortestPath;
             else if (type == "centralite_intermediaire")
-                metricType = GraphMetricType.BetweennessCentrality;
+                newMetricType = GraphMetricType.BetweennessCentrality;
             else if (type == "centralite_proximite")
-                metricType = GraphMetricType.ClosenessCentrality;
+                newMetricType = GraphMetricType.ClosenessCentrality;
             else
             {
                 LogWarning();
                 return;
             }
 
-            aidenIntents.Add(new AIDENIntent(isSize? GraphConfigKey.SelectedMetricTypeSize : GraphConfigKey.SelectedMetricTypeColor, metricType.ToString()));
+            GraphMetricType currentMetricType = isSize ? _graphConfiguration.SelectedMetricTypeSize : _graphConfiguration.SelectedMetricTypeColor;
+
+            if(currentMetricType == newMetricType)
+            {
+                Debug.Log("HandleModeIntent GraphMetricType " + (isSize ? "size" : "color") + " has already the value " + newMetricType);
+                return;
+            }
+
+            aidenIntents.Add(new AIDENIntent(isSize? GraphConfigKey.SelectedMetricTypeSize : GraphConfigKey.SelectedMetricTypeColor, newMetricType.ToString(), currentMetricType.ToString()));
             return;
         }
 
@@ -309,7 +411,6 @@ public class AIDENController : MonoBehaviour
 
         string subject = "";
         string subjectType = "";
-        string unitValue = "";
         string valueS = "";
 
         var props = jObject.Properties();
@@ -323,8 +424,6 @@ public class AIDENController : MonoBehaviour
                 subject = propValue;
             else if (propName == "sujet_type")
                 subjectType = propValue;
-            else if (propName == "valeur_unite")
-                unitValue = propValue;
             else if (propName == "valeur")
                 valueS = propValue;
         }
@@ -345,13 +444,13 @@ public class AIDENController : MonoBehaviour
 
 
 
-        if (!ParseIsAbsolute(unitValue, out bool isAbsolute))
+        if (!ParseIsAbsolute(valueS, out bool isAbsolute))
         {
             LogWarning();
             return;
         }
 
-        if (!ParseValue(valueS, isAbsolute, out float valueF))
+        if (!ParseValue(valueS, isAbsolute, out float newSize))
         {
             LogWarning();
             return;
@@ -360,14 +459,12 @@ public class AIDENController : MonoBehaviour
 
         if (subject == "graphe")
         {
+            float currentSize = GetGraphSize(graph);
 
             if (!isAbsolute)
-            {
-                float currentSize = GetGraphSize(graph);
-                valueF = currentSize * valueF;
-            }
+                newSize = currentSize * newSize;
 
-            aidenIntents.Add(new AIDENIntent(GetSizeKey(graph), valueF));
+            aidenIntents.Add(new AIDENIntent(GetSizeKey(graph), newSize, currentSize));
             return;
         }
 
@@ -379,37 +476,35 @@ public class AIDENController : MonoBehaviour
                 return;
             }
 
-            if (!isAbsolute)
-            {
-                float currentSize = GetTextSize(graph);
-                valueF = currentSize * valueF;
-            }
+            float currentSize = GetTextSize(graph);
 
-            aidenIntents.Add(new AIDENIntent(GetTextKey(graph), valueF));
+            if (!isAbsolute)
+                newSize = currentSize * newSize;
+
+
+            aidenIntents.Add(new AIDENIntent(GetTextKey(graph), newSize, currentSize));
             return;
         }
 
         if (subject == "noeud")
         {
-            if (!isAbsolute)
-            {
-                float currentSize = GetNodeSize(graph);
-                valueF = currentSize * valueF;
-            }
+            float currentSize = GetNodeSize(graph);
 
-            aidenIntents.Add(new AIDENIntent(GetNodeKey(graph), valueF));
+            if (!isAbsolute)
+                newSize = currentSize * newSize;
+
+            aidenIntents.Add(new AIDENIntent(GetNodeKey(graph), newSize, currentSize));
             return;
         }
 
         if (subject == "arete")
         {
-            if (!isAbsolute)
-            {
-                float currentSize = GetNodeSize(graph);
-                valueF = currentSize * valueF;
-            }
+            float currentSize = GetEdgeSize(graph);
 
-            aidenIntents.Add(new AIDENIntent(GetEdgeKey(graph), valueF));
+            if (!isAbsolute)
+                newSize = currentSize * newSize;
+
+            aidenIntents.Add(new AIDENIntent(GetEdgeKey(graph), newSize, currentSize));
             return;
         }
 
@@ -418,7 +513,7 @@ public class AIDENController : MonoBehaviour
 
         void LogWarning()
         {
-            Debug.LogWarning("Couldn't HandleSizeIntent : " + subject + " " + subjectType + " " + valueS + " " +  unitValue + "\n" + intent.Content);
+            Debug.LogWarning("Couldn't HandleSizeIntent : " + subject + " " + subjectType + " " + valueS + "\n" + intent.Content);
 
         }
 
@@ -562,7 +657,6 @@ public class AIDENController : MonoBehaviour
 
         string affichage = "";
         string transparence = "";
-        string unitValue = "";
         string valueS = "";
 
         var props = jObject.Properties();
@@ -576,8 +670,6 @@ public class AIDENController : MonoBehaviour
                 affichage = propValue;
             else if (propName == "transparence")
                 transparence = propValue;
-            else if (propName == "valeur_unite")
-                unitValue = propValue;
             else if (propName == "valeur")
                 valueS = propValue;
         }
@@ -618,26 +710,27 @@ public class AIDENController : MonoBehaviour
             }
 
 
-            if(!ParseIsAbsolute(unitValue, out bool isAbsolute))
+            if(!ParseIsAbsolute(valueS, out bool isAbsolute))
             {
                 LogWarning();
                 return;
             }
 
 
-            if(!ParseValue(valueS, isAbsolute, out float valueF))
+            if(!ParseValue(valueS, isAbsolute, out float newAlpha))
             {
                 LogWarning();
                 return;
             }
+
+            float currentAlpha = GetCurrentAlpha(alphaType);
 
             if(!isAbsolute)
             {
-                float currentSize = GetAlpha(alphaType);
-                valueF = currentSize * valueF;
+                newAlpha = currentAlpha * newAlpha;
             }
 
-            aidenIntents.Add(new AIDENIntent(GetAlphaKey(alphaType), valueF));
+            aidenIntents.Add(new AIDENIntent(GetAlphaKey(alphaType), newAlpha, currentAlpha));
             return;
 
         }
@@ -659,27 +752,29 @@ public class AIDENController : MonoBehaviour
                 return;
             }
 
-            bool valueB = false;
+            bool newDisplay = false;
 
             if (valueS == "vrai")
-                valueB = true;
+                newDisplay = true;
             else if (valueS != "faux")
             {
                 LogWarning();
                 return;
             }
 
-            aidenIntents.Add(new AIDENIntent(GetDisplayKey(displayType), valueB));
+            bool currentDisplay = GetCurrentDisplay(displayType);
+
+            aidenIntents.Add(new AIDENIntent(GetDisplayKey(displayType), newDisplay, currentDisplay));
             return;
         }
 
 
         void LogWarning()
         {
-            Debug.LogWarning("Couldn't HandleVisibilityIntent : " + affichage + " " + transparence + " " + valueS + " " + unitValue + "\n" + intent.Content);
+            Debug.LogWarning("Couldn't HandleVisibilityIntent : " + affichage + " " + transparence + " " + valueS + "\n" + intent.Content);
         }
 
-        float GetAlpha(AlphaType type)
+        float GetCurrentAlpha(AlphaType type)
         {
             switch (type)
             {
@@ -693,6 +788,27 @@ public class AIDENController : MonoBehaviour
                     return _graphConfiguration.AlphaEdgeColorPropagated;
                 default:
                     return _graphConfiguration.AlphaNodeColorUnPropagated;
+            }
+        }
+
+        bool GetCurrentDisplay(DisplayType type)
+        {
+            switch (type)
+            {
+                case DisplayType.TextImmersion:
+                    return _graphConfiguration.ShowLabelImmersion;
+                case DisplayType.TextDesk:
+                    return _graphConfiguration.ShowLabelDesk;
+                case DisplayType.TextLens:
+                    return _graphConfiguration.ShowLabelLens;
+                case DisplayType.GPS:
+                    return _graphConfiguration.ShowWatch;
+                case DisplayType.Edge:
+                    return _graphConfiguration.DisplayEdges;
+                case DisplayType.InterEdgeNeighboor:
+                    return _graphConfiguration.DisplayInterSelectedNeighborEdges;
+                default:
+                    return _graphConfiguration.ShowLabelImmersion;
             }
         }
 
@@ -764,13 +880,15 @@ public class AIDENController : MonoBehaviour
         }
 
 
-        if (!ColorUtility.TryParseHtmlString(colorS, out Color color))
+        if (!ColorUtility.TryParseHtmlString(colorS, out Color newColor))
         {
             LogWarning();
             return;
         }
 
-        aidenIntents.Add(new AIDENIntent(GetColorKey(objectColor), color));
+        Color currentColor = GetCurentColor(objectColor);
+
+        aidenIntents.Add(new AIDENIntent(GetColorKey(objectColor), newColor, currentColor));
 
 
         void LogWarning()
@@ -839,6 +957,29 @@ public class AIDENController : MonoBehaviour
                     return GraphConfigKey.NodeColor;
             }
         }
+
+        Color GetCurentColor(ObjectColor objectColor)
+        {
+            switch (objectColor)
+            {
+                case ObjectColor.Node:
+                    return _graphConfiguration.NodeColor;
+                case ObjectColor.NodeNoValue:
+                    return _graphConfiguration.NodeColorNoValueMetric;
+                case ObjectColor.Edge:
+                    return _graphConfiguration.EdgeColor;
+                case ObjectColor.PropagatedEdge:
+                    return _graphConfiguration.PropagatedEdgeColor;
+                case ObjectColor.NodeMappingA:
+                    return _graphConfiguration.NodeColorMapping.ColorA;
+                case ObjectColor.NodeMappingB:
+                    return _graphConfiguration.NodeColorMapping.ColorB;
+                case ObjectColor.NodeMappingC:
+                    return _graphConfiguration.NodeColorMapping.ColorC;
+                default:
+                    return _graphConfiguration.NodeColor;
+            }
+        }
     }
 
     private void HandleOntologyIntent(AIDENPromptPayload intent, AIDENIntents aidenIntents)
@@ -867,15 +1008,28 @@ public class AIDENController : MonoBehaviour
             return;
         }
 
-        if (!ParseValue(valueS, true, out float valueF))
+        if (!ParseIsAbsolute(valueS, out bool isAbsolute))
         {
             LogWarning();
             return;
         }
 
 
-        aidenIntents.Add(new AIDENIntent(GetOntologyKey(objectOntology), valueF));
+        if (!ParseValue(valueS, isAbsolute, out float newOntologyValue))
+        {
+            LogWarning();
+            return;
+        }
 
+        float curentOntologyValue = GetCurrentOntologyValue(objectOntology);
+
+        if (!isAbsolute)
+        {
+            newOntologyValue = curentOntologyValue * newOntologyValue;
+        }
+
+
+        aidenIntents.Add(new AIDENIntent(GetOntologyKey(objectOntology), newOntologyValue, curentOntologyValue));
 
 
         void LogWarning()
@@ -922,6 +1076,23 @@ public class AIDENController : MonoBehaviour
             }
         }
 
+        float GetCurrentOntologyValue(ObjectOntology objectOntology)
+        {
+            switch (objectOntology)
+            {
+                case ObjectOntology.NbColor:
+                    return _graphConfiguration.NbOntologyColor;
+                case ObjectOntology.MaxDelta:
+                    return _graphConfiguration.MaxDeltaOntologyAlgo;
+                case ObjectOntology.Saturation:
+                    return _graphConfiguration.SaturationOntologyColor;
+                case ObjectOntology.Luminosity:
+                    return _graphConfiguration.ValueOntologyColor;
+                default:
+                    return _graphConfiguration.NbOntologyColor;
+            }
+        }
+
     }
 
     private void HandleVolumeIntent(AIDENPromptPayload intent, AIDENIntents aidenIntents)
@@ -929,7 +1100,6 @@ public class AIDENController : MonoBehaviour
         JObject jObject = JObject.Parse(intent.Content);
 
         string objet = "";
-        string unitValue = "";
         string valueS = "";
 
         var props = jObject.Properties();
@@ -943,8 +1113,6 @@ public class AIDENController : MonoBehaviour
                 objet = propValue;
             else if (propName == "valeur")
                 valueS = propValue;
-            else if (propName == "valeur_unite")
-                unitValue = propValue;
         }
 
         if (!TryParseObjectVolume(objet, out ObjectVolume objectVolume))
@@ -953,32 +1121,34 @@ public class AIDENController : MonoBehaviour
             return;
         }
 
-        if(!ParseIsAbsolute(unitValue, out bool isAbsolute))
+        if(!ParseIsAbsolute(valueS, out bool isAbsolute))
         {
             LogWarning();
             return;
         }
 
 
-        if (!ParseValue(valueS, isAbsolute, out float valueF))
+        if (!ParseValue(valueS, isAbsolute, out float newVolume))
         {
             LogWarning();
             return;
         }
+
+        float currentVolume = GetVolume(objectVolume);
+
 
         if(!isAbsolute)
         {
-            float currentVolume = GetVolume(objectVolume);
-            valueF = currentVolume * valueF;
+            newVolume = currentVolume * newVolume;
         }
 
-        aidenIntents.Add(new AIDENIntent(GetVolumeKey(objectVolume), valueF));
+        aidenIntents.Add(new AIDENIntent(GetVolumeKey(objectVolume), newVolume, currentVolume));
 
 
 
         void LogWarning()
         {
-            Debug.LogWarning("Couldn't HandleVolumeIntent : " + objet + " " + valueS +  " " + unitValue + "\n" + intent.Content);
+            Debug.LogWarning("Couldn't HandleVolumeIntent : " + objet + " " + valueS + "\n" + intent.Content);
         }
 
         bool TryParseObjectVolume(string objet, out ObjectVolume objectVolume)
@@ -1060,10 +1230,10 @@ public class AIDENController : MonoBehaviour
         }
 
 
-        bool valueB = false;
+        bool newCanSelect = false;
 
         if (valueS == "vrai")
-            valueB = true;
+            newCanSelect = true;
         else if(valueS != "faux")
         {
             LogWarning();
@@ -1077,8 +1247,16 @@ public class AIDENController : MonoBehaviour
             return;
         }
 
+        bool curentCanSelectEdge = _graphConfiguration.CanSelectEdges;
 
-        aidenIntents.Add(new AIDENIntent(GraphConfigKey.CanSelectEdges, valueB));
+        if(curentCanSelectEdge == newCanSelect)
+        {
+            Debug.Log("HandleInteractionIntent : CanSelectEdges has already the same value : " + newCanSelect);
+            return;
+        }
+
+
+        aidenIntents.Add(new AIDENIntent(GraphConfigKey.CanSelectEdges, newCanSelect, curentCanSelectEdge));
 
 
         void LogWarning()
@@ -1126,8 +1304,9 @@ public class AIDENController : MonoBehaviour
             return;
         }
 
+        GraphMetricType currentSelectedMetric = isSize ? _graphConfiguration.SelectedMetricTypeSize : _graphConfiguration.SelectedMetricTypeColor;
 
-        aidenIntents.Add(new AIDENIntent(isSize? GraphConfigKey.SelectedMetricTypeSize : GraphConfigKey.SelectedMetricTypeColor, graphMetricType.ToString()));
+        aidenIntents.Add(new AIDENIntent(isSize? GraphConfigKey.SelectedMetricTypeSize : GraphConfigKey.SelectedMetricTypeColor, graphMetricType.ToString(), currentSelectedMetric.ToString()));
 
         void LogWarning()
         {
@@ -1191,13 +1370,27 @@ public class AIDENController : MonoBehaviour
             return;
         }
 
-        if(!ParseValue(valueS, true, out float valueF))
+
+        if (!ParseIsAbsolute(valueS, out bool isAbsolute))
         {
             LogWarning();
             return;
         }
-        
-        aidenIntents.Add(new AIDENIntent(GraphConfigKey.GraphModeTransitionTime, valueF));
+
+        if (!ParseValue(valueS, isAbsolute, out float newTimeFloat))
+        {
+            LogWarning();
+            return;
+        }
+
+        float currentTimeFloat = _graphConfiguration.GraphModeTransitionTime;
+
+        if (!isAbsolute)
+        {
+            newTimeFloat = currentTimeFloat * newTimeFloat;
+        }
+
+        aidenIntents.Add(new AIDENIntent(GraphConfigKey.GraphModeTransitionTime, newTimeFloat, currentTimeFloat));
 
         void LogWarning()
         {
@@ -1211,7 +1404,6 @@ public class AIDENController : MonoBehaviour
 
         string graphe = "";
         string property = "";
-        string unitValue = "";
         string valueS = "";
 
         var props = jObject.Properties();
@@ -1225,8 +1417,6 @@ public class AIDENController : MonoBehaviour
                 graphe = propValue;
             else if (propName == "propriete")
                 property = propValue;
-            else if (propName == "valeur_unite")
-                unitValue = propValue;
             else if (propName == "valeur")
                 valueS = propValue;
         }
@@ -1241,32 +1431,33 @@ public class AIDENController : MonoBehaviour
             return;
         }
 
-        if (!ParseIsAbsolute(unitValue, out bool isAbsolute))
+        if (!ParseIsAbsolute(valueS, out bool isAbsolute))
         {
             LogWarning();
             return;
         }
 
-        if (!ParseValue(valueS, isAbsolute, out float valueF))
+        if (!ParseValue(valueS, isAbsolute, out float newSimuFloat))
         {
             LogWarning();
             return;
         }
 
+
+        float currentSimuFloat = GetSimuValue(isDefault, simuProperty);
 
         if (!isAbsolute)
         {
-            float currentVolume = GetSimuValue(isDefault, simuProperty);
-            valueF = currentVolume * valueF;
+            newSimuFloat = currentSimuFloat * newSimuFloat;
         }
 
 
-        aidenIntents.Add(new AIDENIntent(GetSimuKey(isDefault, simuProperty), valueF));
+        aidenIntents.Add(new AIDENIntent(GetSimuKey(isDefault, simuProperty), newSimuFloat, currentSimuFloat));
 
 
         void LogWarning()
         {
-            Debug.LogWarning("Couldn't HandleTimeIntent : " + graphe + " " + property + " " + unitValue + " " + valueS  + "\n" + intent.Content);
+            Debug.LogWarning("Couldn't HandleTimeIntent : " + graphe + " " + property + " " +  valueS  + "\n" + intent.Content);
         }
 
         bool TryExtractProperty(string property, out SimuProperty simuProperty)
@@ -1366,6 +1557,8 @@ public class AIDENController : MonoBehaviour
             return;
         }
 
+        // TODO : check if can execute ation here 
+        // return;
 
 
         aidenIntents.Add(new AIDENIntent(actionKey));
@@ -1474,17 +1667,15 @@ public class AIDENController : MonoBehaviour
         }
     }
 
-    private bool ParseIsAbsolute(string unitValue, out bool isAbsolute)
+    private bool ParseIsAbsolute(string value, out bool isAbsolute)
     {
         isAbsolute = true;
 
-        if (unitValue == "relatif")
+        if (value.Contains("%"))
         {
             isAbsolute = false;
             return true;
         }
-        else if (unitValue != "absolue")
-            return false;
 
         return true;
     }
@@ -1550,6 +1741,19 @@ public class AIDENController : MonoBehaviour
 
 
 
+public class RawPayload
+{
+    public int Id { get; private set; }
+
+    public object Payload { get; private set; }
+
+    public RawPayload(int id,  object payload)
+    {
+        Id = id; 
+        Payload = payload;
+    }
+}
+
 public class AIDENIntentGroupAnswers
 {
     [JsonProperty("intentions")]
@@ -1613,29 +1817,40 @@ public class AIDENIntent
     public bool ValueB { get; private set; }
     public Color ValueC { get; private set; }
 
-    public AIDENIntent(GraphConfigKey graphConfigKey, string v)
+
+    public string OldValueS { get; private set; }
+    public float OldValueF { get; private set; }
+    public bool OldValueB { get; private set; }
+    public Color OldValueC { get; private set; }
+
+
+    public AIDENIntent(GraphConfigKey graphConfigKey, string newString, string oldString)
     {
         IsGraphConfig = true;
         GraphConfigKey = graphConfigKey;
-        ValueS = v;
+        ValueS = newString;
+        OldValueS = oldString;
     }
-    public AIDENIntent(GraphConfigKey graphConfigKey, float v)
+    public AIDENIntent(GraphConfigKey graphConfigKey, float newFloat, float oldFloat)
     {
         IsGraphConfig = true;
         GraphConfigKey = graphConfigKey;
-        ValueF = v;
+        ValueF = newFloat;
+        OldValueF = oldFloat;
     }
-    public AIDENIntent(GraphConfigKey graphConfigKey, bool v)
+    public AIDENIntent(GraphConfigKey graphConfigKey, bool newBoolean, bool oldBoolean)
     {
         IsGraphConfig = true;
         GraphConfigKey = graphConfigKey;
-        ValueB = v;
+        ValueB = newBoolean;
+        OldValueB = oldBoolean;
     }
-    public AIDENIntent(GraphConfigKey graphConfigKey, Color v)
+    public AIDENIntent(GraphConfigKey graphConfigKey, Color newColor, Color oldColor)
     {
         IsGraphConfig = true;
         GraphConfigKey = graphConfigKey;
-        ValueC = v;
+        ValueC = newColor;
+        OldValueC = oldColor;
     }
 
     public AIDENIntent(GraphActionKey graphConfigKey)
