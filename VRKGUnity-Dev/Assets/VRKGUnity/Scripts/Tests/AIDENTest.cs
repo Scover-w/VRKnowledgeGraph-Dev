@@ -21,13 +21,19 @@ public class AIDENTest : MonoBehaviour
     [ContextMenu("Ask")]
     public void Ask()
     {
-        _aiden.DetectIntentsGroup(0, UserSentence);
+        //List<string> list = new List<string>()
+        //{
+        //    UserSentence
+        //};
+        //_aiden.DetectIntentGroup(0, list);
     }
 
     [ContextMenu("AskButSplitBefore")]
     public void AskButSplitBefore()
     {
-        _aiden.SplitIntentsText(0, UserSentence);
+        AIDENPromptPayload promptPayload = new(0, UserSentence);
+
+        _aiden.HandleTranscribedAudio(promptPayload);
     }
 
     [ContextMenu("Test order")]
@@ -97,7 +103,7 @@ public class AIDENTest : MonoBehaviour
             string sentenceChunck = jObject[intentType].ToString();
             return (intentType, sentenceChunck);
         }
-        catch (Exception ex)
+        catch
         {
             return ("", "");
         }
@@ -137,5 +143,4 @@ public class AIDENTest : MonoBehaviour
         }
 
     }
-
 }
