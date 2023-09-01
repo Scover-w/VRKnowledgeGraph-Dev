@@ -29,8 +29,6 @@ public class AIDENController : MonoBehaviour
 
     Dictionary<AIDENPrompts, string> _promptsDict;
 
-    CancellationToken _cancelationToken;
-
     AIDENIntents _aidenIntents;
 
     string _gptModelName;
@@ -299,7 +297,7 @@ public class AIDENController : MonoBehaviour
 
             if (flowStatus == FlowStepRelativeStatus.FalseAfter)
             {
-                CallFalseAbove(payload, blockedFlowState, flowId);
+                CallAfterTrue(payload, blockedFlowState, flowId);
                 return;
             }
 
@@ -454,8 +452,6 @@ public class AIDENController : MonoBehaviour
         void HandleCorrectManualValue()
         {
             DebugDev.Log("HandleAIDENDetectMode Manual has successfully detected the good number of sentences.");
-            // TODO : Check here if other are ok
-
             if (flowStatus.IsBefore())
                 return;
 
@@ -464,7 +460,7 @@ public class AIDENController : MonoBehaviour
 
             if (flowStatus == FlowStepRelativeStatus.FalseAfter) // AidenDetectParameters return before this, so need to call him, blockedFlowState will be DetectParameters
             {
-                CallFalseAbove(payload, blockedFlowState, flowId);
+                CallAfterTrue(payload, blockedFlowState, flowId);
                 return;
             }
 
@@ -506,7 +502,7 @@ public class AIDENController : MonoBehaviour
 
     private async Task AIDENDetectParameters(AIDENChainPayload payload, DetectedTypePayload detectedTypePayload, int flowId)
     {
-        List<Task<Response<ChatCompletions>>> tasks = new List<Task<Response<ChatCompletions>>>();
+        List<Task<Response<ChatCompletions>>> tasks = new();
 
         List<TypeAndSentence> typeAndSentences = detectedTypePayload.TypeAndSentence;
 
@@ -906,134 +902,96 @@ public class AIDENController : MonoBehaviour
 
         float GetGraphSize(GraphName graph)
         {
-            switch (graph)
+            return graph switch
             {
-                case GraphName.Desk:
-                    return _graphConfiguration.DeskGraphSize;
-                case GraphName.Lense:
-                    return _graphConfiguration.LensGraphSize;
-                case GraphName.Immersion:
-                    return _graphConfiguration.ImmersionGraphSize;
-                case GraphName.GPS:
-                    return _graphConfiguration.WatchGraphSize;
-            }
-
-            return _graphConfiguration.DeskGraphSize;
+                GraphName.Desk => _graphConfiguration.DeskGraphSize,
+                GraphName.Lense => _graphConfiguration.LensGraphSize,
+                GraphName.Immersion => _graphConfiguration.ImmersionGraphSize,
+                GraphName.GPS => _graphConfiguration.WatchGraphSize,
+                _ => _graphConfiguration.DeskGraphSize,
+            };
         }
 
         float GetTextSize(GraphName graph)
         {
-            switch (graph)
+            return graph switch
             {
-                case GraphName.Desk:
-                    return _graphConfiguration.LabelNodeSizeDesk;
-                case GraphName.Lense:
-                    return _graphConfiguration.LabelNodeSizeLens;
-                case GraphName.Immersion:
-                    return _graphConfiguration.LabelNodeSizeImmersion;
-            }
-
-            return _graphConfiguration.LabelNodeSizeDesk;
+                GraphName.Desk => _graphConfiguration.LabelNodeSizeDesk,
+                GraphName.Lense => _graphConfiguration.LabelNodeSizeLens,
+                GraphName.Immersion => _graphConfiguration.LabelNodeSizeImmersion,
+                _ => _graphConfiguration.LabelNodeSizeDesk,
+            };
         }
 
         float GetNodeSize(GraphName graph)
         {
-            switch (graph)
+            return graph switch
             {
-                case GraphName.Desk:
-                    return _graphConfiguration.NodeSizeDesk;
-                case GraphName.Lense:
-                    return _graphConfiguration.NodeSizeLens;
-                case GraphName.Immersion:
-                    return _graphConfiguration.NodeSizeImmersion;
-                case GraphName.GPS:
-                    return _graphConfiguration.NodeSizeWatch;
-            }
-
-            return _graphConfiguration.NodeSizeDesk;
+                GraphName.Desk => _graphConfiguration.NodeSizeDesk,
+                GraphName.Lense => _graphConfiguration.NodeSizeLens,
+                GraphName.Immersion => _graphConfiguration.NodeSizeImmersion,
+                GraphName.GPS => _graphConfiguration.NodeSizeWatch,
+                _ => _graphConfiguration.NodeSizeDesk,
+            };
         }
 
         float GetEdgeSize(GraphName graph)
         {
-            switch (graph)
+            return graph switch
             {
-                case GraphName.Desk:
-                    return _graphConfiguration.EdgeThicknessDesk;
-                case GraphName.Lense:
-                    return _graphConfiguration.EdgeThicknessLens;
-                case GraphName.Immersion:
-                    return _graphConfiguration.EdgeThicknessImmersion;
-                case GraphName.GPS:
-                    return _graphConfiguration.EdgeThicknessWatch;
-            }
-
-            return _graphConfiguration.EdgeThicknessDesk;
+                GraphName.Desk => _graphConfiguration.EdgeThicknessDesk,
+                GraphName.Lense => _graphConfiguration.EdgeThicknessLens,
+                GraphName.Immersion => _graphConfiguration.EdgeThicknessImmersion,
+                GraphName.GPS => _graphConfiguration.EdgeThicknessWatch,
+                _ => _graphConfiguration.EdgeThicknessDesk,
+            };
         }
 
         GraphConfigKey GetSizeKey(GraphName graph)
         {
-            switch (graph)
+            return graph switch
             {
-                case GraphName.Desk:
-                    return GraphConfigKey.DeskGraphSize;
-                case GraphName.Lense:
-                    return GraphConfigKey.LensGraphSize;
-                case GraphName.Immersion:
-                    return GraphConfigKey.ImmersionGraphSize;
-                case GraphName.GPS:
-                    return GraphConfigKey.WatchGraphSize;
-            }
-
-            return GraphConfigKey.DeskGraphSize;
+                GraphName.Desk => GraphConfigKey.DeskGraphSize,
+                GraphName.Lense => GraphConfigKey.LensGraphSize,
+                GraphName.Immersion => GraphConfigKey.ImmersionGraphSize,
+                GraphName.GPS => GraphConfigKey.WatchGraphSize,
+                _ => GraphConfigKey.DeskGraphSize,
+            };
         }
 
         GraphConfigKey GetTextKey(GraphName graph)
         {
-            switch (graph)
+            return graph switch
             {
-                case GraphName.Desk:
-                    return GraphConfigKey.LabelNodeSizeDesk;
-                case GraphName.Lense:
-                    return GraphConfigKey.LabelNodeSizeLens;
-                case GraphName.Immersion:
-                    return GraphConfigKey.LabelNodeSizeImmersion;
-            }
-
-            return GraphConfigKey.LabelNodeSizeDesk;
+                GraphName.Desk => GraphConfigKey.LabelNodeSizeDesk,
+                GraphName.Lense => GraphConfigKey.LabelNodeSizeLens,
+                GraphName.Immersion => GraphConfigKey.LabelNodeSizeImmersion,
+                _ => GraphConfigKey.LabelNodeSizeDesk,
+            };
         }
 
         GraphConfigKey GetNodeKey(GraphName graph)
         {
-            switch (graph)
+            return graph switch
             {
-                case GraphName.Desk:
-                    return GraphConfigKey.NodeSizeDesk;
-                case GraphName.Lense:
-                    return GraphConfigKey.NodeSizeLens;
-                case GraphName.Immersion:
-                    return GraphConfigKey.NodeSizeImmersion;
-                case GraphName.GPS:
-                    return GraphConfigKey.NodeSizeWatch;
-            }
-
-            return GraphConfigKey.NodeSizeDesk;
+                GraphName.Desk => GraphConfigKey.NodeSizeDesk,
+                GraphName.Lense => GraphConfigKey.NodeSizeLens,
+                GraphName.Immersion => GraphConfigKey.NodeSizeImmersion,
+                GraphName.GPS => GraphConfigKey.NodeSizeWatch,
+                _ => GraphConfigKey.NodeSizeDesk,
+            };
         }
 
         GraphConfigKey GetEdgeKey(GraphName graph)
         {
-            switch (graph)
+            return graph switch
             {
-                case GraphName.Desk:
-                    return GraphConfigKey.EdgeThicknessDesk;
-                case GraphName.Lense:
-                    return GraphConfigKey.EdgeThicknessLens;
-                case GraphName.Immersion:
-                    return GraphConfigKey.EdgeThicknessImmersion;
-                case GraphName.GPS:
-                    return GraphConfigKey.EdgeThicknessWatch;
-            }
-
-            return GraphConfigKey.EdgeThicknessDesk;
+                GraphName.Desk => GraphConfigKey.EdgeThicknessDesk,
+                GraphName.Lense => GraphConfigKey.EdgeThicknessLens,
+                GraphName.Immersion => GraphConfigKey.EdgeThicknessImmersion,
+                GraphName.GPS => GraphConfigKey.EdgeThicknessWatch,
+                _ => GraphConfigKey.EdgeThicknessDesk,
+            };
         }
 
     }
@@ -1160,40 +1118,28 @@ public class AIDENController : MonoBehaviour
 
         float GetCurrentAlpha(GraphConfigKey alphaKey)
         {
-            switch (alphaKey)
+            return alphaKey switch
             {
-                case GraphConfigKey.AlphaNodeColorUnPropagated:
-                    return _graphConfiguration.AlphaNodeColorUnPropagated;
-                case GraphConfigKey.AlphaNodeColorPropagated:
-                    return _graphConfiguration.AlphaNodeColorPropagated;
-                case GraphConfigKey.AlphaEdgeColorUnPropagated:
-                    return _graphConfiguration.AlphaEdgeColorUnPropagated;
-                case GraphConfigKey.AlphaEdgeColorPropagated:
-                    return _graphConfiguration.AlphaEdgeColorPropagated;
-                default:
-                    return _graphConfiguration.AlphaNodeColorUnPropagated;
-            }
+                GraphConfigKey.AlphaNodeColorUnPropagated => _graphConfiguration.AlphaNodeColorUnPropagated,
+                GraphConfigKey.AlphaNodeColorPropagated => _graphConfiguration.AlphaNodeColorPropagated,
+                GraphConfigKey.AlphaEdgeColorUnPropagated => _graphConfiguration.AlphaEdgeColorUnPropagated,
+                GraphConfigKey.AlphaEdgeColorPropagated => _graphConfiguration.AlphaEdgeColorPropagated,
+                _ => _graphConfiguration.AlphaNodeColorUnPropagated,
+            };
         }
 
         bool GetCurrentDisplay(GraphConfigKey graphConfigKey)
         {
-            switch (graphConfigKey)
+            return graphConfigKey switch
             {
-                case GraphConfigKey.ShowLabelImmersion:
-                    return _graphConfiguration.ShowLabelImmersion;
-                case GraphConfigKey.ShowLabelDesk:
-                    return _graphConfiguration.ShowLabelDesk;
-                case GraphConfigKey.ShowLabelLens:
-                    return _graphConfiguration.ShowLabelLens;
-                case GraphConfigKey.ShowWatch:
-                    return _graphConfiguration.ShowWatch;
-                case GraphConfigKey.DisplayEdges:
-                    return _graphConfiguration.DisplayEdges;
-                case GraphConfigKey.DisplayInterSelectedNeighborEdges:
-                    return _graphConfiguration.DisplayInterSelectedNeighborEdges;
-                default:
-                    return _graphConfiguration.ShowLabelImmersion;
-            }
+                GraphConfigKey.ShowLabelImmersion => _graphConfiguration.ShowLabelImmersion,
+                GraphConfigKey.ShowLabelDesk => _graphConfiguration.ShowLabelDesk,
+                GraphConfigKey.ShowLabelLens => _graphConfiguration.ShowLabelLens,
+                GraphConfigKey.ShowWatch => _graphConfiguration.ShowWatch,
+                GraphConfigKey.DisplayEdges => _graphConfiguration.DisplayEdges,
+                GraphConfigKey.DisplayInterSelectedNeighborEdges => _graphConfiguration.DisplayInterSelectedNeighborEdges,
+                _ => _graphConfiguration.ShowLabelImmersion,
+            };
         }
     }
 
@@ -1278,25 +1224,17 @@ public class AIDENController : MonoBehaviour
 
         Color GetCurentColor(GraphConfigKey colorKey)
         {
-            switch (colorKey)
+            return colorKey switch
             {
-                case GraphConfigKey.NodeColor:
-                    return _graphConfiguration.NodeColor;
-                case GraphConfigKey.NodeColorNoValueMetric:
-                    return _graphConfiguration.NodeColorNoValueMetric;
-                case GraphConfigKey.EdgeColor:
-                    return _graphConfiguration.EdgeColor;
-                case GraphConfigKey.PropagatedEdgeColor:
-                    return _graphConfiguration.PropagatedEdgeColor;
-                case GraphConfigKey.NodeColorMappingColorA:
-                    return _graphConfiguration.NodeColorMapping.ColorA;
-                case GraphConfigKey.NodeColorMappingColorB:
-                    return _graphConfiguration.NodeColorMapping.ColorB;
-                case GraphConfigKey.NodeColorMappingColorC:
-                    return _graphConfiguration.NodeColorMapping.ColorC;
-                default:
-                    return _graphConfiguration.NodeColor;
-            }
+                GraphConfigKey.NodeColor => _graphConfiguration.NodeColor,
+                GraphConfigKey.NodeColorNoValueMetric => _graphConfiguration.NodeColorNoValueMetric,
+                GraphConfigKey.EdgeColor => _graphConfiguration.EdgeColor,
+                GraphConfigKey.PropagatedEdgeColor => _graphConfiguration.PropagatedEdgeColor,
+                GraphConfigKey.NodeColorMappingColorA => _graphConfiguration.NodeColorMapping.ColorA,
+                GraphConfigKey.NodeColorMappingColorB => _graphConfiguration.NodeColorMapping.ColorB,
+                GraphConfigKey.NodeColorMappingColorC => _graphConfiguration.NodeColorMapping.ColorC,
+                _ => _graphConfiguration.NodeColor,
+            };
         }
     }
 
@@ -1367,19 +1305,14 @@ public class AIDENController : MonoBehaviour
 
         float GetCurrentOntologyValue(GraphConfigKey graphConfigKey)
         {
-            switch (graphConfigKey)
+            return graphConfigKey switch
             {
-                case GraphConfigKey.NbOntologyColor:
-                    return _graphConfiguration.NbOntologyColor;
-                case GraphConfigKey.MaxDeltaOntologyAlgo:
-                    return _graphConfiguration.MaxDeltaOntologyAlgo;
-                case GraphConfigKey.SaturationOntologyColor:
-                    return _graphConfiguration.SaturationOntologyColor;
-                case GraphConfigKey.ValueOntologyColor:
-                    return _graphConfiguration.ValueOntologyColor;
-                default:
-                    return _graphConfiguration.NbOntologyColor;
-            }
+                GraphConfigKey.NbOntologyColor => _graphConfiguration.NbOntologyColor,
+                GraphConfigKey.MaxDeltaOntologyAlgo => _graphConfiguration.MaxDeltaOntologyAlgo,
+                GraphConfigKey.SaturationOntologyColor => _graphConfiguration.SaturationOntologyColor,
+                GraphConfigKey.ValueOntologyColor => _graphConfiguration.ValueOntologyColor,
+                _ => _graphConfiguration.NbOntologyColor,
+            };
         }
 
     }
@@ -1453,19 +1386,14 @@ public class AIDENController : MonoBehaviour
 
         float GetVolume(GraphConfigKey graphConfigKey)
         {
-            switch (graphConfigKey)
+            return graphConfigKey switch
             {
-                case GraphConfigKey.GlobalVolume:
-                    return _graphConfiguration.GlobalVolume;
-                case GraphConfigKey.SoundEffectVolume:
-                    return _graphConfiguration.SoundEffectVolume;
-                case GraphConfigKey.MusicVolume:
-                    return _graphConfiguration.MusicVolume;
-                case GraphConfigKey.AidenVolume:
-                    return _graphConfiguration.AidenVolume;
-                default:
-                    return _graphConfiguration.GlobalVolume;
-            }
+                GraphConfigKey.GlobalVolume => _graphConfiguration.GlobalVolume,
+                GraphConfigKey.SoundEffectVolume => _graphConfiguration.SoundEffectVolume,
+                GraphConfigKey.MusicVolume => _graphConfiguration.MusicVolume,
+                GraphConfigKey.AidenVolume => _graphConfiguration.AidenVolume,
+                _ => _graphConfiguration.GlobalVolume,
+            };
         }
 
     }
@@ -1698,48 +1626,32 @@ public class AIDENController : MonoBehaviour
 
         float GetSimuValue(bool isDefault, SimuProperty simuproperty)
         {
-            switch (simuProperty)
+            return simuProperty switch
             {
-                case SimuProperty.ForceSpring:
-                    return isDefault? _graphConfiguration.SimuParameters.SpringForce : _graphConfiguration.LensSimuParameters.SpringForce;
-                case SimuProperty.ForceCoulomb:
-                    return isDefault ? _graphConfiguration.SimuParameters.CoulombForce : _graphConfiguration.LensSimuParameters.CoulombForce;
-                case SimuProperty.Damping:
-                    return isDefault ? _graphConfiguration.SimuParameters.Damping : _graphConfiguration.LensSimuParameters.Damping;
-                case SimuProperty.DistanceSpring:
-                    return isDefault ? _graphConfiguration.SimuParameters.SpringDistance : _graphConfiguration.LensSimuParameters.SpringDistance;
-                case SimuProperty.DistanceCoulomb:
-                    return isDefault ? _graphConfiguration.SimuParameters.CoulombDistance : _graphConfiguration.LensSimuParameters.CoulombDistance;
-                case SimuProperty.MaxVelocity:
-                    return isDefault ? _graphConfiguration.SimuParameters.MaxVelocity : _graphConfiguration.LensSimuParameters.MaxVelocity;
-                case SimuProperty.StopVelocity:
-                    return isDefault ? _graphConfiguration.SimuParameters.StopVelocity : _graphConfiguration.LensSimuParameters.StopVelocity;
-                default:
-                    return isDefault ? _graphConfiguration.SimuParameters.SpringForce : _graphConfiguration.LensSimuParameters.SpringForce;
-            }
+                SimuProperty.ForceSpring => isDefault ? _graphConfiguration.SimuParameters.SpringForce : _graphConfiguration.LensSimuParameters.SpringForce,
+                SimuProperty.ForceCoulomb => isDefault ? _graphConfiguration.SimuParameters.CoulombForce : _graphConfiguration.LensSimuParameters.CoulombForce,
+                SimuProperty.Damping => isDefault ? _graphConfiguration.SimuParameters.Damping : _graphConfiguration.LensSimuParameters.Damping,
+                SimuProperty.DistanceSpring => isDefault ? _graphConfiguration.SimuParameters.SpringDistance : _graphConfiguration.LensSimuParameters.SpringDistance,
+                SimuProperty.DistanceCoulomb => isDefault ? _graphConfiguration.SimuParameters.CoulombDistance : _graphConfiguration.LensSimuParameters.CoulombDistance,
+                SimuProperty.MaxVelocity => isDefault ? _graphConfiguration.SimuParameters.MaxVelocity : _graphConfiguration.LensSimuParameters.MaxVelocity,
+                SimuProperty.StopVelocity => isDefault ? _graphConfiguration.SimuParameters.StopVelocity : _graphConfiguration.LensSimuParameters.StopVelocity,
+                _ => isDefault ? _graphConfiguration.SimuParameters.SpringForce : _graphConfiguration.LensSimuParameters.SpringForce,
+            };
         }
 
         GraphConfigKey GetSimuKey(bool isDefault, SimuProperty simuproperty)
         {
-            switch (simuProperty)
+            return simuProperty switch
             {
-                case SimuProperty.ForceSpring:
-                    return isDefault ? GraphConfigKey.DefaultSpringForce: GraphConfigKey.LensSpringForce;
-                case SimuProperty.ForceCoulomb:
-                    return isDefault ? GraphConfigKey.DefaultCoulombForce : GraphConfigKey.LensCoulombForce;
-                case SimuProperty.Damping:
-                    return isDefault ? GraphConfigKey.DefaultDamping : GraphConfigKey.LensDamping;
-                case SimuProperty.DistanceSpring:
-                    return isDefault ? GraphConfigKey.DefaultSpringDistance : GraphConfigKey.LensSpringDistance;
-                case SimuProperty.DistanceCoulomb:
-                    return isDefault ? GraphConfigKey.DefaultCoulombDistance : GraphConfigKey.LensCoulombDistance;
-                case SimuProperty.MaxVelocity:
-                    return isDefault ? GraphConfigKey.DefaultMaxVelocity : GraphConfigKey.LensMaxVelocity;
-                case SimuProperty.StopVelocity:
-                    return isDefault ? GraphConfigKey.DefaultStopVelocity : GraphConfigKey.LensStopVelocity;
-                default:
-                    return isDefault ? GraphConfigKey.DefaultSpringForce : GraphConfigKey.LensSpringForce;
-            }
+                SimuProperty.ForceSpring => isDefault ? GraphConfigKey.DefaultSpringForce : GraphConfigKey.LensSpringForce,
+                SimuProperty.ForceCoulomb => isDefault ? GraphConfigKey.DefaultCoulombForce : GraphConfigKey.LensCoulombForce,
+                SimuProperty.Damping => isDefault ? GraphConfigKey.DefaultDamping : GraphConfigKey.LensDamping,
+                SimuProperty.DistanceSpring => isDefault ? GraphConfigKey.DefaultSpringDistance : GraphConfigKey.LensSpringDistance,
+                SimuProperty.DistanceCoulomb => isDefault ? GraphConfigKey.DefaultCoulombDistance : GraphConfigKey.LensCoulombDistance,
+                SimuProperty.MaxVelocity => isDefault ? GraphConfigKey.DefaultMaxVelocity : GraphConfigKey.LensMaxVelocity,
+                SimuProperty.StopVelocity => isDefault ? GraphConfigKey.DefaultStopVelocity : GraphConfigKey.LensStopVelocity,
+                _ => isDefault ? GraphConfigKey.DefaultSpringForce : GraphConfigKey.LensSpringForce,
+            };
         }
 
     }
@@ -1810,14 +1722,41 @@ public class AIDENController : MonoBehaviour
         // TODO : Feedback UI, no intent detected
     }
 
-    private void CallFalseAbove(AIDENChainPayload payload, FlowStep flowStep, int flowId)
+    private void CallAfterTrue(AIDENChainPayload payload, FlowStep flowStep, int flowId)
     {
+        if(flowStep == FlowStep.DetectType)
+        {
+            SplitSentencesPayload splitSentences = payload.AIDENSplitSentences;
+
+
+            if(splitSentences == null)
+            {
+                Debug.LogWarning("CallFalseAbove SplitSentencesPayload is null");
+                return;
+            }
+
+            DetectType(payload, splitSentences, flowId);
+            return;
+        }
+
+
         if(flowStep == FlowStep.DetectParameters)
         {
-            var detectedTypePayload = payload.AIDENTypePayload;
+            DetectedTypePayload detectedTypePayload = payload.AIDENTypePayload;
+
+            if (detectedTypePayload == null)
+            {
+                Debug.LogWarning("CallFalseAbove DetectedTypePayload is null");
+                return;
+            }
+
             DetectParameters(payload, detectedTypePayload, flowId);
             return;
         }
+
+
+        if (flowStep == FlowStep.SplitSentence)
+            Debug.LogWarning("Weird : CallFalseAbove FlowStep.SplitSentence");
     }
 
     private void ValidateIntent(AIDENChainPayload payload, bool isManual = true)
