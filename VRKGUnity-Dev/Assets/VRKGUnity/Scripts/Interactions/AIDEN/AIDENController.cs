@@ -3,7 +3,6 @@ using Azure.AI.OpenAI;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -93,43 +92,22 @@ public class AIDENController : MonoBehaviour
         var clip = (AudioClip)rawPayload.Payload ;
         var audioStream = clip.EncodeToOggVorbisStream(true);
 
-        var userIntentTxt = await new WhisperAPI().TranscribeAudio(audioStream);
+        var userVoiceText = await new WhisperAPI().TranscribeAudio(audioStream);
 
-        AIDENPromptPayload payload = new(rawPayload.Id, userIntentTxt);
+        AIDENChainPayload payload = new(rawPayload.Id);
 
         if (DoNeedStopPayload(payload))
             return;
 
-        HandleTranscribedAudio(payload);
+        HandleTranscribedAudio(payload, userVoiceText);
     }
 
-    public void HandleTranscribedAudio(AIDENPromptPayload payload)
+    public void HandleTranscribedAudio(AIDENChainPayload payload, string userVoiceText, int flowId = 0)
     {
-        string userSentence = payload.UserSentence;
-        // Cheap way to detect if need to call the splitIntentTexts function that add another api call
-        string separator = TryGetSeparator(userSentence);
-
-        if (separator == null)
-        {
-            payload.UserSentences.Add(userSentence);
-            AIDENDetectMode(payload);
-            return;
-        }
-
-        // Check if common 
-
-
-
-        AIDENSplitSentence(payload);
+        SplitSentence(payload, userVoiceText, flowId);
     }
 
-    private void ManualSplitSentence(AIDENPromptPayload payload)
-    {
-
-    }
-
-
-    public string TryGetSeparator(string userIntentTxt)
+    private string TryGetSeparator(string userIntentTxt)
     {
         if(userIntentTxt.Contains(","))
         {
@@ -213,9 +191,28 @@ public class AIDENController : MonoBehaviour
 
     }
 
-    public async void AIDENSplitSentence(AIDENPromptPayload payload)
+    private void SplitSentence(AIDENChainPayload payload, string userVoiceText, int flowId)
     {
-        ChatCompletionsOptions chat = GetChat(AIDENPrompts.SeparePhrase, payload.UserSentence);
+        ManualSplitSentence(payload, userVoiceText, flowId);
+        AIDENSplitSentence(payload, userVoiceText, flowId);
+    }
+
+    private void ManualSplitSentence(AIDENChainPayload payload, string userVoiceText, int flowId)
+    {
+        // Cheap way to detect if need to call the splitIntentTexts function that add another api call
+        string separator = TryGetSeparator(userVoiceText);
+
+        //if (separator == null)
+        //{
+        //    payload.UserSentences.Add(userSentence);
+        //    AIDENDetectMode(payload, flowId);
+        //    return;
+        //}
+    }
+
+    private async void AIDENSplitSentence(AIDENChainPayload payload, string userVoiceText, int flowId)
+    {
+        ChatCompletionsOptions chat = GetChat(AIDENPrompts.SeparePhrase, userVoiceText);
 
         Response<ChatCompletions> response = await _gptClient.GetChatCompletionsAsync(
             deploymentOrModelName: _gptModelName,
@@ -224,49 +221,131 @@ public class AIDENController : MonoBehaviour
         if (DoNeedStopPayload(payload))
             return;
 
+        if (payload.NeedStopThisFlow(flowId)) // Impossible to enter this because it's the first AIDEN function to check if manual has a wrong value. Keep it nonetheless to understand the stop flow pattern     
+            return;
 
-        var aidenAnswer = response.Value.Choices[0].Message.Content;
-        payload.AIDENAnswer = aidenAnswer;
-        Debug.Log(aidenAnswer);
+        var jsonAidenAnswer = response.Value.Choices[0].Message.Content;
+        DebugDev.Log(jsonAidenAnswer);
 
-        HandleAIDENSplitSentence(payload);
+        HandleAIDENSplitSentence(payload, jsonAidenAnswer, flowId);
     }
 
-    public void HandleAIDENSplitSentence(AIDENPromptPayload payload)
+    private void HandleAIDENSplitSentence(AIDENChainPayload payload, string jsonAidenAnswer, int flowId)
     {
-        JObject jObject = JObject.Parse(payload.AIDENAnswer);
+        JObject jObject = JObject.Parse(jsonAidenAnswer);
 
         var intents = jObject.GetValue("intentions");
 
         if (intents == null)
         {
-            DebugDev.Log("Couldn't Deserialize Intentions Split in HandleSplitIntentText.");
-            // TODO : FeedbackUI
+            HandleNoSentence();
+            return;
+        }
+        SplitSentencesPayload splitSentences = new();
+
+        ExtractSentences();
+
+        int nbSplitSetences = splitSentences.Count;
+
+        if(nbSplitSetences == 0)
+        {
+            HandleNoSentence();
             return;
         }
 
-        List<string> sentencesIntents = payload.UserSentences;
+        if (payload.NeedStopThisFlow(flowId)) // Impossible to enter this because it's the first AIDEN function to check if manual has a wrong value. Keep it nonetheless to understand the stop flow pattern     
+            return;
 
-        JArray intentArray = (JArray)intents;
-        foreach (var intent in intentArray)
+
+        bool isManualValueCorrect = (payload.ManualNbSplitSentences == nbSplitSetences);
+        payload.AIDENStateAnswer[FlowStep.SplitSentence] = true;
+        payload.AIDENNbSplitSentences = nbSplitSetences;
+        payload.AIDENSplitSentences = splitSentences;
+        FlowStepRelativeStatus flowStatus = payload.GetRelativeFlowStatus(FlowStep.SplitSentence, out FlowStep blockedFlowState);
+
+        if (isManualValueCorrect)
         {
-            payload.UserSentences.Add(intent.ToString());
+            HandleCorrectManualValue();
+            return;
         }
 
+        CreateNewFlow();
 
-        AIDENDetectMode(payload);
+        void ExtractSentences()
+        {
+            JArray intentArray = (JArray)intents;
+
+            foreach (var intentSentence in intentArray)
+            {
+                splitSentences.Add(intentSentence.ToString());
+            }
+        }
+
+        void HandleNoSentence()
+        {
+            DebugDev.Log("HandleAIDENSplitSentence : 0 sentences detected, stop this chainPayload.");
+            StopAllFlowsPayload(payload);
+        }
+
+        void HandleCorrectManualValue()
+        {
+            DebugDev.Log("HandleAIDENSplitSentence Manual has successfully detected the good number of sentences.");
+
+            if (flowStatus == FlowStepRelativeStatus.FalseBefore || flowStatus == FlowStepRelativeStatus.NullBefore)
+                return;
+
+            if (flowStatus == FlowStepRelativeStatus.NullAfter)
+                return;
+
+            if (flowStatus == FlowStepRelativeStatus.FalseAfter)
+            {
+                CallFalseAbove(payload, blockedFlowState, flowId);
+                return;
+            }
+
+            if (flowStatus == FlowStepRelativeStatus.AllTrue)
+            {
+                ValidateIntent();
+                return;
+            }
+        }
+
+        void CreateNewFlow()
+        {
+            // All functions called under will be canceled with the flowId
+            flowId++;
+            payload.CurrentFlowId = flowId;
+            payload.ClearAIDENStateAnswerAfter(FlowStep.SplitSentence);
+
+            DetectType(payload, splitSentences, flowId);
+        }
     }
 
 
-    public async void AIDENDetectMode(AIDENPromptPayload payload)
+    private void DetectType(AIDENChainPayload payload, SplitSentencesPayload splitSentences, int flowId)
     {
-        List<Task<Response<ChatCompletions>>> tasks = new List<Task<Response<ChatCompletions>>>();
+        ManualDetectType(payload, splitSentences, flowId);
+        AIDENDetectType(payload, splitSentences, flowId);
+    }
 
-        List<string> userSentences = payload.UserSentences;
+    private void ManualDetectType(AIDENChainPayload payload, SplitSentencesPayload splitSentences, int flowId)
+    {
+        if (DoNeedStopPayload(payload))
+            return;
+
+        if (payload.NeedStopThisFlow(flowId))
+            return;
+    }
+
+    private async void AIDENDetectType(AIDENChainPayload payload, SplitSentencesPayload splitSentences, int flowId)
+    {
+        List<Task<Response<ChatCompletions>>> tasks = new();
+
+        var userSentences = splitSentences.Sentences;
 
         foreach (string userIntent in userSentences)
         {
-            tasks.Add(_gptClient.GetChatCompletionsAsync(_gptModelName, GetChat(AIDENPrompts.Groupe, userIntent)));
+            tasks.Add(_gptClient.GetChatCompletionsAsync(_gptModelName, GetChat(AIDENPrompts.DetecteGroupe, userIntent)));
         }
 
         await Task.WhenAll(tasks);
@@ -274,72 +353,166 @@ public class AIDENController : MonoBehaviour
         if (DoNeedStopPayload(payload))
             return;
 
+        if (payload.NeedStopThisFlow(flowId))
+            return;
 
         int id = 0;
 
+        List<(string, string)> sentenceAndJson = new();
+
         foreach (var task in tasks)
         {
-            payload.IntentsPayloads.Add(new(userSentences[id], task.Result.Value.Choices[0].Message.Content));
+            sentenceAndJson.Add((userSentences[id], task.Result.Value.Choices[0].Message.Content));
             id++;
         }
 
-        HandleAIDENDetectMode(payload);
+        HandleAIDENDetectType(payload, sentenceAndJson, flowId);
     }
 
-    private void HandleAIDENDetectMode(AIDENPromptPayload payload)
+    private void HandleAIDENDetectType(AIDENChainPayload payload, List<(string, string)> sentenceAndJson, int flowId)
     {
-        var intents = payload.IntentsPayloads;
-        int nbIntent = intents.Count;
+        List<AIDENPrompts> intentModes = new();
+        DetectedTypePayload detectedTypePayload = new();
 
+        ExtractTypes();
 
-        for(int i = nbIntent - 1; i >= 0; i--)
+        if (detectedTypePayload.Count == 0)
         {
-            AIDENIntentPayload intentPayload = intents[i];
-
-            JObject jObject = JObject.Parse(intentPayload.AIDENAnswer);
-            var props = jObject.Properties();
-
-            JToken intent = jObject.GetValue("intention");
-
-            if (intent == null)
-            {
-                DebugDev.LogWarning("HandleIntentGroupDetection : intent is null");
-                intents.Remove(intentPayload);
-                continue;
-            }
-
-            if (!intent.ToString().TryParseToEnum(out AIDENPrompts intentType))
-            {
-                DebugDev.LogWarning("HandleIntentGroupDetection : Couldn't convert " + intent + " to an enum.");
-                intents.Remove(intentPayload);
-                continue;
-            }
-
-            intentPayload.Type = intentType;
-        }
-
-
-        if(intents.Count == 0)
-        {
-            DebugDev.Log("HandleIntentsGroupDetection : 0 intents detected");
-            // TODO : Feedback UI
+            HandleNoTypes();
             return;
         }
-       
-        _ = AIDENDetectParameters(payload);
+
+        if (payload.NeedStopThisFlow(flowId))
+            return;
+
+        bool isManualValueCorrect = payload.AreSameMode(intentModes);
+        payload.AIDENTypePayload = detectedTypePayload;
+        payload.AIDENStateAnswer[FlowStep.DetectType] = isManualValueCorrect;
+        FlowStepRelativeStatus flowStatus = payload.GetRelativeFlowStatus(FlowStep.DetectType, out FlowStep blockedFlowState);
+
+
+        if (isManualValueCorrect)
+        {
+            HandleCorrectManualValue();
+            return;
+        }
+
+
+        if(flowStatus.IsBefore()) // Means that SplitSentence has not return its values yet, so don't create a new flow, let it do it
+        {
+            return;
+        }
+
+        // Wrong Manual Value detected
+        CreateNewFlow();
+
+        void ExtractTypes()
+        {
+            foreach ((string userSentence, string jsonItentType) in sentenceAndJson)
+            {
+                JObject jObject = JObject.Parse(jsonItentType);
+                var props = jObject.Properties();
+
+                JToken intent = jObject.GetValue("intention");
+
+                if (intent == null)
+                {
+                    DebugDev.LogWarning("HandleIntentGroupDetection : intent is null");
+                    continue;
+                }
+
+                if (!intent.ToString().TryParseToEnum(out AIDENPrompts intentType))
+                {
+                    DebugDev.LogWarning("HandleIntentGroupDetection : Couldn't convert " + intent + " to an enum.");
+                    continue;
+                }
+
+                intentModes.Add(intentType);
+                detectedTypePayload.Add(intentType, userSentence);
+            }
+        }
+
+        void HandleNoTypes()
+        {
+            DebugDev.Log("HandleIntentsGroupDetection : 0 types detected");
+
+            var relativeFlowStatus = payload.GetRelativeFlowStatus(FlowStep.DetectType, out FlowStep _);
+
+            payload.AIDENStateAnswer[FlowStep.DetectType] = false;
+
+            if (relativeFlowStatus.IsAfter()) // Means that the AIDEN head is here, so this function has been called by AIDEN flow and not by Manual
+            {
+                StopAllFlowsPayload(payload);
+                return;
+            }
+
+            // Means that this function has been called by a Manual Flow, so AIDENSplitSentence hasn't returned its values
+            // No need to do anything here
+            return;
+        }
+
+        void HandleCorrectManualValue()
+        {
+            DebugDev.Log("HandleAIDENDetectMode Manual has successfully detected the good number of sentences.");
+            // TODO : Check here if other are ok
+
+            if (flowStatus.IsBefore())
+                return;
+
+            if (flowStatus == FlowStepRelativeStatus.NullAfter)
+                return;
+
+            if (flowStatus == FlowStepRelativeStatus.FalseAfter) // AidenDetectParameters return before this, so need to call him, blockedFlowState will be DetectParameters
+            {
+                CallFalseAbove(payload, blockedFlowState, flowId);
+                return;
+            }
+
+            if (flowStatus == FlowStepRelativeStatus.AllTrue)
+            {
+                ValidateIntent(payload);
+                return;
+            }
+        }
+
+        void CreateNewFlow()
+        {
+            flowId++;
+            payload.CurrentFlowId = flowId;
+            payload.ClearAIDENStateAnswerAfter(FlowStep.DetectType);
+
+            DetectParameters(payload, detectedTypePayload, flowId);
+        }
     }
 
 
+    #region DetectParameters
+    private void DetectParameters(AIDENChainPayload payload, DetectedTypePayload detectedTypePayload, int flowId)
+    {
+        if (DoNeedStopPayload(payload))
+            return;
 
-    private async Task AIDENDetectParameters(AIDENPromptPayload payload)
+        if (payload.NeedStopThisFlow(flowId))
+            return;
+
+        ManualDetectParameters(payload, detectedTypePayload, flowId);
+        _ = AIDENDetectParameters(payload, detectedTypePayload, flowId);
+    }
+
+    private void ManualDetectParameters(AIDENChainPayload payload, DetectedTypePayload detectedTypePayload, int flowId)
+    {
+        
+    }
+
+    private async Task AIDENDetectParameters(AIDENChainPayload payload, DetectedTypePayload detectedTypePayload, int flowId)
     {
         List<Task<Response<ChatCompletions>>> tasks = new List<Task<Response<ChatCompletions>>>();
 
-        var intentPayloads = payload.IntentsPayloads;
+        List<TypeAndSentence> typeAndSentences = detectedTypePayload.TypeAndSentence;
 
-        foreach(AIDENIntentPayload intentPayload in intentPayloads)
+        foreach(TypeAndSentence typeAndSentence in typeAndSentences)
         {
-            tasks.Add(_gptClient.GetChatCompletionsAsync(_gptModelName, GetChat(intentPayload.Type, intentPayload.UserIntentSentence)));
+            tasks.Add(_gptClient.GetChatCompletionsAsync(_gptModelName, GetChat(typeAndSentence.Type, typeAndSentence.UserIntentSentence)));
         }
 
         await Task.WhenAll(tasks);
@@ -347,93 +520,149 @@ public class AIDENController : MonoBehaviour
         if (DoNeedStopPayload(payload))
             return;
 
+        if (payload.NeedStopThisFlow(flowId))
+            return;
+
+
+        List<(AIDENPrompts, string)> jtypeWithJsonParameters = new();
 
         int i = 0;
 
         foreach (var task in tasks)
         {
-            var intentPayload = intentPayloads[i];
-            intentPayload.AIDENAnswer = task.Result.Value.Choices[0].Message.Content;
+            jtypeWithJsonParameters.Add((typeAndSentences[i].Type, task.Result.Value.Choices[0].Message.Content));
             i++;
-            DebugDev.Log((object)intentPayload.Type);
-            DebugDev.Log((object)intentPayload.AIDENAnswer);
         }
 
-        HandleAIDENDetectParameters(payload);
+        HandleAIDENDetectParameters(payload, jtypeWithJsonParameters, flowId);
     }
 
 
-    private void HandleAIDENDetectParameters(AIDENPromptPayload payload)
+    private void HandleAIDENDetectParameters(AIDENChainPayload payload, List<(AIDENPrompts, string)> jsonWithparameters, int flowId)
     {
-        _aidenIntents = new();
-        var intentPayloads = payload.IntentsPayloads;
+        AIDENIntents aidenIntents = new();
 
-        foreach (var intentPayload in intentPayloads)
-        {
-            switch (intentPayload.Type)
-            {
-                case AIDENPrompts.Mode:
-                    HandleAIDENParametersMode(intentPayload, _aidenIntents);
-                    break;
-                case AIDENPrompts.Taille:
-                    HandleAIDENParametersSize(intentPayload, _aidenIntents);
-                    break;
-                case AIDENPrompts.Visibilite:
-                    HandleAIDENParametersVisibility(intentPayload, _aidenIntents);
-                    break;
-                case AIDENPrompts.Couleur:
-                    HandleAIDENParametersColor(intentPayload, _aidenIntents);
-                    break;
-                case AIDENPrompts.Ontologie:
-                    HandleAIDENParametersOntology(intentPayload, _aidenIntents);
-                    break;
-                case AIDENPrompts.Volume:
-                    HandleAIDENParametersVolume(intentPayload, _aidenIntents);
-                    break;
-                case AIDENPrompts.Interaction:
-                    HandleAIDENParametersInteraction(intentPayload, _aidenIntents);
-                    break;
-                case AIDENPrompts.Metrique:
-                    HandleAIDENParametersMetric(intentPayload, _aidenIntents);
-                    break;
-                case AIDENPrompts.Temps:
-                    HandleAIDENParametersTime(intentPayload, _aidenIntents);
-                    break;
-                case AIDENPrompts.Physique:
-                    HandleAIDENParametersSimulation(intentPayload, _aidenIntents);
-                    break;
-                case AIDENPrompts.Action:
-                    HandleAIDENParametersAction(intentPayload, _aidenIntents);
-                    break;
-                case AIDENPrompts.SeparePhrase:
-                    Debug.Log("Weird to find a split sentence type here");
-                    break;
-            }
-        }
+        ExtractIntents();
 
-        if(_aidenIntents.Intents.Count == 0)
+        if (aidenIntents.Intents.Count == 0)
         {
-            // TODO : UI feedback
-            DebugDev.Log("No intents detected");
+            HandleNoIntents();
             return;
         }
 
-        _aidenIntents.Order();
+        aidenIntents.Order();
 
-        foreach (var intent in _aidenIntents.Intents)
+        foreach (var intent in aidenIntents.Intents)
         {
             DebugDev.Log(intent.ToString());
         }
 
-        //_propagatorManager.SetNewValues(_aidenIntents);
-        
-        // TODO : UI feedback
+        bool isManualValueCorrect = payload.AreSameIntents(aidenIntents);
+        payload.AIDENIntents = aidenIntents;
+        payload.AIDENStateAnswer[FlowStep.SplitSentence] = isManualValueCorrect;
+        FlowStepRelativeStatus flowStatus = payload.GetRelativeFlowStatus(FlowStep.SplitSentence, out FlowStep blockedFlowState);
+
+
+        if (isManualValueCorrect)
+        {
+            HandleCorrectManualValue();
+            return;
+        }
+
+
+        if (flowStatus.IsBefore()) // Means that AIDENSplitSentence or/and AIDENDetectType has not return their values yet, so wait them
+        {
+            return;
+        }
+
+        ValidateIntent(payload, false);
+
+
+
+        void ExtractIntents()
+        {
+            foreach ((AIDENPrompts type, string jsonParameter) in jsonWithparameters)
+            {
+                switch (type)
+                {
+                    case AIDENPrompts.Mode:
+                        HandleAIDENParametersMode(jsonParameter, aidenIntents);
+                        break;
+                    case AIDENPrompts.Taille:
+                        HandleAIDENParametersSize(jsonParameter, aidenIntents);
+                        break;
+                    case AIDENPrompts.Visibilite:
+                        HandleAIDENParametersVisibility(jsonParameter, aidenIntents);
+                        break;
+                    case AIDENPrompts.Couleur:
+                        HandleAIDENParametersColor(jsonParameter, aidenIntents);
+                        break;
+                    case AIDENPrompts.Ontologie:
+                        HandleAIDENParametersOntology(jsonParameter, aidenIntents);
+                        break;
+                    case AIDENPrompts.Volume:
+                        HandleAIDENParametersVolume(jsonParameter, aidenIntents);
+                        break;
+                    case AIDENPrompts.Interaction:
+                        HandleAIDENParametersInteraction(jsonParameter, aidenIntents);
+                        break;
+                    case AIDENPrompts.Metrique:
+                        HandleAIDENParametersMetric(jsonParameter, aidenIntents);
+                        break;
+                    case AIDENPrompts.Temps:
+                        HandleAIDENParametersTime(jsonParameter, aidenIntents);
+                        break;
+                    case AIDENPrompts.Physique:
+                        HandleAIDENParametersSimulation(jsonParameter, aidenIntents);
+                        break;
+                    case AIDENPrompts.Action:
+                        HandleAIDENParametersAction(jsonParameter, aidenIntents);
+                        break;
+                    case AIDENPrompts.SeparePhrase:
+                        Debug.Log("Weird to find a split sentence type here");
+                        break;
+                }
+            }
+        }
+
+        void HandleNoIntents()
+        {
+            DebugDev.Log("HandleAIDENDetectParameters : 0 intents detected");
+
+            var relativeFlowStatus = payload.GetRelativeFlowStatus(FlowStep.DetectParameters, out FlowStep _);
+
+            payload.AIDENStateAnswer[FlowStep.DetectType] = false;
+
+            if (relativeFlowStatus == FlowStepRelativeStatus.AllTrue) // Means that the AIDEN head is here, so this function has been called by AIDENDetectType and not by Manual
+            {
+                StopAllFlowsPayload(payload);
+                return;
+            }
+
+            // Means that this function has been called by a Manual Flow, so AIDENSplitSentence or AIDENDetectType hasn't returned its values
+            // No need to do anything here
+            return;
+        }
+
+        void HandleCorrectManualValue()
+        {
+            DebugDev.Log("HandleAIDENDetectParameters Manual has successfully detected the good number of sentences.");   
+
+            if (flowStatus.IsBefore())
+                return;
+
+            if (flowStatus == FlowStepRelativeStatus.AllTrue)
+            {
+                ValidateIntent(payload);
+                return;
+            }
+        }
     }
 
-    private void HandleAIDENParametersMode(AIDENIntentPayload intentPayload, AIDENIntents aidenIntents)
+    private void HandleAIDENParametersMode(string jsonParameter, AIDENIntents aidenIntents)
     {
         var properties = new HashSet<string> { "mode", "type", "precision" };
-        var propertiesDict = ExtractProperties(properties, intentPayload.AIDENAnswer);
+        var propertiesDict = ExtractProperties(properties, jsonParameter);
 
         string mode = propertiesDict["mode"];
         string type = propertiesDict["type"];
@@ -570,16 +799,16 @@ public class AIDENController : MonoBehaviour
 
         void LogWarning()
         {
-            DebugDev.LogWarning("Couldn't HandleModeIntent : " + mode + " " + type + " " + precision + "\n" + intentPayload.AIDENAnswer);
+            DebugDev.LogWarning("Couldn't HandleModeIntent : " + mode + " " + type + " " + precision + "\n" + jsonParameter);
 
         }
 
     }
 
-    private void HandleAIDENParametersSize(AIDENIntentPayload intentPayload, AIDENIntents aidenIntents)
+    private void HandleAIDENParametersSize(string jsonParameter, AIDENIntents aidenIntents)
     {
         var properties = new HashSet<string> { "sujet", "sujet_type", "valeur" };
-        var propertiesDict = ExtractProperties(properties, intentPayload.AIDENAnswer);
+        var propertiesDict = ExtractProperties(properties, jsonParameter);
 
         string subject = propertiesDict["sujet"];
         string subjectType = propertiesDict["sujet_type"];
@@ -671,7 +900,7 @@ public class AIDENController : MonoBehaviour
 
         void LogWarning()
         {
-            DebugDev.LogWarning("Couldn't HandleSizeIntent : " + subject + " " + subjectType + " " + valueS + "\n" + intentPayload.AIDENAnswer);
+            DebugDev.LogWarning("Couldn't HandleSizeIntent : " + subject + " " + subjectType + " " + valueS + "\n" + jsonParameter);
 
         }
 
@@ -809,10 +1038,10 @@ public class AIDENController : MonoBehaviour
 
     }
 
-    private void HandleAIDENParametersVisibility(AIDENIntentPayload intentPayload, AIDENIntents aidenIntents)
+    private void HandleAIDENParametersVisibility(string jsonParameter, AIDENIntents aidenIntents)
     {
         var properties = new HashSet<string> { "affichage", "transparence", "valeur" };
-        var propertiesDict = ExtractProperties(properties, intentPayload.AIDENAnswer);
+        var propertiesDict = ExtractProperties(properties, jsonParameter);
 
         string affichage = propertiesDict["affichage"];
         string transparency = propertiesDict["transparence"];
@@ -926,7 +1155,7 @@ public class AIDENController : MonoBehaviour
 
         void LogWarning()
         {
-            DebugDev.LogWarning("Couldn't HandleVisibilityIntent : " + affichage + " " + transparency + " " + valueS + "\n" + intentPayload.AIDENAnswer);
+            DebugDev.LogWarning("Couldn't HandleVisibilityIntent : " + affichage + " " + transparency + " " + valueS + "\n" + jsonParameter);
         }
 
         float GetCurrentAlpha(GraphConfigKey alphaKey)
@@ -968,10 +1197,10 @@ public class AIDENController : MonoBehaviour
         }
     }
 
-    private void HandleAIDENParametersColor(AIDENIntentPayload intentPayload, AIDENIntents aidenIntents)
+    private void HandleAIDENParametersColor(string jsonParameter, AIDENIntents aidenIntents)
     {
         var properties = new HashSet<string> { "objet", "couleur" };
-        var propertiesDict = ExtractProperties(properties, intentPayload.AIDENAnswer);
+        var propertiesDict = ExtractProperties(properties, jsonParameter);
 
         string objet = propertiesDict["objet"];
         string colorS = propertiesDict["couleur"];
@@ -1004,7 +1233,7 @@ public class AIDENController : MonoBehaviour
 
         void LogWarning()
         {
-            DebugDev.LogWarning("Couldn't HandleColorIntent : " + objet + " " + colorS + "\n" + intentPayload.AIDENAnswer);
+            DebugDev.LogWarning("Couldn't HandleColorIntent : " + objet + " " + colorS + "\n" + jsonParameter);
         }
 
         bool TryGetObjectColor(string obj, out GraphConfigKey colorKey)
@@ -1071,10 +1300,10 @@ public class AIDENController : MonoBehaviour
         }
     }
 
-    private void HandleAIDENParametersOntology(AIDENIntentPayload intentPayload, AIDENIntents aidenIntents)
+    private void HandleAIDENParametersOntology(string jsonParameter, AIDENIntents aidenIntents)
     {
         var properties = new HashSet<string> { "objet", "valeur" };
-        var propertiesDict = ExtractProperties(properties, intentPayload.AIDENAnswer);
+        var propertiesDict = ExtractProperties(properties, jsonParameter);
 
         string objet = propertiesDict["objet"];
         string valueS = propertiesDict["valeur"];
@@ -1111,7 +1340,7 @@ public class AIDENController : MonoBehaviour
 
         void LogWarning()
         {
-            DebugDev.LogWarning("Couldn't HandleOntologyIntent : " + objet + " " + valueS + "\n" + intentPayload.AIDENAnswer);
+            DebugDev.LogWarning("Couldn't HandleOntologyIntent : " + objet + " " + valueS + "\n" + jsonParameter);
         }
 
         bool TryGetObjectOntologty(string objet, out GraphConfigKey graphConfigKey)
@@ -1155,10 +1384,10 @@ public class AIDENController : MonoBehaviour
 
     }
 
-    private void HandleAIDENParametersVolume(AIDENIntentPayload intentPayload, AIDENIntents aidenIntents)
+    private void HandleAIDENParametersVolume(string jsonParameter, AIDENIntents aidenIntents)
     {
         var properties = new HashSet<string> { "objet", "valeur" };
-        var propertiesDict = ExtractProperties(properties, intentPayload.AIDENAnswer);
+        var propertiesDict = ExtractProperties(properties, jsonParameter);
 
         string objet = propertiesDict["objet"];
         string valueS = propertiesDict["valeur"];
@@ -1197,7 +1426,7 @@ public class AIDENController : MonoBehaviour
 
         void LogWarning()
         {
-            DebugDev.LogWarning("Couldn't HandleVolumeIntent : " + objet + " " + valueS + "\n" + intentPayload.AIDENAnswer);
+            DebugDev.LogWarning("Couldn't HandleVolumeIntent : " + objet + " " + valueS + "\n" + jsonParameter);
         }
 
         bool TryParseObjectVolume(string objet, out GraphConfigKey graphConfigKey)
@@ -1241,10 +1470,10 @@ public class AIDENController : MonoBehaviour
 
     }
 
-    private void HandleAIDENParametersInteraction(AIDENIntentPayload intentPayload, AIDENIntents aidenIntents)
+    private void HandleAIDENParametersInteraction(string jsonParameter, AIDENIntents aidenIntents)
     {
         var properties = new HashSet<string> { "objet", "valeur" };
-        var propertiesDict = ExtractProperties(properties, intentPayload.AIDENAnswer);
+        var propertiesDict = ExtractProperties(properties, jsonParameter);
 
         string objet = propertiesDict["objet"];
         string valueS = propertiesDict["valeur"];
@@ -1281,15 +1510,15 @@ public class AIDENController : MonoBehaviour
 
         void LogWarning()
         {
-            DebugDev.LogWarning("Couldn't HandleInteractionIntent : " + objet + " " + valueS + "\n" + intentPayload.AIDENAnswer);
+            DebugDev.LogWarning("Couldn't HandleInteractionIntent : " + objet + " " + valueS + "\n" + jsonParameter);
         }
 
     }
 
-    private void HandleAIDENParametersMetric(AIDENIntentPayload intentPayload, AIDENIntents aidenIntents)
+    private void HandleAIDENParametersMetric(string jsonParameter, AIDENIntents aidenIntents)
     {
         var properties = new HashSet<string> { "metrique", "precision" };
-        var propertiesDict = ExtractProperties(properties, intentPayload.AIDENAnswer);
+        var propertiesDict = ExtractProperties(properties, jsonParameter);
 
         string metric = propertiesDict["metrique"];
         string precision = propertiesDict["precision"];
@@ -1317,7 +1546,7 @@ public class AIDENController : MonoBehaviour
 
         void LogWarning()
         {
-            DebugDev.LogWarning("Couldn't HandleMetriqueIntent : " + metric + " " + precision + "\n" + intentPayload.AIDENAnswer);
+            DebugDev.LogWarning("Couldn't HandleMetriqueIntent : " + metric + " " + precision + "\n" + jsonParameter);
         }
 
 
@@ -1351,10 +1580,10 @@ public class AIDENController : MonoBehaviour
 
     }
 
-    private void HandleAIDENParametersTime(AIDENIntentPayload intentPayload, AIDENIntents aidenIntents)
+    private void HandleAIDENParametersTime(string jsonParameter, AIDENIntents aidenIntents)
     {
         var properties = new HashSet<string> { "temps", "valeur" };
-        var propertiesDict = ExtractProperties(properties, intentPayload.AIDENAnswer);
+        var propertiesDict = ExtractProperties(properties, jsonParameter);
 
         string time = propertiesDict["temps"];
         string valueS = propertiesDict["valeur"];
@@ -1390,14 +1619,14 @@ public class AIDENController : MonoBehaviour
 
         void LogWarning()
         {
-            DebugDev.LogWarning("Couldn't HandleTimeIntent : " + time + " " + valueS + "\n" + intentPayload.AIDENAnswer);
+            DebugDev.LogWarning("Couldn't HandleTimeIntent : " + time + " " + valueS + "\n" + jsonParameter);
         }
     }
 
-    private void HandleAIDENParametersSimulation(AIDENIntentPayload intentPayload, AIDENIntents aidenIntents)
+    private void HandleAIDENParametersSimulation(string jsonParameter, AIDENIntents aidenIntents)
     {
         var properties = new HashSet<string> { "graphe", "propriete", "valeur" };
-        var propertiesDict = ExtractProperties(properties, intentPayload.AIDENAnswer);
+        var propertiesDict = ExtractProperties(properties, jsonParameter);
 
         string graphe = propertiesDict["graphe"];
         string property = propertiesDict["propriete"];
@@ -1439,7 +1668,7 @@ public class AIDENController : MonoBehaviour
 
         void LogWarning()
         {
-            DebugDev.LogWarning("Couldn't HandleTimeIntent : " + graphe + " " + property + " " +  valueS  + "\n" + intentPayload.AIDENAnswer);
+            DebugDev.LogWarning("Couldn't HandleTimeIntent : " + graphe + " " + property + " " +  valueS  + "\n" + jsonParameter);
         }
 
         bool TryExtractProperty(string property, out SimuProperty simuProperty)
@@ -1515,10 +1744,10 @@ public class AIDENController : MonoBehaviour
 
     }
 
-    private void HandleAIDENParametersAction(AIDENIntentPayload intentPayload, AIDENIntents aidenIntents)
+    private void HandleAIDENParametersAction(string jsonParameter, AIDENIntents aidenIntents)
     {
         var properties = new HashSet<string> { "action"};
-        var propertiesDict = ExtractProperties(properties, intentPayload.AIDENAnswer);
+        var propertiesDict = ExtractProperties(properties, jsonParameter);
 
         string action = propertiesDict["action"];
 
@@ -1537,7 +1766,7 @@ public class AIDENController : MonoBehaviour
 
         void LogWarning()
         {
-            DebugDev.LogWarning("Couldn't HandleTimeIntent : " + action + "\n" + intentPayload.AIDENAnswer);
+            DebugDev.LogWarning("Couldn't HandleTimeIntent : " + action + "\n" + jsonParameter);
         }
 
         bool TryParseAction(string action, out GraphActionKey actionType)
@@ -1572,6 +1801,57 @@ public class AIDENController : MonoBehaviour
         }
 
     }
+    #endregion
+
+    private void StopAllFlowsPayload(AIDENChainPayload payload)
+    {
+        payload.CurrentFlowId = int.MaxValue;
+
+        // TODO : Feedback UI, no intent detected
+    }
+
+    private void CallFalseAbove(AIDENChainPayload payload, FlowStep flowStep, int flowId)
+    {
+        if(flowStep == FlowStep.DetectParameters)
+        {
+            var detectedTypePayload = payload.AIDENTypePayload;
+            DetectParameters(payload, detectedTypePayload, flowId);
+            return;
+        }
+    }
+
+    private void ValidateIntent(AIDENChainPayload payload, bool isManual = true)
+    {
+        if(isManual)
+        {
+            var intents = payload.ManualIntents;
+
+            if(intents == null)
+            {
+                Debug.LogWarning("Intents are null in validateIntent.");
+                return;
+            }
+
+            _aidenIntents = intents;
+            Debug.Log("SetIntents : " + _aidenIntents);
+            //_propagatorManager.SetNewValues(_aidenIntents);
+            return;
+        }
+
+
+        var intentsB = payload.AIDENIntents;
+
+        if (intentsB == null)
+        {
+            Debug.LogWarning("intentsB are null in validateIntent.");
+            return;
+        }
+
+        Debug.Log("SetIntents B : " + _aidenIntents);
+        _aidenIntents = intentsB;
+        //_propagatorManager.SetNewValues(_aidenIntents);
+    }
+
 
     private ChatCompletionsOptions GetChat(AIDENPrompts aidenPrompts, string transcribedText)
     {
@@ -1616,22 +1896,11 @@ public class AIDENController : MonoBehaviour
 
     }
 
-    private (string key,string value) GetKeyValue(JObject jObject)
-    {
-        try
-        {
-            string intentType = jObject.Properties().First().Name;
-            string sentenceChunck = jObject[intentType].ToString();
-            return (intentType, sentenceChunck);
-        }
-        catch 
-        {
-            return ("", "");
-        }
-    }
 
-
-    private bool DoNeedStopPayload(AIDENPromptPayload promptPayload)
+    /// <summary>
+    /// Stop this payload when a new one has been created because the user talked after or canceled it
+    /// </summary>
+    private bool DoNeedStopPayload(AIDENChainPayload promptPayload)
     {
         if (promptPayload.Id <= _stopPayloadId)
         {

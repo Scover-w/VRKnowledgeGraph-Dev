@@ -4,6 +4,19 @@ public class AIDENIntent
 {
     public bool IsGraphConfig { get; private set; }
 
+    public int IdKey
+    {
+        get
+        {
+            int idKey = 0;
+            if (IsGraphConfig)
+                idKey = (int)GraphConfigKey;
+            else
+                idKey = (int)GraphActionKey + 1000;
+            return idKey;
+        }
+    }
+
     public GraphConfigKey GraphConfigKey { get; private set; }
     public GraphActionKey GraphActionKey { get; private set; }
 
@@ -62,6 +75,35 @@ public class AIDENIntent
     {
         IsGraphConfig = false;
         GraphActionKey = graphConfigKey;
+    }
+
+    public bool AreSame(AIDENIntent aidenIntent)
+    {
+        if (IsGraphConfig != aidenIntent.IsGraphConfig)
+            return false;
+
+
+        if(IsGraphConfig)
+        {
+            if(GraphConfigKey != aidenIntent.GraphConfigKey)
+                return false;
+
+            switch (ValueType)
+            {
+                case AIDENValueType.String:
+                    return ValueString == aidenIntent.ValueString;
+                case AIDENValueType.Float:
+                    return ValueFloat == aidenIntent.ValueFloat;
+                case AIDENValueType.Boolean:
+                    return ValueBoolean == aidenIntent.ValueBoolean;
+                case AIDENValueType.Color:
+                    return ValueColor == aidenIntent.ValueColor;
+                default: 
+                    return false;
+            }
+        }
+
+        return GraphActionKey == aidenIntent.GraphActionKey;
     }
 
     public override string ToString()

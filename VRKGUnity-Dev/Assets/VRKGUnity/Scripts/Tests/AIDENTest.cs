@@ -31,7 +31,7 @@ public class AIDENTest : MonoBehaviour
     [ContextMenu("AskButSplitBefore")]
     public void AskButSplitBefore()
     {
-        AIDENPromptPayload promptPayload = new(0, UserSentence);
+        AIDENChainPayload promptPayload = new(0, UserSentence);
 
         _aiden.HandleTranscribedAudio(promptPayload);
     }

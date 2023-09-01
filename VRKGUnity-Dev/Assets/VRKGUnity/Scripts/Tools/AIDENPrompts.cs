@@ -1,7 +1,7 @@
 public enum AIDENPrompts
 {
     SeparePhrase,
-    Groupe,
+    DetecteGroupe,
     Mode,
     Taille,
     Visibilite,
