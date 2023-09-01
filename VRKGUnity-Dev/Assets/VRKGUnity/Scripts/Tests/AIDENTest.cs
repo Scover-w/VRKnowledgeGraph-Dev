@@ -31,9 +31,10 @@ public class AIDENTest : MonoBehaviour
     [ContextMenu("AskButSplitBefore")]
     public void AskButSplitBefore()
     {
-        AIDENChainPayload promptPayload = new(0, UserSentence);
 
-        _aiden.HandleTranscribedAudio(promptPayload);
+        AIDENChainPayload payload = new(0);
+
+        _aiden.HandleTranscribedAudio(payload, UserSentence);
     }
 
     [ContextMenu("Test order")]

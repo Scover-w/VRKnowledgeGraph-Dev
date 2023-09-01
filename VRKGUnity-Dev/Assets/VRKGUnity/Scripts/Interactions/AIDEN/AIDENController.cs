@@ -305,7 +305,7 @@ public class AIDENController : MonoBehaviour
 
             if (flowStatus == FlowStepRelativeStatus.AllTrue)
             {
-                ValidateIntent();
+                ValidateIntent(payload);
                 return;
             }
         }
