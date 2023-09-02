@@ -844,8 +844,9 @@ public class AIDENController : MonoBehaviour
         {
             float currentSize = GetGraphSize(graph);
 
+
             if (!isAbsolute)
-                newSize = currentSize * newSize;
+                newSize = UpdateRelativeValue(currentSize, newSize);
 
             aidenIntents.Add(new AIDENIntent(GetSizeKey(graph), newSize, currentSize));
             return;
@@ -862,7 +863,7 @@ public class AIDENController : MonoBehaviour
             float currentSize = GetTextSize(graph);
 
             if (!isAbsolute)
-                newSize = currentSize * newSize;
+                newSize = UpdateRelativeValue(currentSize, newSize);
 
 
             aidenIntents.Add(new AIDENIntent(GetTextKey(graph), newSize, currentSize));
@@ -874,7 +875,7 @@ public class AIDENController : MonoBehaviour
             float currentSize = GetNodeSize(graph);
 
             if (!isAbsolute)
-                newSize = currentSize * newSize;
+                newSize = UpdateRelativeValue(currentSize, newSize);
 
             aidenIntents.Add(new AIDENIntent(GetNodeKey(graph), newSize, currentSize));
             return;
@@ -885,7 +886,7 @@ public class AIDENController : MonoBehaviour
             float currentSize = GetEdgeSize(graph);
 
             if (!isAbsolute)
-                newSize = currentSize * newSize;
+                newSize = UpdateRelativeValue(currentSize, newSize);
 
             aidenIntents.Add(new AIDENIntent(GetEdgeKey(graph), newSize, currentSize));
             return;
@@ -1267,10 +1268,9 @@ public class AIDENController : MonoBehaviour
 
         float curentOntologyValue = GetCurrentOntologyValue(configKeyOntology);
 
+
         if (!isAbsolute)
-        {
-            newOntologyValue = curentOntologyValue * newOntologyValue;
-        }
+            newOntologyValue = UpdateRelativeValue(curentOntologyValue, newOntologyValue);
 
 
         aidenIntents.Add(new AIDENIntent(configKeyOntology, newOntologyValue, curentOntologyValue));
@@ -1539,9 +1539,7 @@ public class AIDENController : MonoBehaviour
         float currentTimeFloat = _graphConfiguration.GraphModeTransitionTime;
 
         if (!isAbsolute)
-        {
-            newTimeFloat = currentTimeFloat * newTimeFloat;
-        }
+            newTimeFloat = UpdateRelativeValue(currentTimeFloat, newTimeFloat);
 
         aidenIntents.Add(new AIDENIntent(GraphConfigKey.GraphModeTransitionTime, newTimeFloat, currentTimeFloat));
 
@@ -1586,9 +1584,7 @@ public class AIDENController : MonoBehaviour
         float currentSimuFloat = GetSimuValue(isDefault, simuProperty);
 
         if (!isAbsolute)
-        {
-            newSimuFloat = currentSimuFloat * newSimuFloat;
-        }
+            newSimuFloat = UpdateRelativeValue(currentSimuFloat, newSimuFloat);
 
 
         aidenIntents.Add(new AIDENIntent(GetSimuKey(isDefault, simuProperty), newSimuFloat, currentSimuFloat));
@@ -1835,7 +1831,6 @@ public class AIDENController : MonoBehaviour
 
     }
 
-
     /// <summary>
     /// Stop this payload when a new one has been created because the user talked after or canceled it
     /// </summary>
@@ -1895,6 +1890,15 @@ public class AIDENController : MonoBehaviour
         return true;
     }
 
+    private float UpdateRelativeValue(float currentValue, float relativeValue)
+    {
+        if(relativeValue < 0)
+        {
+            relativeValue = 1f - relativeValue;
+        }
+
+        return currentValue * relativeValue;
+    }
 
     enum SimuProperty
     {
