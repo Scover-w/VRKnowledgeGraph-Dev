@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using UnityEditorInternal.VR;
 
 public class AIDENChainPayload
 {
-    public int Id;
+    public int Id { get; private set; }
 
     public int ManualNbSplitSentences = -1;
     public SplitSentencesPayload ManualSplitSentences;
@@ -20,8 +21,12 @@ public class AIDENChainPayload
     public Dictionary<FlowStep, bool> AIDENStateAnswer = new();
 
     public FlowStep CurentManualStep = FlowStep.None;
-    public int CurrentFlowId = 0;
-    
+
+    private int _currentFlowId = 0;
+
+    readonly public Mutex MutexCurrentFlowId = new();
+    readonly public Mutex MutexAIDENProperties = new();
+    readonly public Mutex MutexManualProperties = new();
 
     public AIDENChainPayload(int id)
     {
@@ -34,21 +39,32 @@ public class AIDENChainPayload
     /// </summary>
     public bool NeedStopThisFlow(int flowId)
     {
-        if(flowId < CurrentFlowId)
+        bool needStopThisFlow = false;
+
+        MutexCurrentFlowId.WaitOne();
+
+        if (flowId < _currentFlowId)
         {
             DebugDev.Log("Stop this flow.");
-            return true;
+            needStopThisFlow = true;
         }
 
-        return false;
+        MutexCurrentFlowId.ReleaseMutex();
+
+        return needStopThisFlow;
     }
 
     public bool AreSameMode(List<AIDENPrompts> aidenPromptTypes)
     {
         int id = 0;
 
+        MutexManualProperties.WaitOne();
+
         if (ManualTypePayload == null || ManualTypePayload.Count != aidenPromptTypes.Count)
+        {
+            MutexManualProperties.ReleaseMutex();
             return false;
+        }
 
         var typeAndSentences = ManualTypePayload.TypeAndSentence;
 
@@ -57,21 +73,30 @@ public class AIDENChainPayload
             TypeAndSentence typeAndSentence = typeAndSentences[id];
 
             if (typeAndSentence.Type != type)
+            {
+                MutexManualProperties.ReleaseMutex();
                 return false;
+            }
 
             id++;
         }
 
+        MutexManualProperties.ReleaseMutex();
         return true;
     }
 
     public bool AreSameIntents(AIDENIntents aidenIntentsWrapper)
     {
+        MutexManualProperties.WaitOne();
+
         var aidenIntents = aidenIntentsWrapper.Intents;
         var manualIntents = ManualIntents.Intents;
 
         if (manualIntents == null || manualIntents.Count != aidenIntents.Count)
+        {
+            MutexManualProperties.ReleaseMutex();
             return false;
+        }
 
 
         int i = 0;
@@ -81,24 +106,38 @@ public class AIDENChainPayload
             var manualIntent = manualIntents[i];
 
             if (!aidenIntent.AreSame(manualIntent))
+            {
+                MutexManualProperties.ReleaseMutex();
                 return false;
+            }
 
             i++;
         }
 
+        MutexManualProperties.ReleaseMutex();
         return true;
     }
 
     public void ClearAIDENStateAnswerAfter(FlowStep flowStep)
     {
+        MutexAIDENProperties.WaitOne();
+
         var keysToRemove = AIDENStateAnswer.Keys.Where(k => k > flowStep).ToList();
 
         foreach (var key in keysToRemove)
         {
             AIDENStateAnswer.Remove(key);
         }
+
+        MutexAIDENProperties.ReleaseMutex();
     }
 
+    public void SetCurrentFlowId(int flowId)
+    {
+        MutexCurrentFlowId.WaitOne();
+        _currentFlowId = flowId;
+        MutexCurrentFlowId.ReleaseMutex();
+    }
 
     /// <summary>
     /// Allow to know what logic to call.
@@ -111,6 +150,8 @@ public class AIDENChainPayload
         var steps = Enum.GetValues(typeof(FlowStep));
 
         blockedFlowStep = FlowStep.None;
+
+        MutexAIDENProperties.WaitOne();
 
         foreach (FlowStep flowStep in steps)
         {
@@ -126,12 +167,22 @@ public class AIDENChainPayload
             blockedFlowStep = flowStep;
 
             if (flowStep < toCompare)
-                return AIDENStateAnswer[flowStep] ? FlowStepRelativeStatus.FalseBefore : FlowStepRelativeStatus.FalseAfter;
+            {
+                var returnedFlowStatus = AIDENStateAnswer[flowStep] ? FlowStepRelativeStatus.FalseBefore : FlowStepRelativeStatus.FalseAfter;
+                MutexAIDENProperties.ReleaseMutex();
+                return returnedFlowStatus;
+            }
 
-            
-            return AIDENStateAnswer[flowStep]? FlowStepRelativeStatus.FalseAfter : FlowStepRelativeStatus.NullAfter;
+            var returnedFlowStatusB = AIDENStateAnswer[flowStep] ? FlowStepRelativeStatus.FalseAfter : FlowStepRelativeStatus.NullAfter;
+            MutexAIDENProperties.ReleaseMutex();
+            return returnedFlowStatusB;
         }
 
+
+        MutexAIDENProperties.ReleaseMutex();
+
         return FlowStepRelativeStatus.AllTrue;
+
+        
     }
 }

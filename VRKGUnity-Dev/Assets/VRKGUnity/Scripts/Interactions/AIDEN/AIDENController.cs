@@ -35,7 +35,7 @@ public class AIDENController : MonoBehaviour
     int _stopPayloadId = -1;
     int _payloadCounterId = 0;
 
-
+    readonly Mutex _payloadIdsMutex = new();
 
     [ContextMenu("Start")]
     private async void Start()
@@ -67,26 +67,33 @@ public class AIDENController : MonoBehaviour
 
     public void Stop()
     {
+        _payloadIdsMutex.WaitOne();
         _stopPayloadId = _payloadCounterId;
+        _payloadIdsMutex.ReleaseMutex();
     }
 
 
     public void Ask(AudioClip clip)
     {
-        _stopPayloadId = _payloadCounterId;
-
-        _payloadCounterId++;
-        RawPayload payload = new(_payloadCounterId, clip);
-
-        ThreadPool.QueueUserWorkItem(TranscribeAudio, payload);
+        ThreadPool.QueueUserWorkItem(CreateRawPayload, clip);
     }
 
 
-
-    private async void TranscribeAudio(object rawPayloadObj)
+    private void CreateRawPayload(object clipObj)
     {
-        RawPayload rawPayload = (RawPayload)rawPayloadObj;
+        _payloadIdsMutex.WaitOne();
+        _stopPayloadId = _payloadCounterId;
+        _payloadCounterId++;
+        RawPayload payload = new(_payloadCounterId, (AudioClip)clipObj);
 
+        _payloadIdsMutex.ReleaseMutex();
+
+        TranscribeAudio(payload);
+    }
+
+
+    private async void TranscribeAudio(RawPayload rawPayload)
+    {
         var clip = (AudioClip)rawPayload.Payload ;
         var audioStream = clip.EncodeToOggVorbisStream(true);
 
@@ -105,22 +112,42 @@ public class AIDENController : MonoBehaviour
         SplitSentence(payload, userVoiceText, flowId);
     }
 
+   
+    private void SplitSentence(AIDENChainPayload payload, string userVoiceText, int flowId)
+    {
+        ManualSplitSentence(payload, userVoiceText, flowId);
+        AIDENSplitSentence(payload, userVoiceText, flowId);
+    }
+
+    private void ManualSplitSentence(AIDENChainPayload payload, string userVoiceText, int flowId)
+    {
+        // Cheap way to detect if need to call the splitIntentTexts function that add another api call
+        string separator = TryGetSeparator(userVoiceText);
+
+        //if (separator == null)
+        //{
+        //    payload.UserSentences.Add(userSentence);
+        //    AIDENDetectMode(payload, flowId);
+        //    return;
+        //}
+    }
+
     private string TryGetSeparator(string userIntentTxt)
     {
-        if(userIntentTxt.Contains(","))
+        if (userIntentTxt.Contains(","))
         {
             if (IsCommaASeparator(userIntentTxt)) // Mean that multiple intents are in the text
                 return ",";
         }
 
-        if(userIntentTxt.Contains(" et "))
+        if (userIntentTxt.Contains(" et "))
         {
-            if(IsAndASeparator(userIntentTxt)) // Mean that multiple intents are in the text
+            if (IsAndASeparator(userIntentTxt)) // Mean that multiple intents are in the text
                 return "et";
         }
 
         if (userIntentTxt.Contains(" puis ")) // Mean that multiple intents are in the text
-        { 
+        {
             return "puis";
         }
 
@@ -136,7 +163,7 @@ public class AIDENController : MonoBehaviour
         if (nbSplit == 1)
             return false;
 
-        for(int i = 1; i < nbSplit; i++)
+        for (int i = 1; i < nbSplit; i++)
         {
             string split = splits[i];
 
@@ -168,7 +195,7 @@ public class AIDENController : MonoBehaviour
 
         for (int i = 1; i < nbSplit; i++)
         {
-            string split = splits[i].Replace(" ","");
+            string split = splits[i].Replace(" ", "");
 
             if (!StartWithNextWord(split)) // probably a verb, so a new intent
                 return true;
@@ -178,7 +205,7 @@ public class AIDENController : MonoBehaviour
 
         bool StartWithNextWord(string words)
         {
-            foreach(string nextWord in nextWords) 
+            foreach (string nextWord in nextWords)
             {
                 if (words.StartsWith(nextWord))
                     return true;
@@ -187,25 +214,6 @@ public class AIDENController : MonoBehaviour
             return false;
         }
 
-    }
-
-    private void SplitSentence(AIDENChainPayload payload, string userVoiceText, int flowId)
-    {
-        ManualSplitSentence(payload, userVoiceText, flowId);
-        AIDENSplitSentence(payload, userVoiceText, flowId);
-    }
-
-    private void ManualSplitSentence(AIDENChainPayload payload, string userVoiceText, int flowId)
-    {
-        // Cheap way to detect if need to call the splitIntentTexts function that add another api call
-        string separator = TryGetSeparator(userVoiceText);
-
-        //if (separator == null)
-        //{
-        //    payload.UserSentences.Add(userSentence);
-        //    AIDENDetectMode(payload, flowId);
-        //    return;
-        //}
     }
 
     private async void AIDENSplitSentence(AIDENChainPayload payload, string userVoiceText, int flowId)
@@ -256,9 +264,13 @@ public class AIDENController : MonoBehaviour
 
 
         bool isManualValueCorrect = (payload.ManualNbSplitSentences == nbSplitSetences);
+
+        payload.MutexAIDENProperties.WaitOne();
         payload.AIDENStateAnswer[FlowStep.SplitSentence] = true;
         payload.AIDENNbSplitSentences = nbSplitSetences;
         payload.AIDENSplitSentences = splitSentences;
+        payload.MutexAIDENProperties.ReleaseMutex();
+
         FlowStepRelativeStatus flowStatus = payload.GetRelativeFlowStatus(FlowStep.SplitSentence, out FlowStep blockedFlowState);
 
         if (isManualValueCorrect)
@@ -312,7 +324,9 @@ public class AIDENController : MonoBehaviour
         {
             // All functions called under will be canceled with the flowId
             flowId++;
-            payload.CurrentFlowId = flowId;
+
+            payload.SetCurrentFlowId(flowId);
+
             payload.ClearAIDENStateAnswerAfter(FlowStep.SplitSentence);
 
             DetectType(payload, splitSentences, flowId);
@@ -339,12 +353,14 @@ public class AIDENController : MonoBehaviour
     {
         List<Task<Response<ChatCompletions>>> tasks = new();
 
+        payload.MutexAIDENProperties.WaitOne();
         var userSentences = splitSentences.Sentences;
 
         foreach (string userIntent in userSentences)
         {
             tasks.Add(_gptClient.GetChatCompletionsAsync(_gptModelName, GetChat(AIDENPrompts.DetecteGroupe, userIntent)));
         }
+        payload.MutexAIDENProperties.ReleaseMutex();
 
         await Task.WhenAll(tasks);
 
@@ -358,11 +374,13 @@ public class AIDENController : MonoBehaviour
 
         List<(string, string)> sentenceAndJson = new();
 
+        payload.MutexAIDENProperties.WaitOne();
         foreach (var task in tasks)
         {
             sentenceAndJson.Add((userSentences[id], task.Result.Value.Choices[0].Message.Content));
             id++;
         }
+        payload.MutexAIDENProperties.ReleaseMutex();
 
         HandleAIDENDetectType(payload, sentenceAndJson, flowId);
     }
@@ -384,8 +402,12 @@ public class AIDENController : MonoBehaviour
             return;
 
         bool isManualValueCorrect = payload.AreSameMode(intentModes);
+
+        payload.MutexAIDENProperties.WaitOne();
         payload.AIDENTypePayload = detectedTypePayload;
         payload.AIDENStateAnswer[FlowStep.DetectType] = isManualValueCorrect;
+        payload.MutexAIDENProperties.ReleaseMutex();
+
         FlowStepRelativeStatus flowStatus = payload.GetRelativeFlowStatus(FlowStep.DetectType, out FlowStep blockedFlowState);
 
 
@@ -409,7 +431,6 @@ public class AIDENController : MonoBehaviour
             foreach ((string userSentence, string jsonItentType) in sentenceAndJson)
             {
                 JObject jObject = JObject.Parse(jsonItentType);
-                var props = jObject.Properties();
 
                 JToken intent = jObject.GetValue("intention");
 
@@ -436,7 +457,9 @@ public class AIDENController : MonoBehaviour
 
             var relativeFlowStatus = payload.GetRelativeFlowStatus(FlowStep.DetectType, out FlowStep _);
 
+            payload.MutexAIDENProperties.WaitOne();
             payload.AIDENStateAnswer[FlowStep.DetectType] = false;
+            payload.MutexAIDENProperties.ReleaseMutex();
 
             if (relativeFlowStatus.IsAfter()) // Means that the AIDEN head is here, so this function has been called by AIDEN flow and not by Manual
             {
@@ -474,7 +497,9 @@ public class AIDENController : MonoBehaviour
         void CreateNewFlow()
         {
             flowId++;
-            payload.CurrentFlowId = flowId;
+
+            payload.SetCurrentFlowId(flowId);
+
             payload.ClearAIDENStateAnswerAfter(FlowStep.DetectType);
 
             DetectParameters(payload, detectedTypePayload, flowId);
@@ -504,12 +529,14 @@ public class AIDENController : MonoBehaviour
     {
         List<Task<Response<ChatCompletions>>> tasks = new();
 
+        payload.MutexAIDENProperties.WaitOne();
         List<TypeAndSentence> typeAndSentences = detectedTypePayload.TypeAndSentence;
 
         foreach(TypeAndSentence typeAndSentence in typeAndSentences)
         {
             tasks.Add(_gptClient.GetChatCompletionsAsync(_gptModelName, GetChat(typeAndSentence.Type, typeAndSentence.UserIntentSentence)));
         }
+        payload.MutexAIDENProperties.ReleaseMutex();
 
         await Task.WhenAll(tasks);
 
@@ -524,11 +551,13 @@ public class AIDENController : MonoBehaviour
 
         int i = 0;
 
+        payload.MutexAIDENProperties.WaitOne();
         foreach (var task in tasks)
         {
             jtypeWithJsonParameters.Add((typeAndSentences[i].Type, task.Result.Value.Choices[0].Message.Content));
             i++;
         }
+        payload.MutexAIDENProperties.ReleaseMutex();
 
         HandleAIDENDetectParameters(payload, jtypeWithJsonParameters, flowId);
     }
@@ -554,8 +583,12 @@ public class AIDENController : MonoBehaviour
         }
 
         bool isManualValueCorrect = payload.AreSameIntents(aidenIntents);
+
+        payload.MutexAIDENProperties.WaitOne();
         payload.AIDENIntents = aidenIntents;
         payload.AIDENStateAnswer[FlowStep.SplitSentence] = isManualValueCorrect;
+        payload.MutexAIDENProperties.ReleaseMutex();
+
         FlowStepRelativeStatus flowStatus = payload.GetRelativeFlowStatus(FlowStep.SplitSentence, out FlowStep blockedFlowState);
 
 
@@ -627,7 +660,9 @@ public class AIDENController : MonoBehaviour
 
             var relativeFlowStatus = payload.GetRelativeFlowStatus(FlowStep.DetectParameters, out FlowStep _);
 
+            payload.MutexAIDENProperties.WaitOne();
             payload.AIDENStateAnswer[FlowStep.DetectType] = false;
+            payload.MutexAIDENProperties.ReleaseMutex();
 
             if (relativeFlowStatus == FlowStepRelativeStatus.AllTrue) // Means that the AIDEN head is here, so this function has been called by AIDENDetectType and not by Manual
             {
@@ -1713,7 +1748,10 @@ public class AIDENController : MonoBehaviour
 
     private void StopAllFlowsPayload(AIDENChainPayload payload)
     {
-        payload.CurrentFlowId = int.MaxValue;
+
+        payload.SetCurrentFlowId(int.MaxValue);
+
+        
 
         // TODO : Feedback UI, no intent detected
     }
@@ -1722,14 +1760,17 @@ public class AIDENController : MonoBehaviour
     {
         if(flowStep == FlowStep.DetectType)
         {
+            payload.MutexAIDENProperties.WaitOne();
             SplitSentencesPayload splitSentences = payload.AIDENSplitSentences;
 
 
             if(splitSentences == null)
             {
                 Debug.LogWarning("CallFalseAbove SplitSentencesPayload is null");
+                payload.MutexAIDENProperties.ReleaseMutex();
                 return;
             }
+            payload.MutexAIDENProperties.ReleaseMutex();
 
             DetectType(payload, splitSentences, flowId);
             return;
@@ -1738,13 +1779,17 @@ public class AIDENController : MonoBehaviour
 
         if(flowStep == FlowStep.DetectParameters)
         {
+            payload.MutexAIDENProperties.WaitOne();
             DetectedTypePayload detectedTypePayload = payload.AIDENTypePayload;
 
             if (detectedTypePayload == null)
             {
                 Debug.LogWarning("CallFalseAbove DetectedTypePayload is null");
+                payload.MutexAIDENProperties.ReleaseMutex();
                 return;
             }
+
+            payload.MutexAIDENProperties.ReleaseMutex();
 
             DetectParameters(payload, detectedTypePayload, flowId);
             return;
@@ -1836,13 +1881,18 @@ public class AIDENController : MonoBehaviour
     /// </summary>
     private bool DoNeedStopPayload(AIDENChainPayload promptPayload)
     {
+        bool needStop = false;
+        _payloadIdsMutex.WaitOne();
+
         if (promptPayload.Id <= _stopPayloadId)
         {
             DebugDev.Log("Stopped Payload " + promptPayload.Id);
-            return true;
+            needStop = true;
         }
 
-        return false;
+        _payloadIdsMutex.ReleaseMutex();
+
+        return needStop;
     }
 
     [ContextMenu("RefreshPrompts")]
