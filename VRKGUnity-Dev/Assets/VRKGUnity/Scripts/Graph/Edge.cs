@@ -178,6 +178,16 @@ public class Edge : IEdge<Node>
     }
 
 
+    public void SetSourcePositionFromMovingNode(Vector3 worldPosition)
+    {
+        MainStyler.SetSourcePositionFromMovingNode(worldPosition);
+    }
+
+    public void SetTargetPositionFromMovingNode(Vector3 worldPosition)
+    {
+        MainStyler.SetTargetPositionFromMovingNode(worldPosition);
+    }
+
 
     public void CleanFromNodes()
     {

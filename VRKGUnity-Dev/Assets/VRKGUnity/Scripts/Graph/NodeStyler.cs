@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using Wave.Essence.Hand.NearInteraction;
@@ -22,8 +23,7 @@ public class NodeStyler : MonoBehaviour
     [SerializeField]
     Outliner _outliner;
 
-    [SerializeField]
-    XRSimpleInteractable _interactable;
+    bool _isMoving = false;
 
     MaterialPropertyBlock _propertyBlock;
 
@@ -51,10 +51,29 @@ public class NodeStyler : MonoBehaviour
         Node.OnSelect();
     }
 
+    public void OnStartMoving()
+    {
+        _isMoving = true;
+        StartCoroutine(MovingNode());
+    }
+
+    public void OnStopMoving()
+    {
+        _isMoving = false;
+    }
 
     public void UpdateMaterial(bool isHovered, bool isSelected, bool isInPropagation)
     {
         _outliner.UpdateInteraction(isHovered, isSelected, isInPropagation, GraphType == GraphType.Main);
+    }
+
+    IEnumerator MovingNode()
+    {
+        while(_isMoving)
+        {
+            yield return null;
+            Node.MoveEdgeWithNode(_tf.position);
+        }
     }
 
     #endregion

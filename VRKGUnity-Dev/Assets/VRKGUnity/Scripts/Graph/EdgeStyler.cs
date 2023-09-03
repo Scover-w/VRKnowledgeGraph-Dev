@@ -193,6 +193,32 @@ public class EdgeStyler : MonoBehaviour
         //_colliderTf.LookAt(worldPositionB);
     }
 
+    public void SetSourcePositionFromMovingNode(Vector3 worldPosition)
+    {
+        var positionA = _tf.InverseTransformPoint(worldPosition);
+        var positionB = _lineRenderer.GetPosition(3);//_tf.InverseTransformPoint(_lineRenderer.GetPosition(3));
+
+        Vector3 direction = positionB - positionA;
+
+        _lineRenderer.SetPosition(0, positionA);
+        _lineRenderer.SetPosition(1, positionA + direction * .2f);
+        _lineRenderer.SetPosition(2, positionA + direction * .8f);
+        _lineRenderer.SetPosition(3, positionB);
+    }
+
+    public void SetTargetPositionFromMovingNode(Vector3 worldPosition)
+    {
+        var positionA = _lineRenderer.GetPosition(0);//_tf.InverseTransformPoint(_lineRenderer.GetPosition(0));
+        var positionB = _tf.InverseTransformPoint(worldPosition);
+
+        Vector3 direction = positionB - positionA;
+
+        _lineRenderer.SetPosition(0, positionA);
+        _lineRenderer.SetPosition(1, positionA + direction * .2f);
+        _lineRenderer.SetPosition(2, positionA + direction * .8f);
+        _lineRenderer.SetPosition(3, positionB);
+    }
+
     public void StyleTransitionEdge(float t, bool isNextDesk)
     {
         if (GraphType == GraphType.Sub)
