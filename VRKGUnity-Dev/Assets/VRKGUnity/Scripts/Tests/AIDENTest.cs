@@ -1,10 +1,13 @@
+using AIDEN.TactileUI;
 using Newtonsoft.Json.Linq;
 using SimpleJSON;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using UnityEngine;
+using UnityEngine.Windows;
 using Random = UnityEngine.Random;
 
 public class AIDENTest : MonoBehaviour
@@ -14,22 +17,15 @@ public class AIDENTest : MonoBehaviour
 
 
     public string UserSentence;
-    public string SplitSentence;
+
+    [Space(10)]
+    public string SplitSentenceTest;
+
 
 
 
     [ContextMenu("Ask")]
     public void Ask()
-    {
-        //List<string> list = new List<string>()
-        //{
-        //    UserSentence
-        //};
-        //_aiden.DetectIntentGroup(0, list);
-    }
-
-    [ContextMenu("AskButSplitBefore")]
-    public void AskButSplitBefore()
     {
 
         AIDENChainPayload payload = new(0);
@@ -37,7 +33,93 @@ public class AIDENTest : MonoBehaviour
         _aiden.HandleTranscribedAudio(payload, UserSentence);
     }
 
-    [ContextMenu("Test order")]
+
+    [ContextMenu("ManualSplitTest")]
+    public void ManualSplitTest()
+    {
+        string[] splitByPeriod = Regex.Split(SplitSentenceTest, @"[\.,](?!\d)");
+
+        List<string> finalList = new List<string>();
+
+        foreach (string s in splitByPeriod)
+        {
+            string[] splitByAnd = Regex.Split(s.Trim(), @"\s+et\s+(?!le|la|les|l'|du|des)");
+            foreach (string andSplit in splitByAnd)
+            {
+                string[] splitByThen = Regex.Split(andSplit.Trim(), @"\s+puis\s+");
+
+
+                foreach (string thenSplit in splitByThen)
+                {
+                    string[] splitByOtherwise = Regex.Split(thenSplit.Trim(), @"\s+sinon\s+");
+                    finalList.AddRange(splitByOtherwise);
+                }
+
+            }
+        }
+
+        foreach (string ss in finalList)
+        {
+            Debug.Log(ss.Trim());
+        }
+    }
+
+    [ContextMenu("ManualSplitTest2")]
+    public void ManualSplitTest2()
+    {
+        string[] delimiters = { @"[\.,](?!\d)", @"\s+et\s+(?!le|la|les|l'|du|des)", @"\s+puis\s+", @"\s+sinon\s+" };
+        List<string> finalList = new List<string> { SplitSentenceTest };
+
+        foreach (string delimiter in delimiters)
+        {
+            finalList = finalList
+                .SelectMany(str => Regex.Split(str.Trim(), delimiter))
+                .ToList();
+        }
+
+        finalList.ForEach(str => Debug.Log(ManualDetectTypeInSentence(str.Trim().ToLower().RemoveAccents()) + " -> " + str.Trim()));
+    }
+
+    private AIDENPrompts ManualDetectTypeInSentence(string sentence)
+    {
+        IDetectType[] detectors = { new DetectNumberType(), new DetectTimeType(),new DetectVolumeType(), new DetectSimulationType(),
+                                    new DetectOntologyType(), new DetectSizeType(), new DetectActionType(), new DetectMetricType(),
+                                    new DetectColorType(),new DetectVisibilityType(), new DetectInteractionType(), new DetectModeType()};
+
+        List<AIDENPrompts> possibleAidenTypes = Enum.GetValues(typeof(AIDENPrompts))
+                                        .Cast<AIDENPrompts>()
+                                        .Where(e => e != AIDENPrompts.SeparePhrase && e != AIDENPrompts.DetecteGroupe)
+                                        .ToList();
+
+        foreach (var detector in detectors)
+        {
+            var detectedType = detector.DetectType(sentence, possibleAidenTypes);
+            if (detectedType != null)
+            {
+                return (AIDENPrompts)detectedType;
+            }
+        }
+
+
+        if (possibleAidenTypes.Count == 1)
+            return possibleAidenTypes[0];
+
+
+        return AIDENPrompts.Mode;
+    }
+
+    [ContextMenu("RegexTest")]
+    public void RegexTest()
+    {
+        //Debug.Log(Regex.IsMatch(SplitSentenceTest, @"\b(volume|accoustique|audio|sonore|muet|le son|shorte\w*|reduc\w*)\b"));
+        Debug.Log(Regex.IsMatch(SplitSentenceTest, @"\b(ontologie)\b"));
+
+        Debug.Log("jésouis un 156.3516%** fesfs éèûûûûûû^^uuu".RemoveAccents());
+
+        var steps = Enum.GetValues(typeof(FlowStep));
+        Debug.Log(steps);
+    }
+
     public void Test()
     {
         List<AIDENIntent> Intents = new();
@@ -74,7 +156,7 @@ public class AIDENTest : MonoBehaviour
         }
     }
 
-    [ContextMenu("TestTest")]
+
     public void TestTest()
     {
         string bobo = "{\"intentions\": [{\"TAILLE\": \"Augmente le graphe bureau de 25%\"}]}";
@@ -112,7 +194,7 @@ public class AIDENTest : MonoBehaviour
 
 
 
-    [ContextMenu("TokenTest")]
+
     private void TokenTest()
     {
         string test = "{\r\n  \"intentions\": [\r\n    \"Passe en mode chemin court pour la taille\",\r\n    \"Réduit la taille du graphe de 25%\",\r\n    \"Réduit la taille des arêtes de 25%\",\r\n    \"Colore les nœuds en bleu\"\r\n  ]\r\n}";
@@ -131,10 +213,10 @@ public class AIDENTest : MonoBehaviour
 
     }
 
-    [ContextMenu("Test Split")]
+
     private void TestSplit()
     {
-        string[] splits = SplitSentence.Split(",");
+        string[] splits = SplitSentenceTest.Split(",");
 
         Debug.Log(splits.Length);
 

@@ -365,9 +365,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _aiden: {fileID: 1649789630}
   UserSentence: Passe en mode chemin court pour la taille, reduit la taille du graphe
-    bureau et des aretes de 25%, sinon colore les noeuds en bleu
-  SplitSentence: Passe en mode chemin court pour la taille, reduit la taille du graphe
-    et des aretes de 25%, sinon colore les noeuds en bleu
+    bureau de 25%, sinon colore les noeuds en bleu
+  SplitSentenceTest: "Passe en mode chemin court pour la taille, reduit la taille
+    du graphe bureau de 25%, sinon colore les noeuds en bleu. augmente le volume
+    de 25%. passe en selection simple. Met a 6 le nombre de couleur pour l'ontologie.
+    Metla dur\xE9e \xE0 5s pour la transition. Met l'amortissement \xE0 5. Cache
+    le gps. Met la transparence \xE0 6. Cache les texte labels. Colorise les noeuds
+    en bleu. passe en mode bureau.  d\xE9sactive la s\xE9lection des ar\xEAtes. Relance
+    le graphe"
 --- !u!114 &1649789633
 MonoBehaviour:
   m_ObjectHideFlags: 0

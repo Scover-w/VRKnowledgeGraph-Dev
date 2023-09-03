@@ -13,7 +13,7 @@ public class WhisperAPI
     private readonly string _apiKey;
 
     private string _dataPath;
-    public static string LanguageFormat = "";
+    public static string LanguageFormat = "fr";
 
     public WhisperAPI()
     {

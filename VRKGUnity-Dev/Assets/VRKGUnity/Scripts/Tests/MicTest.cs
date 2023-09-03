@@ -17,6 +17,8 @@ public class MicTest : MonoBehaviour
     [SerializeField]
     TMP_Text _text;
 
+    public int MicId;
+    public bool AutoRestart = false;
     AudioClip _clip;
 
     // Start is called before the first frame update
@@ -34,13 +36,18 @@ public class MicTest : MonoBehaviour
     public void StartMic()
     {
         _start.Invoke();
+        _clip = Microphone.Start(Microphone.devices[MicId], true, 60, 44100); ;
         
-        Debug.Log(Microphone.devices.Length);
-        Debug.Log(Microphone.devices[0]);
-        Debug.Log(Microphone.devices[1]);
-        Debug.Log(Microphone.devices[2]);
-        _clip = Microphone.Start(Microphone.devices[0], true, 60, 44100); ;
-        
+    }
+
+    [ContextMenu("ListMics")]
+    public void ListMics()
+    {
+        int nbMic = Microphone.devices.Length;
+        for (int i = 0; i < nbMic; i++)
+        {
+            Debug.Log(i+ " : " + Microphone.devices[i]);
+        }
     }
 
 
@@ -56,6 +63,8 @@ public class MicTest : MonoBehaviour
         var bipbop = await new WhisperAPI().TranscribeAudio(byteAudio);
         _text.text = bipbop;
 
+        if (!AutoRestart)
+            return;
 
         Invoke(nameof(StartMic), 10f);
         Invoke(nameof(StopMic), 15f);

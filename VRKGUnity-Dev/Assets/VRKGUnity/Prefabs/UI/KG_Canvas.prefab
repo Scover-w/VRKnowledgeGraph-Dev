@@ -30241,6 +30241,10 @@ PrefabInstance:
       propertyPath: m_fontColor.r
       value: 0.9843137
       objectReference: {fileID: 0}
+    - target: {fileID: 959585028123238655, guid: 8d37013a7289eb245b42f91e9fff8418, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294704123
+      objectReference: {fileID: 0}
     - target: {fileID: 959585028773805202, guid: 8d37013a7289eb245b42f91e9fff8418, type: 3}
       propertyPath: m_Name
       value: SimulateBtn
@@ -32142,6 +32146,10 @@ PrefabInstance:
     - target: {fileID: 7625951802886575892, guid: e720b559aa7f1294aa0bce82105db905, type: 3}
       propertyPath: m_fontColor.r
       value: 0.9843137
+      objectReference: {fileID: 0}
+    - target: {fileID: 7625951802886575892, guid: e720b559aa7f1294aa0bce82105db905, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294704123
       objectReference: {fileID: 0}
     - target: {fileID: 7625951803334726346, guid: e720b559aa7f1294aa0bce82105db905, type: 3}
       propertyPath: m_Size.x
