@@ -68,6 +68,7 @@ public class MicController : MonoBehaviour
     private void Register()
     {
         _performMicAction.performed += PerformMic;
+        _performMicAction.started += PerformMic;
         _isRegisteringMic = false;
         _isRegistered = true;
     }
@@ -75,6 +76,7 @@ public class MicController : MonoBehaviour
     private void Unregister()
     {
         _performMicAction.performed -= PerformMic;
+        _performMicAction.started -= PerformMic;
         _isRegistered = false;
 
 
