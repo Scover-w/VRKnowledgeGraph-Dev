@@ -58,6 +58,7 @@ public class KGUIController : MonoBehaviour
     private void Register()
     {
         _displayUIAction.performed += SwitchDisplayUI;
+        _isRegistered = true;
 
         if (_currentUIGo == null)
             CreateNewUI();
@@ -66,6 +67,7 @@ public class KGUIController : MonoBehaviour
     private void Unregister()
     {
         _displayUIAction.performed -= SwitchDisplayUI;
+        _isRegistered = false;
 
         if (_isUIDisplayed)
             SwitchDisplayUI(new InputAction.CallbackContext());

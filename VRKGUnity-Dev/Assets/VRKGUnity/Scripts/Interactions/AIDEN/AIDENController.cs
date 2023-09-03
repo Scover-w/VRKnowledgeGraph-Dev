@@ -22,12 +22,13 @@ public class AIDENController : MonoBehaviour
     TextAsset _prompts;
 
     [SerializeField]
-    InputPropagatorManager _propagatorManager;
+    ReferenceHolderSO _referenceHolderSO;
 
     [SerializeField]
     GraphConfigurationContainerSO _graphConfigurationContainerSO;
 
     GraphConfiguration _graphConfiguration;
+    InputPropagatorManager _propagatorManager;
 
     WhisperAPI _audioToTextAPI;
     OpenAIClient _gptClient;
@@ -58,6 +59,13 @@ public class AIDENController : MonoBehaviour
         _gptModelName = "gpt-3.5-turbo";
 
         _graphConfiguration = await _graphConfigurationContainerSO.GetGraphConfiguration();
+
+        _referenceHolderSO.OnNewInputPropagator += SetInputPropagator;
+    }
+
+    private void SetInputPropagator(InputPropagatorManager propagatorManager)
+    {
+        _propagatorManager = propagatorManager;
     }
 
     public void CancelActions()
@@ -1824,7 +1832,7 @@ public class AIDENController : MonoBehaviour
         }
 
         DebugDev.LogThread("Set Intents ---------------------------");
-        DebugDev.LogThread("SetIntents  : " + _aidenIntents);
+        DebugDev.LogThread("SetIntents  : " + _aidenIntents.Intents.Count);
         _aidenIntents = intents;
 
         foreach(AIDENIntent intent in intents.Intents) 
@@ -1832,7 +1840,7 @@ public class AIDENController : MonoBehaviour
             DebugDev.LogThread("Set intent : " + intent.ToString());
         }
 
-        //_propagatorManager.SetNewValues(_aidenIntents);
+        _propagatorManager.SetNewValues(_aidenIntents);
         payload.MutexAIDENProperties.ReleaseMutex();
     }
 

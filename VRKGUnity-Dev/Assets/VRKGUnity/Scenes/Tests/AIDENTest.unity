@@ -334,7 +334,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _aidenUI: {fileID: 0}
   _prompts: {fileID: 4900000, guid: 16b474412cbcee949b170aef50f5a7b0, type: 3}
-  _propagatorManager: {fileID: 0}
+  _referenceHolderSO: {fileID: 0}
   _graphConfigurationContainerSO: {fileID: 11400000, guid: 7086a0d0e5c5fa74c91774d1597bf4fc, type: 2}
 --- !u!4 &1649789631
 Transform:
@@ -364,8 +364,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _aiden: {fileID: 1649789630}
-  UserSentence: Passe en mode chemin court pour la taille, reduit la taille du graphe
-    bureau de 25%, sinon colore les noeuds en bleu
+  UserSentence: bipbop
   SplitSentenceTest: "Passe en mode chemin court pour la taille, reduit la taille
     du graphe bureau de 25%, sinon colore les noeuds en bleu. augmente le volume
     de 25%. passe en selection simple. Met a 6 le nombre de couleur pour l'ontologie.

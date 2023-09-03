@@ -36,7 +36,7 @@ public class MicTest : MonoBehaviour
     public void StartMic()
     {
         _start.Invoke();
-        _clip = Microphone.Start(Microphone.devices[MicId], true, 60, 44100); ;
+        _clip = Microphone.Start(Microphone.devices[MicId], true, 60, 44100);
         
     }
 

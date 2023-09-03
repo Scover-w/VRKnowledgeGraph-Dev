@@ -16,11 +16,25 @@ public class ReferenceHolderSO : ScriptableObject
 
     public GraphDbRepository SelectedGraphDbRepository { get; set; }
 
-    public InputPropagatorManager InputPropagatorManager { get; set; }
+    private InputPropagatorManager _inputPropagatorManager;
+    public InputPropagatorManager InputPropagatorManager
+    {
+        get { return _inputPropagatorManager; }
+        set
+        {
+            _inputPropagatorManager = value;
+            OnNewInputPropagator?.Invoke(value);
+        }
+    }
+
 
     public NodgeSelectionManager NodgeSelectionManager { get ; set;}
 
     public float MaxDistanceGraph { get; set; }
+
+    public delegate void NewInputPropagator(InputPropagatorManager inputPropagatorManager);
+
+    public NewInputPropagator OnNewInputPropagator;
 
 }
 
