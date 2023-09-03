@@ -226,6 +226,7 @@ public partial class InputPropagatorManager : MonoBehaviour
     #region ChangeFromAIDEN
     public void SetNewValues(AIDENIntents aidenIntents)
     {
+        DebugDev.Log("SetNewValues");
         var intents = aidenIntents.Intents;
 
         StyleChange styleChanges = StyleChange.None;

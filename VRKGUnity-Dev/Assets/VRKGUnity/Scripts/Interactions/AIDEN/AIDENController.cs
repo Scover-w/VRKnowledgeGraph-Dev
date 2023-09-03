@@ -113,6 +113,8 @@ public class AIDENController : MonoBehaviour
 
         var userVoiceText = await new WhisperAPI().TranscribeAudio(audioStream);
 
+        DebugDev.Log("Audio transcribed : " + userVoiceText);
+
         AIDENChainPayload payload = new(rawPayload.Id);
 
         if (DoNeedStopPayload(payload))
@@ -1825,17 +1827,20 @@ public class AIDENController : MonoBehaviour
         payload.MutexAIDENProperties.WaitOne();
         var intents = payload.AIDENIntents;
 
+
         if (intents == null)
         {
             DebugDev.LogWarningThread("intents is null in validateIntent.");
             return;
         }
+        var intentList = intents.Intents;
 
         DebugDev.LogThread("Set Intents ---------------------------");
-        DebugDev.LogThread("SetIntents  : " + _aidenIntents.Intents.Count);
+
+        DebugDev.LogThread("SetIntents  : " + intentList.Count);
         _aidenIntents = intents;
 
-        foreach(AIDENIntent intent in intents.Intents) 
+        foreach(AIDENIntent intent in intentList) 
         {
             DebugDev.LogThread("Set intent : " + intent.ToString());
         }

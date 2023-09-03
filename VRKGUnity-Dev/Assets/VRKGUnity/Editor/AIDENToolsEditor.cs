@@ -158,7 +158,8 @@ public class AIDENToolsEditor : MonoBehaviour
     {
         string newIp = GetWifiIP();
 
-        if(newIp == null)
+
+        if (newIp == null)
         {
             Debug.LogWarning("The Wifi Key IP couldn't be retrieved.");
             return;
@@ -184,8 +185,6 @@ public class AIDENToolsEditor : MonoBehaviour
 
     private static string GetWifiIP() 
     {
-        string adapterName = "TP-Link Wireless USB Adapter";
-
         var process = new Process()
         {
             StartInfo = new ProcessStartInfo("cmd.exe")
@@ -213,7 +212,7 @@ public class AIDENToolsEditor : MonoBehaviour
 
         foreach (string line in lines)
         {
-            if (line.Contains(adapterName))
+            if (line.Contains("{"))
             {
                 // Split line into components
                 string[] components = line.Split(new[] { '{', '}', ',' }, StringSplitOptions.RemoveEmptyEntries);
