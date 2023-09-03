@@ -88,6 +88,7 @@ public class AIDENController : MonoBehaviour
 
     public void Ask(AudioClip clip)
     {
+        _aidenUI.DisplayWait();
         ThreadPool.QueueUserWorkItem(CreateRawPayload, clip);
     }
 
@@ -1774,6 +1775,8 @@ public class AIDENController : MonoBehaviour
 
         // TODO : Feedback UI, no intent detected
         Debug.Log("No intent detected");
+
+        UnityMainThreadDispatcher.Instance().Enqueue(() => _aidenUI.DisplayNone());
     }
 
     private void CallAfterTrue(AIDENChainPayload payload, FlowStep flowStep, int flowId)
@@ -1826,7 +1829,7 @@ public class AIDENController : MonoBehaviour
     {
         payload.MutexAIDENProperties.WaitOne();
         var intents = payload.AIDENIntents;
-
+        UnityMainThreadDispatcher.Instance().Enqueue(() => _aidenUI.DisplayNone());
 
         if (intents == null)
         {

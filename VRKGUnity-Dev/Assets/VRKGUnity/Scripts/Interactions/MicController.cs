@@ -10,9 +10,13 @@ using static MicController;
 public class MicController : MonoBehaviour
 {
     [SerializeField]
-    InputActionReference _performMicActionRef;
+    InputActionReference _pressMicActionRef;
 
-    InputAction _performMicAction;
+    [SerializeField]
+    InputActionReference _releaseMicActionRef;
+
+    InputAction _pressMicAction;
+    InputAction _releaseMicAction;
 
 
     public delegate void NewAudioClipMic(AudioClip ac);
@@ -22,6 +26,9 @@ public class MicController : MonoBehaviour
     [SerializeField]
     UnityEvent<AudioClip> _newVoiceClip;
 
+    [SerializeField]
+    UnityEvent _startMic;
+
     bool _isRegistered = false;
     bool _isRegisteringMic = false;
 
@@ -29,7 +36,8 @@ public class MicController : MonoBehaviour
 
     private void Awake()
     {
-        _performMicAction = _performMicActionRef.action;
+        _pressMicAction = _pressMicActionRef.action;
+        _releaseMicAction = _releaseMicActionRef.action;
     }
 
     private void OnEnable()
@@ -67,16 +75,16 @@ public class MicController : MonoBehaviour
 
     private void Register()
     {
-        _performMicAction.performed += PerformMic;
-        _performMicAction.started += PerformMic;
+        _pressMicAction.performed += PerformMic;
+        _releaseMicAction.performed += PerformMic;
         _isRegisteringMic = false;
         _isRegistered = true;
     }
 
     private void Unregister()
     {
-        _performMicAction.performed -= PerformMic;
-        _performMicAction.started -= PerformMic;
+        _pressMicAction.performed -= PerformMic;
+        _releaseMicAction.performed -= PerformMic;
         _isRegistered = false;
 
 
@@ -96,6 +104,7 @@ public class MicController : MonoBehaviour
 
         if(_isRegisteringMic)
         {
+            _startMic?.Invoke();
             _clip = Microphone.Start(Microphone.devices[0], true, 60, 44100);
         }
         else

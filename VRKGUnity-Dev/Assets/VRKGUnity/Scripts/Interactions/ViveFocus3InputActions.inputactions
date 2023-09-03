@@ -114,6 +114,24 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "PressSecondaryButton",
+                    "type": "Button",
+                    "id": "36c3ffdd-4954-48ec-b99d-f2035866a525",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ReleaseSecondaryButton",
+                    "type": "Button",
+                    "id": "deb9ef18-4031-42ce-bdc5-c52471036f68",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=1)",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "SecondaryTouch",
                     "type": "Button",
                     "id": "83a06fa6-147b-41c5-9841-1fd2bbb33c31",
@@ -355,6 +373,28 @@
                     "processors": "",
                     "groups": "XR Usage",
                     "action": "Primary2DAxis1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c4d3c1b2-5bc3-4ed5-9479-633c932331bc",
+                    "path": "<XRController>{LeftHand}/secondaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "XR Usage",
+                    "action": "PressSecondaryButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9bfc996e-cce6-4303-a1d1-12ec989be310",
+                    "path": "<XRController>{LeftHand}/secondaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "XR Usage",
+                    "action": "ReleaseSecondaryButton",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

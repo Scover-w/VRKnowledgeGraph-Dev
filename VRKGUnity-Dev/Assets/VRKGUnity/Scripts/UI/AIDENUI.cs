@@ -4,15 +4,29 @@ using UnityEngine;
 
 public class AIDENUI : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    GameObject _micGo;
+
+    [SerializeField]
+    GameObject _waitGo;
+
+
+    public void DisplayMic()
     {
-        
+        _micGo.SetActive(true);
+        _waitGo.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void DisplayWait()
     {
-        
+        _micGo.SetActive(false);
+        _waitGo.SetActive(true);
     }
+
+    public void DisplayNone()
+    {
+        _micGo.SetActive(false);
+        _waitGo.SetActive(false);
+    }
+
 }

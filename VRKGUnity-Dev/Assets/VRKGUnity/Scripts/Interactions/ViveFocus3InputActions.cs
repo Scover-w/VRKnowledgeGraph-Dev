@@ -136,6 +136,24 @@ public partial class @ViveFocus3InputActions: IInputActionCollection2, IDisposab
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""PressSecondaryButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""36c3ffdd-4954-48ec-b99d-f2035866a525"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ReleaseSecondaryButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""deb9ef18-4031-42ce-bdc5-c52471036f68"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=1)"",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""SecondaryTouch"",
                     ""type"": ""Button"",
                     ""id"": ""83a06fa6-147b-41c5-9841-1fd2bbb33c31"",
@@ -377,6 +395,28 @@ public partial class @ViveFocus3InputActions: IInputActionCollection2, IDisposab
                     ""processors"": """",
                     ""groups"": ""XR Usage"",
                     ""action"": ""Primary2DAxis1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c4d3c1b2-5bc3-4ed5-9479-633c932331bc"",
+                    ""path"": ""<XRController>{LeftHand}/secondaryButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""XR Usage"",
+                    ""action"": ""PressSecondaryButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9bfc996e-cce6-4303-a1d1-12ec989be310"",
+                    ""path"": ""<XRController>{LeftHand}/secondaryButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""XR Usage"",
+                    ""action"": ""ReleaseSecondaryButton"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1207,6 +1247,8 @@ public partial class @ViveFocus3InputActions: IInputActionCollection2, IDisposab
         m_LeftHand_Grip = m_LeftHand.FindAction("Grip", throwIfNotFound: true);
         m_LeftHand_GripPress = m_LeftHand.FindAction("GripPress", throwIfNotFound: true);
         m_LeftHand_SecondaryButton = m_LeftHand.FindAction("SecondaryButton", throwIfNotFound: true);
+        m_LeftHand_PressSecondaryButton = m_LeftHand.FindAction("PressSecondaryButton", throwIfNotFound: true);
+        m_LeftHand_ReleaseSecondaryButton = m_LeftHand.FindAction("ReleaseSecondaryButton", throwIfNotFound: true);
         m_LeftHand_SecondaryTouch = m_LeftHand.FindAction("SecondaryTouch", throwIfNotFound: true);
         m_LeftHand_IsTracked = m_LeftHand.FindAction("IsTracked", throwIfNotFound: true);
         m_LeftHand_TrackingState = m_LeftHand.FindAction("TrackingState", throwIfNotFound: true);
@@ -1332,6 +1374,8 @@ public partial class @ViveFocus3InputActions: IInputActionCollection2, IDisposab
     private readonly InputAction m_LeftHand_Grip;
     private readonly InputAction m_LeftHand_GripPress;
     private readonly InputAction m_LeftHand_SecondaryButton;
+    private readonly InputAction m_LeftHand_PressSecondaryButton;
+    private readonly InputAction m_LeftHand_ReleaseSecondaryButton;
     private readonly InputAction m_LeftHand_SecondaryTouch;
     private readonly InputAction m_LeftHand_IsTracked;
     private readonly InputAction m_LeftHand_TrackingState;
@@ -1353,6 +1397,8 @@ public partial class @ViveFocus3InputActions: IInputActionCollection2, IDisposab
         public InputAction @Grip => m_Wrapper.m_LeftHand_Grip;
         public InputAction @GripPress => m_Wrapper.m_LeftHand_GripPress;
         public InputAction @SecondaryButton => m_Wrapper.m_LeftHand_SecondaryButton;
+        public InputAction @PressSecondaryButton => m_Wrapper.m_LeftHand_PressSecondaryButton;
+        public InputAction @ReleaseSecondaryButton => m_Wrapper.m_LeftHand_ReleaseSecondaryButton;
         public InputAction @SecondaryTouch => m_Wrapper.m_LeftHand_SecondaryTouch;
         public InputAction @IsTracked => m_Wrapper.m_LeftHand_IsTracked;
         public InputAction @TrackingState => m_Wrapper.m_LeftHand_TrackingState;
@@ -1403,6 +1449,12 @@ public partial class @ViveFocus3InputActions: IInputActionCollection2, IDisposab
             @SecondaryButton.started += instance.OnSecondaryButton;
             @SecondaryButton.performed += instance.OnSecondaryButton;
             @SecondaryButton.canceled += instance.OnSecondaryButton;
+            @PressSecondaryButton.started += instance.OnPressSecondaryButton;
+            @PressSecondaryButton.performed += instance.OnPressSecondaryButton;
+            @PressSecondaryButton.canceled += instance.OnPressSecondaryButton;
+            @ReleaseSecondaryButton.started += instance.OnReleaseSecondaryButton;
+            @ReleaseSecondaryButton.performed += instance.OnReleaseSecondaryButton;
+            @ReleaseSecondaryButton.canceled += instance.OnReleaseSecondaryButton;
             @SecondaryTouch.started += instance.OnSecondaryTouch;
             @SecondaryTouch.performed += instance.OnSecondaryTouch;
             @SecondaryTouch.canceled += instance.OnSecondaryTouch;
@@ -1458,6 +1510,12 @@ public partial class @ViveFocus3InputActions: IInputActionCollection2, IDisposab
             @SecondaryButton.started -= instance.OnSecondaryButton;
             @SecondaryButton.performed -= instance.OnSecondaryButton;
             @SecondaryButton.canceled -= instance.OnSecondaryButton;
+            @PressSecondaryButton.started -= instance.OnPressSecondaryButton;
+            @PressSecondaryButton.performed -= instance.OnPressSecondaryButton;
+            @PressSecondaryButton.canceled -= instance.OnPressSecondaryButton;
+            @ReleaseSecondaryButton.started -= instance.OnReleaseSecondaryButton;
+            @ReleaseSecondaryButton.performed -= instance.OnReleaseSecondaryButton;
+            @ReleaseSecondaryButton.canceled -= instance.OnReleaseSecondaryButton;
             @SecondaryTouch.started -= instance.OnSecondaryTouch;
             @SecondaryTouch.performed -= instance.OnSecondaryTouch;
             @SecondaryTouch.canceled -= instance.OnSecondaryTouch;
@@ -1999,6 +2057,8 @@ public partial class @ViveFocus3InputActions: IInputActionCollection2, IDisposab
         void OnGrip(InputAction.CallbackContext context);
         void OnGripPress(InputAction.CallbackContext context);
         void OnSecondaryButton(InputAction.CallbackContext context);
+        void OnPressSecondaryButton(InputAction.CallbackContext context);
+        void OnReleaseSecondaryButton(InputAction.CallbackContext context);
         void OnSecondaryTouch(InputAction.CallbackContext context);
         void OnIsTracked(InputAction.CallbackContext context);
         void OnTrackingState(InputAction.CallbackContext context);
