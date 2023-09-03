@@ -20,7 +20,7 @@ public class LensRayActivator : MonoBehaviour
     bool _isFirstEndSimu = true;
 
     bool _canInteractorBeEnabled = false;
-    bool _isInteractorEnabled = false;
+    bool _isInteractorEnabled = true;
 
 
     private void Awake()
@@ -46,28 +46,28 @@ public class LensRayActivator : MonoBehaviour
 
 
     // Update is called once per frame
-    void Update()
-    {
-        if (!_canInteractorBeEnabled)
-            return;
+    //void Update()
+    //{
+    //    if (!_canInteractorBeEnabled)
+    //        return;
 
-        if (!Physics.Raycast(_tf.position, _tf.forward, out hit, 50f, _lensGraphLayer))
-        {
+    //    if (!Physics.Raycast(_tf.position, _tf.forward, out hit, 50f, _lensGraphLayer))
+    //    {
 
-            if (!_isInteractorEnabled)
-                return;
+    //        if (!_isInteractorEnabled)
+    //            return;
 
-            _lenRayInteractorGo.SetActive(false);
-            _isInteractorEnabled = false;
-            return;
-        }
+    //        _lenRayInteractorGo.SetActive(false);
+    //        _isInteractorEnabled = false;
+    //        return;
+    //    }
 
-        if (_isInteractorEnabled)
-            return;
+    //    if (_isInteractorEnabled)
+    //        return;
 
-        _lenRayInteractorGo.SetActive(true);
-        _isInteractorEnabled = true;
-    }
+    //    _lenRayInteractorGo.SetActive(true);
+    //    _isInteractorEnabled = true;
+    //}
 
 
     public void OnGraphUpdated(GraphUpdateType updateType)
@@ -89,7 +89,7 @@ public class LensRayActivator : MonoBehaviour
                     _isFirstEndSimu = false;
                 }
                 else
-                    SetCanInteractorState(false);
+                    SetCanInteractorState(true);
                 break;
             case GraphUpdateType.BeforeSwitchMode:
                 SetCanInteractorState(false);
@@ -98,7 +98,7 @@ public class LensRayActivator : MonoBehaviour
                 SetCanInteractorState(true);
                 break;
             case GraphUpdateType.AfterSwitchModeToImmersion:
-                SetCanInteractorState(false);
+                SetCanInteractorState(true);
                 break;
         }
 
@@ -108,11 +108,8 @@ public class LensRayActivator : MonoBehaviour
     {
         _canInteractorBeEnabled = canInteractorBeEnabled;
 
-        if(!_canInteractorBeEnabled && _isInteractorEnabled)
-        {
-            _isInteractorEnabled = true;
-            _lenRayInteractorGo.SetActive(false);
-        }
+        _isInteractorEnabled = _canInteractorBeEnabled;
+        _lenRayInteractorGo.SetActive(_canInteractorBeEnabled);
 
     }
 }
