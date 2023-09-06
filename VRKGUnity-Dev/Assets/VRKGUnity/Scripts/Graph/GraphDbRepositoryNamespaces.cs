@@ -35,10 +35,12 @@ public class GraphDbRepositoryNamespaces
         _namespacesAndPrefixs = new();
     }
 
-    public async Task RetrieveNewNamespaces(JObject data, GraphDBAPI graphDBAPI)
+    public async Task RetrieveNewNamespaces(JObject data, GraphDBAPI graphDBAPI, DataSynchroManager dataSynchroManager)
     {
         HashSet<string> namespaces = new();
-        // Detect all uris
+
+        dataSynchroManager.AddLog("Détection des espaces de noms");
+
         foreach (JToken binding in data["results"]["bindings"])
         {
             string sType = binding["s"]["type"].Value<string>();
@@ -53,22 +55,39 @@ public class GraphDbRepositoryNamespaces
             if (sType == "uri" && sValue.StartsWith("http"))
             {
                 var (namespce, _) = sValue.ExtractUri();
-                namespaces.Add(namespce);
+
+                if(!namespaces.Contains(namespce))
+                {
+                    namespaces.Add(namespce);
+                    dataSynchroManager.AddLog("Récupération de l'espace de nom " + namespce);
+                }
+
             }
 
             if (pType == "uri" && pValue.StartsWith("http"))
             {
                 var (namespce, _) = pValue.ExtractUri();
-                namespaces.Add(namespce);
+
+                if (!namespaces.Contains(namespce))
+                {
+                    namespaces.Add(namespce);
+                    dataSynchroManager.AddLog("Récupération de l'espace de nom " + namespce);
+                }
             }
 
             if (oType == "uri" && oValue.StartsWith("http"))
             {
                 var (namespce, _) = oValue.ExtractUri();
-                namespaces.Add(namespce);
+
+                if (!namespaces.Contains(namespce))
+                {
+                    namespaces.Add(namespce);
+                    dataSynchroManager.AddLog("Récupération de l'espace de nom " + namespce);
+                }
             }
         }
 
+        dataSynchroManager.AddLog("Récupération des préfixes par défaut");
         LoadDefaultPrefixsList();
 
 
@@ -77,25 +96,35 @@ public class GraphDbRepositoryNamespaces
             if(_namespacesAndPrefixs.ContainsKey(namespce))
                 continue;
 
-            await TryRetrieveOntologyAndLoadInDatabase(graphDBAPI, _pathRepo, namespce);
-            TryLoadPrefixFromList(namespce);
+            await TryRetrieveOntologyAndLoadInDatabase(graphDBAPI, _pathRepo, namespce, dataSynchroManager);
+            TryLoadPrefixFromList(namespce, dataSynchroManager);
         }
 
         await Save();
     }
 
 
-    private async Task TryRetrieveOntologyAndLoadInDatabase(GraphDBAPI graphDBAPI, string pathRepo, string namespce)
+    private async Task TryRetrieveOntologyAndLoadInDatabase(GraphDBAPI graphDBAPI, string pathRepo, string namespce, DataSynchroManager dataSynchroManager)
     {
+        dataSynchroManager.AddLog("Processus de récupération de l'espace de nom " + namespce + " initié");
         string xmlContent = await HttpHelper.RetrieveRdf(namespce);
 
+
         if (xmlContent.Length == 0)
+        {
+            dataSynchroManager.AddLog("Récupération de l'espace de nom " + namespce + " échoué");
             return;
+        }
 
         IGraph graph = new VDS.RDF.Graph();
 
         if (!graph.TryLoadFromRdf(xmlContent))
+        {
+            dataSynchroManager.AddLog("Récupération de l'espace de nom " + namespce + " échoué");
             return;
+        }
+
+        dataSynchroManager.AddLog("Récupération de l'espace de nom " + namespce + " réussie");
 
         await FileHelper.SaveAsync(xmlContent, pathRepo, namespce.CleanUriFromUrlPart() + ".rdf");
         graph.CleanFromLabelAndComment();
@@ -104,9 +133,10 @@ public class GraphDbRepositoryNamespaces
     }
 
     #region Prefix
-    private void TryLoadPrefixFromList(string namespce)
+    private void TryLoadPrefixFromList(string namespce, DataSynchroManager dataSynchroManager)
     {
-        if(_defaultPrefixsDict.ContainsKey(namespce))
+        dataSynchroManager.AddLog("Chargement du prefix pour " + namespce);
+        if (_defaultPrefixsDict.ContainsKey(namespce))
         {
             AddPrefix(namespce, _defaultPrefixsDict[namespce]);
             return;
@@ -213,7 +243,7 @@ public class GraphDbRepositoryNamespaces
     }
 
 
-    public async Task CreateOntologyTrees(GraphDBAPI graphDBAPI)
+    public async Task CreateOntologyTrees(GraphDBAPI graphDBAPI, DataSynchroManager dataSynchroManager)
     {
         var sparqlQuery = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> " +
                            "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> " +
@@ -224,9 +254,12 @@ public class GraphDbRepositoryNamespaces
                            "?s ?p ?o. " +
                            "FILTER( ( (?p = rdf:type && (?o = rdfs:Class || ?o = owl:Class)) || ?p = rdfs:subClassOf ) )  }}";
 
+        dataSynchroManager.AddLog("Récupération des noeuds ontologiques dans GraphDb");
         var json = await graphDBAPI.SelectQuery(sparqlQuery);
         var data = await JsonConvertHelper.DeserializeObjectAsync<JObject>(json);
         _ontoTreeDict = new();
+
+        dataSynchroManager.AddLog("Création des arbres ontologiques");
 
         foreach (JToken binding in data["results"]["bindings"])
         {
@@ -334,6 +367,7 @@ public class GraphDbRepositoryNamespaces
         if (!File.Exists(path))
         {
             Debug.LogError("prefixsList.ttl has been deleted");
+            Debug.LogError(path);
             return;
         }
 

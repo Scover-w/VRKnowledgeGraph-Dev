@@ -73,7 +73,7 @@ public class GraphDbRepositoryDistantUris
 
             tasks.Add(Task.Run(async () =>
             {
-                await RetrieveName(node);
+                await RetrieveName(node, dataSynchro);
                 Interlocked.Increment(ref _nbFinishedThread);
 
                 LoadingDistantUriData data = new(_nbFinishedThread);
@@ -102,11 +102,13 @@ public class GraphDbRepositoryDistantUris
         Debug.Log("Finished");
     }
 
-    private async Task RetrieveName(object obj)
+    private async Task RetrieveName(object nodeObj, DataSynchroManager dataSynchroObj)
     {
         try
         {
-            var node = (Node)obj;
+            var node = (Node)nodeObj;
+            DataSynchroManager dataSynchro = dataSynchroObj;
+
             string uri = node.Uri;
 
             // Set value if already successfull retrieve saved
@@ -153,7 +155,7 @@ public class GraphDbRepositoryDistantUris
             if (ExtractName(xmlContent, out string property, out string value))
             {
                 node.Properties.Add(property, value);
-
+                dataSynchro.AddLog("Récupération réussie pour " + node.Uri + " : " + value);
 
                 lock (_distantUriLabels)
                 {
