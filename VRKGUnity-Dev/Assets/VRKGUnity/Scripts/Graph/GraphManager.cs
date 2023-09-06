@@ -76,8 +76,8 @@ public class GraphManager : MonoBehaviour
 
     private void SubscribeLensRayActivators()
     {
-        LensRayActivator leftActivator = _referenceHolderSo.LeftLensRayActivator.Value;
-        LensRayActivator rightActivator = _referenceHolderSo.RightLensRayActivator.Value;
+        RayActivator leftActivator = _referenceHolderSo.LeftLensRayActivator.Value;
+        RayActivator rightActivator = _referenceHolderSo.RightLensRayActivator.Value;
 
         if (leftActivator != null)
             OnGraphUpdate += leftActivator.OnGraphUpdated;

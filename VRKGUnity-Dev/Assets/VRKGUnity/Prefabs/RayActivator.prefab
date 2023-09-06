@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 2498538862928828758}
   - component: {fileID: 4890917054198991072}
   - component: {fileID: 5786736842225450780}
+  - component: {fileID: 964297678550702619}
   m_Layer: 0
-  m_Name: LensRayInteractor
+  m_Name: RayInteractor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -245,7 +246,7 @@ LineRenderer:
     textureMode: 0
     shadowBias: 0
     generateLightingData: 0
-  m_UseWorldSpace: 0
+  m_UseWorldSpace: 1
   m_Loop: 0
 --- !u!210 &5786736842225450780
 SortingGroup:
@@ -258,6 +259,23 @@ SortingGroup:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
+--- !u!114 &964297678550702619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 347179758063291147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d82a2b3f1dd4461438346b69bf80537f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _smoothMovement: 0
+  _followTightness: 10
+  _snapThresholdDistance: 10
+  _stopLineAtFirstRaycastHit: 1
+  _stopLineAtSelection: 0
 --- !u!1 &8070307024652621185
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,7 +287,7 @@ GameObject:
   - component: {fileID: 8070307024652621214}
   - component: {fileID: 3103290453113966437}
   m_Layer: 0
-  m_Name: LensRayActivator
+  m_Name: RayActivator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

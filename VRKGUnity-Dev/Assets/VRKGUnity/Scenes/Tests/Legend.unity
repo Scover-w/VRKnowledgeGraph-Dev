@@ -255,9 +255,10 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  Material: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   RawImage: {fileID: 5351794}
   RectTransform: {fileID: 5351793}
+  HalfThickness: 2.5
   CreateSVG: 0
 --- !u!1 &334811613
 GameObject:
@@ -2808,6 +2809,7 @@ MonoBehaviour:
   Material: {fileID: 0}
   RawImage: {fileID: 0}
   RectTransform: {fileID: 0}
+  HalfThickness: 2.5
   CreateSVG: 0
 --- !u!4 &2127395357
 Transform:

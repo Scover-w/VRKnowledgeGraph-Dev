@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LensRayActivator : MonoBehaviour
+public class RayActivator : MonoBehaviour
 {
     [SerializeField]
     ReferenceHolderSO _referenceHolderSo;
@@ -15,7 +15,6 @@ public class LensRayActivator : MonoBehaviour
 
     Transform _tf;
     RaycastHit hit;
-    int _lensGraphLayer;
 
     bool _isFirstEndSimu = true;
 
@@ -25,7 +24,6 @@ public class LensRayActivator : MonoBehaviour
 
     private void Awake()
     {
-        _lensGraphLayer = 1 << Layers.LensGraph;
         _tf = transform;
     }
 
@@ -43,31 +41,6 @@ public class LensRayActivator : MonoBehaviour
     {
         _lenRayInteractorGo.SetActive(false);
     }
-
-
-    // Update is called once per frame
-    //void Update()
-    //{
-    //    if (!_canInteractorBeEnabled)
-    //        return;
-
-    //    if (!Physics.Raycast(_tf.position, _tf.forward, out hit, 50f, _lensGraphLayer))
-    //    {
-
-    //        if (!_isInteractorEnabled)
-    //            return;
-
-    //        _lenRayInteractorGo.SetActive(false);
-    //        _isInteractorEnabled = false;
-    //        return;
-    //    }
-
-    //    if (_isInteractorEnabled)
-    //        return;
-
-    //    _lenRayInteractorGo.SetActive(true);
-    //    _isInteractorEnabled = true;
-    //}
 
 
     public void OnGraphUpdated(GraphUpdateType updateType)

@@ -94,16 +94,16 @@ public class Node
     public NodeStyler MainStyler;
     public NodeStyler SubStyler;
 
-    public List<Edge> EdgeSource;
-    public List<Edge> EdgeTarget;
+    public List<Edge> EdgeSource = new();
+    public List<Edge> EdgeTarget = new();
 
     public Transform MainGraphNodeTf;
     public Transform SubGraphNodeTf;
 
     public Vector3 AbsolutePosition;
     
-    public Dictionary<string, string> Properties;
-    public HashSet<string> Medias;
+    public Dictionary<string, string> Properties = new();
+    public HashSet<string> Medias = new();
 
     private bool _doDisplayMainNode;
     private bool _doDisplaySubNode;
@@ -144,13 +144,6 @@ public class Node
             Prefix = repoNamespaces.GetPrefix(Namespace);
         }
 
-
-        EdgeSource = new();
-        EdgeTarget = new();
-
-        Properties = new();
-        Medias = new();
-
         _doDisplayMainNode = false;
         _doDisplaySubNode = false;
 
@@ -162,8 +155,11 @@ public class Node
     {
         string shorterName = null;
 
+        Debug.Log("GetShorterName " + Properties.Count);
+
         foreach(var propNameAndValue in Properties)
         {
+            Debug.Log("GetShorterName " + propNameAndValue);
             var propName = propNameAndValue.Key.ToLower();
 
             if (!(propName.Contains("label") || propName.Contains("title") || propName.Contains("name")))

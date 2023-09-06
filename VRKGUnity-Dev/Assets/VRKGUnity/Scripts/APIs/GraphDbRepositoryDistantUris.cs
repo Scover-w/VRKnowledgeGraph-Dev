@@ -121,7 +121,9 @@ public class GraphDbRepositoryDistantUris
                 {
 
                     if(propAndValue.Item1 != "-1")
+                    {
                         node.Properties.Add(propAndValue.Item1, propAndValue.Item2);
+                    }
 
                     needReturn = true;
                 }

@@ -150,7 +150,9 @@ public class LabelNodgeManagerUI : MonoBehaviour
     {
         _isHovered = true;
         _hoveredLabelUI.SetFollow(node.MainGraphNodeTf);
+        Debug.Log("SetHover " + node.Uri);
         var name = node.GetShorterName();
+        Debug.Log(name);
         _hoveredLabelUI.Text = (name != null) ? name : node.PrefixValue;
         _hoveredLabelUI.SetActive(true);
     }
