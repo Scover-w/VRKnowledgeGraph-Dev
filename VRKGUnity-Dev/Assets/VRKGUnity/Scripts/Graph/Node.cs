@@ -466,16 +466,16 @@ public class Node
             SubStyler.TryForceUnselect();
     }
 
-    public void MoveEdgeWithNode(Vector3 worldPosition)
+    public void MoveEdgeWithNode(Vector3 worldPosition, bool isGraphType)
     {
         foreach(Edge edge in EdgeSource)
         {
-            edge.SetSourcePositionFromMovingNode(worldPosition);
+            edge.SetSourcePositionFromMovingNode(worldPosition, isGraphType);
         }
 
         foreach (Edge edge in EdgeTarget)
         {
-            edge.SetTargetPositionFromMovingNode(worldPosition);
+            edge.SetTargetPositionFromMovingNode(worldPosition, isGraphType);
         }
     }
 

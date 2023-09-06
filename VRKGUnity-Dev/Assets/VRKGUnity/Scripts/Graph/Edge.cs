@@ -178,14 +178,20 @@ public class Edge : IEdge<Node>
     }
 
 
-    public void SetSourcePositionFromMovingNode(Vector3 worldPosition)
+    public void SetSourcePositionFromMovingNode(Vector3 worldPosition, bool isGraphType)
     {
-        MainStyler.SetSourcePositionFromMovingNode(worldPosition);
+        if(isGraphType)
+            MainStyler.SetSourcePositionFromMovingNode(worldPosition);
+        else
+            SubStyler.SetSourcePositionFromMovingNode(worldPosition);
     }
 
-    public void SetTargetPositionFromMovingNode(Vector3 worldPosition)
+    public void SetTargetPositionFromMovingNode(Vector3 worldPosition, bool isGraphType)
     {
-        MainStyler.SetTargetPositionFromMovingNode(worldPosition);
+        if (isGraphType)
+            MainStyler.SetTargetPositionFromMovingNode(worldPosition);
+        else
+            SubStyler.SetTargetPositionFromMovingNode(worldPosition);
     }
 
 

@@ -72,7 +72,7 @@ public class NodeStyler : MonoBehaviour
         while(_isMoving)
         {
             yield return null;
-            Node.MoveEdgeWithNode(_tf.position);
+            Node.MoveEdgeWithNode(_tf.position, GraphType == GraphType.Main);
         }
     }
 
