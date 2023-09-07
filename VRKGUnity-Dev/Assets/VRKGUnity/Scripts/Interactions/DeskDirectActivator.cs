@@ -9,15 +9,16 @@ public class DeskDirectActivator : MonoBehaviour
 
     private void OnEnable()
     {
-        _deskDirectInteractorGo.SetActive(false);
+        _deskDirectInteractorGo.SetActive(false);   
     }
+
 
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag(Tags.DeskGraph))
             return; 
 
-        _deskDirectInteractorGo.SetActive(true);
+        _deskDirectInteractorGo.SetActive(true); 
     }
 
     private void OnTriggerExit(Collider other)
@@ -27,4 +28,6 @@ public class DeskDirectActivator : MonoBehaviour
 
         _deskDirectInteractorGo.SetActive(false);
     }
+
+
 }

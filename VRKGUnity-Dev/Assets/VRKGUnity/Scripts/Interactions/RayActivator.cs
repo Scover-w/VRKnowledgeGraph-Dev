@@ -20,6 +20,8 @@ public class RayActivator : MonoBehaviour
 
     bool _canInteractorBeEnabled = false;
     bool _isInteractorEnabled = true;
+    bool _doesDeskInteractorWantToHideIt = false;
+
 
 
     private void Awake()
@@ -77,12 +79,18 @@ public class RayActivator : MonoBehaviour
 
     }
 
+    public void SetDeskInteractorWantToHideIt(bool hideIt)
+    {
+        _doesDeskInteractorWantToHideIt = hideIt;
+        _lenRayInteractorGo.SetActive(_canInteractorBeEnabled && !hideIt);
+    }
+
     private void SetCanInteractorState(bool canInteractorBeEnabled)
     {
         _canInteractorBeEnabled = canInteractorBeEnabled;
 
         _isInteractorEnabled = _canInteractorBeEnabled;
-        _lenRayInteractorGo.SetActive(_canInteractorBeEnabled);
+        _lenRayInteractorGo.SetActive(_canInteractorBeEnabled && !_doesDeskInteractorWantToHideIt);
 
     }
 }

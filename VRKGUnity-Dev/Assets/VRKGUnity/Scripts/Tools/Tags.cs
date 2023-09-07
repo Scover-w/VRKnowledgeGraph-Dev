@@ -5,4 +5,5 @@ using UnityEngine;
 public class Tags
 {
     public const string DeskGraph = "DeskGraph";
+    public const string Node = "Node";
 }
