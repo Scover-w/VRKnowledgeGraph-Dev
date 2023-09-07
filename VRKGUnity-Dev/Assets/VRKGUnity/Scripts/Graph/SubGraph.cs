@@ -268,7 +268,7 @@ public class SubGraph : MonoBehaviour
         UpdateSubGraphPositionToWatch();
         _subGraphMode = SubGraphMode.Watch;
 
-        _subGraphTf.gameObject.SetActive(true);
+        _subGraphTf.gameObject.SetActive(_graphConfig.ShowWatch);
         _gpsPointTf.gameObject.SetActive(true);
     }
     #endregion
