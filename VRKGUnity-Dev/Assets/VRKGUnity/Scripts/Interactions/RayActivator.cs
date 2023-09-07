@@ -13,28 +13,18 @@ public class RayActivator : MonoBehaviour
     [SerializeField]
     bool _isLeft;
 
-    Transform _tf;
-    RaycastHit hit;
-
     bool _isFirstEndSimu = true;
 
     bool _canInteractorBeEnabled = false;
-    bool _isInteractorEnabled = true;
     bool _doesDeskInteractorWantToHideIt = false;
 
-
-
-    private void Awake()
-    {
-        _tf = transform;
-    }
 
     private void Start()
     {
         if (_isLeft)
-            _referenceHolderSo.LeftLensRayActivator.Value = this;
+            _referenceHolderSo.LeftLensRayActivator = this;
         else
-            _referenceHolderSo.RightLensRayActivator.Value = this;
+            _referenceHolderSo.RightLensRayActivator = this;
 
         Invoke(nameof(OnDelayedStart), 1f);
     }
@@ -79,18 +69,16 @@ public class RayActivator : MonoBehaviour
 
     }
 
-    public void SetDeskInteractorWantToHideIt(bool hideIt)
-    {
-        _doesDeskInteractorWantToHideIt = hideIt;
-        _lenRayInteractorGo.SetActive(_canInteractorBeEnabled && !hideIt);
-    }
-
     private void SetCanInteractorState(bool canInteractorBeEnabled)
     {
         _canInteractorBeEnabled = canInteractorBeEnabled;
 
-        _isInteractorEnabled = _canInteractorBeEnabled;
         _lenRayInteractorGo.SetActive(_canInteractorBeEnabled && !_doesDeskInteractorWantToHideIt);
+    }
 
+    public void SetDeskInteractorWantToHideIt(bool hideIt)
+    {
+        _doesDeskInteractorWantToHideIt = hideIt;
+        _lenRayInteractorGo.SetActive(_canInteractorBeEnabled && !hideIt);
     }
 }

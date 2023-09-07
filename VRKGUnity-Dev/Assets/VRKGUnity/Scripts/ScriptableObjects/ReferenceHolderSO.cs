@@ -11,8 +11,11 @@ public class ReferenceHolderSO : ScriptableObject
     public SingleAssignment<Camera> HMDCamSA { get; } = new SingleAssignment<Camera>();
     public SingleAssignment<Transform> WristTf { get; } = new SingleAssignment<Transform>();
 
-    public SingleAssignment<RayActivator> LeftLensRayActivator { get; } = new SingleAssignment<RayActivator>();
-    public SingleAssignment<RayActivator> RightLensRayActivator { get; } = new SingleAssignment<RayActivator>();
+    public RayActivator LeftLensRayActivator { get; set; }
+    public RayActivator RightLensRayActivator { get; set; }
+
+    public DeskDirectActivator LeftDeskDirectActivator { get; set; }
+    public DeskDirectActivator RightDeskDirectActivator { get; set; }
 
     public GraphDbRepository SelectedGraphDbRepository { get; set; }
 

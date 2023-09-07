@@ -523,7 +523,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad92fef37f6e01745a9c04e86a664374, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _deskDirectInteractorGo: {fileID: 584732070}
+  _isLeft: 0
 --- !u!54 &744541788
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -708,7 +710,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad92fef37f6e01745a9c04e86a664374, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _deskDirectInteractorGo: {fileID: 2034242303}
+  _isLeft: 1
 --- !u!1 &1275349779
 GameObject:
   m_ObjectHideFlags: 0
