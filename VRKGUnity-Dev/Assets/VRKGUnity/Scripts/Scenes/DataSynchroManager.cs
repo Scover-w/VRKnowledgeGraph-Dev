@@ -26,6 +26,9 @@ public class DataSynchroManager : MonoBehaviour
     [SerializeField]
     TMP_Text _logTxt;
 
+    [SerializeField]
+    TextAsset _defaultPrefixs;
+
     GraphDbRepository _graphRepo;
     GraphDBAPI _graphDbAPI;
 
@@ -188,7 +191,7 @@ public class DataSynchroManager : MonoBehaviour
 
         _data = await JsonConvertHelper.DeserializeObjectAsync<JObject>(json);
         Debug.Log(_data);
-        await repoUris.RetrieveNewNamespaces(_data, _graphDbAPI, this);
+        await repoUris.RetrieveNewNamespaces(_data, _graphDbAPI, this, _defaultPrefixs);
         await repoUris.CreateOntologyTrees(_graphDbAPI, this);
 
         var readOntoTreeDict = repoUris.OntoTreeDict;

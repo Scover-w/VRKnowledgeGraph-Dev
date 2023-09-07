@@ -141,15 +141,11 @@ public class GraphDbRepositoryDistantUris
 
             string xmlContent = null;
 
-            Debug.Log(uri + " before retrieve rdf");
 
             xmlContent = await HttpHelper.RetrieveRdf(uri);
 
-            Debug.Log(uri + " after retrieve rdf");
-
             if (xmlContent == null || xmlContent.Length == 0)
             {
-                Debug.Log(uri + " xmlContent is null");
                 lock (_distantUriLabels)
                 {
                     _distantUriLabels.Add(uri, ("-1", "-1"));
@@ -173,7 +169,7 @@ public class GraphDbRepositoryDistantUris
             }
             else
             {
-                Debug.Log(uri + " couldn't extract name");
+                dataSynchro.AddLog("Récupération échouée pour " + node.Uri + " : " + value);
                 lock (_distantUriLabels)
                 {
                     _distantUriLabels.Add(uri, ("-1", "-1"));

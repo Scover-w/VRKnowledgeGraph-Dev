@@ -597,6 +597,7 @@ MonoBehaviour:
   _loadingBarUI: {fileID: 1181468774}
   _graphSimu: {fileID: 983396016}
   _logTxt: {fileID: 826179805}
+  _defaultPrefixs: {fileID: 4900000, guid: 315733ed340c96340844225d0b5c056b, type: 3}
 --- !u!4 &983396018
 Transform:
   m_ObjectHideFlags: 0

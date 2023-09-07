@@ -59,7 +59,7 @@ public class GraphConfiguration
 
     [Space(10)]
     [Header("Edge")]
-    public float EdgeThicknessImmersion = .05f;
+    public float EdgeThicknessImmersion = .025f;
     public float EdgeThicknessDesk = .001f;
     public float EdgeThicknessLens = .005f;
     public float EdgeThicknessWatch = .0002f;

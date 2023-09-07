@@ -35,7 +35,7 @@ public class GraphDbRepositoryNamespaces
         _namespacesAndPrefixs = new();
     }
 
-    public async Task RetrieveNewNamespaces(JObject data, GraphDBAPI graphDBAPI, DataSynchroManager dataSynchroManager)
+    public async Task RetrieveNewNamespaces(JObject data, GraphDBAPI graphDBAPI, DataSynchroManager dataSynchroManager, TextAsset defaultPrefixs)
     {
         HashSet<string> namespaces = new();
 
@@ -88,7 +88,7 @@ public class GraphDbRepositoryNamespaces
         }
 
         dataSynchroManager.AddLog("Récupération des préfixes par défaut");
-        LoadDefaultPrefixsList();
+        LoadDefaultPrefixsList(defaultPrefixs);
 
 
         foreach (string namespce in namespaces)
@@ -357,21 +357,11 @@ public class GraphDbRepositoryNamespaces
     }
 
 
-    private void LoadDefaultPrefixsList()
+    private void LoadDefaultPrefixsList(TextAsset textAsset)
     {
-        var path = Path.Combine(Application.streamingAssetsPath, "prefixsList.ttl");
-
-
         _defaultPrefixsDict = new();
 
-        if (!File.Exists(path))
-        {
-            Debug.LogError("prefixsList.ttl has been deleted");
-            Debug.LogError(path);
-            return;
-        }
-
-        using StreamReader reader = new(path);
+        using StreamReader reader = new(new MemoryStream(textAsset.bytes));
         string line;
 
         while ((line = reader.ReadLine()) != null)
