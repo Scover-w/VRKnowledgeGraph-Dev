@@ -84,6 +84,7 @@ public class LabelNodgeManagerUI : MonoBehaviour
 
         _hoveredLabelUI = _nodgePool.GetLabelNodge();
         _hoveredLabelUI.SetActive(false);
+        UpdateHoverSize();
     }
 
 
@@ -338,6 +339,7 @@ public class LabelNodgeManagerUI : MonoBehaviour
         _inTransitionForSwitchMode = false;
 
         UpdateValueStyle();
+        UpdateHoverSize();
         AfterSwitchModeToDeskForMain();
         AfterSwitchModeToDeskForLens();
     }
@@ -373,6 +375,7 @@ public class LabelNodgeManagerUI : MonoBehaviour
         _inTransitionForSwitchMode = false;
 
         UpdateValueStyle();
+        UpdateHoverSize();
         AfterSwitchModeToImmersionForMain();
         AfterSwitchModeToImmersionForWatch();
     }
@@ -477,6 +480,17 @@ public class LabelNodgeManagerUI : MonoBehaviour
 
         OnNodgesPropagated(nodges);
     }
+
+    private void UpdateHoverSize()
+    {
+        float scale = (_graphMode == GraphMode.Immersion) ? _graphConfig.LabelNodeSizeImmersion : _graphConfig.LabelNodeSizeDesk;
+        Vector2 sizeConvas = _baseSizeCanvas * scale;
+        float fontSize = _baseFontSize * scale;
+
+        _hoveredLabelUI.SetSize(scale, sizeConvas, fontSize);
+    }
+
+
     #endregion
 
 

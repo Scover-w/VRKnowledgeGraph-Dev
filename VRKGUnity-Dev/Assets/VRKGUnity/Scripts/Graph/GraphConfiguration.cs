@@ -47,7 +47,7 @@ public class GraphConfiguration
     [Space(10)]
     [Header("Label")]
     public float LabelNodeSizeImmersion = 5f;
-    public float LabelNodeSizeDesk = .1f;
+    public float LabelNodeSizeDesk = .2f;
 
     public float LabelNodeSizeLens = 1.36f;
 

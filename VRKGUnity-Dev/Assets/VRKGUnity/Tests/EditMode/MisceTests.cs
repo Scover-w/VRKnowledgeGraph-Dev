@@ -3,10 +3,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Security.Policy;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
@@ -148,5 +151,65 @@ public class MisceTests : MonoBehaviour
     {
         var result = await HttpHelper.Ping("http://localhost:7200/");
         Debug.Log(result);
+    }
+
+    [Test]
+    public async void RetrieveFrench()
+    {
+        var xmlContent = await HttpHelper.RetrieveRdf("https://viaf.org/viaf/143903205/");
+
+        if (xmlContent == null || xmlContent.Length == 0)
+        {
+            return;
+        }
+
+        File.WriteAllText(Application.persistentDataPath + "/Test.ttl", xmlContent);
+        Debug.Log(Application.persistentDataPath + "Test.ttl");
+
+        if (ExtractName(xmlContent, out string property, out string value))
+        {
+           
+            return;
+        }
+    }
+
+    private bool ExtractName(string xmlContent, out string property, out string value)
+    {
+        property = "";
+        value = "";
+
+        List<(string, string)> lst = new(); 
+
+
+        try
+        {
+            using StringReader stringReader = new(xmlContent);
+            using XmlReader xmlReader = XmlReader.Create(stringReader);
+
+            while (xmlReader.Read())
+            {
+                if (xmlReader.NodeType != XmlNodeType.Element)
+                    continue;
+
+                var name = xmlReader.Name.ToLower();
+
+                if (!(name.Contains("label") || name.Contains("title") || name.Contains("name")))
+                    continue;
+
+                property = xmlReader.Name;
+                value = xmlReader.ReadElementContentAsString();
+
+                lst.Add((name, value));
+                //return true;
+            }
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
+
+        Debug.Log("Bipbop");
+
+        return false;
     }
 }

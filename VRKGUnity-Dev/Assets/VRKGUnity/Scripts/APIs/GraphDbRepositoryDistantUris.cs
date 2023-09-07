@@ -169,7 +169,7 @@ public class GraphDbRepositoryDistantUris
             }
             else
             {
-                dataSynchro.AddLog("Récupération échouée pour " + node.Uri + " : " + value);
+                dataSynchro.AddLog("Récupération échouée pour " + node.Uri);
                 lock (_distantUriLabels)
                 {
                     _distantUriLabels.Add(uri, ("-1", "-1"));

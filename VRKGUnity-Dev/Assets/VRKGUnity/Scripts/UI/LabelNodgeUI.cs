@@ -85,9 +85,6 @@ public class LabelNodgeUI : MonoBehaviour
             Vector2 baseCanvasLabel = Settings.BASE_SIZE_LABEL_CANVAS;
             float minReadableFontSize = Settings.MIN_READABLE_FONT_SIZE;
 
-            //if (distance < 1f)
-            //    distance = 1f;
-
             float atomicFontSize = (baseFontSize * _scaleSize) / distance;
 
             if (atomicFontSize < minReadableFontSize) // Realtive Canvas Size Mode : Need to be readable even far
