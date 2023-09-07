@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
@@ -125,5 +127,26 @@ public class MisceTests : MonoBehaviour
     public void GetPersistentLink()
     {
         Debug.Log(Application.persistentDataPath);
+    }
+
+    [Test]
+    public async void IsConnectedToInternet()
+    {
+        var result = await HttpHelper.IsConnectedToInternet();
+        Debug.Log(result);
+
+        await Task.Run(() =>
+        {
+            Thread.Sleep(5000);
+        });
+
+        Debug.Log("5s");
+    }
+
+    [Test]
+    public async void PingRepo()
+    {
+        var result = await HttpHelper.Ping("http://localhost:7200/");
+        Debug.Log(result);
     }
 }

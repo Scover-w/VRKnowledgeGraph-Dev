@@ -7,6 +7,8 @@ using UnityEngine;
 
 public class GraphDBAPI
 {
+    public string ServerUrl { get { return _serverUrl; } }
+
     public delegate void ErrorQuery(HttpResponseMessage responseMessage);
     public static ErrorQuery OnErrorQuery;
 

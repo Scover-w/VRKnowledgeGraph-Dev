@@ -4,6 +4,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
@@ -85,6 +86,13 @@ public class DataSynchroManager : MonoBehaviour
     {
         _unityThreadDispatcherInstance = UnityMainThreadDispatcher.Instance();
 
+        _loadingBarUI.Refresh(0f, "Vérification de la connexion internet");
+
+        await WaitConnectionToInternet();
+
+        _loadingBarUI.Refresh(0f, "Vérification de la connexion au serveur GraphDb");
+        await WaitRepositoryConnection();
+
         _loadingBarUI.Refresh(0f, "Mise à jour des données Omeka dans GaphDb");
         UpdateGraphDbFromOmeka();
 
@@ -107,6 +115,60 @@ public class DataSynchroManager : MonoBehaviour
         var lifeSceneManager = _referenceHolderSo.LifeCycleSceneManagerSA.Value;
 
         lifeSceneManager.LoadScene(Scenes.KG);
+    }
+
+    private async Task WaitConnectionToInternet()
+    {
+        bool isConnectedToInternet = false;
+        bool isFirstTest = true;
+
+        while (!isConnectedToInternet)
+        {
+
+            if (!isFirstTest)
+            {
+                await Task.Run(() =>
+                {
+                    Thread.Sleep(5000);
+                });
+
+            }
+
+            isConnectedToInternet = await HttpHelper.IsConnectedToInternet();     
+
+            if(!isConnectedToInternet)
+            {
+                _loadingBarUI.Refresh(0f, "Connexion échouée. Veuillez vous connecter à internet.");
+                isFirstTest = false;
+            }
+        }
+    }
+
+    private async Task WaitRepositoryConnection()
+    {
+        bool isConnectedToRepo = false;
+        bool isFirstTest = true;
+
+        while (!isConnectedToRepo)
+        {
+
+            if (!isFirstTest)
+            {
+                await Task.Run(() =>
+                {
+                    Thread.Sleep(5000);
+                });
+
+            }
+
+            isConnectedToRepo = await HttpHelper.Ping(_graphDbAPI.ServerUrl);
+
+            if (!isConnectedToRepo)
+            {
+                _loadingBarUI.Refresh(0f, "Connexion échouée. Veuillez vérifier que le serveur GraphDb est en ligne.");
+                isFirstTest = false;
+            }
+        }
     }
 
     private void UpdateGraphDbFromOmeka()
