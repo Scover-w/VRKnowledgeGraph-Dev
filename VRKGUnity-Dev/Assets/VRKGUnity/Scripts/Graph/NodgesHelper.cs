@@ -259,12 +259,8 @@ public static class NodgesHelper
         {
             var node = uidAndNode.Value;
 
-            Debug.Log("AddRetrievedNames : " + node.Uri);
-
             if (node.Type != NodgeType.Uri)
                 continue;
-
-            Debug.Log("A");
 
 
             if (!distantUriDict.TryGetValue(node.Uri, out (string, string) distantUriLabel)) // (string,string) -> (skos:prefLabel, Bibliothèque nationale (Francia)
@@ -272,19 +268,16 @@ public static class NodgesHelper
                 continue;
             }
 
-            Debug.Log("B");
 
             var nodeProperties = node.Properties;
 
             if (nodeProperties.ContainsKey(distantUriLabel.Item1)) // Already contain edge property
                 continue;
 
-            Debug.Log("C");
 
             if (distantUriLabel.Item1 == "-1")
                 continue;
 
-            Debug.Log("D : " + distantUriLabel.Item1 + " , " + distantUriLabel.Item2);
             nodeProperties.Add(distantUriLabel.Item1, distantUriLabel.Item2);
         }
     }

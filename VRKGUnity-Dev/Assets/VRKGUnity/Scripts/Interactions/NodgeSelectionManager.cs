@@ -222,7 +222,7 @@ public class NodgeSelectionManager : MonoBehaviour
     public void Select(Node node)
     {
         OnNodeSelected?.Invoke(node);
-        Debug.Log("Select : " + node.Uri);
+
         if(_selectionMode == SelectionMode.Single)
         {
             SingleSelect(node);

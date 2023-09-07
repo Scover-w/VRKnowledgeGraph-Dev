@@ -104,12 +104,15 @@ public class GraphDbRepositoryDistantUris
 
     private async Task RetrieveName(object nodeObj, DataSynchroManager dataSynchroObj)
     {
+        var node = (Node)nodeObj;
+        DataSynchroManager dataSynchro = dataSynchroObj;
+
+        string uri = node.Uri;
+
+
         try
         {
-            var node = (Node)nodeObj;
-            DataSynchroManager dataSynchro = dataSynchroObj;
-
-            string uri = node.Uri;
+            
 
             // Set value if already successfull retrieve saved
             bool needReturn = false;
@@ -138,11 +141,15 @@ public class GraphDbRepositoryDistantUris
 
             string xmlContent = null;
 
+            Debug.Log(uri + " before retrieve rdf");
+
             xmlContent = await HttpHelper.RetrieveRdf(uri);
 
+            Debug.Log(uri + " after retrieve rdf");
 
             if (xmlContent == null || xmlContent.Length == 0)
             {
+                Debug.Log(uri + " xmlContent is null");
                 lock (_distantUriLabels)
                 {
                     _distantUriLabels.Add(uri, ("-1", "-1"));
@@ -166,6 +173,7 @@ public class GraphDbRepositoryDistantUris
             }
             else
             {
+                Debug.Log(uri + " couldn't extract name");
                 lock (_distantUriLabels)
                 {
                     _distantUriLabels.Add(uri, ("-1", "-1"));
@@ -174,8 +182,9 @@ public class GraphDbRepositoryDistantUris
                 return;
             }
         }
-        catch(Exception) 
+        catch(Exception e ) 
         {
+            Debug.Log(uri + e);
             return;
         }
     }

@@ -1,4 +1,5 @@
 using System;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -12,7 +13,6 @@ public static class HttpHelper
 
             client.Timeout = TimeSpan.FromSeconds(15);
             HttpRequestMessage request = new(HttpMethod.Get, uri);
-
             request.Headers.Add("Accept", "application/rdf+xml");
 
             HttpResponseMessage response;
@@ -23,16 +23,23 @@ public static class HttpHelper
             }
             catch (Exception e)
             {
-                DebugDev.Log(uri);
-                DebugDev.Log("HttpHelper : " + e + " \n" + e.Message);
+
                 return "";
             }
 
             if (!response.IsSuccessStatusCode)
             {
                 string error = await response.Content.ReadAsStringAsync();
-                DebugDev.Log(uri);
-                DebugDev.Log("HttpHelper : " + error);
+
+
+                if (response.StatusCode == HttpStatusCode.Redirect
+                    || response.StatusCode == HttpStatusCode.MovedPermanently
+                    || response.StatusCode == HttpStatusCode.SeeOther)
+                {
+                    var newUri = response.Headers.Location;
+                    return await RetrieveRdf(newUri.ToString());
+                }
+
                 return "";
             }
 
@@ -41,10 +48,9 @@ public static class HttpHelper
             return responseBody;
 
         }
-        catch (Exception e)
+        catch
         {
-            DebugDev.Log(uri);
-            DebugDev.Log("HttpHelper : " + e);
+
             return "";
         }
     }

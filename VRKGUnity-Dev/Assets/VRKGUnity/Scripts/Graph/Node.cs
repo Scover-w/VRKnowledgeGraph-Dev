@@ -155,11 +155,8 @@ public class Node
     {
         string shorterName = null;
 
-        Debug.Log("GetShorterName " + Properties.Count);
-
         foreach(var propNameAndValue in Properties)
         {
-            Debug.Log("GetShorterName " + propNameAndValue);
             var propName = propNameAndValue.Key.ToLower();
 
             if (!(propName.Contains("label") || propName.Contains("title") || propName.Contains("name")))
