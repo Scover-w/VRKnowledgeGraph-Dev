@@ -12,6 +12,9 @@ public class MainGraph : MonoBehaviour
     EasingType _easingType = EasingType.EaseInOutQuint;
 
     [SerializeField]
+    EasingType _easingTypeDesk = EasingType.EaseInOutQuint;
+
+    [SerializeField]
     GraphManager _graphManager;
 
     [SerializeField]
@@ -35,6 +38,8 @@ public class MainGraph : MonoBehaviour
     Transform _playerTf;
 
     EasingDel _easingFunction;
+
+    bool _isSimulatingGraph = false;
 
     MainGraphMode _mainGraphMode;
     MainGraphMode _nextGraphMode;
@@ -89,11 +94,14 @@ public class MainGraph : MonoBehaviour
             return;
 
         _loadingGo.SetActive(true);
+        _isSimulatingGraph = true;
+        StartCoroutine(RotatingDesk());
     }
 
     private void AfterSimulationHasStopped()
     {
         _loadingGo.SetActive(false);
+        _isSimulatingGraph = false;
     }
 
     private void BeforeSwitchMode()
@@ -175,6 +183,33 @@ public class MainGraph : MonoBehaviour
         {
             _mobiusDeskTf.transform.localPosition = Vector3.Lerp(startPos, endPos, _easingFunction(time));
         }
+    }
+
+    IEnumerator RotatingDesk()
+    {
+        float start = Time.time; 
+
+        while(_isSimulatingGraph)
+        {
+            yield return null;
+            float rot = _easingFunction((Time.time - start) * .5f % 1f);
+
+            _mobiusDeskTf.localRotation = Quaternion.Euler(new Vector3(0f, rot * 360f, 0f));
+        }
+
+        float velocity = 0;
+        float currentYRotation = _mobiusDeskTf.eulerAngles.y;
+        float newYRotation = Mathf.SmoothDampAngle(currentYRotation, 0, ref velocity, .5f);
+
+        while (Mathf.Abs(newYRotation) > 0.1f)
+        {
+            yield return null;
+            currentYRotation = _mobiusDeskTf.eulerAngles.y;
+            newYRotation = Mathf.SmoothDampAngle(currentYRotation, 0, ref velocity, .5f);
+            _mobiusDeskTf.eulerAngles = new Vector3(_mobiusDeskTf.eulerAngles.x, newYRotation, _mobiusDeskTf.eulerAngles.z);
+        }
+
+        _mobiusDeskTf.rotation = Quaternion.identity;
     }
     #endregion
 

@@ -1167,8 +1167,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1902536009}
   - {fileID: 85512335078733139}
+  - {fileID: 1902536009}
   - {fileID: 1289948842}
   m_Father: {fileID: 1440468964}
   m_RootOrder: 5
@@ -2291,6 +2291,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _easingType: 14
+  _easingTypeDesk: 14
   _graphManager: {fileID: 1847420204}
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _mainGraphTf: {fileID: 395916999}
@@ -3118,7 +3119,7 @@ MonoBehaviour:
   - {fileID: 85512335954581772}
   - {fileID: 85512336652995413}
   _durationMove: 2
-  _durationWait: 1
+  _durationWait: 0
 --- !u!4 &85512335078733139
 Transform:
   m_ObjectHideFlags: 0
@@ -3144,7 +3145,7 @@ Transform:
   - {fileID: 85512335954581772}
   - {fileID: 85512336652995413}
   m_Father: {fileID: 932015606}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &85512335078733148
 GameObject:

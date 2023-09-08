@@ -122,7 +122,7 @@ public class LoadingA : MonoBehaviour
             SphereRoadReachedTarget();
             SetNewTargetToSphereRoad();
 
-            yield return new WaitForSeconds(_durationMove);
+            yield return new WaitForSeconds(_durationWait);
 
         }
     }
