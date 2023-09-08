@@ -1047,6 +1047,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5055723753604181571, guid: 3c6ecdaedc0582e489f69d810209726c, type: 3}
   m_PrefabInstance: {fileID: 1379427694}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1379427699 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5908422981751822205, guid: 3c6ecdaedc0582e489f69d810209726c, type: 3}
+  m_PrefabInstance: {fileID: 1379427694}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1706023776
 GameObject:
   m_ObjectHideFlags: 0
@@ -1370,6 +1375,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _referenceHolderSO: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _cam: {fileID: 1379427695}
+  _xrOriginTf: {fileID: 1379427699}
   _wristTf: {fileID: 761380208}
 --- !u!114 &2120822189
 MonoBehaviour:

@@ -1374,6 +1374,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _referenceHolderSO: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
+  _graphManager: {fileID: 1847420204}
+  _easingType: 14
 --- !u!1 &1240529972
 GameObject:
   m_ObjectHideFlags: 0

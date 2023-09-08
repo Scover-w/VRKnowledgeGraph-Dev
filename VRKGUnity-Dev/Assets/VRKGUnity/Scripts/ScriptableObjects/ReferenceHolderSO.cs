@@ -9,6 +9,7 @@ public class ReferenceHolderSO : ScriptableObject
     public SingleAssignment<LifeCycleSceneManager> LifeCycleSceneManagerSA { get; } = new SingleAssignment<LifeCycleSceneManager>();
 
     public SingleAssignment<Camera> HMDCamSA { get; } = new SingleAssignment<Camera>();
+    public SingleAssignment<Transform> XrOriginTf { get; } = new SingleAssignment<Transform>();
     public SingleAssignment<Transform> WristTf { get; } = new SingleAssignment<Transform>();
 
     public RayActivator LeftLensRayActivator { get; set; }

@@ -9,6 +9,9 @@ public class PersistentManager : MonoBehaviour
     Camera _cam;
 
     [SerializeField]
+    Transform _xrOriginTf;
+    
+    [SerializeField]
     Transform _wristTf;
 
 
@@ -17,5 +20,6 @@ public class PersistentManager : MonoBehaviour
     {
         _referenceHolderSO.HMDCamSA.Value = _cam;
         _referenceHolderSO.WristTf.Value = _wristTf;
+        _referenceHolderSO.XrOriginTf.Value = _xrOriginTf;
     }
 }
