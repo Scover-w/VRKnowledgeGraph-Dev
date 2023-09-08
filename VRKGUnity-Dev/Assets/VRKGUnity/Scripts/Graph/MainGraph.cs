@@ -26,6 +26,12 @@ public class MainGraph : MonoBehaviour
     [SerializeField]
     GameObject _loadingGo;
 
+    [SerializeField]
+    Transform _mobiusDeskTf;
+
+    [SerializeField]
+    GameObject _deskGraphTriggerGo;
+
     Transform _playerTf;
 
     EasingDel _easingFunction;
@@ -93,16 +99,20 @@ public class MainGraph : MonoBehaviour
     private void BeforeSwitchMode()
     {
         _loadingGo.SetActive(false);
+        _deskGraphTriggerGo.SetActive(false);
 
         _nextGraphMode = (_mainGraphMode == MainGraphMode.Desk? MainGraphMode.Immersion: MainGraphMode.Desk);
         _mainGraphMode = MainGraphMode.InTransition;
 
         StartCoroutine(MovingMainGraph());
+        StartCoroutine(TransitioningDesk(_nextGraphMode == MainGraphMode.Desk));
     }
 
     private void AfterSwitchModeToDesk()
     {
         _mainGraphMode = MainGraphMode.Desk;
+
+        _deskGraphTriggerGo.SetActive(true);
     }
 
     private void AfterSwitchModeToImmersion()
@@ -134,6 +144,36 @@ public class MainGraph : MonoBehaviour
         else
         {
             _mainGraphTf.position = Vector3.Lerp(_deskTf.position, Vector3.zero, _easingFunction(t));
+        }
+    }
+
+    IEnumerator TransitioningDesk(bool switchToDesk)
+    {
+        float speed = 1f / _graphManager.GraphConfiguration.GraphModeTransitionTime;
+        float time = 0f;
+
+        Vector3 startPos = (switchToDesk) ? Vector3.down * 3f : Vector3.zero;
+        Vector3 endPos = (switchToDesk) ? Vector3.zero : Vector3.down * 3f;
+
+        if(switchToDesk)
+            _mobiusDeskTf.gameObject.SetActive(true);
+
+        while (time < 1f)
+        {
+            MoveMobiusDesk();
+            yield return null;
+            time += Time.deltaTime * speed;
+        }
+
+        time = 1f;
+        MoveMobiusDesk();
+
+        if (!switchToDesk)
+            _mobiusDeskTf.gameObject.SetActive(false);
+
+        void MoveMobiusDesk()
+        {
+            _mobiusDeskTf.transform.localPosition = Vector3.Lerp(startPos, endPos, _easingFunction(time));
         }
     }
     #endregion
