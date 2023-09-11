@@ -12,12 +12,6 @@ public class ReferenceHolderSO : ScriptableObject
     public SingleAssignment<Transform> XrOriginTf { get; } = new SingleAssignment<Transform>();
     public SingleAssignment<Transform> WristTf { get; } = new SingleAssignment<Transform>();
 
-    public RayActivator LeftLensRayActivator { get; set; }
-    public RayActivator RightLensRayActivator { get; set; }
-
-    public DeskDirectActivator LeftDeskDirectActivator { get; set; }
-    public DeskDirectActivator RightDeskDirectActivator { get; set; }
-
     public GraphDbRepository SelectedGraphDbRepository { get; set; }
 
     private InputPropagatorManager _inputPropagatorManager;
@@ -34,12 +28,13 @@ public class ReferenceHolderSO : ScriptableObject
 
     public NodgeSelectionManager NodgeSelectionManager { get ; set;}
 
+    public GraphManager GraphManager { get; set;}
+
     public float MaxDistanceGraph { get; set; }
 
     public delegate void NewInputPropagator(InputPropagatorManager inputPropagatorManager);
 
     public NewInputPropagator OnNewInputPropagator;
-
 }
 
     

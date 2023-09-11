@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DeskDirectActivator : MonoBehaviour
 {
@@ -9,9 +10,6 @@ public class DeskDirectActivator : MonoBehaviour
 
     [SerializeField]
     GameObject _deskDirectInteractorGo;
-
-    [SerializeField]
-    bool _isLeft;
 
     bool _isFirstEndSimu = true;
     bool _canInteractorBeEnabled = false;
@@ -25,12 +23,21 @@ public class DeskDirectActivator : MonoBehaviour
 
     private void Start()
     {
-        if (_isLeft)
-            _referenceHolderSo.LeftDeskDirectActivator = this;
-        else
-            _referenceHolderSo.RightDeskDirectActivator = this;
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name != Scenes.KG)
+            return;
+
+        Invoke(nameof(DelayedRegisterGraphUpdate), 1f);
+    }
+
+    void DelayedRegisterGraphUpdate()
+    {
+        _referenceHolderSo.GraphManager.OnGraphUpdate += OnGraphUpdated;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -50,7 +57,7 @@ public class DeskDirectActivator : MonoBehaviour
         UpdateInteractor();
     }
 
-    public void OnGraphUpdated(GraphUpdateType updateType)
+    private void OnGraphUpdated(GraphUpdateType updateType)
     {
 
         switch (updateType)

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RayActivator : MonoBehaviour
 {
@@ -10,9 +11,6 @@ public class RayActivator : MonoBehaviour
     [SerializeField]
     GameObject _lenRayInteractorGo;
 
-    [SerializeField]
-    bool _isLeft;
-
     bool _isFirstEndSimu = true;
 
     bool _canInteractorBeEnabled = false;
@@ -21,12 +19,8 @@ public class RayActivator : MonoBehaviour
 
     private void Start()
     {
-        if (_isLeft)
-            _referenceHolderSo.LeftLensRayActivator = this;
-        else
-            _referenceHolderSo.RightLensRayActivator = this;
-
-        Invoke(nameof(OnDelayedStart), 1f);
+        Invoke(nameof(OnDelayedStart), .5f);
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnDelayedStart()
@@ -34,8 +28,21 @@ public class RayActivator : MonoBehaviour
         _lenRayInteractorGo.SetActive(false);
     }
 
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name != Scenes.KG)
+            return;
 
-    public void OnGraphUpdated(GraphUpdateType updateType)
+        Invoke(nameof(DelayedRegisterGraphUpdate), 1f);
+    }
+
+    void DelayedRegisterGraphUpdate()
+    {
+        _referenceHolderSo.GraphManager.OnGraphUpdate += OnGraphUpdated;
+    }
+
+
+    private void OnGraphUpdated(GraphUpdateType updateType)
     {
 
         switch (updateType)

@@ -66,34 +66,14 @@ public class GraphManager : MonoBehaviour
         Scene currentScene = gameObject.scene; 
         SceneManager.SetActiveScene(currentScene);
 
+        _referenceHolderSo.GraphManager = this;
+
         _graphMode = GraphMode.Desk;
         _graphConfiguration = GraphConfiguration.Instance;
-
-        SubscribeActivators();
 
         Invoke(nameof(CreateStartGraphAsync), 1f);
     }
 
-    private void SubscribeActivators()
-    {
-        RayActivator leftActivator = _referenceHolderSo.LeftLensRayActivator;
-        RayActivator rightActivator = _referenceHolderSo.RightLensRayActivator;
-
-        DeskDirectActivator leftDirectActivator = _referenceHolderSo.LeftDeskDirectActivator;
-        DeskDirectActivator rightDirectActivator = _referenceHolderSo.RightDeskDirectActivator;
-
-        if (leftActivator != null)
-            OnGraphUpdate += leftActivator.OnGraphUpdated;
-
-        if (rightActivator != null)
-            OnGraphUpdate += rightActivator.OnGraphUpdated;
-
-        if (leftDirectActivator != null)
-            OnGraphUpdate += leftDirectActivator.OnGraphUpdated;
-
-        if (rightDirectActivator != null)
-            OnGraphUpdate += rightDirectActivator.OnGraphUpdated;
-    }
 
     private async void CreateStartGraphAsync()
     {
