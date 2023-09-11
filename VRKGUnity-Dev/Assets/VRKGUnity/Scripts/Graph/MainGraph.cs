@@ -35,6 +35,9 @@ public class MainGraph : MonoBehaviour
     [SerializeField]
     GameObject _deskGraphTriggerGo;
 
+    [SerializeField]
+    Transform _deskFloor;
+
     Transform _playerTf;
 
     EasingDel _easingFunction;
@@ -164,7 +167,10 @@ public class MainGraph : MonoBehaviour
         Vector3 endPos = (switchToDesk) ? Vector3.zero : Vector3.down * 3f;
 
         if(switchToDesk)
+        {
             _mobiusDeskTf.gameObject.SetActive(true);
+            _deskFloor.gameObject.SetActive(true);
+        }
 
         while (time < 1f)
         {
@@ -177,11 +183,16 @@ public class MainGraph : MonoBehaviour
         MoveMobiusDesk();
 
         if (!switchToDesk)
+        {
             _mobiusDeskTf.gameObject.SetActive(false);
+            _deskFloor.gameObject.SetActive(false);
+        }
 
         void MoveMobiusDesk()
         {
-            _mobiusDeskTf.transform.localPosition = Vector3.Lerp(startPos, endPos, _easingFunction(time));
+            _mobiusDeskTf.localPosition = Vector3.Lerp(startPos, endPos, _easingFunction(time));
+            _deskFloor.localPosition = Vector3.Lerp(startPos, endPos, _easingFunction(time));
+            
         }
     }
 
