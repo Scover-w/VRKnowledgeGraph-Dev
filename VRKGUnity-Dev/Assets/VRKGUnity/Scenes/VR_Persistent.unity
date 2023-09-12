@@ -500,7 +500,7 @@ PrefabInstance:
     - target: {fileID: 2255084331217101269, guid: 3c6ecdaedc0582e489f69d810209726c, type: 3}
       propertyPath: _teleportationActionRef
       value: 
-      objectReference: {fileID: -1644001223835636349, guid: e1f4a00ac7b718c409f16d26af646b29, type: 3}
+      objectReference: {fileID: 11711766586467970, guid: e1f4a00ac7b718c409f16d26af646b29, type: 3}
     - target: {fileID: 2379542050868226731, guid: 3c6ecdaedc0582e489f69d810209726c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.0007

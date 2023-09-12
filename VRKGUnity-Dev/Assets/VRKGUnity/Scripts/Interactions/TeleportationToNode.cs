@@ -23,10 +23,15 @@ public class TeleportationToNode : MonoBehaviour
     int _layer;
     bool _canTeleport = false;
 
+    private void Awake()
+    {
+        _teleportationAction = _teleportationActionRef.action;
+    }
+
     private void Start()
     {
         _tf = transform;
-        _layer = Layers.Node;
+        _layer = 1 << Layers.Node;
         _xrOriginTf = _referenceHolderSO.XrOriginTf.Value;
 
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -106,4 +111,5 @@ public class TeleportationToNode : MonoBehaviour
         }
 
     }
+
 }
