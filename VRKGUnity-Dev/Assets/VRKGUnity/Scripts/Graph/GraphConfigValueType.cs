@@ -1,6 +1,6 @@
 ﻿public enum GraphConfigValueType
 {
-    String,
+    Int,
     Float,
     Bool,
     Color

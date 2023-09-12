@@ -25,4 +25,18 @@ public static class EnumExtensions
 
         return false;
     }
+
+    public static bool TryParseToEnum<T>(this int value, out T detectedEnum) where T : struct, Enum
+    {
+        if (Enum.IsDefined(typeof(T), value))
+        {
+            detectedEnum = (T)Enum.ToObject(typeof(T), value);
+            return true;
+        }
+
+        Debug.LogWarning($"IntToEnum<{typeof(T).Name}> couldn't parse the integer: {value}");
+        detectedEnum = default;
+        return false;
+    }
+
 }

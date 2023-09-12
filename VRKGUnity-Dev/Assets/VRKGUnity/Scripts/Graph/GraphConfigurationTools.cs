@@ -25,6 +25,9 @@ public static class GraphConfigurationTools
     {
         return key switch
         {
+            GraphConfigKey.GraphMode => GraphConfigValueType.Bool,
+            GraphConfigKey.SelectionMode => GraphConfigValueType.Int,
+            GraphConfigKey.LocomotionMode => GraphConfigValueType.Int,
             GraphConfigKey.SimuParameters => GraphConfigValueType.Float,
             GraphConfigKey.LensSimuParameters => GraphConfigValueType.Float,
             GraphConfigKey.ImmersionGraphSize => GraphConfigValueType.Float,
@@ -78,8 +81,8 @@ public static class GraphConfigurationTools
             GraphConfigKey.GraphModeTransitionTime => GraphConfigValueType.Float,
             GraphConfigKey.DisplayInterSelectedNeighborEdges => GraphConfigValueType.Bool,
             GraphConfigKey.DisplayGPS => GraphConfigValueType.Bool,
-            GraphConfigKey.SelectedMetricTypeSize => GraphConfigValueType.String,
-            GraphConfigKey.SelectedMetricTypeColor => GraphConfigValueType.String,
+            GraphConfigKey.SelectedMetricTypeSize => GraphConfigValueType.Int,
+            GraphConfigKey.SelectedMetricTypeColor => GraphConfigValueType.Int,
             GraphConfigKey.DefaultSimulationParameters => GraphConfigValueType.Float,
             GraphConfigKey.DefaultTickDeltaTime => GraphConfigValueType.Float,
             GraphConfigKey.DefaultMaxSimulationTime => GraphConfigValueType.Float,
@@ -111,7 +114,8 @@ public static class GraphConfigurationTools
         return key switch
         {
             GraphConfigKey.GraphMode => typeof(bool),
-            GraphConfigKey.SelectionMode => typeof(string),
+            GraphConfigKey.SelectionMode => typeof(int),
+            GraphConfigKey.LocomotionMode => typeof(int),
             GraphConfigKey.SimuParameters => typeof(float),
             GraphConfigKey.LensSimuParameters => typeof(float),
             GraphConfigKey.ImmersionGraphSize => typeof(float),
@@ -165,8 +169,8 @@ public static class GraphConfigurationTools
             GraphConfigKey.GraphModeTransitionTime => typeof(float),
             GraphConfigKey.DisplayInterSelectedNeighborEdges => typeof(bool),
             GraphConfigKey.DisplayGPS => typeof(bool),
-            GraphConfigKey.SelectedMetricTypeSize => typeof(GraphMetricType),
-            GraphConfigKey.SelectedMetricTypeColor => typeof(GraphMetricType),
+            GraphConfigKey.SelectedMetricTypeSize => typeof(int),
+            GraphConfigKey.SelectedMetricTypeColor => typeof(int),
             GraphConfigKey.DefaultSimulationParameters => typeof(float),
             GraphConfigKey.DefaultTickDeltaTime => typeof(float),
             GraphConfigKey.DefaultMaxSimulationTime => typeof(float),
@@ -196,9 +200,9 @@ public static class GraphConfigurationTools
     public static T GetValue<T>(this GraphConfigKey key, GraphConfiguration graphConfig)
     {
 
-        if (typeof(T) == typeof(string))
+        if (typeof(T) == typeof(int))
         {
-            return (T)(object)GetStringValue(key, graphConfig);
+            return (T)(object)GetIntValue(key, graphConfig);
         }
         else if (typeof(T) == typeof(float))
         {
@@ -218,14 +222,15 @@ public static class GraphConfigurationTools
         return default(T);
     }
 
-    private static string GetStringValue(this GraphConfigKey key, GraphConfiguration graphConfig)
+    private static int GetIntValue(this GraphConfigKey key, GraphConfiguration graphConfig)
     {
         return key switch
         {
-            GraphConfigKey.SelectionMode => graphConfig.SelectionMode.ToString(),
-            GraphConfigKey.SelectedMetricTypeSize => graphConfig.SelectedMetricTypeSize.ToString(),
-            GraphConfigKey.SelectedMetricTypeColor => graphConfig.SelectedMetricTypeColor.ToString(),
-            _ => "",
+            GraphConfigKey.SelectionMode => (int)graphConfig.SelectionMode,
+            GraphConfigKey.LocomotionMode => (int)graphConfig.LocomotionMode,
+            GraphConfigKey.SelectedMetricTypeSize => (int)graphConfig.SelectedMetricTypeSize,
+            GraphConfigKey.SelectedMetricTypeColor => (int)graphConfig.SelectedMetricTypeColor,
+            _ => 0,
         };
     }
 

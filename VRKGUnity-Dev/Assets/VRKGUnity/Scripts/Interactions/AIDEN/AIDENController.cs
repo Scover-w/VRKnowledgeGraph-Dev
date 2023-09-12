@@ -743,7 +743,7 @@ public class AIDENController : MonoBehaviour
                 }
 
 
-                aidenIntents.Add(new AIDENIntent(GraphConfigKey.GraphMode, GraphMode.Desk.ToString(), currentGraphMode.ToString()));
+                aidenIntents.Add(new AIDENIntent(GraphConfigKey.GraphMode, (int)GraphMode.Desk, (int)currentGraphMode));
                 return;
             }
             else if (type == "immersion" || type == "gps")
@@ -755,7 +755,7 @@ public class AIDENController : MonoBehaviour
                 }
 
 
-                aidenIntents.Add(new AIDENIntent(GraphConfigKey.GraphMode, GraphMode.Immersion.ToString(), currentGraphMode.ToString()));
+                aidenIntents.Add(new AIDENIntent(GraphConfigKey.GraphMode, (int)GraphMode.Immersion, (int)currentGraphMode));
                 return;
             }
 
@@ -776,7 +776,7 @@ public class AIDENController : MonoBehaviour
                     return;
                 }
 
-                aidenIntents.Add(new AIDENIntent(GraphConfigKey.SelectionMode, SelectionMode.Single.ToString(), currentSelectionMode.ToString()));
+                aidenIntents.Add(new AIDENIntent(GraphConfigKey.SelectionMode, (int)SelectionMode.Single, (int)currentSelectionMode));
                 return;
             }
             else if (type == "multiple")
@@ -787,7 +787,7 @@ public class AIDENController : MonoBehaviour
                     return;
                 }
 
-                aidenIntents.Add(new AIDENIntent(GraphConfigKey.SelectionMode, SelectionMode.Multiple.ToString(), currentSelectionMode.ToString()));
+                aidenIntents.Add(new AIDENIntent(GraphConfigKey.SelectionMode, (int)SelectionMode.Multiple, (int)currentSelectionMode));
                 return;
             }
 
@@ -842,7 +842,7 @@ public class AIDENController : MonoBehaviour
                 return;
             }
 
-            aidenIntents.Add(new AIDENIntent(isSize? GraphConfigKey.SelectedMetricTypeSize : GraphConfigKey.SelectedMetricTypeColor, newMetricType.ToString(), currentMetricType.ToString()));
+            aidenIntents.Add(new AIDENIntent(isSize? GraphConfigKey.SelectedMetricTypeSize : GraphConfigKey.SelectedMetricTypeColor, (int)newMetricType, (int)currentMetricType));
             return;
         }
 
@@ -1526,7 +1526,7 @@ public class AIDENController : MonoBehaviour
 
         GraphMetricType currentSelectedMetric = isSize ? _graphConfiguration.SelectedMetricTypeSize : _graphConfiguration.SelectedMetricTypeColor;
 
-        aidenIntents.Add(new AIDENIntent(isSize? GraphConfigKey.SelectedMetricTypeSize : GraphConfigKey.SelectedMetricTypeColor, graphMetricType.ToString(), currentSelectedMetric.ToString()));
+        aidenIntents.Add(new AIDENIntent(isSize? GraphConfigKey.SelectedMetricTypeSize : GraphConfigKey.SelectedMetricTypeColor, (int)graphMetricType, (int)currentSelectedMetric));
 
         void LogWarning()
         {

@@ -254,16 +254,16 @@ public partial class InputPropagatorManager : MonoBehaviour
 
             switch (intent.ValueType)
             {
-                case AIDENValueType.String:
-                    var valueString = intent.ValueString;
-                    if (!TrySetValue(key, valueString))
+                case AIDENValueType.Int:
+                    int valueInt = intent.ValueInt;
+                    if (!TrySetValue(key, valueInt))
                         return StyleChange.None;
 
-                        InvokeValueChanged(key, valueString);
+                        InvokeValueChanged(key, valueInt);
                     break;
 
                 case AIDENValueType.Float:
-                    var valueFloat = intent.ValueFloat;
+                    float valueFloat = intent.ValueFloat;
                     if (!TrySetValue(key, valueFloat))
                         return StyleChange.None;
 
@@ -271,7 +271,7 @@ public partial class InputPropagatorManager : MonoBehaviour
                     break;
 
                 case AIDENValueType.Boolean:
-                    var valueBoolean = intent.ValueBoolean;
+                    bool valueBoolean = intent.ValueBoolean;
                     if (!TrySetValue(key, valueBoolean))
                         return StyleChange.None;
 
@@ -279,7 +279,7 @@ public partial class InputPropagatorManager : MonoBehaviour
                     break;
 
                 case AIDENValueType.Color:
-                    var valueColor = intent.ValueColor;
+                    Color valueColor = intent.ValueColor;
                     if (!TrySetValue(key, valueColor))
                         return StyleChange.None;
 
@@ -335,16 +335,16 @@ public partial class InputPropagatorManager : MonoBehaviour
 
             switch (intent.ValueType)
             {
-                case AIDENValueType.String:
-                    var valueString = intent.OldValueString;
-                    if (!TrySetValue(key, valueString))
+                case AIDENValueType.Int:
+                    int valueInt = intent.OldValueInt;
+                    if (!TrySetValue(key, valueInt))
                         return StyleChange.None;
 
-                    InvokeValueChanged(key, valueString);
+                    InvokeValueChanged(key, valueInt);
                     break;
 
                 case AIDENValueType.Float:
-                    var valueFloat = intent.OldValueFloat;
+                    float valueFloat = intent.OldValueFloat;
                     if (!TrySetValue(key, valueFloat))
                         return StyleChange.None;
 
@@ -352,7 +352,7 @@ public partial class InputPropagatorManager : MonoBehaviour
                     break;
 
                 case AIDENValueType.Boolean:
-                    var valueBoolean = intent.OldValueBoolean;
+                    bool valueBoolean = intent.OldValueBoolean;
                     if (!TrySetValue(key, valueBoolean))
                         return StyleChange.None;
 
@@ -360,7 +360,7 @@ public partial class InputPropagatorManager : MonoBehaviour
                     break;
 
                 case AIDENValueType.Color:
-                    var valueColor = intent.OldValueColor;
+                    Color valueColor = intent.OldValueColor;
                     if (!TrySetValue(key, valueColor))
                         return StyleChange.None;
 

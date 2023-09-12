@@ -1,6 +1,6 @@
 ﻿public enum AIDENValueType
 {
-    String,
+    Int,
     Float,
     Boolean,
     Color

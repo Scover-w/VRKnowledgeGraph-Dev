@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class StringStepperUI : BaseTouch, IValueUI<string>
+public class StepperUI : BaseTouch, IValueUI<int>
 {
     public override bool Interactable
     {
@@ -22,14 +22,14 @@ public class StringStepperUI : BaseTouch, IValueUI<string>
         }
     }
 
-    public string Value
+    public int Value
     {
         get
         {
             if (_selectedStepperValue == null)
-                return "";
+                return -1;
 
-            return _selectedStepperValue.Value;
+            return _selectedStepperValue.ValueId;
         }
         set
         {
@@ -54,7 +54,7 @@ public class StringStepperUI : BaseTouch, IValueUI<string>
     int _startSelected = 0;
 
     [SerializeField, Space(10)]
-    UnityEvent<string> _onValueChanged;
+    UnityEvent<int> _onValueChanged;
 
 
     StringStepperValue _selectedStepperValue;
@@ -65,6 +65,17 @@ public class StringStepperUI : BaseTouch, IValueUI<string>
     private void Awake()
     {
         SetStartNewSelection(_startSelected);
+        SetValuesIds();
+    }
+
+    private void SetValuesIds()
+    {
+        int id = 0;
+        foreach(StringStepperValue options in _optionsValues)
+        {
+            options.ValueId = id;
+            id++;
+        }
     }
 
 
@@ -82,7 +93,7 @@ public class StringStepperUI : BaseTouch, IValueUI<string>
 
     public void AddOption(StringStepperValue stepperValue)
     {
-        if (TryGetValueFromOptions(stepperValue.Value, out var v))
+        if (TryGetValueFromOptions(stepperValue.ValueId, out var v))
         {
             Debug.LogWarning("StringStepperValue Value already in.");
             return;
@@ -96,7 +107,7 @@ public class StringStepperUI : BaseTouch, IValueUI<string>
 
     public void RemoveOption(StringStepperValue stepperValueToRemove)
     {
-        if (!TryGetValueFromOptions(stepperValueToRemove.Value, out var stepperValue))
+        if (!TryGetValueFromOptions(stepperValueToRemove.ValueId, out var stepperValue))
         {
             Debug.LogWarning("StringStepperValue Value already in.");
             return;
@@ -142,7 +153,7 @@ public class StringStepperUI : BaseTouch, IValueUI<string>
     }
 
 
-    private void SetNewValueFromOutside(string newValue)
+    private void SetNewValueFromOutside(int newValue)
     {
         if(!TryGetValueFromOptions(newValue, out StringStepperValue stepperValue))
         {
@@ -186,17 +197,17 @@ public class StringStepperUI : BaseTouch, IValueUI<string>
 
         _selectedId = selectionId;
         _selectedStepperValue = _optionsValues[_selectedId];
-        _onValueChanged?.Invoke(_selectedStepperValue.Value);
+        _onValueChanged?.Invoke(_selectedStepperValue.ValueId);
 
         _label.text = _selectedStepperValue.LabelName;
     }
 
 
-    private bool TryGetValueFromOptions(string value, out StringStepperValue stepperValueToGet)
+    private bool TryGetValueFromOptions(int value, out StringStepperValue stepperValueToGet)
     {
         foreach (StringStepperValue stepperValue in _optionsValues)
         {
-            if (stepperValue.Value == value)
+            if (stepperValue.ValueId == value)
             {
                 stepperValueToGet = stepperValue;
                 return true;
@@ -241,7 +252,8 @@ public class StringStepperUI : BaseTouch, IValueUI<string>
     public class StringStepperValue
     {
         public string LabelName;
-        public string Value;
+        [HideInInspector]
+        public int ValueId;
     }
 
 }

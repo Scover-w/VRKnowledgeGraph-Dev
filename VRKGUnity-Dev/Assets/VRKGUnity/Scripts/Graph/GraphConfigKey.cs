@@ -117,4 +117,6 @@ public enum GraphConfigKey
     LensCoulombDistance,
     LensMaxVelocity,
     LensStopVelocity,
+
+    LocomotionMode
 }

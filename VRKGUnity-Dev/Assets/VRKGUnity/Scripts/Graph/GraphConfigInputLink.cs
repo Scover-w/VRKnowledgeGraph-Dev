@@ -21,7 +21,7 @@ public class GraphConfigInputLink : MonoBehaviour
     InputPropagatorManager _inputPropagatorManager;
     GraphConfigValueType _valueType;
 
-    IValueUI<string> _iValueStringUI;
+    IValueUI<int> _iValueIntUI;
     IValueUI<float> _iValueFloatUI;
     IValueUI<bool> _iValueBoolUI;
     IValueUI<Color> _iValueColorUI;
@@ -80,8 +80,8 @@ public class GraphConfigInputLink : MonoBehaviour
             break;
         }
 
-        if (genericType == typeof(string))
-            _valueType = GraphConfigValueType.String;
+        if (genericType == typeof(int))
+            _valueType = GraphConfigValueType.Int;
         else if (genericType == typeof(float))
             _valueType = GraphConfigValueType.Float;
         else if (genericType == typeof(bool))
@@ -100,8 +100,8 @@ public class GraphConfigInputLink : MonoBehaviour
 
         switch (_valueType)
         {
-            case GraphConfigValueType.String:
-                _iValueStringUI = _tactileUIScript.GetComponent<IValueUI<string>>();
+            case GraphConfigValueType.Int:
+                _iValueIntUI = _tactileUIScript.GetComponent<IValueUI<int>>();
                 break;
             case GraphConfigValueType.Float:
                 _iValueFloatUI = _tactileUIScript.GetComponent<IValueUI<float>>();
@@ -122,9 +122,9 @@ public class GraphConfigInputLink : MonoBehaviour
 
         switch (_valueType)
         {
-            case GraphConfigValueType.String:
-                string valueString = _inputPropagatorManager.GetValue<string>(_graphConfigKey);
-                _iValueStringUI.Value = valueString;
+            case GraphConfigValueType.Int:
+                int valueInt = _inputPropagatorManager.GetValue<int>(_graphConfigKey);
+                _iValueIntUI.Value = valueInt;
                 break;
             case GraphConfigValueType.Float:
                 var valueFloat = _inputPropagatorManager.GetValue<float>(_graphConfigKey);
@@ -158,8 +158,8 @@ public class GraphConfigInputLink : MonoBehaviour
 
         switch (_valueType)
         {
-            case GraphConfigValueType.String:
-                _inputPropagatorManager.Register<string>(_graphConfigKey, OnChangedFromManager, _updateInteractableState? OnInteractableStateChanged : null);
+            case GraphConfigValueType.Int:
+                _inputPropagatorManager.Register<int>(_graphConfigKey, OnChangedFromManager, _updateInteractableState ? OnInteractableStateChanged : null);
                 break;
             case GraphConfigValueType.Float:
                 _inputPropagatorManager.Register<float>(_graphConfigKey, OnChangedFromManager, _updateInteractableState ? OnInteractableStateChanged : null);
@@ -183,8 +183,8 @@ public class GraphConfigInputLink : MonoBehaviour
 
         switch (_valueType)
         {
-            case GraphConfigValueType.String:
-                _inputPropagatorManager.UnRegister<string>(_graphConfigKey, OnChangedFromManager, _updateInteractableState ? OnInteractableStateChanged : null);
+            case GraphConfigValueType.Int:
+                _inputPropagatorManager.UnRegister<int>(_graphConfigKey, OnChangedFromManager, _updateInteractableState ? OnInteractableStateChanged : null);
                 break;
             case GraphConfigValueType.Float:
                 _inputPropagatorManager.UnRegister<float>(_graphConfigKey, OnChangedFromManager, _updateInteractableState ? OnInteractableStateChanged : null);
@@ -214,7 +214,7 @@ public class GraphConfigInputLink : MonoBehaviour
         _inputPropagatorManager.SetNewValue(_graphConfigKey, newValueFromInput);
     }
 
-    public void OnStringChangedFromInput(string newValueFromInput) => OnChangedFromInput<string>(newValueFromInput);
+    public void OnIntChangedFromInput(int newValueFromInput) => OnChangedFromInput<int>(newValueFromInput);
     public void OnFloatChangedFromInput(float newValueFromInput) => OnChangedFromInput<float>(newValueFromInput);
     public void OnBoolChangedFromInput(bool newValueFromInput) => OnChangedFromInput<bool>(newValueFromInput);
     public void OnColorChangedFromInput(Color newValueFromInput) => OnChangedFromInput<Color>(newValueFromInput);
@@ -228,8 +228,8 @@ public class GraphConfigInputLink : MonoBehaviour
 
         switch (newValueFromManager)
         {
-            case string s:
-                _iValueStringUI.Value = s;
+            case int i:
+                _iValueIntUI.Value = i;
                 break;
             case float f:
                 _iValueFloatUI.Value = f;

@@ -14,6 +14,7 @@ public class GraphConfiguration
 
     public GraphMode GraphMode = GraphMode.Desk;
     public SelectionMode SelectionMode = SelectionMode.Single;
+    public LocomotionMode LocomotionMode = LocomotionMode.Ground;
 
     [Space(15)]
     [Header("/Styling/")]
@@ -259,8 +260,8 @@ public class GraphConfiguration
     {
         switch (value)
         {
-            case string s:
-                return TrySetValue(key, s);
+            case int i:
+                return TrySetValue(key, i);
             case float f:
                 return TrySetValue(key, f);
             case bool b:
@@ -274,7 +275,7 @@ public class GraphConfiguration
         return false;
     }
 
-    private bool TrySetValue(GraphConfigKey key, string value)
+    private bool TrySetValue(GraphConfigKey key, int value)
     {
         switch (key)
         {
@@ -283,6 +284,13 @@ public class GraphConfiguration
                     return false;
 
                 SelectionMode = selectionMode;
+                return true;
+
+            case GraphConfigKey.LocomotionMode:
+                if (!value.TryParseToEnum(out LocomotionMode locomotionMode))
+                    return false;
+
+                LocomotionMode = locomotionMode;
                 return true;
 
             case GraphConfigKey.SelectedMetricTypeSize:
@@ -561,6 +569,28 @@ public class GraphConfiguration
         _graphConfigPath = Path.Combine(folderPath, "GraphConfiguration.json");
     }
 
+}
+
+
+[Serializable]
+public enum GraphMode
+{
+    Desk,
+    Immersion
+}
+
+[Serializable]
+public enum LocomotionMode
+{
+    Ground,
+    Fly
+}
+
+[Serializable]
+public enum SelectionMode
+{
+    Single,
+    Multiple
 }
 
 [Serializable]

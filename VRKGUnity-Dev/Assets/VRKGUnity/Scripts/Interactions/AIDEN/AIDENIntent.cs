@@ -20,13 +20,13 @@ public class AIDENIntent
     public GraphConfigKey GraphConfigKey { get; private set; }
     public GraphActionKey GraphActionKey { get; private set; }
 
-    public string ValueString { get; private set; }
+    public int ValueInt { get; private set; }
     public float ValueFloat { get; private set; }
     public bool ValueBoolean { get; private set; }
     public Color ValueColor { get; private set; }
 
 
-    public string OldValueString { get; private set; }
+    public int OldValueInt { get; private set; }
     public float OldValueFloat { get; private set; }
     public bool OldValueBoolean { get; private set; }
     public Color OldValueColor { get; private set; }
@@ -34,14 +34,14 @@ public class AIDENIntent
     public AIDENValueType ValueType { get; private set; }
 
 
-    public AIDENIntent(GraphConfigKey graphConfigKey, string newString, string oldString)
+    public AIDENIntent(GraphConfigKey graphConfigKey, int newInt, int oldInt)
     {
         IsGraphConfig = true;
         GraphConfigKey = graphConfigKey;
-        ValueString = newString;
-        OldValueString = oldString;
+        ValueInt = newInt;
+        OldValueInt = oldInt;
 
-        ValueType = AIDENValueType.String;
+        ValueType = AIDENValueType.Int;
     }
     public AIDENIntent(GraphConfigKey graphConfigKey, float newFloat, float oldFloat)
     {
@@ -90,7 +90,7 @@ public class AIDENIntent
 
             return ValueType switch
             {
-                AIDENValueType.String => ValueString == aidenIntent.ValueString,
+                AIDENValueType.Int => ValueInt == aidenIntent.ValueInt,
                 AIDENValueType.Float => ValueFloat == aidenIntent.ValueFloat,
                 AIDENValueType.Boolean => ValueBoolean == aidenIntent.ValueBoolean,
                 AIDENValueType.Color => ValueColor == aidenIntent.ValueColor,
@@ -107,11 +107,11 @@ public class AIDENIntent
         {
             return ValueType switch
             {
-                AIDENValueType.String => GraphConfigKey + " " + ValueString,
+                AIDENValueType.Int => GraphConfigKey + " " + ValueInt,
                 AIDENValueType.Float => GraphConfigKey + " " + ValueFloat,
                 AIDENValueType.Boolean => GraphConfigKey + "  " + ValueBoolean,
                 AIDENValueType.Color => GraphConfigKey + " " + ValueColor,
-                _ => GraphConfigKey + " " + ValueString,
+                _ => GraphConfigKey + " " + ValueInt,
             };
         }
         else

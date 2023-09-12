@@ -173,12 +173,14 @@ public class MisceTests : MonoBehaviour
         }
     }
 
+
+
     private bool ExtractName(string xmlContent, out string property, out string value)
     {
         property = "";
         value = "";
 
-        List<(string, string)> lst = new(); 
+        List<(string, string)> lst = new();
 
 
         try
@@ -211,5 +213,17 @@ public class MisceTests : MonoBehaviour
         Debug.Log("Bipbop");
 
         return false;
+    }
+
+    [Test]
+    public void TestIntToEnum()
+    {
+        GraphMetricType graphMetricA = GraphMetricType.None;
+        int intA = (int)graphMetricA;
+
+
+        Assert.True(intA.TryParseToEnum(out GraphMetricType graphMetricType));
+        Assert.False(156.TryParseToEnum(out GraphMetricType graphMetricTypeB));
+
     }
 }

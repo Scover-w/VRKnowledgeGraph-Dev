@@ -693,9 +693,3 @@ public class NodgeSelectionManager : MonoBehaviour
 
 
 }
-
-public enum SelectionMode
-{
-    Single,
-    Multiple
-}

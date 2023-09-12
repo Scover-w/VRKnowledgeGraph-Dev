@@ -29671,6 +29671,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 961090662254725571}
     m_Modifications:
+    - target: {fileID: 6065236564331351944, guid: fdef239f58349d1448d11d4aa7d357eb, type: 3}
+      propertyPath: m_text
+      value: Simple
+      objectReference: {fileID: 0}
     - target: {fileID: 6065236564331351945, guid: fdef239f58349d1448d11d4aa7d357eb, type: 3}
       propertyPath: _startSelected
       value: 0
@@ -29689,7 +29693,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6065236564331351945, guid: fdef239f58349d1448d11d4aa7d357eb, type: 3}
       propertyPath: _optionsValues.Array.data[0].LabelName
-      value: Single
+      value: Simple
       objectReference: {fileID: 0}
     - target: {fileID: 6065236564331351945, guid: fdef239f58349d1448d11d4aa7d357eb, type: 3}
       propertyPath: _optionsValues.Array.data[1].LabelName
@@ -29717,7 +29721,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6065236564331351945, guid: fdef239f58349d1448d11d4aa7d357eb, type: 3}
       propertyPath: _onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnStringChangedFromInput
+      value: OnIntChangedFromInput
       objectReference: {fileID: 0}
     - target: {fileID: 6065236564331351945, guid: fdef239f58349d1448d11d4aa7d357eb, type: 3}
       propertyPath: _onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -29837,7 +29841,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 1
   _tactileUIScript: {fileID: 6447595939427721411}
-  _updateInteractableState: 0
+  _updateInteractableState: 1
 --- !u!224 &6447595939427721409 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6065236564331351947, guid: fdef239f58349d1448d11d4aa7d357eb, type: 3}
@@ -31085,7 +31089,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3945578887107953771, guid: 6b779d3a41373844591e8a57ebb67b6d, type: 3}
       propertyPath: m_text
-      value: None
+      value: Aucun
       objectReference: {fileID: 0}
     - target: {fileID: 3945578887511572739, guid: 6b779d3a41373844591e8a57ebb67b6d, type: 3}
       propertyPath: m_Pivot.x
@@ -31237,55 +31241,59 @@ PrefabInstance:
       objectReference: {fileID: 4294175417758122112}
     - target: {fileID: 3945578887511572743, guid: 6b779d3a41373844591e8a57ebb67b6d, type: 3}
       propertyPath: _startItemValues.Array.data[1].Value
-      value: AverageShortestPath
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3945578887511572743, guid: 6b779d3a41373844591e8a57ebb67b6d, type: 3}
       propertyPath: _startItemValues.Array.data[2].Value
-      value: BetweennessCentrality
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3945578887511572743, guid: 6b779d3a41373844591e8a57ebb67b6d, type: 3}
       propertyPath: _startItemValues.Array.data[3].Value
-      value: ClosenessCentrality
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3945578887511572743, guid: 6b779d3a41373844591e8a57ebb67b6d, type: 3}
       propertyPath: _startItemValues.Array.data[4].Value
-      value: LocalClusteringCoefficient
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3945578887511572743, guid: 6b779d3a41373844591e8a57ebb67b6d, type: 3}
       propertyPath: _startItemValues.Array.data[5].Value
-      value: Degree
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3945578887511572743, guid: 6b779d3a41373844591e8a57ebb67b6d, type: 3}
       propertyPath: _startItemValues.Array.data[6].Value
-      value: Ontology
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3945578887511572743, guid: 6b779d3a41373844591e8a57ebb67b6d, type: 3}
       propertyPath: _interactiveGraphics.Array.data[0].Name
       value: SizeNodeDropdown
       objectReference: {fileID: 0}
     - target: {fileID: 3945578887511572743, guid: 6b779d3a41373844591e8a57ebb67b6d, type: 3}
+      propertyPath: _startItemValues.Array.data[0].LabelName
+      value: Aucun
+      objectReference: {fileID: 0}
+    - target: {fileID: 3945578887511572743, guid: 6b779d3a41373844591e8a57ebb67b6d, type: 3}
       propertyPath: _startItemValues.Array.data[1].LabelName
-      value: Average Shortest Path
+      value: Moyenne du plus court chemin
       objectReference: {fileID: 0}
     - target: {fileID: 3945578887511572743, guid: 6b779d3a41373844591e8a57ebb67b6d, type: 3}
       propertyPath: _startItemValues.Array.data[2].LabelName
-      value: Betweenness Centrality
+      value: "Centralit\xE9 d'interd\xE9pendance"
       objectReference: {fileID: 0}
     - target: {fileID: 3945578887511572743, guid: 6b779d3a41373844591e8a57ebb67b6d, type: 3}
       propertyPath: _startItemValues.Array.data[3].LabelName
-      value: Closeness Centrality
+      value: "Centralit\xE9 de proximit\xE9"
       objectReference: {fileID: 0}
     - target: {fileID: 3945578887511572743, guid: 6b779d3a41373844591e8a57ebb67b6d, type: 3}
       propertyPath: _startItemValues.Array.data[4].LabelName
-      value: Local Clustering Coefficient
+      value: Coefficient de regroupement local
       objectReference: {fileID: 0}
     - target: {fileID: 3945578887511572743, guid: 6b779d3a41373844591e8a57ebb67b6d, type: 3}
       propertyPath: _startItemValues.Array.data[5].LabelName
-      value: Degree
+      value: "Degr\xE9"
       objectReference: {fileID: 0}
     - target: {fileID: 3945578887511572743, guid: 6b779d3a41373844591e8a57ebb67b6d, type: 3}
       propertyPath: _startItemValues.Array.data[6].LabelName
-      value: Ontology
+      value: Classe
       objectReference: {fileID: 0}
     - target: {fileID: 3945578887511572743, guid: 6b779d3a41373844591e8a57ebb67b6d, type: 3}
       propertyPath: _onValueChanged.m_PersistentCalls.m_Calls.Array.size
@@ -31305,7 +31313,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3945578887511572743, guid: 6b779d3a41373844591e8a57ebb67b6d, type: 3}
       propertyPath: _onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnStringChangedFromInput
+      value: OnIntChangedFromInput
       objectReference: {fileID: 0}
     - target: {fileID: 3945578887511572743, guid: 6b779d3a41373844591e8a57ebb67b6d, type: 3}
       propertyPath: _onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -31361,7 +31369,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 56
   _tactileUIScript: {fileID: 4294175416745929218}
-  _updateInteractableState: 0
+  _updateInteractableState: 1
 --- !u!1001 &961090663474989593
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33670,7 +33678,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6065236564331351944, guid: fdef239f58349d1448d11d4aa7d357eb, type: 3}
       propertyPath: m_text
-      value: Teleportation
+      value: Sol
       objectReference: {fileID: 0}
     - target: {fileID: 6065236564331351945, guid: fdef239f58349d1448d11d4aa7d357eb, type: 3}
       propertyPath: _startSelected
@@ -33678,7 +33686,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6065236564331351945, guid: fdef239f58349d1448d11d4aa7d357eb, type: 3}
       propertyPath: _optionsValues.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6065236564331351945, guid: fdef239f58349d1448d11d4aa7d357eb, type: 3}
       propertyPath: _optionsValues.Array.data[0].Value
@@ -33690,15 +33698,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6065236564331351945, guid: fdef239f58349d1448d11d4aa7d357eb, type: 3}
       propertyPath: _optionsValues.Array.data[0].LabelName
-      value: Teleportation
+      value: Sol
       objectReference: {fileID: 0}
     - target: {fileID: 6065236564331351945, guid: fdef239f58349d1448d11d4aa7d357eb, type: 3}
       propertyPath: _optionsValues.Array.data[1].LabelName
-      value: Multiple
+      value: Vol
       objectReference: {fileID: 0}
     - target: {fileID: 6065236564331351945, guid: fdef239f58349d1448d11d4aa7d357eb, type: 3}
       propertyPath: _interactiveGraphics.Array.data[0].Name
       value: LocomotionStepper
+      objectReference: {fileID: 0}
+    - target: {fileID: 6065236564331351945, guid: fdef239f58349d1448d11d4aa7d357eb, type: 3}
+      propertyPath: _onValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6065236564331351945, guid: fdef239f58349d1448d11d4aa7d357eb, type: 3}
+      propertyPath: _onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6065236564331351945, guid: fdef239f58349d1448d11d4aa7d357eb, type: 3}
+      propertyPath: _onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3482762404194707849}
+    - target: {fileID: 6065236564331351945, guid: fdef239f58349d1448d11d4aa7d357eb, type: 3}
+      propertyPath: _onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6065236564331351945, guid: fdef239f58349d1448d11d4aa7d357eb, type: 3}
+      propertyPath: _onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnIntChangedFromInput
+      objectReference: {fileID: 0}
+    - target: {fileID: 6065236564331351945, guid: fdef239f58349d1448d11d4aa7d357eb, type: 3}
+      propertyPath: _onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GraphConfigInputLink, Scripts
+      objectReference: {fileID: 0}
+    - target: {fileID: 6065236564331351945, guid: fdef239f58349d1448d11d4aa7d357eb, type: 3}
+      propertyPath: _onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6065236564331351946, guid: fdef239f58349d1448d11d4aa7d357eb, type: 3}
       propertyPath: m_Name
@@ -33795,6 +33831,38 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6065236564331351947, guid: fdef239f58349d1448d11d4aa7d357eb, type: 3}
   m_PrefabInstance: {fileID: 961090663997636851}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6447595940204793721 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6065236564331351946, guid: fdef239f58349d1448d11d4aa7d357eb, type: 3}
+  m_PrefabInstance: {fileID: 961090663997636851}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3482762404194707849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6447595940204793721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7855ff185728d9a4496a116d812c36b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
+  _graphConfigKey: 80
+  _tactileUIScript: {fileID: 6447595940204793722}
+  _updateInteractableState: 1
+--- !u!114 &6447595940204793722 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6065236564331351945, guid: fdef239f58349d1448d11d4aa7d357eb, type: 3}
+  m_PrefabInstance: {fileID: 961090663997636851}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6447595940204793721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33896f11ebd3c6044ba692e239624c3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &961090664000721335
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34370,7 +34438,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3945578887107953771, guid: 6b779d3a41373844591e8a57ebb67b6d, type: 3}
       propertyPath: m_text
-      value: None
+      value: Aucun
       objectReference: {fileID: 0}
     - target: {fileID: 3945578887511572739, guid: 6b779d3a41373844591e8a57ebb67b6d, type: 3}
       propertyPath: m_Pivot.x
@@ -34514,55 +34582,59 @@ PrefabInstance:
       objectReference: {fileID: 8178491214235471914}
     - target: {fileID: 3945578887511572743, guid: 6b779d3a41373844591e8a57ebb67b6d, type: 3}
       propertyPath: _startItemValues.Array.data[1].Value
-      value: AverageShortestPath
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3945578887511572743, guid: 6b779d3a41373844591e8a57ebb67b6d, type: 3}
       propertyPath: _startItemValues.Array.data[2].Value
-      value: BetweennessCentrality
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3945578887511572743, guid: 6b779d3a41373844591e8a57ebb67b6d, type: 3}
       propertyPath: _startItemValues.Array.data[3].Value
-      value: ClosenessCentrality
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3945578887511572743, guid: 6b779d3a41373844591e8a57ebb67b6d, type: 3}
       propertyPath: _startItemValues.Array.data[4].Value
-      value: LocalClusteringCoefficient
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3945578887511572743, guid: 6b779d3a41373844591e8a57ebb67b6d, type: 3}
       propertyPath: _startItemValues.Array.data[5].Value
-      value: Degree
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3945578887511572743, guid: 6b779d3a41373844591e8a57ebb67b6d, type: 3}
       propertyPath: _startItemValues.Array.data[6].Value
-      value: Ontology
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3945578887511572743, guid: 6b779d3a41373844591e8a57ebb67b6d, type: 3}
       propertyPath: _interactiveGraphics.Array.data[0].Name
       value: ColorNodeDrodown
       objectReference: {fileID: 0}
     - target: {fileID: 3945578887511572743, guid: 6b779d3a41373844591e8a57ebb67b6d, type: 3}
+      propertyPath: _startItemValues.Array.data[0].LabelName
+      value: Aucun
+      objectReference: {fileID: 0}
+    - target: {fileID: 3945578887511572743, guid: 6b779d3a41373844591e8a57ebb67b6d, type: 3}
       propertyPath: _startItemValues.Array.data[1].LabelName
-      value: Average Shortest Path
+      value: Moyenne du plus court chemin
       objectReference: {fileID: 0}
     - target: {fileID: 3945578887511572743, guid: 6b779d3a41373844591e8a57ebb67b6d, type: 3}
       propertyPath: _startItemValues.Array.data[2].LabelName
-      value: Betweenness Centrality
+      value: "Centralit\xE9 d'interd\xE9pendance"
       objectReference: {fileID: 0}
     - target: {fileID: 3945578887511572743, guid: 6b779d3a41373844591e8a57ebb67b6d, type: 3}
       propertyPath: _startItemValues.Array.data[3].LabelName
-      value: Closeness Centrality
+      value: "Centralit\xE9 de proximit\xE9"
       objectReference: {fileID: 0}
     - target: {fileID: 3945578887511572743, guid: 6b779d3a41373844591e8a57ebb67b6d, type: 3}
       propertyPath: _startItemValues.Array.data[4].LabelName
-      value: Local Clustering Coefficient
+      value: Coefficient de regroupement local
       objectReference: {fileID: 0}
     - target: {fileID: 3945578887511572743, guid: 6b779d3a41373844591e8a57ebb67b6d, type: 3}
       propertyPath: _startItemValues.Array.data[5].LabelName
-      value: Degree
+      value: "Degr\xE9"
       objectReference: {fileID: 0}
     - target: {fileID: 3945578887511572743, guid: 6b779d3a41373844591e8a57ebb67b6d, type: 3}
       propertyPath: _startItemValues.Array.data[6].LabelName
-      value: Ontology
+      value: Classe
       objectReference: {fileID: 0}
     - target: {fileID: 3945578887511572743, guid: 6b779d3a41373844591e8a57ebb67b6d, type: 3}
       propertyPath: _onValueChanged.m_PersistentCalls.m_Calls.Array.size
@@ -34582,7 +34654,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3945578887511572743, guid: 6b779d3a41373844591e8a57ebb67b6d, type: 3}
       propertyPath: _onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnStringChangedFromInput
+      value: OnIntChangedFromInput
       objectReference: {fileID: 0}
     - target: {fileID: 3945578887511572743, guid: 6b779d3a41373844591e8a57ebb67b6d, type: 3}
       propertyPath: _onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -34623,7 +34695,7 @@ MonoBehaviour:
   _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
   _graphConfigKey: 57
   _tactileUIScript: {fileID: 4294175415769907642}
-  _updateInteractableState: 0
+  _updateInteractableState: 1
 --- !u!114 &4294175415769907642 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3945578887511572743, guid: 6b779d3a41373844591e8a57ebb67b6d, type: 3}

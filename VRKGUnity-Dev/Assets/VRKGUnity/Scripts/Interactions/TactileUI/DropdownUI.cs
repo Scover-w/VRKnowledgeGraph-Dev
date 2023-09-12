@@ -7,14 +7,14 @@ using UnityEngine.Events;
 
 namespace AIDEN.TactileUI
 {
-    public class DropdownUI : BaseTouch, IValueUI<string>
+    public class DropdownUI : BaseTouch, IValueUI<int>
     {
-        public string Value
+        public int Value
         {
             get
             {
                 if (_selectedValue == null)
-                    return "";
+                    return -1;
 
                 return _selectedValue.Value;
             }
@@ -41,10 +41,10 @@ namespace AIDEN.TactileUI
         List<Collider> _colliderToHide;
 
         [SerializeField]
-        int _startSelectedValue = -1;
+        int _startSelectedValueId = 0;
 
         [SerializeField, Space(10)]
-        UnityEvent<string> _onValueChanged;
+        UnityEvent<int> _onValueChanged;
 
         Dictionary<DropDownItemValue, DropdownItemUI> _items;
 
@@ -92,15 +92,17 @@ namespace AIDEN.TactileUI
 
             bool hasSelectedOneItem = false;
 
-            int nb = -1;
+            int id = -1;
 
             foreach (DropDownItemValue itemValue in _startItemValues)
             {
                 DropdownItemUI itemUI = CreateItemUI(itemValue);
 
-                nb++;
+                id++;
 
-                if (nb != _startSelectedValue)
+                itemValue.Value = id;
+
+                if (id != _startSelectedValueId)
                     continue;
 
                 hasSelectedOneItem = true;
@@ -151,7 +153,7 @@ namespace AIDEN.TactileUI
             _label.text = itemValue.LabelName;
         }
 
-        private void SetNewValueFromOutside(string newValue)
+        private void SetNewValueFromOutside(int newValue)
         {
             if(!TryGetValueFromOptions(newValue, out KeyValuePair<DropDownItemValue, DropdownItemUI> item))
             {
@@ -162,7 +164,7 @@ namespace AIDEN.TactileUI
             SelectItem(item.Key, item.Value);
         }
 
-        private bool TryGetValueFromOptions(string value, out KeyValuePair<DropDownItemValue, DropdownItemUI> itemToGet)
+        private bool TryGetValueFromOptions(int value, out KeyValuePair<DropDownItemValue, DropdownItemUI> itemToGet)
         {
             foreach(var item in _items)
             {
@@ -190,7 +192,7 @@ namespace AIDEN.TactileUI
             UpdateContentLayout();
         }
 
-        public void RemoveOption(string value)
+        public void RemoveOption(int value)
         {
             if (!TryGetValueFromOptions(value, out var item))
             {
@@ -280,17 +282,17 @@ namespace AIDEN.TactileUI
 
         private void OnValidateStartSelectedValue()
         {
-            if (_startSelectedValue < 0)
-                _startSelectedValue = 0;
+            if (_startSelectedValueId < 0)
+                _startSelectedValueId = 0;
 
-            if (_startSelectedValue >= _startItemValues.Count)
+            if (_startSelectedValueId >= _startItemValues.Count)
             {
-                _startSelectedValue = 0;
+                _startSelectedValueId = 0;
             }
 
             if (_startItemValues.Count != 0)
             {
-                _label.text = _startItemValues[_startSelectedValue].LabelName;
+                _label.text = _startItemValues[_startSelectedValueId].LabelName;
             }
         }
 #endif
@@ -300,6 +302,7 @@ namespace AIDEN.TactileUI
     public class DropDownItemValue
     {
         public string LabelName;
-        public string Value;
+        [HideInInspector]
+        public int Value;
     }
 }

@@ -217,12 +217,6 @@ public enum GraphType
     Sub
 }
 
-public enum GraphMode
-{
-    Desk,
-    Immersion
-}
-
 public enum GraphName
 {
     Desk,

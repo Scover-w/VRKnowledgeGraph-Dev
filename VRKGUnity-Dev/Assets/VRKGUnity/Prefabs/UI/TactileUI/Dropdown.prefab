@@ -843,10 +843,10 @@ MonoBehaviour:
   _itemTemplateGo: {fileID: 3945578885953184955}
   _startItemValues:
   - LabelName: None
-    Value: None
+    Value: 0
   _label: {fileID: 3945578887107953771}
   _colliderToHide: []
-  _startSelectedValue: 0
+  _startSelectedValueId: 0
   _onValueChanged:
     m_PersistentCalls:
       m_Calls: []
