@@ -131,6 +131,26 @@ public class NodgeSelectionManager : MonoBehaviour
         _graphConfiguration = _graphManager.GraphConfiguration;
     }
 
+
+    public bool SwitchSelectionMode(SelectionMode newSelectionMode)
+    {
+        if (_selectionMode == newSelectionMode)
+            return false;
+
+        if (newSelectionMode == SelectionMode.Multiple)
+        {
+            _selectionMode = SelectionMode.Multiple;
+            SwitchToMultiple();
+        }
+        else
+        {
+            _selectionMode = SelectionMode.Single;
+            SwitchToSingle();
+        }
+
+        return true;
+    }
+
     [ContextMenu("Switch Mode")]
     public SelectionMode SwitchSelectionMode()
     {

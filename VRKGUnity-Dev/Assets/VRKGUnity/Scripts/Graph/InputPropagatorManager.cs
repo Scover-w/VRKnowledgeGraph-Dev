@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Net.Sockets;
 using UnityEngine;
 
 
@@ -160,6 +159,24 @@ public partial class InputPropagatorManager : MonoBehaviour
 
             if (!_graphConfiguration.TrySetValue(key, newValue))
                 return true;
+
+            InvokeValueChanged(key, newValue);
+            TryInvokeInteractableStateChanged(key, _graphManager.CanSwitchMode());
+            return true;
+        }
+        
+        if(key == GraphConfigKey.SelectionMode)
+        {
+            if (newValue is not int intValue)
+                return false;
+
+            if (!intValue.TryParseToEnum(out SelectionMode newSelectionMode))
+                return false;
+
+            bool hasSwitched = _selectionManager.SwitchSelectionMode(newSelectionMode);
+
+            if(!hasSwitched) 
+                return false;
 
             InvokeValueChanged(key, newValue);
             TryInvokeInteractableStateChanged(key, _graphManager.CanSwitchMode());
