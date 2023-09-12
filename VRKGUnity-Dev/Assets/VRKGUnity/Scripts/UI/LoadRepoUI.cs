@@ -166,24 +166,24 @@ public class LoadRepoUI : MonoBehaviour
 
         if(repoId.Length == 0)
         {
-            _infoTitleTxt.text = "Couldn't create the repository";
-            _infoTxt.text = "Please provide a repository id.";
+            _infoTitleTxt.text = "Impossible de créer le dépôt";
+            _infoTxt.text = "Veuillez fournir un nom de dépôt.";
             DisplayPage(LoadRepoPage.InformationDialog);
             return;
         }
 
         if(repoServerUrl.Length == 0)
         {
-            _infoTitleTxt.text = "Couldn't create the repository";
-            _infoTxt.text = "Please provide a server url.";
+            _infoTitleTxt.text = "Impossible de créer le dépôt";
+            _infoTxt.text = "Veuillez fournir un serveur URL.";
             DisplayPage(LoadRepoPage.InformationDialog);
             return;
         }
 
         if(  !(repoServerUrl.Contains("http://") || repoServerUrl.Contains("https://")) )
         {
-            _infoTitleTxt.text = "Couldn't create the repository";
-            _infoTxt.text = "The server url is wrong. Please ensure it adheres to the standard URL format";
+            _infoTitleTxt.text = "Impossible de créer le dépôt";
+            _infoTxt.text = "L'URL du serveur est erronée. Veuillez vous assurer qu'il respecte le format d'URL standard.";
             DisplayPage(LoadRepoPage.InformationDialog);
             return;
         }
@@ -199,8 +199,8 @@ public class LoadRepoUI : MonoBehaviour
 
         if(!couldConnect)
         {
-            _infoTitleTxt.text = "Couldn't create the repository";
-            _infoTxt.text = "Unable to connect to the repository. Please ensure you have an active internet connection and that the repository details are correct.";
+            _infoTitleTxt.text = "Impossible de créer le dépôt";
+            _infoTxt.text = "Impossible de se connecter au dépôt. Veuillez vous assurer que vous disposez d'une connexion Internet active et que les informations sont correctes.";
             _previousPage = LoadRepoPage.NewModifyRepo;
             DisplayPage(LoadRepoPage.InformationDialog, false);
             return;

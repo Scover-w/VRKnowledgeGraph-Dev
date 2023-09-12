@@ -77,7 +77,7 @@ public class MainMenuUI : MonoBehaviour
             return;
         }
 
-        _repoStatusTxt.text = "Not Loaded";
+        _repoStatusTxt.text = "Non chargé";
         _iconRepoStatusImg.sprite = _unconnectedIcon;
         SetLaunchGraphBtnState(false);
     }
