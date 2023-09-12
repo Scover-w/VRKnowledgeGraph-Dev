@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 
 [CreateAssetMenu(fileName = "ReferenceHolder", menuName = "ScriptableObjects/ReferenceHolderSO")]
 public class ReferenceHolderSO : ScriptableObject
@@ -11,6 +11,8 @@ public class ReferenceHolderSO : ScriptableObject
     public SingleAssignment<Camera> HMDCamSA { get; } = new SingleAssignment<Camera>();
     public SingleAssignment<Transform> XrOriginTf { get; } = new SingleAssignment<Transform>();
     public SingleAssignment<Transform> WristTf { get; } = new SingleAssignment<Transform>();
+
+    public SingleAssignment<DynamicMoveProvider> DynamicMoveProvider { get; } = new SingleAssignment<DynamicMoveProvider>();
 
     public GraphDbRepository SelectedGraphDbRepository { get; set; }
 

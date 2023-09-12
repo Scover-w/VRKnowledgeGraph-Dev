@@ -1343,6 +1343,7 @@ MonoBehaviour:
   _dynFilterManager: {fileID: 1847420205}
   _stylingManager: {fileID: 1645149935}
   _selectionManager: {fileID: 1101384170}
+  _navigationManager: {fileID: 1101384176}
   _user: {fileID: 1101384174}
 --- !u!114 &1101384176
 MonoBehaviour:

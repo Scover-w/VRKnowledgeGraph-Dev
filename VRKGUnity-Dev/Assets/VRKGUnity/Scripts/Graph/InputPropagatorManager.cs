@@ -21,6 +21,9 @@ public partial class InputPropagatorManager : MonoBehaviour
     NodgeSelectionManager _selectionManager;
 
     [SerializeField]
+    NavigationManager _navigationManager;
+
+    [SerializeField]
     User _user;
 
     GraphConfiguration _graphConfiguration;
@@ -179,7 +182,20 @@ public partial class InputPropagatorManager : MonoBehaviour
                 return false;
 
             InvokeValueChanged(key, newValue);
-            TryInvokeInteractableStateChanged(key, _graphManager.CanSwitchMode());
+            return true;
+        }
+
+        if(key == GraphConfigKey.LocomotionMode)
+        {
+            if (newValue is not int intValue)
+                return false;
+
+            if (!intValue.TryParseToEnum(out LocomotionMode newLocomotionMode))
+                return false;
+
+            _navigationManager.SwitchLocomotionMode(newLocomotionMode);
+
+            InvokeValueChanged(key, newValue);
             return true;
         }
 

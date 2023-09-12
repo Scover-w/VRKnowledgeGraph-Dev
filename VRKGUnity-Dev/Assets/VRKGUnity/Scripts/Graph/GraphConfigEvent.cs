@@ -3,7 +3,7 @@
 
 public class GraphConfigEvent
 {
-    ValueChanged<string> _onStringChanged;
+    ValueChanged<int> _onIntChanged;
     ValueChanged<float> _onFloatChanged;
     ValueChanged<bool> _onBoolChanged;
     ValueChanged<Color> _onColorChanged;
@@ -16,8 +16,8 @@ public class GraphConfigEvent
             _onInteractableStateChanged += interactableStateChanged;
 
 
-        if (typeof(T) == typeof(string))
-            _onStringChanged += valueChanged as ValueChanged<string>;
+        if (typeof(T) == typeof(int))
+            _onIntChanged += valueChanged as ValueChanged<int>;
 
         else if (typeof(T) == typeof(float))
             _onFloatChanged += valueChanged as ValueChanged<float>;
@@ -35,10 +35,10 @@ public class GraphConfigEvent
             _onInteractableStateChanged += interactableStateChanged;
 
 
-        if (typeof(T) == typeof(string))
+        if (typeof(T) == typeof(int))
         {
-            _onStringChanged -= valueChanged as ValueChanged<string>;
-            return _onStringChanged != null;
+            _onIntChanged -= valueChanged as ValueChanged<int>;
+            return _onIntChanged != null;
         }
         else if (typeof(T) == typeof(float))
         {
@@ -64,8 +64,8 @@ public class GraphConfigEvent
     {
         switch (value)
         {
-            case string s:
-                _onStringChanged?.Invoke(s);
+            case int i:
+                _onIntChanged?.Invoke(i);
                 break;
             case float f:
                 _onFloatChanged?.Invoke(f);

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 
 public class NavigationManager : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class NavigationManager : MonoBehaviour
     Transform _xrOriginTf;
     EasingDel _easingFunction;
 
+    DynamicMoveProvider _dynamicMoveProvider;
+
     GraphMode _graphMode = Settings.DEFAULT_GRAPH_MODE;
 
     private void Start()
@@ -24,6 +27,7 @@ public class NavigationManager : MonoBehaviour
         _easingFunction = Easing.GetEasing(_easingType);
 
         _xrOriginTf = _referenceHolderSO.XrOriginTf.Value;
+        _dynamicMoveProvider = _referenceHolderSO.DynamicMoveProvider.Value;
     }
 
     public void OnGraphUpdated(GraphUpdateType updateType)
@@ -56,7 +60,9 @@ public class NavigationManager : MonoBehaviour
 
     private void BeforeSwitchMode()
     {
-        if(_graphMode== GraphMode.Immersion)
+        _dynamicMoveProvider.enableFly = false;
+
+        if (_graphMode== GraphMode.Immersion)
             StartCoroutine(MovingPlayerToDesk());
     }
 
@@ -68,6 +74,14 @@ public class NavigationManager : MonoBehaviour
     private void AfterSwitchModeToImmersion()
     {
         _graphMode = GraphMode.Immersion;
+
+        _dynamicMoveProvider.enableFly = GraphConfiguration.Instance.LocomotionMode == LocomotionMode.Fly;
+
+    }
+
+    public void SwitchLocomotionMode(LocomotionMode newLocomotionMode)
+    {
+        _dynamicMoveProvider.enableFly = (newLocomotionMode == LocomotionMode.Fly && _graphMode == GraphMode.Immersion);
     }
 
     IEnumerator MovingPlayerToDesk()
