@@ -27,7 +27,7 @@ public class SubGraph : MonoBehaviour
     Transform _mainGraphTf;
 
     [SerializeField]
-    Transform _watchTf;
+    Transform _gpsTf;
 
     [SerializeField]
     Transform _lensTf;
@@ -50,25 +50,23 @@ public class SubGraph : MonoBehaviour
 
     EasingDel _easingFunction;
 
-    bool _displayWatch = true;
+    bool _displayGPS = true;
 
-    readonly float _deltaHeightWatch = .105f;
+    readonly float _deltaHeightGPS = .105f;
     readonly float _deltaHeightDesk = .5f;
-
-    float _sizeWatchGraph = .15f;
 
     bool _isFirstSimulationStopped = true;
 
     private void Start()
     {
-        _subGraphMode = (Settings.DEFAULT_GRAPH_MODE == GraphMode.Desk)? SubGraphMode.Lens : SubGraphMode.Watch;
+        _subGraphMode = (Settings.DEFAULT_GRAPH_MODE == GraphMode.Desk)? SubGraphMode.Lens : SubGraphMode.GPS;
         _displayedNodes = new();
         _displayedEdges = new();
 
         _playerHeadTf = _referenceHolderSO.HMDCamSA.Value.transform;
         _wristTf = _referenceHolderSO.WristTf.Value;
-        _watchTf.parent = _wristTf;
-        _watchTf.ResetLocal();
+        _gpsTf.parent = _wristTf;
+        _gpsTf.ResetLocal();
 
         _easingFunction = Easing.GetEasing(_easingType);
 
@@ -84,7 +82,7 @@ public class SubGraph : MonoBehaviour
 
     void DelayedSubscribe()
     {
-        _displayWatch = _graphManager.GraphConfiguration.ShowWatch;
+        _displayGPS = _graphManager.GraphConfiguration.DisplayGPS;
         _selectionManager.OnNodgesPropagated += OnNodgesPropagated;
     }
 
@@ -92,16 +90,16 @@ public class SubGraph : MonoBehaviour
     #region Update
     private void Update()
     {
-        if (_subGraphMode == SubGraphMode.Watch)
-            UpdateWatch();
+        if (_subGraphMode == SubGraphMode.GPS)
+            UpdateGPS();
         else
             UpdateLens();
     }
 
 
-    void UpdateWatch()
+    void UpdateGPS()
     {
-        UpdateSubGraphPositionToWatch();
+        UpdateSubGraphPositionToGPS();
         UpdateGpsPoint();
     }
 
@@ -110,12 +108,12 @@ public class SubGraph : MonoBehaviour
 
     }
 
-    private void UpdateSubGraphPositionToWatch()
+    private void UpdateSubGraphPositionToGPS()
     {
-        if (!_displayWatch)
+        if (!_displayGPS)
             return;
 
-        _subGraphTf.position = _watchTf.position + _watchTf.up * _deltaHeightWatch;
+        _subGraphTf.position = _gpsTf.position + _gpsTf.up * _deltaHeightGPS;
     }
 
     private void UpdateGpsPoint()
@@ -123,7 +121,7 @@ public class SubGraph : MonoBehaviour
          var relativePosition = _playerHeadTf.position - _mainGraphTf.position;
         relativePosition /= _graphConfig.EffectiveImmersionGraphSize;
 
-        relativePosition *= _graphConfig.EffectiveWatchGraphSize;
+        relativePosition *= _graphConfig.EffectiveGPSGraphSize;
 
         _gpsPointTf.localPosition = relativePosition;
 
@@ -186,7 +184,7 @@ public class SubGraph : MonoBehaviour
         {
             TryConstructLayoutLensGraph();
         }
-        else // Watch
+        else // gps
         {
 
         }
@@ -265,10 +263,10 @@ public class SubGraph : MonoBehaviour
             edge.DisplaySubEdge(true);
         }
 
-        UpdateSubGraphPositionToWatch();
-        _subGraphMode = SubGraphMode.Watch;
+        UpdateSubGraphPositionToGPS();
+        _subGraphMode = SubGraphMode.GPS;
 
-        _subGraphTf.gameObject.SetActive(_graphConfig.ShowWatch);
+        _subGraphTf.gameObject.SetActive(_graphConfig.DisplayGPS);
         _gpsPointTf.gameObject.SetActive(true);
     }
     #endregion
@@ -356,14 +354,14 @@ public class SubGraph : MonoBehaviour
 
 
 
-    [ContextMenu("SwitchWatchVisibility")]
-    public void SwitchWatchVisibility()
+    [ContextMenu("SwitchGPSVisibility")]
+    public void SwitchGPSVisibility()
     {
-        if (_subGraphMode != SubGraphMode.Watch)
+        if (_subGraphMode != SubGraphMode.GPS)
             return;
 
-        _displayWatch = _graphManager.GraphConfiguration.ShowWatch;
-        _subGraphTf.gameObject.SetActive(_displayWatch);
+        _displayGPS = _graphManager.GraphConfiguration.DisplayGPS;
+        _subGraphTf.gameObject.SetActive(_displayGPS);
     }
 
     public void UpdateGPSPoint(/*Vector3 normPosition*/)
@@ -374,7 +372,7 @@ public class SubGraph : MonoBehaviour
     enum SubGraphMode
     {
         Lens,
-        Watch,
+        GPS,
         InTransition
     }
 

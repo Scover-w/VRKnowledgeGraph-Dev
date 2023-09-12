@@ -964,7 +964,7 @@ public class AIDENController : MonoBehaviour
                 GraphName.Desk => _graphConfiguration.DeskGraphSize,
                 GraphName.Lense => _graphConfiguration.LensGraphSize,
                 GraphName.Immersion => _graphConfiguration.ImmersionGraphSize,
-                GraphName.GPS => _graphConfiguration.WatchGraphSize,
+                GraphName.GPS => _graphConfiguration.GPSGraphSize,
                 _ => _graphConfiguration.DeskGraphSize,
             };
         }
@@ -987,7 +987,7 @@ public class AIDENController : MonoBehaviour
                 GraphName.Desk => _graphConfiguration.NodeSizeDesk,
                 GraphName.Lense => _graphConfiguration.NodeSizeLens,
                 GraphName.Immersion => _graphConfiguration.NodeSizeImmersion,
-                GraphName.GPS => _graphConfiguration.NodeSizeWatch,
+                GraphName.GPS => _graphConfiguration.NodeSizeGPS,
                 _ => _graphConfiguration.NodeSizeDesk,
             };
         }
@@ -999,7 +999,7 @@ public class AIDENController : MonoBehaviour
                 GraphName.Desk => _graphConfiguration.EdgeThicknessDesk,
                 GraphName.Lense => _graphConfiguration.EdgeThicknessLens,
                 GraphName.Immersion => _graphConfiguration.EdgeThicknessImmersion,
-                GraphName.GPS => _graphConfiguration.EdgeThicknessWatch,
+                GraphName.GPS => _graphConfiguration.EdgeThicknessGPS,
                 _ => _graphConfiguration.EdgeThicknessDesk,
             };
         }
@@ -1011,7 +1011,7 @@ public class AIDENController : MonoBehaviour
                 GraphName.Desk => GraphConfigKey.DeskGraphSize,
                 GraphName.Lense => GraphConfigKey.LensGraphSize,
                 GraphName.Immersion => GraphConfigKey.ImmersionGraphSize,
-                GraphName.GPS => GraphConfigKey.WatchGraphSize,
+                GraphName.GPS => GraphConfigKey.GPSGraphSize,
                 _ => GraphConfigKey.DeskGraphSize,
             };
         }
@@ -1034,7 +1034,7 @@ public class AIDENController : MonoBehaviour
                 GraphName.Desk => GraphConfigKey.NodeSizeDesk,
                 GraphName.Lense => GraphConfigKey.NodeSizeLens,
                 GraphName.Immersion => GraphConfigKey.NodeSizeImmersion,
-                GraphName.GPS => GraphConfigKey.NodeSizeWatch,
+                GraphName.GPS => GraphConfigKey.NodeSizeGPS,
                 _ => GraphConfigKey.NodeSizeDesk,
             };
         }
@@ -1046,7 +1046,7 @@ public class AIDENController : MonoBehaviour
                 GraphName.Desk => GraphConfigKey.EdgeThicknessDesk,
                 GraphName.Lense => GraphConfigKey.EdgeThicknessLens,
                 GraphName.Immersion => GraphConfigKey.EdgeThicknessImmersion,
-                GraphName.GPS => GraphConfigKey.EdgeThicknessWatch,
+                GraphName.GPS => GraphConfigKey.EdgeThicknessGPS,
                 _ => GraphConfigKey.EdgeThicknessDesk,
             };
         }
@@ -1128,13 +1128,13 @@ public class AIDENController : MonoBehaviour
             GraphConfigKey displayKey;
 
             if (affichage == "texte_immersion")
-                displayKey = GraphConfigKey.ShowLabelImmersion;
+                displayKey = GraphConfigKey.DisplayLabelImmersion;
             else if (affichage == "texte_bureau")
-                displayKey = GraphConfigKey.ShowLabelDesk;
+                displayKey = GraphConfigKey.DisplayLabelDesk;
             else if (affichage == "texte_loupe")
-                displayKey = GraphConfigKey.ShowLabelLens;
+                displayKey = GraphConfigKey.DisplayLabelLens;
             else if (affichage == "gps")
-                displayKey = GraphConfigKey.ShowWatch;
+                displayKey = GraphConfigKey.DisplayGPS;
             else if (affichage == "arete")
                 displayKey = GraphConfigKey.DisplayEdges;
             else if (affichage == "inter_arete_voisin")
@@ -1189,13 +1189,13 @@ public class AIDENController : MonoBehaviour
         {
             return graphConfigKey switch
             {
-                GraphConfigKey.ShowLabelImmersion => _graphConfiguration.ShowLabelImmersion,
-                GraphConfigKey.ShowLabelDesk => _graphConfiguration.ShowLabelDesk,
-                GraphConfigKey.ShowLabelLens => _graphConfiguration.ShowLabelLens,
-                GraphConfigKey.ShowWatch => _graphConfiguration.ShowWatch,
+                GraphConfigKey.DisplayLabelImmersion => _graphConfiguration.DisplayLabelImmersion,
+                GraphConfigKey.DisplayLabelDesk => _graphConfiguration.DisplayLabelDesk,
+                GraphConfigKey.DisplayLabelLens => _graphConfiguration.DisplayLabelLens,
+                GraphConfigKey.DisplayGPS => _graphConfiguration.DisplayGPS,
                 GraphConfigKey.DisplayEdges => _graphConfiguration.DisplayEdges,
                 GraphConfigKey.DisplayInterSelectedNeighborEdges => _graphConfiguration.DisplayInterSelectedNeighborEdges,
-                _ => _graphConfiguration.ShowLabelImmersion,
+                _ => _graphConfiguration.DisplayLabelImmersion,
             };
         }
     }

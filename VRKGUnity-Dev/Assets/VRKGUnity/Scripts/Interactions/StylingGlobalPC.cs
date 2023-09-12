@@ -12,7 +12,7 @@ public class StylingGlobalPC : MonoBehaviour
     public float ImmersionGraphSize = 1f;
     public float DeskGraphSize = 1f;
 
-    public float WatchGraphSize = 1f;
+    public float GPSGraphSize = 1f;
     public float LensGraphSize = 1f;
 
     [Header("Node Size")]
@@ -20,7 +20,7 @@ public class StylingGlobalPC : MonoBehaviour
     public float NodeSizeDesk = 1f;
 
     [Space(5)]
-    public float NodeSizeWatch = 1f;
+    public float NodeSizeGPS = 1f;
     public float NodeSizeLens = 1f;
 
     [Space(5)]
@@ -35,9 +35,9 @@ public class StylingGlobalPC : MonoBehaviour
 
     public float LabelNodeSizeLens = 1f;
     [Space(5)]
-    public bool ShowLabelImmersion = true;
-    public bool ShowLabelDesk = true;
-    public bool ShowLabelLens = true;
+    public bool DisplayLabelImmersion = true;
+    public bool DisplayLabelDesk = true;
+    public bool DisplayLabelLens = true;
 
 
     [Header("Node Color")]
@@ -84,7 +84,7 @@ public class StylingGlobalPC : MonoBehaviour
     public float EdgeThicknessImmersion = 1f;
     public float EdgeThicknessDesk = 1f;
     public float EdgeThicknessLens = 1f;
-    public float EdgeThicknessWatch = 1f;
+    public float EdgeThicknessGPS = 1f;
 
 
     public bool CanSelectEdges;
@@ -105,7 +105,7 @@ public class StylingGlobalPC : MonoBehaviour
 
     public bool DisplayInterSelectedNeighborEdges = false;
 
-    public bool ShowWatch = true;
+    public bool DisplayGPS = true;
 
 
     GraphConfiguration _graphConfig;
@@ -118,7 +118,7 @@ public class StylingGlobalPC : MonoBehaviour
         NodeSizeImmersion = _graphConfig.NodeSizeImmersion;
         NodeSizeDesk = _graphConfig.NodeSizeDesk;
 
-        NodeSizeWatch = _graphConfig.NodeSizeWatch;
+        NodeSizeGPS = _graphConfig.NodeSizeGPS;
         NodeSizeLens = _graphConfig.NodeSizeLens;
 
         NodeMinMaxSizeImmersion = _graphConfig.NodeMinMaxSizeImmersion;
@@ -130,10 +130,10 @@ public class StylingGlobalPC : MonoBehaviour
 
         LabelNodeSizeLens = _graphConfig.LabelNodeSizeLens;
 
-        ShowLabelImmersion = _graphConfig.ShowLabelImmersion;
-        ShowLabelDesk = _graphConfig.ShowLabelDesk;
+        DisplayLabelImmersion = _graphConfig.DisplayLabelImmersion;
+        DisplayLabelDesk = _graphConfig.DisplayLabelDesk;
 
-        ShowLabelLens = _graphConfig.ShowLabelLens;
+        DisplayLabelLens = _graphConfig.DisplayLabelLens;
 
 
         NodeColor = _graphConfig.NodeColor;
@@ -166,7 +166,7 @@ public class StylingGlobalPC : MonoBehaviour
         ImmersionGraphSize = _graphConfig.ImmersionGraphSize;
         DeskGraphSize = _graphConfig.DeskGraphSize;
 
-        WatchGraphSize = _graphConfig.WatchGraphSize;
+        GPSGraphSize = _graphConfig.GPSGraphSize;
         LensGraphSize = _graphConfig.LensGraphSize;
 
 
@@ -179,7 +179,7 @@ public class StylingGlobalPC : MonoBehaviour
         EdgeThicknessImmersion = _graphConfig.EdgeThicknessImmersion;
         EdgeThicknessDesk = _graphConfig.EdgeThicknessDesk;
         EdgeThicknessLens = _graphConfig.EdgeThicknessLens;
-        EdgeThicknessWatch = _graphConfig.EdgeThicknessWatch;
+        EdgeThicknessGPS = _graphConfig.EdgeThicknessGPS;
 
         CanSelectEdges = _graphConfig.CanSelectEdges;
         DisplayEdges = _graphConfig.DisplayEdges;
@@ -195,7 +195,7 @@ public class StylingGlobalPC : MonoBehaviour
 
         DisplayInterSelectedNeighborEdges = _graphConfig.DisplayInterSelectedNeighborEdges;
 
-        ShowWatch = _graphConfig.ShowWatch;
+        DisplayGPS = _graphConfig.DisplayGPS;
     }
 
     private void OnValidate()
@@ -238,11 +238,11 @@ public class StylingGlobalPC : MonoBehaviour
         }
 
 
-        if (_graphConfig.NodeSizeWatch != NodeSizeWatch)
+        if (_graphConfig.NodeSizeGPS != NodeSizeGPS)
         {
-            _graphConfig.NodeSizeWatch = NodeSizeWatch;
+            _graphConfig.NodeSizeGPS = NodeSizeGPS;
 
-            addedStyleChange = StyleChangeBuilder.Get(GraphConfigKey.NodeSizeWatch);
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigKey.NodeSizeGPS);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
@@ -423,11 +423,11 @@ public class StylingGlobalPC : MonoBehaviour
             styleChange = styleChange.Add(addedStyleChange);
         }
 
-        if (_graphConfig.WatchGraphSize != WatchGraphSize)
+        if (_graphConfig.GPSGraphSize != GPSGraphSize)
         {
-            _graphConfig.WatchGraphSize = WatchGraphSize;
+            _graphConfig.GPSGraphSize = GPSGraphSize;
 
-            addedStyleChange = StyleChangeBuilder.Get(GraphConfigKey.WatchGraphSize);
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigKey.GPSGraphSize);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
@@ -509,11 +509,11 @@ public class StylingGlobalPC : MonoBehaviour
             styleChange = styleChange.Add(addedStyleChange);
         }
 
-        if (_graphConfig.EdgeThicknessWatch != EdgeThicknessWatch)
+        if (_graphConfig.EdgeThicknessGPS != EdgeThicknessGPS)
         {
-            _graphConfig.EdgeThicknessWatch = EdgeThicknessWatch;
+            _graphConfig.EdgeThicknessGPS = EdgeThicknessGPS;
 
-            addedStyleChange = StyleChangeBuilder.Get(GraphConfigKey.EdgeThicknessWatch);
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigKey.EdgeThicknessGPS);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
@@ -561,27 +561,27 @@ public class StylingGlobalPC : MonoBehaviour
             styleChange = styleChange.Add(addedStyleChange);
         }
 
-        if (_graphConfig.ShowLabelImmersion != ShowLabelImmersion)
+        if (_graphConfig.DisplayLabelImmersion != DisplayLabelImmersion)
         {
-            _graphConfig.ShowLabelImmersion = ShowLabelImmersion;
+            _graphConfig.DisplayLabelImmersion = DisplayLabelImmersion;
 
-            addedStyleChange = StyleChangeBuilder.Get(GraphConfigKey.ShowLabelImmersion);
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigKey.DisplayLabelImmersion);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
-        if (_graphConfig.ShowLabelDesk != ShowLabelDesk)
+        if (_graphConfig.DisplayLabelDesk != DisplayLabelDesk)
         {
-            _graphConfig.ShowLabelDesk = ShowLabelDesk;
+            _graphConfig.DisplayLabelDesk = DisplayLabelDesk;
 
-            addedStyleChange = StyleChangeBuilder.Get(GraphConfigKey.ShowLabelDesk);
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigKey.DisplayLabelDesk);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
-        if (_graphConfig.ShowLabelLens != ShowLabelLens)
+        if (_graphConfig.DisplayLabelLens != DisplayLabelLens)
         {
-            _graphConfig.ShowLabelLens = ShowLabelLens;
+            _graphConfig.DisplayLabelLens = DisplayLabelLens;
 
-            addedStyleChange = StyleChangeBuilder.Get(GraphConfigKey.ShowLabelLens);
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigKey.DisplayLabelLens);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
@@ -622,11 +622,11 @@ public class StylingGlobalPC : MonoBehaviour
             styleChange = styleChange.Add(addedStyleChange);
         }
 
-        if (_graphConfig.ShowWatch != ShowWatch)
+        if (_graphConfig.DisplayGPS != DisplayGPS)
         {
-            _graphConfig.ShowWatch = ShowWatch;
+            _graphConfig.DisplayGPS = DisplayGPS;
 
-            addedStyleChange = StyleChangeBuilder.Get(GraphConfigKey.ShowWatch);
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigKey.DisplayGPS);
             styleChange = styleChange.Add(addedStyleChange);
         }
 

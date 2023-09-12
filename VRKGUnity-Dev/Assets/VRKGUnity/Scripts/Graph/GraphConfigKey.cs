@@ -13,13 +13,13 @@ public enum GraphConfigKey
     ImmersionGraphSize,
     DeskGraphSize,
 
-    WatchGraphSize,
+    GPSGraphSize,
     LensGraphSize,
 
     NodeSizeImmersion,
     NodeSizeDesk,
 
-    NodeSizeWatch,
+    NodeSizeGPS,
     NodeSizeLens,
 
     NodeMinMaxSizeImmersion,
@@ -31,15 +31,15 @@ public enum GraphConfigKey
 
     LabelNodeSizeLens,
 
-    ShowLabelImmersion,
-    ShowLabelDesk,
+    DisplayLabelImmersion,
+    DisplayLabelDesk,
 
-    ShowLabelLens,
+    DisplayLabelLens,
 
     EdgeThicknessImmersion,
     EdgeThicknessDesk,
     EdgeThicknessLens,
-    EdgeThicknessWatch,
+    EdgeThicknessGPS,
 
     CanSelectEdges,
     DisplayEdges,
@@ -83,7 +83,7 @@ public enum GraphConfigKey
     GraphModeTransitionTime,
     DisplayInterSelectedNeighborEdges,
 
-    ShowWatch,
+    DisplayGPS,
 
     SelectedMetricTypeSize,
     SelectedMetricTypeColor,

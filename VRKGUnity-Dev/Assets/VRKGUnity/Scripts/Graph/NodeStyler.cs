@@ -206,7 +206,7 @@ public class NodeStyler : MonoBehaviour
                 SetScale(GraphConfiguration.EffectiveNodeSizeImmersion);
 
             if (GraphType == GraphType.Sub)
-                SetScale(GraphConfiguration.EffectiveNodeSizeWatch);
+                SetScale(GraphConfiguration.EffectiveNodeSizeGPS);
         }
     }
 
@@ -249,7 +249,7 @@ public class NodeStyler : MonoBehaviour
             if (GraphType == GraphType.Main)
                 SetScale(GraphConfiguration.EffectiveNodeSizeImmersion, GraphConfiguration.NodeMinMaxSizeImmersion, tScale);
             else if (GraphType == GraphType.Sub)
-                SetScale(GraphConfiguration.EffectiveNodeSizeWatch);
+                SetScale(GraphConfiguration.EffectiveNodeSizeGPS);
 
             return;
         }    
@@ -271,7 +271,7 @@ public class NodeStyler : MonoBehaviour
             if (GraphType == GraphType.Main)
                 SetPosition(GraphConfiguration.EffectiveImmersionGraphSize);
             else if (GraphType == GraphType.Sub)
-                SetPosition(GraphConfiguration.EffectiveWatchGraphSize);
+                SetPosition(GraphConfiguration.EffectiveGPSGraphSize);
         }
 
     }

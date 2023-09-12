@@ -332,7 +332,7 @@ public class Node
 
         var graphConfig = GraphConfiguration.Instance;
 
-        if (!(graphMode == GraphMode.Immersion && graphConfig.ShowWatch))
+        if (!(graphMode == GraphMode.Immersion && graphConfig.DisplayGPS))
             return;
 
         DisplaySubNode(true);

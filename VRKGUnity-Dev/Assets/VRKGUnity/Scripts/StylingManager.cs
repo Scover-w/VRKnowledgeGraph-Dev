@@ -37,7 +37,7 @@ public class StylingManager : MonoBehaviour
         if (styleChange.HasChanged(StyleChange.SubGraph)
             && styleChange.HasChanged(StyleChange.ImmersionMode)
             && styleChange.HasChanged(StyleChange.Visibility))
-            _subGraph.SwitchWatchVisibility();
+            _subGraph.SwitchGPSVisibility();
 
         _graphStyling.StyleGraph(styleChange, _graphManager.GraphMode);
 

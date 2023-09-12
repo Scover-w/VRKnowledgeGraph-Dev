@@ -142,7 +142,7 @@ public class Edge : IEdge<Node>
 
         DisplayMainEdge(true);
 
-        if (!(graphMode == GraphMode.Immersion && graphConfig.ShowWatch))
+        if (!(graphMode == GraphMode.Immersion && graphConfig.DisplayGPS))
             return;
 
         DisplaySubEdge(true);

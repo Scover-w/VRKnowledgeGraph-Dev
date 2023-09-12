@@ -61,7 +61,7 @@ public class StyleChangeBuilder
                     .Add(StyleChange.Node)
                     .Add(StyleChange.Size);
 
-        styleChanges.Add(GraphConfigKey.NodeSizeWatch, styleChange);
+        styleChanges.Add(GraphConfigKey.NodeSizeGPS, styleChange);
 
         styleChange = StyleChange.MainGraph
                     .Add(StyleChange.ImmersionMode)
@@ -191,7 +191,7 @@ public class StyleChangeBuilder
                 .Add(StyleChange.Nodge)
                 .Add(StyleChange.Position);
 
-        styleChanges.Add(GraphConfigKey.WatchGraphSize, styleChange);
+        styleChanges.Add(GraphConfigKey.GPSGraphSize, styleChange);
 
         styleChange = StyleChange.MainGraph
                 .Add(StyleChange.DeskMode)
@@ -266,7 +266,7 @@ public class StyleChangeBuilder
                 .Add(StyleChange.Edge)
                 .Add(StyleChange.Size);
 
-        styleChanges.Add(GraphConfigKey.EdgeThicknessWatch, styleChange);
+        styleChanges.Add(GraphConfigKey.EdgeThicknessGPS, styleChange);
 
         styleChange = StyleChange.BothGraph
                 .Add(StyleChange.BothMode)
@@ -313,21 +313,21 @@ public class StyleChangeBuilder
                 .Add(StyleChange.Label)
                 .Add(StyleChange.Visibility);
 
-        styleChanges.Add(GraphConfigKey.ShowLabelImmersion, styleChange);
+        styleChanges.Add(GraphConfigKey.DisplayLabelImmersion, styleChange);
 
         styleChange = StyleChange.MainGraph
                 .Add(StyleChange.DeskMode)
                 .Add(StyleChange.Label)
                 .Add(StyleChange.Visibility);
 
-        styleChanges.Add(GraphConfigKey.ShowLabelDesk, styleChange);
+        styleChanges.Add(GraphConfigKey.DisplayLabelDesk, styleChange);
 
         styleChange = StyleChange.SubGraph
                 .Add(StyleChange.DeskMode)
                 .Add(StyleChange.Label)
                 .Add(StyleChange.Visibility);
 
-        styleChanges.Add(GraphConfigKey.ShowLabelLens, styleChange);
+        styleChanges.Add(GraphConfigKey.DisplayLabelLens, styleChange);
 
         #endregion
 
@@ -361,7 +361,7 @@ public class StyleChangeBuilder
                 .Add(StyleChange.ImmersionMode)
                 .Add(StyleChange.Visibility);
 
-        styleChanges.Add(GraphConfigKey.ShowWatch, styleChange);
+        styleChanges.Add(GraphConfigKey.DisplayGPS, styleChange);
 
         #endregion
 

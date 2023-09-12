@@ -22,12 +22,12 @@ public class GraphConfiguration
     public float ImmersionGraphSize = 1f;
     public float DeskGraphSize = 1f;
     [Space(5)]
-    public float WatchGraphSize = 1f;
+    public float GPSGraphSize = 1f;
     public float LensGraphSize = 1f;
 
     [JsonIgnore] public float EffectiveImmersionGraphSize { get { return ImmersionGraphSize * GraphConfigurationPreset.ImmersionGraphSize; } }
     [JsonIgnore] public float EffectiveDeskGraphSize { get { return DeskGraphSize * GraphConfigurationPreset.DeskGraphSize; } }
-    [JsonIgnore] public float EffectiveWatchGraphSize { get { return WatchGraphSize * GraphConfigurationPreset.WatchGraphSize; } }
+    [JsonIgnore] public float EffectiveGPSGraphSize { get { return GPSGraphSize * GraphConfigurationPreset.GPSGraphSize; } }
     [JsonIgnore] public float EffectiveLensGraphSize { get { return LensGraphSize * GraphConfigurationPreset.LensGraphSize; } }
 
 
@@ -38,10 +38,12 @@ public class GraphConfiguration
     public float NodeSizeDesk = 1f;
 
     [Space(5)]
-    public float NodeSizeWatch = 1f;
+    public float NodeSizeGPS = 1f;
     public float NodeSizeLens = 1f;
 
     [Space(5)]
+
+
     public float NodeMinMaxSizeImmersion = .5f;
 
     [Space(5)]
@@ -52,7 +54,7 @@ public class GraphConfiguration
 
     [JsonIgnore] public float EffectiveNodeSizeImmersion { get { return NodeSizeImmersion * GraphConfigurationPreset.NodeSizeImmersion; } }
     [JsonIgnore] public float EffectiveNodeSizeDesk { get { return NodeSizeDesk * GraphConfigurationPreset.NodeSizeDesk; } }
-    [JsonIgnore] public float EffectiveNodeSizeWatch { get { return NodeSizeWatch * GraphConfigurationPreset.NodeSizeWatch; } }
+    [JsonIgnore] public float EffectiveNodeSizeGPS { get { return NodeSizeGPS * GraphConfigurationPreset.NodeSizeGPS; } }
     [JsonIgnore] public float EffectiveNodeSizeLens { get { return NodeSizeLens * GraphConfigurationPreset.NodeSizeLens; } }
 
 
@@ -71,10 +73,10 @@ public class GraphConfiguration
 
 
 
-    public bool ShowLabelImmersion = true;
-    public bool ShowLabelDesk = false;
+    public bool DisplayLabelImmersion = true;
+    public bool DisplayLabelDesk = false;
 
-    public bool ShowLabelLens = true;
+    public bool DisplayLabelLens = true;
 
 
     [Space(10)]
@@ -82,13 +84,13 @@ public class GraphConfiguration
     public float EdgeThicknessImmersion = 1f;
     public float EdgeThicknessDesk = 1f;
     public float EdgeThicknessLens = 1f;
-    public float EdgeThicknessWatch = 1f;
+    public float EdgeThicknessGPS = 1f;
 
 
     [JsonIgnore] public float EffectiveEdgeThicknessImmersion { get { return EdgeThicknessImmersion * GraphConfigurationPreset.EdgeThicknessImmersion; } }
     [JsonIgnore] public float EffectiveEdgeThicknessDesk { get { return EdgeThicknessDesk * GraphConfigurationPreset.EdgeThicknessDesk; } }
     [JsonIgnore] public float EffectiveEdgeThicknessLens { get { return EdgeThicknessLens * GraphConfigurationPreset.EdgeThicknessLens; } }
-    [JsonIgnore] public float EffectiveEdgeThicknessWatch { get { return EdgeThicknessWatch * GraphConfigurationPreset.EdgeThicknessWatch; } }
+    [JsonIgnore] public float EffectiveEdgeThicknessGPS { get { return EdgeThicknessGPS * GraphConfigurationPreset.EdgeThicknessGPS; } }
 
 
 
@@ -205,7 +207,7 @@ public class GraphConfiguration
     public float GraphModeTransitionTime = 1f;
     public bool DisplayInterSelectedNeighborEdges = false;
 
-    public bool ShowWatch = true;
+    public bool DisplayGPS = true;
 
     public GraphMetricType SelectedMetricTypeSize = GraphMetricType.None;
     public GraphMetricType SelectedMetricTypeColor = GraphMetricType.None;
@@ -313,8 +315,8 @@ public class GraphConfiguration
             case GraphConfigKey.DeskGraphSize:
                 DeskGraphSize = value;
                 return true;
-            case GraphConfigKey.WatchGraphSize:
-                WatchGraphSize = value;
+            case GraphConfigKey.GPSGraphSize:
+                GPSGraphSize = value;
                 return true;
             case GraphConfigKey.LensGraphSize:
                 LensGraphSize = value;
@@ -325,8 +327,8 @@ public class GraphConfiguration
             case GraphConfigKey.NodeSizeDesk:
                 NodeSizeDesk = value;
                 return true;
-            case GraphConfigKey.NodeSizeWatch:
-                NodeSizeWatch = value;
+            case GraphConfigKey.NodeSizeGPS:
+                NodeSizeGPS = value;
                 return true;
             case GraphConfigKey.NodeSizeLens:
                 NodeSizeLens = value;
@@ -358,8 +360,8 @@ public class GraphConfiguration
             case GraphConfigKey.EdgeThicknessLens:
                 EdgeThicknessLens = value;
                 return true;
-            case GraphConfigKey.EdgeThicknessWatch:
-                EdgeThicknessWatch = value;
+            case GraphConfigKey.EdgeThicknessGPS:
+                EdgeThicknessGPS = value;
                 return true;
             case GraphConfigKey.NodeColorMappingBoundaryColorA:
                 NodeColorMapping.BoundaryColorA = value;
@@ -486,11 +488,11 @@ public class GraphConfiguration
             case GraphConfigKey.GraphMode:
                 GraphMode = (value) ? GraphMode.Immersion : GraphMode.Desk;
                 return true;
-            case GraphConfigKey.ShowLabelImmersion:
-                ShowLabelImmersion = value;
+            case GraphConfigKey.DisplayLabelImmersion:
+                DisplayLabelImmersion = value;
                 return true;
-            case GraphConfigKey.ShowLabelDesk:
-                ShowLabelDesk = value;
+            case GraphConfigKey.DisplayLabelDesk:
+                DisplayLabelDesk = value;
                 return true;
             case GraphConfigKey.CanSelectEdges:
                 CanSelectEdges = value;
@@ -504,8 +506,8 @@ public class GraphConfiguration
             case GraphConfigKey.DisplayInterSelectedNeighborEdges:
                 DisplayInterSelectedNeighborEdges = value;
                 return true;
-            case GraphConfigKey.ShowWatch:
-                ShowWatch = value;
+            case GraphConfigKey.DisplayGPS:
+                DisplayGPS = value;
                 return true;
         }
 

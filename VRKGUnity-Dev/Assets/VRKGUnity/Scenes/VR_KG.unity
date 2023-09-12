@@ -744,7 +744,7 @@ GameObject:
   m_Component:
   - component: {fileID: 796492515}
   m_Layer: 0
-  m_Name: Watch
+  m_Name: Gps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2077,7 +2077,7 @@ MonoBehaviour:
   _lensSimulation: {fileID: 870305644}
   _subGraphTf: {fileID: 1596414436}
   _mainGraphTf: {fileID: 395916999}
-  _watchTf: {fileID: 796492515}
+  _gpsTf: {fileID: 796492515}
   _lensTf: {fileID: 181025938}
   _gpsPointTf: {fileID: 825389204}
   _selectionManager: {fileID: 1101384170}

@@ -126,7 +126,7 @@ public class EdgeStyler : MonoBehaviour
             }
             else if (GraphType == GraphType.Sub)
             {
-                SetThickness(GraphConfiguration.EffectiveEdgeThicknessWatch);
+                SetThickness(GraphConfiguration.EffectiveEdgeThicknessGPS);
             }
         }
     }
@@ -154,7 +154,7 @@ public class EdgeStyler : MonoBehaviour
             }
             else if (GraphType == GraphType.Sub)
             {
-                SetPosition(GraphConfiguration.EffectiveWatchGraphSize);
+                SetPosition(GraphConfiguration.EffectiveGPSGraphSize);
             }
         }
     }
