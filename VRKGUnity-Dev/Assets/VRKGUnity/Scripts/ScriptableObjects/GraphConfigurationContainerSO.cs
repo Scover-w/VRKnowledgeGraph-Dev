@@ -114,7 +114,7 @@ public class GraphConfigurationContainerSO : ScriptableObject
 
         for (int i = 0; i < nbColor; i++)
         {
-            OntologyViewerColors.Add(Color.HSVToRGB((deltaHue * i) % 1f, _graphConfiguration.SaturationOntologyColor, _graphConfiguration.ValueOntologyColor));
+            OntologyViewerColors.Add(Color.HSVToRGB((deltaHue * i) % 1f, _graphConfiguration.SaturationOntologyColor, _graphConfiguration.LuminosityOntologyColor));
         }
 
         await _graphConfiguration.Save();

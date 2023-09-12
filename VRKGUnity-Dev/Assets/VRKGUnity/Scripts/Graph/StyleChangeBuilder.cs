@@ -116,13 +116,13 @@ public class StyleChangeBuilder
                 .Add(StyleChange.BothMode)
                 .Add(StyleChange.Node)
                 .Add(StyleChange.Color);
-        styleChanges.Add(GraphConfigKey.AlphaNodeColorPropagated, styleChange);
+        styleChanges.Add(GraphConfigKey.AlphaNodePropagated, styleChange);
 
         styleChange = StyleChange.BothGraph
                 .Add(StyleChange.BothMode)
                 .Add(StyleChange.Node)
                 .Add(StyleChange.Color);
-        styleChanges.Add(GraphConfigKey.AlphaNodeColorUnPropagated, styleChange);
+        styleChanges.Add(GraphConfigKey.AlphaNodeUnPropagated, styleChange);
 
         #endregion
 
@@ -150,7 +150,7 @@ public class StyleChangeBuilder
                 .Add(StyleChange.Node)
                 .Add(StyleChange.Color);
 
-        styleChanges.Add(GraphConfigKey.ValueOntologyColor, styleChange);
+        styleChanges.Add(GraphConfigKey.LuminosityOntologyColor, styleChange);
 
         styleChange = StyleChange.BothGraph
                 .Add(StyleChange.BothMode)
@@ -230,7 +230,7 @@ public class StyleChangeBuilder
                 .Add(StyleChange.Edge)
                 .Add(StyleChange.Color);
 
-        styleChanges.Add(GraphConfigKey.AlphaEdgeColorPropagated, styleChange);
+        styleChanges.Add(GraphConfigKey.AlphaEdgePropagated, styleChange);
 
 
         styleChange = StyleChange.BothGraph
@@ -238,7 +238,7 @@ public class StyleChangeBuilder
                 .Add(StyleChange.Edge)
                 .Add(StyleChange.Color);
 
-        styleChanges.Add(GraphConfigKey.AlphaEdgeColorUnPropagated, styleChange);
+        styleChanges.Add(GraphConfigKey.AlphaEdgeUnPropagated, styleChange);
 
         styleChange = StyleChange.MainGraph
                 .Add(StyleChange.ImmersionMode)

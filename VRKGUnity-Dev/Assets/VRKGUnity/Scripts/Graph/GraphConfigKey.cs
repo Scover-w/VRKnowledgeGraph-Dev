@@ -59,18 +59,18 @@ public enum GraphConfigKey
     NodeColorMappingBoundaryColorC,
 
 
-    AlphaNodeColorPropagated,
-    AlphaNodeColorUnPropagated,
+    AlphaNodePropagated,
+    AlphaNodeUnPropagated,
 
 
-    AlphaEdgeColorPropagated,
-    AlphaEdgeColorUnPropagated,
+    AlphaEdgePropagated,
+    AlphaEdgeUnPropagated,
 
 
     NbOntologyColor,
     MaxDeltaOntologyAlgo,
     SaturationOntologyColor,
-    ValueOntologyColor,
+    LuminosityOntologyColor,
 
     GlobalVolume,
     SoundEffectVolume,

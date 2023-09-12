@@ -159,9 +159,9 @@ public class GraphConfiguration
     public ColorLerpMapper NodeColorMapping = new();
 
     [Range(0f, 1f)]
-    public float AlphaNodeColorPropagated = 1f;
+    public float AlphaNodePropagated = 1f;
     [Range(0f, 1f)]
-    public float AlphaNodeColorUnPropagated = 1f;
+    public float AlphaNodeUnPropagated = 1f;
 
 
     [JsonProperty("NodeColorNoOntology_")]
@@ -172,9 +172,9 @@ public class GraphConfiguration
     private System.Drawing.Color _edgeColor = System.Drawing.Color.FromArgb(255, 255, 255);
 
     [Range(0f, 1f)]
-    public float AlphaEdgeColorPropagated = 1f;
+    public float AlphaEdgePropagated = 1f;
     [Range(0f, 1f)]
-    public float AlphaEdgeColorUnPropagated = 1f;
+    public float AlphaEdgeUnPropagated = 1f;
 
     [JsonProperty("PropagatedEdgeColor_")]
     private System.Drawing.Color _propagatedEdgeColor = System.Drawing.Color.FromArgb(0, 56, 255);
@@ -187,7 +187,7 @@ public class GraphConfiguration
     [Range(0f, 1f)]
     public float SaturationOntologyColor = .772f;
     [Range(0f, 1f)]
-    public float ValueOntologyColor = .767f;
+    public float LuminosityOntologyColor = .767f;
 
     [Header("Sound")]
     [Range(0f, 1f)]
@@ -380,17 +380,17 @@ public class GraphConfiguration
             case GraphConfigKey.NodeColorMappingBoundaryColorC:
                 NodeColorMapping.BoundaryColorC = value;
                 return true;
-            case GraphConfigKey.AlphaNodeColorPropagated:
-                AlphaNodeColorPropagated = value;
+            case GraphConfigKey.AlphaNodePropagated:
+                AlphaNodePropagated = value;
                 return true;
-            case GraphConfigKey.AlphaNodeColorUnPropagated:
-                AlphaNodeColorUnPropagated = value;
+            case GraphConfigKey.AlphaNodeUnPropagated:
+                AlphaNodeUnPropagated = value;
                 return true;
-            case GraphConfigKey.AlphaEdgeColorPropagated:
-                AlphaEdgeColorPropagated = value;
+            case GraphConfigKey.AlphaEdgePropagated:
+                AlphaEdgePropagated = value;
                 return true;
-            case GraphConfigKey.AlphaEdgeColorUnPropagated:
-                AlphaEdgeColorUnPropagated = value;
+            case GraphConfigKey.AlphaEdgeUnPropagated:
+                AlphaEdgeUnPropagated = value;
                 return true;
             case GraphConfigKey.NbOntologyColor:
                 NbOntologyColor = Mathf.RoundToInt(value);
@@ -401,8 +401,8 @@ public class GraphConfiguration
             case GraphConfigKey.SaturationOntologyColor:
                 SaturationOntologyColor = value;
                 return true;
-            case GraphConfigKey.ValueOntologyColor:
-                ValueOntologyColor = value;
+            case GraphConfigKey.LuminosityOntologyColor:
+                LuminosityOntologyColor = value;
                 return true;
             case GraphConfigKey.GlobalVolume:
                 GlobalVolume = value;

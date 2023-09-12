@@ -163,14 +163,14 @@ public class NodeStyler : MonoBehaviour
 
         float hue = Node.OntoNodeGroup.ColorValue;
 
-        Color color = Color.HSVToRGB(hue, GraphConfiguration.SaturationOntologyColor, GraphConfiguration.ValueOntologyColor);
+        Color color = Color.HSVToRGB(hue, GraphConfiguration.SaturationOntologyColor, GraphConfiguration.LuminosityOntologyColor);
         SetColor(color);
     }
 
 
     private void SetColor(Color newColor)
     {
-        newColor.a = Node.IsPropagated ? GraphConfiguration.AlphaNodeColorPropagated : GraphConfiguration.AlphaNodeColorUnPropagated;
+        newColor.a = Node.IsPropagated ? GraphConfiguration.AlphaNodePropagated : GraphConfiguration.AlphaNodeUnPropagated;
 
         _propertyBlock.SetColor("_Color", newColor);
         _renderer.SetPropertyBlock(_propertyBlock);

@@ -48,9 +48,9 @@ public class StylingGlobalPC : MonoBehaviour
     public Color NodeMappingCColor;
 
     [Range(0f, 1f)]
-    public float AlphaNodeColorPropagated = 1f;
+    public float AlphaNodePropagated = 1f;
     [Range(0f, 1f)]
-    public float AlphaNodeColorUnPropagated = 1f;
+    public float AlphaNodeUnPropagated = 1f;
 
     [Range(0f,1f)]
     public float BoundaryColorA;
@@ -68,7 +68,7 @@ public class StylingGlobalPC : MonoBehaviour
     [Range(0f, 1f)]
     public float SaturationOntologyColor;
     [Range(0f, 1f)]
-    public float ValueOntologyColor;
+    public float LuminosityOntologyColor;
 
     public Color NodeColorNoValueMetric;
 
@@ -77,9 +77,9 @@ public class StylingGlobalPC : MonoBehaviour
     public Color PropagatedEdgeColor;
 
     [Range(0f, 1f)]
-    public float AlphaEdgeColorPropagated = 1f;
+    public float AlphaEdgePropagated = 1f;
     [Range(0f, 1f)]
-    public float AlphaEdgeColorUnPropagated = 1f;
+    public float AlphaEdgeUnPropagated = 1f;
 
     public float EdgeThicknessImmersion = 1f;
     public float EdgeThicknessDesk = 1f;
@@ -143,8 +143,8 @@ public class StylingGlobalPC : MonoBehaviour
         NodeMappingBColor = colorLerpMapper.ColorB;
         NodeMappingCColor = colorLerpMapper.ColorC;
 
-        AlphaNodeColorPropagated = _graphConfig.AlphaNodeColorPropagated;
-        AlphaNodeColorUnPropagated = _graphConfig.AlphaNodeColorUnPropagated;
+        AlphaNodePropagated = _graphConfig.AlphaNodePropagated;
+        AlphaNodeUnPropagated = _graphConfig.AlphaNodeUnPropagated;
 
         BoundaryColorA = colorLerpMapper.BoundaryColorA;
         BoundaryColorB = colorLerpMapper.BoundaryColorB;
@@ -154,7 +154,7 @@ public class StylingGlobalPC : MonoBehaviour
         NbOntologyColor = _graphConfig.NbOntologyColor;
         MaxDeltaOntologyAlgo = _graphConfig.MaxDeltaOntologyAlgo;
         SaturationOntologyColor = _graphConfig.SaturationOntologyColor;
-        ValueOntologyColor = _graphConfig.ValueOntologyColor;
+        LuminosityOntologyColor = _graphConfig.LuminosityOntologyColor;
 
         NodeColorNoValueMetric = _graphConfig.NodeColorNoValueMetric;
 
@@ -173,8 +173,8 @@ public class StylingGlobalPC : MonoBehaviour
         EdgeColor = _graphConfig.EdgeColor;
         PropagatedEdgeColor = _graphConfig.PropagatedEdgeColor;
 
-        AlphaEdgeColorPropagated = _graphConfig.AlphaEdgeColorPropagated;
-        AlphaEdgeColorUnPropagated = _graphConfig.AlphaEdgeColorUnPropagated;
+        AlphaEdgePropagated = _graphConfig.AlphaEdgePropagated;
+        AlphaEdgeUnPropagated = _graphConfig.AlphaEdgeUnPropagated;
 
         EdgeThicknessImmersion = _graphConfig.EdgeThicknessImmersion;
         EdgeThicknessDesk = _graphConfig.EdgeThicknessDesk;
@@ -311,19 +311,19 @@ public class StylingGlobalPC : MonoBehaviour
             styleChange = styleChange.Add(addedStyleChange);
         }
 
-        if (_graphConfig.AlphaNodeColorPropagated != AlphaNodeColorPropagated)
+        if (_graphConfig.AlphaNodePropagated != AlphaNodePropagated)
         {
-            _graphConfig.AlphaNodeColorPropagated = AlphaNodeColorPropagated;
+            _graphConfig.AlphaNodePropagated = AlphaNodePropagated;
 
-            addedStyleChange = StyleChangeBuilder.Get(GraphConfigKey.AlphaNodeColorPropagated);
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigKey.AlphaNodePropagated);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
-        if (_graphConfig.AlphaNodeColorUnPropagated != AlphaNodeColorUnPropagated)
+        if (_graphConfig.AlphaNodeUnPropagated != AlphaNodeUnPropagated)
         {
-            _graphConfig.AlphaNodeColorUnPropagated = AlphaNodeColorUnPropagated;
+            _graphConfig.AlphaNodeUnPropagated = AlphaNodeUnPropagated;
 
-            addedStyleChange = StyleChangeBuilder.Get(GraphConfigKey.AlphaNodeColorUnPropagated);
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigKey.AlphaNodeUnPropagated);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
@@ -377,11 +377,11 @@ public class StylingGlobalPC : MonoBehaviour
             styleChange = styleChange.Add(addedStyleChange);
         }
 
-        if (_graphConfig.ValueOntologyColor != ValueOntologyColor)
+        if (_graphConfig.LuminosityOntologyColor != LuminosityOntologyColor)
         {
-            _graphConfig.ValueOntologyColor = ValueOntologyColor;
+            _graphConfig.LuminosityOntologyColor = LuminosityOntologyColor;
 
-            addedStyleChange = StyleChangeBuilder.Get(GraphConfigKey.ValueOntologyColor);
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigKey.LuminosityOntologyColor);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
@@ -467,20 +467,20 @@ public class StylingGlobalPC : MonoBehaviour
         }
 
 
-        if (_graphConfig.AlphaEdgeColorPropagated != AlphaEdgeColorPropagated)
+        if (_graphConfig.AlphaEdgePropagated != AlphaEdgePropagated)
         {
-            _graphConfig.AlphaEdgeColorPropagated = AlphaEdgeColorPropagated;
+            _graphConfig.AlphaEdgePropagated = AlphaEdgePropagated;
 
-            addedStyleChange = StyleChangeBuilder.Get(GraphConfigKey.AlphaEdgeColorPropagated);
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigKey.AlphaEdgePropagated);
             styleChange = styleChange.Add(addedStyleChange);
         }
 
 
-        if (_graphConfig.AlphaEdgeColorUnPropagated != AlphaEdgeColorUnPropagated)
+        if (_graphConfig.AlphaEdgeUnPropagated != AlphaEdgeUnPropagated)
         {
-            _graphConfig.AlphaEdgeColorUnPropagated = AlphaEdgeColorUnPropagated;
+            _graphConfig.AlphaEdgeUnPropagated = AlphaEdgeUnPropagated;
 
-            addedStyleChange = StyleChangeBuilder.Get(GraphConfigKey.AlphaEdgeColorUnPropagated);
+            addedStyleChange = StyleChangeBuilder.Get(GraphConfigKey.AlphaEdgeUnPropagated);
             styleChange = styleChange.Add(addedStyleChange);
         }
 

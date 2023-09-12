@@ -69,7 +69,7 @@ public class EdgeStyler : MonoBehaviour
         var color = isEdgePropagated ? GraphConfiguration.PropagatedEdgeColor : GraphConfiguration.EdgeColor;
 
         if (GraphConfiguration.DisplayEdges)
-            color.a = isEdgePropagated ? GraphConfiguration.AlphaEdgeColorPropagated : GraphConfiguration.AlphaEdgeColorUnPropagated;
+            color.a = isEdgePropagated ? GraphConfiguration.AlphaEdgePropagated : GraphConfiguration.AlphaEdgeUnPropagated;
         else
             color.a =  0f;
 

@@ -1085,13 +1085,13 @@ public class AIDENController : MonoBehaviour
             GraphConfigKey alphaKey;
 
             if (transparency == "noeud")
-                alphaKey = GraphConfigKey.AlphaNodeColorUnPropagated;
+                alphaKey = GraphConfigKey.AlphaNodeUnPropagated;
             else if (transparency == "noeud_propage")
-                alphaKey = GraphConfigKey.AlphaNodeColorPropagated;
+                alphaKey = GraphConfigKey.AlphaNodePropagated;
             else if (transparency == "arete")
-                alphaKey = GraphConfigKey.AlphaEdgeColorUnPropagated;
+                alphaKey = GraphConfigKey.AlphaEdgeUnPropagated;
             else if (transparency == "arete_propage")
-                alphaKey = GraphConfigKey.AlphaEdgeColorPropagated;
+                alphaKey = GraphConfigKey.AlphaEdgePropagated;
             else
             {
                 LogWarning();
@@ -1177,11 +1177,11 @@ public class AIDENController : MonoBehaviour
         {
             return alphaKey switch
             {
-                GraphConfigKey.AlphaNodeColorUnPropagated => _graphConfiguration.AlphaNodeColorUnPropagated,
-                GraphConfigKey.AlphaNodeColorPropagated => _graphConfiguration.AlphaNodeColorPropagated,
-                GraphConfigKey.AlphaEdgeColorUnPropagated => _graphConfiguration.AlphaEdgeColorUnPropagated,
-                GraphConfigKey.AlphaEdgeColorPropagated => _graphConfiguration.AlphaEdgeColorPropagated,
-                _ => _graphConfiguration.AlphaNodeColorUnPropagated,
+                GraphConfigKey.AlphaNodeUnPropagated => _graphConfiguration.AlphaNodeUnPropagated,
+                GraphConfigKey.AlphaNodePropagated => _graphConfiguration.AlphaNodePropagated,
+                GraphConfigKey.AlphaEdgeUnPropagated => _graphConfiguration.AlphaEdgeUnPropagated,
+                GraphConfigKey.AlphaEdgePropagated => _graphConfiguration.AlphaEdgePropagated,
+                _ => _graphConfiguration.AlphaNodeUnPropagated,
             };
         }
 
@@ -1351,7 +1351,7 @@ public class AIDENController : MonoBehaviour
                     graphConfigKey = GraphConfigKey.SaturationOntologyColor;
                     return true;
                 case "luminosite":
-                    graphConfigKey = GraphConfigKey.ValueOntologyColor;
+                    graphConfigKey = GraphConfigKey.LuminosityOntologyColor;
                     return true;
                 default:
                     graphConfigKey = GraphConfigKey.NbOntologyColor;
@@ -1366,7 +1366,7 @@ public class AIDENController : MonoBehaviour
                 GraphConfigKey.NbOntologyColor => _graphConfiguration.NbOntologyColor,
                 GraphConfigKey.MaxDeltaOntologyAlgo => _graphConfiguration.MaxDeltaOntologyAlgo,
                 GraphConfigKey.SaturationOntologyColor => _graphConfiguration.SaturationOntologyColor,
-                GraphConfigKey.ValueOntologyColor => _graphConfiguration.ValueOntologyColor,
+                GraphConfigKey.LuminosityOntologyColor => _graphConfiguration.LuminosityOntologyColor,
                 _ => _graphConfiguration.NbOntologyColor,
             };
         }
