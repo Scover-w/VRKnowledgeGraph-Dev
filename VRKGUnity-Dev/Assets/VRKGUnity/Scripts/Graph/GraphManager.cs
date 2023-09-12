@@ -90,6 +90,7 @@ public class GraphManager : MonoBehaviour
 
 
         _graph = new Graph(this, _stylingManager, nodges, _nodgePool, _graphRepo);
+        _graph.ResetMainNodePositionsTf();
 
         _graph.CalculateMetrics(graphRepoUris);
 
@@ -119,7 +120,9 @@ public class GraphManager : MonoBehaviour
         _graph.UpdateNodges(nodges);
         DebugChrono.Instance.Stop("UpdateGraph");
 
+        _graph.ResetMainNodePositionsTf();
         _graph.CalculateMetrics(_graphRepo.GraphDbRepositoryNamespaces);
+
 
         SimulationWillStart();
         _graphSimulation.Run(_graph);

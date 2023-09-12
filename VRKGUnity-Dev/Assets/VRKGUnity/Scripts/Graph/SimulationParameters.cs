@@ -10,7 +10,7 @@ public class SimulationParameters
 {
     public float TickDeltaTime = 0.016f;
     public float MaxSimulationTime = 15f;
-    public float LerpSmooth = .01f;
+    public float LerpSmooth = .1f;
 
     public float SpringForce = 5f;
     public float CoulombForce = .1f;

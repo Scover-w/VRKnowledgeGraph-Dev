@@ -651,7 +651,30 @@ public class Graph
     #endregion
 
 
-    public void RefreshMainNodePositions(Dictionary<string, NodeSimuData> nodeSimuDatas)
+    public void ResetMainNodePositionsTf()
+    {
+        Vector3 zeroPos = Vector3.zero;
+
+        foreach (Node node in _nodesDicUID.Values)
+        {
+            Transform mainTf = node.MainGraphNodeTf;
+
+            mainTf.localPosition = zeroPos;
+        }
+
+        foreach (var idAndEdge in _edgesDicUID)
+        {
+            Edge edge = idAndEdge.Value;
+
+            var mainLine = edge.MainGraphLine;
+            mainLine.SetPosition(0, zeroPos);
+            mainLine.SetPosition(1, zeroPos);
+            mainLine.SetPosition(2, zeroPos);
+            mainLine.SetPosition(3, zeroPos);
+        }
+    }
+
+    public void RefreshMainNodePositions(Dictionary<string, NodeSimuData> nodeSimuDatas, bool doLerp = true)
     {
         var scalingFactor = (_graphManager.GraphMode == GraphMode.Desk) ? _graphConfiguration.EffectiveDeskGraphSize : _graphConfiguration.EffectiveImmersionGraphSize;
         var lerpSmooth = _graphConfiguration.SimuParameters.LerpSmooth;
@@ -666,11 +689,22 @@ public class Graph
             Vector3 newCalculatedPosition = idAnData.Value.Position;
             Vector3 absolutePosition = node.AbsolutePosition;
 
-            Vector3 lerpPosition = Vector3.Lerp(absolutePosition, newCalculatedPosition, lerpSmooth);
-            Vector3 megaLerpPosition = Vector3.Lerp(mainTf.localPosition, newCalculatedPosition * scalingFactor, lerpSmooth);
+            Vector3 newAbsolutePosition;
+            Vector3 newLocalPosition;
 
-            node.AbsolutePosition = lerpPosition;
-            mainTf.localPosition = megaLerpPosition;
+            if(doLerp)
+            {
+                newAbsolutePosition = Vector3.Lerp(absolutePosition, newCalculatedPosition, lerpSmooth);
+                newLocalPosition = Vector3.Lerp(mainTf.localPosition, newCalculatedPosition * scalingFactor, lerpSmooth);
+            }
+            else
+            {
+                newAbsolutePosition = newCalculatedPosition;
+                newLocalPosition = newCalculatedPosition * scalingFactor;
+            }
+
+            node.AbsolutePosition = newAbsolutePosition;
+            mainTf.localPosition = newLocalPosition;
         }
 
         foreach (var idAndEdge in _edgesDicUID)

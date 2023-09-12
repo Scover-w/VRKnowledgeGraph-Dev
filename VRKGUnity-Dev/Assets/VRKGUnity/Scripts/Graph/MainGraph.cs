@@ -70,7 +70,7 @@ public class MainGraph : MonoBehaviour
                 break;
 
             case GraphUpdateType.BeforeSimulationStart:
-
+                BeforeSimulationStart();
                 break;
 
             case GraphUpdateType.AfterSimulationHasStopped:
@@ -93,6 +93,8 @@ public class MainGraph : MonoBehaviour
 
     private void RetrieveFromDb()
     {
+        _mainGraphTf.gameObject.SetActive(false);
+
         if (_mainGraphMode == MainGraphMode.Immersion)
             return;
 
@@ -100,6 +102,12 @@ public class MainGraph : MonoBehaviour
         _isSimulatingGraph = true;
         StartCoroutine(RotatingDesk());
     }
+
+    private void BeforeSimulationStart()
+    {
+        _mainGraphTf.gameObject.SetActive(true);
+    }
+
 
     private void AfterSimulationHasStopped()
     {

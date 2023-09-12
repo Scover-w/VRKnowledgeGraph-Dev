@@ -86,7 +86,7 @@ public class GraphSimulation : MonoBehaviour
     {
         await _threadEndedSemaphore.WaitAsync();
 
-        graph.RefreshMainNodePositions(_newNodeSimuDatas);
+        graph.RefreshMainNodePositions(_newNodeSimuDatas, false);
 
         if(_graphManager != null)
             _graphManager.SimulationStopped();
