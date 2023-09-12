@@ -121,9 +121,9 @@ public class SubGraph : MonoBehaviour
     private void UpdateGpsPoint()
     {
          var relativePosition = _playerHeadTf.position - _mainGraphTf.position;
-        relativePosition /= _graphConfig.ImmersionGraphSize;
+        relativePosition /= _graphConfig.EffectiveImmersionGraphSize;
 
-        relativePosition *= _graphConfig.WatchGraphSize;
+        relativePosition *= _graphConfig.EffectiveWatchGraphSize;
 
         _gpsPointTf.localPosition = relativePosition;
 

@@ -189,7 +189,7 @@ public class LabelNodgeManagerUI : MonoBehaviour
     private void StyleImmersionMode(StyleChange styleChange)
     {
         if (styleChange.HasChanged(StyleChange.Size))
-            SetSizeLabels(GraphType.Main, _graphConfig.LabelNodeSizeImmersion);
+            SetSizeLabels(GraphType.Main, _graphConfig.EffectiveLabelNodeSizeImmersion);
 
         if (styleChange.HasChanged(StyleChange.Visibility))
         {
@@ -201,7 +201,7 @@ public class LabelNodgeManagerUI : MonoBehaviour
     private void StyleDeskMode(StyleChange styleChange)
     {
         if (styleChange.HasChanged(StyleChange.Size))
-            SetSizeLabels(GraphType.Main, _graphConfig.LabelNodeSizeDesk);
+            SetSizeLabels(GraphType.Main, _graphConfig.EffectiveLabelNodeSizeDesk);
 
 
         if (styleChange.HasChanged(StyleChange.Visibility))
@@ -222,7 +222,7 @@ public class LabelNodgeManagerUI : MonoBehaviour
     private void StyleLensMode(StyleChange styleChange)
     {
         if (styleChange.HasChanged(StyleChange.Size))
-            SetSizeLabels(GraphType.Sub, _graphConfig.LabelNodeSizeLens);
+            SetSizeLabels(GraphType.Sub, _graphConfig.EffectiveLabelNodeSizeLens);
 
 
         if (styleChange.HasChanged(StyleChange.Visibility))
@@ -273,12 +273,12 @@ public class LabelNodgeManagerUI : MonoBehaviour
     {
         if(_graphMode == GraphMode.Desk)
         {
-            return (graphType == GraphType.Main) ? _graphConfig.LabelNodeSizeDesk : _graphConfig.LabelNodeSizeLens;
+            return (graphType == GraphType.Main) ? _graphConfig.EffectiveLabelNodeSizeDesk : _graphConfig.EffectiveLabelNodeSizeLens;
         }
 
 
         // No Labels Watch
-        return _graphConfig.LabelNodeSizeImmersion;
+        return _graphConfig.EffectiveLabelNodeSizeImmersion;
        
     }
     #endregion
@@ -440,7 +440,7 @@ public class LabelNodgeManagerUI : MonoBehaviour
 
     private void DisplayMainLabels()
     {
-        float scale = (_graphMode == GraphMode.Immersion) ? _graphConfig.LabelNodeSizeImmersion : _graphConfig.LabelNodeSizeDesk;
+        float scale = (_graphMode == GraphMode.Immersion) ? _graphConfig.EffectiveLabelNodeSizeImmersion : _graphConfig.EffectiveLabelNodeSizeDesk;
         Vector2 sizeConvas = _baseSizeCanvas * scale;
         float fontSize = _baseFontSize * scale;
 
@@ -483,7 +483,7 @@ public class LabelNodgeManagerUI : MonoBehaviour
 
     private void UpdateHoverSize()
     {
-        float scale = (_graphMode == GraphMode.Immersion) ? _graphConfig.LabelNodeSizeImmersion : _graphConfig.LabelNodeSizeDesk;
+        float scale = (_graphMode == GraphMode.Immersion) ? _graphConfig.EffectiveLabelNodeSizeImmersion : _graphConfig.EffectiveLabelNodeSizeDesk;
         Vector2 sizeConvas = _baseSizeCanvas * scale;
         float fontSize = _baseFontSize * scale;
 
@@ -745,25 +745,25 @@ public class LabelNodgeManagerUI : MonoBehaviour
         if(_graphMode == GraphMode.Immersion) // Don't handle watch mode because don't display them in it
         {
             if (isChangingSize)
-                return _graphConfig.NodeMinMaxSizeImmersion * _graphConfig.NodeSizeImmersion;
+                return (_graphConfig.NodeMinMaxSizeImmersion + 1f) * _graphConfig.EffectiveNodeSizeImmersion;
             else
-                return _graphConfig.NodeSizeImmersion;
+                return _graphConfig.EffectiveNodeSizeImmersion;
         }
 
 
         if (graphType == GraphType.Main) // Desk Mode
         {
             if (isChangingSize)
-                return _graphConfig.NodeMinMaxSizeDesk * _graphConfig.NodeSizeDesk;
+                return (_graphConfig.NodeMinMaxSizeDesk + 1f) * _graphConfig.EffectiveNodeSizeDesk;
             else
-                return _graphConfig.NodeSizeDesk;
+                return _graphConfig.EffectiveNodeSizeDesk;
         }
         else // Lens Mode
         {
             if (isChangingSize)
-                return _graphConfig.NodeMinMaxSizeLens * _graphConfig.NodeSizeLens;
+                return (_graphConfig.NodeMinMaxSizeLens + 1f) * _graphConfig.EffectiveNodeSizeLens;
             else
-                return _graphConfig.NodeSizeLens;
+                return _graphConfig.EffectiveNodeSizeLens;
         }
     }
 }

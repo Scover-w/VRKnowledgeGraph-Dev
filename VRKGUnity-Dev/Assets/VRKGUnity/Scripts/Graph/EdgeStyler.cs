@@ -109,11 +109,11 @@ public class EdgeStyler : MonoBehaviour
         {
             if (GraphType == GraphType.Main)
             {
-                SetThickness(GraphConfiguration.EdgeThicknessDesk);
+                SetThickness(GraphConfiguration.EffectiveEdgeThicknessDesk);
             }
             else if(GraphType == GraphType.Sub)
             {
-                SetThickness(GraphConfiguration.EdgeThicknessLens);
+                SetThickness(GraphConfiguration.EffectiveEdgeThicknessLens);
             }
         }
 
@@ -122,11 +122,11 @@ public class EdgeStyler : MonoBehaviour
         {
             if (GraphType == GraphType.Main)
             {
-                SetThickness(GraphConfiguration.EdgeThicknessImmersion);
+                SetThickness(GraphConfiguration.EffectiveEdgeThicknessImmersion);
             }
             else if (GraphType == GraphType.Sub)
             {
-                SetThickness(GraphConfiguration.EdgeThicknessWatch);
+                SetThickness(GraphConfiguration.EffectiveEdgeThicknessWatch);
             }
         }
     }
@@ -137,11 +137,11 @@ public class EdgeStyler : MonoBehaviour
         {
             if (GraphType == GraphType.Main)
             {
-                SetPosition(GraphConfiguration.DeskGraphSize);
+                SetPosition(GraphConfiguration.EffectiveDeskGraphSize);
             }
             else if(GraphType == GraphType.Sub)
             {
-                SetPosition(GraphConfiguration.LensGraphSize);
+                SetPosition(GraphConfiguration.EffectiveLensGraphSize);
             }
 
         }
@@ -150,11 +150,11 @@ public class EdgeStyler : MonoBehaviour
         {
             if (GraphType == GraphType.Main)
             {
-                SetPosition(GraphConfiguration.ImmersionGraphSize);
+                SetPosition(GraphConfiguration.EffectiveImmersionGraphSize);
             }
             else if (GraphType == GraphType.Sub)
             {
-                SetPosition(GraphConfiguration.WatchGraphSize);
+                SetPosition(GraphConfiguration.EffectiveWatchGraphSize);
             }
         }
     }
@@ -231,15 +231,15 @@ public class EdgeStyler : MonoBehaviour
 
     private void StyleTransitionPosition(float t, bool isNextDesk)
     {
-        float scale = isNextDesk ? Mathf.Lerp(GraphConfiguration.ImmersionGraphSize, GraphConfiguration.DeskGraphSize, t) :
-                                    Mathf.Lerp(GraphConfiguration.DeskGraphSize, GraphConfiguration.ImmersionGraphSize, t);
+        float scale = isNextDesk ? Mathf.Lerp(GraphConfiguration.EffectiveImmersionGraphSize, GraphConfiguration.EffectiveDeskGraphSize, t) :
+                                    Mathf.Lerp(GraphConfiguration.EffectiveDeskGraphSize, GraphConfiguration.EffectiveImmersionGraphSize, t);
         SetPosition(scale);
     }
 
     private void StyleTransitionThickness(float t, bool isNextDesk)
     {
-        float thickness = isNextDesk ? Mathf.Lerp(GraphConfiguration.EdgeThicknessImmersion, GraphConfiguration.EdgeThicknessDesk, t) :
-                                    Mathf.Lerp(GraphConfiguration.EdgeThicknessDesk, GraphConfiguration.EdgeThicknessImmersion, t);
+        float thickness = isNextDesk ? Mathf.Lerp(GraphConfiguration.EffectiveEdgeThicknessImmersion, GraphConfiguration.EffectiveEdgeThicknessDesk, t) :
+                                    Mathf.Lerp(GraphConfiguration.EffectiveEdgeThicknessDesk, GraphConfiguration.EffectiveEdgeThicknessImmersion, t);
 
         SetThickness(thickness);
     }

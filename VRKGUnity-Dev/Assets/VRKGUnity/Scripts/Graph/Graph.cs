@@ -653,7 +653,7 @@ public class Graph
 
     public void RefreshMainNodePositions(Dictionary<string, NodeSimuData> nodeSimuDatas)
     {
-        var scalingFactor = (_graphManager.GraphMode == GraphMode.Desk) ? _graphConfiguration.DeskGraphSize : _graphConfiguration.ImmersionGraphSize;
+        var scalingFactor = (_graphManager.GraphMode == GraphMode.Desk) ? _graphConfiguration.EffectiveDeskGraphSize : _graphConfiguration.EffectiveImmersionGraphSize;
         var lerpSmooth = _graphConfiguration.SimuParameters.LerpSmooth;
 
         foreach (var idAnData in nodeSimuDatas)

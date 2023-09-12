@@ -19,37 +19,57 @@ public class GraphConfiguration
     [Header("/Styling/")]
     [Space(5)]
     [Header("Graph Size")]
-    public float ImmersionGraphSize = 12.75f;
-    public float DeskGraphSize = .1f;
+    public float ImmersionGraphSize = 1f;
+    public float DeskGraphSize = 1f;
     [Space(5)]
-    public float WatchGraphSize = .025f;
-    public float LensGraphSize = 1.74f;
+    public float WatchGraphSize = 1f;
+    public float LensGraphSize = 1f;
+
+    [JsonIgnore] public float EffectiveImmersionGraphSize { get { return ImmersionGraphSize * GraphConfigurationPreset.ImmersionGraphSize; } }
+    [JsonIgnore] public float EffectiveDeskGraphSize { get { return DeskGraphSize * GraphConfigurationPreset.DeskGraphSize; } }
+    [JsonIgnore] public float EffectiveWatchGraphSize { get { return WatchGraphSize * GraphConfigurationPreset.WatchGraphSize; } }
+    [JsonIgnore] public float EffectiveLensGraphSize { get { return LensGraphSize * GraphConfigurationPreset.LensGraphSize; } }
+
 
 
     [Space(10)]
     [Header("Node Size")]
     public float NodeSizeImmersion = 1f;
-    public float NodeSizeDesk = .03f;
+    public float NodeSizeDesk = 1f;
 
     [Space(5)]
-    public float NodeSizeWatch = .006f;
-    public float NodeSizeLens = .2f;
+    public float NodeSizeWatch = 1f;
+    public float NodeSizeLens = 1f;
 
     [Space(5)]
-    public float NodeMinMaxSizeImmersion = .8f;
+    public float NodeMinMaxSizeImmersion = .5f;
 
     [Space(5)]
-    public float NodeMinMaxSizeDesk = .8f;
+    public float NodeMinMaxSizeDesk = .5f;
 
     [Space(5)]
-    public float NodeMinMaxSizeLens = .8f;
+    public float NodeMinMaxSizeLens = .5f;
+
+    [JsonIgnore] public float EffectiveNodeSizeImmersion { get { return NodeSizeImmersion * GraphConfigurationPreset.NodeSizeImmersion; } }
+    [JsonIgnore] public float EffectiveNodeSizeDesk { get { return NodeSizeDesk * GraphConfigurationPreset.NodeSizeDesk; } }
+    [JsonIgnore] public float EffectiveNodeSizeWatch { get { return NodeSizeWatch * GraphConfigurationPreset.NodeSizeWatch; } }
+    [JsonIgnore] public float EffectiveNodeSizeLens { get { return NodeSizeLens * GraphConfigurationPreset.NodeSizeLens; } }
+
 
     [Space(10)]
     [Header("Label")]
-    public float LabelNodeSizeImmersion = 5f;
-    public float LabelNodeSizeDesk = .2f;
+    public float LabelNodeSizeImmersion = 1f;
+    public float LabelNodeSizeDesk = 1f;
 
-    public float LabelNodeSizeLens = 1.36f;
+    public float LabelNodeSizeLens = 1f;
+
+
+    [JsonIgnore] public float EffectiveLabelNodeSizeImmersion { get { return LabelNodeSizeImmersion * GraphConfigurationPreset.LabelNodeSizeImmersion; } }
+    [JsonIgnore] public float EffectiveLabelNodeSizeDesk { get { return LabelNodeSizeDesk * GraphConfigurationPreset.LabelNodeSizeDesk; } }
+    [JsonIgnore] public float EffectiveLabelNodeSizeLens { get { return LabelNodeSizeLens * GraphConfigurationPreset.LabelNodeSizeLens; } }
+
+
+
 
     public bool ShowLabelImmersion = true;
     public bool ShowLabelDesk = false;
@@ -59,10 +79,19 @@ public class GraphConfiguration
 
     [Space(10)]
     [Header("Edge")]
-    public float EdgeThicknessImmersion = .025f;
-    public float EdgeThicknessDesk = .001f;
-    public float EdgeThicknessLens = .005f;
-    public float EdgeThicknessWatch = .0002f;
+    public float EdgeThicknessImmersion = 1f;
+    public float EdgeThicknessDesk = 1f;
+    public float EdgeThicknessLens = 1f;
+    public float EdgeThicknessWatch = 1f;
+
+
+    [JsonIgnore] public float EffectiveEdgeThicknessImmersion { get { return EdgeThicknessImmersion * GraphConfigurationPreset.EdgeThicknessImmersion; } }
+    [JsonIgnore] public float EffectiveEdgeThicknessDesk { get { return EdgeThicknessDesk * GraphConfigurationPreset.EdgeThicknessDesk; } }
+    [JsonIgnore] public float EffectiveEdgeThicknessLens { get { return EdgeThicknessLens * GraphConfigurationPreset.EdgeThicknessLens; } }
+    [JsonIgnore] public float EffectiveEdgeThicknessWatch { get { return EdgeThicknessWatch * GraphConfigurationPreset.EdgeThicknessWatch; } }
+
+
+
     [Space(5)]
     public bool CanSelectEdges = false;
     public bool DisplayEdges = true;
