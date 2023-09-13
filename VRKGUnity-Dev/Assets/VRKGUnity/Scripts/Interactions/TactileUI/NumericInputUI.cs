@@ -75,6 +75,16 @@ namespace AIDEN.TactileUI
             _isActive = true;
         }
 
+        protected override void UpdateInteractionColor()
+        {
+            if (_isActive)
+            {
+                _interactiveGraphics.UpdateColor(InteractionStateUI.Active);
+                return;
+            }
+
+            _interactiveGraphics.UpdateColor(_interactionStateUI);
+        }
 
         public void OnUpdateInput(object input)
         {

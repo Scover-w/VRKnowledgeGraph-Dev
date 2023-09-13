@@ -16,6 +16,7 @@ namespace AIDEN.TactileUI
             { 
                 _isEnable = value;
                 UpdateKnobPosition();
+                UpdateInteractionColor();
             }
         }
 

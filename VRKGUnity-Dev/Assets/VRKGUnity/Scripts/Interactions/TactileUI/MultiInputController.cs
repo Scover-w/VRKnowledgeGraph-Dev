@@ -67,7 +67,9 @@ namespace AIDEN.TactileUI
         public bool DisplayUnstatic<T>(KeyboardUIOptions<T> options)
         {
             if (_isUsed)
-                return false;
+            {
+                Close();
+            }
 
             if (!UpdateUsedInput<T>())
                 return false;
