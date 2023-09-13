@@ -57,6 +57,9 @@ namespace AIDEN.TactileUI
 
         bool _isOpen = false;
 
+        float _delayCollider = 1f;
+        float _lastEnableColliderTime = 0f;
+        float _lastDisableColliderTime = 0f;
         float _heightItem;
 
         private void Awake()
@@ -266,9 +269,33 @@ namespace AIDEN.TactileUI
             if (_colliderToHide == null)
                 return;
 
+            if(enable)
+            {
+                _lastEnableColliderTime = Time.time; 
+                Invoke(nameof(DisplayColliders), _delayCollider);
+                return;
+            }
+
+            _lastDisableColliderTime = Time.time;
+
             foreach (Collider collider in _colliderToHide) 
             { 
-                collider.enabled = enable;
+                collider.enabled = false;
+            }
+        }
+
+        /// <summary>
+        /// Don't use it ! Only available for EnableCollidersToHide fn
+        /// </summary>
+        void DisplayColliders()
+        {
+            DebugDev.Log("DisplayColliders " + (_lastEnableColliderTime < _lastDisableColliderTime));
+            if (_lastEnableColliderTime < _lastDisableColliderTime)
+                return;
+
+            foreach (Collider collider in _colliderToHide)
+            {
+                collider.enabled = true;
             }
         }
 
