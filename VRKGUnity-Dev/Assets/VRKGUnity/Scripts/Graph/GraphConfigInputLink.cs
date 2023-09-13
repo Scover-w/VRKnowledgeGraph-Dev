@@ -8,7 +8,6 @@ public class GraphConfigInputLink : MonoBehaviour
     [SerializeField]
     ReferenceHolderSO _referenceHolderSo;
 
-
     [SerializeField]
     GraphConfigKey _graphConfigKey;
 
