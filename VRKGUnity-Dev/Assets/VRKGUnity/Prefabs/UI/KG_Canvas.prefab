@@ -12771,6 +12771,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 961090664299007696}
+  - component: {fileID: 4099481635968201697}
   m_Layer: 5
   m_Name: ProportionsContainer
   m_TagString: Untagged
@@ -12799,6 +12800,41 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -136}
   m_SizeDelta: {x: 667, y: 272}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &4099481635968201697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961090664299007711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f3af03d35b11e44091cd8b06d9cc787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _referenceHolderSo: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
+  _switchGraphConfigKey: 0
+  _inputsToSwitch:
+  - Name: GraphSizeNumber
+    InputLink: {fileID: 7843088055714034146}
+    KeyForFalseValue: 5
+    KeyForTrueValue: 4
+  - Name: NodeSizeNumber
+    InputLink: {fileID: 6160369327190503337}
+    KeyForFalseValue: 9
+    KeyForTrueValue: 8
+  - Name: LabelSizeNumber
+    InputLink: {fileID: 7777416030163699331}
+    KeyForFalseValue: 16
+    KeyForTrueValue: 15
+  - Name: EdgeThicknessNumber
+    InputLink: {fileID: 3085796904069208435}
+    KeyForFalseValue: 22
+    KeyForTrueValue: 21
+  - Name: NodeSizeMaxMinNumber
+    InputLink: {fileID: 4615213046453429068}
+    KeyForFalseValue: 13
+    KeyForTrueValue: 12
 --- !u!1 &961090664307322028
 GameObject:
   m_ObjectHideFlags: 0
@@ -16022,7 +16058,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Amortiseement
+  m_text: Amortissement
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0a019fe438f77764f9a70428f8bc6b3e, type: 2}
   m_sharedMaterial: {fileID: 1660395511246298767, guid: 0a019fe438f77764f9a70428f8bc6b3e, type: 2}

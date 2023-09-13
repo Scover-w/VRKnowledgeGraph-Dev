@@ -204,6 +204,18 @@ public class GraphConfigInputLink : MonoBehaviour
         _iTouchUI.Interactable = isInteractable;
     }
 
+    public void SwitchConfigKey(GraphConfigKey newGraphConfigKey)
+    {
+        if (_graphConfigKey == newGraphConfigKey)
+            return;
+
+        UnRegisterToGraphConfigManager();
+
+        _graphConfigKey = newGraphConfigKey;
+
+        DelayedOnEnable();
+    }
+
     #region OnChangeFrom
 
     #region OnChangedFromInput

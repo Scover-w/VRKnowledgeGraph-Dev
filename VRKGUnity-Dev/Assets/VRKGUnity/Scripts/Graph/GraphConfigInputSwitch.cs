@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[DefaultExecutionOrder(2)]
 public class GraphConfigInputSwitch : MonoBehaviour
 {
     [SerializeField]
@@ -15,17 +16,8 @@ public class GraphConfigInputSwitch : MonoBehaviour
     List<GraphConfigSwitchItem> _inputsToSwitch;
 
     InputPropagatorManager _inputPropagatorManager;
-    GraphConfigValueType _valueType;
 
-    int _intValue;
-    float _floatValue;
     bool _boolValue;
-    Color _colorValue;
-
-    private void Awake()
-    {
-        _valueType = _switchGraphConfigKey.GetConfigValueType();
-    }
 
 
     private void OnEnable()
@@ -51,22 +43,8 @@ public class GraphConfigInputSwitch : MonoBehaviour
 
     private void RefreshSwitchValue()
     {
-
-        switch (_valueType)
-        {
-            case GraphConfigValueType.Int:
-                _intValue = _inputPropagatorManager.GetValue<int>(_switchGraphConfigKey);
-                break;
-            case GraphConfigValueType.Float:
-                _floatValue = _inputPropagatorManager.GetValue<float>(_switchGraphConfigKey);
-                break;
-            case GraphConfigValueType.Bool:
-                _boolValue = _inputPropagatorManager.GetValue<bool>(_switchGraphConfigKey);
-                break;
-            case GraphConfigValueType.Color:
-                _colorValue = _inputPropagatorManager.GetValue<Color>(_switchGraphConfigKey);
-                break;
-        }
+        _boolValue = _inputPropagatorManager.GetValue<bool>(_switchGraphConfigKey);
+        RefreshInputsKey();
     }
 
     private void RegisterToGraphConfigManager()
@@ -77,21 +55,7 @@ public class GraphConfigInputSwitch : MonoBehaviour
             return;
         }
 
-        switch (_valueType)
-        {
-            case GraphConfigValueType.Int:
-                _inputPropagatorManager.Register<int>(_switchGraphConfigKey, OnChangedFromManager);
-                break;
-            case GraphConfigValueType.Float:
-                _inputPropagatorManager.Register<float>(_switchGraphConfigKey, OnChangedFromManager);
-                break;
-            case GraphConfigValueType.Bool:
-                _inputPropagatorManager.Register<bool>(_switchGraphConfigKey, OnChangedFromManager);
-                break;
-            case GraphConfigValueType.Color:
-                _inputPropagatorManager.Register<Color>(_switchGraphConfigKey, OnChangedFromManager);
-                break;
-        }
+        _inputPropagatorManager.Register<bool>(_switchGraphConfigKey, OnChangedFromManager);
     }
 
     private void UnRegisterToGraphConfigManager()
@@ -102,69 +66,65 @@ public class GraphConfigInputSwitch : MonoBehaviour
             return;
         }
 
-        switch (_valueType)
-        {
-            case GraphConfigValueType.Int:
-                _inputPropagatorManager.UnRegister<int>(_switchGraphConfigKey, OnChangedFromManager);
-                break;
-            case GraphConfigValueType.Float:
-                _inputPropagatorManager.UnRegister<float>(_switchGraphConfigKey, OnChangedFromManager);
-                break;
-            case GraphConfigValueType.Bool:
-                _inputPropagatorManager.UnRegister<bool>(_switchGraphConfigKey, OnChangedFromManager);
-                break;
-            case GraphConfigValueType.Color:
-                _inputPropagatorManager.UnRegister<Color>(_switchGraphConfigKey, OnChangedFromManager);
-                break;
-        }
+        _inputPropagatorManager.UnRegister<bool>(_switchGraphConfigKey, OnChangedFromManager);
     }
 
     public void OnChangedFromManager<T>(T newValueFromManager)
     {
         switch (newValueFromManager)
         {
-            case int i:
-                _intValue = i;
-                break;
-            case float f:
-                _floatValue = f;
-                break;
             case bool b:
                 _boolValue = b;
-                break;
-            case Color c:
-                _colorValue = c;
+                RefreshInputsKey();
                 break;
         }
     }
 
     private void RefreshInputsKey()
     {
+        if (_inputsToSwitch == null)
+            return;
 
+        foreach(GraphConfigSwitchItem item in _inputsToSwitch)
+        {
+            item.InputLink.SwitchConfigKey(_boolValue ? item.KeyForTrueValue : item.KeyForFalseValue);
+        }
     }
 
     private void OnValidate()
     {
-        
+        var keyType = _switchGraphConfigKey.GetConfigValueType();
+
+        if(keyType != GraphConfigValueType.Bool)
+        {
+            Debug.LogError(_switchGraphConfigKey + " is not a booleanvalue, select another configkey.");
+            _switchGraphConfigKey = GraphConfigKey.GraphMode;
+            return;
+        }
+
+        if (_inputsToSwitch == null)
+            return;
+
+        foreach (GraphConfigSwitchItem item in _inputsToSwitch)
+        {
+            var inputLink = item.InputLink;
+
+            if (inputLink == null)
+                continue;
+
+            item.Name = inputLink.gameObject.name;
+        }
     }
 
 
     [Serializable]
     public class GraphConfigSwitchItem
     {
+        [HideInInspector]
+        public string Name;
         public GraphConfigInputLink InputLink;
-        public List<GraphConfigSwitchValue> Values;
-    }
-
-    [Serializable]
-    public class GraphConfigSwitchValue
-    {
-        public GraphConfigValueType GraphConfigValueType;
-        public int IntSwitchConfigKeyValue;
-        public float FloatSwitchConfigKeyValue;
-        public bool BoolSwitchConfigKeyValue;
-        public Color ColorSwitchConfigKeyValue;
-        public GraphConfigKey GraphConfigKeyToSet;
+        public GraphConfigKey KeyForFalseValue;
+        public GraphConfigKey KeyForTrueValue;
     }
 
 }
