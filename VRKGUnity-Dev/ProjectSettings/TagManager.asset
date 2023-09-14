@@ -23,7 +23,7 @@ TagManager:
   - DeskGraph
   - LensGraph
   - DeskInteractor
-  - 
+  - DirectInteractableObject
   - 
   - None
   - 

@@ -24,7 +24,7 @@ public class MainGraph : MonoBehaviour
     Transform _mainGraphTf;
 
     [SerializeField]
-    Transform _deskTf;
+    Transform _upDeskTf;
 
     [SerializeField]
     GameObject _loadingGo;
@@ -37,6 +37,9 @@ public class MainGraph : MonoBehaviour
 
     [SerializeField]
     Transform _deskFloor;
+
+    [SerializeField]
+    GameObject _deskCollidersGo;
 
     Transform _playerTf;
 
@@ -51,7 +54,7 @@ public class MainGraph : MonoBehaviour
     {
         _mainGraphMode = (Settings.DEFAULT_GRAPH_MODE == GraphMode.Desk)? MainGraphMode.Desk : MainGraphMode.Immersion;
         _playerTf = _referenceHolderSo.HMDCamSA.Value.transform;
-        _mainGraphTf.position = _deskTf.position;
+        _mainGraphTf.position = _upDeskTf.position;
 
         _easingFunction = Easing.GetEasing(_easingType);
 
@@ -99,6 +102,7 @@ public class MainGraph : MonoBehaviour
             return;
 
         _loadingGo.SetActive(true);
+        _deskCollidersGo.SetActive(false);
         _isSimulatingGraph = true;
         StartCoroutine(RotatingDesk());
     }
@@ -113,6 +117,9 @@ public class MainGraph : MonoBehaviour
     {
         _loadingGo.SetActive(false);
         _isSimulatingGraph = false;
+
+        if (_mainGraphMode == MainGraphMode.Desk)
+            _deskCollidersGo.SetActive(true);
     }
 
     private void BeforeSwitchMode()
@@ -158,11 +165,13 @@ public class MainGraph : MonoBehaviour
     {
         if(_nextGraphMode == MainGraphMode.Desk)
         {
-            _mainGraphTf.position = Vector3.Lerp(Vector3.zero, _deskTf.position, _easingFunction(t));
+            _mainGraphTf.position = Vector3.Lerp(Vector3.zero, _upDeskTf.position, _easingFunction(t));
+            _mainGraphTf.rotation = Quaternion.Slerp(Quaternion.identity, _upDeskTf.rotation, _easingFunction(t));
         }
         else
         {
-            _mainGraphTf.position = Vector3.Lerp(_deskTf.position, Vector3.zero, _easingFunction(t));
+            _mainGraphTf.position = Vector3.Lerp(_upDeskTf.position, Vector3.zero, _easingFunction(t));
+            _mainGraphTf.rotation = Quaternion.Slerp(_upDeskTf.rotation, Quaternion.identity, _easingFunction(t));
         }
     }
 
