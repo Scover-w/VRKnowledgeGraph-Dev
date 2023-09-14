@@ -125,7 +125,7 @@ namespace AIDEN.TactileUI
 
                 TryActivateHaptic();
 
-                _onValueChanged?.Invoke(Mathf.Lerp(_minValue, _maxValue, Value));
+                _onValueChanged?.Invoke(Value);
                 yield return null;
             }
         }
