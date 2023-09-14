@@ -1,4 +1,4 @@
-Shader "Custom/Fresnel"
+Shader "Custom/FresnelTransparent"
 {
     Properties
     {
@@ -10,12 +10,16 @@ Shader "Custom/Fresnel"
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
+        Tags { "Queue"="Transparent" "RenderType"="Transparent" }
+
+        Blend SrcAlpha OneMinusSrcAlpha
+        ZWrite Off
+
         LOD 200
 
         CGPROGRAM
         // Physically based Standard lighting model, and enable shadows on all light types
-        #pragma surface surf Standard fullforwardshadows 
+        #pragma surface surf Standard fullforwardshadows alpha:fade
 
         // Use shader model 3.0 target, to get nicer looking lighting
         #pragma target 3.0

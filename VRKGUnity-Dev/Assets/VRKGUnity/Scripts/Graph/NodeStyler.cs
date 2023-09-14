@@ -23,6 +23,12 @@ public class NodeStyler : MonoBehaviour
     [SerializeField]
     Outliner _outliner;
 
+    [SerializeField]
+    Material _fresnelMat;
+
+    [SerializeField]
+    Material _fresnelTransparentMat;
+
     bool _isMoving = false;
 
     MaterialPropertyBlock _propertyBlock;
@@ -170,7 +176,20 @@ public class NodeStyler : MonoBehaviour
 
     private void SetColor(Color newColor)
     {
+        var color = _propertyBlock.GetColor("_Color");
+
+        bool isOldMatTransparent = color.a < 1f;
+
         newColor.a = Node.IsPropagated ? GraphConfiguration.AlphaNodePropagated : GraphConfiguration.AlphaNodeUnPropagated;
+
+        bool isNewMatTransparent = newColor.a < 1f;
+        
+
+        if(isOldMatTransparent != isNewMatTransparent)
+        {
+            _renderer.material = (isNewMatTransparent ? _fresnelTransparentMat : _fresnelMat); 
+        }
+
 
         _propertyBlock.SetColor("_Color", newColor);
         _renderer.SetPropertyBlock(_propertyBlock);

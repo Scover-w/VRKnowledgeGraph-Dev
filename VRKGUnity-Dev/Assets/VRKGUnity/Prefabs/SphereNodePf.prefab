@@ -132,6 +132,8 @@ MonoBehaviour:
   _tf: {fileID: 1577208894705107027}
   _renderer: {fileID: 1247492717272893670}
   _outliner: {fileID: 7832868374192515532}
+  _fresnelMat: {fileID: 2100000, guid: e6986238c14f9f84b889ce6fe2f9dd34, type: 2}
+  _fresnelTransparentMat: {fileID: 2100000, guid: edfcfafe7a31970409d13dea2b141508, type: 2}
 --- !u!114 &7832868374192515532
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,7 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a4693650b0ace8468ca5d33098b4de9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _outlineMode: 1
+  _outlineMode: 2
   _outlineWidth: 4
   _outlineFillMat: {fileID: 2100000, guid: 5fe802f253995254fb4e5b6873fb63f0, type: 2}
   _outlineMaskMat: {fileID: 2100000, guid: d6f478ece75d69f43a09ff1d822898db, type: 2}

@@ -86,16 +86,16 @@ public class EdgeStyler : MonoBehaviour
         colorKey[0].time = 0.2f;
 
 
-        colorKey[1].color = (Edge.EdgeDirection == EdgeDirection.Both)? color : Color.black;
+        colorKey[1].color = color;
         colorKey[1].time = .8f;
 
         // Set up the alpha keys
         var alphaKey = new GradientAlphaKey[2];
 
         alphaKey[0].alpha = color.a;
-        alphaKey[0].time = 0f;
-        alphaKey[1].alpha = color.a;
-        alphaKey[1].time = 1f;
+        alphaKey[0].time = .2f;
+        alphaKey[1].alpha = (Edge.EdgeDirection == EdgeDirection.Both) ?  color.a : 0f;
+        alphaKey[1].time = .8f;
 
         // Apply the color and alpha keys to the gradient
         gradient.SetKeys(colorKey, alphaKey);
