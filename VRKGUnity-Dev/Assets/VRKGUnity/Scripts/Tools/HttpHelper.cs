@@ -87,7 +87,7 @@ public static class HttpHelper
                     || response.StatusCode == HttpStatusCode.SeeOther)
                 {
                     var newUri = response.Headers.Location;
-                    return await RetrieveRdf(newUri.ToString());
+                    return await Retrieve(newUri.ToString());
                 }
 
                 return "";
