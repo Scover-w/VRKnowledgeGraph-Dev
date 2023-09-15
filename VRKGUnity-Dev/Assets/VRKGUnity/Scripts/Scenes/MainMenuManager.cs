@@ -19,7 +19,7 @@ public class MainMenuManager : MonoBehaviour
 
     private void AutoLoadGraphScene()
     {
-        GraphDbRepository repo = new("http://localhost:7200/", "cap44");
+        GraphDbRepository repo = new("http://localhost:7200/", "cap44", "https://epotec.univ-nantes.fr/api/items?item_set_id=26705");
 
         _referenceHolderSO.SelectedGraphDbRepository = repo;
 

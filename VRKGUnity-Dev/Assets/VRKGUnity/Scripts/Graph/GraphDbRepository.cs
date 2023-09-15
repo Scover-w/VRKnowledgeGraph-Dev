@@ -17,26 +17,33 @@ public class GraphDbRepository
     [JsonIgnore]
     public GraphDBAPI GraphDBAPI { get; private set; }
 
-    public string ServerURL { get; private set; }
-    public string RepositoryId { get; private set; }
+    public string GraphDbUrl { get; private set; }
+    public string GraphDbRepositoryId { get; private set; }
+
+    public string OmekaURL;
+
+    public string LastOmekaHash;
+
 
     [JsonIgnore]
     public string PathRepo { get; private set; }
 
 
-    public GraphDbRepository(string serverURL, string repositoryId)
+    public GraphDbRepository(string graphDbUrl, string graphDbRepoId, string omekaURL)
     {
-        ServerURL = serverURL;
-        RepositoryId = repositoryId;
+        GraphDbUrl = graphDbUrl;
+        GraphDbRepositoryId = graphDbRepoId;
+        OmekaURL = omekaURL;
 
         GraphDBAPI = new GraphDBAPI(this);
 
 
-        PathRepo = Path.Combine(Settings.PersistentDataPath, "Data", RepositoryId + "_" + Mathf.Abs(ServerURL.GetHashCode()));
+        PathRepo = Path.Combine(Settings.PersistentDataPath, "Data", GraphDbRepositoryId + "_" + Mathf.Abs(GraphDbUrl.GetHashCode()));
 
 
         if (!Directory.Exists(PathRepo))
             Directory.CreateDirectory(PathRepo);
+        OmekaURL = omekaURL;
     }
 
 

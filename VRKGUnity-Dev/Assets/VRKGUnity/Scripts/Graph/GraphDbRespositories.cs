@@ -102,7 +102,7 @@ public class GraphDbRepositories
     {
         _lastSelectedId = _repositories.IndexOf(repository);
 
-        Debug.Log("Select Repo : " + repository.ServerURL + " , " + repository.RepositoryId);
+        Debug.Log("Select Repo : " + repository.GraphDbUrl + " , " + repository.GraphDbRepositoryId);
 
         _ = Save();
     }

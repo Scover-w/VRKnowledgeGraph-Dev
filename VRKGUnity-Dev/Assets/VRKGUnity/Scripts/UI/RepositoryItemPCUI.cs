@@ -26,8 +26,8 @@ public class RepositoryItemPCUI : MonoBehaviour
     public void Load(GraphDbRepository repo, LoadRepoUI loadRepoUI)
     {
         _repo = repo;
-        _repoNameTxt.text = repo.RepositoryId;
-        _serverUrlTxt.text = repo.ServerURL;
+        _repoNameTxt.text = repo.GraphDbRepositoryId;
+        _serverUrlTxt.text = repo.GraphDbUrl;
         _loadRepoUI = loadRepoUI;
         _modifyBtn.interactable = false;
     }

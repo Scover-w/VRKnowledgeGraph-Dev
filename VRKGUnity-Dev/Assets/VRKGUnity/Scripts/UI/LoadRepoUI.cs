@@ -11,22 +11,6 @@ public class LoadRepoUI : MonoBehaviour
     MainMenuUI _mainMenuUI;
 
     [SerializeField]
-    ScrollViewUI _scrollUI;
-
-#if UNITY_EDITOR
-    [SerializeField]
-    RectTransform _scrollRectPC;
-#endif
-
-    [SerializeField]
-    GameObject _scrollItemPf;
-
-#if UNITY_EDITOR
-    [SerializeField]
-    GameObject _scrollItemPCPf;
-#endif
-
-    [SerializeField]
     GameObject _repoListGo;
 
     [SerializeField]
@@ -42,26 +26,48 @@ public class LoadRepoUI : MonoBehaviour
     GameObject _loadingDialogGo;
 
     [SerializeField]
-    InputUI _repoIdInput;
+    TMP_Text _infoTitleTxt;
 
     [SerializeField]
-    InputUI _serverUrlinput;
+    TMP_Text _infoTxt;
 
+
+    [Header("VR")]
+    [SerializeField]
+    ScrollViewUI _scrollUI;
+
+    [SerializeField]
+    GameObject _scrollItemPf;
+
+    [SerializeField]
+    InputUI _graphDbRepoIdInput;
+
+    [SerializeField]
+    InputUI _graphDbServerUrlInput;
+
+    [SerializeField]
+    InputUI _omekaUrlInput;
+
+
+    [Header("PC")]
 #if UNITY_EDITOR
+    [SerializeField]
+    RectTransform _scrollRectPC;
+
+    [SerializeField]
+    GameObject _scrollItemPCPf;
+
     [SerializeField]
     TMP_InputField _repoIdPCInput;
 
     [SerializeField]
     TMP_InputField _serverUrlPCInput;
 
+    [SerializeField]
+    TMP_InputField _omekaUrlPCInput;
+
     Dictionary<GraphDbRepository, RepositoryItemPCUI> _repositoriesDictPC;
 #endif
-
-    [SerializeField]
-    TMP_Text _infoTitleTxt;
-
-    [SerializeField]
-    TMP_Text _infoTxt;
 
     Dictionary<GraphDbRepository, RepositoryItemUI> _repositoriesDict;
     GraphDbRepository _selectedRepository;
@@ -156,48 +162,65 @@ public class LoadRepoUI : MonoBehaviour
     {
         DisplayPage(LoadRepoPage.NewModifyRepo);
 
-        SetInputValue("cap44", "http://localhost:7200/");
+        SetInputValue("cap44", "http://localhost:7200/", "https://epotec.univ-nantes.fr/api/items?item_set_id=26705");
+        //SetInputValue("", "", "");
     }
 
 
     private void TryCreateGraphDb()
     {
-        (string repoId, string repoServerUrl) = GetInputValue();
+        (string graphDbRepoId, string graphDbServerUrl, string omekaUrl) = GetInputValue();
 
-        if(repoId.Length == 0)
+        if(graphDbRepoId.Length == 0)
         {
             _infoTitleTxt.text = "Impossible de créer le dépôt";
-            _infoTxt.text = "Veuillez fournir un nom de dépôt.";
+            _infoTxt.text = "Veuillez fournir un nom de dépôt GraphDB.";
             DisplayPage(LoadRepoPage.InformationDialog);
             return;
         }
 
-        if(repoServerUrl.Length == 0)
+        if(graphDbServerUrl.Length == 0)
         {
             _infoTitleTxt.text = "Impossible de créer le dépôt";
-            _infoTxt.text = "Veuillez fournir un serveur URL.";
+            _infoTxt.text = "Veuillez fournir l'URL du serveur GraphDB.";
             DisplayPage(LoadRepoPage.InformationDialog);
             return;
         }
 
-        if(  !(repoServerUrl.Contains("http://") || repoServerUrl.Contains("https://")) )
+        if (omekaUrl.Length == 0)
         {
             _infoTitleTxt.text = "Impossible de créer le dépôt";
-            _infoTxt.text = "L'URL du serveur est erronée. Veuillez vous assurer qu'il respecte le format d'URL standard.";
+            _infoTxt.text = "Veuillez fournir un URL Omeka-S.";
+            DisplayPage(LoadRepoPage.InformationDialog);
+            return;
+        }
+
+        if (!(graphDbServerUrl.Contains("http://") || graphDbServerUrl.Contains("https://")) )
+        {
+            _infoTitleTxt.text = "Impossible de créer le dépôt";
+            _infoTxt.text = "L'URL du serveur est erronée. Veuillez vous assurer qu'elle respecte le format d'URL standard.";
+            DisplayPage(LoadRepoPage.InformationDialog);
+            return;
+        }
+
+        if (!(omekaUrl.Contains("http://") || omekaUrl.Contains("https://")))
+        {
+            _infoTitleTxt.text = "Impossible de créer le dépôt";
+            _infoTxt.text = "L'URL d'Omeka-S est erronée. Veuillez vous assurer qu'elle respecte le format d'URL standard.";
             DisplayPage(LoadRepoPage.InformationDialog);
             return;
         }
 
 
-        TryConnectRepo(repoId, repoServerUrl);
+        TryConnectRepo(graphDbRepoId, graphDbServerUrl, omekaUrl);
     }
 
-    private async void TryConnectRepo(string repoId, string serverUrl)
+    private async void TryConnectRepo(string graphDbRepoId, string graphDbServerUrl, string omekaUrl)
     {
         DisplayPage(LoadRepoPage.LoadingDialog);
-        bool couldConnect = await GraphDBAPI.DoRepositoryExist(serverUrl, repoId);
+        bool couldConnectToGraphDb = await GraphDBAPI.DoRepositoryExist(graphDbServerUrl, graphDbRepoId);
 
-        if(!couldConnect)
+        if(!couldConnectToGraphDb)
         {
             _infoTitleTxt.text = "Impossible de créer le dépôt";
             _infoTxt.text = "Impossible de se connecter au dépôt. Veuillez vous assurer que vous disposez d'une connexion Internet active et que les informations sont correctes.";
@@ -206,7 +229,18 @@ public class LoadRepoUI : MonoBehaviour
             return;
         }
 
-        GraphDbRepository dbRepository = new(serverUrl, repoId);
+        string result = await HttpHelper.Retrieve(omekaUrl);
+
+        if(result.Length == 0)
+        {
+            _infoTitleTxt.text = "Impossible de créer le dépôt";
+            _infoTxt.text = "Impossible de se connecter a Omeka-S. Veuillez vous assurer que vous disposez d'une connexion Internet active et que les informations sont correctes.";
+            _previousPage = LoadRepoPage.NewModifyRepo;
+            DisplayPage(LoadRepoPage.InformationDialog, false);
+            return;
+        }
+
+        GraphDbRepository dbRepository = new(graphDbServerUrl, graphDbRepoId, omekaUrl);
         _graphDbRepositories.Add(dbRepository);
         _graphDbRepositories.Select(dbRepository);
 
@@ -363,33 +397,43 @@ public class LoadRepoUI : MonoBehaviour
 
     
 
-    private void SetInputValue(string repoId, string serverUrl)
+    private void SetInputValue(string graphDbRepoId, string graphDbServerUrl, string omekaUrl)
     {
-        if(_repoIdInput != null)
-            _repoIdInput.Value = repoId;
+        if(_graphDbRepoIdInput != null)
+            _graphDbRepoIdInput.Value = graphDbRepoId;
 
-        if(_serverUrlinput != null)
-            _serverUrlinput.Value = serverUrl;
+        if(_graphDbServerUrlInput != null)
+            _graphDbServerUrlInput.Value = graphDbServerUrl;
+
+        if(_omekaUrlInput != null)
+            _omekaUrlInput.Value = omekaUrl;
 
 #if UNITY_EDITOR
         if(_repoIdPCInput != null)
-            _repoIdPCInput.text = repoId;
+            _repoIdPCInput.text = graphDbRepoId;
 
         if(_serverUrlPCInput != null)
-            _serverUrlPCInput.text = serverUrl;
+            _serverUrlPCInput.text = graphDbServerUrl;
+
+        if (_omekaUrlPCInput != null)
+            _omekaUrlPCInput.text = omekaUrl;
 #endif
     }
 
-    private (string repoId, string serverUrl) GetInputValue()
+    private (string repoId, string serverUrl, string omekaUrl) GetInputValue()
     {
         string repoId = "";
         string serverUrl = "";
+        string omekaUrl = "";
 
-        if (_repoIdInput != null)
-            repoId = _repoIdInput.Value;
+        if (_graphDbRepoIdInput != null)
+            repoId = _graphDbRepoIdInput.Value;
 
-        if (_serverUrlinput != null)
-            serverUrl = _serverUrlinput.Value;
+        if (_graphDbServerUrlInput != null)
+            serverUrl = _graphDbServerUrlInput.Value;
+
+        if (_omekaUrlInput != null)
+            omekaUrl = _omekaUrlInput.Value;
 
 #if UNITY_EDITOR
         if (_repoIdPCInput != null)
@@ -397,9 +441,12 @@ public class LoadRepoUI : MonoBehaviour
 
         if (_serverUrlPCInput != null)
             serverUrl = _serverUrlPCInput.text;
+        
+        if (_omekaUrlPCInput != null)
+            omekaUrl = _omekaUrlPCInput.text;
 #endif
 
-        return (repoId, serverUrl);
+        return (repoId, serverUrl, omekaUrl);
     }
     #endregion
 

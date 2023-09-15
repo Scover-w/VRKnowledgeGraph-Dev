@@ -36,10 +36,12 @@ public class MainMenuUI : MonoBehaviour
     [SerializeField]
     Sprite _connectedIcon;
 
+    [Header("VR")]
     [SerializeField]
     ButtonUI _launchGraphBtn;
 
 #if UNITY_EDITOR
+    [Header("PC")]
     [SerializeField]
     Button _launchGraphPcBtn;
 #endif
@@ -60,7 +62,7 @@ public class MainMenuUI : MonoBehaviour
             return;
         }
 
-        _repoStatusTxt.text = selectedRepo.RepositoryId;
+        _repoStatusTxt.text = selectedRepo.GraphDbRepositoryId;
         SetConnectionStatus(true);
         _referenceHolderSO.SelectedGraphDbRepository = selectedRepo;
     }

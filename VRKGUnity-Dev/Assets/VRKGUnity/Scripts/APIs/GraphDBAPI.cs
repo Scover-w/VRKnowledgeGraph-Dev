@@ -1,8 +1,12 @@
+using Codice.Client.BaseCommands;
 using System;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class GraphDBAPI
@@ -29,8 +33,12 @@ public class GraphDBAPI
             return;
         }
 
-        _serverUrl = graphDbRepository.ServerURL;
-        _repositoryId = graphDbRepository.RepositoryId;
+        _serverUrl = graphDbRepository.GraphDbUrl;
+        _repositoryId = graphDbRepository.GraphDbRepositoryId;
+
+        if (_serverUrl[_serverUrl.Length - 1] != '/')
+            _serverUrl += "/";
+
     }
 
     public void OverrideForTest(string serverUrl)
@@ -221,6 +229,72 @@ public class GraphDBAPI
 
         return true;
     }
+
+
+    public async Task<string> StartTransaction()
+    {
+        using HttpClient client = new();
+
+        try
+        {
+            var response = await client.PostAsync(_serverUrl + "repositories/" + _repositoryId + "/transactions", null);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var locationHeader = response.Headers.GetValues("location").FirstOrDefault();
+                var transactionID = locationHeader?.Split('/').Last();
+
+                return transactionID;
+            }
+
+            return null;
+        }
+        catch
+        {
+            return null;
+        }
+    }
+
+    public async Task<bool> AbortTransaction(string transactionId)
+    {
+        using HttpClient client = new();
+
+        try
+        {
+            var response = await client.DeleteAsync(_serverUrl + "repositories/" + _repositoryId + "/transactions/" + transactionId);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return true;
+            }
+
+            return false;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    public async Task<bool> CommitTransaction(string transactionId)
+    {
+        try
+        {
+            using HttpClient client = new();
+
+            var response = await client.PutAsync(_serverUrl + "repositories/" + _repositoryId + "/transactions/" + transactionId + "?action=COMMIT", null);
+            if (response.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            return false;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
 }
 
 

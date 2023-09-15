@@ -24,7 +24,7 @@ public class MisceTests : MonoBehaviour
 
         string turtleContent = graph.ToTurtle();
 
-        var repo = new GraphDbRepository("http://localhost:7200/", "TestOntology");
+        var repo = new GraphDbRepository("http://localhost:7200/", "TestOntology", "https://epotec.univ-nantes.fr/api/items?item_set_id=26705");
         var api = new GraphDBAPI(repo);
 
         var bipbop = await api.LoadFileContentInDatabase(turtleContent, "<http://ontology>", GraphDBAPIFileType.Turtle);
@@ -34,7 +34,7 @@ public class MisceTests : MonoBehaviour
     [ContextMenu("Select Test")]
     public async void SelectTest()
     {
-        var repo = new GraphDbRepository("http://localhost:7200/", "TestOntology");
+        var repo = new GraphDbRepository("http://localhost:7200/", "TestOntology", "https://epotec.univ-nantes.fr/api/items?item_set_id=26705");
         var api = new GraphDBAPI(repo);
 
         Dictionary<char, double> frequencies = new()
