@@ -1,16 +1,9 @@
-using Codice.CM.Common;
 using Newtonsoft.Json.Linq;
-using SimpleJSON;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Globalization;
 using System.IO;
-using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web;
 using UnityEngine;
 using VDS.RDF;
 using VDS.RDF.Writing;
