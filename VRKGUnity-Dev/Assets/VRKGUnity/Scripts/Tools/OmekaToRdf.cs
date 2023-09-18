@@ -58,10 +58,13 @@ public class OmekaToRdf : MonoBehaviour
     {
         (string ttlContent, string json) = await RetrieveFirstTimeTTL(UrlOmeka);
 
+        DebugDev.Log("RetrieveedFirstTimeTTL");
+
         var path = Path.Combine(Application.persistentDataPath, "Data", "Test", "LastOmekaRetrieval.json");
         Debug.Log(path);
         await FileHelper.SaveAsync(json, path);
 
+        DebugDev.Log("Saved json");
 
         JsonHash = json.GetSha256Hash();
 
@@ -69,11 +72,19 @@ public class OmekaToRdf : MonoBehaviour
 
         var hasDeletedAll = await api.UpdateQuery("DELETE\r\nWHERE {\r\n  ?s ?p ?o .\r\n}");
 
+
         if (!hasDeletedAll)
         {
             Debug.LogError("Data couldn't be deleted");
             return;
         }
+
+        DebugDev.Log("Data deleted");
+
+        var path2 = Path.Combine(Application.persistentDataPath, "Data", "Test","LastDataTTL.ttl");
+        Debug.Log(path2);
+        await File.WriteAllTextAsync(path2, ttlContent);
+
 
         var hasUpdated = await api.LoadFileContentInDatabase(ttlContent, "<http://data>", GraphDBAPIFileType.Turtle);
 

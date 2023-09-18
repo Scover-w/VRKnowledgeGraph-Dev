@@ -17,6 +17,8 @@ public class Settings
     public static readonly float TOUCH_RADIUS = .005f;
 
 
+    public static readonly bool IS_MODE_IN_OFFLINE = true;
+
     public static string PersistentDataPath { get { return _persistentDataPath; } }
 
     private static string _persistentDataPath = null;

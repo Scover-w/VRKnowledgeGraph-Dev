@@ -1,4 +1,6 @@
+using SimpleJSON;
 using System;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -50,6 +52,23 @@ public class GraphDBAPI
     {
         // Use Post instead of Get because Get request only allow to put the query in the url, which crash the request when the query is too long.And can't use StringContent or MultiPartFormDataContent with Get
 
+
+        string path = Path.Combine(Application.persistentDataPath, "Offline");
+
+        if (!Directory.Exists(path))
+            Directory.CreateDirectory(path);
+
+        string filePath = Path.Combine(path, KeepOnlyLetters(query) + "_" + doInfer.ToString() + "_retrievegraph.json");
+        Debug.Log(filePath);
+
+
+        if (Settings.IS_MODE_IN_OFFLINE)
+        {
+            string result = await SelectQueryOffline();
+            return result;
+        }
+
+
         using HttpClient client = new();
         HttpRequestMessage request = new(HttpMethod.Post, _serverUrl + "repositories/" + _repositoryId + "?infer=" + doInfer.ToString().ToLower()); 
 
@@ -89,9 +108,47 @@ public class GraphDBAPI
         }
 
 
-        string bipbop = await response.Content.ReadAsStringAsync();
+        string answer = await response.Content.ReadAsStringAsync();
 
-        return bipbop;
+        await File.WriteAllTextAsync(filePath, answer);
+
+        return answer;
+
+
+        async Task<string> SelectQueryOffline()
+        {
+            if (!File.Exists(filePath))
+            {
+                string defaultFilepath = GetFirstJsonFile(path);
+
+                if (defaultFilepath != null)
+                    return await File.ReadAllTextAsync(defaultFilepath);
+            }
+            else
+            {
+                return await File.ReadAllTextAsync(filePath);
+            }
+
+
+            Debug.Log("Nosaved query result founded");
+
+            return "";
+        }
+
+
+        string KeepOnlyLetters(string input)
+        {
+            return new string(input.Where(char.IsLetter).ToArray());
+        }
+
+        string GetFirstJsonFile(string directoryPath)
+        {
+            var jsonFiles = Directory.GetFiles(directoryPath, "*.json");
+            var dataFiles = jsonFiles.Where(f => f.Contains("data"));
+
+            return dataFiles.OrderBy(f => f.Length).FirstOrDefault() ?? jsonFiles.FirstOrDefault();
+        }
+
     }
 
 
@@ -308,3 +365,42 @@ public enum GraphDBAPIFileType
     Turtle,
     Rdf
 }
+
+/*
+ 
+string json = "";
+
+        string path = Path.Combine(Application.persistentDataPath, "Offline");
+
+        if(!Directory.Exists(path))
+            Directory.CreateDirectory(path);
+
+        string filePath = Path.Combine(path, KeepOnlyLetters(query) + "_retrievegraph.json");
+        Debug.Log(filePath);
+
+        if(Settings.IS_MODE_IN_OFFLINE)
+        {
+            if(!File.Exists(filePath))
+            {
+                string defaultFilepath = GetFirstJsonFile(path);
+
+                if(defaultFilepath != null)
+                    json = await File.ReadAllTextAsync(defaultFilepath);
+            }
+            else
+            {
+                json = await File.ReadAllTextAsync(filePath);
+            }
+        }
+        else
+        {
+            json = await api.SelectQuery(query, true);
+
+            await File.WriteAllTextAsync(filePath, json);
+        }
+
+
+
+
+
+*/

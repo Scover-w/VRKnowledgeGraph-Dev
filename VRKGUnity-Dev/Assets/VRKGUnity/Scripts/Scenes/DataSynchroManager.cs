@@ -91,27 +91,33 @@ public class DataSynchroManager : MonoBehaviour
 
         _loadingBarUI.Refresh(0f, "Vérification de la connexion internet");
 
-        await WaitConnectionToInternet();
+        if(!Settings.IS_MODE_IN_OFFLINE)
+        {
+            await WaitConnectionToInternet();
 
-        _loadingBarUI.Refresh(0f, "Vérification de la connexion au serveur GraphDb");
-        await WaitRepositoryConnection();
+            _loadingBarUI.Refresh(0f, "Vérification de la connexion au serveur GraphDb");
+            await WaitRepositoryConnection();
 
-        _loadingBarUI.Refresh(0f, "Mise à jour des données Omeka dans GaphDb");
-        UpdateGraphDbFromOmeka();
+            _loadingBarUI.Refresh(0f, "Mise à jour des données Omeka dans GaphDb");
+            UpdateGraphDbFromOmeka();
+
+        }
 
         _loadingBarUI.Refresh(.1f, "Mise à jour des données GraphDb en local");
+
         IReadOnlyDictionary<string, OntologyTree> ontoUris = null;
-
-
         ontoUris = await UpdateLocalRepoFromGraphDbServer();
 
 
         _loadingBarUI.Refresh(.2f, "Récupération des espaces de noms distants");
 
-        await Task.Run(async () =>
+        if (!Settings.IS_MODE_IN_OFFLINE)
         {
-            await RetrieveDistantUri(ontoUris);
-        });
+            await Task.Run(async () =>
+            {
+                await RetrieveDistantUri(ontoUris);
+            });
+        }
 
 
         _loadingBarUI.Refresh(1f, "Chargement de la scène Graphe");

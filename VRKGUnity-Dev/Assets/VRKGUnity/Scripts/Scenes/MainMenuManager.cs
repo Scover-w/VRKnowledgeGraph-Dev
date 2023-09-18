@@ -46,7 +46,7 @@ public class MainMenuManager : MonoBehaviour
     private void OverrideUrlForTest()
     {
         var graphDbApi = _referenceHolderSO.SelectedGraphDbRepository.GraphDBAPI;
-        graphDbApi.OverrideForTest("http://192.168.43.105:7200/");
+        graphDbApi.OverrideForTest("http://192.168.0.28:7200/");
     }
 #endif
 
