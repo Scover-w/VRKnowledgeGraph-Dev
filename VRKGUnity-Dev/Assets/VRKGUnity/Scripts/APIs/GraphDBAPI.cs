@@ -36,6 +36,8 @@ public class GraphDBAPI
         if (_serverUrl[_serverUrl.Length - 1] != '/')
             _serverUrl += "/";
 
+        Debug.Log(_serverUrl);
+
     }
 
     public void OverrideForTest(string serverUrl)

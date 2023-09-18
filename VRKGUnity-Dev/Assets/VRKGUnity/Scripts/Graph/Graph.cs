@@ -307,8 +307,9 @@ public class Graph
         return filter;
     }
 
-    public DynamicFilter HideAllExcept(HashSet<Node> nodeToKeepDisplay)
+    public DynamicFilter HideAllExcept(HashSet<Node> nodeToKeepDisplay, HashSet<Node> nodeToFilter = null)
     {
+        // Node to keep and node to filter can be different. When hideunpropagated,need to keep the propagated but need to filter inthe query only the selection
         HashSet<Node> nodeToHide = new();
 
         HashSet<Node> nodeToRemove = new();
@@ -341,7 +342,7 @@ public class Graph
             }
         }
 
-        DynamicFilter filter = new(nodeToKeepDisplay, nodeToHide)
+        DynamicFilter filter = new(nodeToKeepDisplay, nodeToHide, nodeToFilter)
         {
             HiddenEdges = edgeToHide
         };
@@ -398,6 +399,8 @@ public class Graph
         CalculateMetric(CalculateOntology);
 
         await semaphore.WaitAsync();
+
+        Debug.Log("CalculateMetrics Done");
 
         _stylingManager.UpdateStyling(StyleChange.All);
 

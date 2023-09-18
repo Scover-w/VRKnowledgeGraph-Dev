@@ -388,6 +388,13 @@ public class NodeStyler : MonoBehaviour
         _tf.localPosition = Node.AbsolutePosition * scale;
     }
 
+
+    [ContextMenu("Debug Node")]
+    private void DebugNodeEditor()
+    {
+        Debug.Log(Node.PrefixValue);
+    }
+
     #region EDITOR
     [ContextMenu("OnHover")]
     private void OnHoverEditor()

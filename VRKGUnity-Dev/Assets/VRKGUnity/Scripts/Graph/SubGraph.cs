@@ -178,16 +178,25 @@ public class SubGraph : MonoBehaviour
             return;
         }
 
-
-        // TODO : SimulationStopped
         if (_subGraphMode == SubGraphMode.Lens)
         {
-            TryConstructLayoutLensGraph();
+            SimulationStoppedLens();    
         }
-        else // gps
+        else 
         {
-
+            SimulationStoppedGps();
         }
+    }
+
+    private void SimulationStoppedLens()
+    {
+        ResetVisibilityLensNodges();
+        TryConstructLayoutLensGraph();
+    }
+
+    private void SimulationStoppedGps()
+    {
+
     }
 
     private void BeforeSwitchMode()
@@ -211,6 +220,17 @@ public class SubGraph : MonoBehaviour
     {
         _lensTf.gameObject.SetActive(true);
 
+        ResetVisibilityLensNodges();
+
+        _subGraphMode = SubGraphMode.Lens;
+        _subGraphTf.position = _lensTf.position;
+        _subGraphTf.gameObject.SetActive(true);
+
+        TryConstructLayoutLensGraph();
+    }
+
+    private void ResetVisibilityLensNodges()
+    {
         var graph = _graphManager.Graph;
         var nodes = graph.NodesDicUID.Values;
         var edges = graph.EdgesDicUID.Values;
@@ -221,7 +241,7 @@ public class SubGraph : MonoBehaviour
         _displayedNodes = new();
         _displayedEdges = new();
 
-        foreach(Node node in nodes)
+        foreach (Node node in nodes)
         {
             bool displayNode = propagatedNodes.Contains(node);
             node.DisplaySubNode(displayNode);
@@ -230,20 +250,14 @@ public class SubGraph : MonoBehaviour
                 _displayedNodes.Add(node.UID, node);
         }
 
-        foreach(Edge edge in edges)
+        foreach (Edge edge in edges)
         {
             bool displayEdge = propagatedEdges.Contains(edge);
             edge.DisplaySubEdge(displayEdge);
 
-            if(displayEdge)
+            if (displayEdge)
                 _displayedEdges.Add(edge.UID, edge);
         }
-
-        _subGraphMode = SubGraphMode.Lens;
-        _subGraphTf.position = _lensTf.position;
-        _subGraphTf.gameObject.SetActive(true);
-
-        TryConstructLayoutLensGraph();
     }
 
     private void AfterSwitchModeToImmersion()

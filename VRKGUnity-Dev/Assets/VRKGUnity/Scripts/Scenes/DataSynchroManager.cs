@@ -164,6 +164,7 @@ public class DataSynchroManager : MonoBehaviour
 
             }
 
+            Debug.Log(_graphDbAPI.ServerUrl);
             isConnectedToRepo = await HttpHelper.Ping(_graphDbAPI.ServerUrl);
 
             if (!isConnectedToRepo)

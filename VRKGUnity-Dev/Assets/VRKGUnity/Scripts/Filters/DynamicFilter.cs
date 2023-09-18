@@ -9,6 +9,8 @@ public class DynamicFilter
     public HashSet<Node> HiddenNodes;
     public HashSet<Edge> HiddenEdges;
 
+    public HashSet<Node> NodeToFilter;
+
 
     DynamicFilterType FilterType;
 
@@ -23,9 +25,11 @@ public class DynamicFilter
         _sparqlQuery = new SPARQLQuery(nodes, FilterType);
     }
 
-    public DynamicFilter(HashSet<Node> displayedNodes, HashSet<Node> hiddenNodes)
+    public DynamicFilter(HashSet<Node> displayedNodes, HashSet<Node> hiddenNodes, HashSet<Node> nodeToFilter = null)
     {
         HiddenNodes = hiddenNodes;
+
+        NodeToFilter = nodeToFilter;
 
         if (displayedNodes.Count > hiddenNodes.Count)
         {
@@ -35,7 +39,7 @@ public class DynamicFilter
         else
         {
             FilterType = DynamicFilterType.IncludeOnly;
-            _sparqlQuery = new SPARQLQuery(displayedNodes, FilterType);
+            _sparqlQuery = new SPARQLQuery(NodeToFilter, FilterType);
         }
     }
 

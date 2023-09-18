@@ -85,6 +85,7 @@ public class DynamicFilterManager : MonoBehaviour
     [ContextMenu("Hide Propagated Node")]
     public void HidePropagatedNode()
     {
+        var selectedNodes = _nodeSelectionManager.SelectedNodes;
         var propagatedNodes = _nodeSelectionManager.PropagatedNodes;
 
         if (propagatedNodes == null)
@@ -111,6 +112,7 @@ public class DynamicFilterManager : MonoBehaviour
     [ContextMenu("Hide Unpropagated Node")]
     public void HideUnPropagatedNode()
     {
+        var selectedNodes = _nodeSelectionManager.SelectedNodes;
         var propagatedNodes = _nodeSelectionManager.PropagatedNodes;
 
         if (propagatedNodes == null)
@@ -124,9 +126,16 @@ public class DynamicFilterManager : MonoBehaviour
             nodesToKeep.Add(node);
         }
 
+        HashSet<Node> nodesToFilter = new();
+
+        foreach (Node node in selectedNodes)
+        {
+            nodesToFilter.Add(node);
+        }
+
         var graph = _graphManager.Graph;
 
-        DynamicFilter filter = graph.HideAllExcept(nodesToKeep);
+        DynamicFilter filter = graph.HideAllExcept(nodesToKeep, nodesToFilter);
         _filters.Add(filter);
         _redoFilters = new();
 

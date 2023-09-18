@@ -123,6 +123,7 @@ public class GraphManager : MonoBehaviour
         _graph.ResetMainNodePositionsTf();
         _graph.CalculateMetrics(_graphRepo.GraphDbRepositoryNamespaces);
 
+        _stylingManager.UpdateStyling(StyleChange.All);
 
         SimulationWillStart();
         _graphSimulation.Run(_graph);
