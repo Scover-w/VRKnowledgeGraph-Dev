@@ -22,6 +22,7 @@ public class OmekaToRdf : MonoBehaviour
 
     private string _transactionId;
 
+
     [ContextMenu("StartTransaction")]
     private async void StartTransaction()
     {
@@ -99,7 +100,6 @@ public class OmekaToRdf : MonoBehaviour
         
         var currentJsonData = await HttpHelper.Retrieve(omekaUrl);
 
-
         var currentJsonHash = currentJsonData.GetSha256Hash();
 
         if(currentJsonHash == JsonHash)
@@ -122,7 +122,7 @@ public class OmekaToRdf : MonoBehaviour
         var (newMediasDict, deletedMediasDict) = GetMediaDiffs(currentMedias, previousMedias);
 
 
-        var newTripleMedias = await RetrieveMedias(newMediasDict, vocabulary);
+        var newTripleMedias = await RetrieveMedias(newMediasDict);
         var deleteTripleMedia = MediaDictDeleteToTriples(deletedMediasDict);
 
         var api = new GraphDBAPI(null);
@@ -174,6 +174,7 @@ public class OmekaToRdf : MonoBehaviour
         if(!succeedUpdating)
         {
             Debug.LogWarning("Couldn't update some query");
+            await api.AbortTransaction(transactionId);
             // TODO : Couldn't update some query
             return;
         }
@@ -193,8 +194,8 @@ public class OmekaToRdf : MonoBehaviour
 
         (List<RDFTriple> newTriples, List<RDFTriple> deletedTriples) GetTripleDiffs(Dictionary<string, RDFTriple> currentTriples, Dictionary<string, RDFTriple> previousTriples)
         {
-            List<RDFTriple> newTriples = new List<RDFTriple>();
-            List<RDFTriple> deletedTriples = new List<RDFTriple>();
+            List<RDFTriple> newTriples = new();
+            List<RDFTriple> deletedTriples = new();
 
             foreach (var kvp in currentTriples)
             {
@@ -217,8 +218,8 @@ public class OmekaToRdf : MonoBehaviour
 
         (Dictionary<string, List<string>> newMedias, Dictionary<string, List<string>> deletedMedias) GetMediaDiffs(Dictionary<string, List<string>> currentMedias, Dictionary<string, List<string>> previousMedias)
         {
-            Dictionary<string, List<string>> newMedias = new Dictionary<string, List<string>>();
-            Dictionary<string, List<string>> deletedMedias = new Dictionary<string, List<string>>();
+            Dictionary<string, List<string>> newMedias = new();
+            Dictionary<string, List<string>> deletedMedias = new();
 
             foreach (var kvp in currentMedias)
             {
@@ -242,7 +243,7 @@ public class OmekaToRdf : MonoBehaviour
 
     private string BuildQuery(List<RDFTriple> triples, bool doInsert)
     {
-        StringBuilder queryBuilder = new StringBuilder();
+        StringBuilder queryBuilder = new();
 
         if (doInsert)
             queryBuilder.Append("INSERT DATA { GRAPH <http://data> {");
@@ -251,13 +252,19 @@ public class OmekaToRdf : MonoBehaviour
 
         foreach (var triple in triples)
         {
-            string o = triple.Object;
-            queryBuilder.AppendLine($"<{triple.Subject}> <{triple.Predicate}> " + (o.StartsWith("http")? $"<{triple.Object}>." : triple.Object + "."));
+            queryBuilder.AppendLine(GetStringQueryValue(triple.Subject) + " " + GetStringQueryValue(triple.Predicate) + " " + GetStringQueryValue(triple.Object) + ".");
         }
 
         queryBuilder.AppendLine("} }");
 
         return queryBuilder.ToString();
+
+
+
+        string GetStringQueryValue(string v)
+        {
+            return v.StartsWith("http") ? $"<{v}>" : $"\"{v}\"";
+        }
     }
 
     public static async Task<(string ttlContent, string json)> RetrieveFirstTimeTTL(string omekaUrl)
@@ -562,7 +569,7 @@ public class OmekaToRdf : MonoBehaviour
         return vocabulary;
     }
 
-    private async Task<List<RDFTriple>> RetrieveMedias(Dictionary<string, List<string>> mediaUrlsDict, Dictionary<string, string> vocabulary)
+    private async Task<List<RDFTriple>> RetrieveMedias(Dictionary<string, List<string>> mediaUrlsDict)
     {
 
         List<RDFTriple> mediaTriples = new();

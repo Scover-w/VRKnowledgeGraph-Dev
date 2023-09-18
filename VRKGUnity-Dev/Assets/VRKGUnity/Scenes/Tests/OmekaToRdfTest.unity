@@ -246,6 +246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59ac8172fb3da63478f7754f49a76663, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  JsonHash: 061a7b67pfce8cda1dce95284344163d7427b3f770099fb25393ac51cba35f18
   UrlOmeka: https://epotec.univ-nantes.fr/api/items?item_set_id=26705
 --- !u!4 &794985408
 Transform:

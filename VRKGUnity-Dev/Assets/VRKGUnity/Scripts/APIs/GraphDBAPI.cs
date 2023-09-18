@@ -46,19 +46,16 @@ public class GraphDBAPI
         _serverUrl = serverUrl;
     }
 
-    /// <summary>
-    /// For Select query.
-    /// Max sparqlQuery length is 8000.
-    /// </summary>
-    /// <param name="sparqlQuery"></param>
-    /// <returns></returns>
-    public async Task<string> SelectQuery(string sparqlQuery, bool doInfer = false)
+
+    public async Task<string> SelectQuery(string query, bool doInfer = false)
     {
+        // Use Post instead of Get because Get request only allow to put the query in the url, which crash the request when the query is too long.And can't use StringContent or MultiPartFormDataContent with Get
+
         using HttpClient client = new();
-        Debug.Log(_serverUrl + " " + _repositoryId);
-        string encodedQuery = WebUtility.UrlEncode(sparqlQuery);
-        HttpRequestMessage request = new(HttpMethod.Get, _serverUrl + "repositories/" + _repositoryId + "?query=" + encodedQuery + "&infer=" + doInfer.ToString().ToLower());
-        request.Headers.Add("Accept", "application/sparql-results+json");
+        HttpRequestMessage request = new(HttpMethod.Post, _serverUrl + "repositories/" + _repositoryId + "?infer=" + doInfer.ToString().ToLower()); 
+
+        client.DefaultRequestHeaders.Add("Accept", "application/sparql-results+json");
+        request.Content = new StringContent(query, Encoding.UTF8, "application/sparql-query");
 
         HttpResponseMessage response;
 
@@ -81,6 +78,7 @@ public class GraphDBAPI
         if (!response.IsSuccessStatusCode)
         {
             string error = await response.Content.ReadAsStringAsync();
+
             HttpResponseMessage responseC = new()
             {
                 StatusCode = response.StatusCode,
@@ -91,9 +89,12 @@ public class GraphDBAPI
             return "";
         }
 
-        string responseBody = await response.Content.ReadAsStringAsync();
-        return responseBody;
+
+        string bipbop = await response.Content.ReadAsStringAsync();
+
+        return bipbop;
     }
+
 
 
     /// <summary>
@@ -105,11 +106,13 @@ public class GraphDBAPI
     {
         using HttpClient client = new();
 
-        HttpRequestMessage request = new(HttpMethod.Post, _serverUrl + "repositories/" + _repositoryId + "/statements");
 
+        HttpRequestMessage request = new(HttpMethod.Post, _serverUrl + "repositories/" + _repositoryId + "/statements");
+        // Le Cap 44 est une ancienne minoterie industrielle situé sur le quai Marquis-d\'Aiguillon dans le quartier de Chantenay, à Nantes. Il a été construit en 1894 en béton armé, par le procédé de François Hennebique, alors révolutionnaire pour l’époque.\n\nTémoin 
         MultipartFormDataContent multiPartContent = new()
         {
-            { new StringContent(sparqlQuery), "update" }
+            // TODO : find a better solution 
+            { new StringContent(sparqlQuery.Replace("\n", ""), Encoding.UTF8), "update" }  // \n make the request crash 
         };
 
         request.Content = multiPartContent;
@@ -145,6 +148,9 @@ public class GraphDBAPI
             OnErrorQuery?.Invoke(responseC);
             return false;
         }
+
+
+
 
         return true;
     }
