@@ -1,8 +1,5 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -119,9 +116,9 @@ public class GraphSimulation : MonoBehaviour
         }
 
 
-        float maxDistance = GetMaxDistance(nodgesSimuDatas);
-        Debug.Log("MaxDistance : " + maxDistance);
-        _referenceHolderSO.MaxDistanceGraph = maxDistance;
+        float maxRadius = GetMaxRadius(nodgesSimuDatas);
+        Debug.Log("MaxRadius : " + maxRadius);
+        _referenceHolderSO.MaxRadiusGraph = maxRadius;
 
         _newNodeSimuDatas = nodgesSimuDatas.NodeSimuDatas.Clone();
         _isRunningSimulation = false;
@@ -224,7 +221,7 @@ public class GraphSimulation : MonoBehaviour
     }
 
 
-    private float GetMaxDistance(NodgesSimuData nodgesSimuData)
+    private float GetMaxRadius(NodgesSimuData nodgesSimuData)
     {
         float maxSqrDistance = 0f;
 

@@ -1266,7 +1266,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &855748256
 MeshFilter:
@@ -1285,8 +1285,8 @@ Transform:
   m_GameObject: {fileID: 855748253}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1289948842}
   m_RootOrder: 0
@@ -2183,6 +2183,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _graphManager: {fileID: 1847420204}
   _graphStyling: {fileID: 1645149936}
+  _mainGraph: {fileID: 1847420212}
   _subGraph: {fileID: 1847420211}
   _labelNodgeManagerUI: {fileID: 1672580069}
 --- !u!114 &1645149936
@@ -2638,6 +2639,7 @@ MonoBehaviour:
   _deskGraphTriggerGo: {fileID: 855748253}
   _deskFloor: {fileID: 1385028268}
   _deskCollidersGo: {fileID: 1779001956}
+  _deskGraphTriggerTf: {fileID: 855748257}
 --- !u!1001 &1902536008
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -32,11 +32,31 @@ public class ReferenceHolderSO : ScriptableObject
 
     public GraphManager GraphManager { get; set;}
 
-    public float MaxDistanceGraph { get; set; }
+    public float MaxRadiusGraph 
+    { 
+        get
+        {
+            return _maxRadiusGraph;
+        }
+        set
+        {
+            _maxRadiusGraph = value;
+            OnNewMaxRadius?.Invoke(value);
+        }
+    }
+
+
+    private float _maxRadiusGraph = -1f;
 
     public delegate void NewInputPropagator(InputPropagatorManager inputPropagatorManager);
 
     public NewInputPropagator OnNewInputPropagator;
+
+    public delegate void NewMaxRadius(float maxRadius);
+
+    public NewMaxRadius OnNewMaxRadius;
+
+
 }
 
     

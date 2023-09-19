@@ -182,28 +182,32 @@ public class StyleChangeBuilder
         styleChange = StyleChange.MainGraph
                 .Add(StyleChange.ImmersionMode)
                 .Add(StyleChange.Nodge)
-                .Add(StyleChange.Position);
+                .Add(StyleChange.Position)
+                .Add(StyleChange.Size);
 
         styleChanges.Add(GraphConfigKey.ImmersionGraphSize, styleChange);
 
         styleChange = StyleChange.SubGraph
                 .Add(StyleChange.ImmersionMode)
                 .Add(StyleChange.Nodge)
-                .Add(StyleChange.Position);
+                .Add(StyleChange.Position)
+                .Add(StyleChange.Size);
 
         styleChanges.Add(GraphConfigKey.GPSGraphSize, styleChange);
 
         styleChange = StyleChange.MainGraph
                 .Add(StyleChange.DeskMode)
                 .Add(StyleChange.Nodge)
-                .Add(StyleChange.Position);
+                .Add(StyleChange.Position)
+                .Add(StyleChange.Size);
 
         styleChanges.Add(GraphConfigKey.DeskGraphSize, styleChange);
 
         styleChange = StyleChange.SubGraph
                 .Add(StyleChange.DeskMode)
                 .Add(StyleChange.Nodge)
-                .Add(StyleChange.Position);
+                .Add(StyleChange.Position)
+                .Add(StyleChange.Size);
 
         styleChanges.Add(GraphConfigKey.LensGraphSize, styleChange);
         #endregion

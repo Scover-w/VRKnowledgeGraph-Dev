@@ -38,7 +38,6 @@ public class SubGraph : MonoBehaviour
     [SerializeField]
     NodgeSelectionManager _selectionManager;
 
-
     Transform _playerHeadTf;
     Transform _wristTf;
     GraphConfiguration _graphConfig;
@@ -65,6 +64,7 @@ public class SubGraph : MonoBehaviour
 
         _playerHeadTf = _referenceHolderSO.HMDCamSA.Value.transform;
         _wristTf = _referenceHolderSO.WristTf.Value;
+
         _gpsTf.parent = _wristTf;
         _gpsTf.ResetLocal();
 
@@ -365,7 +365,6 @@ public class SubGraph : MonoBehaviour
         _lensSimulation.Run(displaydNodeClone, displaydEdgeClone);
     }
     #endregion
-
 
 
     [ContextMenu("SwitchGPSVisibility")]

@@ -11,6 +11,9 @@ public class StylingManager : MonoBehaviour
     GraphStyling _graphStyling;
 
     [SerializeField]
+    MainGraph _mainGraph;
+
+    [SerializeField]
     SubGraph _subGraph;
 
     [SerializeField]
@@ -35,9 +38,13 @@ public class StylingManager : MonoBehaviour
 
 
         if (styleChange.HasChanged(StyleChange.SubGraph)
-            && styleChange.HasChanged(StyleChange.ImmersionMode)
-            && styleChange.HasChanged(StyleChange.Visibility))
+           && styleChange.HasChanged(StyleChange.ImmersionMode)
+           && styleChange.HasChanged(StyleChange.Visibility))
             _subGraph.SwitchGPSVisibility();
+
+        if (styleChange.HasChanged(StyleChange.MainGraph) &&
+            styleChange.HasChanged(StyleChange.Size))
+            _mainGraph.DeskGraphChanged();
 
         _graphStyling.StyleGraph(styleChange, _graphManager.GraphMode);
 

@@ -41,11 +41,16 @@ public class MainGraph : MonoBehaviour
     [SerializeField]
     GameObject _deskCollidersGo;
 
+    [SerializeField]
+    Transform _deskGraphTriggerTf;
+
     Transform _playerTf;
 
     EasingDel _easingFunction;
+    GraphConfiguration _graphConfig;
 
     bool _isSimulatingGraph = false;
+    bool _isMovingMainGRaph = false;
 
     MainGraphMode _mainGraphMode;
     MainGraphMode _nextGraphMode;
@@ -56,10 +61,13 @@ public class MainGraph : MonoBehaviour
         _playerTf = _referenceHolderSo.HMDCamSA.Value.transform;
         _mainGraphTf.position = _upDeskTf.position;
 
+        _referenceHolderSo.OnNewMaxRadius += OnNewMaxRadius;
+
         _easingFunction = Easing.GetEasing(_easingType);
 
         _graphManager.OnGraphUpdate += OnGraphUpdated;
 
+        _graphConfig = GraphConfiguration.Instance;
     }
 
 
@@ -150,8 +158,8 @@ public class MainGraph : MonoBehaviour
     {
         float speed = 1f / _graphManager.GraphConfiguration.GraphModeTransitionTime;
         float time = 0f;
-
-        while(time < 1f)
+        _isMovingMainGRaph = true;
+        while (time < 1f)
         {
             MoveMainGraph(time);
             yield return null;
@@ -159,6 +167,8 @@ public class MainGraph : MonoBehaviour
         }
 
         MoveMainGraph(1f);
+
+        _isMovingMainGRaph = false;
     }
 
     private void MoveMainGraph(float t)
@@ -240,6 +250,30 @@ public class MainGraph : MonoBehaviour
         _mobiusDeskTf.rotation = Quaternion.identity;
     }
     #endregion
+
+
+    public void DeskGraphChanged()
+    {
+        OnNewMaxRadius(_referenceHolderSo.MaxRadiusGraph);
+    }
+
+    private void OnNewMaxRadius(float maxRadius)
+    {
+        DebugDev.Log("MaxRadius " + maxRadius + " , EffectiveDeskGraphSize " + _graphConfig.EffectiveDeskGraphSize);
+        float maxRadiusScaled = maxRadius * _graphConfig.EffectiveDeskGraphSize;
+
+        DebugDev.Log("maxRadiusScaled : " + maxRadiusScaled);
+
+        _upDeskTf.localPosition = new Vector3(0f, maxRadiusScaled, 0f);
+
+        float maxRadiusScaledScaledUp = maxRadiusScaled + .025f;
+        _deskGraphTriggerTf.localScale = new Vector3(maxRadiusScaledScaledUp, maxRadiusScaledScaledUp, maxRadiusScaledScaledUp);
+
+        if (_mainGraphMode == MainGraphMode.Desk)
+            _mainGraphTf.position = _upDeskTf.position;
+
+    }
+
 
     enum MainGraphMode
     {
