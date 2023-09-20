@@ -377,6 +377,11 @@ public class SubGraph : MonoBehaviour
         _subGraphTf.gameObject.SetActive(_displayGPS);
     }
 
+    public void FilterChanged()
+    {
+        TryConstructLayoutLensGraph();
+    }
+
     public void UpdateGPSPoint(/*Vector3 normPosition*/)
     {
         // TODO : convert to miniGraph scale

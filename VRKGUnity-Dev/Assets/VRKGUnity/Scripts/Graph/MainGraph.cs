@@ -259,6 +259,9 @@ public class MainGraph : MonoBehaviour
 
     private void OnNewMaxRadius(float maxRadius)
     {
+        if (maxRadius == -1f)
+            return;
+
         DebugDev.Log("MaxRadius " + maxRadius + " , EffectiveDeskGraphSize " + _graphConfig.EffectiveDeskGraphSize);
         float maxRadiusScaled = maxRadius * _graphConfig.EffectiveDeskGraphSize;
 

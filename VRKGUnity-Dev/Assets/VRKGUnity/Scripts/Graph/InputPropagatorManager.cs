@@ -26,6 +26,9 @@ public partial class InputPropagatorManager : MonoBehaviour
     [SerializeField]
     User _user;
 
+    [SerializeField]
+    SubGraph _subGraph;
+
     GraphConfiguration _graphConfiguration;
 
     public delegate void ChangeActionBtnState(bool isInteractable);
@@ -208,21 +211,27 @@ public partial class InputPropagatorManager : MonoBehaviour
         {
             case GraphActionKey.FilterSelected:
                 _user.HideSelectedNode();
+                _subGraph.FilterChanged();
                 break;
             case GraphActionKey.FilterUnselected:
                 _user.HideUnSelectedNode();
+                _subGraph.FilterChanged();
                 break;
             case GraphActionKey.FilterPropagated:
                 _user.HidePropagatedNode();
+                _subGraph.FilterChanged();
                 break;
             case GraphActionKey.FilterUnpropagated:
                 _user.HideUnPropagatedNode();
+                _subGraph.FilterChanged();
                 break;
             case GraphActionKey.UndoFilter:
                 _user.UndoLastFilter();
+                _subGraph.FilterChanged();
                 break;
             case GraphActionKey.RedoFilter:
                 _user.RedoLastFilter();
+                _subGraph.FilterChanged();
                 break;
             case GraphActionKey.Simulate:
                 _user.ResimulateGraph();
