@@ -14,7 +14,7 @@ public class OfflineEvent : MonoBehaviour
 
     private void OnEnable()
     {
-        if(Settings.IS_MODE_IN_OFFLINE)
+        if(true)
             _isOffline?.Invoke();
         else
             _isOnline?.Invoke();

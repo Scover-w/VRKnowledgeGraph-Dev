@@ -112,6 +112,12 @@ public class MainMenuUI : MonoBehaviour
 
     public void LaunchGraphClick()
     {
+        var repo = _referenceHolderSO.SelectedGraphDbRepository;
+
+        if (repo == null) return;
+
+        repo.SetGraphDbCredentials();
+
         _mainMenuManager.LoadGraphScene();
     }
 

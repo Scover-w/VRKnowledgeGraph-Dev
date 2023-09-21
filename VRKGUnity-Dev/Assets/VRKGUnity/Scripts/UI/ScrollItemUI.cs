@@ -79,6 +79,9 @@ public class ScrollItemUI : MonoBehaviour
 
     public void RebuildLayout()
     {
+        Debug.Log(_rect);
+        if(_rect == null)
+            _rect = GetComponent<RectTransform>();
         LayoutRebuilder.ForceRebuildLayoutImmediate(_rect);
     }
 

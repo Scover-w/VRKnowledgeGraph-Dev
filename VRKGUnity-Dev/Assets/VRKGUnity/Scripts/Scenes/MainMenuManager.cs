@@ -5,8 +5,6 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField]
     ReferenceHolderSO _referenceHolderSO;
 
-
-
     [SerializeField]
     bool _autoPlay = true;
 
@@ -17,15 +15,18 @@ public class MainMenuManager : MonoBehaviour
             Invoke(nameof(AutoLoadGraphScene), .2f);
     }
 
-    private void AutoLoadGraphScene()
+    private async void AutoLoadGraphScene()
     {
-        GraphDbRepository repo = new("http://localhost:7200/", "cap44", "https://epotec.univ-nantes.fr/api/items?item_set_id=26705");
+        var graphDbRepositories = await GraphDbRepositories.Load();
+        var repositories = graphDbRepositories.Repositories;
 
-        _referenceHolderSO.SelectedGraphDbRepository = repo;
+        if (repositories.Count == 0)
+            return;
 
-#if UNITY_ANDROID && !UNITY_EDITOR
-        OverrideUrlForTest();
-#endif
+        var repository = repositories[0];
+
+        _referenceHolderSO.SelectedGraphDbRepository = repository;
+        repository.SetGraphDbCredentials();
 
         var lifeCycleScene = _referenceHolderSO.LifeCycleSceneManagerSA.Value;
         lifeCycleScene.LoadScene(Scenes.DataSynchro);
@@ -33,22 +34,10 @@ public class MainMenuManager : MonoBehaviour
 
     public void LoadGraphScene()
     {
-#if UNITY_ANDROID && !UNITY_EDITOR
-        OverrideUrlForTest();
-#endif
-
-
         var lifeCycleScene = _referenceHolderSO.LifeCycleSceneManagerSA.Value;
         lifeCycleScene.LoadScene(Scenes.DataSynchro);
     }
 
-#if UNITY_ANDROID && !UNITY_EDITOR
-    private void OverrideUrlForTest()
-    {
-        var graphDbApi = _referenceHolderSO.SelectedGraphDbRepository.GraphDBAPI;
-        graphDbApi.OverrideForTest("http://192.168.0.28:7200/");
-    }
-#endif
 
     public void LoadTutorialScene()
     {

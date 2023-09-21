@@ -20,14 +20,32 @@ public class DynamicFilterManager : MonoBehaviour
     [SerializeField]
     NodgePool _nodgePool;
 
-    List<DynamicFilter> _filters;
-    List<DynamicFilter> _redoFilters;
 
-    private void Start()
+    HashSet<Node> _displayedNodes;
+    HashSet<Node> _hiddenNodes = new();
+
+    List<DynamicFilter> _filters = new();
+    List<DynamicFilter> _redoFilters = new();
+
+
+    public void SetNodes(NodgesDicUID nodgesDic)
     {
-        _filters = new();
-        _redoFilters = new();
+        if(_displayedNodes != null)
+        {
+            DebugDev.LogWarning("DynamicFilterManager : SetNodes already called");
+            return;
+        }
+
+        _displayedNodes = new();
+        var nodesDic = nodgesDic.NodesDicUID;
+
+        foreach(var kvp in nodesDic)
+        {
+            Node node = kvp.Value;
+            _displayedNodes.Add(node);
+        }
     }
+
 
     [ContextMenu("Hide Selected Node")]
     public void HideSelectedNode()
@@ -176,6 +194,11 @@ public class DynamicFilterManager : MonoBehaviour
 
         StyleChange styleChange = StyleChange.All;
         _stylingManager.UpdateStyling(styleChange);
+    }
+
+    public void ResetFilters()
+    {
+        // TODO : resetFilters
     }
 
     public List<SPARQLQuery> ApplyFilters()

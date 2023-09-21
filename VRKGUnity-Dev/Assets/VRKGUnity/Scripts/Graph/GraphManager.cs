@@ -86,6 +86,7 @@ public class GraphManager : MonoBehaviour
         _isRetrievingFromDb = true;
         OnGraphUpdate?.Invoke(GraphUpdateType.RetrievingFromDb);
         var nodges = await NodgesHelper.RetrieveGraph(queryString, _graphRepo);
+        _dynamicFilterManager.SetNodes(nodges);
         _isRetrievingFromDb = false;
 
 

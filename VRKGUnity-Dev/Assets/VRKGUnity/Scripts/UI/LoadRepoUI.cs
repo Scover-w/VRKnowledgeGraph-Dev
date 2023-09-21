@@ -46,7 +46,10 @@ public class LoadRepoUI : MonoBehaviour
     InputUI _graphDbServerUrlInput;
 
     [SerializeField]
-    InputUI _omekaUrlInput;
+    InputUI _usernameInput;
+
+    [SerializeField]
+    InputUI _passwordInput;
 
 
     [Header("PC")]
@@ -64,7 +67,10 @@ public class LoadRepoUI : MonoBehaviour
     TMP_InputField _serverUrlPCInput;
 
     [SerializeField]
-    TMP_InputField _omekaUrlPCInput;
+    TMP_InputField _usernamePCInput;
+
+    [SerializeField]
+    TMP_InputField _passwordPCInput;
 
     Dictionary<GraphDbRepository, RepositoryItemPCUI> _repositoriesDictPC;
 #endif
@@ -162,14 +168,13 @@ public class LoadRepoUI : MonoBehaviour
     {
         DisplayPage(LoadRepoPage.NewModifyRepo);
 
-        SetInputValue("cap44", "http://localhost:7200/", "https://epotec.univ-nantes.fr/api/items?item_set_id=26705");
-        //SetInputValue("", "", "");
+        ResetSetInputValue();
     }
 
 
     private void TryCreateGraphDb()
     {
-        (string graphDbRepoId, string graphDbServerUrl, string omekaUrl) = GetInputValue();
+        (string graphDbServerUrl, string graphDbRepoId, string username, string password) = GetInputValue();
 
         if(graphDbRepoId.Length == 0)
         {
@@ -187,10 +192,18 @@ public class LoadRepoUI : MonoBehaviour
             return;
         }
 
-        if (omekaUrl.Length == 0)
+        if (username.Length == 0)
         {
             _infoTitleTxt.text = "Impossible de créer le dépôt";
-            _infoTxt.text = "Veuillez fournir un URL Omeka-S.";
+            _infoTxt.text = "Veuillez fournir un nom d'utilisateur.";
+            DisplayPage(LoadRepoPage.InformationDialog);
+            return;
+        }
+
+        if (password.Length == 0)
+        {
+            _infoTitleTxt.text = "Impossible de créer le dépôt";
+            _infoTxt.text = "Veuillez fournir un mot de passe";
             DisplayPage(LoadRepoPage.InformationDialog);
             return;
         }
@@ -203,44 +216,68 @@ public class LoadRepoUI : MonoBehaviour
             return;
         }
 
-        if (!(omekaUrl.Contains("http://") || omekaUrl.Contains("https://")))
-        {
-            _infoTitleTxt.text = "Impossible de créer le dépôt";
-            _infoTxt.text = "L'URL d'Omeka-S est erronée. Veuillez vous assurer qu'elle respecte le format d'URL standard.";
-            DisplayPage(LoadRepoPage.InformationDialog);
-            return;
-        }
 
-
-        TryConnectRepo(graphDbRepoId, graphDbServerUrl, omekaUrl);
+        TryConnectRepo(graphDbRepoId, graphDbServerUrl, username, password);
     }
 
-    private async void TryConnectRepo(string graphDbRepoId, string graphDbServerUrl, string omekaUrl)
+    private async void TryConnectRepo(string graphDbRepoId, string graphDbServerUrl, string username, string password)
     {
         DisplayPage(LoadRepoPage.LoadingDialog);
-        bool couldConnectToGraphDb = await GraphDBAPI.DoRepositoryExist(graphDbServerUrl, graphDbRepoId);
+        RepositoryStatus repoStatus = await GraphDBAPI.DoRepositoryExist(graphDbServerUrl, graphDbRepoId, username, password);
 
-        if(!couldConnectToGraphDb)
+
+        switch (repoStatus)
         {
-            _infoTitleTxt.text = "Impossible de créer le dépôt";
-            _infoTxt.text = "Impossible de se connecter au dépôt. Veuillez vous assurer que vous disposez d'une connexion Internet active et que les informations sont correctes.";
-            _previousPage = LoadRepoPage.NewModifyRepo;
-            DisplayPage(LoadRepoPage.InformationDialog, false);
-            return;
+            case RepositoryStatus.ExistButUnreadable:
+                _infoTitleTxt.text = "Impossible de lire le dépôt";
+                _infoTxt.text = "Le dépôt ne possède pas les autorisations de lecture requises pour communiquer avec celui-ci.";
+                _previousPage = LoadRepoPage.NewModifyRepo;
+                DisplayPage(LoadRepoPage.InformationDialog, false);
+                return;
+            case RepositoryStatus.Nonexistent:
+                _infoTitleTxt.text = "Dépôt inexistant";
+                _infoTxt.text = "Le dépôt n'existe pas dans la base de données.";
+                _previousPage = LoadRepoPage.NewModifyRepo;
+                DisplayPage(LoadRepoPage.InformationDialog, false);
+                return;
+            case RepositoryStatus.Unauthorized:
+                _infoTitleTxt.text = "Connection au dépôt non autorisé";
+
+                if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+                    _infoTxt.text = "Veuillez renseigner des identifiants de connections.";
+                else
+                    _infoTxt.text = "Vous n'avez pas les droits requis pour accéder à ce dépôt.";
+
+                _previousPage = LoadRepoPage.NewModifyRepo;
+                DisplayPage(LoadRepoPage.InformationDialog, false);
+                return;
+            case RepositoryStatus.CouldntConnect:
+                _infoTitleTxt.text = "Impossible de se connecter à la base de données";
+                _infoTxt.text = "Impossible de se connecter à la base de donnée. Veuillez vous assurer que vous disposez d'une connexion Internet ouque le serveur est en ligne.";
+                _previousPage = LoadRepoPage.NewModifyRepo;
+                DisplayPage(LoadRepoPage.InformationDialog, false);
+                return;
+            case RepositoryStatus.Failed:
+                _infoTitleTxt.text = "Impossible de vérifier le status du dépôt";
+                _infoTxt.text = "Le serveur a retourné une erreur.";
+                _previousPage = LoadRepoPage.NewModifyRepo;
+                DisplayPage(LoadRepoPage.InformationDialog, false);
+                return;
         }
 
-        string result = await HttpHelper.Retrieve(omekaUrl);
 
-        if(result.Length == 0)
+        string encryptedUsername = null;
+        string encryptedPassword = null;
+
+        if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))
         {
-            _infoTitleTxt.text = "Impossible de créer le dépôt";
-            _infoTxt.text = "Impossible de se connecter a Omeka-S. Veuillez vous assurer que vous disposez d'une connexion Internet active et que les informations sont correctes.";
-            _previousPage = LoadRepoPage.NewModifyRepo;
-            DisplayPage(LoadRepoPage.InformationDialog, false);
-            return;
+            string key = SystemInfo.deviceUniqueIdentifier + SystemInfo.graphicsDeviceID.ToString();
+            encryptedUsername = CryptographyHelper.Encrypt(username, key);
+            encryptedPassword = CryptographyHelper.Encrypt(password, key);
         }
+        
+        GraphDbRepository dbRepository = new(graphDbServerUrl, graphDbRepoId, encryptedUsername, encryptedPassword);
 
-        GraphDbRepository dbRepository = new(graphDbServerUrl, graphDbRepoId, omekaUrl);
         _graphDbRepositories.Add(dbRepository);
         _graphDbRepositories.Select(dbRepository);
 
@@ -262,7 +299,7 @@ public class LoadRepoUI : MonoBehaviour
 
     private void SelectRepoVR(GraphDbRepository graphDbRepository)
     {
-        if(_selectedRepository == graphDbRepository)
+        if(_selectedRepository == graphDbRepository) // Recliking on the same repo display the delete confirmation
         {
             TryDeleteRepo();
             return;
@@ -397,56 +434,75 @@ public class LoadRepoUI : MonoBehaviour
 
     
 
-    private void SetInputValue(string graphDbRepoId, string graphDbServerUrl, string omekaUrl)
+    private void ResetSetInputValue()
     {
-        if(_graphDbRepoIdInput != null)
-            _graphDbRepoIdInput.Value = graphDbRepoId;
-
         if(_graphDbServerUrlInput != null)
-            _graphDbServerUrlInput.Value = graphDbServerUrl;
+            _graphDbServerUrlInput.Value = "";
 
-        if(_omekaUrlInput != null)
-            _omekaUrlInput.Value = omekaUrl;
+        if(_graphDbRepoIdInput != null)
+            _graphDbRepoIdInput.Value = "";
+
+        if(_usernameInput != null)
+            _usernameInput.Value = "";
+
+        if (_passwordInput != null)
+            _passwordInput.Value = "";
 
 #if UNITY_EDITOR
-        if(_repoIdPCInput != null)
-            _repoIdPCInput.text = graphDbRepoId;
-
         if(_serverUrlPCInput != null)
-            _serverUrlPCInput.text = graphDbServerUrl;
+            _serverUrlPCInput.text = "";
 
-        if (_omekaUrlPCInput != null)
-            _omekaUrlPCInput.text = omekaUrl;
+        if (_repoIdPCInput != null)
+            _repoIdPCInput.text = "";
+
+        if (_usernamePCInput != null)
+            _usernamePCInput.text = "";
+
+        if (_passwordPCInput != null)
+            _passwordPCInput.text = "";
 #endif
     }
 
-    private (string repoId, string serverUrl, string omekaUrl) GetInputValue()
+    private (string serverUrl, string repoId, string username, string password) GetInputValue()
     {
         string repoId = "";
         string serverUrl = "";
-        string omekaUrl = "";
-
-        if (_graphDbRepoIdInput != null)
-            repoId = _graphDbRepoIdInput.Value;
+        string username = "";
+        string password = "";
 
         if (_graphDbServerUrlInput != null)
             serverUrl = _graphDbServerUrlInput.Value;
 
-        if (_omekaUrlInput != null)
-            omekaUrl = _omekaUrlInput.Value;
+        if (serverUrl[serverUrl.Length - 1] != '/')
+        {
+            serverUrl += "/";
+            _graphDbServerUrlInput.Value += "/";
+        }
+
+        if (_graphDbRepoIdInput != null)
+            repoId = _graphDbRepoIdInput.Value;
+
+        if (_usernameInput != null)
+            username = _usernameInput.Value;
+
+        if (_passwordInput != null)
+            password = _passwordInput.Value;
 
 #if UNITY_EDITOR
+        if (_serverUrlPCInput != null)
+            serverUrl = _serverUrlPCInput.text;
+
         if (_repoIdPCInput != null)
             repoId = _repoIdPCInput.text;
 
-        if (_serverUrlPCInput != null)
-            serverUrl = _serverUrlPCInput.text;
-        
-        if (_omekaUrlPCInput != null)
-            omekaUrl = _omekaUrlPCInput.text;
+        if (_usernamePCInput != null)
+            username = _usernamePCInput.text;
+
+        if (_passwordPCInput != null)
+            password = _passwordPCInput.text;
 #endif
 
-        return (repoId, serverUrl, omekaUrl);
+        return (serverUrl, repoId, username, password);
     }
     #endregion
 

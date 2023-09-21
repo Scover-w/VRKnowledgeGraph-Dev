@@ -73,9 +73,6 @@ public class User : MonoBehaviour
     [ContextMenu("Resimulate Graph")]
     public void ResimulateGraph()
     {
-        if (Settings.IS_MODE_IN_OFFLINE)
-            return;
-
         _graphManager.UpdateGraph();
     }
 

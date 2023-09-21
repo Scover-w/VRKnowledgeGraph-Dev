@@ -117,7 +117,7 @@ public class Node
     public float ClusteringCoefficient;
     public float Degree;
 
-    public bool IsHidden = true;
+    public bool IsHiddenFromFilter { get; private set; } = false;
 
     bool _isHovered = false;
     bool _isSelected = false;
@@ -147,7 +147,7 @@ public class Node
         _doDisplayMainNode = false;
         _doDisplaySubNode = false;
 
-        IsHidden = true;
+        IsHiddenFromFilter = false;
     }
     
 
@@ -293,7 +293,7 @@ public class Node
 
     public void DisplayMainNode(bool doDisplayMainNode)
     {
-        if (!IsHidden)
+        if (IsHiddenFromFilter)
             return;
 
         _doDisplayMainNode = doDisplayMainNode;
@@ -302,7 +302,7 @@ public class Node
 
     public void DisplaySubNode(bool doDisplaySubNode)
     {
-        if (!IsHidden)
+        if (IsHiddenFromFilter)
             return;
 
 
@@ -317,14 +317,14 @@ public class Node
         DisplayMainNode(false);
         DisplaySubNode(false);
 
-        IsHidden = false;
+        IsHiddenFromFilter = true;
 
         HideEdges();
     }
 
     public void Unhide(GraphMode graphMode)
     {
-        IsHidden = true;
+        IsHiddenFromFilter = false;
 
         DisplayMainNode(true);
 

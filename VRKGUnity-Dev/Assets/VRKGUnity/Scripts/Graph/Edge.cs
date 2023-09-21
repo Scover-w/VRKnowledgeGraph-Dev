@@ -50,7 +50,7 @@ public class Edge : IEdge<Node>
     public EdgeStyler MainStyler;
     public EdgeStyler SubStyler;
 
-    public bool IsHidden = true;
+    public bool IsHiddenFromFilter { get; private set; } = false;
 
     private EdgeDirection _edgeDirection;
     private bool _doDisplayMainEdge;
@@ -105,7 +105,7 @@ public class Edge : IEdge<Node>
 
     public void DisplayMainEdge(bool doDisplayMainEdge)
     {
-        if (!IsHidden)
+        if (IsHiddenFromFilter)
             return;
 
         _doDisplayMainEdge = doDisplayMainEdge;
@@ -114,7 +114,7 @@ public class Edge : IEdge<Node>
 
     public void DisplaySubEdge(bool doDisplaySubEdge)
     {
-        if (!IsHidden)
+        if (IsHiddenFromFilter)
             return;
 
         _doDisplaySubEdge = doDisplaySubEdge;
@@ -128,12 +128,12 @@ public class Edge : IEdge<Node>
         DisplayMainEdge(false);
         DisplaySubEdge(false);
 
-        IsHidden = false;
+        IsHiddenFromFilter = true;
     }
 
     public void UnhideEdge(GraphMode graphMode)
     {
-        IsHidden = true;
+        IsHiddenFromFilter = false;
 
         var graphConfig = GraphConfiguration.Instance;
 

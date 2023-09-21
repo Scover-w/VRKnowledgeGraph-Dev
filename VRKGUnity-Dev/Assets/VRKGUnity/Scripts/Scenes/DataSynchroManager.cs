@@ -91,17 +91,13 @@ public class DataSynchroManager : MonoBehaviour
 
         _loadingBarUI.Refresh(0f, "Vérification de la connexion internet");
 
-        if(!Settings.IS_MODE_IN_OFFLINE)
-        {
-            await WaitConnectionToInternet();
+        await WaitConnectionToInternet();
 
-            _loadingBarUI.Refresh(0f, "Vérification de la connexion au serveur GraphDb");
-            await WaitRepositoryConnection();
+        _loadingBarUI.Refresh(0f, "Vérification de la connexion au serveur GraphDb");
+        await WaitRepositoryConnection();
 
-            _loadingBarUI.Refresh(0f, "Mise à jour des données Omeka dans GaphDb");
-            UpdateGraphDbFromOmeka();
-
-        }
+        _loadingBarUI.Refresh(0f, "Mise à jour des données Omeka dans GaphDb");
+        UpdateGraphDbFromOmeka();
 
         _loadingBarUI.Refresh(.1f, "Mise à jour des données GraphDb en local");
 
@@ -111,13 +107,10 @@ public class DataSynchroManager : MonoBehaviour
 
         _loadingBarUI.Refresh(.2f, "Récupération des espaces de noms distants");
 
-        if (!Settings.IS_MODE_IN_OFFLINE)
+        await Task.Run(async () =>
         {
-            await Task.Run(async () =>
-            {
-                await RetrieveDistantUri(ontoUris);
-            });
-        }
+            await RetrieveDistantUri(ontoUris);
+        });
 
 
         _loadingBarUI.Refresh(1f, "Chargement de la scène Graphe");

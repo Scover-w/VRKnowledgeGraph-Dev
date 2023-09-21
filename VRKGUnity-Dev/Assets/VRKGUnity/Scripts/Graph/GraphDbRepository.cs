@@ -20,30 +20,46 @@ public class GraphDbRepository
     public string GraphDbUrl { get; private set; }
     public string GraphDbRepositoryId { get; private set; }
 
-    public string OmekaURL;
 
-    public string LastOmekaHash;
+    // TODO : Place in a more obfuscated file
+    public string EncryptedUsername;
+    public string EncryptedPassword;
+
+    public string StartQuery;
 
 
     [JsonIgnore]
     public string PathRepo { get; private set; }
 
 
-    public GraphDbRepository(string graphDbUrl, string graphDbRepoId, string omekaURL)
+    public GraphDbRepository(string graphDbUrl, string graphDbRepoId, string encryptedUsername, string encryptedPassword)
     {
         GraphDbUrl = graphDbUrl;
         GraphDbRepositoryId = graphDbRepoId;
-        OmekaURL = omekaURL;
+
+        EncryptedUsername = encryptedUsername;
+        EncryptedPassword = encryptedPassword;
 
         GraphDBAPI = new GraphDBAPI(this);
-
 
         PathRepo = Path.Combine(Settings.PersistentDataPath, "Data", GraphDbRepositoryId + "_" + Mathf.Abs(GraphDbUrl.GetHashCode()));
 
 
         if (!Directory.Exists(PathRepo))
             Directory.CreateDirectory(PathRepo);
-        OmekaURL = omekaURL;
+    }
+
+    public async Task SetGraphDbCredentials()
+    {
+        if (string.IsNullOrEmpty(EncryptedUsername) || string.IsNullOrEmpty(EncryptedPassword))
+            return;
+
+        string key = SystemInfo.deviceUniqueIdentifier + SystemInfo.graphicsDeviceID.ToString();
+
+        string username = CryptographyHelper.Decrypt(EncryptedUsername, key);
+        string password = CryptographyHelper.Decrypt(EncryptedPassword, key);
+
+        await GraphDBAPI.SetCredentials(username, password);
     }
 
 

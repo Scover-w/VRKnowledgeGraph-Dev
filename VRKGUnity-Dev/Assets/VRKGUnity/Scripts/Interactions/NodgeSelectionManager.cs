@@ -406,6 +406,9 @@ public class NodgeSelectionManager : MonoBehaviour
             {
                 Edge edge = edges[j];
 
+                if(edge.IsHiddenFromFilter) 
+                    continue;
+
                 if (_newPropagatedEdges.Contains(edge))
                     continue;
 
@@ -419,7 +422,7 @@ public class NodgeSelectionManager : MonoBehaviour
 
                 var nextNode = (i == 0) ? edge.Target : edge.Source;
 
-                if(nextNode.IsHidden)
+                if(!nextNode.IsHiddenFromFilter)
                     Propagate(nextNode, propagationValue);
             }
         }

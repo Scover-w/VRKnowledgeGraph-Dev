@@ -244,12 +244,28 @@ PrefabInstance:
       propertyPath: m_text
       value: Supprimer
       objectReference: {fileID: 0}
+    - target: {fileID: 1544374533638075234, guid: 075766b32ad220749958529161bb54d3, type: 3}
+      propertyPath: _inputPositionTf
+      value: 
+      objectReference: {fileID: 593779927}
+    - target: {fileID: 1544374533638075234, guid: 075766b32ad220749958529161bb54d3, type: 3}
+      propertyPath: _interactiveGraphics.Array.data[0].Name
+      value: GraphDbServerUrlInput
+      objectReference: {fileID: 0}
     - target: {fileID: 1544374533638075238, guid: 075766b32ad220749958529161bb54d3, type: 3}
       propertyPath: m_Name
       value: GraphDbServerUrlInput
       objectReference: {fileID: 0}
     - target: {fileID: 1544374534358046033, guid: 075766b32ad220749958529161bb54d3, type: 3}
       propertyPath: m_Name
+      value: GRaphDbRepoIdInput
+      objectReference: {fileID: 0}
+    - target: {fileID: 1544374534358046037, guid: 075766b32ad220749958529161bb54d3, type: 3}
+      propertyPath: _inputPositionTf
+      value: 
+      objectReference: {fileID: 593779927}
+    - target: {fileID: 1544374534358046037, guid: 075766b32ad220749958529161bb54d3, type: 3}
+      propertyPath: _interactiveGraphics.Array.data[0].Name
       value: GRaphDbRepoIdInput
       objectReference: {fileID: 0}
     - target: {fileID: 1554355829324688790, guid: 075766b32ad220749958529161bb54d3, type: 3}
@@ -312,6 +328,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3739557874004405433, guid: 075766b32ad220749958529161bb54d3, type: 3}
+      propertyPath: _inputPositionTf
+      value: 
+      objectReference: {fileID: 593779927}
+    - target: {fileID: 3945278548487450789, guid: 075766b32ad220749958529161bb54d3, type: 3}
+      propertyPath: _inputPositionTf
+      value: 
+      objectReference: {fileID: 593779927}
     - target: {fileID: 4338614746839412926, guid: 075766b32ad220749958529161bb54d3, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -446,7 +470,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5008887026456784810, guid: 075766b32ad220749958529161bb54d3, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5008887026475152745, guid: 075766b32ad220749958529161bb54d3, type: 3}
       propertyPath: m_IsActive
@@ -456,9 +480,13 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5008887026556475577, guid: 075766b32ad220749958529161bb54d3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5008887026798536605, guid: 075766b32ad220749958529161bb54d3, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5008887026978552640, guid: 075766b32ad220749958529161bb54d3, type: 3}
       propertyPath: m_AnchorMax.y
@@ -474,7 +502,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5008887026978552640, guid: 075766b32ad220749958529161bb54d3, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 88.54
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5008887026978552640, guid: 075766b32ad220749958529161bb54d3, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -613,6 +641,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b5b474645ab4c349a87ce91e16f5b31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &593779927 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7220119546859315597, guid: 075766b32ad220749958529161bb54d3, type: 3}
+  m_PrefabInstance: {fileID: 593779925}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1335931425
 GameObject:
   m_ObjectHideFlags: 0
@@ -643,7 +676,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _referenceHolderSO: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
-  _autoPlay: 1
+  _autoPlay: 0
 --- !u!4 &1335931427
 Transform:
   m_ObjectHideFlags: 0
