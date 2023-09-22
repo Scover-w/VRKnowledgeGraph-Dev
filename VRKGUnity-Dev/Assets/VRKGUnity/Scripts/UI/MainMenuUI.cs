@@ -62,6 +62,8 @@ public class MainMenuUI : MonoBehaviour
             return;
         }
 
+        DebugDev.Log("selectedRepo.GraphDbRepositoryId : " + selectedRepo.GraphDbRepositoryId);
+
         _repoStatusTxt.text = selectedRepo.GraphDbRepositoryId;
         SetConnectionStatus(true);
         _referenceHolderSO.SelectedGraphDbRepository = selectedRepo;
@@ -110,13 +112,13 @@ public class MainMenuUI : MonoBehaviour
         _mainMenuManager.LoadTutorialScene();
     }
 
-    public void LaunchGraphClick()
+    public async void LaunchGraphClick()
     {
         var repo = _referenceHolderSO.SelectedGraphDbRepository;
 
         if (repo == null) return;
 
-        repo.SetGraphDbCredentials();
+        await repo.SetGraphDbCredentials();
 
         _mainMenuManager.LoadGraphScene();
     }

@@ -1867,9 +1867,8 @@ GameObject:
   - component: {fileID: 5008887025391100311}
   - component: {fileID: 5008887025391100304}
   - component: {fileID: 1238089299126141241}
-  - component: {fileID: 7885924229286799970}
   m_Layer: 21
-  m_Name: MainMenu_Canvas
+  m_Name: DataSynchro_Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2415,7 +2414,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactable: 1
   _interactiveGraphics:
-  - Name: CancelBtn
+  - Name: ResetBtn
     _graphic: {fileID: 5247262330133994646}
     _interactiveColorUI:
       _normalColor: {r: 0.05882353, g: 0.3019608, b: 0.57254905, a: 1}
@@ -2956,26 +2955,3 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -908}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &7885924229286799970
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5008887025391100305}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b5b474645ab4c349a87ce91e16f5b31, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _referenceHolderSO: {fileID: 11400000, guid: 0162f131a48acf945a430d52bf28cd9d, type: 2}
-  _mainMenuManager: {fileID: 0}
-  _menuPageGo: {fileID: 0}
-  _loadRepoPageGo: {fileID: 0}
-  _settingsPageGo: {fileID: 0}
-  _repoStatusTxt: {fileID: 0}
-  _iconRepoStatusImg: {fileID: 0}
-  _unconnectedIcon: {fileID: 21300000, guid: a544ea15956fab2438cdb441af5be327, type: 3}
-  _connectedIcon: {fileID: 21300000, guid: 0f06b0ce90e7237498710a10e097489b, type: 3}
-  _launchGraphBtn: {fileID: 0}
-  _launchGraphPcBtn: {fileID: 0}

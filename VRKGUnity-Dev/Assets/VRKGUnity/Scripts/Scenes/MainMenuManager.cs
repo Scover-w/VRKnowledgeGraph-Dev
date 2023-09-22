@@ -26,7 +26,7 @@ public class MainMenuManager : MonoBehaviour
         var repository = repositories[0];
 
         _referenceHolderSO.SelectedGraphDbRepository = repository;
-        repository.SetGraphDbCredentials();
+        await repository.SetGraphDbCredentials();
 
         var lifeCycleScene = _referenceHolderSO.LifeCycleSceneManagerSA.Value;
         lifeCycleScene.LoadScene(Scenes.DataSynchro);

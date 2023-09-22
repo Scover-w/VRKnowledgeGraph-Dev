@@ -45,9 +45,6 @@ public class GraphDBAPI
 
         if (_serverUrl[_serverUrl.Length - 1] != '/')
             _serverUrl += "/";
-
-        Debug.Log(_serverUrl);
-
     }
 
     public async Task SetCredentials(string username, string password)
@@ -98,7 +95,6 @@ public class GraphDBAPI
     {
         // Use Post instead of Get because Get request only allow to put the query in the url, which crash the request when the query is too long.And can't use StringContent or MultiPartFormDataContent with Get
 
-
         using HttpClient client = new();
         if (!string.IsNullOrEmpty(_authenticationGDBToken))
             client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("GDB", _authenticationGDBToken);
@@ -116,6 +112,7 @@ public class GraphDBAPI
         }
         catch (Exception e)
         {
+            DebugDev.Log("SelectQuery error " + e.Message);
             HttpResponseMessage responseB = new()
             {
                 StatusCode = HttpStatusCode.ServiceUnavailable,
@@ -129,6 +126,8 @@ public class GraphDBAPI
         if (!response.IsSuccessStatusCode)
         {
             string error = await response.Content.ReadAsStringAsync();
+
+            Debug.Log("SelectQuery No success : " + error);
 
             HttpResponseMessage responseC = new()
             {
@@ -321,6 +320,60 @@ public class GraphDBAPI
         }
     }
 
+    public async Task<RepositoryStatus> DoRepositoryExist()
+    {
+
+        using HttpClient client = new();
+        HttpRequestMessage request = new(HttpMethod.Get, _serverUrl + "repositories");
+
+        if (!string.IsNullOrEmpty(_authenticationGDBToken))
+            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("GDB", _authenticationGDBToken);
+
+        client.DefaultRequestHeaders.Add("Accept", "application/sparql-results+json");
+
+        HttpResponseMessage response;
+
+        try
+        {
+            response = await client.SendAsync(request);
+        }
+        catch (Exception e)
+        {
+            HttpResponseMessage responseB = new()
+            {
+                StatusCode = HttpStatusCode.ServiceUnavailable,
+                Content = new StringContent(e.Message)
+            };
+
+            OnErrorQuery?.Invoke(responseB);
+            return RepositoryStatus.CouldntConnect;
+        }
+
+        if (!response.IsSuccessStatusCode)
+        {
+            string error = await response.Content.ReadAsStringAsync();
+
+            HttpResponseMessage responseC = new()
+            {
+                StatusCode = response.StatusCode,
+                Content = new StringContent(error)
+            };
+
+            OnErrorQuery?.Invoke(responseC);
+
+
+            if (response.StatusCode == HttpStatusCode.Unauthorized)
+                return RepositoryStatus.Unauthorized;
+
+            return RepositoryStatus.Failed;
+        }
+
+
+        string answer = await response.Content.ReadAsStringAsync();
+
+
+        return ContainsRepositoryId(answer, _repositoryId);
+    }
 
 
     #region STATIC

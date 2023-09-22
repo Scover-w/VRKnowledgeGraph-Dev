@@ -19,6 +19,7 @@ public class GraphDbRepositories
         } 
     }
 
+    [JsonIgnore]
     public int LastSelectedId { get { return _lastSelectedId; } }
 
     [JsonIgnore]
@@ -28,8 +29,9 @@ public class GraphDbRepositories
     private List<GraphDbRepository> _repositories;
 
     [JsonProperty("LastSelectedId_")]
-    private int _lastSelectedId = -1; 
+    private int _lastSelectedId = -1;
 
+    [JsonIgnore]
     private static string _gdbRepositoriesPath;
 
     public GraphDbRepositories()
@@ -44,7 +46,20 @@ public class GraphDbRepositories
         if (File.Exists(_gdbRepositoriesPath))
         {
             string json = await File.ReadAllTextAsync(_gdbRepositoriesPath);
+
+            DebugDev.Log("GraphDbRepositories");
+            DebugDev.Log(json);
+
             var repositories = await JsonConvertHelper.DeserializeObjectAsync<GraphDbRepositories>(json);
+
+            var repos = repositories.Repositories;
+            foreach (var repo in repos)
+            {
+                DebugDev.Log("----");
+                DebugDev.Log(repo.GraphDbUrl);
+                DebugDev.Log(repo.GraphDbRepositoryId);
+                DebugDev.Log("----");
+            }
 
             return repositories;
         }
@@ -73,11 +88,11 @@ public class GraphDbRepositories
         Debug.Log(_gdbRepositoriesPath);
     }
 
-    public void Add(GraphDbRepository repository)
+    public async Task Add(GraphDbRepository repository)
     {
         _repositories.Add(repository);
 
-        _ = Save();
+        await Save();
     }
 
     public async Task Remove(GraphDbRepository repository) 
@@ -102,7 +117,7 @@ public class GraphDbRepositories
     {
         _lastSelectedId = _repositories.IndexOf(repository);
 
-        Debug.Log("Select Repo : " + repository.GraphDbUrl + " , " + repository.GraphDbRepositoryId);
+        Debug.Log("Select Repo : " + repository.GraphDbUrl + ", " + repository.GraphDbRepositoryId);
 
         _ = Save();
     }

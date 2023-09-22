@@ -2,6 +2,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -69,6 +70,7 @@ public class OmekaToRdf : MonoBehaviour
         JsonHash = json.GetSha256Hash();
 
         var api = new GraphDBAPI(null);
+        await api.SetCredentials(GraphDbCredentials.USERNAME, GraphDbCredentials.PASSWORD);
 
         var hasDeletedAll = await api.UpdateQuery("DELETE\r\nWHERE {\r\n  ?s ?p ?o .\r\n}");
 
@@ -276,18 +278,25 @@ public class OmekaToRdf : MonoBehaviour
         omekaUrl = FormatOmekaUrl(omekaUrl);
 
         var vocabulary = await RetrieveVocabulary(omekaUrl);
+        DebugDev.Log("Retrieved Vocabulary");
         var jsonData = await HttpHelper.Retrieve(omekaUrl);
-
+        DebugDev.Log("Retrieved jsonData");
 
         var graph = new VDS.RDF.Graph();
 
         JToken root = JToken.Parse(jsonData);
 
+        int nbRoot = root.Count();
+        int nb = 0;
+
         foreach (JToken itemR in root)
         {
             await ExtractTriplesAsync(itemR);
+            nb++;
+            DebugDev.Log("Extracted triple " + nb + "/" + nbRoot);
         }
 
+        DebugDev.Log("Extracted Triples");
 
         System.IO.StringWriter textWriter = new();
         CompressingTurtleWriter turtleWriter = new();
@@ -312,8 +321,11 @@ public class OmekaToRdf : MonoBehaviour
                 //    }
                 //}
 
-                foreach (var key in item.Children<JProperty>())
+                var childrens = item.Children<JProperty>();
+
+                foreach (var key in childrens)
                 {
+
                     string prefix = key.Name.Split(':')[0];
 
                     if (key.Name.Contains(":") && !key.Name.StartsWith("o:") && !key.Name.StartsWith("o-module"))
@@ -400,8 +412,7 @@ public class OmekaToRdf : MonoBehaviour
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"An error occurred for item with id: {item["@id"]}");
-                Console.WriteLine($"Exception message: {ex.Message}");
+                DebugDev.Log($"Exception message: {ex.Message}");
             }
         }
 

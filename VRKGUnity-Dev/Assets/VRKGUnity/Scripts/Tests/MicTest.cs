@@ -74,7 +74,7 @@ public class MicTest : MonoBehaviour
     [ContextMenu("WhisperTest")]
     public async void WhisperTest()
     {
-        var bipbop = await new WhisperAPI().TranscribeAudio("C:\\Users\\William\\Desktop\\VRKnowledgeGraph-Dev\\VRKGUnity-Dev\\Assets\\VRKGUnity\\Sounds\\Tests\\test.mp3");
+        var bipbop = await new WhisperAPI().TranscribeAudio("");
         Debug.Log($"{bipbop}");
 
     }

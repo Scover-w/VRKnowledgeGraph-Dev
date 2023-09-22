@@ -22,25 +22,27 @@ public class GraphDbRepository
 
 
     // TODO : Place in a more obfuscated file
-    public string EncryptedUsername;
-    public string EncryptedPassword;
+    public string EncryptedUsername { get; private set; }
+    public string EncryptedPassword { get; private set; }
 
-    public string StartQuery;
+    public string StartQuery { get; private set; }
 
 
     [JsonIgnore]
     public string PathRepo { get; private set; }
 
 
-    public GraphDbRepository(string graphDbUrl, string graphDbRepoId, string encryptedUsername, string encryptedPassword)
+    public GraphDbRepository(string graphDbUrl, string graphDbRepositoryId, string encryptedUsername, string encryptedPassword)
     {
         GraphDbUrl = graphDbUrl;
-        GraphDbRepositoryId = graphDbRepoId;
+        GraphDbRepositoryId = graphDbRepositoryId;
 
         EncryptedUsername = encryptedUsername;
         EncryptedPassword = encryptedPassword;
 
         GraphDBAPI = new GraphDBAPI(this);
+
+        StartQuery = "select * where { ?s ?p ?o . } limit 5000";
 
         PathRepo = Path.Combine(Settings.PersistentDataPath, "Data", GraphDbRepositoryId + "_" + Mathf.Abs(GraphDbUrl.GetHashCode()));
 

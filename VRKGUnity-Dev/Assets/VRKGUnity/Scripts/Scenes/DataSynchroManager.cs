@@ -96,9 +96,6 @@ public class DataSynchroManager : MonoBehaviour
         _loadingBarUI.Refresh(0f, "Vérification de la connexion au serveur GraphDb");
         await WaitRepositoryConnection();
 
-        _loadingBarUI.Refresh(0f, "Mise à jour des données Omeka dans GaphDb");
-        UpdateGraphDbFromOmeka();
-
         _loadingBarUI.Refresh(.1f, "Mise à jour des données GraphDb en local");
 
         IReadOnlyDictionary<string, OntologyTree> ontoUris = null;
@@ -163,23 +160,31 @@ public class DataSynchroManager : MonoBehaviour
 
             }
 
-            Debug.Log(_graphDbAPI.ServerUrl);
-            isConnectedToRepo = await HttpHelper.Ping(_graphDbAPI.ServerUrl);
+            var status = await _graphDbAPI.DoRepositoryExist();
+            isFirstTest = false;
 
-            if (!isConnectedToRepo)
+            switch (status)
             {
-                _loadingBarUI.Refresh(0f, "Connexion échouée. Veuillez vérifier que le serveur GraphDb est en ligne.");
-                isFirstTest = false;
+                case RepositoryStatus.Exist:
+                    isConnectedToRepo = true;
+                    break;
+                case RepositoryStatus.ExistButUnreadable:
+                    _loadingBarUI.Refresh(0f, "Le dépôt ne possède pas les autorisations de lecture requises pour communiquer avec celui-ci. Veuillez modifier vos droits ou changer d'identifants.");
+                    break;
+                case RepositoryStatus.Nonexistent:
+                    _loadingBarUI.Refresh(0f, "Le dépôt n'existe pas dans la base de données.");
+                    break;
+                case RepositoryStatus.Unauthorized:
+                    _loadingBarUI.Refresh(0f, "Connection au dépôt non autorisé. Veuillez modifier vos droits ou changer d'identifants.");
+                    break;
+                case RepositoryStatus.CouldntConnect:
+                    _loadingBarUI.Refresh(0f, "Impossible de se connecter à la base de donnée. Veuillez vous assurer que le serveur est en ligne.");
+                    break;
+                case RepositoryStatus.Failed:
+                    _loadingBarUI.Refresh(0f, "Connexion échouée.");
+                    break;
             }
         }
-    }
-
-    private void UpdateGraphDbFromOmeka()
-    {
-        // TODO : Need to check the api
-        
-
-
     }
 
     private async Task<IReadOnlyDictionary<string, OntologyTree>> UpdateLocalRepoFromGraphDbServer()
@@ -190,7 +195,8 @@ public class DataSynchroManager : MonoBehaviour
         string queryString = new SPARQLAdditiveBuilder().Build();
 
         var json = await _graphDbAPI.SelectQuery(queryString, true);
-
+        Debug.Log("UpdateLocalRepoFromGraphDbServer json : ");
+        Debug.Log(json);
         _data = await JsonConvertHelper.DeserializeObjectAsync<JObject>(json);
         Debug.Log(_data);
         await repoUris.RetrieveNewNamespaces(_data, _graphDbAPI, this, _defaultPrefixs);

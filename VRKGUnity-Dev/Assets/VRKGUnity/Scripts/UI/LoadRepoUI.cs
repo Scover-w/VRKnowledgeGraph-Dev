@@ -253,13 +253,13 @@ public class LoadRepoUI : MonoBehaviour
                 return;
             case RepositoryStatus.CouldntConnect:
                 _infoTitleTxt.text = "Impossible de se connecter à la base de données";
-                _infoTxt.text = "Impossible de se connecter à la base de donnée. Veuillez vous assurer que vous disposez d'une connexion Internet ouque le serveur est en ligne.";
+                _infoTxt.text = "Impossible de se connecter à la base de donnée. Veuillez vous assurer que vous disposez d'une connexion Internet ou que le serveur est en ligne.";
                 _previousPage = LoadRepoPage.NewModifyRepo;
                 DisplayPage(LoadRepoPage.InformationDialog, false);
                 return;
             case RepositoryStatus.Failed:
                 _infoTitleTxt.text = "Impossible de vérifier le status du dépôt";
-                _infoTxt.text = "Le serveur a retourné une erreur.";
+                _infoTxt.text = "Connexion échouée.";
                 _previousPage = LoadRepoPage.NewModifyRepo;
                 DisplayPage(LoadRepoPage.InformationDialog, false);
                 return;
@@ -278,7 +278,7 @@ public class LoadRepoUI : MonoBehaviour
         
         GraphDbRepository dbRepository = new(graphDbServerUrl, graphDbRepoId, encryptedUsername, encryptedPassword);
 
-        _graphDbRepositories.Add(dbRepository);
+        await _graphDbRepositories.Add(dbRepository);
         _graphDbRepositories.Select(dbRepository);
 
         AddRepository(dbRepository);
