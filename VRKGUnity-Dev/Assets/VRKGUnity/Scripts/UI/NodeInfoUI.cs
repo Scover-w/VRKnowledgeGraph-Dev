@@ -55,6 +55,12 @@ public class NodeInfoUI : MonoBehaviour
     GameObject _mediaGo;
 
     [SerializeField]
+    GameObject _mediaIconGo;
+
+    [SerializeField]
+    GameObject _loadingMediaIconGo;
+
+    [SerializeField]
     GameObject _propertyGo;
 
     [SerializeField]
@@ -361,6 +367,15 @@ public class NodeInfoUI : MonoBehaviour
         _medias = new();
         List<string> localMediaToRetrieve = new();
         List<string> internetMediaToRetrieve = new();
+
+
+        bool doContainMedias = _nodeDisplayed.Medias.Count > 0;
+
+        _mediaIconGo.SetActive(!doContainMedias);
+        _loadingMediaIconGo.SetActive(doContainMedias);
+
+        if (!doContainMedias)
+            return;
 
         foreach (string urlMedia in _nodeDisplayed.Medias)
         {
