@@ -11,16 +11,41 @@ public class RayActivator : MonoBehaviour
     [SerializeField]
     GameObject _lenRayInteractorGo;
 
+    Transform _tf;
+
     bool _isFirstEndSimu = true;
 
     bool _canInteractorBeEnabled = false;
     bool _doesDeskInteractorWantToHideIt = false;
+
+    bool _isRaycastingAgainstUI = false;
+
+    RaycastHit hit;
+    int _layerUI;
 
 
     private void Start()
     {
         Invoke(nameof(OnDelayedStart), .5f);
         SceneManager.sceneLoaded += OnSceneLoaded;
+
+        _tf = transform;
+        _layerUI = 1 << AIDEN.TactileUI.Layers.PresenceUI;
+    }
+
+
+    private void Update()
+    {
+        if (!_canInteractorBeEnabled || _doesDeskInteractorWantToHideIt)
+            return;
+
+        var isRaycastingAgainstUI = Physics.Raycast(_tf.position, _tf.forward, out hit, 100f, _layerUI);
+
+        if (isRaycastingAgainstUI == _isRaycastingAgainstUI)
+            return;
+
+        _isRaycastingAgainstUI = isRaycastingAgainstUI;
+        _lenRayInteractorGo.SetActive(!_isRaycastingAgainstUI);
     }
 
     private void OnDelayedStart()
@@ -80,12 +105,23 @@ public class RayActivator : MonoBehaviour
     {
         _canInteractorBeEnabled = canInteractorBeEnabled;
 
-        _lenRayInteractorGo.SetActive(_canInteractorBeEnabled && !_doesDeskInteractorWantToHideIt);
+        bool isActive = _canInteractorBeEnabled && !_doesDeskInteractorWantToHideIt;
+
+        _lenRayInteractorGo.SetActive(isActive);
+
+        if (isActive)
+            _isRaycastingAgainstUI = false;
     }
 
     public void SetDeskInteractorWantToHideIt(bool hideIt)
     {
         _doesDeskInteractorWantToHideIt = hideIt;
-        _lenRayInteractorGo.SetActive(_canInteractorBeEnabled && !hideIt);
+
+        bool isActive = _canInteractorBeEnabled && !_doesDeskInteractorWantToHideIt;
+
+        _lenRayInteractorGo.SetActive(isActive);
+
+        if (isActive)
+            _isRaycastingAgainstUI = false;
     }
 }

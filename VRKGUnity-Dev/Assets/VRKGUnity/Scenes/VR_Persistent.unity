@@ -206,6 +206,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2333321400396840939, guid: ce157c498811ef646b8597ba7b9a15ce, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2333321400506145073, guid: ce157c498811ef646b8597ba7b9a15ce, type: 3}
       propertyPath: m_Name
       value: MultiInputController
