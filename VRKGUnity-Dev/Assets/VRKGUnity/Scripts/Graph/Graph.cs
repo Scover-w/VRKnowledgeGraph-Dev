@@ -32,6 +32,9 @@ public class Graph
     Dictionary<string, Node> _nodesDicUID;
     Dictionary<string, Edge> _edgesDicUID;
 
+    Dictionary<string, Node> _hiddenNodesDicUID;
+    Dictionary<string, Edge> _hiddenEdgesDicUID;
+
 
     BidirectionalGraph<Node, Edge> _graphDatasForASP;
 
@@ -47,8 +50,10 @@ public class Graph
         _nodesDicUID = nodges.NodesDicUID; 
         _edgesDicUID = nodges.EdgesDicUID;
 
-        _graphManager = graphManager;
+        _hiddenNodesDicUID = new();
+        _hiddenEdgesDicUID = new();
 
+        _graphManager = graphManager;
 
         _graphConfiguration = _graphManager.GraphConfiguration;
         _stylingManager = stylingManager;
@@ -275,108 +280,130 @@ public class Graph
 
 
     #region DynamicFilter
-    public DynamicFilter Hide(HashSet<Node> nodeToHide)
+    public void UndoFilter(SubBlockHistory subBlockHistory)
     {
-        DynamicFilter filter = new (nodeToHide);
+        var graphMode = _graphManager.GraphMode;
+        var nodesUIDS = subBlockHistory.NodesUidsHidden;
 
-        HashSet<Node> nodeToRemove = new();
-        HashSet<Edge> edgeToHide = new();
-
-        foreach (Node node in nodeToHide) 
+        foreach (string nodeUID in nodesUIDS)
         {
-            node.HideNode();
-            node.HideNode();
+            if(!_hiddenNodesDicUID.TryGetValue(nodeUID, out var node))
+            {
+                Debug.LogWarning("Graph.UndoFilter : Tried to unhide a node that is not in the hiddenPool");
+                continue;
+            }
 
-            nodeToRemove.Add(node);
-        }
+            _hiddenNodesDicUID.Remove(nodeUID);
+            _nodesDicUID.Add(nodeUID, node);
 
-        foreach (Node node in nodeToRemove)
-        {
-            _nodesDicUID.Remove(node.UID);
+            node.Unhide(graphMode);
 
             var edges = node.Edges;
 
             foreach (Edge edge in edges)
             {
-                _edgesDicUID.Remove(edge.UID);
-                edgeToHide.Add(edge);
+                string edgeUID = edge.UID;
+                if (!_hiddenEdgesDicUID.ContainsKey(edgeUID))
+                    continue;
+
+                _hiddenEdgesDicUID.Remove(edgeUID);
+                _edgesDicUID.Add(edgeUID, edge);
             }
         }
-
-        filter.HiddenEdges = edgeToHide;
-        return filter;
     }
 
-    public DynamicFilter HideAllExcept(HashSet<Node> nodeToKeepDisplay, HashSet<Node> nodeToFilter = null)
+    public void RedoFilter(SubBlockHistory subBlockHistory)
     {
-        // Node to keep and node to filter can be different. When hideunpropagated,need to keep the propagated but need to filter inthe query only the selection
-        HashSet<Node> nodeToHide = new();
+        var nodesUIDS = subBlockHistory.NodesUidsHidden;
 
-        HashSet<Node> nodeToRemove = new();
-        HashSet<Edge> edgeToHide = new();
+        foreach(string nodeUID in nodesUIDS)
+        {
+            if(!_nodesDicUID.TryGetValue(nodeUID, out Node node))
+            {
+                Debug.LogWarning("Graph.RedoFilter : Tried to retrieve from node but not in it");
+                continue;
+            }
 
+            _nodesDicUID.Remove(node.UID);
+            _hiddenNodesDicUID.Add(node.UID, node);
+
+            foreach (var hidenEdge in node.Edges)
+            {
+                string edgeUId = hidenEdge.UID;
+
+                if(!_edgesDicUID.TryGetValue(edgeUId, out Edge edge))
+                {
+                    Debug.LogWarning("Graph.RedoFilter : Tried to retrieve from edge but not in it");
+                    continue;
+                }
+
+                _edgesDicUID.Remove(edgeUId);
+                _hiddenEdgesDicUID.Add(edgeUId, edge);
+            }
+
+            node.HideNode();
+        }
+    }
+
+    public SubBlockHistory Hide(HashSet<Node> nodesToHide, out NodgesDicUID hiddenNodgesDicUId)
+    {
+        SubBlockHistory subBlockHistory = new(nodesToHide, out hiddenNodgesDicUId);
+
+        var nodeToHideDict = hiddenNodgesDicUId.NodesDicUID;
+        var edgeToHideDict = hiddenNodgesDicUId.EdgesDicUID;
+
+        foreach(var kvp in nodeToHideDict)
+        {
+            Node node = kvp.Value;
+            _nodesDicUID.Remove(node.UID);
+            _hiddenNodesDicUID.Add(node.UID, node);
+
+            node.HideNode();
+            // TODO : handle unlink
+        }
+
+        foreach (var edgeToHide in edgeToHideDict)
+        {
+            Edge edge = edgeToHide.Value;
+            _edgesDicUID.Remove(edge.UID);
+            _hiddenEdgesDicUID.Add(edge.UID, edge);
+        }
+
+        return subBlockHistory;
+    }
+
+
+    public SubBlockHistory HideAllExcept(HashSet<Node> nodeToKeep, out NodgesDicUID hiddenNodgesDicUId)
+    {
+        HashSet<Node> nodesToHide = new();
 
         foreach (Node node in _nodesDicUID.Values)
         {
-
-            if (nodeToKeepDisplay.Contains(node))
+            if (nodeToKeep.Contains(node))
                 continue;
 
-            nodeToHide.Add(node);
-            node.HideNode();
-            node.HideNode();
-
-            nodeToRemove.Add(node);
+            nodesToHide.Add(node);
         }
 
-        foreach(Node node in nodeToRemove)
-        {
-            _nodesDicUID.Remove(node.UID);
-
-            var edges = node.Edges;
-
-            foreach (Edge edge in edges)
-            {
-                _edgesDicUID.Remove(edge.UID);
-                edgeToHide.Add(edge);
-            }
-        }
-
-        DynamicFilter filter = new(nodeToKeepDisplay, nodeToHide, nodeToFilter)
-        {
-            HiddenEdges = edgeToHide
-        };
-
-        return filter;
+        return Hide(nodesToHide, out hiddenNodgesDicUId);
     }
 
-    public void UndoFilter(DynamicFilter filter)
+    public void ReleaseNodges(NodgePool pool)
     {
-        var nodesToUnhide = filter.HiddenNodes;
-
-        foreach(Node node in nodesToUnhide)
+        foreach(Node node in _hiddenNodesDicUID.Values)
         {
-            if (_nodesDicUID.ContainsKey(node.UID))
-                continue;
-
-            _nodesDicUID.Add(node.UID, node);
-            node.Unhide(_graphManager.GraphMode);
-
-            var edges = node.Edges;
-
-            foreach (Edge edge in edges)
-            {
-                if (_edgesDicUID.ContainsKey(edge.UID))
-                    continue;
-
-                _edgesDicUID.Add(edge.UID, edge);
-            }
+            pool.Release(node.MainStyler);
+            pool.Release(node.SubStyler);
         }
-    }
 
-    public void RedoFilter(DynamicFilter filter)
-    {
-        // TODO : Redo Filter
+        foreach (Edge edge in _hiddenEdgesDicUID.Values)
+        {
+            pool.Release(edge.MainStyler);
+            pool.Release(edge.SubStyler);
+        }
+
+        _hiddenNodesDicUID = new();
+        _hiddenEdgesDicUID = new();
     }
 
     #endregion

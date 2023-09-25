@@ -58,7 +58,6 @@ public class DynamicFilter
             pool.Release(edge.SubStyler);
         }
     }
-
 }
 
 public enum DynamicFilterType

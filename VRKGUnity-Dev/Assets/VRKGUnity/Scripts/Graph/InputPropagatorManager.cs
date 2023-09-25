@@ -12,7 +12,7 @@ public partial class InputPropagatorManager : MonoBehaviour
     GraphManager _graphManager;
 
     [SerializeField]
-    DynamicFilterManager _dynFilterManager;
+    HistoryFilterManager _dynFilterManager;
 
     [SerializeField]
     StylingManager _stylingManager;

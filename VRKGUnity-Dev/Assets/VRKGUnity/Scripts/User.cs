@@ -16,7 +16,7 @@ public class User : MonoBehaviour
     NodgeSelectionManager _selectionManager;
 
     [SerializeField]
-    DynamicFilterManager _dynFilterManager;
+    HistoryFilterManager _dynFilterManager;
 
     [ContextMenu("Switch Graph Mode")]
     public bool SwitchGraphMode()

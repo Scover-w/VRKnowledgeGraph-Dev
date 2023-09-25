@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 public class NodgesDicUID
 {
@@ -62,4 +63,24 @@ public class HashSetNodges
         Nodes = nodes;
         Edges = edges;
     }
+
+    public HashSetNodges(NodgesDicUID nodgesDicUID)
+    {
+        Nodes = new();
+        Edges = new();
+
+        var nodesDict = nodgesDicUID.NodesDicUID;
+        var edgesDict = nodgesDicUID.EdgesDicUID;
+
+        foreach (var node in nodesDict.Values) 
+        {
+            Nodes.Add(node);
+        }
+
+        foreach (var edge in edgesDict.Values)
+        {
+            Edges.Add(edge);
+        }
+    }
+
 }
