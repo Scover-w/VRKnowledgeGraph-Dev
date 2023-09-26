@@ -7,7 +7,7 @@ public class SPARQLQuery
 {
     public string Query { get { return _query; } }
 
-    string _query;
+    readonly string _query;
 
     public SPARQLQuery(Node node, DynamicFilterType type)
     {
@@ -21,7 +21,7 @@ public class SPARQLQuery
         if (nodes == null || nodes.Count == 0)
             Debug.LogError("nodes is null or length equal 0.");
 
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new();
 
 
         if(type == DynamicFilterType.ExcludeAll)

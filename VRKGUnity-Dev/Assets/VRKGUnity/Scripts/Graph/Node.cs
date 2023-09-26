@@ -310,7 +310,7 @@ public class Node
         SubGraphNodeTf.gameObject.SetActive(_doDisplaySubNode);
     }
 
-    public void HideNode()
+    public void HideFromFilter()
     {
         ResetInteractionState();
 
@@ -319,16 +319,20 @@ public class Node
 
         IsHiddenFromFilter = true;
 
+        OntoNode?.NodesAttached.Remove(this);
+
         HideEdges();
     }
 
-    public void Unhide(GraphMode graphMode)
+    public void UnhideFromFilter(GraphMode graphMode)
     {
         IsHiddenFromFilter = false;
 
         DisplayMainNode(true);
 
         UnhideEdges(graphMode);
+
+        OntoNode?.NodesAttached.Add(this);
 
         var graphConfig = GraphConfiguration.Instance;
 

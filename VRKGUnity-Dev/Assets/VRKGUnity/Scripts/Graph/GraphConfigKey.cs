@@ -118,5 +118,6 @@ public enum GraphConfigKey
     LensMaxVelocity,
     LensStopVelocity,
 
-    LocomotionMode
+    LocomotionMode,
+    RecalculateMetricsOnFilter
 }

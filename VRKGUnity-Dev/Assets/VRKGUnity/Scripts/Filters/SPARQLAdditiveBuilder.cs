@@ -3,16 +3,14 @@ using System.Text;
 
 public class SPARQLAdditiveBuilder
 {
-    
-    string _startBaseQuery;
-    string _endBaseQuery;
-
-    string _startAdditiveQuery;
-    string _endAdditiveQuery;
+    readonly string _startBaseQuery;
+    readonly string _endBaseQuery;
+    readonly string _startAdditiveQuery;
+    readonly string _endAdditiveQuery;
 
     string _firstQuery;
 
-    List<string> _additiveQueries;
+    readonly List<string> _additiveQueries;
 
     public SPARQLAdditiveBuilder()
     {
@@ -55,7 +53,7 @@ public class SPARQLAdditiveBuilder
     {
         int nbAdditiveQuery = _additiveQueries.Count;
 
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new();
 
         sb.Append(_startBaseQuery);
 

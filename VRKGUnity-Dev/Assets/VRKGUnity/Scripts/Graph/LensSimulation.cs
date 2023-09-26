@@ -271,6 +271,9 @@ public class LensSimulation : MonoBehaviour
 
             var subTf = node.SubGraphNodeTf;
 
+            if (subTf == null)
+                continue;
+
             var newCalculatedPosition = idAnData.Value.Position;
             var subLerpPosition = Vector3.Lerp(subTf.localPosition, newCalculatedPosition * scalingFactor, lerpSmooth);
             subTf.localPosition = subLerpPosition;
@@ -280,8 +283,14 @@ public class LensSimulation : MonoBehaviour
         {
             var edge = idAndEdge.Value;
 
-            var sourcePos = edge.Source.SubGraphNodeTf.localPosition;
-            var targetPos = edge.Target.SubGraphNodeTf.localPosition;
+            var sourceTf = edge.Source?.SubGraphNodeTf;
+            var targetTf = edge.Target?.SubGraphNodeTf;
+
+            if (sourceTf == null || targetTf == null)
+                continue;
+
+            var sourcePos = sourceTf.localPosition;
+            var targetPos = targetTf.localPosition;
 
             Vector3 direction = targetPos - sourcePos;
 

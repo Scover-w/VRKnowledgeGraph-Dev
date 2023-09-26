@@ -285,29 +285,64 @@ public class Graph
         var graphMode = _graphManager.GraphMode;
         var nodesUIDS = subBlockHistory.NodesUidsHidden;
 
+
+        // First nodes then vertex because _graphDatasForASP need that each node of the edge is in it before adding the edge
+        List<Node> nodesDisplayed = new();
+
         foreach (string nodeUID in nodesUIDS)
         {
-            if(!_hiddenNodesDicUID.TryGetValue(nodeUID, out var node))
+            if (!_hiddenNodesDicUID.TryGetValue(nodeUID, out var node))
             {
                 Debug.LogWarning("Graph.UndoFilter : Tried to unhide a node that is not in the hiddenPool");
                 continue;
             }
 
+            if (!node.IsHiddenFromFilter)
+                continue;
+
+            node.UnhideFromFilter(graphMode);
+
             _hiddenNodesDicUID.Remove(nodeUID);
             _nodesDicUID.Add(nodeUID, node);
+            _graphDatasForASP.AddVertex(node);
 
-            node.Unhide(graphMode);
+            nodesDisplayed.Add(node);
+        }
 
+
+        foreach(Node node in nodesDisplayed)
+        {
             var edges = node.Edges;
 
             foreach (Edge edge in edges)
             {
                 string edgeUID = edge.UID;
+
                 if (!_hiddenEdgesDicUID.ContainsKey(edgeUID))
+                {
+                    Debug.LogWarning("Graph.UndoFilter : Tried to unhide a edge that is not in the hiddenPool");
+                    continue;
+                }
+
+                if (!edge.IsHiddenFromFilter)
                     continue;
 
                 _hiddenEdgesDicUID.Remove(edgeUID);
                 _edgesDicUID.Add(edgeUID, edge);
+
+                try
+                {
+                    _graphDatasForASP.AddEdge(edge);
+                }
+                catch(Exception ex) 
+                {
+                    Debug.LogWarning(ex);
+                    var source = edge.Source;
+                    var target = edge.Target;
+
+                    Debug.Log("Source : " + _nodesDicUID.ContainsKey(source.UID) + "  " + _graphDatasForASP.ContainsVertex(source));
+                    Debug.Log("Target : " + _nodesDicUID.ContainsKey(target.UID) + "  " + _graphDatasForASP.ContainsVertex(target));
+                }
             }
         }
     }
@@ -324,9 +359,6 @@ public class Graph
                 continue;
             }
 
-            _nodesDicUID.Remove(node.UID);
-            _hiddenNodesDicUID.Add(node.UID, node);
-
             foreach (var hidenEdge in node.Edges)
             {
                 string edgeUId = hidenEdge.UID;
@@ -337,11 +369,22 @@ public class Graph
                     continue;
                 }
 
+                if (edge.IsHiddenFromFilter)
+                    continue;
+
                 _edgesDicUID.Remove(edgeUId);
                 _hiddenEdgesDicUID.Add(edgeUId, edge);
+                _graphDatasForASP.RemoveEdge(edge);
             }
 
-            node.HideNode();
+            if (node.IsHiddenFromFilter)
+                continue;
+
+            _nodesDicUID.Remove(node.UID);
+            _hiddenNodesDicUID.Add(node.UID, node);
+            _graphDatasForASP.RemoveVertex(node);
+
+            node.HideFromFilter();
         }
     }
 
@@ -352,21 +395,45 @@ public class Graph
         var nodeToHideDict = hiddenNodgesDicUId.NodesDicUID;
         var edgeToHideDict = hiddenNodgesDicUId.EdgesDicUID;
 
-        foreach(var kvp in nodeToHideDict)
-        {
-            Node node = kvp.Value;
-            _nodesDicUID.Remove(node.UID);
-            _hiddenNodesDicUID.Add(node.UID, node);
+        DebugDev.Log("Graph.Hide : ");
 
-            node.HideNode();
-            // TODO : handle unlink
-        }
 
-        foreach (var edgeToHide in edgeToHideDict)
+        foreach (var kvpEdge in edgeToHideDict)
         {
-            Edge edge = edgeToHide.Value;
+            Edge edge = kvpEdge.Value;
+
+            if (edge.IsHiddenFromFilter) // Already hidden
+                continue;
+
+            if (_hiddenEdgesDicUID.ContainsKey(edge.UID))
+            {
+                DebugDev.LogWarning("Graph.Hide : Edge already in the hidden pool.");
+                continue;
+            }
+
             _edgesDicUID.Remove(edge.UID);
             _hiddenEdgesDicUID.Add(edge.UID, edge);
+            _graphDatasForASP.RemoveEdge(edge);
+        }
+
+
+        foreach (var kvpNode in nodeToHideDict)
+        {
+            Node node = kvpNode.Value;
+
+            if (node.IsHiddenFromFilter)
+                continue;
+
+            if (_hiddenNodesDicUID.ContainsKey(node.UID))
+            {
+                DebugDev.LogWarning("Graph.Hide : Node already in the hidden pool.");
+                continue;
+            }
+
+            _nodesDicUID.Remove(node.UID);
+            _hiddenNodesDicUID.Add(node.UID, node);
+            _graphDatasForASP.RemoveVertex(node);
+            node.HideFromFilter();
         }
 
         return subBlockHistory;
@@ -388,7 +455,7 @@ public class Graph
         return Hide(nodesToHide, out hiddenNodgesDicUId);
     }
 
-    public void ReleaseNodges(NodgePool pool)
+    public void ReleaseHiddenNodges(NodgePool pool)
     {
         foreach(Node node in _hiddenNodesDicUID.Values)
         {

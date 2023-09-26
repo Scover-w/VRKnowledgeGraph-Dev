@@ -7,12 +7,11 @@ public class SubBlockHistory
     public IReadOnlyList<string> NodesUidsHidden => _nodesUidsHidden;
     public IReadOnlyList<string> EdgesUidsHidden => _edgesUidsHidden;
 
-    List<string> _nodesUidsHidden;
-    List<string> _edgesUidsHidden;
+    readonly List<string> _nodesUidsHidden;
+    readonly List<string> _edgesUidsHidden;
 
-    DynamicFilterType FilterType;
-
-    SPARQLQuery _sparqlQuery;
+    readonly DynamicFilterType FilterType;
+    readonly SPARQLQuery _sparqlQuery;
 
     public SubBlockHistory(HashSet<Node> hiddenNodes, out NodgesDicUID nodgeDicUID) 
     {
@@ -29,16 +28,25 @@ public class SubBlockHistory
 
         foreach (var hiddenNode in hiddenNodes) 
         {
-            string nodeUId = hiddenNode.UID;
-            nodesToHideDict.Add(nodeUId, hiddenNode);
-            _nodesUidsHidden.Add(nodeUId);
-
+           
             foreach(var hidenEdge in hiddenNode.Edges)
             {
                 string edgeUId = hidenEdge.UID;
+
+                if (edgesToHideDict.ContainsKey(edgeUId))
+                    continue;
+
                 edgesToHideDict.Add(edgeUId, hidenEdge);
                 _edgesUidsHidden.Add(edgeUId);
             }
+
+            string nodeUId = hiddenNode.UID;
+
+            if (nodesToHideDict.ContainsKey(nodeUId))
+                continue;
+
+            nodesToHideDict.Add(nodeUId, hiddenNode);
+            _nodesUidsHidden.Add(nodeUId);
         }
     }
 }

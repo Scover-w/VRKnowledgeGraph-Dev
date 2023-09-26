@@ -1761,6 +1761,7 @@ public class AIDENController : MonoBehaviour
                 default:
                     actionType = GraphActionKey.Simulate;
                     return false;
+                // TODO : reset filter
             }
         }
 

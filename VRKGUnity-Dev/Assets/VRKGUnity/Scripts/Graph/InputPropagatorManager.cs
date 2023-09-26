@@ -76,9 +76,11 @@ public partial class InputPropagatorManager : MonoBehaviour
             GraphActionKey.FilterUnselected => true,
             GraphActionKey.FilterPropagated => true,
             GraphActionKey.FilterUnpropagated => true,
-            GraphActionKey.UndoFilter => _dynFilterManager.NbFilter != 0,
-            GraphActionKey.RedoFilter => _dynFilterManager.NbRedoFilter != 0,
+            GraphActionKey.UndoFilter => _dynFilterManager.CanUndo,
+            GraphActionKey.RedoFilter => _dynFilterManager.CanRedo,
             GraphActionKey.Simulate => !_graphManager.IsRunningSimulation,
+            GraphActionKey.ResetFilters => _dynFilterManager.CanUndo,
+            GraphActionKey.RecalculateMetrics => true,
             _ => true,
         };
     }
@@ -235,6 +237,12 @@ public partial class InputPropagatorManager : MonoBehaviour
                 break;
             case GraphActionKey.Simulate:
                 _user.ResimulateGraph();
+                break;
+            case GraphActionKey.ResetFilters:
+                _user.ResetFilters();
+                break;
+            case GraphActionKey.RecalculateMetrics:
+                _user.RecalculateMetrics();
                 break;
         }
     }

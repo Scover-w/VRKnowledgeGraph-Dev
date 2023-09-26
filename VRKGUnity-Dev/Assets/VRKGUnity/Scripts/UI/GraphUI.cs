@@ -6,8 +6,5 @@ public class GraphUI : MonoBehaviour
     User _user;
 
     [SerializeField]
-    NodgeInfoUI _nodgeInfoUI;
-
-    [SerializeField]
     NodgeSelectionManager _selectionManager;
 }

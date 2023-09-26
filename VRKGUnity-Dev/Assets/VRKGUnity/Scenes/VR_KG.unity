@@ -1677,7 +1677,7 @@ MonoBehaviour:
   _graphManager: {fileID: 1847420204}
   _inputPropagatorManager: {fileID: 1101384175}
   _selectionManager: {fileID: 1101384170}
-  _dynFilterManager: {fileID: 1847420205}
+  _historyFilterManager: {fileID: 1847420205}
 --- !u!114 &1101384175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2385,7 +2385,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _user: {fileID: 1101384174}
-  _nodgeInfoUI: {fileID: 0}
   _selectionManager: {fileID: 1101384170}
 --- !u!1001 &1728322618
 PrefabInstance:
@@ -2534,7 +2533,7 @@ MonoBehaviour:
   _subGraph: {fileID: 1847420211}
   _nodgeSelectionManager: {fileID: 1101384170}
   _nodgePool: {fileID: 1847420206}
-  _dynamicFilterManager: {fileID: 1847420205}
+  _historyFilterManager: {fileID: 1847420205}
 --- !u!114 &1847420205
 MonoBehaviour:
   m_ObjectHideFlags: 0

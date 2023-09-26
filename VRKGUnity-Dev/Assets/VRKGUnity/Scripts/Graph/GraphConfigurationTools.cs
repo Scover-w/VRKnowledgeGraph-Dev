@@ -81,6 +81,7 @@ public static class GraphConfigurationTools
             GraphConfigKey.GraphModeTransitionTime => GraphConfigValueType.Float,
             GraphConfigKey.DisplayInterSelectedNeighborEdges => GraphConfigValueType.Bool,
             GraphConfigKey.DisplayGPS => GraphConfigValueType.Bool,
+            GraphConfigKey.RecalculateMetricsOnFilter => GraphConfigValueType.Bool,
             GraphConfigKey.SelectedMetricTypeSize => GraphConfigValueType.Int,
             GraphConfigKey.SelectedMetricTypeColor => GraphConfigValueType.Int,
             GraphConfigKey.DefaultSimulationParameters => GraphConfigValueType.Float,
@@ -169,6 +170,7 @@ public static class GraphConfigurationTools
             GraphConfigKey.GraphModeTransitionTime => typeof(float),
             GraphConfigKey.DisplayInterSelectedNeighborEdges => typeof(bool),
             GraphConfigKey.DisplayGPS => typeof(bool),
+            GraphConfigKey.RecalculateMetricsOnFilter => typeof(bool),
             GraphConfigKey.SelectedMetricTypeSize => typeof(int),
             GraphConfigKey.SelectedMetricTypeColor => typeof(int),
             GraphConfigKey.DefaultSimulationParameters => typeof(float),
@@ -219,7 +221,7 @@ public static class GraphConfigurationTools
 
         Debug.LogError("No T as " + typeof(T) + " is handled");
 
-        return default(T);
+        return default;
     }
 
     private static int GetIntValue(this GraphConfigKey key, GraphConfiguration graphConfig)
@@ -310,6 +312,7 @@ public static class GraphConfigurationTools
             GraphConfigKey.ResetPositionNodeOnUpdate => graphConfig.ResetPositionNodeOnUpdate,
             GraphConfigKey.DisplayInterSelectedNeighborEdges => graphConfig.DisplayInterSelectedNeighborEdges,
             GraphConfigKey.DisplayGPS => graphConfig.DisplayGPS,
+            GraphConfigKey.RecalculateMetricsOnFilter => graphConfig.RecalculateMetricsOnFilter,
             _ => false,
         };
     }

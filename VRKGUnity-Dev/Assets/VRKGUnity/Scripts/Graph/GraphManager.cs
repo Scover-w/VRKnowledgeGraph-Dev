@@ -48,10 +48,9 @@ public class GraphManager : MonoBehaviour
     NodgePool _nodgePool;
 
     [SerializeField]
-    HistoryFilterManager _dynamicFilterManager;
+    HistoryFilterManager _historyFilterManager;
 
     Graph _graph;
-    SPARQLAdditiveBuilder _sparqlBuilder;
 
     GraphDbRepository _graphRepo;
     GraphConfiguration _graphConfiguration;
@@ -80,8 +79,8 @@ public class GraphManager : MonoBehaviour
         _graphRepo = _referenceHolderSo.SelectedGraphDbRepository;
         var graphRepoUris = _graphRepo.GraphDbRepositoryNamespaces;
 
-        _sparqlBuilder = new();
-        string queryString = _sparqlBuilder.Build();
+        SPARQLAdditiveBuilder sparqlBuilder = new();
+        string queryString = sparqlBuilder.Build();
 
         _isRetrievingFromDb = true;
         OnGraphUpdate?.Invoke(GraphUpdateType.RetrievingFromDb);
@@ -99,17 +98,31 @@ public class GraphManager : MonoBehaviour
     }
 
 
-    [ContextMenu("Update Graph")]
-    public async void UpdateGraph()
+    public void ResimulateGraph()
     {
         if (_graphSimulation.IsRunningSimulation)
             _graphSimulation.ForceStop();
 
 
-        var filters = _dynamicFilterManager.ApplyFilters();
-        _sparqlBuilder.Add(filters);
+        OnGraphUpdate?.Invoke(GraphUpdateType.RetrievingFromDb); // Need to call it even if no retrieving, to follow the OnGraphUpdateFlux
 
-        string query = _sparqlBuilder.Build();
+        _graph.ResetMainNodePositionsTf();
+        _graph.CalculateMetrics(_graphRepo.GraphDbRepositoryNamespaces);
+
+        _stylingManager.UpdateStyling(StyleChange.All);
+
+        SimulationWillStart();
+        _graphSimulation.Run(_graph);
+    }
+
+
+    public async void UpdateGraphFromHistoryFilter(SPARQLAdditiveBuilder sPARQLAdditiveBuilder)
+    {
+        if (_graphSimulation.IsRunningSimulation)
+            _graphSimulation.ForceStop();
+
+
+        string query = sPARQLAdditiveBuilder.Build();
 
         _isRetrievingFromDb = true;
         OnGraphUpdate?.Invoke(GraphUpdateType.RetrievingFromDb);
@@ -129,15 +142,16 @@ public class GraphManager : MonoBehaviour
         _graphSimulation.Run(_graph);
     }
 
+    public void RecalculateMetrics()
+    {
+        _graph.CalculateMetrics(_graphRepo.GraphDbRepositoryNamespaces);
+    }
+
     public bool CanSwitchMode()
     {
         return !IsRunningSimulation && !_isSwitchingMode && !_isRetrievingFromDb;
     }
 
-    public void ResetAll()
-    {
-        _referenceHolderSo.AppManagerSA.Value.ReloadKG();
-    }
 
     #region GRAPH_UPDATES_EVENT
     public void SimulationWillStart()

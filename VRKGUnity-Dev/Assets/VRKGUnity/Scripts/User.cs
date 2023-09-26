@@ -16,7 +16,7 @@ public class User : MonoBehaviour
     NodgeSelectionManager _selectionManager;
 
     [SerializeField]
-    HistoryFilterManager _dynFilterManager;
+    HistoryFilterManager _historyFilterManager;
 
     [ContextMenu("Switch Graph Mode")]
     public bool SwitchGraphMode()
@@ -30,61 +30,86 @@ public class User : MonoBehaviour
     [ContextMenu("Hide Selected Node")]
     public void HideSelectedNode()
     {
-        _dynFilterManager.HideSelectedNode();
+        _historyFilterManager.HideSelectedNode();
         UpdateHistoryBtn();
+
+        if(_graphManager.GraphConfiguration.RecalculateMetricsOnFilter)
+            _graphManager.RecalculateMetrics();
     }
 
     [ContextMenu("Hide Unselected Node")]
     public void HideUnSelectedNode()
     {
-        _dynFilterManager.HideUnSelectedNode();
+        _historyFilterManager.HideUnSelectedNode();
         UpdateHistoryBtn();
+
+        if (_graphManager.GraphConfiguration.RecalculateMetricsOnFilter)
+            _graphManager.RecalculateMetrics();
     }
 
     [ContextMenu("Hide Propagated Node")]
     public void HidePropagatedNode()
     {
-        _dynFilterManager.HidePropagatedNode();
+        _historyFilterManager.HidePropagatedNode();
         UpdateHistoryBtn();
+
+        if (_graphManager.GraphConfiguration.RecalculateMetricsOnFilter)
+            _graphManager.RecalculateMetrics();
     }
 
     [ContextMenu("Hide Unpropagated Node")]
     public void HideUnPropagatedNode()
     {
-        _dynFilterManager.HideUnPropagatedNode();
+        _historyFilterManager.HideUnPropagatedNode();
         UpdateHistoryBtn();
+
+        if (_graphManager.GraphConfiguration.RecalculateMetricsOnFilter)
+            _graphManager.RecalculateMetrics();
     }
 
     [ContextMenu("Undo Last Filter")]
     public void UndoLastFilter()
     {
-        _dynFilterManager.UndoLastFilter();
+        _historyFilterManager.UndoLastFilter();
         UpdateHistoryBtn();
+
+        if (_graphManager.GraphConfiguration.RecalculateMetricsOnFilter)
+            _graphManager.RecalculateMetrics();
     }
 
     [ContextMenu("Redo Last Filter")]
     public void RedoLastFilter()
     {
-        _dynFilterManager.RedoLastFilter();
+        _historyFilterManager.RedoLastFilter();
         UpdateHistoryBtn();
+
+        if (_graphManager.GraphConfiguration.RecalculateMetricsOnFilter)
+            _graphManager.RecalculateMetrics();
+    }
+
+    [ContextMenu("Reset Filters")]
+    public void ResetFilters()
+    {
+        _historyFilterManager.ResetFilters();
+        UpdateHistoryBtn();
+    }
+
+    [ContextMenu("Recalculate Metrics")]
+    public void RecalculateMetrics()
+    {
+        _graphManager.RecalculateMetrics();
     }
 
 
     [ContextMenu("Resimulate Graph")]
     public void ResimulateGraph()
     {
-        _graphManager.UpdateGraph();
-    }
-
-    [ContextMenu("Reset All")]
-    public void ResetAll()
-    {
-        _graphManager.ResetAll();
+        _graphManager.ResimulateGraph();
     }
 
     private void UpdateHistoryBtn()
     {
-        _inputPropagatorManager.TryInvoke(GraphActionKey.UndoFilter, _dynFilterManager.NbFilter != 0);
-        _inputPropagatorManager.TryInvoke(GraphActionKey.RedoFilter, _dynFilterManager.NbRedoFilter != 0);
+        _inputPropagatorManager.TryInvoke(GraphActionKey.UndoFilter, _historyFilterManager.CanUndo);
+        _inputPropagatorManager.TryInvoke(GraphActionKey.RedoFilter, _historyFilterManager.CanRedo);
     }
 }

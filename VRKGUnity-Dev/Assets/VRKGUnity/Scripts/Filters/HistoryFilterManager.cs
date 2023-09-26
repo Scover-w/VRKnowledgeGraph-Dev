@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class HistoryFilterManager : MonoBehaviour
 {
-    public int NbFilter { get { return _currentBlockHistory.NbSubBlock; } }
-    public int NbRedoFilter { get { return _redoSubBlocks.Count; } }
+    public bool CanUndo { get { return _currentBlockHistory.NbSubBlock > 0 || _blocksHistory.Count > 0; } }
+    public bool CanRedo { get { return _redoSubBlocks.Count > 0; } }
 
     [SerializeField]
     GraphManager _graphManager;
@@ -37,6 +37,7 @@ public class HistoryFilterManager : MonoBehaviour
 
         HashSet<Node> nodesToHide = selectedNodes.ToHashSet();
 
+        _redoSubBlocks = new();
         var graph = _graphManager.Graph;
 
 
@@ -60,6 +61,7 @@ public class HistoryFilterManager : MonoBehaviour
 
         HashSet<Node> nodesToKeep = selectedNodes.ToHashSet();
 
+        _redoSubBlocks = new();
         var graph = _graphManager.Graph;
 
 
@@ -83,11 +85,13 @@ public class HistoryFilterManager : MonoBehaviour
         HashSet<Node> nodesToHide = propagatedNodes.ToHashSet();
         nodesToHide.UnionWith(selectedNodes.ToHashSet());
 
+        _redoSubBlocks = new();
         var graph = _graphManager.Graph;
 
 
         SubBlockHistory subBlockHistory = graph.Hide(nodesToHide, out NodgesDicUID hiddenNodgesDicUId);
         _currentBlockHistory.Add(subBlockHistory);
+
 
         HashSetNodges nodges = new(hiddenNodgesDicUId);
         _nodeSelectionManager.NodgesHidden(nodges);
@@ -105,6 +109,7 @@ public class HistoryFilterManager : MonoBehaviour
         HashSet<Node> nodesToKeep = propagatedNodes.ToHashSet();
         nodesToKeep.UnionWith(selectedNodes.ToHashSet());
 
+        _redoSubBlocks = new();
         var graph = _graphManager.Graph;
 
 
@@ -119,19 +124,39 @@ public class HistoryFilterManager : MonoBehaviour
     [ContextMenu("Undo Last Filter")]
     public void UndoLastFilter()
     {
-
         if(_currentBlockHistory.NbSubBlock == 0)
         {
-            // TODO : return to previous blockHistory
+            if(_blocksHistory.Count == 0)
+                return; // Can't undo anything
+
+            int idToRetrieve = _blocksHistory.Count - 1;
+            _currentBlockHistory = _blocksHistory[idToRetrieve];
+            _redoSubBlocks.RemoveAt(idToRetrieve);
+
+            ReapplyCurrentFilters();
+            _graphManager.UpdateGraphFromHistoryFilter(GetSPARQLAdditiveBuilder());
+
             return;
         }
-
 
         var subBlockHistory = _currentBlockHistory.CancelLast();
         _redoSubBlocks.Add(subBlockHistory);
         _graphManager.Graph.UndoFilter(subBlockHistory);
 
         StyleChange styleChange = StyleChange.All; // TODO : Put real styleChange
+        _stylingManager.UpdateStyling(styleChange);
+    }
+
+    private void ReapplyCurrentFilters()
+    {
+        var subBlocks = _currentBlockHistory.SubsHistory;
+
+        foreach (var subBlock in subBlocks) 
+        {
+            _graphManager.Graph.RedoFilter(subBlock);
+        }
+
+        StyleChange styleChange = StyleChange.All;
         _stylingManager.UpdateStyling(styleChange);
     }
 
@@ -155,27 +180,47 @@ public class HistoryFilterManager : MonoBehaviour
 
     public void ResetFilters()
     {
-        // TODO : resetFilters
+        SPARQLAdditiveBuilder additiveBuilder = new();
+
+        var graph = _graphManager.Graph;
+        graph.ReleaseHiddenNodges(_nodgePool);
+
+        _blocksHistory = new();
+        _currentBlockHistory = new();
+        _graphManager.UpdateGraphFromHistoryFilter(additiveBuilder);
     }
 
-    public List<SPARQLQuery> ApplyFilters()
-    {
-        List<SPARQLQuery> sparqlQueries = new();
 
-        foreach(DynamicFilter filter in _filters)
+    public SPARQLAdditiveBuilder ApplyFilters()
+    {
+        SPARQLAdditiveBuilder additiveBuilder = new();
+
+        foreach (BlockHistory blockHistory in _blocksHistory)
         {
-            sparqlQueries.Add(filter.Query);
-            filter.ReleaseNodges(_nodgePool);
+            blockHistory.AddQueries(additiveBuilder);
         }
+
+        _currentBlockHistory.AddQueries(additiveBuilder);
 
         var graph = _graphManager.Graph;
 
         _blocksHistory.Add(_currentBlockHistory);
-        graph.ReleaseNodges(_nodgePool);
+        graph.ReleaseHiddenNodges(_nodgePool);
         _currentBlockHistory = new();
 
+        return additiveBuilder;
+    }
+
+    private SPARQLAdditiveBuilder GetSPARQLAdditiveBuilder()
+    {
+        SPARQLAdditiveBuilder additiveBuilder = new();
+
+        foreach (BlockHistory blockHistory in _blocksHistory)
+        {
+            blockHistory.AddQueries(additiveBuilder);
+        }
 
 
-        return sparqlQueries;
+        return additiveBuilder;
     }
 }

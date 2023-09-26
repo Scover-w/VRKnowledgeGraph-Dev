@@ -2,15 +2,14 @@ using AngleSharp.Dom;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VDS.RDF.Query;
 
 public class BlockHistory
 {
     public int NbSubBlock { get { return _subsHistory.Count; } }
 
-    public SPARQLAdditiveBuilder SPARQLAdditiveBuilder;
+    public IReadOnlyList<SubBlockHistory> SubsHistory => _subsHistory;
 
-    List<SubBlockHistory> _subsHistory;
+    readonly List<SubBlockHistory> _subsHistory;
 
     public BlockHistory() 
     {
@@ -27,5 +26,13 @@ public class BlockHistory
         var last = _subsHistory[^1];
         _subsHistory.Remove(last);
         return last;
+    }
+
+    public void AddQueries(SPARQLAdditiveBuilder sPARQLAdditiveBuilder)
+    {
+        foreach(var subBlockHistory in _subsHistory) 
+        {
+            sPARQLAdditiveBuilder.Add(subBlockHistory.Query);
+        }
     }
 }

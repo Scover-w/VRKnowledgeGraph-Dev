@@ -213,6 +213,8 @@ public class GraphConfiguration
     public GraphMetricType SelectedMetricTypeSize = GraphMetricType.None;
     public GraphMetricType SelectedMetricTypeColor = GraphMetricType.None;
 
+    public bool RecalculateMetricsOnFilter = true;
+
 
     private static string _graphConfigPath;
 
@@ -516,6 +518,9 @@ public class GraphConfiguration
                 return true;
             case GraphConfigKey.DisplayGPS:
                 DisplayGPS = value;
+                return true;
+            case GraphConfigKey.RecalculateMetricsOnFilter:
+                RecalculateMetricsOnFilter = value;
                 return true;
         }
 

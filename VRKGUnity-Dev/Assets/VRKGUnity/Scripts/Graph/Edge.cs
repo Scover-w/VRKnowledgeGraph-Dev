@@ -38,8 +38,20 @@ public class Edge : IEdge<Node>
     public List<EdgeProperty> EdgeProperties { get; }
 
 
-    public Node Source { get; }
-    public Node Target { get; }
+    public Node Source 
+    { 
+        get
+        {
+            return IsHiddenFromFilter? null : _source;
+        }
+    }
+    public Node Target 
+    { 
+        get
+        {
+            return IsHiddenFromFilter ? null : _target;
+        }
+    }
 
     public Transform MainGraphEdgeTf;
     public Transform SubGraphEdgeTf;
@@ -52,6 +64,9 @@ public class Edge : IEdge<Node>
 
     public bool IsHiddenFromFilter { get; private set; } = false;
 
+    private Node _source;
+    private Node _target;
+
     private EdgeDirection _edgeDirection;
     private bool _doDisplayMainEdge;
     private bool _doDisplaySubEdge;
@@ -62,8 +77,8 @@ public class Edge : IEdge<Node>
     {
         UID = GetUID(source.Uri, target.Uri);
 
-        Source = source;
-        Target = target;
+        _source = source;
+        _target = target;
 
         EdgeProperties = new();
 

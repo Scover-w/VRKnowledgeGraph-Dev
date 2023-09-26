@@ -14,5 +14,8 @@ public enum GraphActionKey
     FilterPropagated,
     FilterUnpropagated,
 
-    Simulate
+    Simulate,
+
+    ResetFilters,
+    RecalculateMetrics
 }
