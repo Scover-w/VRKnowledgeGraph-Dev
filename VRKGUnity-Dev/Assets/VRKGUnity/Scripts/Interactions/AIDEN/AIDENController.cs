@@ -63,6 +63,11 @@ public class AIDENController : MonoBehaviour
         _referenceHolderSO.OnNewInputPropagator += SetInputPropagator;
     }
 
+    private void OnDestroy()
+    {
+        _referenceHolderSO.OnNewInputPropagator -= SetInputPropagator;
+    }
+
     private void SetInputPropagator(InputPropagatorManager propagatorManager)
     {
         _propagatorManager = propagatorManager;

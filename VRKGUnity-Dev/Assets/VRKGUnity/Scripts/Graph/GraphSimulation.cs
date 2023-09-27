@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -81,7 +82,9 @@ public class GraphSimulation : MonoBehaviour
 
     private async Task EndRefreshingPosition(Graph graph)
     {
+        DebugDev.Log("EndRefreshingPosition Before");
         await _threadEndedSemaphore.WaitAsync();
+        DebugDev.Log("EndRefreshingPosition After");
 
         graph.RefreshMainNodePositions(_newNodeSimuDatas, false);
 
@@ -98,7 +101,7 @@ public class GraphSimulation : MonoBehaviour
 
         _isRunningSimulation = true;
 
-        
+
         while (_isRunningSimulation && !hasReachStopVelocity && !_wantStopSimulation)
         {
             DebugChrono.Instance.Start("tickGRaph");
@@ -108,13 +111,12 @@ public class GraphSimulation : MonoBehaviour
             var duration = DebugChrono.Instance.Stop("tickGRaph", false);
             timer += duration;
 
-            if(timer > .0001f && _refreshGraph)
+            if (timer > .0001f && _refreshGraph)
             {
                 _newNodeSimuDatas = nodgesSimuDatas.NodeSimuDatas.Clone();
                 timer = 0f;
             }
         }
-
 
         float maxRadius = GetMaxRadius(nodgesSimuDatas);
         Debug.Log("MaxRadius : " + maxRadius);

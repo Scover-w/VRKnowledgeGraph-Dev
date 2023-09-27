@@ -161,6 +161,7 @@ public class GraphManager : MonoBehaviour
 
     public void SimulationStopped()
     {
+        DebugDev.Log("SimulationStopped");
         OnGraphUpdate?.Invoke(GraphUpdateType.AfterSimulationHasStopped);
     }
 

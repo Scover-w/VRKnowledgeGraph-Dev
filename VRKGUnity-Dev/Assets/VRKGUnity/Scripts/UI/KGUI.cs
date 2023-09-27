@@ -18,10 +18,6 @@ public class KGUI : MonoBehaviour
 
     KGUIController _kgUiController;
 
-    private void Start()
-    {
-        
-    }
 
     public void HasBeenDetached()
     {

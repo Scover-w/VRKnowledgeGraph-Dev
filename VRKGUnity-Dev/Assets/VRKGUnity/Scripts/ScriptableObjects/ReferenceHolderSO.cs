@@ -56,7 +56,11 @@ public class ReferenceHolderSO : ScriptableObject
 
     public NewMaxRadius OnNewMaxRadius;
 
-
+    public void ResetDelegates()
+    {
+        OnNewInputPropagator = null;
+        OnNewMaxRadius = null;
+    }
 }
 
     

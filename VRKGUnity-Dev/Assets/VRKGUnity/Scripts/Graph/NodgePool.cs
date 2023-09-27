@@ -33,13 +33,13 @@ public class NodgePool : MonoBehaviour
     private void Start()
     {
 
-        if (_instance == null)
-            _instance = this;
-        else
+        if (_instance != null)
         {
             Destroy(this);
             return;
         }
+
+        _instance = this;
 
         _poolGraphTf = new GameObject("Pool Graph").transform;
         _labelParentTf = new GameObject("LabelParents").transform;
@@ -47,6 +47,12 @@ public class NodgePool : MonoBehaviour
         CreateLabelNodgePool();
         CreateEdgePool();
         CreateNodePool();
+    }
+
+    private void OnDestroy()
+    {
+        if (_instance == this)
+            _instance = null;
     }
 
     private void CreateLabelNodgePool()

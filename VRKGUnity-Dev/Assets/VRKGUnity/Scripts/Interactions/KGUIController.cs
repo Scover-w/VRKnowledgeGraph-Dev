@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -17,6 +18,8 @@ public class KGUIController : MonoBehaviour
 
     KGUI _currentKGUI;
     GameObject _currentUIGo;
+
+    List<KGUI> _kGUIs = new();
 
     Transform _tf;
     bool _isUIDisplayed = false;
@@ -46,6 +49,9 @@ public class KGUIController : MonoBehaviour
         if (scene.name != Scenes.KG && _isRegistered)
         {
             Unregister();
+
+            DestroyKGUIs();
+
             return;
         }
 
@@ -73,6 +79,19 @@ public class KGUIController : MonoBehaviour
             SwitchDisplayUI(new InputAction.CallbackContext());
     }
 
+    private void DestroyKGUIs()
+    {
+        foreach(KGUI kgui in _kGUIs)
+        {
+            Destroy(kgui.gameObject);
+        }
+
+        _kGUIs = new();
+
+        _currentKGUI = null;
+        _isUIDisplayed = false;
+    }
+
     public void UIHasBeenDetached()
     {
         CreateNewUI();
@@ -85,7 +104,9 @@ public class KGUIController : MonoBehaviour
         _currentKGUI = _currentUIGo.GetComponent<KGUI>();
         _currentKGUI.KGUIController = this;
         _currentUIGo.SetActive(false);
-        
+
+        _kGUIs.Add(_currentKGUI);
+
         var tf = _currentUIGo.transform;
         tf.position = _uiPositionTf.position;
         tf.localRotation = _uiPositionTf.localRotation;

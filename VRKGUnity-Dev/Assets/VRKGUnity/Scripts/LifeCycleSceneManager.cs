@@ -38,6 +38,9 @@ public class LifeCycleSceneManager : MonoBehaviour
             return;
         }
 
+        if (sceneToLoad == Scenes.KG)
+            _referenceHolderSO.ResetDelegates();
+
         SceneManager.LoadSceneAsync(sceneToLoad, LoadSceneMode.Additive);
     }
 

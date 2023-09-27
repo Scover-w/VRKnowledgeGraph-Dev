@@ -502,6 +502,8 @@ public class Graph
 
         var tasks = new List<Task>();
 
+        Debug.Log("Begin Calculate Metrics");
+
         SemaphoreSlim semaphore = new(0);
 
         CalculateMetric(CalculateShortestPathsAndCentralities);

@@ -57,6 +57,8 @@ public class MainGraph : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("MainGraph Start");
+
         _mainGraphMode = (Settings.DEFAULT_GRAPH_MODE == GraphMode.Desk)? MainGraphMode.Desk : MainGraphMode.Immersion;
         _playerTf = _referenceHolderSo.HMDCamSA.Value.transform;
         _mainGraphTf.position = _upDeskTf.position;
@@ -70,10 +72,20 @@ public class MainGraph : MonoBehaviour
         _graphConfig = GraphConfiguration.Instance;
     }
 
+    private void OnDestroy()
+    {
+        _graphManager.OnGraphUpdate -= OnGraphUpdated;
+        _referenceHolderSo.OnNewMaxRadius -= OnNewMaxRadius;
+
+        StopAllCoroutines();
+    }
+
 
     #region OnGraphUpdated
     public void OnGraphUpdated(GraphUpdateType updateType)
     {
+        DebugDev.Log("MainGraph : OnGraphUpdated " + updateType.ToString());
+
         switch (updateType)
         {
             case GraphUpdateType.RetrievingFromDb:
@@ -262,11 +274,7 @@ public class MainGraph : MonoBehaviour
         if (maxRadius == -1f)
             return;
 
-        DebugDev.Log("MaxRadius " + maxRadius + " , EffectiveDeskGraphSize " + _graphConfig.EffectiveDeskGraphSize);
         float maxRadiusScaled = maxRadius * _graphConfig.EffectiveDeskGraphSize;
-
-        DebugDev.Log("maxRadiusScaled : " + maxRadiusScaled);
-
         _upDeskTf.localPosition = new Vector3(0f, maxRadiusScaled, 0f);
 
         float maxRadiusScaledScaledUp = maxRadiusScaled + .025f;
@@ -274,7 +282,6 @@ public class MainGraph : MonoBehaviour
 
         if (_mainGraphMode == MainGraphMode.Desk)
             _mainGraphTf.position = _upDeskTf.position;
-
     }
 
 

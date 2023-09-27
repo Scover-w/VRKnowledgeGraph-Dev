@@ -118,6 +118,12 @@ public class NodgeSelectionManager : MonoBehaviour
         _referenceHolderSo.NodgeSelectionManager = this;
     }
 
+    private void OnDestroy()
+    {
+        if (_instance == this)
+            _instance = null;
+    }
+
     private void Start()
     {
         _multipleSelectedNodes = new();
