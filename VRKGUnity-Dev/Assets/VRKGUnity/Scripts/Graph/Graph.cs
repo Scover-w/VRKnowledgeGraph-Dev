@@ -172,7 +172,6 @@ public class Graph
         Dictionary<string, Node> newNodes = new();
         Dictionary<string, Node> newNodesToRetrieveNames = new();
 
-        bool doResetPosition = Configuration.ResetPositionNodeOnUpdate;
         int seed = Configuration.SeedRandomPosition;
 
         GraphMode graphMode = _graphManager.GraphMode;
@@ -188,8 +187,7 @@ public class Graph
                 newNodes.Add(uid, keepNode);
                 _nodesDicUID.Remove(uid);
 
-                if (doResetPosition)
-                    keepNode.ResetAbsolutePosition(seed);
+                keepNode.ResetAbsolutePosition(seed);
 
                 if (keepNode.IsHiddenFromFilter)
                     Debug.LogWarning("UpdateNodesInGraph KeepNode IsHiddenFromFilter");
@@ -201,10 +199,10 @@ public class Graph
                 newNodes.Add(uid, newNode);
                 newNodesToRetrieveNames.Add(uid, newNode);
 
+                newNode.ResetAbsolutePosition(seed);
+
                 SetupNode(newNode, GraphType.Main);
                 SetupNode(newNode, GraphType.Sub);
-
-                newNode.ResetAbsolutePosition(seed);
             }
         }
 
@@ -445,7 +443,36 @@ public class Graph
         return Hide(nodesToHide, out hiddenNodgesDicUId);
     }
 
-    public void ReleaseHiddenNodges(NodgePool pool)
+
+    public void UnhideNodges()
+    {
+        GraphMode graphMode = _graphManager.GraphMode;
+
+
+
+        foreach (Node node in _hiddenNodesDicUID.Values)
+        {
+            string nodeUID = node.UID;
+
+            node.UnhideFromFilter(graphMode);
+            _nodesDicUID.Add(nodeUID, node);
+            _graphDatasForASP.AddVertex(node);
+        }
+
+        foreach (Edge edge in _hiddenEdgesDicUID.Values)
+        {
+            string edgeUID = edge.UID;
+
+            edge.UnhideFromFilter(graphMode);
+            _edgesDicUID.Add(edgeUID, edge);
+            _graphDatasForASP.AddEdge(edge);
+        }
+
+        _hiddenNodesDicUID = new();
+        _hiddenEdgesDicUID = new();
+    }
+
+    public void ReleaseNodges(NodgePool pool)
     {
         foreach(Node node in _hiddenNodesDicUID.Values)
         {

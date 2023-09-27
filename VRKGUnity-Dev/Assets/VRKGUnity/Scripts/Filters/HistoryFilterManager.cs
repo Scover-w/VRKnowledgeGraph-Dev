@@ -183,7 +183,7 @@ public class HistoryFilterManager : MonoBehaviour
         SPARQLAdditiveBuilder additiveBuilder = new();
 
         var graph = _graphManager.Graph;
-        graph.ReleaseHiddenNodges(_nodgePool);
+        graph.UnhideNodges();
 
         _blocksHistory = new();
         _currentBlockHistory = new();
@@ -205,7 +205,7 @@ public class HistoryFilterManager : MonoBehaviour
         var graph = _graphManager.Graph;
 
         _blocksHistory.Add(_currentBlockHistory);
-        graph.ReleaseHiddenNodges(_nodgePool);
+        graph.ReleaseNodges(_nodgePool);
         _currentBlockHistory = new();
 
         return additiveBuilder;
