@@ -681,6 +681,8 @@ public class Graph
 
             node.ClosenessCentrality = (node.ClosenessCentrality - minCC) / (maxCC- minCC);
         }
+
+        DebugDev.Log("Finished CalculateShortestPathsAndCentralities");
     }
 
     private void CalculateDegrees()
@@ -705,6 +707,8 @@ public class Graph
         {
             node.Degree = (node.Degree -  minDegree) / (maxDegree - minDegree);
         }
+
+        DebugDev.Log("Finished CalculateDegrees");
     }
 
     private void CalculateLocalClusteringCoefficients()
@@ -712,19 +716,23 @@ public class Graph
         float maxCluster = 0;
         float minCluster = float.MaxValue;
 
+        try
+        {
+            DebugDev.Log("A");
         foreach (Node node in _nodesDicUID.Values)
         {
+                DebugDev.Log("B");
 
-            var neighbors = node.GetNeighbors();
-
-            if (neighbors.Count < 2)
+                var neighbors = node.GetNeighbors();
+                DebugDev.Log("C");
+                if (neighbors.Count < 2)
             {
                 node.ClusteringCoefficient = 0f;
                 continue;
             }
 
-
-            int edgeCount = 0;
+                DebugDev.Log("D");
+                int edgeCount = 0;
 
             for (int i = 0; i < neighbors.Count; i++)
             {
@@ -742,27 +750,44 @@ public class Graph
                     }
                 }
             }
+                DebugDev.Log("E");
 
-            // Local Clustering coefficient
-            // C_i = 2n / (k_i * (k_i - 1))
-            // With n : connection between neighbors
-            //      k_i : number of neighbors
+                // Local Clustering coefficient
+                // C_i = 2n / (k_i * (k_i - 1))
+                // With n : connection between neighbors
+                //      k_i : number of neighbors
 
-            double possibleConnections = neighbors.Count * (neighbors.Count - 1) / 2;
+                double possibleConnections = neighbors.Count * (neighbors.Count - 1) / 2;
             var cluster = edgeCount / (float)possibleConnections;
             node.ClusteringCoefficient = cluster;
-
-            if (cluster > maxCluster)
+                DebugDev.Log("F");
+                if (cluster > maxCluster)
                 maxCluster = cluster;
 
             if (cluster < minCluster)
                 minCluster = cluster;
         }
+
+        }
+        catch(Exception e)
+        {
+            DebugDev.Log(e);
+            DebugDev.Log(e.Message);
+            DebugDev.Log(e.InnerException);
+            DebugDev.Log(e.Data);
+            DebugDev.Log(e.Source);
+            DebugDev.Log(e.TargetSite);
+            DebugDev.Log(e.StackTrace);
+        }
+
+        DebugDev.Log("Finished CalculateLocalClusteringCoefficients");
     }
 
     private void CalculateOntology()
     {
         _ontoNodeTree = OntoNodeGroupTree.CreateOntoNodeTree(_repoNamespaces.OntoTreeDict, Configuration);
+
+        DebugDev.Log("Finished CalculateOntology");
     }
     #endregion
 

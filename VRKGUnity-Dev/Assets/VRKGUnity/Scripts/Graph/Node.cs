@@ -344,14 +344,24 @@ public class Node
 
         foreach(var edge in EdgeSource)
         {
-            if(!neighbors.Contains(edge.Target))
-                neighbors.Add(edge.Target);
+            Node nodeTarget = edge.Target;
+
+            if (nodeTarget == null)
+                continue;
+
+            if (!neighbors.Contains(nodeTarget))
+                neighbors.Add(nodeTarget);
         }
 
         foreach (var edge in EdgeTarget)
         {
-            if(!neighbors.Contains(edge.Source))
-                neighbors.Add(edge.Source);
+            Node nodeSource = edge.Source;
+
+            if (nodeSource == null)
+                continue;
+
+            if (!neighbors.Contains(nodeSource))
+                neighbors.Add(nodeSource);
         }
 
         return neighbors;
