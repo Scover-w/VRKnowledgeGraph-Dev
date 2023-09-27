@@ -320,8 +320,6 @@ public class Node
         IsHiddenFromFilter = true;
 
         OntoNode?.NodesAttached.Remove(this);
-
-        HideEdges();
     }
 
     public void UnhideFromFilter(GraphMode graphMode)
@@ -329,8 +327,6 @@ public class Node
         IsHiddenFromFilter = false;
 
         DisplayMainNode(true);
-
-        UnhideEdges(graphMode);
 
         OntoNode?.NodesAttached.Add(this);
 
@@ -340,32 +336,6 @@ public class Node
             return;
 
         DisplaySubNode(true);
-    }
-
-    private void HideEdges()
-    {
-        foreach (Edge edge in EdgeSource)
-        {
-            edge.HideEdge();
-        }
-
-        foreach (Edge edge in EdgeTarget)
-        {
-            edge.HideEdge();
-        }
-    }
-
-    private void UnhideEdges(GraphMode graphMode)
-    {
-        foreach (Edge edge in EdgeSource)
-        {
-            edge.UnhideEdge(graphMode);
-        }
-
-        foreach (Edge edge in EdgeTarget)
-        {
-            edge.UnhideEdge(graphMode);
-        }
     }
 
     public List<Node> GetNeighbors()

@@ -28,15 +28,24 @@ public class SubBlockHistory
 
         foreach (var hiddenNode in hiddenNodes) 
         {
-           
-            foreach(var hidenEdge in hiddenNode.Edges)
+            if(hiddenNode.IsHiddenFromFilter)
             {
-                string edgeUId = hidenEdge.UID;
+                DebugDev.LogWarning("SubBlockHistory : Tried to hide a node already hidden.");
+                continue;
+            }
+
+
+            foreach(var hiddenEdge in hiddenNode.Edges)
+            {
+                string edgeUId = hiddenEdge.UID;
+
+                if (hiddenEdge.IsHiddenFromFilter) // Already hidden by another filter
+                    continue;
 
                 if (edgesToHideDict.ContainsKey(edgeUId))
                     continue;
 
-                edgesToHideDict.Add(edgeUId, hidenEdge);
+                edgesToHideDict.Add(edgeUId, hiddenEdge);
                 _edgesUidsHidden.Add(edgeUId);
             }
 

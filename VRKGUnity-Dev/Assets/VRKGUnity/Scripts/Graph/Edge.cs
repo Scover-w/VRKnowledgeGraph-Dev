@@ -136,7 +136,7 @@ public class Edge : IEdge<Node>
         SubGraphLine.enabled = _doDisplaySubEdge;
     }
 
-    public void HideEdge()
+    public void HideFromFilter()
     {
         ResetInteractionValues();
 
@@ -146,7 +146,7 @@ public class Edge : IEdge<Node>
         IsHiddenFromFilter = true;
     }
 
-    public void UnhideEdge(GraphMode graphMode)
+    public void UnhideFromFilter(GraphMode graphMode)
     {
         IsHiddenFromFilter = false;
 

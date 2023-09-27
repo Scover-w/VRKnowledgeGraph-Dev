@@ -111,5 +111,6 @@ public class User : MonoBehaviour
     {
         _inputPropagatorManager.TryInvoke(GraphActionKey.UndoFilter, _historyFilterManager.CanUndo);
         _inputPropagatorManager.TryInvoke(GraphActionKey.RedoFilter, _historyFilterManager.CanRedo);
+        _inputPropagatorManager.TryInvoke(GraphActionKey.ResetFilters, _historyFilterManager.CanUndo);
     }
 }

@@ -195,10 +195,9 @@ public class DataSynchroManager : MonoBehaviour
         string queryString = new SPARQLAdditiveBuilder().Build();
 
         var json = await _graphDbAPI.SelectQuery(queryString, true);
-        Debug.Log("UpdateLocalRepoFromGraphDbServer json : ");
-        Debug.Log(json);
+
         _data = await JsonConvertHelper.DeserializeObjectAsync<JObject>(json);
-        Debug.Log(_data);
+
         await repoUris.RetrieveNewNamespaces(_data, _graphDbAPI, this, _defaultPrefixs);
         await repoUris.CreateOntologyTrees(_graphDbAPI, this);
 
