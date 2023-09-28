@@ -36,6 +36,9 @@ public class MainMenuUI : MonoBehaviour
     [SerializeField]
     Sprite _connectedIcon;
 
+    [SerializeField]
+    GameObject _loadingIconGo;
+
     [Header("VR")]
     [SerializeField]
     ButtonUI _launchGraphBtn;
@@ -48,6 +51,7 @@ public class MainMenuUI : MonoBehaviour
 
     private void Awake()
     {
+        _loadingIconGo.SetActive(false);
         SetConnectionStatus(false);
 
         DisplayMainMenu();
@@ -117,6 +121,9 @@ public class MainMenuUI : MonoBehaviour
         var repo = _referenceHolderSO.SelectedGraphDbRepository;
 
         if (repo == null) return;
+
+        SetLaunchGraphBtnState(false);
+        _loadingIconGo.SetActive(true);
 
         await repo.SetGraphDbCredentials();
 

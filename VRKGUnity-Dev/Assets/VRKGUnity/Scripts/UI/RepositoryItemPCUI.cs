@@ -47,6 +47,6 @@ public class RepositoryItemPCUI : MonoBehaviour
     public void TryDeleteClick()
     {
         Debug.Log("TryDeleteClick");
-        _loadRepoUI.TryDeleteRepo();
+        _loadRepoUI.TryDeleteRepo(_repo);
     }
 }

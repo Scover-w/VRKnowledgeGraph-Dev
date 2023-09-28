@@ -117,14 +117,13 @@ public class OntoNodeGroup
 
         OntoNodeGroupChild.Add(ontoGroup);
 
-
-
         var ontoNodeGroupParent = ontoGroup.OntoNodeGroupParent;
 
         if (ontoNodeGroupParent.Contains(this))
             return;
 
         ontoNodeGroupParent.Add(this);
+
     }
 
     public int ComputeHeight()
@@ -184,17 +183,26 @@ public class OntoNodeGroup
         return _depth; 
     }
 
-    public float ComputeColorValueAndSetToNode(float value, float deltaValue)
+    public float ComputeColorValueAndSetToNode(float value, float deltaValue,Dictionary<string, float> uriValues)
     {
         if(Nodes.Count != 0)
         {
-            _colorValue = value;
-            value += deltaValue;
+
+            if(uriValues.TryGetValue(OntoNode.Value, out float v))
+            {
+                _colorValue = v;
+            }
+            else
+            {
+                _colorValue = value;
+                value += deltaValue;
+                uriValues.Add(OntoNode.Value, _colorValue);
+            }
         }
 
         foreach(OntoNodeGroup ontoGroupChild in OntoNodeGroupChild)
         {
-            value = ontoGroupChild.ComputeColorValueAndSetToNode(value, deltaValue);
+            value = ontoGroupChild.ComputeColorValueAndSetToNode(value, deltaValue, uriValues);
         }
 
         foreach(Node node in Nodes)

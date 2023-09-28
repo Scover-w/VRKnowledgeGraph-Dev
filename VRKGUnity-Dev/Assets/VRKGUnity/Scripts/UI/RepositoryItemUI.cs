@@ -36,4 +36,9 @@ public class RepositoryItemUI : MonoBehaviour
     {
         _loadRepoUI.SelectRepoFromItem(_repo);
     }
+
+    public void DeleteClick()
+    {
+        _loadRepoUI.TryDeleteRepo(_repo);
+    }
 }

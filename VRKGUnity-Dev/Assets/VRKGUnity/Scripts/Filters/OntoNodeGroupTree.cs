@@ -185,11 +185,17 @@ public class OntoNodeGroupTree
 
     private static void ComputeColorValueToGroups(OntoNodeGroup groupTreeRoot, Dictionary<string, OntoNodeGroup> ontoGroups)
     {
+        DebugDev.Log("ontoGroups.Count : " + ontoGroups.Count + "  , _graphConfiguration.NbOntologyColor : " + _graphConfiguration.NbOntologyColor);
+
         float nbColor = (ontoGroups.Count > _graphConfiguration.NbOntologyColor) ? ontoGroups.Count : _graphConfiguration.NbOntologyColor;
 
-        float delta = 1f / nbColor;
 
-        groupTreeRoot.ComputeColorValueAndSetToNode(0f, delta);
+        float delta = 1f / nbColor;
+        DebugDev.Log("NbColor : " +  nbColor + "  , delta : " + delta);
+
+        Dictionary<string, float> uriValues = new();
+
+        groupTreeRoot.ComputeColorValueAndSetToNode(0f, delta, uriValues);
     }
 
     public static OntoNodeGroupTree CreateOntoNodeTreeB(IReadOnlyDictionary<string, OntologyTree> ontoTreeDict, bool wantSpreadOut = true)

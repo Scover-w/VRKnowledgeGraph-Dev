@@ -80,6 +80,8 @@ public class LoadRepoUI : MonoBehaviour
 
     GraphDbRepositories _graphDbRepositories;
 
+    GraphDbRepository _repoToDelete;
+
     LoadRepoPage _previousPage;
     LoadRepoPage _displayedPage;
 
@@ -299,12 +301,6 @@ public class LoadRepoUI : MonoBehaviour
 
     private void SelectRepoVR(GraphDbRepository graphDbRepository)
     {
-        if(_selectedRepository == graphDbRepository) // Recliking on the same repo display the delete confirmation
-        {
-            TryDeleteRepo();
-            return;
-        }
-
         _selectedRepository = graphDbRepository;
 
         _mainMenuUI.RepoSelected(_selectedRepository);
@@ -351,23 +347,26 @@ public class LoadRepoUI : MonoBehaviour
 
     private async Task ConfirmDeletion()
     {
-        if (!_repositoriesDict.TryGetValue(_selectedRepository, out RepositoryItemUI itemUI))
+        if (!_repositoriesDict.TryGetValue(_repoToDelete, out RepositoryItemUI itemUI))
         {
             Debug.LogWarning("Unexpected to not find the associated itemUI.");
         }
         else
         {
-            _repositoriesDict.Remove(_selectedRepository);
+            _repositoriesDict.Remove(_repoToDelete);
             _scrollUI.RemoveItem(itemUI.ScrollItemUI);
         }
 
 
-        await _graphDbRepositories.Remove(_selectedRepository);
+        await _graphDbRepositories.Remove(_repoToDelete);
 
-        _selectedRepository = null;
-        SelectRepo(null);
+        if(_repoToDelete == _selectedRepository)
+        {
+            _selectedRepository = null;
+            SelectRepo(null);
 
-        _mainMenuUI.RepoSelected(null);
+            _mainMenuUI.RepoSelected(null);
+        }
 
         DisplayPage(LoadRepoPage.RepoList);
     }
@@ -375,23 +374,26 @@ public class LoadRepoUI : MonoBehaviour
 #if UNITY_EDITOR
     private async Task ConfirmDeletionPC()
     {
-        if (!_repositoriesDictPC.TryGetValue(_selectedRepository, out RepositoryItemPCUI itemUI))
+        if (!_repositoriesDictPC.TryGetValue(_repoToDelete, out RepositoryItemPCUI itemUI))
         {
             Debug.LogWarning("Unexpected to not find the associated itemUI.");
         }
         else
         {
-            _repositoriesDictPC.Remove(_selectedRepository);
+            _repositoriesDictPC.Remove(_repoToDelete);
             Destroy(itemUI.gameObject);
         }
 
 
-        await _graphDbRepositories.Remove(_selectedRepository);
+        await _graphDbRepositories.Remove(_repoToDelete);
 
-        _selectedRepository = null;
-        SelectRepo(null);
+        if (_repoToDelete == _selectedRepository)
+        {
+            _selectedRepository = null;
+            SelectRepo(null);
 
-        _mainMenuUI.RepoSelected(null);
+            _mainMenuUI.RepoSelected(null);
+        }
 
         DisplayPage(LoadRepoPage.RepoList);
     }
@@ -412,8 +414,9 @@ public class LoadRepoUI : MonoBehaviour
         DisplayPage(_previousPage);
     }
 
-    public void TryDeleteRepo()
+    public void TryDeleteRepo(GraphDbRepository repositoryClicked)
     {
+        _repoToDelete = repositoryClicked;
         DisplayPage(LoadRepoPage.ConfirmationAsk);
     }
     #endregion

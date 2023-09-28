@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Security.Policy;
 using System.Threading;
@@ -226,4 +227,36 @@ public class MisceTests : MonoBehaviour
         Assert.False(156.TryParseToEnum(out GraphMetricType graphMetricTypeB));
 
     }
+
+
+    private const string SparqlEndpoint = "https://dbpedia.org/sparql";
+
+    [Test]
+    public async void ExecuteSparqlQuery()
+    {
+        string query = @"
+            select * where { 
+	        ?s ?p ?o .
+            FILTER(isUri(?s) && !STRSTARTS( STR(?s), STR(<http://fr.dbpedia.org/resource/>) ))
+            }";
+
+        string response = await ExecuteSparqlQuery(query);
+        DebugDev.Log(response);
+    }
+
+    public async Task<string> ExecuteSparqlQuery(string query)
+    {
+        using HttpClient client = new HttpClient();
+        var content = new FormUrlEncodedContent(new[]
+        {
+            new KeyValuePair<string, string>("query", query),
+            new KeyValuePair<string, string>("format", "application/sparql-results+json"),
+        });
+
+        HttpResponseMessage response = await client.PostAsync(SparqlEndpoint, content);
+        response.EnsureSuccessStatusCode();
+        string result = await response.Content.ReadAsStringAsync();
+        return result;
+    }
+
 }

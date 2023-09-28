@@ -16,6 +16,9 @@ public class ScrollItemUI : MonoBehaviour
     [SerializeField]
     UnityEvent _onClick;
 
+    [SerializeField]
+    UnityEvent _onDeselected;
+
     InteractionStateUI _interactionStateUI;
 
     RectTransform _rect;
@@ -65,7 +68,10 @@ public class ScrollItemUI : MonoBehaviour
             _onClick?.Invoke();
         }
         else
+        {
             _interactionStateUI = _inProximity? InteractionStateUI.InProximity : InteractionStateUI.Normal;
+            _onDeselected?.Invoke();
+        }
 
         UpdateInteractionColor();
     }
