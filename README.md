@@ -21,7 +21,7 @@ Install the following packages via Nuget:
 
 1. Clone the repository.
 2. Open the project in Unity Editor.
-3. Install the required Nuget packages.
+3. Install the required Nuget packages with https://github.com/GlitchEnzo/NuGetForUnity.
 
 ## Configuration
 
