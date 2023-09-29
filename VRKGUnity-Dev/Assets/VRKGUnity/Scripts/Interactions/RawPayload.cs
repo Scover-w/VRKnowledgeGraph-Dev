@@ -1,4 +1,7 @@
-﻿public class RawPayload
+﻿/// <summary>
+/// Used to pass data between threads for the AIDEN (voice interface/chatgpt) feature
+/// </summary>
+public class RawPayload
 {
     public int Id { get; private set; }
 

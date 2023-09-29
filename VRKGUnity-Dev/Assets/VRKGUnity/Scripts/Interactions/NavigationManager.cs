@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 
+
+/// <summary>
+/// Set in Fly or Walk mode based on the <see cref="GraphMode"/> and the <see cref="GraphConfiguration.LocomotionMode"/>
+/// </summary>
 public class NavigationManager : MonoBehaviour
 {
     [SerializeField]

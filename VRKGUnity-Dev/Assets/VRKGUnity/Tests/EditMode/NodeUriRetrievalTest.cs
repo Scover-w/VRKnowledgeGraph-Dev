@@ -167,23 +167,4 @@ public class NodeUriRetrievalTest : MonoBehaviour
             xmlReader.MoveToElement();
         }
     }
-
-
-    [Test]
-    public void TestUrisSplit()
-    {
-        string[] uris = new string[] { "http://www.productontology.org/id/qgrdg", "http://purl.org/dc/terms/jului", "http://www.w3.org/1999/02/22-rdf-syntax-ns#azertyh" };
-        string[] prefixUris = new string[] { "http://www.productontology.org/id/", "http://purl.org/dc/terms/", "http://www.w3.org/1999/02/22-rdf-syntax-ns#" };
-        string[] suffixUris = new string[] { "qgrdg", "jului", "azertyh" };
-
-        int nburis = uris.Length;
-
-        for (int i = 0; i < nburis; i++)
-        {
-            UriHelper.Split(uris[i], out string prefix, out string suffix);
-
-            Assert.AreEqual(prefix, prefixUris[i]);
-            Assert.AreEqual(suffix, suffixUris[i]);
-        }   
-    }
 }

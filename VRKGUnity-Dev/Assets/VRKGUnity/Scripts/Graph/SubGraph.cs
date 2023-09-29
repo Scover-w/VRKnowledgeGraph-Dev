@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+
+/// <summary>
+/// Manager the Lens and GPS Graph
+/// </summary>
 public class SubGraph : MonoBehaviour
 {
 

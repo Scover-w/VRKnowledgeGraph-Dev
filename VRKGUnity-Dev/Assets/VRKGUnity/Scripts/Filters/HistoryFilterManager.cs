@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+
+/// <summary>
+/// Manager for the Filter/History system
+/// </summary>
 public class HistoryFilterManager : MonoBehaviour
 {
     public bool CanUndo { get { return _currentBlockHistory.NbSubBlock > 0 || _blocksHistory.Count > 0; } }

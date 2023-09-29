@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+/// <summary>
+/// Manager the Desk and Immersion Graph
+/// </summary>
 public class MainGraph : MonoBehaviour
 {
 

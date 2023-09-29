@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Allow to switch the <see cref="GraphConfigKey"/> of a <see cref="GraphConfigInputLink"/>. 
+/// </summary>
 [DefaultExecutionOrder(2)]
 public class GraphConfigInputSwitch : MonoBehaviour
 {

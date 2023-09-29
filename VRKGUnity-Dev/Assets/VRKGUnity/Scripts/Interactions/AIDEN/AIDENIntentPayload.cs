@@ -1,18 +1,9 @@
 ﻿using System.Collections.Generic;
 
-public class AIDENIntentPayload
-{
-    public AIDENPrompts Type;
-    public string UserIntentSentence;
-    public string AIDENAnswer;
 
-    public AIDENIntentPayload(string userIntentSentence, string aidenAnswer)
-    {
-        UserIntentSentence = userIntentSentence;
-        AIDENAnswer = aidenAnswer;
-    }
-}
-
+/// <summary>
+/// Payload used by <see cref="SplitSentencesPayload"/> to pass data between functions
+/// </summary>
 public class SplitSentencesPayload
 {
     public int Count { get { return Sentences.Count; } }
@@ -26,6 +17,9 @@ public class SplitSentencesPayload
 
 }
 
+/// <summary>
+/// Payload used by <see cref="SplitSentencesPayload"/> to pass data between functions
+/// </summary>
 public class DetectedTypePayload
 {
     public int Count { get { return TypeAndSentence.Count; } }
@@ -42,6 +36,9 @@ public class DetectedTypePayload
     }
 }
 
+/// <summary>
+/// Payload used by <see cref="SplitSentencesPayload"/> to pass data between functions
+/// </summary>
 public class TypeAndSentence
 {
     public AIDENPrompts Type;

@@ -1,5 +1,9 @@
 ﻿using System.Collections.Generic;
 
+
+/// <summary>
+/// Contains all the Nodges UID for a filter. Used to store a filter and revert it when needed
+/// </summary>
 public class SubBlockHistory
 {
     public SPARQLQuery Query { get { return _sparqlQuery; } }
@@ -10,13 +14,10 @@ public class SubBlockHistory
     readonly List<string> _nodesUidsHidden;
     readonly List<string> _edgesUidsHidden;
 
-    readonly DynamicFilterType FilterType;
     readonly SPARQLQuery _sparqlQuery;
 
     public SubBlockHistory(HashSet<Node> hiddenNodes, out NodgesDicUID nodgeDicUID) 
     {
-        FilterType = DynamicFilterType.ExcludeAll;
-
         _nodesUidsHidden = new();
         _edgesUidsHidden = new();
 
@@ -24,7 +25,7 @@ public class SubBlockHistory
         var nodesToHideDict = nodgeDicUID.NodesDicUID;
         var edgesToHideDict = nodgeDicUID.EdgesDicUID;
 
-        _sparqlQuery = new SPARQLQuery(hiddenNodes, FilterType);
+        _sparqlQuery = new SPARQLQuery(hiddenNodes);
 
         foreach (var hiddenNode in hiddenNodes) 
         {

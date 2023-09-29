@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+
+/// <summary>
+/// Manage the outline of the <see cref="NodeStyler"/>
+/// </summary>
 public class Outliner : MonoBehaviour
 {
     private static HashSet<Mesh> _registeredMeshes = new HashSet<Mesh>();

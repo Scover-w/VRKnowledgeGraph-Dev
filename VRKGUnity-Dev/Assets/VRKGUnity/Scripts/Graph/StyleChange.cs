@@ -13,6 +13,10 @@ public static class StyleChangeExtensions
 }
 
 // Max X for 1 << X is 31
+
+/// <summary>
+/// Store all the Styling changes in bits.
+/// </summary>
 public enum StyleChange
 {
     None = 0,

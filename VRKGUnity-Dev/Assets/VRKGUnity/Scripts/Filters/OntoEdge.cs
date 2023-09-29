@@ -1,6 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
+/// <summary>
+/// Ontology edge
+/// </summary>
 public class OntoEdge
 {
     public int Id;

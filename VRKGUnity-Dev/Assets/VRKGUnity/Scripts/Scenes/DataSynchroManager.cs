@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// GameManager of the DataSynchro Scene
+/// </summary>
 public class DataSynchroManager : MonoBehaviour
 {
     [SerializeField]

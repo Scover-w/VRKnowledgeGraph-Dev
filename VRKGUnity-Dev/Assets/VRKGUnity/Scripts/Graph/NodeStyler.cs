@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using Wave.Essence.Hand.NearInteraction;
 
+/// <summary>
+/// Allow to handle the visual, transform part of a NOde (either the main or sub, i.e, the node of the desk/immersion or lens/gps)
+/// </summary>
 public class NodeStyler : MonoBehaviour
 {
     public Transform Tf { get { return _tf; } }

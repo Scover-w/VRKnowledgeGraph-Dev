@@ -2,6 +2,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 
+
+/// <summary>
+/// Allow to reference Scripts between additives scenes
+/// </summary>
 [CreateAssetMenu(fileName = "ReferenceHolder", menuName = "ScriptableObjects/ReferenceHolderSO")]
 public class ReferenceHolderSO : ScriptableObject
 {

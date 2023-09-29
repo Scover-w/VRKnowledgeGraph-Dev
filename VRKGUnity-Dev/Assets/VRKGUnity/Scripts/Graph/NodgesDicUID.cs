@@ -1,6 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
 
+
+/// <summary>
+/// Allow to pass/store Node and Edge more easily between functions
+/// </summary>
 public class NodgesDicUID
 {
     public Dictionary<string, Node> NodesDicUID;
@@ -26,6 +30,9 @@ public class NodgesDicUID
 }
 
 
+/// <summary>
+/// Allow to pass/store Node and Edge more easily between functions
+/// </summary>
 public class Nodges
 {
     public List<Node> Nodes;
@@ -46,6 +53,9 @@ public class Nodges
 }
 
 
+/// <summary>
+/// Allow to pass/store Node and Edge more easily between functions
+/// </summary>
 public class HashSetNodges
 {
     public HashSet<Node> Nodes;

@@ -1,5 +1,9 @@
 using System.Collections.Generic;
 
+
+/// <summary>
+/// Used for the Ontology reduction. Allow to group multiples nodes, nodes that have the same parent ontology inehritance. Is part of <see cref="OntoNodeGroupTree"/>.
+/// </summary>
 public class OntoNodeGroup
 {
     public string UID { get { return OntoNode.UID; } }

@@ -2,6 +2,10 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+
+/// <summary>
+/// Used for the Ontology reduction. Use <see cref="OntoNodeGroup"/>
+/// </summary>
 public class OntoNodeGroupTree
 {
     static GraphConfiguration _graphConfiguration;

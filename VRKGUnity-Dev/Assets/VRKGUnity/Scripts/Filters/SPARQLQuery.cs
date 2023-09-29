@@ -9,14 +9,7 @@ public class SPARQLQuery
 
     readonly string _query;
 
-    public SPARQLQuery(Node node, DynamicFilterType type)
-    {
-        string uri = node.Uri;
-
-        _query = "FILTER( + " + (type == DynamicFilterType.ExcludeAll? "!" : "") + "(?s = <" + uri + "> || ?o = <" + uri + ">) )";
-    }
-
-    public SPARQLQuery(HashSet<Node> nodes, DynamicFilterType type)
+    public SPARQLQuery(HashSet<Node> nodes)
     {
         if (nodes == null || nodes.Count == 0)
             Debug.LogError("nodes is null or length equal 0.");
@@ -24,43 +17,22 @@ public class SPARQLQuery
         StringBuilder sb = new();
 
 
-        if(type == DynamicFilterType.ExcludeAll)
+        sb.Append("FILTER( !(");
+
+        int nbNodes = nodes.Count;
+        int i = 0;
+
+        foreach (Node node in nodes)
         {
-            sb.Append("FILTER( !(");
+            i++;
 
-            int nbNodes = nodes.Count;
-            int i = 0;
+            string value = node.Uri;
+            string decoratedValue = (node.Type == NodgeType.Uri) ? "<" + value + ">" : value;
+            sb.Append("(?s = " + decoratedValue + " || ?o = " + decoratedValue + ")");
 
-            foreach (Node node in nodes)
-            {
-                i++;
+            if (i != nbNodes)
+                sb.Append(" || ");
 
-                string value = node.Uri;
-                string decoratedValue = (node.Type == NodgeType.Uri) ? "<" + value + ">" : value;
-                sb.Append("(?s = " + decoratedValue + " || ?o = " + decoratedValue + ")");
-
-                if(i != nbNodes)
-                    sb.Append(" || ");
-
-            }
-        }
-        else
-        {
-            sb.Append("FILTER( (");
-
-            int nbNodes = nodes.Count;
-            int i = 0;
-
-            foreach (Node node in nodes)
-            {
-                i++;
-                string uri = node.Uri;
-                sb.Append("(?s = <" + uri + "> || ?o = <" + uri + ">)");
-
-                if (i != nbNodes)
-                    sb.Append(" || ");
-
-            }
         }
 
         sb.Append("))");

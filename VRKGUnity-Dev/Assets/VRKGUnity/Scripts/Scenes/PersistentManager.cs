@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 
+/// <summary>
+/// GameManager of the PersistentManager Scene
+/// </summary>
 public class PersistentManager : MonoBehaviour
 {
     [SerializeField]

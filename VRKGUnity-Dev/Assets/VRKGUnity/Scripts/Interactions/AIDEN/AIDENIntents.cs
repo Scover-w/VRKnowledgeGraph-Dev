@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+/// <summary>
+/// Store the differents <see cref="AIDENIntent"/> detected by <see cref="AIDENController"/> 
+/// </summary>
 public class AIDENIntents
 {
     public List<AIDENIntent> Intents;

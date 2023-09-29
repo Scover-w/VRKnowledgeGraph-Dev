@@ -1,5 +1,10 @@
 ﻿using UnityEngine;
 
+
+/// <summary>
+/// Store the Intent of the Voice Assistant.
+/// Store the <see cref="GraphConfigKey"/>/<see cref="GraphActionKey"/> with a corresponding value if necessary.
+/// </summary>
 public class AIDENIntent
 {
     public bool IsGraphConfig { get; private set; }

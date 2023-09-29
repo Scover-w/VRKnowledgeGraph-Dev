@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+/// <summary>
+/// Link and synchronize a tactile btn to the <see cref="GraphActionKey"/> state of the app.
+/// </summary>
 public class GraphBtnLink : MonoBehaviour
 {
     [SerializeField]

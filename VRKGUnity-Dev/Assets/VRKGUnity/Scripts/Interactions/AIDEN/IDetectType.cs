@@ -9,6 +9,11 @@ public interface IDetectType
     AIDENPrompts? DetectType(string sentence, List<AIDENPrompts> possibleTypes);
 }
 
+
+/// <summary>
+/// Manually (i.e, not with chatgpt) filter the possible intents from the provided sentence
+/// Used by <see cref="AIDENController"/>
+/// </summary>
 public class DetectNumberType : IDetectType
 {
     public AIDENPrompts? DetectType(string sentence, List<AIDENPrompts> possibleTypes)
@@ -38,7 +43,10 @@ public class DetectNumberType : IDetectType
 }
 
 
-
+/// <summary>
+/// Manually (i.e, not with chatgpt) filter the possible intents from the provided sentence
+/// Used by <see cref="AIDENController"/>
+/// </summary>
 public class DetectVolumeType : IDetectType
 {
     public AIDENPrompts? DetectType(string sentence, List<AIDENPrompts> possibleTypes)
@@ -58,6 +66,10 @@ public class DetectVolumeType : IDetectType
     }
 }
 
+/// <summary>
+/// Manually (i.e, not with chatgpt) filter the possible intents from the provided sentence
+/// Used by <see cref="AIDENController"/>
+/// </summary>
 public class DetectTimeType : IDetectType
 {
     public AIDENPrompts? DetectType(string sentence, List<AIDENPrompts> possibleTypes)
@@ -77,6 +89,10 @@ public class DetectTimeType : IDetectType
     }
 }
 
+/// <summary>
+/// Manually (i.e, not with chatgpt) filter the possible intents from the provided sentence
+/// Used by <see cref="AIDENController"/>
+/// </summary>
 public class DetectSimulationType : IDetectType
 {
     public AIDENPrompts? DetectType(string sentence, List<AIDENPrompts> possibleTypes)
@@ -96,6 +112,10 @@ public class DetectSimulationType : IDetectType
     }
 }
 
+/// <summary>
+/// Manually (i.e, not with chatgpt) filter the possible intents from the provided sentence
+/// Used by <see cref="AIDENController"/>
+/// </summary>
 public class DetectOntologyType : IDetectType
 {
     public AIDENPrompts? DetectType(string sentence, List<AIDENPrompts> possibleTypes)
@@ -118,6 +138,10 @@ public class DetectOntologyType : IDetectType
     }
 }
 
+/// <summary>
+/// Manually (i.e, not with chatgpt) filter the possible intents from the provided sentence
+/// Used by <see cref="AIDENController"/>
+/// </summary>
 public class DetectSizeType : IDetectType
 {
     public AIDENPrompts? DetectType(string sentence, List<AIDENPrompts> possibleTypes)
@@ -155,6 +179,10 @@ public class DetectSizeType : IDetectType
     }
 }
 
+/// <summary>
+/// Manually (i.e, not with chatgpt) filter the possible intents from the provided sentence
+/// Used by <see cref="AIDENController"/>
+/// </summary>
 public class DetectVisibilityType : IDetectType
 {
     public AIDENPrompts? DetectType(string sentence, List<AIDENPrompts> possibleTypes)
@@ -183,7 +211,10 @@ public class DetectVisibilityType : IDetectType
     }
 }
 
-
+/// <summary>
+/// Manually (i.e, not with chatgpt) filter the possible intents from the provided sentence
+/// Used by <see cref="AIDENController"/>
+/// </summary>
 public class DetectMetricType : IDetectType
 {
     public AIDENPrompts? DetectType(string sentence, List<AIDENPrompts> possibleTypes)
@@ -212,6 +243,10 @@ public class DetectMetricType : IDetectType
     }
 }
 
+/// <summary>
+/// Manually (i.e, not with chatgpt) filter the possible intents from the provided sentence
+/// Used by <see cref="AIDENController"/>
+/// </summary>
 public class DetectActionType : IDetectType
 {
     public AIDENPrompts? DetectType(string sentence, List<AIDENPrompts> possibleTypes)
@@ -230,6 +265,10 @@ public class DetectActionType : IDetectType
     }
 }
 
+/// <summary>
+/// Manually (i.e, not with chatgpt) filter the possible intents from the provided sentence
+/// Used by <see cref="AIDENController"/>
+/// </summary>
 public class DetectModeType : IDetectType
 {
     public AIDENPrompts? DetectType(string sentence, List<AIDENPrompts> possibleTypes)
@@ -255,6 +294,10 @@ public class DetectModeType : IDetectType
     }
 }
 
+/// <summary>
+/// Manually (i.e, not with chatgpt) filter the possible intents from the provided sentence
+/// Used by <see cref="AIDENController"/>
+/// </summary>
 public class DetectColorType : IDetectType
 {
     public AIDENPrompts? DetectType(string sentence, List<AIDENPrompts> possibleTypes)
@@ -273,6 +316,10 @@ public class DetectColorType : IDetectType
     }
 }
 
+/// <summary>
+/// Manually (i.e, not with chatgpt) filter the possible intents from the provided sentence
+/// Used by <see cref="AIDENController"/>
+/// </summary>
 public class DetectInteractionType : IDetectType
 {
     public AIDENPrompts? DetectType(string sentence, List<AIDENPrompts> possibleTypes)

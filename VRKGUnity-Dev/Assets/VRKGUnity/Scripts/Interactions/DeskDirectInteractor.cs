@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// Sphere that act as an interactor with the graph nodes (more precise than a grab hand system)
+/// </summary>
 public class DeskDirectInteractor : MonoBehaviour
 {
     [SerializeField]

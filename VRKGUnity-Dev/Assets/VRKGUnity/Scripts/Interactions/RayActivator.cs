@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Manager the ray that allowto select/activate nodes' graph
+/// </summary>
 public class RayActivator : MonoBehaviour
 {
     [SerializeField]

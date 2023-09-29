@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
+/// <summary>
+/// Not currently working, in todo.
+/// Will allow to resize the UIs
+/// </summary>
 public class XRResizeInteractable : XRGrabInteractable
 {
     [SerializeField]

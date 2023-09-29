@@ -3,6 +3,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Create/Display/Hide a existing/new <see cref="KGUI"/> 
+/// </summary>
 public class KGUIController : MonoBehaviour
 {
     [SerializeField]

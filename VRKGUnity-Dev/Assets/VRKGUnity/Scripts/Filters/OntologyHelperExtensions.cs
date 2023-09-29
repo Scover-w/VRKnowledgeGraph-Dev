@@ -32,4 +32,35 @@ public static class OntologyHelperExtensions
 
         graph.Retract(triplesToRemove);
     }
+
+    public static (string namespce, string localName) ExtractUri(this string uri)
+    {
+
+        if (uri == null)
+        {
+            DebugDev.Log("fse");
+            return ("", "");
+        }
+
+        string separator = "/";
+        if (uri.Contains("#"))
+        {
+            separator = "#";
+        }
+
+        int lastSeparatorIndex = uri.LastIndexOf(separator);
+        if (lastSeparatorIndex != -1)
+        {
+            string namespce = uri.Substring(0, lastSeparatorIndex + 1).Trim();
+            string localName = uri.Substring(lastSeparatorIndex + 1).Trim();
+            return (namespce, localName);
+        }
+
+        return (uri.Trim(), string.Empty);
+    }
+
+    public static string CleanUriFromUrlPart(this string uri)
+    {
+        return uri.Replace("http://", "").Replace("/", "").Replace(".", "").Replace("\\", "").Replace("#", "");
+    }
 }

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
+/// <summary>
+/// Payload used to share datas between the differents <see cref="AIDENController"/> functions.
+/// </summary>
 public class AIDENChainPayload
 {
     public int Id { get; private set; }

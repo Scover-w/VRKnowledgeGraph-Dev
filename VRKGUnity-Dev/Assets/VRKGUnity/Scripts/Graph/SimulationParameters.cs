@@ -4,7 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-
+/// <summary>
+/// JSONAble. Used to store simulation datas for <see cref="GraphConfiguration"/>.
+/// Either for the <see cref="GraphSimulation"/> or <see cref="LensSimulation"/>.
+/// Stored in <see cref="GraphConfiguration"/>
+/// </summary>
 [Serializable]
 public class SimulationParameters
 {

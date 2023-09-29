@@ -4,6 +4,9 @@ using System.IO;
 using System.Threading.Tasks;
 using UnityEngine;
 
+/// <summary>
+/// JSONAble. Manage a repo persistent data, with the help of <see cref="GraphDbRepositoryNamespaces"/>, <see cref="GraphDbRepositoryDistantUris"/>, <see cref="GraphDbRepositoryMedias"/>
+/// </summary>
 [Serializable]
 public class GraphDbRepository
 {

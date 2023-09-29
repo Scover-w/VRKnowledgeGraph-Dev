@@ -3,7 +3,9 @@ using UnityEngine;
 
 
 
-
+/// <summary>
+/// Contains the only useful datas for the <see cref="GraphSimulation"/>
+/// </summary>
 public class NodgesSimuData
 {
     public Dictionary<string, NodeSimuData> NodeSimuDatas;
@@ -23,6 +25,9 @@ public class NodgesSimuData
 
 }
 
+/// <summary>
+/// Contains the only useful node datas for the <see cref="GraphSimulation"/>
+/// </summary>
 public class NodeSimuData
 {
     public string UID;
@@ -49,6 +54,9 @@ public class NodeSimuData
     }
 }
 
+/// <summary>
+/// Contains the only useful edge datas for the <see cref="GraphSimulation"/>
+/// </summary>
 public class EdgeSimuData
 {
     public string UidA;

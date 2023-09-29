@@ -7,6 +7,9 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using static MicController;
 
+/// <summary>
+/// Manage if the mic can be started based on the loaded scene.
+/// </summary>
 public class MicController : MonoBehaviour
 {
     [SerializeField]

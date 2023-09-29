@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// GameManager of the MainMenu Scene
+/// </summary>
 public class MainMenuManager : MonoBehaviour
 {
     [SerializeField]

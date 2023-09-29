@@ -131,6 +131,9 @@ public static class NodgesHelper
         return nodges;
     }
 
+    /// <summary>
+    /// Extract the nodges from the json GraphDb answer.
+    /// </summary>
     public static NodgesDicUID ExtractNodges(this JObject data, GraphDbRepositoryNamespaces repoNamespaces)
     {
         var nodges = new NodgesDicUID();
@@ -227,6 +230,9 @@ public static class NodgesHelper
         node.Medias.Add(propValue);
     }
 
+    /// <summary>
+    /// Retrieve the node from the provided dict or create it if not present in the dict.
+    /// </summary>
     private static Node GetNodeFromDictOrCreate(JToken nodeToken, Dictionary<string, Node> nodeDic, GraphDbRepositoryNamespaces repoNamespaces)
     {
         string value = nodeToken["value"].Value<string>();
@@ -246,11 +252,19 @@ public static class NodgesHelper
 
     #endregion
 
+
+    /// <summary>
+    /// Add the distant labels retrieved from internet.
+    /// </summary>
     public static void AddRetrievedNames(this NodgesDicUID nodges, GraphDbRepositoryDistantUris graphDbRepositoryDistantUris)
     {
         AddRetrievedNames(nodges.NodesDicUID, graphDbRepositoryDistantUris);
     }
     
+
+    /// <summary>
+    /// Add the distant labels retrieved from internet.
+    /// </summary>
     public static void AddRetrievedNames(this Dictionary<string, Node> uidAndNodes, GraphDbRepositoryDistantUris graphDbRepositoryDistantUris)
     {
         var distantUriDict = graphDbRepositoryDistantUris.DistantUriLabels;

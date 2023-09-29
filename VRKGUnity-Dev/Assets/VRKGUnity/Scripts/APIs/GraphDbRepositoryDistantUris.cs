@@ -9,6 +9,10 @@ using System.Xml;
 using UnityEditor;
 using UnityEngine;
 
+/// <summary>
+/// JSONAble, contain all the distants uris retrieved from internet.
+/// Always used with <see cref="GraphDbRepository"/>
+/// </summary>
 public class GraphDbRepositoryDistantUris
 {
     [JsonIgnore]

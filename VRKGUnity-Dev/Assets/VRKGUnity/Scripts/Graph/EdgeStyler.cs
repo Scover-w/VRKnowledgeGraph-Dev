@@ -2,6 +2,10 @@ using AngleSharp.Text;
 using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 
+
+/// <summary>
+/// Allow to handle the visual, transform part of an Edge (either the main or sub, i.e, the edge of the desk/immersion or lens/gps)
+/// </summary>
 public class EdgeStyler : MonoBehaviour
 {
     public Transform Tf { get { return _tf; } }

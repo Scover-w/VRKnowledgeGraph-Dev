@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Helper to create <see cref="StyleChange"/>.
+/// </summary>
 public class StyleChangeBuilder
 {
 

@@ -5,6 +5,10 @@ using System.IO;
 using System.Threading.Tasks;
 using UnityEngine;
 
+
+/// <summary>
+/// JSONAble. Store the list of all the saved repositories in the app.
+/// </summary>
 [Serializable]
 public class GraphDbRepositories
 {

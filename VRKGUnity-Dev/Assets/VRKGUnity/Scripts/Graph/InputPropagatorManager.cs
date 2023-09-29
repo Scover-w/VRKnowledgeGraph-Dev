@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
+/// <summary>
+/// Manager that receive new value change and dispatch the new one to the rest of the app.
+/// </summary>
 public partial class InputPropagatorManager : MonoBehaviour
 {
     [SerializeField]

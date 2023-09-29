@@ -13,6 +13,10 @@ using UnityEngine;
 using UnityEngine.Windows;
 using Utilities.Encoding.OggVorbis;
 
+
+/// <summary>
+/// Handle the logic for the Voice Assistant/Intent Detection
+/// </summary>
 public class AIDENController : MonoBehaviour
 {
     [SerializeField]

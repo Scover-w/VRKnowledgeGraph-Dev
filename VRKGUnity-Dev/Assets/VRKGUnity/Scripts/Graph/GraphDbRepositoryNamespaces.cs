@@ -9,6 +9,10 @@ using System.Xml.Linq;
 using UnityEngine;
 using VDS.RDF;
 
+/// <summary>
+/// JSONAble, contain all the namespaces detected in the repository.
+/// Always used with <see cref="GraphDbRepository"/>
+/// </summary>
 public class GraphDbRepositoryNamespaces
 {
     [JsonIgnore]

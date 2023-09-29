@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
+
+/// <summary>
+/// Manage the Force-Directed Algorithm that place the nodges in 3D.
+/// </summary>
 public class GraphSimulation : MonoBehaviour
 {
     public bool IsRunningSimulation { get { return _isRunningSimulation; } }

@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
+/// <summary>
+/// Ontology node
+/// </summary>
 public class OntoNode
 {
     /// <summary>

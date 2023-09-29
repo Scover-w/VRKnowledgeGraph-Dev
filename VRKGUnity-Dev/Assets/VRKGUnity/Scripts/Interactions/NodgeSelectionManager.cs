@@ -2,6 +2,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
+/// <summary>
+/// Manage the selected and propagated Nodges
+/// </summary>
 public class NodgeSelectionManager : MonoBehaviour
 {
     public static NodgeSelectionManager Instance { get { return _instance; } }

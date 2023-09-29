@@ -3,6 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// Contain all the filters changes between two SPARQL query
+/// </summary>
 public class BlockHistory
 {
     public int NbSubBlock { get { return _subsHistory.Count; } }

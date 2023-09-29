@@ -1,6 +1,10 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// Contains the only useful datas for the <see cref="LensSimulation"/>
+/// </summary>
 public class NodgesSimuData2D
 {
     public Dictionary<string, NodeSimuData2D> NodeSimuDatas;
@@ -13,6 +17,9 @@ public class NodgesSimuData2D
     }
 }
 
+/// <summary>
+/// Contains the only useful Node datas for the <see cref="LensSimulation"/>
+/// </summary>
 public class NodeSimuData2D
 {
     public string UID;

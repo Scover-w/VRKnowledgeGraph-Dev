@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
+
+/// <summary>
+/// Manage the rotation/translation of the desk when the user interact with it
+/// </summary>
 public class MobiusDesk : MonoBehaviour
 {
     [SerializeField]

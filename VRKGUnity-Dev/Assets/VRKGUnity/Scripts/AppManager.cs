@@ -1,12 +1,10 @@
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-
 public class AppManager : MonoBehaviour
 {
     [SerializeField]
     ReferenceHolderSO _referenceHolderSo;
-
 
     [SerializeField]
     GraphConfigurationContainerSO _graphConfigurationContainer;

@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 
-
+/// <summary>
+/// Event used to store <see cref="GraphConfigInputLink.OnChangedFromManager"/> methods.
+/// </summary>
 public class GraphConfigEvent
 {
     ValueChanged<int> _onIntChanged;

@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 using UnityEngine;
 using static GraphDbTests;
 
+/// <summary>
+/// Manage all the request to the GraphDb server.
+/// </summary>
 public class GraphDBAPI
 {
     public string ServerUrl { get { return _serverUrl; } }

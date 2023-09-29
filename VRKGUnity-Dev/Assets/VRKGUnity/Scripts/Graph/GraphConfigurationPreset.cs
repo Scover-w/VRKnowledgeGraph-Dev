@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Allows to store start presets for some <see cref="GraphConfiguration"/> properties that need to be readable values in the UI (like 1 and not 0.0001) 
+/// </summary>
 public class GraphConfigurationPreset
 {
     public const float ImmersionGraphSize = 12.75f;

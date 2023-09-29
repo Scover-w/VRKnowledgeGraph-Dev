@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Used to then create the <see cref="OntoNodeGroupTree"/>
+/// </summary>
 public class OntologyTree
 {
     public IReadOnlyDictionary<string, OntoNode> OntoNodes => _ontoNodes;

@@ -2,6 +2,11 @@ using AIDEN.TactileUI;
 using System;
 using UnityEngine;
 
+
+/// <summary>
+/// Link and synchronize a tactile input to the <see cref="GraphConfigKey"/> <see cref="GraphConfiguration"/> state of the app.
+/// Allow to refresh the new value when changed outside of the input
+/// </summary>
 [DefaultExecutionOrder(1)]
 public class GraphConfigInputLink : MonoBehaviour
 {

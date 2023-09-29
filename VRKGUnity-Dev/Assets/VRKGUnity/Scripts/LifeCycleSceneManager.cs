@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Manage the additives scenes, allowing to only have the persistent scene and another one.
+/// </summary>
 public class LifeCycleSceneManager : MonoBehaviour
 {
     [SerializeField]

@@ -5,6 +5,9 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngineInternal;
 
+/// <summary>
+/// Manage the teleporation system when the user is in immersion mode
+/// </summary>
 public class TeleportationToNode : MonoBehaviour
 {
     [SerializeField]

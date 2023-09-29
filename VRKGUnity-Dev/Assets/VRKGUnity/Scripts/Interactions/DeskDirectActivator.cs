@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Manage the state of <see cref="DeskDirectInteractor"/>
+/// </summary>
 public class DeskDirectActivator : MonoBehaviour
 {
     [SerializeField]

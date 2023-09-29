@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
+
+/// <summary>
+/// Manage the 2D Force-Directed Algorithm that place the nodges for the lens graph.
+/// </summary>
 public class LensSimulation : MonoBehaviour
 {
     GraphConfiguration _graphConfiguration;

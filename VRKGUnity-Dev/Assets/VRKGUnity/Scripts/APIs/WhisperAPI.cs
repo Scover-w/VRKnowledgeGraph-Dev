@@ -7,6 +7,10 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using UnityEngine;
 
+
+/// <summary>
+/// TTS Engine API
+/// </summary>
 public class WhisperAPI
 {
     private readonly string _apiBaseUrl = "https://api.openai.com/v1";

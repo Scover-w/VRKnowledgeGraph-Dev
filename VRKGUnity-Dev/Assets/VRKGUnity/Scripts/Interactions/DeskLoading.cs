@@ -1,7 +1,9 @@
 using System.Collections;
 using UnityEngine;
 
-[ExecuteInEditMode]
+/// <summary>
+/// Rotate the Desk when the Graph is retrieved or in simulation.
+/// </summary>
 public class DeskLoading : MonoBehaviour
 {
     [SerializeField]

@@ -5,6 +5,9 @@ using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
+/// <summary>
+/// Stop the ray of the <see cref="RayActivator"/> to the first object
+/// </summary>
 public class XRInteractorLineStopFirst : MonoBehaviour
 {
     [SerializeField]

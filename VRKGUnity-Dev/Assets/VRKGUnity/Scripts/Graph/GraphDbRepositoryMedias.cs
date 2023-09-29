@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
+/// <summary>
+/// JSONAble, contain all the medias retrieved from internet.
+/// Always used with <see cref="GraphDbRepository"/>
+/// </summary>
 public class GraphDbRepositoryMedias
 {
     [JsonProperty("Medias_")]

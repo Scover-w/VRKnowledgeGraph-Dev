@@ -4,6 +4,9 @@ using System.IO;
 using System.Threading.Tasks;
 using UnityEngine;
 
+/// <summary>
+/// JSONAble. Contains all the stylings, parameters data that is persistent across sessions app.
+/// </summary>
 [Serializable]
 public class GraphConfiguration
 {
